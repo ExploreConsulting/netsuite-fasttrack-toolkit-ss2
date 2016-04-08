@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "target": "es5",
+    "noImplicitAny": false,
+    "sourceMap": false,
+    "allowSyntheticDefaultImports": true
+/*    "emitDecoratorMetadata": true,*/
+//    "experimentalDecorators": true
+  },
+  "compileOnSave": false,
+  "files": [
+    "EC_Logger.ts",
+    "log.d.ts",
+    "aurelia-logging.d.ts",
+    "EC_shawn.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "typings/main.d.ts",
+    "typings/main"
+  ]
+}
