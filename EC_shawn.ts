@@ -6,6 +6,8 @@
 
 import * as LogManager from './EC_Logger'
 
+var log = LogManager.getLogger('default')
+
 class Foo {
     log:LogManager.Logger
 
@@ -50,7 +52,6 @@ export = {
         b.log.setLevel(LogManager.logLevel.warn)
 
 
-        LogManager.Log.d('from the main script', 'details from main script default logger')
 
         f.dofoo()
 
@@ -61,6 +62,11 @@ export = {
         f.dofoo()
 
         b.dobar()
+
+        log.debug('main script hello', 'world')
+        log.info('main script hello', 'world')
+        log.warn('main script hello', 'world')
+        log.error('main script hello', 'world')
     }
 
 }

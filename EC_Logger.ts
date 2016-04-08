@@ -19,19 +19,23 @@ export {getLogger, Logger, logLevel} from './aurelia-logging'
      */
     class ExecutionLogAppender implements Appender {
         debug(logger:Logger, ...rest:any[]):void {
-            nslog.debug(rest[0], rest[1])
+            var title = logger.id === 'default' ? rest[0] : `[${logger.id}] ${rest[0]}`
+            nslog.debug(title, rest[1])
         }
 
         info(logger:Logger, ...rest:any[]):void {
-            nslog.audit(rest[0], rest[1])
+            var title = logger.id === 'default' ? rest[0] : `[${logger.id}] ${rest[0]}`
+            nslog.audit(title, rest[1])
         }
 
         warn(logger:Logger, ...rest:any[]):void {
-            nslog.error(rest[0], rest[1])
+            var title = logger.id === 'default' ? rest[0] : `[${logger.id}] ${rest[0]}`
+            nslog.error(title, rest[1])
         }
 
         error(logger:Logger, ...rest:any[]):void {
-            nslog.emergency(rest[0], rest[1])
+            var title = logger.id === 'default' ? rest[0] : `[${logger.id}] ${rest[0]}`
+            nslog.emergency(title, rest[1])
         }
     }
 
