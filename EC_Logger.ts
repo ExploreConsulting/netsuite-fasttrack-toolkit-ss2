@@ -39,10 +39,10 @@ export {getLogger, Logger, logLevel} from './aurelia-logging'
     _defaultLogger.setLevel(logLevel.debug)
 
     export var Log = {
-        d:_defaultLogger.debug,
-        a:_defaultLogger.info,
-        e:_defaultLogger.warn,
-        x: _defaultLogger.error
+        d:_defaultLogger.debug.bind(_defaultLogger),
+        a:_defaultLogger.info.bind(_defaultLogger),
+        e:_defaultLogger.warn.bind(_defaultLogger),
+        x: _defaultLogger.error.bind(_defaultLogger)
     }
 
     addAppender(new ExecutionLogAppender())
