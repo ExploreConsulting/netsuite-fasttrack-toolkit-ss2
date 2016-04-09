@@ -6,7 +6,11 @@
 
 import * as LogManager from './EC_Logger'
 
+import * as format from 'N/format'
+
 var log = LogManager.getLogger('default')
+
+
 
 class Foo {
     log:LogManager.Logger
@@ -51,8 +55,11 @@ export = {
 
         b.log.setLevel(LogManager.logLevel.warn)
 
-
-
+         format.format({
+            type: format.Type.CHECKBOX,
+            value: "foo"
+         })
+       
         f.dofoo()
 
         b.dobar()

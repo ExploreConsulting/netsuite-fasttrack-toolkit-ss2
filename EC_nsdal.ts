@@ -5,6 +5,10 @@
  */
 
 import * as record from 'N/record'
+import * as search from 'N/search'
+import * as LogManager from 'EC_Logger'
+
+var log = LogManager.getLogger('nsdal')
 
 // these are functions that nlobjRecord defines which we want to expose on this object and pass through
 // to the underling nlobjRecord instance.
@@ -67,14 +71,15 @@ var functionsToPassThru = [
 function dateTimeDescriptor(fieldType, getter, setter) {
    return {
       get: function () {
-         var value = getter();
+         var value = getter()
          // ensure we don't return moments for null, undefined, etc.
-         return value ? moment(nlapiStringToDate(value, fieldType)) : value;
+         return value ? moment(nlapiStringToDate(value, fieldType)) : value
       },
       set: function (value) {
          // allow null to flow through, but ignore undefined's
          if (value !== undefined)
-            setter(value ? nlapiDateToString(moment(value).toDate(), fieldType) : null);
+            setter(value ? nlapiDateToString(moment(value).toDate(), fieldType) : null)
+         else log.debug(`not setting ${fieldType} field`, 'value was undefined')
       },
       enumerable: true //default is false
    };
@@ -93,11 +98,11 @@ function multiSelectDescriptor(getter, setter) {
       get: function () {
          var values = getter();
          // Server side values will be null if nothing is selected
-         return values ? values : [];
+         return values ? values : []
       },
       set: function (value) {
          // ignore undefined's
-         if (value !== undefined) setter(value);
+         if (value !== undefined) setter(value)
       },
       enumerable: true // default is false - this lets you JSON.stringify() this prop
    };
@@ -113,11 +118,11 @@ function multiSelectDescriptor(getter, setter) {
 function checkboxDescriptor(getter, setter) {
    return {
       get: function () {
-         return getter() === 'T';
+         return getter() === 'T'
       },
       set: function (value) {
          // allow null to flow through, but ignore undefined's
-         if (value !== undefined) setter(value === true ? 'T' : 'F');
+         if (value !== undefined) setter(value === true ? 'T' : 'F')
       },
       enumerable: true // default is false - this lets you JSON.stringify() this prop
    };
@@ -133,15 +138,13 @@ function checkboxDescriptor(getter, setter) {
  */
 function defaultDescriptor(getter, setter) {
    return {
-      // get: getter,
       get: function () {
-         var result = getter();
-         return result;
+         return getter();
       },
       set: function (value) {
-
          // ignore undefined's
          if (value !== undefined) setter(value);
+         else log.debug('ignoring','field is undefined')
       },
       enumerable: true //default is false
    };

@@ -11,7 +11,11 @@
   "compileOnSave": false,
   "files": [
     "EC_Logger.ts",
-    "log.d.ts",
+    "typings-netsuite/ns-format.d.ts",
+    "typings-netsuite/ns-log.d.ts",
+    "typings-netsuite/ns-mapreduce.d.ts",
+    "typings-netsuite/ns-record.d.ts",
+    "typings-netsuite/ns-search.d.ts",
     "aurelia-logging.d.ts",
     "EC_shawn.ts"
   ],

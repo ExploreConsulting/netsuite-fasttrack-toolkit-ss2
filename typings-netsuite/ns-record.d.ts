@@ -2,7 +2,7 @@
  * Minimal type declarations for the N/search NetSuite module
  */
 
-declare namespace "N/record" {
+declare module "N/record" {
 
     interface Record {
 
@@ -12,4 +12,3 @@ declare namespace "N/record" {
 
 }
 
-export = "N/record"

@@ -35,4 +35,3 @@ declare module "N/search" {
 
 }
 
-export = "N/search"
