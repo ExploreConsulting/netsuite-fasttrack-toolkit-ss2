@@ -4,7 +4,7 @@
 
 
 
-declare  module "N/log" {
+declare module "N/log" {
     /**
      * Debugs stuff
      * @param title
