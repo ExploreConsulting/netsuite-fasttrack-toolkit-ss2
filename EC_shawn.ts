@@ -7,7 +7,6 @@
 import * as LogManager from './EC_Logger'
 
 import * as format from 'N/format'
-
 var log = LogManager.getLogger('default')
 
 
@@ -46,7 +45,7 @@ class Bar {
 export = {
 
     onRequest: (params:any) => {
-
+     
         var f = new Foo()
 
         var b = new Bar()
