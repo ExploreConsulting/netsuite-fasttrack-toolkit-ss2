@@ -11,6 +11,7 @@
 //  "compileOnSave": false,
   "files": [
     "EC_Logger.ts",
+    "EC_nsdal.ts",
     "EC_shawn.ts"
   ],
   "exclude": [

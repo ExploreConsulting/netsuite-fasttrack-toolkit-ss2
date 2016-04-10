@@ -5,8 +5,11 @@
  */
 
 import * as LogManager from './EC_Logger'
-
+import * as record from 'N/record'
 import * as format from 'N/format'
+import * as http from 'N/http'
+import {Record} from "./N/record";
+
 var log = LogManager.getLogger('default')
 
 
@@ -42,37 +45,70 @@ class Bar {
 }
 
 
+function doSomeLogging() {
+   var f = new Foo()
+
+   var b = new Bar()
+
+   f.log.setLevel(LogManager.logLevel.debug)
+
+   b.log.setLevel(LogManager.logLevel.warn)
+
+   format.format({
+      type: format.Type.CHECKBOX,
+      value: "foo"
+   })
+
+   f.dofoo()
+
+   b.dobar()
+
+   f.log.setLevel(LogManager.logLevel.none)
+
+   f.dofoo()
+
+   b.dobar()
+
+   log.debug('main script hello', 'world')
+   log.info('main script hello', 'world')
+   log.warn('main script hello', 'world')
+   log.error('main script hello', 'world')
+}
+
 export = {
 
-    onRequest: (params:any) => {
+
+
+    onRequest: (params:{request:http.ServerRequest, response:http.ServerResponse}) => {
      
-        var f = new Foo()
+      doSomeLogging()
 
-        var b = new Bar()
+       var r: any = record.load({type:'customer', id:1315})
 
-        f.log.setLevel(LogManager.logLevel.debug)
+       log.debug('customer', r)
+       log.debug('customer.phone', r.phone)
 
-        b.log.setLevel(LogManager.logLevel.warn)
-
-         format.format({
-            type: format.Type.CHECKBOX,
-            value: "foo"
-         })
-       
-        f.dofoo()
-
-        b.dobar()
-
-        f.log.setLevel(LogManager.logLevel.none)
-
-        f.dofoo()
-
-        b.dobar()
-
-        log.debug('main script hello', 'world')
-        log.info('main script hello', 'world')
-        log.warn('main script hello', 'world')
-        log.error('main script hello', 'world')
+       params.response.write({output:JSON.stringify(r)})
     }
 
 }
+
+
+class CustomerBase {
+     _record:Record
+      get phone() {
+         return  this._phone
+      }
+   
+   constructor(private _phone:string){}   
+}
+
+class Customer extends  CustomerBase {
+   companyname:string
+}
+
+var x = new Customer()
+
+x.phone = '45'
+x.companyname = 'sdfsa'
+ 
