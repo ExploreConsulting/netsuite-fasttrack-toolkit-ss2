@@ -13,12 +13,28 @@ import {Record} from "./N/record";
 var log = LogManager.getLogger('default')
 
 
+class X {
+   a:string = undefined
+   b:string = undefined
+   c:number = undefined
+   d:string = undefined
+   e:boolean = undefined
+}
 
 class Foo {
-    log:LogManager.Logger
-
+   log:LogManager.Logger
+   // this is the a property
+   a:string = undefined
+   // this is the b prop
+   b:string = undefined
+   // this is property C, it is awesome.
+   c:boolean = undefined
+   d:boolean = undefined
+   
     constructor() {
         this.log = LogManager.getLogger('foo')
+         let l = new X()
+       l.
     }
 
     dofoo() {
@@ -26,6 +42,8 @@ class Foo {
         this.log.warn('warn from foo')
         this.log.info('info from foo')
         this.log.error('error from foo')
+
+       if (this.d) this.log('d is defined')
     }
 }
 
@@ -47,7 +65,6 @@ class Bar {
 
 function doSomeLogging() {
    var f = new Foo()
-
    var b = new Bar()
 
    f.log.setLevel(LogManager.logLevel.debug)
@@ -60,7 +77,6 @@ function doSomeLogging() {
    })
 
    f.dofoo()
-
    b.dobar()
 
    f.log.setLevel(LogManager.logLevel.none)
