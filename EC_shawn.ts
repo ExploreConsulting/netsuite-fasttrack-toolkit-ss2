@@ -34,7 +34,6 @@ class Foo {
     constructor() {
         this.log = LogManager.getLogger('foo')
          let l = new X()
-       l.
     }
 
     dofoo() {
@@ -52,6 +51,8 @@ class Bar {
 
     constructor() {
         this.log = LogManager.getLogger('bar')
+
+       
     }
 
     dobar() {
@@ -101,6 +102,10 @@ export = {
 
        var r: any = record.load({type:'customer', id:1315})
 
+       var options = { fieldid:'phone'}
+       var pone    = r.getValue(options)
+       var p       = r.phone
+         
        log.debug('customer', r)
        log.debug('customer.phone', r.phone)
 

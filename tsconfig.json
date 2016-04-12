@@ -4,15 +4,16 @@
     "target": "es5",
     "noImplicitAny": false,
     "sourceMap": false,
-    "allowSyntheticDefaultImports": true
+    //"allowSyntheticDefaultImports": true
 /*    "emitDecoratorMetadata": true,*/
-//    "experimentalDecorators": true
+    "experimentalDecorators": true
   },
 //  "compileOnSave": false,
   "files": [
     "EC_Logger.ts",
     "EC_nsdal.ts",
-    "EC_shawn.ts"
+    "EC_shawn.ts",
+    "Test.ts"
   ],
   "exclude": [
     "node_modules",

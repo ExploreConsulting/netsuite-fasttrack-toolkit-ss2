@@ -3,6 +3,7 @@
  */
 
    import "reflect-metadata"
+import {Record} from "./N/record";
 
 
 abstract class MultiSelect {}
@@ -10,7 +11,33 @@ abstract class Select {}
 abstract class DateTime {}
 abstract class FreeFormText {}
 
+
+export class CustomerBase {
+  _recordType:string = "customer"
+
+
+   @freeformtext
+   companyname:string
+
+   @checkbox
+   isactive:boolean
+}
+
+
+class Customer extends  CustomerBase extends Record {
+   @checkbox
+   custrecord_foo:boolean
+
+   myprop:string
+
+}
+
+var record:Customer = nsdal.loadObject<Customer>(123)
+
+record.
+      nsdal.loadObject('customer',id, ['sdfsdfsf'])
 export class Foo {
+
    _a:String
    @check
    get a() : String { return this._a}
@@ -24,10 +51,10 @@ export class Foo {
    @check
    d: MultiSelect = undefined
 
-   @check
+   @select
    e: Select = undefined
 
-   @check
+   @datetime
    f: DateTime = undefined
 }
 
@@ -41,4 +68,19 @@ function check<T>(target:any, propertyKey:string, descriptor:TypedPropertyDescri
    console.log('propertyKey', propertyKey)
    console.log('descriptor', descriptor)
    console.log('reflection design:type',Reflect.getMetadata('design:type',target, propertyKey))
+}
+
+function nsfield(fieldtype:string){
+
+}
+
+function freeformtext(target:any, propertyKey:string) {
+
+
+}
+
+function checkbox(target:any, propertyKey:string) {
+   // 'checkbox'
+   // create field type specific to checkbox (surfaces as a boolean)
+
 }
