@@ -35,7 +35,6 @@ export function load(options:{ type:string, id:number, isDynamic?:boolean, defau
  */
 export function create(options:createOptions) : Record
 
-export function delete(options)
 
 export function submitFields(options)
 

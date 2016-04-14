@@ -15,26 +15,27 @@ import {Record} from "N/record"
 
 var log = LogManager.getLogger('nsdal')
 
-abstract class NetsuiteRecord {
+class NetsuiteRecord {
 
-   private type:string
-   protected _nsrecord:record.Record
-   @nsdal.freeformtext
-   id:number
+   recordType:string
+   nsrecord:record.Record
 
-   constructor(id:number){
-      this.id = id;
-    
+   /**
+    * Loads a strongly typed record
+    * @param id
+    */
+   loadObject(id:number, isDynamic?:boolean, defaultValue?:Object): this {
+      log.debug(`loading record type ${this.recordType}`, `customer ${id}`)
+      Object.defineProperty(this,'nsrecord', {
+         value: record.load({type: this.recordType, id: id, isDynamic: isDynamic, defaultValue: defaultValue}),
+         enumerable:false
+      })
+      return this
    }
+
 }
 
-
-export class Customer {
-   @nsdal.freeformtext
-   phone:string = undefined
-} 
-
-export class nsdal<T> extends Record {
+export namespace nsdal {
 
    /**
     * Generic property descriptor with basic default algorithm that exposes the field value directly with no
@@ -42,26 +43,30 @@ export class nsdal<T> extends Record {
     * @returns an object property descriptor to be used
     * with Object.defineProperty
     */
-   private static defaultDescriptor(target:any, propertyKey:string) :any {
+   function defaultDescriptor(target:any, propertyKey:string):any {
       return {
          get: function () {
-            return this.getValue({fieldId: propertyKey})
+            return this.nsrecord.getValue({fieldId: propertyKey})
          },
          set: function (value) {
             // ignore undefined's
-            if (value !== undefined) this.setValue({fieldId: propertyKey, value: value})
+            if (value !== undefined) this.nsrecord.setValue({fieldId: propertyKey, value: value})
             else log.debug('ignoring', 'field value is undefined')
          },
          enumerable: true //default is false
       };
    }
 
-   static freeformtext = nsdal.defaultDescriptor
-   static longtext = nsdal.defaultDescriptor
-   static textarea = nsdal.defaultDescriptor
-
-   static load<T>() : T
-
-
+   /**
+    * Add this decorator to an entity property to indicate it as NetSuite field type 'free form text'
+     */
+    export var freeformtext = defaultDescriptor
 }
 
+
+export class CustomerBase extends NetsuiteRecord {
+   recordType = 'customer'
+
+   @nsdal.freeformtext
+   phone:string
+}
