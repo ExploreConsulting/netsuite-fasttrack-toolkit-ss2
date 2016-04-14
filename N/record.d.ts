@@ -22,7 +22,7 @@ export class Record {
     */
    setValue({ fieldId:string, value:any, ignoreFieldChange:boolean}): void
 
-
+   save():number
 }
 /**
  * loads a netsuite record

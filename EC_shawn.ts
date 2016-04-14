@@ -14,7 +14,7 @@ import * as record from 'N/record'
 import * as format from 'N/format'
 import * as http from 'N/http'
 import {Record} from "N/record";
-import {CustomerBase, nsdal} from "./EC_nsdal";
+import * as nsdal from "./EC_nsdal";
 
 
 var log = LogManager.getLogger('default')
@@ -81,30 +81,37 @@ function doSomeLogging() {
    log.error('main script hello', 'world')
 }
 
-class Customer extends CustomerBase {
+class Customer extends nsdal.CustomerBase {
    @nsdal.freeformtext
    companyname: string
+
+
 }
 
 function doSomeRecordStuff() {
-   var c = new Customer()
-   c.loadObject(1404)
-   
-   log.debug('customer', JSON.stringify(c))
 
-   log.debug('company', c.companyname)
-   log.debug('phone', c.phone)
+   nsdal.log.setLevel(LogManager.logLevel.debug)
 
-   log.debug('keys', Object.keys(c))
+   var c = new Customer(1404)
 
-   log.debug('cloned', JSON.stringify(_.toPlainObject(c)))
-   //var pd = Object.getOwnPropertyDescriptor(c,'companyname')
-  // log.debug('companyname descriptor', pd.enumerable)
-  // log.debug('phone', Object.getOwnPropertyDescriptor(c,'phone').enumerable)
 
-   log.debug('own prop names', Object.getOwnPropertyNames(c))
-   log.debug('is proto of', CustomerBase.isPrototypeOf(c))
 
+   var newCustomer = new Customer()
+
+   log.debug('new customer', _.toPlainObject(newCustomer))
+
+   var r = record.load({ type: 'customer', id:1404})
+
+   var existing = new Customer(r)
+
+   log.debug('existing', _.toPlainObject(existing))
+
+   log.debug('plainobject',_.toPlainObject(c))
+
+   c.companyname = "new name"
+   log.debug('after modification',_.pick(c,'companyname'))
+
+  // var id = c.save()
 }
 
 
@@ -115,6 +122,9 @@ export = {
 //      doSomeLogging()
 
       // var r: any = record.load({type:'customer', id:1315})
+      //
+      // var id = r.save();
+
       //
       // var options = { fieldId:'phone'}
       // var pone    = r.getValue(options)
