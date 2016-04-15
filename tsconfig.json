@@ -4,6 +4,7 @@
     "target": "es5",
     "noImplicitAny": false,
     "sourceMap": false,
+    "newLine": "LF",
     //"allowSyntheticDefaultImports": true
     //"emitDecoratorMetadata": true,
     "experimentalDecorators": true
@@ -12,7 +13,8 @@
   "files": [
     "EC_Logger.ts",
     "EC_nsdal.ts",
-    "EC_shawn.ts"
+    "EC_shawn.ts",
+    "typings/browser.d.ts"
   ],
   "exclude": [
     "node_modules",

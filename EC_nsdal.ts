@@ -4,39 +4,23 @@
  * NSDAL is NetSuite Data Access Layer and provides an improved interface to netsuite records.
  */
 
-///<reference path="typings/browser.d.ts"/>
-
-
 ///<amd-dependency path='./lodash' name="_">
+
+///<reference path="typings/browser.d.ts"/>
 
 
 import * as record from 'N/record'
 import * as search from 'N/search'
 import * as format from 'N/format'
 
-import * as LogManager from './EC_Logger'
 
-import {Record} from "N/record"
+import * as LogManager from './EC_Logger'
 
 export var log = LogManager.getLogger('nsdal')
 
 class NetsuiteRecord {
 
-   recordType:string
    nsrecord:record.Record
-
-   /**
-    * Loads a strongly typed record
-    * @param id
-    */
-   loadObject(id:number, isDynamic?:boolean, defaultValue?:Object):this {
-      log.debug(`loading record type ${this.recordType}`, `customer ${id}`)
-      Object.defineProperty(this, 'nsrecord', {
-         value: record.load({type: this.recordType, id: id, isDynamic: isDynamic, defaultValue: defaultValue}),
-         enumerable: false
-      })
-      return this
-   }
 
    private makeRecordProp(value) {
       Object.defineProperty(this, 'nsrecord', {
@@ -59,9 +43,10 @@ class NetsuiteRecord {
    }
 
    
-   constructor(type:string, rec?:number | record.Record, isDynamic?:boolean, defaultValue?:Object) {
+   constructor(type:string, rec?: number | record.Record, isDynamic?:boolean, defaultValue?:Object) {
       if (_.isObject(rec)){
-         log.debug('using existing record', `type:${rec.type}, id:${rec.id}`)
+         var r = <record.Record>rec
+         log.debug('using existing record', `type:${r.type}, id:${r.id}`)
          this.makeRecordProp(rec)
       }
       else if (!rec) {
@@ -72,7 +57,7 @@ class NetsuiteRecord {
          log.debug('loading existing record', `type:${type}, id:${rec}`)
          this.makeRecordProp(record.load({
             type: type,
-            id: rec,
+            id: <number>rec,
             isDynamic: isDynamic || false,
             defaultValue: defaultValue
          }))

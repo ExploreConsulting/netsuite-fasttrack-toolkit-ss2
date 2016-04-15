@@ -11,6 +11,8 @@ interface createOptions {
 
 
 export class Record {
+   type:string
+   id:number
    /**
     * gets a field value
     * @param string
@@ -22,7 +24,7 @@ export class Record {
     */
    setValue({ fieldId:string, value:any, ignoreFieldChange:boolean}): void
 
-   save():number
+   save(options:any):number
 }
 /**
  * loads a netsuite record

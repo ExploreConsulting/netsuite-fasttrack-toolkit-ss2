@@ -18,15 +18,10 @@ export {getLogger, Logger, logLevel} from './aurelia-logging'
      * error -> NS 'emergency'
      */
     class ExecutionLogAppender implements Appender {
-
-        // invokes the nsdal log function, DRY
-        private log(func,logger:Logger,...rest:any[] ) {
-           var [title, details] = rest
-           var title = logger.id === 'default' ? title : `[${logger.id}] ${title}`
-           return func.bind(nslog,title, details)
+        debug(logger:Logger, ...rest:any[]):void {
+            var title = logger.id === 'default' ? rest[0] : `[${logger.id}] ${rest[0]}`
+            nslog.debug(title, rest[1])
         }
-
-        debug: (logger:Logger, ...rest:any[]) => this.log('debug')
 
         info(logger:Logger, ...rest:any[]):void {
             var title = logger.id === 'default' ? rest[0] : `[${logger.id}] ${rest[0]}`
@@ -43,9 +38,6 @@ export {getLogger, Logger, logLevel} from './aurelia-logging'
             nslog.emergency(title, rest[1])
         }
     }
-
-    export const defaultLogger:Logger = getLogger('default')
-    defaultLogger.setLevel(logLevel.debug)
 
 
     addAppender(new ExecutionLogAppender())
