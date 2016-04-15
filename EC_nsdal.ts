@@ -2,6 +2,7 @@
  * Copyright Explore Consulting, LLC
  *
  * NSDAL is NetSuite Data Access Layer and provides an improved interface to netsuite records.
+ * @NApiVersion 2.x
  */
 
 ///<amd-dependency path='./lodash' name="_">
@@ -13,10 +14,10 @@ import * as record from 'N/record'
 import * as search from 'N/search'
 import * as format from 'N/format'
 
-
 import * as LogManager from './EC_Logger'
 
 export var log = LogManager.getLogger('nsdal')
+
 
 class NetsuiteRecord {
 
@@ -42,7 +43,6 @@ class NetsuiteRecord {
       })
    }
 
-   
    constructor(type:string, rec?: number | record.Record, isDynamic?:boolean, defaultValue?:Object) {
       if (_.isObject(rec)){
          var r = <record.Record>rec
@@ -62,8 +62,6 @@ class NetsuiteRecord {
             defaultValue: defaultValue
          }))
       }
-
-
    }
 }
 
@@ -92,6 +90,13 @@ function defaultDescriptor(target:any, propertyKey:string):any {
  * Add this decorator to an entity property to indicate it as NetSuite field type 'free form text'
  */
 export var freeformtext = defaultDescriptor
+/**
+ * decorator for long text fields
+ * @type {function(any, string): any}
+ */
+export var longtext = defaultDescriptor
+export var textarea = defaultDescriptor
+
 
 
 export class CustomerBase extends NetsuiteRecord {

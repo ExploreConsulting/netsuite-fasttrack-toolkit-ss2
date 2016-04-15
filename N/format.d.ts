@@ -5,7 +5,7 @@
 
 
 /**
- * Netsuite Field Types
+ * Netsuite Field Types for format
  */
 export enum Type {
    DATE,

@@ -16,36 +16,33 @@ import * as nsdal from "./EC_nsdal";
 
 var log = LogManager.getLogger('default')
 
-
 class Customer extends nsdal.CustomerBase {
    @nsdal.freeformtext
    companyname: string
-
-
 }
 
 function doSomeRecordStuff() {
 
    nsdal.log.setLevel(LogManager.logLevel.debug)
 
-   var c = new Customer(1404)
+   //var c = new Customer(1397)
 
 
 
-   var newCustomer = new Customer()
+   //var newCustomer = new Customer
 
-   log.debug('new customer', _.toPlainObject(newCustomer))
+   //log.debug('new customer', _.toPlainObject(newCustomer))
 
-   var r = record.load({ type: 'customer', id:1404})
+   var r = record.load({ type: record.Type.CUSTOMER, id:1397})
+   r.save()
+//   var existing = new Customer(r)
 
-   var existing = new Customer(r)
+  // log.debug('existing', _.toPlainObject(existing))
 
-   log.debug('existing', _.toPlainObject(existing))
+  // log.debug('plainobject',_.toPlainObject(c))
 
-   log.debug('plainobject',_.toPlainObject(c))
-
-   c.companyname = "new name"
-   log.debug('after modification',_.pick(c,'companyname'))
+   // c.companyname = "new name"
+   // log.debug('after modification',_.pick(c,'companyname'))
 
   // var id = c.save()
 }
@@ -54,6 +51,7 @@ function doSomeRecordStuff() {
 export = {
 
    onRequest: (params:{request:http.ServerRequest, response:http.ServerResponse}) => {
+      
 
 //      doSomeLogging()
 
