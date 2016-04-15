@@ -134,11 +134,20 @@ export interface FormatOptions {
    /**
     * The input data to format
     */
-   value:Date | string | number,
+   value:Date | string | number
+
    /**
     * The field type for the data.
     */
       type:Type
+
+    /**
+     * The time zone specified for the returned string. Set using the format.Timezone enum or key.
+     * If a time zone is not specified, the time zone is set based on user preference.
+     * If the time zone is invalid, the time zone is set to GMT. only use this if the field type is DATETIME
+     * or DATETIMETZ
+     */
+   timezone?: Timezone | number
 }
 
 export function format(options:FormatOptions)
@@ -148,14 +157,16 @@ interface ParseOptions {
     * The input data to parse
     */
    value:string
+
    /**
     * field type we targeting
     */
-   type:Type
+      type:Type
+
    /**
     * timezone - poorly documented, only used with field type DATETIME/DATETIMETZ
     */
-   timezone? : Timezone | number
+   timezone?:Timezone | number
 }
 
 

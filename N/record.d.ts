@@ -3,7 +3,7 @@
  */
 
 interface createOptions {
-   type:string,
+   type:Type,
    isDynamic?:boolean
    defaultValue?:Object
 }
@@ -13,6 +13,15 @@ interface createOptions {
 export class Record {
    type:string
    id:number
+
+   cancelLine(o:any) :void
+
+   commitLine(o:any) : void
+
+   findMatrixSublistLinewithValue(o:any) : void
+   findSublistLineWithValue(o:any)
+   
+
    /**
     * gets a field value
     * @param string

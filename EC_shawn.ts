@@ -25,7 +25,7 @@ function doSomeRecordStuff() {
 
    nsdal.log.setLevel(LogManager.logLevel.debug)
 
-   //var c = new Customer(1397)
+   var c = new Customer(1397)
 
 
 
