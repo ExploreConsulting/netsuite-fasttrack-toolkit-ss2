@@ -16,3 +16,24 @@ export class CreditMemoBase extends TransactionBase {
 }
 
 
+class CreditMemoItemSublist {
+
+   @FieldType.date
+   revrecstartdate:moment.Moment
+   @FieldType.date
+   revrecenddate:moment.Moment
+   @FieldType.select
+   item:number
+
+   @FieldType.currency
+   amount:number
+
+   @FieldType.decimalnumber
+   quantity:number
+
+   @FieldType.decimalnumber
+   rate:number
+
+   @FieldType.select
+   taxcode:number
+}

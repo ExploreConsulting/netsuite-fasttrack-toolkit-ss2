@@ -16,11 +16,21 @@ import * as LogManager from '../EC_Logger'
 export var log = LogManager.getLogger('nsdal')
 
 export abstract class NetsuiteRecord {
-
+   /**
+    * The netsuite record type (constant string) - this is declared here and overriden in derived classes
+    */
    public static recordType: record.Type
-   
+
+    /**
+     * The underlying netsuite 'record' object
+     */
    nsrecord:record.Record
 
+   /**
+    * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
+    * field properties defined on derived classes should be seen when enumerating
+    * @param value
+     */
    private makeRecordProp(value) {
       Object.defineProperty(this, 'nsrecord', {
          value: value,
@@ -46,23 +56,22 @@ export abstract class NetsuiteRecord {
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
       var type = Object.getPrototypeOf(this).constructor.recordType
-      if (_.isObject(rec)){
-         var r = <record.Record>rec
-         log.debug('using existing record', `type:${r.type}, id:${r.id}`)
-         this.makeRecordProp(rec)
+      if (typeof rec === "number"){
+         log.debug('loading existing record', `type:${type}, id:${rec}`)
+         this.makeRecordProp(record.load({
+            type: type,
+            id: rec,
+            isDynamic: isDynamic || false,
+            defaultValue: defaultValue
+         }))
       }
       else if (!rec) {
          log.debug('creating new record', `type:${type}`)
          this.makeRecordProp(record.create({type: type}))
       }
       else {
-         log.debug('loading existing record', `type:${type}, id:${rec}`)
-         this.makeRecordProp(record.load({
-            type: type,
-            id: <number>rec,
-            isDynamic: isDynamic || false,
-            defaultValue: defaultValue
-         }))
+         log.debug('using existing record', `type:${rec.type}, id:${rec.id}`)
+         this.makeRecordProp(rec)
       }
    }
 }
@@ -91,6 +100,7 @@ function defaultDescriptor(target:any, propertyKey:string):any {
  * Generic property descriptor with algorithm NS checkbox to native boolean.
  */
 function checkboxDescriptor(target:any, propertyKey:string):any {
+   log.debug('creating property', `${propertyKey} as boolean`)
    return {
       get: function () {
          return this.nsrecord.getValue({fieldId:propertyKey}) === 'T';
