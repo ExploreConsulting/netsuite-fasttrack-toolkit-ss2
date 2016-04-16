@@ -4,7 +4,6 @@
  * @NScriptType Suitelet
  */
 
-///<reference path="typings/browser.d.ts"/>
 
 ///<amd-dependency path="./lodash" name="_" />
 
@@ -12,12 +11,12 @@ import * as LogManager from './EC_Logger'
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as http from 'N/http'
-import * as nsdal from "./EC_nsdal";
+import * as nsdal from "DataAccess/EC_nsdal";
 
 var log = LogManager.getLogger('default')
 
 class Customer extends nsdal.CustomerBase {
-   @nsdal.freeformtext
+   @nsdal.FieldType.freeformtext
    companyname: string
 }
 

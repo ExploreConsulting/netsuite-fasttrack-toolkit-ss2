@@ -5,7 +5,7 @@
     "noImplicitAny": false,
     "sourceMap": false,
     "newLine": "LF",
-    "declaration": true,
+    //"declaration": true,
     //"allowSyntheticDefaultImports": true
     //"emitDecoratorMetadata": true,
     "experimentalDecorators": true
@@ -13,9 +13,10 @@
 //  "compileOnSave": false,
   "files": [
     "EC_Logger.ts",
-    "EC_nsdal.ts",
+    "DataAccess/EC_nsdal.ts",
     "EC_shawn.ts",
     "Test.ts",
+    "DataAccess/Customer.ts",
     "typings/browser.d.ts"
   ],
   "exclude": [

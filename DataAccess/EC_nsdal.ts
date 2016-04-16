@@ -5,22 +5,17 @@
  * @NApiVersion 2.x
  */
 
-///<amd-dependency path='./lodash' name="_">
-///<amd-dependency path='./moment' name="moment">
-
-///<reference path="typings/browser.d.ts"/>
-
+///<amd-dependency path='../lodash' name="_">
+///<amd-dependency path='../moment' name="moment">
 
 import * as record from 'N/record'
-import * as search from 'N/search'
 import * as format from 'N/format'
 
-import * as LogManager from './EC_Logger'
+import * as LogManager from '../EC_Logger'
 
 export var log = LogManager.getLogger('nsdal')
 
-
-class NetsuiteRecord {
+export class NetsuiteRecord {
 
    nsrecord:record.Record
 
@@ -65,7 +60,6 @@ class NetsuiteRecord {
       }
    }
 }
-
 
 /**
  * Generic property descriptor with basic default algorithm that exposes the field value directly with no
@@ -132,9 +126,6 @@ function dateTimeDescriptor(formatType: format.Type, target:any, propertyKey:str
       enumerable: true //default is false
    };
 }
-
-
-
 /**
    Netsuite field types - decorate your model properties with these to tie netsuite field types to your 
    model's field type.
@@ -149,86 +140,6 @@ export namespace FieldType {
    export var email = defaultDescriptor
    export var datetime = _.partial(dateTimeDescriptor, format.Type.DATETIME)
 }
-/**
- * NS Base customer record - contains definitions for most of the built in fields
- */
-export class CustomerBase extends NetsuiteRecord {
-   static recordType = record.Type.CUSTOMER
 
-   @FieldType.freeformtext
-   accountnumber:string
-
-   @FieldType.select
-   category:number
-
-   @FieldType.textarea
-   comments:string
-
-   @FieldType.freeformtext
-   companyname:string
-
-   @FieldType.select
-   customform:number
-
-   @FieldType.datetime
-   datecreated:moment.Moment
-   
-   @FieldType.email
-   email:string
-   
-   @FieldType.freeformtext
-   entityid:string
-   
-   @FieldType.select
-   entitystatus:number
-   
-   @FieldType.freeformtext
-   externalid:string
-   
-   @FieldType.freeformtext
-   fax:string
-   
-   @FieldType.freeformtext
-   firstname:string
-   
-   @FieldType.checkbox
-   isinactive:boolean
-   
-   @FieldType.checkbox
-   isperson:boolean
-   
-   @FieldType.datetime
-   lastmodifieddate:moment.Moment
-   
-   @FieldType.freeformtext
-   lastname:string
-   
-   
-   @FieldType.select
-   parent:number
-   
-   @FieldType.freeformtext
-   phone:string
-   
-   @FieldType.select
-   salesrep:number
-   
-   @FieldType.select
-   subsidiary:number
-   
-   @FieldType.checkbox
-   taxable:boolean
-   
-   @FieldType.select
-   terms:number
-
-   @FieldType.freeformtext
-   phone:string
-
-   @FieldType.checkbox
-   isperson:boolean
-
-   constructor(rec?:number | record.Record, isDynamic?:boolean, defaultValue?:Object) {
-      super(CustomerBase.recordType, rec, isDynamic, defaultValue)
-   }
-}
+// export all base record types contained in separate files
+//export {CustomerBase} from './Customer'

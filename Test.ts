@@ -12,40 +12,40 @@
 ///<amd-dependency path="./moment" name="moment" />
 
 import * as LogManager from './EC_Logger'
-import * as nsdal from "./EC_nsdal"
+import * as nsdal from "./DataAccess/EC_nsdal"
+import {CustomerBase} from "./DataAccess/Customer"
+
 
 var log = LogManager.getLogger('default')
+
+export = {
+   onRequest: (req, resp) => {
+      log.debug('hello world')
+
+      var c = new Customer(10)
+
+      log.debug('customer', _.toPlainObject(c))
+
+      c.custentity_multiselect = [1, 2]
+      c.custentity_shawn_date = moment()
+
+      log.debug('customer', _.pick(c,['custentity_shawn_date', 'companyname']))
+      //c.save()
+
+      // var r = record.load({ type: record.Type.CUSTOMER, id:10})
+      // var id = r.save(); // UNEXPECTED ERROR
+
+   }
+}
+
 
 /**
  * define the nsdal custom record for this client incl custom fields
  */
-class Customer extends nsdal.CustomerBase {
+class Customer extends CustomerBase {
    @nsdal.FieldType.multiselect
    custentity_multiselect:number[]
 
    @nsdal.FieldType.datetime
    custentity_shawn_date : moment.Moment
-}
-
-export = {
-   onRequest: (req, resp) => {
-
-      // var r = record.load({ type: record.Type.CUSTOMER, id:10})
-      // var id = r.save(); // UNEXPECTED ERROR
-
-      var c = new Customer(10)
-
-
-
-      log.debug('customer', _.toPlainObject(c))
-
-      log.debug('isperson', c.nsrecord.getValue({fieldId: 'isperson'}))
-
-      c.custentity_multiselect = [1, 2]
-
-      c.custentity_shawn_date = moment()
-      log.debug('customer', _.toPlainObject(c))
-      c.save()
-
-   }
 }
