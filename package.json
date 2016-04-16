@@ -1,6 +1,6 @@
 {
   "name": "netsuite-fasttrack-toolkit-ss2",
-  "version": "10.0.1",
+  "version": "1.0.0",
   "description": "Power library for NetSuite SuiteScript 2.x projects.",
   "main": "none",
   "directories": {
@@ -33,7 +33,7 @@
   "dependencies": {
     "aurelia-logging": "https://github.com/ironside/logging.git#logger-specific-loglevel",
     "lazy.js": "^0.4.2",
-    "lodash": "^4.6.1",
+    "lodash": "^4.11.1",
     "moment": "^2.12.0"
   }
 }

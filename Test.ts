@@ -7,7 +7,6 @@
 /* these two lines bring lodash into scope for compile time, and add it as a silent dependency of this
  module (in the correct path of ./lodash assuming lodash is installed in the same folder as this script)
  */
-///<reference path="typings/browser.d.ts"/>
 ///<amd-dependency path="./lodash" name="_" />
 ///<amd-dependency path="./moment" name="moment" />
 

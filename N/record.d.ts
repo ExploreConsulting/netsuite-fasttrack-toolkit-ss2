@@ -52,7 +52,15 @@ export function create(options:createOptions) : Record
 
 export function submitFields(options)
 
-
+/**
+ * Record types declared by NetSuite. Behind the scenes I think these correspond to the string record names
+ * from SS1.0. For example 'customer' for the Customer record. Here we can just define an enumeration since 
+ * the real values come from NS.
+ */
 export declare enum Type {
-   CUSTOMER
+   CREDIT_MEMO,
+   CUSTOMER,
+   CUSTOMER_PAYMENT,
+   SALES_ORDER,
+   INVOICE
 }

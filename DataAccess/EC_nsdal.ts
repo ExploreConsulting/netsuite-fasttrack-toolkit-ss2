@@ -15,8 +15,10 @@ import * as LogManager from '../EC_Logger'
 
 export var log = LogManager.getLogger('nsdal')
 
-export class NetsuiteRecord {
+export abstract class NetsuiteRecord {
 
+   public static recordType: record.Type
+   
    nsrecord:record.Record
 
    private makeRecordProp(value) {
@@ -39,7 +41,11 @@ export class NetsuiteRecord {
       })
    }
 
-   constructor(type:record.Type, rec?: number | record.Record, isDynamic?:boolean, defaultValue?:Object) {
+   constructor(rec?: number | record.Record, isDynamic?:boolean, defaultValue?:Object) {
+      // since the context of this.constructor is the derived class we're instantiating, using the line below we can
+      // pull the 'static' recordType from the derived class and remove the need for derived classes to
+      // define a constructor to pass the record type to super()
+      var type = Object.getPrototypeOf(this).constructor.recordType
       if (_.isObject(rec)){
          var r = <record.Record>rec
          log.debug('using existing record', `type:${r.type}, id:${r.id}`)
@@ -139,7 +145,10 @@ export namespace FieldType {
    export var select = defaultDescriptor
    export var email = defaultDescriptor
    export var datetime = _.partial(dateTimeDescriptor, format.Type.DATETIME)
+   export var date = _.partial(dateTimeDescriptor, format.Type.DATE)
+   export var integernumber = defaultDescriptor
+   export var decimalnumber = defaultDescriptor
+   export var currency = defaultDescriptor
+   export var hyperlink = defaultDescriptor
+   export var image = defaultDescriptor
 }
-
-// export all base record types contained in separate files
-//export {CustomerBase} from './Customer'

@@ -75,9 +75,4 @@ export class CustomerBase extends NetsuiteRecord {
 
    @FieldType.select
    terms:number
-
-
-   constructor(rec?:number | record.Record, isDynamic?:boolean, defaultValue?:Object) {
-      super(CustomerBase.recordType, rec, isDynamic, defaultValue)
-   }
 }
