@@ -162,3 +162,5 @@ export namespace FieldType {
    export var hyperlink = defaultDescriptor
    export var image = defaultDescriptor
 }
+
+

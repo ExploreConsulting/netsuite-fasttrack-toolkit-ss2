@@ -12,14 +12,16 @@
 
 import * as LogManager from './EC_Logger'
 import * as nsdal from "./DataAccess/EC_nsdal"
-import {CustomerBase} from "./DataAccess/Customer"
-
+import {CustomerBase} from "./DataAccess/CustomerBase"
 
 var log = LogManager.getLogger('default')
+
 
 export = {
    onRequest: (req, resp) => {
       log.debug('hello world')
+
+      nsdal.log.setLevel(LogManager.logLevel.debug)
 
       var c = new Customer(10)
 

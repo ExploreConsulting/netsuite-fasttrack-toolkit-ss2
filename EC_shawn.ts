@@ -12,7 +12,7 @@ import * as record from 'N/record'
 import * as format from 'N/format'
 import * as http from 'N/http'
 import * as nsdal from "DataAccess/EC_nsdal";
-import {CustomerBase} from "./DataAccess/Customer";
+import {CustomerBase} from "./DataAccess/CustomerBase";
 
 var log = LogManager.getLogger('default')
 

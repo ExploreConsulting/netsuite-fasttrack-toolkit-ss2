@@ -18,3 +18,5 @@ The NetSuite bult in modules are declared under the `N/` folder, to mimic how th
 are referenced in the documentation/code.
 
 
+# NSDAL
+Define record types under the `DataAccess/` folder.

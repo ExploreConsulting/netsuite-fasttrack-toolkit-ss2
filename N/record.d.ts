@@ -10,7 +10,7 @@ interface createOptions {
 
 
 
-export class Record {
+export interface Record {
    type:string
    id:number
 
@@ -21,21 +21,60 @@ export class Record {
    findMatrixSublistLinewithValue(o:any) : void
    findSublistLineWithValue(o:any)
    
-
    /**
     * gets a field value
-    * @param string
      */
-   getValue({ fieldId: string}) : any
+   getValue(options:{ fieldId: string}) : any
+   /**
+    * gets the text value for a field
+    * @param options
+     */
+   getText(options:{ fieldId:string}) : string
+   
    /**
     * sets a field value
     *  
     */
-   setValue({ fieldId:string, value:any, ignoreFieldChange:boolean}): void
+   setValue(options:{ fieldId:string, value:any, ignoreFieldChange:boolean}): void
 
    save(options?:any):number
 
    "delete"(options:any)
+   /**
+    * retrieves the given sublist by the sublist id (e.g. 'item' for the item sublist)
+    * @param string
+     */
+   getSublist(options:{ sublistId: string}) : Sublist
+
+    /**
+     * returns the number of lines in a sublist
+     * @param string internal id of the sublist (e.g. 'item')
+     */
+   getLineCount(options:{sublistId:string}) : number
+
+    /**
+     * inserts a sublist line
+     * @param string
+     * @param number
+     * @param boolean
+     */
+   insertLine(options:{sublistId:string, line:number, ignoreRecalc:boolean})
+
+    /**
+     * returns the value of a sublist field
+     * @param string which sublist?
+     * @param string
+     * @param number
+     */
+   getSublistValue(options:{sublistId:string, fieldId:string, line:number})
+   
+   getSublistText(options:Object)
+
+   cancelLine(options:Object)
+   
+   commitLine(options:Object)
+   
+   selectLine(options:{sublistId:string, line:number})
 
 }
 /**
@@ -63,4 +102,24 @@ export declare enum Type {
    CUSTOMER_PAYMENT,
    SALES_ORDER,
    INVOICE
+}
+
+export interface Sublist {
+   getColumn(options:{ fieldId:string })
+   /**
+    * internal id of the sublist
+    */
+   id:string
+   /**
+    * Indicates whether the sublist has changed on the record form.
+    */
+   isChanged:boolean
+   /**
+    * Indicates whether the sublist is displayed on the record form.
+    */
+   isDisplay:boolean
+   /**
+    * Returns the sublist type.
+    */
+   type:string
 }
