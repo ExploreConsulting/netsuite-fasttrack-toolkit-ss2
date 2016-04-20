@@ -276,7 +276,7 @@ function dateTimeSublistDescriptor(formatType: format.Type, target:any, property
  * creates a sublist whose lines are of type T
  */
 export class Sublist<T extends SublistLine> {
-
+   nsrecord:record.Record
    // enforce 'array like' interaction through indexers
    [i:number]:T
 
@@ -285,7 +285,7 @@ export class Sublist<T extends SublistLine> {
      * @returns {number} number of lines in this list
      */
    get length() {
-      return this.rec.getLineCount({sublistId: this.sublistId})
+      return this.nsrecord.getLineCount({sublistId: this.sublistId})
    }
 
    /**
@@ -295,7 +295,7 @@ export class Sublist<T extends SublistLine> {
      */
    addLine(ignoreRecalc = true):T {
       log.debug('inserting line', `sublist: ${this.sublistId} insert at line:${this.length}`)
-      this.rec.insertLine({
+      this.nsrecord.insertLine({
          sublistId: this.sublistId,
          line: this.length,
          ignoreRecalc: ignoreRecalc
@@ -309,29 +309,60 @@ export class Sublist<T extends SublistLine> {
     */
    commitLine() {
       log.debug('committing line',`sublist: ${this.sublistId}` )
-      this.rec.commitLine({ sublistId:this.sublistId })
+      this.nsrecord.commitLine({ sublistId:this.sublistId })
    }
 
    selectLine(line:number) {
       log.debug('selecting line', line)
-      this.rec.selectLine({sublistId: this.sublistId, line: line})
+      this.nsrecord.selectLine({sublistId: this.sublistId, line: line})
    }
 
-   constructor(sublistLineType: { new(sublistId:string, nsrec:record.Record, line:number): T }, 
-               protected rec:record.Record, protected sublistId:string) {
+   /**
+    * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
+    * field properties defined on derived classes should be seen when enumerating
+    * @param value
+    */
+   private makeRecordProp(value) {
+      Object.defineProperty(this, 'nsrecord', {
+         value: value,
+         enumerable: false
+      })
+   }
+
+   constructor(sublistLineType: { new(sublistId:string, nsrec:record.Record, line:number): T },
+               public rec:record.Record, public sublistId:string) {
+      this.makeRecordProp(rec)
       log.debug('creating sublist', `type:${sublistId}, linecount:${this.length}`)
       // create properties for all keys in our target type T
       for (let i = 0; i < this.length; i++ ){
-         this[i] = new sublistLineType(this.sublistId, this.rec, i)
+         this[i] = new sublistLineType(this.sublistId, this.nsrecord, i)
       }
    }
    
 }
 
-
+/**
+ * contains minimim requirements for a sublist line - 1. which sublist are we working with, 2. on which record
+ * 3. which line on the sublist does this instance represent
+ */
 export abstract class SublistLine {
-   constructor(protected sublistId:string, protected nsrec:record.Record, protected line:number){
 
+   /**
+    * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
+    * field properties defined on derived classes should be seen when enumerating
+    * @param value
+    */
+   private makeRecordProp(value) {
+      Object.defineProperty(this, 'nsrecord', {
+         value: value,
+         enumerable: false
+      })
+   }
+
+   nsrecord:record.Record
+   
+   constructor(public sublistId:string, rec:record.Record, public line:number){
+      this.makeRecordProp(rec)
    }
 }
 

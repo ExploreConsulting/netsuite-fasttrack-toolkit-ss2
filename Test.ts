@@ -14,6 +14,7 @@ import * as LogManager from './EC_Logger'
 import * as nsdal from "./DataAccess/EC_nsdal"
 import {CustomerBase} from "./DataAccess/CustomerBase"
 import {Invoice as Inv} from "./DataAccess/InvoiceBase"
+import {Sublist} from "./DataAccess/EC_nsdal";
 
 var log = LogManager.getLogger('default')
 
@@ -38,15 +39,18 @@ export = {
       // var id = r.save(); // UNEXPECTED ERROR
       var i = new Invoice(975583)
 
-      _.each(i.item, (i) => log.debug('item', i.item))
+      _.each(i.item, (i) => log.debug('line', _.toPlainObject(i)))
    }
 }
 
 class Invoice extends Inv.Base {
+   item = new Sublist<InvoiceLine>(InvoiceLine, this.nsrecord, 'item')
+}
+
+class InvoiceLine extends Inv.ItemSublist {
    @nsdal.SublistFieldType.decimalnumber
    quantity:number
 }
-
 
 /**
  * define the nsdal custom record for this client incl custom fields

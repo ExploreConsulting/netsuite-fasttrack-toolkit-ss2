@@ -14,10 +14,9 @@ export namespace Invoice {
 
       static recordType = record.Type.INVOICE
 
-      item = new Sublist<ItemSublist>(ItemSublist,this.nsrecord,'item')
    }
 
-   class ItemSublist extends SublistLine {
+   export class ItemSublist extends SublistLine {
 
       /**
        * Internalid of the item
