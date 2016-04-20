@@ -188,6 +188,7 @@ export namespace SublistFieldType {
  * with Object.defineProperty
  */
 function defaultSublistDescriptor(target:any, propertyKey:string):any {
+   log.debug('creating default descriptor', `field: ${propertyKey}`)
    return {
       get: function () {
          return this.nsrecord.getSublistValue({
@@ -316,17 +317,20 @@ export class Sublist<T extends SublistLine> {
       this.rec.selectLine({sublistId: this.sublistId, line: line})
    }
 
-   constructor(sublistType: { new(linenum:number): T }, private rec:record.Record, private sublistId:string) {
+   constructor(sublistLineType: { new(sublistId:string, nsrec:record.Record, line:number): T }, 
+               protected rec:record.Record, protected sublistId:string) {
+      log.debug('creating sublist', `type:${sublistId}, linecount:${this.length}`)
       // create properties for all keys in our target type T
       for (let i = 0; i < this.length; i++ ){
-         this[i] = new sublistType(i)
+         this[i] = new sublistLineType(this.sublistId, this.rec, i)
       }
    }
+   
 }
 
 
 export abstract class SublistLine {
-   constructor(protected sublistId:string, protected nsrec:record.Record, protected linenum:number){
+   constructor(protected sublistId:string, protected nsrec:record.Record, protected line:number){
 
    }
 }

@@ -36,12 +36,15 @@ export = {
 
       // var r = record.load({ type: record.Type.CUSTOMER, id:10})
       // var id = r.save(); // UNEXPECTED ERROR
-      var i = new Invoice()
+      var i = new Invoice(975583)
+
+      _.each(i.item, (i) => log.debug('item', i.item))
    }
 }
 
 class Invoice extends Inv.Base {
-
+   @nsdal.SublistFieldType.decimalnumber
+   quantity:number
 }
 
 

@@ -2,7 +2,7 @@
  * NetSuite generic Transaction record
  */
 
-import {FieldType, Sublist, SublistLine, SublistFieldType} from './EC_nsdal'
+import {Sublist, SublistLine, SublistFieldType} from './EC_nsdal'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 
@@ -14,7 +14,7 @@ export namespace Invoice {
 
       static recordType = record.Type.INVOICE
 
-      item:Sublist<ItemSublist>
+      item = new Sublist<ItemSublist>(ItemSublist,this.nsrecord,'item')
    }
 
    class ItemSublist extends SublistLine {
@@ -24,6 +24,7 @@ export namespace Invoice {
        */
       @SublistFieldType.select
       item:number
+      
    }
    
 }
