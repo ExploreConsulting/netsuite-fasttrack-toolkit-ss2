@@ -67,7 +67,8 @@ export interface Record {
      * @param number
      */
    getSublistValue(options:{sublistId:string, fieldId:string, line:number})
-   
+   setSublistValue(options:{sublistId:string, fieldId:string, line:number, value:any})
+
    getSublistText(options:Object)
 
    cancelLine(options:Object)

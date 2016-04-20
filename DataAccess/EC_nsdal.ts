@@ -163,4 +163,171 @@ export namespace FieldType {
    export var image = defaultDescriptor
 }
 
+export namespace SublistFieldType {
+   export var freeformtext = defaultSublistDescriptor
+   export var longtext = defaultSublistDescriptor
+   export var textarea = defaultSublistDescriptor
+   export var checkbox = checkboxSublistDescriptor
+   export var multiselect = defaultSublistDescriptor
+   export var select = defaultSublistDescriptor
+   export var email = defaultSublistDescriptor
+   export var datetime = _.partial(dateTimeSublistDescriptor, format.Type.DATETIME)
+   export var date = _.partial(dateTimeSublistDescriptor, format.Type.DATE)
+   export var integernumber = defaultSublistDescriptor
+   export var decimalnumber = defaultSublistDescriptor
+   export var currency = defaultSublistDescriptor
+   export var hyperlink = defaultSublistDescriptor
+   export var image = defaultSublistDescriptor
+}
+
+
+/**
+ * Generic property descriptor with basic default algorithm that exposes the field value directly with no
+ * other processing.
+ * @returns an object property descriptor to be used
+ * with Object.defineProperty
+ */
+function defaultSublistDescriptor(target:any, propertyKey:string):any {
+   return {
+      get: function () {
+         return this.nsrecord.getSublistValue({
+            sublistId: this.sublistId,
+            line: this.line,
+            fieldId: propertyKey
+         })
+      },
+      set: function (value) {
+         // ignore undefined's
+         if (value !== undefined) this.nsrecord.setSublistValue({
+            sublistId: this.sublistId,
+            line: this.line,
+            fieldId: propertyKey,
+            value: value
+         })
+         else log.debug(`ignoring field [${propertyKey}]`, 'field value is undefined')
+      },
+      enumerable: true //default is false
+   };
+}
+
+/**
+ * Generic sublist property descriptor with algorithm NS checkbox to native boolean.
+ */
+function checkboxSublistDescriptor(target:any, propertyKey:string):any {
+   log.debug('creating property', `${propertyKey} as boolean`)
+   return {
+      get: function () {
+         return this.nsrecord.getSublistValue({
+               sublistId: this.sublistId,
+               line: this.line,
+               fieldId:propertyKey}) === 'T';
+      },
+      set: function (value) {
+         // allow null to flow through, but ignore undefined's
+         if (value !== undefined) this.nsrecord.setSublistValue({
+            sublistId: this.sublistId,
+            fieldId: propertyKey,
+            value: value === true ? 'T' : 'F',
+            line: this.line
+         })
+      },
+      enumerable: true // default is false - this lets you JSON.stringify() this prop
+   }
+}
+/**
+ * Generic sublist property descriptor with algorithm for date handling. Surfaces dates as moment() instances
+ * note: does not take into account timezone
+ * @param {string} formatType the NS field type (e.g. 'date')
+ * @param target
+ * @param propertyKey
+ * @returns  an object property descriptor to be used
+ * with decorators
+ */
+function dateTimeSublistDescriptor(formatType: format.Type, target:any, propertyKey:string) :any {
+   return {
+      get: function () {
+         var value = this.nsrecord.getSublistValue({
+            sublistId: this.sublistId,
+            line: this.line,
+            fieldId: propertyKey})
+         log.debug(`transforming field format type [${formatType}]`, `with value ${value}`)
+         // ensure we don't return moments for null, undefined, etc.
+         return value ? moment(format.parse({type: formatType, value: value})) : value
+      },
+      set: function (value) {
+         // allow null to flow through, but ignore undefined's
+         if (value !== undefined)
+            this.nsrecord.setSublistValue({
+               sublistId: this.sublistId,
+               line:this.line,
+               fieldId: propertyKey,
+               value: value ? format.format({type: formatType, value: moment(value).toDate()}) : null
+            })
+         else log.debug(`not setting ${propertyKey} field`, 'value was undefined')
+      },
+      enumerable: true //default is false
+   };
+}
+
+
+
+/**
+ * creates a sublist whose lines are of type T
+ */
+export class Sublist<T extends SublistLine> {
+
+   // enforce 'array like' interaction through indexers
+   [i:number]:T
+
+    /**
+     * array-like length property (linecount)
+     * @returns {number} number of lines in this list
+     */
+   get length() {
+      return this.rec.getLineCount({sublistId: this.sublistId})
+   }
+
+   /**
+    * adds a new line to this sublist
+    * @param ignoreRecalc
+    * @returns {T}
+     */
+   addLine(ignoreRecalc = true):T {
+      log.debug('inserting line', `sublist: ${this.sublistId} insert at line:${this.length}`)
+      this.rec.insertLine({
+         sublistId: this.sublistId,
+         line: this.length,
+         ignoreRecalc: ignoreRecalc
+      })
+      log.debug('line count after adding', this.length)
+      return this[this.length]
+   }
+
+   /**
+    * commits the currently selected line on this sublist. When adding new lines you don't need to call this method
+    */
+   commitLine() {
+      log.debug('committing line',`sublist: ${this.sublistId}` )
+      this.rec.commitLine({ sublistId:this.sublistId })
+   }
+
+   selectLine(line:number) {
+      log.debug('selecting line', line)
+      this.rec.selectLine({sublistId: this.sublistId, line: line})
+   }
+
+   constructor(sublistType: { new(linenum:number): T }, private rec:record.Record, private sublistId:string) {
+      // create properties for all keys in our target type T
+      for (let i = 0; i < this.length; i++ ){
+         this[i] = new sublistType(i)
+      }
+   }
+}
+
+
+export abstract class SublistLine {
+   constructor(protected sublistId:string, protected nsrec:record.Record, protected linenum:number){
+
+   }
+}
 

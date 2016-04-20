@@ -13,6 +13,7 @@
 import * as LogManager from './EC_Logger'
 import * as nsdal from "./DataAccess/EC_nsdal"
 import {CustomerBase} from "./DataAccess/CustomerBase"
+import {Invoice as Inv} from "./DataAccess/InvoiceBase"
 
 var log = LogManager.getLogger('default')
 
@@ -35,8 +36,12 @@ export = {
 
       // var r = record.load({ type: record.Type.CUSTOMER, id:10})
       // var id = r.save(); // UNEXPECTED ERROR
-
+      var i = new Invoice()
    }
+}
+
+class Invoice extends Inv.Base {
+
 }
 
 

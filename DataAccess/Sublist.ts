@@ -42,24 +42,23 @@ export class Sublist<T extends SublistLine> {
       this.rec.selectLine({sublistId: this.sublistId, line: line})
    }
    
-   constructor(private rec:record.Record, private sublistId:string) {
-
+   constructor(sublistType: { new(linenum:number): T }, private rec:record.Record, private sublistId:string) {
       // create properties for all keys in our target type T
       for (let i = 0; i < this.length; i++ ){
-         this[i] = new
+         this[i] = new sublistType(i)
       }
+   }
+}
+
+
+export abstract class SublistLine {
+   constructor(protected sublistId:string, protected nsrec:record.Record, protected linenum:number){
 
    }
 }
 
 
-export class SublistLine {
 
 
-
-   constructor(private linenum:number){}
-
-
-}
 
 

@@ -19,6 +19,12 @@ export abstract class TransactionBase extends NetsuiteRecord {
 
    @FieldType.select
    subsidiary:number
+
+   @FieldType.freeformtext
+   email:string
+
+   @FieldType.select
+   entity:number
    
 }
 
