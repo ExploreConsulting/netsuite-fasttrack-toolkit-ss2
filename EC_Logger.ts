@@ -5,6 +5,7 @@
 
 import {Logger, addAppender, logLevel,getLogger, Appender} from "./aurelia-logging"
 import * as nslog from "N/log"
+import _ = require("~lodash/index");
 export {getLogger, Logger, logLevel} from './aurelia-logging'
 
     
@@ -26,27 +27,16 @@ export {getLogger, Logger, logLevel} from './aurelia-logging'
            return func.bind(nslog,title, details)
         }
 
-        debug: (logger:Logger, ...rest:any[]) => this.log('debug')
+        //debug =  _.partial(this.log, 'debug')
+        debug: (logger:Logger, ...rest:any[]) => void = _.partial(this.log, 'debug')
+        info: (logger:Logger, ...rest:any[]) => void = _.partial(this.log, 'info')
+        warn: (logger:Logger, ...rest:any[]) => void = _.partial(this.log, 'warn')
+        error: (logger:Logger, ...rest:any[]) => void = _.partial(this.log, 'error')
 
-        info(logger:Logger, ...rest:any[]):void {
-            var title = logger.id === 'default' ? rest[0] : `[${logger.id}] ${rest[0]}`
-            nslog.audit(title, rest[1])
-        }
-
-        warn(logger:Logger, ...rest:any[]):void {
-            var title = logger.id === 'default' ? rest[0] : `[${logger.id}] ${rest[0]}`
-            nslog.error(title, rest[1])
-        }
-
-        error(logger:Logger, ...rest:any[]):void {
-            var title = logger.id === 'default' ? rest[0] : `[${logger.id}] ${rest[0]}`
-            nslog.emergency(title, rest[1])
-        }
     }
 
     export const defaultLogger:Logger = getLogger('default')
     defaultLogger.setLevel(logLevel.debug)
-
 
     addAppender(new ExecutionLogAppender())
 
