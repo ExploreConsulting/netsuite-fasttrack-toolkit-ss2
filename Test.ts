@@ -26,6 +26,7 @@ export = {
       nsdal.log.setLevel(LogManager.logLevel.debug)
 
       var c = new Customer(10)
+      c.
 
       log.debug('customer', _.toPlainObject(c))
 
@@ -35,18 +36,28 @@ export = {
       log.debug('customer', _.pick(c,['custentity_shawn_date', 'companyname']))
       //c.save()
 
-      // var r = record.load({ type: record.Type.CUSTOMER, id:10})
-      // var id = r.save(); // UNEXPECTED ERROR
       var i = new Invoice(975583)
-
       _.each(i.item, (i) => log.debug('line', _.toPlainObject(i)))
+
    }
 }
 
+/**
+ * Define Invoice transaction - any required sublists need to be defined like below
+ */
 class Invoice extends Inv.Base {
+
+   @nsdal.FieldType.datetime
+   datecreated:moment.Moment
+
    item = new Sublist<InvoiceLine>(InvoiceLine, this.nsrecord, 'item')
+
+   
 }
 
+/**
+ * the shape of invoice item sublist
+ */
 class InvoiceLine extends Inv.ItemSublist {
    @nsdal.SublistFieldType.decimalnumber
    quantity:number
