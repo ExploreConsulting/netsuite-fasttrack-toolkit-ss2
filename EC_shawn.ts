@@ -4,22 +4,20 @@
  * @NScriptType Suitelet
  */
 
+///<reference path="typings/browser.d.ts"/>
+
+
+///<amd-dependency path='./lodash' name="_">
+
 import * as LogManager from './EC_Logger'
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as http from 'N/http'
-import {Record} from "./N/record";
+import {Record} from "N/record";
+import {CustomerBase, nsdal} from "./EC_nsdal";
+
 
 var log = LogManager.getLogger('default')
-
-
-class X {
-   a:string = undefined
-   b:string = undefined
-   c:number = undefined
-   d:string = undefined
-   e:boolean = undefined
-}
 
 class Foo {
    log:LogManager.Logger
@@ -33,7 +31,6 @@ class Foo {
    
     constructor() {
         this.log = LogManager.getLogger('foo')
-         let l = new X()
     }
 
     dofoo() {
@@ -41,8 +38,6 @@ class Foo {
         this.log.warn('warn from foo')
         this.log.info('info from foo')
         this.log.error('error from foo')
-
-       if (this.d) this.log('d is defined')
     }
 }
 
@@ -63,7 +58,6 @@ class Bar {
     }
 }
 
-
 function doSomeLogging() {
    var f = new Foo()
    var b = new Bar()
@@ -71,11 +65,6 @@ function doSomeLogging() {
    f.log.setLevel(LogManager.logLevel.debug)
 
    b.log.setLevel(LogManager.logLevel.warn)
-
-   format.format({
-      type: format.Type.CHECKBOX,
-      value: "foo"
-   })
 
    f.dofoo()
    b.dobar()
@@ -92,44 +81,57 @@ function doSomeLogging() {
    log.error('main script hello', 'world')
 }
 
+class Customer extends CustomerBase {
+   @nsdal.freeformtext
+   companyname: string
+}
+
+function doSomeRecordStuff() {
+   var c = new Customer()
+   c.loadObject(1404)
+   
+   log.debug('customer', JSON.stringify(c))
+
+   log.debug('company', c.companyname)
+   log.debug('phone', c.phone)
+
+   log.debug('keys', Object.keys(c))
+
+   log.debug('cloned', JSON.stringify(_.toPlainObject(c)))
+   //var pd = Object.getOwnPropertyDescriptor(c,'companyname')
+  // log.debug('companyname descriptor', pd.enumerable)
+  // log.debug('phone', Object.getOwnPropertyDescriptor(c,'phone').enumerable)
+
+   log.debug('own prop names', Object.getOwnPropertyNames(c))
+   log.debug('is proto of', CustomerBase.isPrototypeOf(c))
+
+}
+
+
 export = {
 
+   onRequest: (params:{request:http.ServerRequest, response:http.ServerResponse}) => {
 
+//      doSomeLogging()
 
-    onRequest: (params:{request:http.ServerRequest, response:http.ServerResponse}) => {
-     
-      doSomeLogging()
-
-       var r: any = record.load({type:'customer', id:1315})
-
-       var options = { fieldid:'phone'}
-       var pone    = r.getValue(options)
-       var p       = r.phone
-         
-       log.debug('customer', r)
-       log.debug('customer.phone', r.phone)
-
-       params.response.write({output:JSON.stringify(r)})
-    }
+      // var r: any = record.load({type:'customer', id:1315})
+      //
+      // var options = { fieldId:'phone'}
+      // var pone    = r.getValue(options)
+      // var p       = r.phone
+      //
+      // log.debug('customer', r)
+      // log.debug('customer getvalue phone', pone)
+      // log.debug('customer.phone', r.phone)
+      //
+      // params.response.write({output:JSON.stringify(r)})
+      //
+      // var x = new Customer()
+      //
+      // for (p in x) {
+      //    log.debug('prop', p)
+      // }
+      doSomeRecordStuff()
+   }
 
 }
-
-
-class CustomerBase {
-     _record:Record
-      get phone() {
-         return  this._phone
-      }
-   
-   constructor(private _phone:string){}   
-}
-
-class Customer extends  CustomerBase {
-   companyname:string
-}
-
-var x = new Customer()
-
-x.phone = '45'
-x.companyname = 'sdfsa'
- 
