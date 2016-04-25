@@ -2,10 +2,9 @@
  * NetSuite generic Transaction record
  */
 
-import {FieldType} from './EC_nsdal'
+import {SublistLine} from './EC_nsdal'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
-import {Sublist, SublistLine} from "./Sublist";
 
 
 /**
@@ -15,7 +14,6 @@ export class SalesOrderBase extends TransactionBase {
    
    static recordType = record.Type.SALES_ORDER
    
-   item: Sublist<SalesOrderBaseLineItem> = new Sublist(this.nsrecord,'item')
    
 }
 
