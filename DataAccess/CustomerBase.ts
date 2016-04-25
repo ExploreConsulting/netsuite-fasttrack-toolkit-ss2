@@ -2,7 +2,7 @@
  * NS Base customer record - contains definitions for most of the built in fields
  */
 
-import {FieldType, NetsuiteRecord} from './EC_nsdal'
+import {FieldType, NetsuiteRecord} from './Record'
 import * as record from 'N/record'
 
 

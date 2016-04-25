@@ -2,7 +2,7 @@
  * NetSuite generic Transaction record
  */
 
-import {FieldType, NetsuiteRecord} from './EC_nsdal'
+import {FieldType, NetsuiteRecord} from './Record'
 
 /**
  * Fields common to all transactions in NS

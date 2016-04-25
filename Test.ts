@@ -11,10 +11,12 @@
 ///<amd-dependency path="./moment" name="moment" />
 
 import * as LogManager from './EC_Logger'
+// import * as nsdal from "./DataAccess/EC_nsdal"
+// import {CustomerBase} from "./DataAccess/CustomerBase"
+// import {Invoice as Inv} from "./DataAccess/InvoiceBase"
+// import {Sublist} from "./DataAccess/EC_nsdal";
+
 import * as nsdal from "./DataAccess/EC_nsdal"
-import {CustomerBase} from "./DataAccess/CustomerBase"
-import {Invoice as Inv} from "./DataAccess/InvoiceBase"
-import {Sublist} from "./DataAccess/EC_nsdal";
 
 var log = LogManager.getLogger('default')
 
@@ -22,11 +24,11 @@ var log = LogManager.getLogger('default')
 export = {
    onRequest: (req, resp) => {
       log.debug('hello world')
-
+   
+      
       nsdal.log.setLevel(LogManager.logLevel.debug)
 
-      var c = new Customer(10)
-      c.
+       var c = new Customer(10)
 
       log.debug('customer', _.toPlainObject(c))
 
@@ -36,8 +38,9 @@ export = {
       log.debug('customer', _.pick(c,['custentity_shawn_date', 'companyname']))
       //c.save()
 
-      var i = new Invoice(975583)
-      _.each(i.item, (i) => log.debug('line', _.toPlainObject(i)))
+       var i = new Invoice(975583)
+       _.each(i.item, (i) => log.debug('line', _.toPlainObject(i)))
+
 
    }
 }
@@ -45,20 +48,20 @@ export = {
 /**
  * Define Invoice transaction - any required sublists need to be defined like below
  */
-class Invoice extends Inv.Base {
+class Invoice extends nsdal.Invoice.Base {
 
    @nsdal.FieldType.datetime
    datecreated:moment.Moment
 
-   item = new Sublist<InvoiceLine>(InvoiceLine, this.nsrecord, 'item')
+   item = new nsdal.Sublist<InvoiceLine>(InvoiceLine, this.nsrecord, 'item')
 
-   
+
 }
 
 /**
  * the shape of invoice item sublist
  */
-class InvoiceLine extends Inv.ItemSublist {
+class InvoiceLine extends nsdal.Invoice.ItemSublist {
    @nsdal.SublistFieldType.decimalnumber
    quantity:number
 }
@@ -66,7 +69,7 @@ class InvoiceLine extends Inv.ItemSublist {
 /**
  * define the nsdal custom record for this client incl custom fields
  */
-class Customer extends CustomerBase {
+class Customer extends nsdal.CustomerBase {
    @nsdal.FieldType.multiselect
    custentity_multiselect:number[]
 

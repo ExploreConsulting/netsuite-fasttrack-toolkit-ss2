@@ -2,7 +2,7 @@
  * NetSuite generic Transaction record
  */
 
-import {Sublist, SublistLine, SublistFieldType} from './EC_nsdal'
+import {SublistLine, SublistFieldType} from './Sublist'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 
