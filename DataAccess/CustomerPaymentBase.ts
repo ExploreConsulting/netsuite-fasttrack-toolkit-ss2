@@ -2,9 +2,10 @@
  * NetSuite generic Transaction record
  */
 
-import {FieldType} from './EC_nsdal'
+import {SublistLine, SublistFieldType} from './Sublist'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
+import {FieldType} from './Record'
 
 /**
  * Customer Payment Record

@@ -25,6 +25,8 @@ export abstract class TransactionBase extends NetsuiteRecord {
 
    @FieldType.select
    entity:number
-   
+
+   @FieldType.freeformtext
+   externalid:string
 }
 

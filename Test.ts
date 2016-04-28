@@ -18,13 +18,12 @@ import * as LogManager from './EC_Logger'
 
 import * as nsdal from "./DataAccess/EC_nsdal"
 
-var log = LogManager.getLogger('default')
-
+var log = LogManager.DefaultLogger
 
 export = {
    onRequest: (req, resp) => {
       log.debug('hello world')
-   
+
       
       nsdal.log.setLevel(LogManager.logLevel.debug)
 
@@ -40,7 +39,6 @@ export = {
 
        var i = new Invoice(975583)
        _.each(i.item, (i) => log.debug('line', _.toPlainObject(i)))
-
 
    }
 }

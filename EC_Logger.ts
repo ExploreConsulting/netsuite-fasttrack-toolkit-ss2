@@ -46,7 +46,13 @@ class ExecutionLogAppender implements Appender {
 
 // instantiate the default logger and set it's logging level to the most verbose - this is used as
 // the 'main' logger by consumers
-getLogger('default').setLevel(logLevel.debug)
+var defaultLogger = getLogger('default')
+defaultLogger.setLevel(logLevel.debug)
+
+/**
+ * The default logger - this should be the main logger used in scripts
+ */
+export var DefaultLogger : Logger = defaultLogger
 
 addAppender(new ExecutionLogAppender())
 

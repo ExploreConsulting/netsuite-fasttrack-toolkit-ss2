@@ -14,10 +14,10 @@ export * from "./Record"
 
 // export all the record types
 //export * from "./Transaction"
- //export * from "./CreditMemoBase"
- export * from "./InvoiceBase"
- export * from "./CustomerBase"
- //export * from "./CustomerPaymentBase"
+export * from "./CreditMemoBase"
+export * from "./InvoiceBase"
+export * from "./CustomerBase"
+export * from "./CustomerPaymentBase"
 
 
 export var log = LogManager.getLogger('nsdal')
