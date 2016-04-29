@@ -18,6 +18,7 @@ export * from "./CreditMemoBase"
 export * from "./InvoiceBase"
 export * from "./CustomerBase"
 export * from "./CustomerPaymentBase"
+export * from "./SalesOrderBase"
 
 
 export var log = LogManager.getLogger('nsdal')

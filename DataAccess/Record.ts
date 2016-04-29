@@ -17,7 +17,7 @@ export abstract class NetsuiteRecord {
    /**
     * The netsuite record type (constant string) - this is declared here and overriden in derived classes
     */
-   public static recordType: record.Type
+   public static recordType: record.Type | string
 
    /**
     * The underlying netsuite 'record' object
