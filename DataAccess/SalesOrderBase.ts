@@ -31,7 +31,7 @@ export class SalesOrderBaseLineItem extends SublistLine {
    amount:number
 
    @SublistFieldType.decimalnumber
-   rate:nummber
+   rate:number
 
    @SublistFieldType.select
    taxcode:number

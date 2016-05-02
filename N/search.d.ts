@@ -13,6 +13,7 @@ export interface Result {
    recordType:string
    id:string
    columns:Column[]
+   values:any
 }
 
 export interface Column {

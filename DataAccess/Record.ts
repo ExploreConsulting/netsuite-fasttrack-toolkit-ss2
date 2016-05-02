@@ -145,18 +145,20 @@ function dateTimeDescriptor(formatType: format.Type, target:any, propertyKey:str
  model's field type.
  */
 export namespace FieldType {
-   export var freeformtext = defaultDescriptor
-   export var longtext = defaultDescriptor
-   export var textarea = defaultDescriptor
+   export var address = defaultDescriptor
    export var checkbox = checkboxDescriptor
-   export var multiselect = defaultDescriptor
-   export var select = defaultDescriptor
-   export var email = defaultDescriptor
-   export var datetime = _.partial(dateTimeDescriptor, format.Type.DATETIME)
-   export var date = _.partial(dateTimeDescriptor, format.Type.DATE)
-   export var integernumber = defaultDescriptor
-   export var decimalnumber = defaultDescriptor
    export var currency = defaultDescriptor
+   export var date = _.partial(dateTimeDescriptor, format.Type.DATE)
+   export var datetime = _.partial(dateTimeDescriptor, format.Type.DATETIME)
+   export var decimalnumber = defaultDescriptor
+   export var email = defaultDescriptor
+   export var freeformtext = defaultDescriptor
+   export var float = defaultDescriptor
    export var hyperlink = defaultDescriptor
    export var image = defaultDescriptor
+   export var integernumber = defaultDescriptor
+   export var longtext = defaultDescriptor
+   export var multiselect = defaultDescriptor
+   export var select = defaultDescriptor
+   export var textarea = defaultDescriptor
 }

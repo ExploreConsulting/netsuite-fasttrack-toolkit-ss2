@@ -1,5 +1,8 @@
 /**
- * Created by stalbert on 4/25/16.
+ * Represents Sublists and their field access. Sublists use a different api than body fields in NS.
+ * Note that in NFT-SS1.0 we collapsed the sublist and body descriptors into a common codebase. Decided not to do 
+ * that here (yet) in interest of code clarity. Also the fact that it's only two copies (usually use the rule of
+ * three's for DRY).
  */
 
 
@@ -145,13 +148,15 @@ export class Sublist<T extends SublistLine> {
     */
    addLine(ignoreRecalc = true):T {
       log.debug('inserting line', `sublist: ${this.sublistId} insert at line:${this.length}`)
+      let insertAt = this.length
+      this[insertAt] = new this.sublistLineType(this.sublistId,this.nsrecord,insertAt)
       this.nsrecord.insertLine({
          sublistId: this.sublistId,
-         line: this.length,
+         line: insertAt,
          ignoreRecalc: ignoreRecalc
       })
       log.debug('line count after adding', this.length)
-      return this[this.length]
+      return this[insertAt]
    }
 
    /**
@@ -179,7 +184,7 @@ export class Sublist<T extends SublistLine> {
       })
    }
 
-   constructor(sublistLineType: { new(sublistId:string, nsrec:record.Record, line:number): T },
+   constructor(private sublistLineType: { new(sublistId:string, nsrec:record.Record, line:number): T },
                public rec:record.Record, public sublistId:string) {
       this.makeRecordProp(rec)
       log.debug('creating sublist', `type:${sublistId}, linecount:${this.length}`)

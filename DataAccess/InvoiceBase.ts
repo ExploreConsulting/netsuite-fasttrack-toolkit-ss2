@@ -5,6 +5,7 @@
 import {SublistLine, SublistFieldType} from './Sublist'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
+import {FieldType} from "./Record"
 
 export namespace Invoice {
    /**
@@ -14,16 +15,150 @@ export namespace Invoice {
 
       static recordType = record.Type.INVOICE
 
+      @FieldType.select
+      account:number
+
+      @FieldType.currency
+      amountpaid:number
+
+      @FieldType.currency
+      amountremaining:number
+
+      @FieldType.select
+      approvalstatus:number
+
+      @FieldType.currency
+      balance:number
+
+      @FieldType.freeformtext
+      billaddr1:string
+
+      @FieldType.freeformtext
+      billaddr2:string
+
+      @FieldType.freeformtext
+      billaddr3:string
+
+      @FieldType.freeformtext
+      billphone:string
+
+      @FieldType.freeformtext
+      billstate:string
+
+      @FieldType.freeformtext
+      billzip:string
+
+      @FieldType.freeformtext
+      billaddress:string
+
+      @FieldType.select
+      currency:number
+
+      @FieldType.select
+      customform:number
+      
+      @FieldType.currency
+      discountamount:number
+      
+      @FieldType.date
+      discountdate:moment.Moment
+      
+      @FieldType.date
+      duedate:moment.Moment
+      
+      @FieldType.freeformtext
+      fob:string
+      
+      @FieldType.currency
+      giftcertapplied:number
+      
+      @FieldType.currency
+      handlingcost:number
+      
+      @FieldType.select
+      handlingtaxcode:number
+      
+      @FieldType.checkbox
+      istaxable:boolean
+      
+      @FieldType.select
+      leadsource:number
+      
+      @FieldType.freeformtext
+      linkedtrackingnumbers:string
+      
+      @FieldType.select
+      promocode:number
+
+      @FieldType.checkbox
+      tobeemailed:boolean
+      
+      @FieldType.checkbox
+      tobeprinted:boolean
+
+      @FieldType.checkbox
+      tobefaxed:boolean
+
+      @FieldType.currency
+      total:number
+
+      @FieldType.currency
+      subtotal:number
+      
+      @FieldType.select
+      taxitem:number
+      
+      @FieldType.checkbox()
+      
+      @FieldType.freeformtext
+      trackingnumbers:string
    }
 
    export class ItemSublist extends SublistLine {
 
-      /**
-       * Internalid of the item
-       */
+      @SublistFieldType.freeformtext
+      account:string
+
+      @SublistFieldType.decimalnumber
+      amount:number
+
+      @SublistFieldType.textarea
+      description:string
+      
+      @SublistFieldType.checkbox
+      istaxable:boolean
+      
       @SublistFieldType.select
       item:number
+
+      @SublistFieldType.integernumber
+      linenumber:number
+
+      @SublistFieldType.select
+      price:number
+      
+      @SublistFieldType.decimalnumber
+      quantity:number
+
+      @SublistFieldType.decimalnumber
+      rate:number
+
+      @SublistFieldType.date
+      revrecstartdate:moment.Moment
+
+      @SublistFieldType.date
+      revrecenddate:moment.Moment
+
+      @SublistFieldType.select
+      taxcode:number
+
+      @SublistFieldType.decimalnumber
+      taxrate1:number
+      
+      @SublistFieldType.select
+      units:number
       
    }
+   
    
 }

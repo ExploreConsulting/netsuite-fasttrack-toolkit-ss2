@@ -40,7 +40,7 @@ class ExecutionLogAppender implements Appender {
    }
 
    error(logger:Logger, ...rest:any[]) {
-      log('emergency', logger, rest)
+      log('emergency', logger, ...rest)
    }
 }
 

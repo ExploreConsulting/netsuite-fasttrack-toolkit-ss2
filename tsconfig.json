@@ -16,7 +16,7 @@
     "DataAccess/EC_nsdal.ts",
     "EC_shawn.ts",
     "Test.ts",
-    "DataAccess/Customer.ts",
+    "DataAccess/CustomerBase.ts",
     "DataAccess/CreditMemoBase.ts",
     "DataAccess/CustomerPaymentBase.ts",
     "DataAccess/InvoiceBase.ts",
