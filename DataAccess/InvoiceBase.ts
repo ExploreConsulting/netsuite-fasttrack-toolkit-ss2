@@ -107,9 +107,7 @@ export namespace Invoice {
       
       @FieldType.select
       taxitem:number
-      
-      @FieldType.checkbox()
-      
+
       @FieldType.freeformtext
       trackingnumbers:string
    }
@@ -157,7 +155,7 @@ export namespace Invoice {
       
       @SublistFieldType.select
       units:number
-      
+     
    }
    
    

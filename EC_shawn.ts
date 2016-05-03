@@ -11,30 +11,38 @@ import * as LogManager from './EC_Logger'
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as http from 'N/http'
-import * as nsdal from "DataAccess/EC_nsdal";
-import {CustomerBase} from "./DataAccess/CustomerBase";
+import * as nsdal from "./DataAccess/EC_nsdal";
 
 var log = LogManager.getLogger('default')
 
-class Customer extends CustomerBase {
+class Customer extends nsdal.CustomerBase {
    @nsdal.FieldType.freeformtext
    companyname: string
 }
 
-function doSomeRecordStuff() {
+class Invoice extends nsdal.Invoice.Base {
+   item = new nsdal.Sublist<nsdal.Invoice.ItemSublist>(nsdal.Invoice.ItemSublist,this.nsrecord,'item')
+}
 
-   nsdal.log.setLevel(LogManager.logLevel.debug)
+function doSomeRecordStuff(response:http.ServerResponse) {
 
-   var c = new Customer(1397)
+  // nsdal.log.setLevel(LogManager.logLevel.debug)
 
+//   var c = new Customer(1397)
 
+      var i = new Invoice(998837)
+
+      response.write({output:JSON.stringify(_.toPlainObject(i))})
+      response.write({output:JSON.stringify(_.toPlainObject(i.item[0]))})
+
+   
 
    //var newCustomer = new Customer
 
    //log.debug('new customer', _.toPlainObject(newCustomer))
 
-   var r = record.load({ type: record.Type.CUSTOMER, id:1397})
-   r.save()
+ //  var r = record.load({ type: record.Type.CUSTOMER, id:1397})
+ //  r.save()
 //   var existing = new Customer(r)
 
   // log.debug('existing', _.toPlainObject(existing))
@@ -75,7 +83,7 @@ export = {
       // for (p in x) {
       //    log.debug('prop', p)
       // }
-      doSomeRecordStuff()
+      doSomeRecordStuff(params.response)
    }
 
 }
