@@ -1,5 +1,6 @@
 /**
- * Created by stalbert on 4/25/16.
+ * Defines the nsdal handling for record body fields.
+ * 
  */
 
 ///<amd-dependency path='../lodash' name="_">
@@ -8,8 +9,6 @@
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
-
-
 
 var log = LogManager.getLogger('nsdal')
 

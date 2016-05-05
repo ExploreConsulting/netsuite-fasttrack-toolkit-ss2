@@ -10,7 +10,7 @@ import {FieldType} from './Record'
 /**
  * Customer Payment Record
  */
-export class CustomerPaymentBase extends TransactionBase {
+export class Base extends TransactionBase {
    
    static recordType = record.Type.CUSTOMER_PAYMENT
    
@@ -31,7 +31,7 @@ export class CustomerPaymentBase extends TransactionBase {
 }
 
 
-export class ApplyList  {
+export class ApplySublist extends SublistLine  {
     @FieldType.currency
     amount:number
    

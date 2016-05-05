@@ -11,7 +11,7 @@ import {Sublist} from "../N/record";
 /**
  * NetSuite Sales Order Record
  */
-export class SalesOrderBase extends TransactionBase {
+export class Base extends TransactionBase {
 
    static recordType = record.Type.SALES_ORDER
 }
@@ -19,7 +19,7 @@ export class SalesOrderBase extends TransactionBase {
 /**
  * Sublist 'item' on the Sales Order record
  */
-export class SalesOrderBaseLineItem extends SublistLine {
+export class ItemSublist extends SublistLine {
 
    @SublistFieldType.select
    item:number
@@ -49,7 +49,7 @@ export class SalesOrderBaseLineItem extends SublistLine {
    taxrate1:number
 }
 
-export class SalesOrderBaseSalesTeam extends SublistLine {
+export class SalesTeamSublist extends SublistLine {
 
    @SublistFieldType.select
    employee:number

@@ -7,7 +7,7 @@ import {FieldType} from './Record'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 
-export class CreditMemoBase extends TransactionBase {
+export class Base extends TransactionBase {
 
    static recordType = record.Type.CREDIT_MEMO
 
@@ -17,7 +17,7 @@ export class CreditMemoBase extends TransactionBase {
 }
 
 
-class CreditMemoItemSublist {
+class ItemSublist {
 
    @FieldType.date
    revrecstartdate:moment.Moment

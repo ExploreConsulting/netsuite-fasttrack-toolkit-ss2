@@ -6,7 +6,7 @@ import {FieldType, NetsuiteRecord} from './Record'
 import * as record from 'N/record'
 
 
-export class CustomerBase extends NetsuiteRecord {
+export class Base extends NetsuiteRecord {
    static recordType = record.Type.CUSTOMER
 
    @FieldType.freeformtext

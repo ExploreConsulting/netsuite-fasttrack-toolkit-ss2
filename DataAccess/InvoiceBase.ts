@@ -7,156 +7,158 @@ import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 import {FieldType} from "./Record"
 
-export namespace Invoice {
-   /**
-    * NetSuite Invoice Record
-    */
-   export class Base extends TransactionBase {
+/**
+ * NetSuite Invoice Record
+ */
+export class Base extends TransactionBase {
 
-      static recordType = record.Type.INVOICE
+   static recordType = record.Type.INVOICE
 
-      @FieldType.select
-      account:number
+   @FieldType.select
+   account:number
 
-      @FieldType.currency
-      amountpaid:number
+   @FieldType.currency
+   amountpaid:number
 
-      @FieldType.currency
-      amountremaining:number
+   @FieldType.currency
+   amountremaining:number
 
-      @FieldType.select
-      approvalstatus:number
+   @FieldType.select
+   approvalstatus:number
 
-      @FieldType.currency
-      balance:number
+   @FieldType.currency
+   balance:number
 
-      @FieldType.freeformtext
-      billaddr1:string
+   @FieldType.freeformtext
+   billaddr1:string
 
-      @FieldType.freeformtext
-      billaddr2:string
+   @FieldType.freeformtext
+   billaddr2:string
 
-      @FieldType.freeformtext
-      billaddr3:string
+   @FieldType.freeformtext
+   billaddr3:string
 
-      @FieldType.freeformtext
-      billphone:string
+   @FieldType.freeformtext
+   billphone:string
 
-      @FieldType.freeformtext
-      billstate:string
+   @FieldType.freeformtext
+   billstate:string
 
-      @FieldType.freeformtext
-      billzip:string
+   @FieldType.freeformtext
+   billzip:string
 
-      @FieldType.freeformtext
-      billaddress:string
+   @FieldType.freeformtext
+   billaddress:string
 
-      @FieldType.select
-      currency:number
+   @FieldType.select
+   currency:number
 
-      @FieldType.select
-      customform:number
-      
-      @FieldType.currency
-      discountamount:number
-      
-      @FieldType.date
-      discountdate:moment.Moment
-      
-      @FieldType.date
-      duedate:moment.Moment
-      
-      @FieldType.freeformtext
-      fob:string
-      
-      @FieldType.currency
-      giftcertapplied:number
-      
-      @FieldType.currency
-      handlingcost:number
-      
-      @FieldType.select
-      handlingtaxcode:number
-      
-      @FieldType.checkbox
-      istaxable:boolean
-      
-      @FieldType.select
-      leadsource:number
-      
-      @FieldType.freeformtext
-      linkedtrackingnumbers:string
-      
-      @FieldType.select
-      promocode:number
+   @FieldType.select
+   customform:number
 
-      @FieldType.checkbox
-      tobeemailed:boolean
-      
-      @FieldType.checkbox
-      tobeprinted:boolean
+   @FieldType.currency
+   discountamount:number
 
-      @FieldType.checkbox
-      tobefaxed:boolean
+   @FieldType.date
+   discountdate:moment.Moment
 
-      @FieldType.currency
-      total:number
+   @FieldType.date
+   duedate:moment.Moment
 
-      @FieldType.currency
-      subtotal:number
-      
-      @FieldType.select
-      taxitem:number
+   @FieldType.freeformtext
+   fob:string
 
-      @FieldType.freeformtext
-      trackingnumbers:string
-   }
+   @FieldType.currency
+   giftcertapplied:number
 
-   export class ItemSublist extends SublistLine {
+   @FieldType.currency
+   handlingcost:number
 
-      @SublistFieldType.freeformtext
-      account:string
+   @FieldType.select
+   handlingtaxcode:number
 
-      @SublistFieldType.decimalnumber
-      amount:number
+   @FieldType.checkbox
+   istaxable:boolean
 
-      @SublistFieldType.textarea
-      description:string
-      
-      @SublistFieldType.checkbox
-      istaxable:boolean
-      
-      @SublistFieldType.select
-      item:number
+   @FieldType.select
+   leadsource:number
 
-      @SublistFieldType.integernumber
-      linenumber:number
+   @FieldType.freeformtext
+   linkedtrackingnumbers:string
 
-      @SublistFieldType.select
-      price:number
-      
-      @SublistFieldType.decimalnumber
-      quantity:number
+   @FieldType.select
+   promocode:number
 
-      @SublistFieldType.decimalnumber
-      rate:number
+   @FieldType.checkbox
+   tobeemailed:boolean
 
-      @SublistFieldType.date
-      revrecstartdate:moment.Moment
+   @FieldType.checkbox
+   tobeprinted:boolean
 
-      @SublistFieldType.date
-      revrecenddate:moment.Moment
+   @FieldType.checkbox
+   tobefaxed:boolean
 
-      @SublistFieldType.select
-      taxcode:number
+   @FieldType.currency
+   total:number
 
-      @SublistFieldType.decimalnumber
-      taxrate1:number
-      
-      @SublistFieldType.select
-      units:number
-     
-   }
-   
-   
+   @FieldType.currency
+   subtotal:number
+
+   @FieldType.select
+   taxitem:number
+
+   @FieldType.freeformtext
+   trackingnumbers:string
 }
+
+/**
+ * The 'item' sublist on invoices
+ */
+export class ItemSublist extends SublistLine {
+
+   @SublistFieldType.freeformtext
+   account:string
+
+   @SublistFieldType.decimalnumber
+   amount:number
+
+   @SublistFieldType.textarea
+   description:string
+
+   @SublistFieldType.checkbox
+   istaxable:boolean
+
+   @SublistFieldType.select
+   item:number
+
+   @SublistFieldType.integernumber
+   linenumber:number
+
+   @SublistFieldType.select
+   price:number
+
+   @SublistFieldType.decimalnumber
+   quantity:number
+
+   @SublistFieldType.decimalnumber
+   rate:number
+
+   @SublistFieldType.date
+   revrecstartdate:moment.Moment
+
+   @SublistFieldType.date
+   revrecenddate:moment.Moment
+
+   @SublistFieldType.select
+   taxcode:number
+
+   @SublistFieldType.decimalnumber
+   taxrate1:number
+
+   @SublistFieldType.select
+   units:number
+
+}
+   
+   
+
