@@ -49,6 +49,9 @@ export class ItemSublist extends SublistLine {
    taxrate1:number
 }
 
+/**
+ * 'salesteam' sublist
+ */
 export class SalesTeamSublist extends SublistLine {
 
    @SublistFieldType.select

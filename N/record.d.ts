@@ -77,12 +77,18 @@ export interface Record {
    
    selectLine(options:{sublistId:string, line:number})
 
+
 }
 /**
  * loads a netsuite record
  * @param options
  */
 export function load(options:{ type:Type, id:number, isDynamic?:boolean, defaultValue?:Object}):Record
+
+/**
+ * creates a new nesuite record based on an existing record
+ */
+export function transform(options:{fromType:string, fromId:number, toType:string, isDynamic?:boolean, defaultValues?:any})
 
 /**
  * creates a new netsuite record

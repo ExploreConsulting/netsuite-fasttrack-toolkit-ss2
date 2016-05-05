@@ -20,7 +20,11 @@ export interface Column {
 }
 
 export interface ResultSet {
-   getRange(options:Object):Result[]
+   getRange(options:{
+      // Index number of the first result to return, inclusive.
+      start:number,
+      //Index number of the last result to return, exclusive.
+      end:number}):Result[]
    each(callback:() => void)
    columns:Column[]
 }
@@ -44,5 +48,5 @@ export function create(options:{ type:string, filters?:Object[], columns?:any[],
  * @param options.id internal id of the record to lookup fields on
  * @param options.columns column name(s) to lookup values for, supports dot(.) notation for joins e.g. foo.bar
  */
-export function lookupFields(options:{ type:string, id:string, columns:string | string[] }) : Object
+export function lookupFields(options:{ type:string, id:string, columns:string | string[] }):any
 
