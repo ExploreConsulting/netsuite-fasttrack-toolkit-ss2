@@ -10,17 +10,24 @@ This initial preview includes:
 * logging
 
 # Getting Started
+_These instructions are a work in progress. In the steps below replace the #.#.# with the actual version number you
+see after building the lib._
 
-    npm install
+1. Clone this repository
+2. run `gulp declarations`
+3. Copy (or symlink) the `/N` folder to your project root. This provides the TypeScript declarations
+for NetSuite built in modules.
+4. Symlink the `declarations/` folder to local name `NFT-SS2-#.#.#`. This provides the TypeScript declarations for
+our custom code.
 
-Once the tooling is there, deploy the library files to NetSuite, then use it:
 
-## Deploy
-Run `gulp` which should create a file `dist/NFT-SS2-x.y.z.zip`.
 
-Use the NetSuite file cabinet _advanced add_ to extract this file to your SuiteScripts folder.
-Upload it to an empty folder or uncheck the "overwrite files with the same name" options to make sure you don't
-overwrite something with the same name.
+## Deploy core library to NS
+* Run `gulp` which should create a file like  `dist/NFT-SS2-#.#.#.zip`.
+* Use the NetSuite file cabinet _advanced add_ to uplaod the `dist/NFT-SS2-#.#.#.zip` file to your SuiteScripts folder.
+Choose to 'extract' all files.
+
+Note: the `/N` folder is not deployed to NetSuite - it's only used by TypeScript at compile time.
 
 
 ## Use
@@ -75,9 +82,9 @@ Reference the NFT modules using relative path names. Here is a complete Suitelet
 ///<amd-dependency path="./lodash" name="_" />
 ///<amd-dependency path="./moment" name="moment" />
 
-import * as LogManager from './EC_Logger'
-import * as customer from "./DataAccess/CustomerBase"
-import * as nsdal from "./DataAccess/EC_nsdal"
+import * as LogManager from './NFT-SS2-0.1.0/EC_Logger'
+import * as customer from "./NFT-SS2-0.1.0/DataAccess/CustomerBase"
+import * as nsdal from "./NFT-SS2-0.1.0/DataAccess/EC_nsdal"
 
 var log = LogManager.DefaultLogger
 
@@ -103,8 +110,8 @@ export = {
       // turn on debug logging for just the nsdal logger
       nsdal.log.setLevel(LogManager.logLevel.debug)
 
-      // load customer internal id 10
-      var c = new Customer(10)
+      // load customer internal id 1542
+      var c = new Customer(1542)
 
       // strongly typed field access
       c.companyname = 'a new company name'

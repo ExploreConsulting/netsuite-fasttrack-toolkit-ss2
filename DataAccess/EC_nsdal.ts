@@ -6,7 +6,7 @@
  */
 
 
-import * as LogManager from '../EC_Logger'
+import {getLogger,Logger} from '../EC_Logger'
 
 export * from "./Sublist"
 export * from "./Record"
@@ -19,5 +19,5 @@ export * from "./Record"
 //export * from "./CustomerPaymentBase"
 //export * from "./SalesOrderBase"
 
-export var log = LogManager.getLogger('nsdal')
+export var log : Logger = getLogger('nsdal')
 

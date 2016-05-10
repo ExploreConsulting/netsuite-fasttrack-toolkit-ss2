@@ -2,7 +2,7 @@
  * Minimal type declarations for the NS SS2.0 map-reduce API
  */
 
-interface  MapContext {
+declare interface  MapContext {
     isRestarted:boolean
     key:string
     value:string
@@ -10,14 +10,14 @@ interface  MapContext {
 }
 
 
-interface  ReduceContext {
+declare interface  ReduceContext {
    isRestarted:boolean
    key:string
    values:string[]
    write(key:string, value:any)
 }
 
-interface GetInputContext {
+declare interface GetInputContext {
     isRestarted:boolean
 }
 

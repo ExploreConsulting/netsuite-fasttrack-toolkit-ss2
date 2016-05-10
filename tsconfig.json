@@ -5,28 +5,28 @@
     "noImplicitAny": false,
     "sourceMap": false,
     "newLine": "LF",
-    //"declaration": true,
+    "declaration": true,
     //"allowSyntheticDefaultImports": true
     //"emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
 //  "compileOnSave": false,
   "files": [
+    "N/log.d.ts",
+    "N/record.d.ts",
+    "N/format.d.ts",
+    "N/search.d.ts",
+    "N/http.d.ts",
     "EC_Logger.ts",
-    "DataAccess/EC_nsdal.ts",
-    "EC_shawn.ts",
-    "Example.ts",
+    "DataAccess/Record.ts",
+    "DataAccess/Sublist.ts",
     "DataAccess/CustomerBase.ts",
     "DataAccess/CreditMemoBase.ts",
     "DataAccess/CustomerPaymentBase.ts",
     "DataAccess/InvoiceBase.ts",
     "DataAccess/SalesOrderBase.ts",
     "DataAccess/Transaction.ts",
+    "DataAccess/EC_nsdal.ts",
     "typings/browser.d.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "typings/main.d.ts",
-    "typings/main"
   ]
 }

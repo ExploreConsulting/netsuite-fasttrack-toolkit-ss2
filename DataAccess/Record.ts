@@ -13,6 +13,13 @@ import * as LogManager from '../EC_Logger'
 var log = LogManager.getLogger('nsdal')
 
 export abstract class NetsuiteRecord {
+
+   /**
+    * Netsuite internal id of this record
+    * @type {number}
+    */
+   id:number = this.nsrecord.id
+
    /**
     * The netsuite record type (constant string) - this is declared here and overriden in derived classes
     */
@@ -79,7 +86,7 @@ export abstract class NetsuiteRecord {
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-function defaultDescriptor(target:any, propertyKey:string):any {
+export function defaultDescriptor(target:any, propertyKey:string):any {
    return {
       get: function () {
          return this.nsrecord.getValue({fieldId: propertyKey})
@@ -96,7 +103,7 @@ function defaultDescriptor(target:any, propertyKey:string):any {
 /**
  * Generic property descriptor with algorithm NS checkbox to native boolean.
  */
-function checkboxDescriptor(target:any, propertyKey:string):any {
+export function checkboxDescriptor(target:any, propertyKey:string):any {
    log.debug('creating property', `${propertyKey} as boolean`)
    return {
       get: function () {

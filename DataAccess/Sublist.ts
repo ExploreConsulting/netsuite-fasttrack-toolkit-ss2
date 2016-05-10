@@ -40,7 +40,7 @@ export namespace SublistFieldType {
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-function defaultSublistDescriptor(target:any, propertyKey:string):any {
+export function defaultSublistDescriptor(target:any, propertyKey:string):any {
    log.debug('creating default descriptor', `field: ${propertyKey}`)
    return {
       get: function () {
@@ -67,7 +67,7 @@ function defaultSublistDescriptor(target:any, propertyKey:string):any {
 /**
  * Generic sublist property descriptor with algorithm NS checkbox to native boolean.
  */
-function checkboxSublistDescriptor(target:any, propertyKey:string):any {
+export function checkboxSublistDescriptor(target:any, propertyKey:string):any {
    log.debug('creating property', `${propertyKey} as boolean`)
    return {
       get: function () {
@@ -97,7 +97,7 @@ function checkboxSublistDescriptor(target:any, propertyKey:string):any {
  * @returns  an object property descriptor to be used
  * with decorators
  */
-function dateTimeSublistDescriptor(formatType: format.Type, target:any, propertyKey:string) :any {
+export function dateTimeSublistDescriptor(formatType: format.Type, target:any, propertyKey:string) :any {
    return {
       get: function () {
          var value = this.nsrecord.getSublistValue({
