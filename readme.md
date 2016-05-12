@@ -10,6 +10,11 @@ This initial preview includes:
 * logging
 
 # Getting Started
+First, as usual run:
+
+    npm install
+
+
 _These instructions are a work in progress. In the steps below replace the #.#.# with the actual version number you
 see after building the lib._
 
@@ -24,7 +29,7 @@ our custom code.
 
 ## Deploy core library to NS
 * Run `gulp` which should create a file like  `dist/NFT-SS2-#.#.#.zip`.
-* Use the NetSuite file cabinet _advanced add_ to uplaod the `dist/NFT-SS2-#.#.#.zip` file to your SuiteScripts folder.
+* Use the NetSuite file cabinet _advanced add_ to upload the `dist/NFT-SS2-#.#.#.zip` file to your SuiteScripts folder.
 Choose to 'extract' all files.
 
 Note: the `/N` folder is not deployed to NetSuite - it's only used by TypeScript at compile time.
