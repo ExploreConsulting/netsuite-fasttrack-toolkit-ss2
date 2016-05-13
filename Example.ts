@@ -23,7 +23,7 @@ class Customer extends customer.Base {
    @nsdal.FieldType.multiselect
    custentity_multiselect:number[]
 
-   @nsdal.FieldType.datetime
+   @nsdal.FieldType.date
    custentity_shawn_date : moment.Moment
 }
 
@@ -43,10 +43,10 @@ export = {
       // strongly typed field access
      // c.companyname = 'a new company name'
       // c.custentity_multiselect = [1, 2]
-      // c.custentity_shawn_date = moment()
+      c.custentity_shawn_date = moment()
       log.debug('nsrecord', c.nsrecord)
       // persist our changes
-      c.save(false,true);
+      c.save();
 
       // just log a couple properties from our customer object
       log.debug('customer', _.pick(c,['isperson', 'companyname']))

@@ -30,7 +30,7 @@ var versionedDistPath = path.join(outdir, buildFolderName);
 
 // copies files into a staging location in prep for ZIP
 gulp.task('copyfiles', ['clean'], function () {
-   return gulp.src(sources, {base: '.'})
+   return merge(gulp.src(sources, {base: '.'}), gulp.src(includedNPMlibs))
       .pipe($.debug({title: 'copying core files:'}))
       .pipe(gulp.dest(versionedDistPath))// 
 })

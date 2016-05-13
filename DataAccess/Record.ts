@@ -18,7 +18,7 @@ export abstract class NetsuiteRecord {
     * Netsuite internal id of this record
     * @type {number}
     */
-   //id:number = this.nsrecord.id
+   get id() { return this.nsrecord.id }
 
    /**
     * The netsuite record type (constant string) - this is declared here and overriden in derived classes
@@ -139,11 +139,9 @@ function dateTimeDescriptor(formatType: format.Type, target:any, propertyKey:str
       set: function (value) {
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
-            var formatted = value ? format.format({
-               type: formatType, value: moment(value).format('MM/DD/YYYY')
-            }) : null
-            log.debug(`setting field [${propertyKey}]`, `to formatted value [${formatted}]`)
-            this.nsrecord.setValue({fieldId: propertyKey, value: formatted})
+            var asDate = value ? moment(value).toDate() : null
+            log.debug(`setting field [${propertyKey}:${formatType}]`, `to date [${asDate}]`)
+            this.nsrecord.setValue({fieldId: propertyKey, value: asDate})
          }
          else log.debug(`not setting ${propertyKey} field`, 'value was undefined')
       },

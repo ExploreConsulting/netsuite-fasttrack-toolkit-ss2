@@ -27,6 +27,7 @@
     "DataAccess/SalesOrderBase.ts",
     "DataAccess/Transaction.ts",
     "DataAccess/EC_nsdal.ts",
-    "typings/browser.d.ts"
+    "typings/browser.d.ts",
+    "Example.ts"
   ]
 }
