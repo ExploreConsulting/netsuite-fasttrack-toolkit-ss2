@@ -18,7 +18,8 @@ export abstract class NetsuiteRecord {
     * Netsuite internal id of this record
     * @type {number}
     */
-   get id() { return this.nsrecord.id }
+   private _id:number
+   get id() { return this._id }
 
    /**
     * The netsuite record type (constant string) - this is declared here and overriden in derived classes
@@ -49,10 +50,12 @@ export abstract class NetsuiteRecord {
     * @returns {number}
     */
    save(enableSourcing?:boolean, ignoreMandatoryFields?:boolean) {
-      return this.nsrecord.save({
+      var id =this.nsrecord.save({
          enableSourcing: enableSourcing,
          ignoreMandatoryFields: ignoreMandatoryFields
       })
+      this._id = id
+      return id
    }
 
    constructor(rec?: number | record.Record, isDynamic?:boolean, defaultValue?:Object) {
@@ -94,7 +97,7 @@ export function defaultDescriptor(target:any, propertyKey:string):any {
       set: function (value) {
          // ignore undefined's
          if (value !== undefined) this.nsrecord.setValue({fieldId: propertyKey, value: value})
-         else log.debug(`ignoring field [${propertyKey}]`, 'field value is undefined')
+         else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
       },
       enumerable: true //default is false
    };
@@ -103,22 +106,23 @@ export function defaultDescriptor(target:any, propertyKey:string):any {
 /**
  * Generic property descriptor with algorithm NS checkbox to native boolean.
  */
-export function checkboxDescriptor(target:any, propertyKey:string):any {
-   log.debug('creating property', `${propertyKey} as boolean`)
-   return {
-      get: function () {
-         return this.nsrecord.getValue({fieldId:propertyKey}) === 'T';
-      },
-      set: function (value) {
-         // allow null to flow through, but ignore undefined's
-         if (value !== undefined) this.nsrecord.setValue({
-            fieldId: propertyKey,
-            value: value === true ? 'T' : 'F'
-         })
-      },
-      enumerable: true // default is false - this lets you JSON.stringify() this prop
-   }
-}
+// TODO: confirm that this is NEVER needed for SS2.0? seems possibly inconsistent
+// export function checkboxDescriptor(target:any, propertyKey:string):any {
+//    log.debug('creating property', `${propertyKey} as boolean`)
+//    return {
+//       get: function () {
+//          return this.nsrecord.getValue({fieldId:propertyKey}) === 'T';
+//       },
+//       set: function (value) {
+//          // allow null to flow through, but ignore undefined's
+//          if (value !== undefined) this.nsrecord.setValue({
+//             fieldId: propertyKey,
+//             value: value === true ? 'T' : 'F'
+//          })
+//       },
+//       enumerable: true // default is false - this lets you JSON.stringify() this prop
+//    }
+// }
 /**
  * Generic property descriptor with algorithm for date handling. Surfaces dates as moment() instances
  * note: does not take into account timezone
@@ -143,7 +147,7 @@ function dateTimeDescriptor(formatType: format.Type, target:any, propertyKey:str
             log.debug(`setting field [${propertyKey}:${formatType}]`, `to date [${asDate}]`)
             this.nsrecord.setValue({fieldId: propertyKey, value: asDate})
          }
-         else log.debug(`not setting ${propertyKey} field`, 'value was undefined')
+         else log.info(`not setting ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
    };
@@ -154,7 +158,7 @@ function dateTimeDescriptor(formatType: format.Type, target:any, propertyKey:str
  */
 export namespace FieldType {
    export var address = defaultDescriptor
-   export var checkbox = checkboxDescriptor
+   export var checkbox = defaultDescriptor
    export var currency = defaultDescriptor
    export var date = _.partial(dateTimeDescriptor, format.Type.DATE)
    export var datetime = _.partial(dateTimeDescriptor, format.Type.DATETIME)

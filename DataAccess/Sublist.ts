@@ -20,7 +20,7 @@ export namespace SublistFieldType {
    export var freeformtext = defaultSublistDescriptor
    export var longtext = defaultSublistDescriptor
    export var textarea = defaultSublistDescriptor
-   export var checkbox = checkboxSublistDescriptor
+   export var checkbox = defaultSublistDescriptor
    export var multiselect = defaultSublistDescriptor
    export var select = defaultSublistDescriptor
    export var email = defaultSublistDescriptor
@@ -67,27 +67,28 @@ export function defaultSublistDescriptor(target:any, propertyKey:string):any {
 /**
  * Generic sublist property descriptor with algorithm NS checkbox to native boolean.
  */
-export function checkboxSublistDescriptor(target:any, propertyKey:string):any {
-   log.debug('creating property', `${propertyKey} as boolean`)
-   return {
-      get: function () {
-         return this.nsrecord.getSublistValue({
-               sublistId: this.sublistId,
-               line: this.line,
-               fieldId:propertyKey}) === 'T';
-      },
-      set: function (value) {
-         // allow null to flow through, but ignore undefined's
-         if (value !== undefined) this.nsrecord.setSublistValue({
-            sublistId: this.sublistId,
-            fieldId: propertyKey,
-            value: value === true ? 'T' : 'F',
-            line: this.line
-         })
-      },
-      enumerable: true // default is false - this lets you JSON.stringify() this prop
-   }
-}
+// TODO: confirm that sublists use true booleans in SS2.0
+// export function checkboxSublistDescriptor(target:any, propertyKey:string):any {
+//    log.debug('creating property', `${propertyKey} as boolean`)
+//    return {
+//       get: function () {
+//          return this.nsrecord.getSublistValue({
+//                sublistId: this.sublistId,
+//                line: this.line,
+//                fieldId:propertyKey}) === 'T';
+//       },
+//       set: function (value) {
+//          // allow null to flow through, but ignore undefined's
+//          if (value !== undefined) this.nsrecord.setSublistValue({
+//             sublistId: this.sublistId,
+//             fieldId: propertyKey,
+//             value: value === true ? 'T' : 'F',
+//             line: this.line
+//          })
+//       },
+//       enumerable: true // default is false - this lets you JSON.stringify() this prop
+//    }
+// }
 /**
  * Generic sublist property descriptor with algorithm for date handling. Surfaces dates as moment() instances
  * note: does not take into account timezone
