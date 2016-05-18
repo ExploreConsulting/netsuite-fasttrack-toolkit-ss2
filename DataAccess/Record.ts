@@ -18,7 +18,7 @@ export abstract class NetsuiteRecord {
     * Netsuite internal id of this record
     * @type {number}
     */
-   private _id:number
+   private _id:number // TODO:improve this - what about when a record is loaded?
    get id() { return this._id }
 
    /**
@@ -74,7 +74,7 @@ export abstract class NetsuiteRecord {
       }
       else if (!rec) {
          log.debug('creating new record', `type:${type}`)
-         this.makeRecordProp(record.create({type: type}))
+         this.makeRecordProp(record.create({type: type, isDynamic:isDynamic, defaultValue:defaultValue}))
       }
       else {
          log.debug('using existing record', `type:${rec.type}, id:${rec.id}`)
