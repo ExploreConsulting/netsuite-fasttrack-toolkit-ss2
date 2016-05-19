@@ -13,6 +13,7 @@ This initial preview includes:
 First, as usual run:
 
     npm install
+    typings install # if using typescript
 
 
 _These instructions are a work in progress. In the steps below replace the #.#.# with the actual version number you
@@ -142,6 +143,7 @@ NFT-SS2 is written in typescript, so you'll need the type definitions - run this
 
     typings install
 
+Note you need `typings` version 1.0.4+
 We need help defining records and fields for NetSuite - see any of the files under `DataAccess/` as a
 guide.
 
