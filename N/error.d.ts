@@ -3,13 +3,13 @@
  */
 
 
-export class SuiteScriptError {
+export declare class SuiteScriptError {
 
 }
 
-export class UserEventError {}
+export declare class UserEventError {}
 
 
-export function create(options:{ name:string, message:string, notifyOff?:boolean })
+export declare function create(options:{ name:string, message:string, notifyOff?:boolean })
 
 
