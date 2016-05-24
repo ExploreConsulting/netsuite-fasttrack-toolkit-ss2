@@ -3,7 +3,9 @@
  * @NApiVersion 2.x
  */
 
-import {Logger, addAppender, logLevel, getLogger, Appender} from "./aurelia-logging"
+///<amd-dependency path='./moment' name="moment">
+
+import {Logger, addAppender, logLevel, getLogger, Appender, LogLevel} from "./aurelia-logging"
 import * as nslog from "N/log"
 import * as aop from "./aop"
 
@@ -26,7 +28,7 @@ export var includeCorrelationId = false;
 
 
 // invokes the nsdal log function and handles adding a title tag 
-function log(func:string, logger:Logger, ...rest:any[]) {
+function log(loglevel:number, logger:Logger, ...rest:any[]) {
    var [title, details] = rest
    var prefix = ''
 
@@ -38,7 +40,7 @@ function log(func:string, logger:Logger, ...rest:any[]) {
       prefix += `[${logger.id}]`
    }
 
-   nslog[func](`${prefix} ${title}`, details)
+   nslog[toNetSuiteLogLevel(loglevel)](`${prefix} ${title}`, details)
 }
 
 /**
@@ -54,19 +56,19 @@ class ExecutionLogAppender implements Appender {
 
 
    debug(logger:Logger, ...rest:any[]) {
-      log('debug', logger, ...rest)
+      log(logLevel.debug, logger, ...rest)
    }
 
    info(logger:Logger, ...rest:any[]) {
-      log('audit', logger, ...rest)
+      log(logLevel.info, logger, ...rest)
    }
 
    warn(logger:Logger, ...rest:any[]) {
-      log('error', logger, ...rest)
+      log(logLevel.warn, logger, ...rest)
    }
 
    error(logger:Logger, ...rest:any[]) {
-      log('emergency', logger, ...rest)
+      log(logLevel.error, logger, ...rest)
    }
 }
 
@@ -75,24 +77,66 @@ class ExecutionLogAppender implements Appender {
 var defaultLogger = getLogger('default')
 defaultLogger.setLevel(logLevel.debug)
 
+// maps aurelia numeric levels to NS string level names
+function toNetSuiteLogLevel(level:number) {
+   switch (level) {
+      case logLevel.debug:
+         return 'debug'
+      case logLevel.info:
+           return 'audit'
+      case logLevel.warn:
+           return 'error'
+      case logLevel.error:
+           return 'emergency'
+      }
+}
+
 /**
  * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
  * Call this method at the end of your script. Log entries are 'DEBUG' level.
  *
+ * @param methodsToLogEntryExit array of pointcuts
  * @param {Object} config configuration settings
- * @param {{target,method}} [config.methodsToLogEntryExit] array of pointcuts, defaults to log all methods on the
- * "EC" object
  * @param {Boolean} [config.withArgs] true if you want to include logging the arguments passed to the method in the
  * details. Default is true.
  * @param {Boolean} [config.withReturnValue] true if you want function return values to be logged
  * @param {Boolean} [config.withProfiling] set true if you want elapsed time info printed for each function
- * @param {Boolean} [config.colors] set true if you want pretty colors in your log message output, default
  * false. Colors not configurable so that we maintain consistency across all our scripts.
- * @param {string} [config.logType] the NetSuite logging level to use, default to 'DEBUG'
+ * @param {number} [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
  * @returns {} an array of jquery aop advices
  */
-export function autoLogMethodEntryExit(config?:AutoLogConfig) {
+export function autoLogMethodEntryExit(methodsToLogEntryExit: {target:Object, method:string | RegExp},
+                                       config?:AutoLogConfig) {
 
+   if (!config) config = {}
+   // include method parameters by default
+   var withArgs = config.withArgs !== false
+   // include return values by default
+   var withReturnValue = config.withReturnValue !== false
+   // default to not show profiling info
+   var withProfiling = config.withProfiling === true
+   // logger on which to autolog, default to the top level 'Default' logger used by scripts
+   var logger = config.logger || DefaultLogger
+
+   return aop.around(methodsToLogEntryExit, function (invocation) {
+      // record function entry with details for every method on our explore object
+      
+      log(config.logLevel || logLevel.debug,logger,`Enter ${invocation.method}()`,
+         withArgs ? 'args: ' + JSON.stringify(arguments[0].arguments) : null)
+      var startTime = moment();
+      var retval    = invocation.proceed();
+      var elapsedMessage;
+      if (withProfiling) {
+         var elapsedMilliseconds = moment().diff(startTime);
+         elapsedMessage          = elapsedMilliseconds + "ms = " +
+            moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + " minutes";
+      }
+      // record function exit for every method on our explore object
+      log(config.logLevel || logLevel.debug, logger, [`Exit ${invocation.method}()`,elapsedMessage].join(' ').trim(),
+         withReturnValue ? "returned: " + JSON.stringify(retval) : null);
+
+      return retval;
+   });
 }
 
 
@@ -100,11 +144,10 @@ export function autoLogMethodEntryExit(config?:AutoLogConfig) {
  * Uses AOP to automatically log governance units usage to the NetSuite execution log. Execute this method at the
  * end of your script file and it will log governance data at the start and end of all functions specified.
  * @param [methodsToLogEntryExit] array of pointcuts, defaults to log all methods on the "EC" object
- * @param {string} [logLevel] NetSuite defined logging level to use for generated log entries. Default: 'DEBUG'
- * @param {boolean} [withColor] true if you want to show colors in log output. Default: false
+ * @param [logLevel] NetSuite defined logging level to use for generated log entries. Default: 'DEBUG'
  * @remark returns an array of jquery aop advices
  */
-export function autoLogGovernanceUsage(methodsToLogEntryExit?:any, logLevel?:string, withColor?:boolean) {
+export function autoLogGovernanceUsage(methodsToLogEntryExit?:any, logLevel?:number) {
 
 }
 
@@ -112,12 +155,11 @@ export function autoLogGovernanceUsage(methodsToLogEntryExit?:any, logLevel?:str
  * Configuration options for AutoLogMethodEntryExit
  */
 export interface AutoLogConfig {
-   methodsToLogEntryExit?: { target:Object, method:string|RegExp }
    withArgs?:boolean
    withReturnValue?:boolean
    withProfiling?:boolean
-   colors?:boolean
-   logType?:string
+   logger?:Logger
+   logLevel?: number
 }
 
 /**
