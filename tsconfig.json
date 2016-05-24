@@ -28,6 +28,7 @@
     "DataAccess/Transaction.ts",
     "DataAccess/EC_nsdal.ts",
     "typings/index.d.ts",
+    "aop.ts",
     "Example.ts"
   ]
 }
