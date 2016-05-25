@@ -134,6 +134,16 @@ export = {
 }
 
 ```
+### AutoLogging
+Automatically log entry and exit of methods with rich options by adding a line like this to the end of your script:
+
+```javascript
+LogManager.autoLogMethodEntryExit({target:EC,method:/\w/})
+```
+The above line will automatically log all methods defined on the _EC_ object
+
+
+
 
 Compile this with `tsc` or your favorite IDE (we use Webstorm.) then deploy the resulting
 .js file to your file cabinet alongside the unzipped NFT.
