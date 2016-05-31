@@ -16,6 +16,8 @@ First, as usual run:
     typings install # if using typescript
 
 
+There is a intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0)
+
 _These instructions are a work in progress. In the steps below replace the #.#.# with the actual version number you
 see after building the lib._
 
