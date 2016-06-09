@@ -17,7 +17,7 @@ var $       = require('gulp-load-plugins')();
 /**
  * All the sources files we need to zip up for deployment to NS
  */
-var sources = ['EC_Logger.js', 'DataAccess/*.js'];
+var sources = ['EC_Logger.js', 'DataAccess/*.js', 'aop.js'];
 
 var declarations = ['EC_Logger.d.ts', 'DataAccess/*.d.ts', 'aurelia-logging.d.ts'];
 
