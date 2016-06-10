@@ -19,7 +19,7 @@ var $       = require('gulp-load-plugins')();
  */
 var sources = ['EC_Logger.js', 'DataAccess/*.js', 'aop.js'];
 
-var declarations = ['EC_Logger.d.ts', 'DataAccess/*.d.ts', 'aurelia-logging.d.ts'];
+var declarations = ['*.d.ts', 'DataAccess/*.d.ts'];
 
 var includedNPMlibs = ['node_modules/lodash/lodash.js',
    'node_modules/moment/moment.js', 'node_modules/aurelia-logging/dist/amd/aurelia-logging.js'];
