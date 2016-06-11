@@ -2,7 +2,7 @@
  * Minimal type declarations for the N/record NetSuite module
  */
 
-interface createOptions {
+declare interface createOptions {
    type:Type,
    isDynamic?:boolean
    defaultValue?:Object
@@ -10,7 +10,7 @@ interface createOptions {
 
 
 
-export interface Record {
+export declare interface Record {
    type:string
    id:number
 
@@ -68,6 +68,7 @@ export interface Record {
      */
    getSublistValue(options:{sublistId:string, fieldId:string, line:number})
    setSublistValue(options:{sublistId:string, fieldId:string, line:number, value:any})
+   getSublistField(options:{sublistId:string, fieldId:string, line:number}) : Field
 
    getSublistText(options:Object)
 
@@ -83,20 +84,20 @@ export interface Record {
  * loads a netsuite record
  * @param options
  */
-export function load(options:{ type:Type, id:number, isDynamic?:boolean, defaultValue?:Object}):Record
+export declare function load(options:{ type:Type, id:number, isDynamic?:boolean, defaultValue?:Object}):Record
 
 /**
  * creates a new nesuite record based on an existing record
  */
-export function transform(options:{fromType:string, fromId:number, toType:string, isDynamic?:boolean, defaultValues?:any})
+export declare function transform(options:{fromType:string, fromId:number, toType:string, isDynamic?:boolean, defaultValues?:any})
 
 /**
  * creates a new netsuite record
  */
-export function create(options:createOptions) : Record
+export declare function create(options:createOptions) : Record
 
 
-export function submitFields(options)
+export declare function submitFields(options)
 
 /**
  * Record types declared by NetSuite. Behind the scenes I think these correspond to the string record names
@@ -113,7 +114,7 @@ export declare enum Type {
    PURCHASE_ORDER
 }
 
-export interface Sublist {
+export declare interface Sublist {
    getColumn(options:{ fieldId:string })
    /**
     * internal id of the sublist
@@ -131,4 +132,20 @@ export interface Sublist {
     * Returns the sublist type.
     */
    type:string
+}
+
+/**
+ * represents a data field on a netsuite record or sublist
+ */
+export declare interface Field {
+   getSelectOptions() :any[]
+   label:string
+   id:string
+   type:string
+   isMandatory:boolean
+   isDisabled:boolean
+   isPopup:boolean
+   isDisplay:boolean
+   isVisible:boolean
+   isreadOnly:boolean
 }
