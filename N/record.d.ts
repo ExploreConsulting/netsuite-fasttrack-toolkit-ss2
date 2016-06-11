@@ -109,7 +109,8 @@ export declare enum Type {
    CUSTOMER_PAYMENT,
    SALES_ORDER,
    INVOICE,
-   CASH_REFUND
+   CASH_REFUND,
+   PURCHASE_ORDER
 }
 
 export interface Sublist {
