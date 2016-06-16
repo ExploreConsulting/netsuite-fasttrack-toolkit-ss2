@@ -97,6 +97,17 @@ export declare function transform(options:{fromType:string, fromId:number, toTyp
 export declare function create(options:createOptions) : Record
 
 
+/**
+ * Returns a field object from a record
+ * @param options the field to access
+ */
+export declare function getField(options:{fieldId:string}) : Field
+
+/**
+ * Returns the body field names (internal ids) of all the fields in the record, including machine header field and matrix header fields.
+ */
+export declare function getFields() : string[]
+
 export declare function submitFields(options)
 
 /**
@@ -147,5 +158,5 @@ export declare interface Field {
    isPopup:boolean
    isDisplay:boolean
    isVisible:boolean
-   isreadOnly:boolean
+   isReadOnly:boolean
 }
