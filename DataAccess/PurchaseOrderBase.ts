@@ -5,13 +5,17 @@
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 import {SublistLine, SublistFieldType} from './Sublist'
-
+import {FieldType} from './Record'
 
 /**
  * NetSuite Purchase Order Record
  */
 export class Base extends TransactionBase {
    static recordType = record.Type.PURCHASE_ORDER
+
+   @FieldType.select
+   approvalstatus:number
+
 }
 
 /**

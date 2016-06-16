@@ -12,7 +12,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define(["require", "exports", 'N/record', "./Transaction", './Sublist'], function (require, exports, record, Transaction_1, Sublist_1) {
+define(["require", "exports", 'N/record', "./Transaction", './Sublist', './Record'], function (require, exports, record, Transaction_1, Sublist_1, Record_1) {
     "use strict";
     /**
      * NetSuite Purchase Order Record
@@ -23,6 +23,9 @@ define(["require", "exports", 'N/record', "./Transaction", './Sublist'], functio
             _super.apply(this, arguments);
         }
         Base.recordType = record.Type.PURCHASE_ORDER;
+        __decorate([
+            Record_1.FieldType.select
+        ], Base.prototype, "approvalstatus", void 0);
         return Base;
     }(Transaction_1.TransactionBase));
     exports.Base = Base;
