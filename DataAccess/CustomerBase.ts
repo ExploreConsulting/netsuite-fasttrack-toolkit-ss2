@@ -4,6 +4,7 @@
 
 import {FieldType, NetsuiteRecord} from './Record'
 import * as record from 'N/record'
+import {SublistLine, SublistFieldType} from './Sublist'
 
 
 export class Base extends NetsuiteRecord {
@@ -75,4 +76,48 @@ export class Base extends NetsuiteRecord {
 
    @FieldType.select
    terms:number
+}
+
+
+export class AddressSublist extends SublistLine {
+
+   @SublistFieldType.freeformtext
+   addr1:string
+
+   @SublistFieldType.freeformtext
+   addr2:string
+
+   @SublistFieldType.freeformtext
+   addr3:string
+
+   @SublistFieldType.freeformtext
+   addressee:string
+
+   @SublistFieldType.freeformtext
+   attention:string
+
+   @SublistFieldType.freeformtext
+   city:string
+
+   @SublistFieldType.select
+   country:number
+
+   @SublistFieldType.checkbox
+   defaultbilling:boolean
+
+   @SublistFieldType.checkbox
+   defaultshipping:boolean
+
+   @SublistFieldType.freeformtext
+   label:string
+
+   @SublistFieldType.freeformtext
+   phone:string
+
+   @SublistFieldType.freeformtext
+   state:string
+
+   @SublistFieldType.freeformtext
+   zip:string
+
 }
