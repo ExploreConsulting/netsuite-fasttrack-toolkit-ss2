@@ -6,7 +6,7 @@
 import {FieldType} from './Record'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
-import {SublistLine} from "./Sublist";
+import {SublistLine, SublistFieldType} from './Sublist'
 
 export class Base extends TransactionBase {
 
@@ -20,41 +20,41 @@ export class Base extends TransactionBase {
 
 export class ItemSublist extends SublistLine {
 
-   @FieldType.date
+   @SublistFieldType.date
    revrecstartdate:moment.Moment
    
-   @FieldType.date
+   @SublistFieldType.date
    revrecenddate:moment.Moment
    
-   @FieldType.select
+   @SublistFieldType.select
    item:number
 
-   @FieldType.currency
+   @SublistFieldType.currency
    amount:number
 
-   @FieldType.decimalnumber
+   @SublistFieldType.decimalnumber
    quantity:number
 
-   @FieldType.decimalnumber
+   @SublistFieldType.decimalnumber
    rate:number
 
-   @FieldType.select
+   @SublistFieldType.select
    taxcode:number
 
-   @FieldType.checkbox
+   @SublistFieldType.checkbox
    autoapply:boolean
 }
 
 export class ApplySublist extends SublistLine {
-   @FieldType.currency
+   @SublistFieldType.currency
    amount:number
 
-   @FieldType.checkbox
+   @SublistFieldType.checkbox
    apply:boolean
 
-   @FieldType.select
+   @SublistFieldType.select
    createdfrom:number
 
-   @FieldType.freeformtext
+   @SublistFieldType.freeformtext
    refnum:string
 }

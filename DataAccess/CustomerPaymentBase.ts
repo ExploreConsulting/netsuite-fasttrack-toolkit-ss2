@@ -32,12 +32,12 @@ export class Base extends TransactionBase {
 
 
 export class ApplySublist extends SublistLine {
-   @FieldType.currency
+   @SublistFieldType.currency
    amount:number
 
-   @FieldType.checkbox
+   @SublistFieldType.checkbox
    apply:boolean
 
-   @FieldType.freeformtext
+   @SublistFieldType.freeformtext
    refnum:string
 }
