@@ -116,12 +116,13 @@ export declare function submitFields(options)
  * the real values come from NS.
  */
 export declare enum Type {
+   CASH_REFUND,
    CREDIT_MEMO,
    CUSTOMER,
    CUSTOMER_PAYMENT,
-   SALES_ORDER,
    INVOICE,
-   CASH_REFUND,
+   SALES_ORDER,
+   JOURNAL_ENTRY,
    PURCHASE_ORDER
 }
 

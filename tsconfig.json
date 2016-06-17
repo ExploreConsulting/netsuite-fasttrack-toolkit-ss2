@@ -24,6 +24,7 @@
     "DataAccess/CreditMemoBase.ts",
     "DataAccess/CustomerPaymentBase.ts",
     "DataAccess/InvoiceBase.ts",
+    "DataAccess/JournalEntryBase.ts",
     "DataAccess/PurchaseOrderBase.ts",
     "DataAccess/SalesOrderBase.ts",
     "DataAccess/Transaction.ts",
