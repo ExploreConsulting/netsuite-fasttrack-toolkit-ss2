@@ -21,6 +21,25 @@ export declare interface Session {
  */
 export declare function getCurrentSession():Session
 
+/**
+ * Encapsulates the runtime settings of the currently executing script.
+ */
+export declare interface Script {
+   getParameter(options)
+   getRemainingUsage()
+   deploymentId:string
+   id:string
+   logLevel:string
+   percentComplete:number
+   bundleIds:number[]
+}
+
+/**
+ * Returns a runtime.Script that represents the currently executing script.
+ * Use this method to get properties and parameters of the currently executing script and script deployment.
+ */
+export declare function getCurrentScript():Script
+
 
 
 
