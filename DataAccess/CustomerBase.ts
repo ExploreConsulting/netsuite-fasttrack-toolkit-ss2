@@ -23,6 +23,9 @@ export class Base extends NetsuiteRecord {
    companyname:string
 
    @FieldType.select
+   currency:number
+
+   @FieldType.select
    customform:number
 
    @FieldType.datetime
