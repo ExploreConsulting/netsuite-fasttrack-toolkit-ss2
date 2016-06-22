@@ -88,7 +88,7 @@ export class Base extends NetsuiteRecord {
  * with Record.getSublistSubrecord() then pass the returned record to the Address constructor.
  * Currently this has only been tested for read access to aqddress properties defined below.
  */
-export class Address extends NetsuiteRecord {
+export class AddressBase extends NetsuiteRecord {
 
    @FieldType.freeformtext
    addr1:string
