@@ -9,7 +9,6 @@ declare interface createOptions {
 }
 
 
-
 export declare interface Record {
    type:string
    id:number
@@ -19,7 +18,15 @@ export declare interface Record {
    commitLine(o:any) : void
 
    findMatrixSublistLinewithValue(o:any) : void
-   findSublistLineWithValue(o:any)
+   /**
+    * Returns the line number for the first occurrence of a field value in a sublist.
+    * @param options
+     */
+   findSublistLineWithValue(options:{
+      sublistId:string
+      fieldId:string
+      value?:number | Date| string| [any] | boolean
+   })
    
    /**
     * gets a field value
@@ -67,15 +74,61 @@ export declare interface Record {
      * @param number
      */
    getSublistValue(options:{sublistId:string, fieldId:string, line:number})
+
+
+    /**
+     *
+     * @param options
+     */
    setSublistValue(options:{sublistId:string, fieldId:string, line:number, value:any})
+
+    /**
+     *
+     * @param options
+     */
    getSublistField(options:{sublistId:string, fieldId:string, line:number}) : Field
 
+   /**
+    * Gets the subrecord associated with a sublist field.
+    * @param options
+     */
+   getSublistSubrecord(options:{sublistId:string, fieldId:string, line:number})
+
+   /**
+    *
+    * @param options
+     */
    getSublistText(options:Object)
 
+   /**
+    * Returns all the names of all the sublists.
+    */
+   getSublists():string[]
+
+
+   /**
+    * Gets the subrecord for the associated field.
+    * @param {Object} options
+    * @param options.fieldId The internal ID of a standard or custom body field.
+     */
+   getSubrecord(options:{ fieldId:string })
+
+   /**
+    *
+    * @param options
+     */
    cancelLine(options:Object)
-   
+
+    /**
+     *
+     * @param options
+     */
    commitLine(options:Object)
-   
+
+    /**
+     *
+     * @param options
+     */
    selectLine(options:{sublistId:string, line:number})
 
 
