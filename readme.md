@@ -174,3 +174,8 @@ Define record types under the `DataAccess/` folder.
 
 
 
+
+#### Attributions #####
+* portions of the NetSuite typescript definitions (N/*.d.ts) were based on the
+[netsuite-types](https://www.npmjs.com/package/@hitc/netsuite-types) project
+and modified for use here.
