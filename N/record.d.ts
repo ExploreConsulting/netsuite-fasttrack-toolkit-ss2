@@ -173,10 +173,12 @@ export declare enum Type {
    CREDIT_MEMO,
    CUSTOMER,
    CUSTOMER_PAYMENT,
+   INTER_COMPANY_JOURNAL_ENTRY,
    INVOICE,
    SALES_ORDER,
    JOURNAL_ENTRY,
-   PURCHASE_ORDER
+   PURCHASE_ORDER,
+   SUBSIDIARY
 }
 
 export declare interface Sublist {
