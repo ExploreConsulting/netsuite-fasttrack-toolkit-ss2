@@ -19,6 +19,8 @@ export class Base extends NetsuiteRecord {
    @FieldType.select
    department:number
 
+   @FieldType.select
+   subsidiary:number
 }
 
 export class LineSublist extends SublistLine {
