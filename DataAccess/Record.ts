@@ -18,7 +18,7 @@ export abstract class NetsuiteRecord {
     * Netsuite internal id of this record
     * @type {number}
     */
-   private _id:number // TODO:improve this - what about when a record is loaded?
+   private _id:number
    get id() { return this._id }
 
    /**
@@ -79,7 +79,9 @@ export abstract class NetsuiteRecord {
       else {
          log.debug('using existing record', `type:${rec.type}, id:${rec.id}`)
          this.makeRecordProp(rec)
+         this._id = rec.id
       }
+
    }
 }
 
