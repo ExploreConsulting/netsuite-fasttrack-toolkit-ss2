@@ -177,7 +177,7 @@ interface HttpRequestFunction {
 export declare var get : HttpGetFunction
 export declare var post : HttpPostFunction
 export declare var put : HttpPutFunction
-export declare var delete : HttpDeleteFunction
+//export declare var 'delete' : HttpDeleteFunction
 
 
 
