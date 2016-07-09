@@ -71,6 +71,7 @@ export abstract class NetsuiteRecord {
             isDynamic: isDynamic || false,
             defaultValue: defaultValue
          }))
+         this._id = this.nsrecord.id
       }
       else if (!rec) {
          log.debug('creating new record', `type:${type}`)
@@ -154,6 +155,10 @@ function dateTimeDescriptor(formatType: format.Type, target:any, propertyKey:str
       enumerable: true //default is false
    };
 }
+
+
+
+
 /**
  Netsuite field types - decorate your model properties with these to tie netsuite field types to your
  model's field type.
