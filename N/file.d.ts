@@ -75,7 +75,7 @@ interface FileLoadOptions {
    /**
     * Internal ID of the file as a number or a string, OR  The relative file path to the file in the file cabinet.
     */
-   idOrPath:(number|string);
+   id:(number|string);
 }
 
 interface FileDeleteOptions {
