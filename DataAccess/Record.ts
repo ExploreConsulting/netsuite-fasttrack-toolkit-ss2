@@ -1,6 +1,6 @@
 /**
  * Defines the nsdal handling for record body fields.
- * 
+ *
  */
 
 ///<amd-dependency path='../lodash' name="_">
@@ -19,12 +19,14 @@ export abstract class NetsuiteRecord {
     * @type {number}
     */
    private _id:number
-   get id() { return this._id }
+   get id() {
+      return this._id
+   }
 
    /**
     * The netsuite record type (constant string) - this is declared here and overriden in derived classes
     */
-   public static recordType: record.Type | string
+   public static recordType:record.Type | string
 
    /**
     * The underlying netsuite 'record' object
@@ -50,7 +52,7 @@ export abstract class NetsuiteRecord {
     * @returns {number}
     */
    save(enableSourcing?:boolean, ignoreMandatoryFields?:boolean) {
-      var id =this.nsrecord.save({
+      var id   = this.nsrecord.save({
          enableSourcing: enableSourcing,
          ignoreMandatoryFields: ignoreMandatoryFields
       })
@@ -58,12 +60,12 @@ export abstract class NetsuiteRecord {
       return id
    }
 
-   constructor(rec?: number | record.Record, isDynamic?:boolean, defaultValue?:Object) {
+   constructor(rec?:number | record.Record, isDynamic?:boolean, defaultValue?:Object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
       var type = Object.getPrototypeOf(this).constructor.recordType
-      if (typeof rec === "number"){
+      if (typeof rec === "number") {
          log.debug('loading existing record', `type:${type}, id:${rec}`)
          this.makeRecordProp(record.load({
             type: type,
@@ -75,7 +77,7 @@ export abstract class NetsuiteRecord {
       }
       else if (!rec) {
          log.debug('creating new record', `type:${type}`)
-         this.makeRecordProp(record.create({type: type, isDynamic:isDynamic, defaultValue:defaultValue}))
+         this.makeRecordProp(record.create({type: type, isDynamic: isDynamic, defaultValue: defaultValue}))
       }
       else {
          log.debug('using existing record', `type:${rec.type}, id:${rec.id}`)
@@ -135,13 +137,13 @@ export function defaultDescriptor(target:any, propertyKey:string):any {
  * @returns  an object property descriptor to be used
  * with decorators
  */
-function dateTimeDescriptor(formatType: format.Type, target:any, propertyKey:string) :any {
+function dateTimeDescriptor(formatType:format.Type, target:any, propertyKey:string):any {
    return {
       get: function () {
-         var value = this.nsrecord.getValue({fieldId:propertyKey})
-         log.debug(`transforming field [${propertyKey}] of type [${formatType}]`,`with value ${value}`)
+         var value = this.nsrecord.getValue({fieldId: propertyKey})
+         log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
-         return value ? moment(format.parse({type:formatType, value:value})) : value
+         return value ? moment(format.parse({type: formatType, value: value})) : value
       },
       set: function (value) {
          // allow null to flow through, but ignore undefined's
@@ -156,28 +158,77 @@ function dateTimeDescriptor(formatType: format.Type, target:any, propertyKey:str
    };
 }
 
-
-
+/**
+ * Generic property descriptor with algorithm for values that need to go through the NS format module
+ * note: does not take into account timezone
+ * @param {string} formatType the NS field type (e.g. 'date')
+ * @param target
+ * @param propertyKey
+ * @returns  an object property descriptor to be used
+ * with decorators
+ */
+function formattedDescriptor(formatType:format.Type, target:any, propertyKey:string):any {
+   return {
+      get: function () {
+         var value = this.nsrecord.getValue({fieldId: propertyKey})
+         log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
+         // ensure we don't return moments for null, undefined, etc.
+         // returns the 'raw' type which is a string or number for our purposes
+         return value ? format.parse({type: formatType, value: value}) : value
+      },
+      set: function (value) {
+         var formattedValue = undefined
+         // allow null to flow through, but ignore undefined's
+         if (value !== undefined) {
+            switch (formatType) {
+               // ensure numeric typed fields get formatted to what netsuite needs
+               // in testing with 2016.1 fields like currency had to be a number formatted specifically (e.g. 1.00
+               // rather than 1 or 1.0 for them to be accepted without error
+               case format.Type.CURRENCY:
+               case format.Type.CURRENCY2:
+               case format.Type.FLOAT:
+               case format.Type.INTEGER:
+               case format.Type.NONNEGCURRENCY:
+               case format.Type.NONNEGFLOAT:
+               case format.Type.PERCENT:
+               case format.Type.POSCURRENCY:
+               case format.Type.POSFLOAT:
+               case format.Type.POSINTEGER:
+               case format.Type.RATE:
+               case format.Type.RATEHIGHPRECISION:
+                  formattedValue = Number(format.format({type: formatType, value: value}))
+                  break;
+               default:
+                  formattedValue = format.format({type: formatType, value: value})
+            }
+            log.debug(`setting field [${propertyKey}:${formatType}]`, `to formatted value [${formattedValue}]`)
+            if (value === null) this.nsrecord.setValue({fieldId: propertyKey, value: null})
+            else this.nsrecord.setValue({fieldId: propertyKey, value: formattedValue})
+         }
+         else log.info(`not setting ${propertyKey} field`, 'value was undefined')
+      },
+      enumerable: true //default is false
+   };
+}
 
 /**
  Netsuite field types - decorate your model properties with these to tie netsuite field types to your
  model's field type.
  */
 export namespace FieldType {
-   export var address = defaultDescriptor
-   export var checkbox = defaultDescriptor
-   export var currency = defaultDescriptor
-   export var date = _.partial(dateTimeDescriptor, format.Type.DATE)
-   export var datetime = _.partial(dateTimeDescriptor, format.Type.DATETIME)
-   export var decimalnumber = defaultDescriptor
-   export var email = defaultDescriptor
-   export var freeformtext = defaultDescriptor
-   export var float = defaultDescriptor
-   export var hyperlink = defaultDescriptor
-   export var image = defaultDescriptor
-   export var integernumber = defaultDescriptor
-   export var longtext = defaultDescriptor
-   export var multiselect = defaultDescriptor
-   export var select = defaultDescriptor
-   export var textarea = defaultDescriptor
+   export var address       = defaultDescriptor
+   export var checkbox      = defaultDescriptor
+   export var currency      = _.partial(formattedDescriptor, format.Type.CURRENCY)
+   export var date          = _.partial(dateTimeDescriptor, format.Type.DATE)
+   export var datetime      = _.partial(dateTimeDescriptor, format.Type.DATETIME)
+   export var email         = defaultDescriptor
+   export var freeformtext  = defaultDescriptor
+   export var float         = _.partial(formattedDescriptor, format.Type.FLOAT)
+   export var hyperlink     = defaultDescriptor
+   export var image         = defaultDescriptor
+   export var integernumber = _.partial(formattedDescriptor, format.Type.INTEGER)
+   export var longtext      = defaultDescriptor
+   export var multiselect   = defaultDescriptor
+   export var select        = defaultDescriptor
+   export var textarea      = defaultDescriptor
 }
