@@ -40,7 +40,17 @@ export declare interface Script {
  */
 export declare function getCurrentScript():Script
 
+export declare enum EnvType {
+   SANDBOX,
+   PRODUCTION,
+   BETA,
+   INTERNAL
+}
 
+/**
+ * Returns the current environment in which the script is executing.
+ */
+export declare var envType: EnvType
 
 
 
