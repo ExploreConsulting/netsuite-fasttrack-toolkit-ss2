@@ -41,6 +41,9 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.select
    taxcode:number
 
+   @SublistFieldType.decimalnumber
+   taxrate1:number
+
    @SublistFieldType.checkbox
    autoapply:boolean
 }
