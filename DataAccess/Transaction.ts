@@ -10,6 +10,9 @@ import {FieldType, NetsuiteRecord} from './Record'
 export abstract class TransactionBase extends NetsuiteRecord {
 
    @FieldType.select
+   customform:number
+
+   @FieldType.select
    department:number
 
    @FieldType.freeformtext

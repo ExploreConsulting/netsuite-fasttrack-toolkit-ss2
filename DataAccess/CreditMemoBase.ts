@@ -15,6 +15,22 @@ export class Base extends TransactionBase {
    @FieldType.select
    customer:number
 
+   @FieldType.currency
+   amountpaid:number
+
+   @FieldType.currency
+   amountremaining:number
+
+   @FieldType.currency
+   applied:number
+
+   @FieldType.checkbox
+   autoapply:boolean
+
+   @FieldType.currency
+   balance:number
+
+
 }
 
 
