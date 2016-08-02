@@ -7,6 +7,7 @@
 
 import {Logger, addAppender, logLevel, getLogger, Appender, LogLevel} from "./aurelia-logging"
 import * as nslog from "N/log"
+import * as runtime from "N/runtime"
 import * as aop from "./aop"
 
 
@@ -139,16 +140,29 @@ export function autoLogMethodEntryExit(methodsToLogEntryExit: {target:Object, me
    });
 }
 
+declare var EC;
 
 /**
  * Uses AOP to automatically log governance units usage to the NetSuite execution log. Execute this method at the
  * end of your script file and it will log governance data at the start and end of all functions specified.
  * @param [methodsToLogEntryExit] array of pointcuts, defaults to log all methods on the "EC" object
- * @param [logLevel] NetSuite defined logging level to use for generated log entries. Default: 'DEBUG'
+ * @param [level] NetSuite defined logging level to use for generated log entries. Default: 'DEBUG'
  * @remark returns an array of jquery aop advices
  */
-export function autoLogGovernanceUsage(methodsToLogEntryExit?:any, logLevel?:number) {
+export function autoLogGovernanceUsage(methodsToLogEntryExit?:any, level?:number) {
+   // default to logging all methods on the EC object
+   if (!methodsToLogEntryExit) methodsToLogEntryExit = {target: EC, method: /\w/};
+   level  = level || logLevel.debug;
 
+
+
+   return aop.around(methodsToLogEntryExit, (invocation) => {
+      var retval = invocation.proceed()
+
+      // log(level || logLevel.debug, DefaultLogger, [`Exit ${invocation.method}()`,elapsedMessage].join(' ').trim(),
+      //    withReturnValue ? "returned: " + JSON.stringify(retval) : null);
+      return retval
+   })
 }
 
 /**
