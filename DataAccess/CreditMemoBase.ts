@@ -30,7 +30,11 @@ export class Base extends TransactionBase {
    @FieldType.currency
    balance:number
 
+   @FieldType.currency
+   total:number
 
+   @FieldType.currency
+   subtotal:number
 }
 
 
