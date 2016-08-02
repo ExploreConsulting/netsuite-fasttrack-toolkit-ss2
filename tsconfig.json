@@ -21,6 +21,7 @@
     "DataAccess/Record.ts",
     "DataAccess/Sublist.ts",
     "DataAccess/CustomerBase.ts",
+    "DataAccess/CashRefundBase",
     "DataAccess/CreditMemoBase.ts",
     "DataAccess/CustomerPaymentBase.ts",
     "DataAccess/IntercompanyJournalEntryBase.ts",
