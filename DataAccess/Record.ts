@@ -229,6 +229,7 @@ export namespace FieldType {
    export var integernumber = _.partial(formattedDescriptor, format.Type.INTEGER)
    export var longtext      = defaultDescriptor
    export var multiselect   = defaultDescriptor
+   export var percent         = _.partial(formattedDescriptor, format.Type.PERCENT)
    export var select        = defaultDescriptor
    export var textarea      = defaultDescriptor
 }
