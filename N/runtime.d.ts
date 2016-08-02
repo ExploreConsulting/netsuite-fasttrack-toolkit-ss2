@@ -26,7 +26,7 @@ export declare function getCurrentSession():Session
  */
 export declare interface Script {
    getParameter(options)
-   getRemainingUsage()
+   getRemainingUsage():number
    deploymentId:string
    id:string
    logLevel:string

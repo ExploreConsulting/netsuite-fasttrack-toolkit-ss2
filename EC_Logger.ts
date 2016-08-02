@@ -92,6 +92,10 @@ function toNetSuiteLogLevel(level:number) {
       }
 }
 
+function getGovernanceMessage(governanceEnabled:boolean) {
+   return governanceEnabled ? `governance: ${runtime.getCurrentScript().getRemainingUsage()}` : undefined
+}
+
 /**
  * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
  * Call this method at the end of your script. Log entries are 'DEBUG' level.
@@ -102,6 +106,8 @@ function toNetSuiteLogLevel(level:number) {
  * details. Default is true.
  * @param {Boolean} [config.withReturnValue] true if you want function return values to be logged
  * @param {Boolean} [config.withProfiling] set true if you want elapsed time info printed for each function
+ * @param {Boolean} [config.withGovernance] set true if you want remaining governance units info printed for
+ * each function
  * false. Colors not configurable so that we maintain consistency across all our scripts.
  * @param {number} [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
  * @returns {} an array of jquery aop advices
@@ -116,53 +122,32 @@ export function autoLogMethodEntryExit(methodsToLogEntryExit: {target:Object, me
    var withReturnValue = config.withReturnValue !== false
    // default to not show profiling info
    var withProfiling = config.withProfiling === true
+   // default to not show governance info
+   var withGovernance = config.withGovernance === true
    // logger on which to autolog, default to the top level 'Default' logger used by scripts
    var logger = config.logger || DefaultLogger
 
    return aop.around(methodsToLogEntryExit, function (invocation) {
       // record function entry with details for every method on our explore object
-      
-      log(config.logLevel || logLevel.debug,logger,`Enter ${invocation.method}()`,
+      log(config.logLevel || logLevel.debug,logger,`Enter ${invocation.method}() ${getGovernanceMessage(withGovernance)}`,
          withArgs ? 'args: ' + JSON.stringify(arguments[0].arguments) : null)
-      var startTime = moment();
-      var retval    = invocation.proceed();
-      var elapsedMessage;
+      var startTime = moment()
+      var retval    = invocation.proceed()
+      var elapsedMessage
       if (withProfiling) {
          var elapsedMilliseconds = moment().diff(startTime);
          elapsedMessage          = elapsedMilliseconds + "ms = " +
             moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + " minutes";
       }
       // record function exit for every method on our explore object
-      log(config.logLevel || logLevel.debug, logger, [`Exit ${invocation.method}()`,elapsedMessage].join(' ').trim(),
+      log(config.logLevel || logLevel.debug, logger,
+         [  `Exit ${invocation.method}()`,
+            elapsedMessage,
+            getGovernanceMessage(withGovernance)].join(' ').trim(),
          withReturnValue ? "returned: " + JSON.stringify(retval) : null);
 
       return retval;
    });
-}
-
-declare var EC;
-
-/**
- * Uses AOP to automatically log governance units usage to the NetSuite execution log. Execute this method at the
- * end of your script file and it will log governance data at the start and end of all functions specified.
- * @param [methodsToLogEntryExit] array of pointcuts, defaults to log all methods on the "EC" object
- * @param [level] NetSuite defined logging level to use for generated log entries. Default: 'DEBUG'
- * @remark returns an array of jquery aop advices
- */
-export function autoLogGovernanceUsage(methodsToLogEntryExit?:any, level?:number) {
-   // default to logging all methods on the EC object
-   if (!methodsToLogEntryExit) methodsToLogEntryExit = {target: EC, method: /\w/};
-   level  = level || logLevel.debug;
-
-
-
-   return aop.around(methodsToLogEntryExit, (invocation) => {
-      var retval = invocation.proceed()
-
-      // log(level || logLevel.debug, DefaultLogger, [`Exit ${invocation.method}()`,elapsedMessage].join(' ').trim(),
-      //    withReturnValue ? "returned: " + JSON.stringify(retval) : null);
-      return retval
-   })
 }
 
 /**
@@ -172,6 +157,7 @@ export interface AutoLogConfig {
    withArgs?:boolean
    withReturnValue?:boolean
    withProfiling?:boolean
+   withGovernance?:boolean
    logger?:Logger
    logLevel?: number
 }
