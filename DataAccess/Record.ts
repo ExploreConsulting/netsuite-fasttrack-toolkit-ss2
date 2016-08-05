@@ -224,6 +224,7 @@ export namespace FieldType {
    export var email         = defaultDescriptor
    export var freeformtext  = defaultDescriptor
    export var float         = _.partial(formattedDescriptor, format.Type.FLOAT)
+   export var decimalnumber         = _.partial(formattedDescriptor, format.Type.FLOAT)
    export var hyperlink     = defaultDescriptor
    export var image         = defaultDescriptor
    export var integernumber = _.partial(formattedDescriptor, format.Type.INTEGER)

@@ -17,20 +17,22 @@ import * as LogManager from '../EC_Logger'
 var log = LogManager.getLogger('nsdal')
 
 export namespace SublistFieldType {
-   export var freeformtext = defaultSublistDescriptor
-   export var longtext = defaultSublistDescriptor
-   export var textarea = defaultSublistDescriptor
    export var checkbox = defaultSublistDescriptor
-   export var multiselect = defaultSublistDescriptor
-   export var select = defaultSublistDescriptor
-   export var email = defaultSublistDescriptor
-   export var datetime = _.partial(dateTimeSublistDescriptor, format.Type.DATETIME)
+   export var currency      = _.partial(formattedSublistDescriptor, format.Type.CURRENCY)
    export var date = _.partial(dateTimeSublistDescriptor, format.Type.DATE)
-   export var integernumber = defaultSublistDescriptor
-   export var decimalnumber = defaultSublistDescriptor
-   export var currency = defaultSublistDescriptor
+   export var datetime = _.partial(dateTimeSublistDescriptor, format.Type.DATETIME)
+   export var email = defaultSublistDescriptor
+   export var freeformtext = defaultSublistDescriptor
+   export var decimalnumber         = _.partial(formattedSublistDescriptor, format.Type.FLOAT)
+   export var float         = _.partial(formattedSublistDescriptor, format.Type.FLOAT)
    export var hyperlink = defaultSublistDescriptor
    export var image = defaultSublistDescriptor
+   export var integernumber = _.partial(formattedSublistDescriptor, format.Type.INTEGER)
+   export var longtext = defaultSublistDescriptor
+   export var multiselect = defaultSublistDescriptor
+   export var percent         = _.partial(formattedSublistDescriptor, format.Type.PERCENT)
+   export var select = defaultSublistDescriptor
+   export var textarea = defaultSublistDescriptor
 }
 
 
@@ -95,13 +97,76 @@ export function dateTimeSublistDescriptor(formatType: format.Type, target:any, p
                fieldId: propertyKey,
                value: value ? format.format({type: formatType, value: moment(value).toDate()}) : null
             })
-         else log.debug(`not setting ${propertyKey} field`, 'value was undefined')
+         else log.debug(`not setting sublist ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
    };
 }
 
-
+/**
+ * Generic property descriptor with algorithm for values that need to go through the NS format module
+ * note: does not take into account timezone
+ * @param {string} formatType the NS field type (e.g. 'date')
+ * @param target
+ * @param propertyKey
+ * @returns  an object property descriptor to be used
+ * with decorators
+ */
+export function formattedSublistDescriptor(formatType:format.Type, target:any, propertyKey:string):any {
+   return {
+      get: function () {
+         log.debug(`getting formatted field [${propertyKey}]`)
+         var value = this.nsrecord.getSublistValue({
+            sublistId: this.sublistId,
+            line: this.line,
+            fieldId: propertyKey})
+         log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
+         // ensure we don't return moments for null, undefined, etc.
+         // returns the 'raw' type which is a string or number for our purposes
+         return value ? format.parse({type: formatType, value: value}) : value
+      },
+      set: function (value) {
+         var formattedValue = undefined
+         // allow null to flow through, but ignore undefined's
+         if (value !== undefined) {
+            switch (formatType) {
+               // ensure numeric typed fields get formatted to what netsuite needs
+               // in testing with 2016.1 fields like currency had to be a number formatted specifically (e.g. 1.00
+               // rather than 1 or 1.0 for them to be accepted without error
+               case format.Type.CURRENCY:
+               case format.Type.CURRENCY2:
+               case format.Type.FLOAT:
+               case format.Type.INTEGER:
+               case format.Type.NONNEGCURRENCY:
+               case format.Type.NONNEGFLOAT:
+               case format.Type.POSCURRENCY:
+               case format.Type.POSFLOAT:
+               case format.Type.POSINTEGER:
+               case format.Type.RATE:
+               case format.Type.RATEHIGHPRECISION:
+                  formattedValue = Number(format.format({type: formatType, value: value}))
+                  break;
+               default:
+                  formattedValue = format.format({type: formatType, value: value})
+            }
+            log.debug(`setting sublist field [${propertyKey}:${formatType}]`,
+               `to formatted value [${formattedValue}] (unformatted vale: ${value})`)
+            if (value === null) this.nsrecord.setSublistValue({
+               sublistId: this.sublistId,
+               line:this.line,
+               fieldId: propertyKey,
+               value: null})
+            else this.nsrecord.setSublistValue({
+               sublistId: this.sublistId,
+               line:this.line,
+               fieldId: propertyKey,
+               value: formattedValue})
+         }
+         else log.info(`not setting sublist ${propertyKey} field`, 'value was undefined')
+      },
+      enumerable: true //default is false
+   };
+}
 
 /**
  * creates a sublist whose lines are of type T

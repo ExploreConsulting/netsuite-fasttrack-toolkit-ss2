@@ -119,7 +119,7 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.freeformtext
    account:string
 
-   @SublistFieldType.decimalnumber
+   @SublistFieldType.currency
    amount:number
 
    @SublistFieldType.textarea
@@ -137,10 +137,10 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.select
    price:number
 
-   @SublistFieldType.decimalnumber
+   @SublistFieldType.float
    quantity:number
 
-   @SublistFieldType.decimalnumber
+   @SublistFieldType.float
    rate:number
 
    @SublistFieldType.date
@@ -152,7 +152,7 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.select
    taxcode:number
 
-   @SublistFieldType.decimalnumber
+   @SublistFieldType.percent
    taxrate1:number
 
    @SublistFieldType.select
