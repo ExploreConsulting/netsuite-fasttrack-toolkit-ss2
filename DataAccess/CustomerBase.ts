@@ -58,9 +58,11 @@ export class Base extends NetsuiteRecord {
    @FieldType.datetime
    lastmodifieddate:moment.Moment
 
+   @FieldType.select
+   language:number
+
    @FieldType.freeformtext
    lastname:string
-
 
    @FieldType.select
    parent:number
@@ -76,6 +78,9 @@ export class Base extends NetsuiteRecord {
 
    @FieldType.checkbox
    taxable:boolean
+
+   @FieldType.select
+   taxitem:number
 
    @FieldType.select
    terms:number
