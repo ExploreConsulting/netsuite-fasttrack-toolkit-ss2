@@ -7,7 +7,7 @@
 /**
  * Netsuite Field Types for format
  */
-export enum Type {
+export declare enum Type {
    DATE,
    TIME,
    TIMETRACK,
@@ -39,7 +39,7 @@ export enum Type {
    COLOR
 }
 
-declare enum Timezone {
+export declare enum Timezone {
    ETC_GMT_PLUS12,
    PACIFIC_SAMOA,
    PACIFIC_HONOLULU,
@@ -130,7 +130,7 @@ declare enum Timezone {
 }
 
 
-export interface FormatOptions {
+export declare interface FormatOptions {
    /**
     * The input data to format
     */
@@ -152,7 +152,7 @@ export interface FormatOptions {
 
 export function format(options:FormatOptions)
 
-interface ParseOptions {
+export declare interface ParseOptions {
    /**
     * The input data to parse
     */

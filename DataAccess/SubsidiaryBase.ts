@@ -1,5 +1,5 @@
 /**
- * NS Base customer record - contains definitions for most of the built in fields
+ * NS Base subsidiary record - contains definitions built in fields
  */
 
 import {FieldType, NetsuiteRecord} from './Record'
@@ -8,37 +8,24 @@ import {SublistLine, SublistFieldType} from './Sublist'
 
 
 export class Base extends NetsuiteRecord {
-   static recordType = record.Type.CUSTOMER
+   static recordType = record.Type.SUBSIDIARY
 
    @FieldType.freeformtext
-   accountnumber:string
-
-   @FieldType.select
-   category:number
-
-   @FieldType.textarea
-   comments:string
-
+   addr1:string
+   
    @FieldType.freeformtext
-   companyname:string
-
+   addr2:string
+   
+   @FieldType.freeformtext
+   addr3:string
+   
+   @FieldType.freeformtext
+   
    @FieldType.select
    currency:number
 
-   @FieldType.select
-   customform:number
-
-   @FieldType.datetime
-   datecreated:moment.Moment
-
    @FieldType.email
    email:string
-
-   @FieldType.freeformtext
-   entityid:string
-
-   @FieldType.select
-   entitystatus:number
 
    @FieldType.freeformtext
    externalid:string
@@ -46,44 +33,26 @@ export class Base extends NetsuiteRecord {
    @FieldType.freeformtext
    fax:string
 
-   @FieldType.freeformtext
-   firstname:string
+   @FieldType.checkbox
+   iselimination:boolean
 
    @FieldType.checkbox
    isinactive:boolean
 
-   @FieldType.checkbox
-   isperson:boolean
-
-   @FieldType.datetime
-   lastmodifieddate:moment.Moment
+   @FieldType.freeformtext
+   legalname:string
 
    @FieldType.select
-   language:number
+   logo:number
 
    @FieldType.freeformtext
-   lastname:string
-
+   name:string
+   
+   @FieldType.checkbox
+   override:boolean
+   
    @FieldType.select
    parent:number
-
-   @FieldType.freeformtext
-   phone:string
-
-   @FieldType.select
-   salesrep:number
-
-   @FieldType.select
-   subsidiary:number
-
-   @FieldType.checkbox
-   taxable:boolean
-
-   @FieldType.select
-   taxitem:number
-
-   @FieldType.select
-   terms:number
 }
 
 /**
@@ -135,29 +104,10 @@ export class AddressBase extends NetsuiteRecord {
    override:boolean
 }
 
-export class ContactsSublist extends SublistLine {
+export class AccountBookDetail extends SublistLine {
+   @SublistFieldType.select
+   accountingbook:number
 
    @SublistFieldType.select
-   contact:number
-
-   @SublistFieldType.email
-   email:string
-
-   @SublistFieldType.checkbox
-   giveaccess:boolean
-
-   @SublistFieldType.checkbox
-   passwordconfirm:boolean
-
-   @SublistFieldType.select
-   role:number
-
-   @SublistFieldType.checkbox
-   sendemail:boolean
-
-    /**
-     * Password strength
-     */
-   @SublistFieldType.freeformtext
-   strength:string
+   currency:number
 }

@@ -2,41 +2,42 @@
  * NetSuite generic Transaction record
  */
 
-import {FieldType} from './EC_nsdal'
+import {SublistLine, SublistFieldType} from './Sublist'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
+import {FieldType} from './Record'
 
 /**
  * Customer Payment Record
  */
-export class CustomerPaymentBase extends TransactionBase {
-   
+export class Base extends TransactionBase {
+
    static recordType = record.Type.CUSTOMER_PAYMENT
-   
+
    @FieldType.select
    customer:number
-   
+
    @FieldType.freeformtext
    checknum:string
-   
+
    @FieldType.currency
    payment:number
-   
+
    @FieldType.select
    paymentmethod:number
-   
-   @FieldType.checkbox   
+
+   @FieldType.checkbox
    autoapply:boolean
 }
 
 
-export class ApplyList  {
-    @FieldType.currency
-    amount:number
-   
-   @FieldType.checkbox
+export class ApplySublist extends SublistLine {
+   @SublistFieldType.currency
+   amount:number
+
+   @SublistFieldType.checkbox
    apply:boolean
-   
-   @FieldType.freeformtext
+
+   @SublistFieldType.freeformtext
    refnum:string
 }

@@ -2,38 +2,82 @@
  * Created by shawn on 4/15/16.
  */
 
-import {FieldType, NetsuiteRecord} from './EC_nsdal'
+
+import {FieldType} from './Record'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
+import {SublistLine, SublistFieldType} from './Sublist'
 
-export class CreditMemoBase extends TransactionBase {
+export class Base extends TransactionBase {
 
    static recordType = record.Type.CREDIT_MEMO
 
    @FieldType.select
    customer:number
 
+   @FieldType.currency
+   amountpaid:number
+
+   @FieldType.currency
+   amountremaining:number
+
+   @FieldType.currency
+   applied:number
+
+   @FieldType.checkbox
+   autoapply:boolean
+
+   @FieldType.currency
+   balance:number
+
+   @FieldType.currency
+   total:number
+
+   @FieldType.currency
+   subtotal:number
 }
 
 
-class CreditMemoItemSublist {
+export class ItemSublist extends SublistLine {
 
-   @FieldType.date
+   @SublistFieldType.date
    revrecstartdate:moment.Moment
-   @FieldType.date
+   
+   @SublistFieldType.date
    revrecenddate:moment.Moment
-   @FieldType.select
+   
+   @SublistFieldType.select
    item:number
 
-   @FieldType.currency
+   @SublistFieldType.currency
    amount:number
 
-   @FieldType.decimalnumber
+   @SublistFieldType.decimalnumber
    quantity:number
 
-   @FieldType.decimalnumber
+   @SublistFieldType.decimalnumber
    rate:number
 
-   @FieldType.select
+   @SublistFieldType.select
    taxcode:number
+
+   @SublistFieldType.decimalnumber
+   taxrate1:number
+
+   @SublistFieldType.checkbox
+   autoapply:boolean
+}
+
+export class ApplySublist extends SublistLine {
+   @SublistFieldType.currency
+   amount:number
+
+   @SublistFieldType.checkbox
+   apply:boolean
+
+   @SublistFieldType.select
+   createdfrom:number
+
+   @SublistFieldType.freeformtext
+   refnum:string
 }
