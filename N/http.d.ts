@@ -26,4 +26,23 @@
         writeFile(options:Object)
     }
 
+// declare var _http {
+//   
+//   
+// }
+//
+//    export interface get {
+//       (options:Object):ClientResponse
+//       promise(options:Object):Promise<ClientResponse>
+//    }
+//    export interface post {
+//       (options:Object):ClientResponse
+//       promise(options:Object):Promise<ClientResponse>
+//    }
+//    export interface put {
+//       (options:Object):ClientResponse
+//       promise(options:Object):Promise<ClientResponse>
+//    }
+//
+
 
