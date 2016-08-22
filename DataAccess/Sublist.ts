@@ -18,13 +18,13 @@ var log = LogManager.getLogger('nsdal')
 
 export namespace SublistFieldType {
    export var checkbox = defaultSublistDescriptor
-   export var currency      = _.partial(formattedSublistDescriptor, format.Type.CURRENCY)
+   export var currency      = defaultSublistDescriptor//_.partial(formattedSublistDescriptor, format.Type.CURRENCY)
    export var date = _.partial(dateTimeSublistDescriptor, format.Type.DATE)
    export var datetime = _.partial(dateTimeSublistDescriptor, format.Type.DATETIME)
    export var email = defaultSublistDescriptor
    export var freeformtext = defaultSublistDescriptor
    export var decimalnumber         = _.partial(formattedSublistDescriptor, format.Type.FLOAT)
-   export var float         = _.partial(formattedSublistDescriptor, format.Type.FLOAT)
+   export var float         = defaultSublistDescriptor //_.partial(formattedSublistDescriptor, format.Type.FLOAT)
    export var hyperlink = defaultSublistDescriptor
    export var image = defaultSublistDescriptor
    export var integernumber = _.partial(formattedSublistDescriptor, format.Type.INTEGER)
