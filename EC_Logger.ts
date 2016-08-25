@@ -20,12 +20,19 @@ export {getLogger, Logger, logLevel} from './aurelia-logging'
 export var correlationId = Math.floor(Math.random() * 10000).toString();
 
 /**
- * set true to include a random integer (or your custom) prefix to each auto log entry title.
+ * if true then log message include a random integer (or your custom) prefix to each log entry title.
  * which is fixed for the duration of this script run. This can be used to correlate between different runs
  * of the same script (e.g. multiple runs of a scheduled script or discerning between multiple simultaneous calls
  * to a RESTlet or Suitelet)
  */
+
 export var includeCorrelationId = false;
+
+/**
+ * Controls whether the correlation id prefixes should be included in log messages or not.
+ * @param enable if true, adds correlationid to the log messages, otherwise no correlation id prefix is added
+ */
+export var setIncludeCorrelationId = (enable:boolean) => includeCorrelationId = enable
 
 
 // invokes the nsdal log function and handles adding a title tag 
@@ -166,6 +173,12 @@ export interface AutoLogConfig {
  * The default logger - this should be the main logger used in scripts
  */
 export var DefaultLogger : Logger = defaultLogger
+
+/**
+ * Use to set the correlation id to a value other than the default random number
+ * @param value new correlation id, will be used on all subsequent logging
+ */
+export var setCorrelationId = (value:string) => correlationId = value
 
 addAppender(new ExecutionLogAppender())
 
