@@ -90,13 +90,18 @@ export function dateTimeSublistDescriptor(formatType: format.Type, target:any, p
       },
       set: function (value) {
          // allow null to flow through, but ignore undefined's
-         if (value !== undefined)
+         if (value !== undefined) {
+            var asDate;
+            // the value needs to either be a moment already, or a moment compatible string else null
+            if (moment.isMoment(value)) asDate = value.toDate()
+            else asDate = value ? moment(value).toDate() : null
             this.nsrecord.setSublistValue({
                sublistId: this.sublistId,
-               line:this.line,
+               line: this.line,
                fieldId: propertyKey,
-               value: value ? format.format({type: formatType, value: moment(value).toDate()}) : null
+               value: asDate
             })
+         }
          else log.debug(`not setting sublist ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
@@ -187,7 +192,6 @@ export class Sublist<T extends SublistLine> {
    /**
     * adds a new line to this sublist
     * @param ignoreRecalc
-    * @returns {T}
     */
    addLine(ignoreRecalc = true):T {
       log.debug('inserting line', `sublist: ${this.sublistId} insert at line:${this.length}`)

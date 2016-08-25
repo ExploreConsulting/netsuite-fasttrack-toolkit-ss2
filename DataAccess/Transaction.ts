@@ -52,7 +52,7 @@ export abstract class TransactionBase extends NetsuiteRecord {
    tranid:string
 
    @FieldType.date
-   trandate:moment.Moment
+   trandate:moment.Moment | string
 
 }
 

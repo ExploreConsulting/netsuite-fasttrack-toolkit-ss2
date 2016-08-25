@@ -148,7 +148,10 @@ function dateTimeDescriptor(formatType:format.Type, target:any, propertyKey:stri
       set: function (value) {
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
-            var asDate = value ? moment(value).toDate() : null
+            var asDate;
+            // the value needs to either be a moment already, or a moment compatible string else null
+            if ( moment.isMoment(value) ) asDate = value.toDate()
+            else asDate = value ? moment(value).toDate() : null
             log.debug(`setting field [${propertyKey}:${formatType}]`, `to date [${asDate}]`)
             this.nsrecord.setValue({fieldId: propertyKey, value: asDate})
          }
