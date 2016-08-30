@@ -17,7 +17,7 @@ var $       = require('gulp-load-plugins')();
 /**
  * All the sources files we need to zip up for deployment to NS
  */
-var sources = ['EC_Logger.js', 'DataAccess/*.js', 'aop.js'];
+var sources = ['EC_Logger.js', 'config.js', 'DataAccess/*.js', 'aop.js'];
 
 var declarations = ['*.d.ts', 'DataAccess/*.d.ts'];
 
@@ -32,7 +32,7 @@ var versionedDistPath = path.join(outdir, buildFolderName);
 gulp.task('copyfiles', ['clean'], function () {
    return merge(gulp.src(sources, {base: '.'}), gulp.src(includedNPMlibs))
       .pipe($.debug({title: 'copying core files:'}))
-      .pipe(gulp.dest(versionedDistPath))// 
+      .pipe(gulp.dest(versionedDistPath))
 })
 
 // copies typescript declaration files into a staging location in prep for ZIP

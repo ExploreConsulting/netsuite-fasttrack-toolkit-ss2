@@ -8,16 +8,14 @@
 
 import {getLogger,Logger} from '../EC_Logger'
 
+// these are exported for convenience, so an end user can `import * as nsdal from EC_nsdal` and have all the fieldtypes
+// decorators for both body fields and sublist fields on _nsdal_
 export * from "./Sublist"
 export * from "./Record"
 
-// export all the record types
-//export * from "./Transaction"
-//export * from "./CreditMemoBase"
-//export * from "./InvoiceBase"
-//export * from "./CustomerBase"
-//export * from "./CustomerPaymentBase"
-//export * from "./SalesOrderBase"
-
+/**
+ * the nsdal specific logger.
+ * @type {Logger}
+ */
 export var log : Logger = getLogger('nsdal')
 

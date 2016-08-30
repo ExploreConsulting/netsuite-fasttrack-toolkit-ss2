@@ -7,6 +7,7 @@ import {FieldType} from './Record'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 import {SublistLine, SublistFieldType} from './Sublist'
+import * as moment from "moment"
 
 export class Base extends TransactionBase {
 

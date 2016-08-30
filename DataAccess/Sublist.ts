@@ -12,7 +12,7 @@
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
-
+import * as moment from "moment"
 
 var log = LogManager.getLogger('nsdal')
 

@@ -3,7 +3,7 @@
  */
 
 import * as record from 'N/record'
-import {Base as JournalEntry} from "../declarations/DataAccess/JournalEntryBase";
+import {Base as JournalEntry} from "./JournalEntryBase";
 import {SublistLine,SublistFieldType} from "./Sublist";
 
 /**

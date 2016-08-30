@@ -3,37 +3,26 @@
     "module": "amd",
     "target": "es5",
     "noImplicitAny": false,
+    "moduleResolution":"node",
     "sourceMap": false,
     "newLine": "LF",
     "declaration": true,
     //"allowSyntheticDefaultImports": true
     //"emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "types": ["requirejs"],
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "lib":["es5","es2015.promise"],
+    "paths": {
+      "NFT/moment": ["node_modules/moment/moment.d.ts"],
+      "N/*": [
+        "node_modules/@hitc/netsuite-types/N/*"
+      ],
+      "NFT/*": [
+        "./*"
+      ]
+    }
+    //"rootDirs": ["./"]
   },
-//  "compileOnSave": false,
-  "files": [
-    "N/log.d.ts",
-    "N/record.d.ts",
-    "N/format.d.ts",
-    "N/search.d.ts",
-    "N/http.d.ts",
-    "EC_Logger.ts",
-    "DataAccess/Record.ts",
-    "DataAccess/Sublist.ts",
-    "DataAccess/CustomerBase.ts",
-    "DataAccess/CashRefundBase",
-    "DataAccess/CreditMemoBase.ts",
-    "DataAccess/CustomerPaymentBase.ts",
-    "DataAccess/IntercompanyJournalEntryBase.ts",
-    "DataAccess/InvoiceBase.ts",
-    "DataAccess/JournalEntryBase.ts",
-    "DataAccess/PurchaseOrderBase.ts",
-    "DataAccess/SalesOrderBase.ts",
-    "DataAccess/SubsidiaryBase.ts",
-    "DataAccess/Transaction.ts",
-    "DataAccess/EC_nsdal.ts",
-    "typings/index.d.ts",
-    "aop.ts",
-    "Example.ts"
-  ]
+  "exclude": ["node_modules", "test", "declarations"]
 }

@@ -5,7 +5,7 @@
 import {FieldType, NetsuiteRecord} from './Record'
 import * as record from 'N/record'
 import {SublistLine, SublistFieldType} from './Sublist'
-
+import * as moment from "moment"
 
 export class Base extends NetsuiteRecord {
    static recordType = record.Type.CUSTOMER

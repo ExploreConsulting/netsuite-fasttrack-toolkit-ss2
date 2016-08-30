@@ -3,10 +3,9 @@
  */
 
 import {SublistLine, SublistFieldType} from './Sublist'
+import * as moment from "moment"
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
-import {FieldType} from './Record'
-import {Sublist} from "../N/record";
 
 /**
  * NetSuite Sales Order Record

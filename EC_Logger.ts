@@ -3,13 +3,12 @@
  * @NApiVersion 2.x
  */
 
-///<amd-dependency path='./moment' name="moment">
-
+/* ///<amd-dependency path='./moment' name="moment"> */
+import * as moment from "NFT/moment"
 import {Logger, addAppender, logLevel, getLogger, Appender, LogLevel} from "./aurelia-logging"
 import * as nslog from "N/log"
 import * as runtime from "N/runtime"
 import * as aop from "./aop"
-
 
 export {getLogger, Logger, logLevel} from './aurelia-logging'
 
@@ -25,7 +24,6 @@ export var correlationId = Math.floor(Math.random() * 10000).toString();
  * of the same script (e.g. multiple runs of a scheduled script or discerning between multiple simultaneous calls
  * to a RESTlet or Suitelet)
  */
-
 export var includeCorrelationId = false;
 
 /**
