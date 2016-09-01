@@ -1,3 +1,5 @@
+[![Gitter](https://badges.gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2.svg)](https://gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 NFT (NetSuite Fasttrack Toolkit) for SuiteScript 2.0
 ===============================================
 This is all the goodness (and more) of NFT re-imagined for SuiteScript 2.x
@@ -179,3 +181,5 @@ Define record types under the `DataAccess/` folder.
 * portions of the NetSuite typescript definitions (N/*.d.ts) were based on the
 [netsuite-types](https://www.npmjs.com/package/@hitc/netsuite-types) project
 and modified for use here.
+
+
