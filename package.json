@@ -12,6 +12,7 @@
   "author": "Explore Consulting",
   "license": "MIT",
   "devDependencies": {
+    "@hitc/netsuite-types": "github:exploreconsulting/typings-suitescript-2.0#typescript-2.0.0",
     "@types/lazy.js": "^0.3.27",
     "@types/lodash": "^4.14.34",
     "chai": "^3.5.0",
