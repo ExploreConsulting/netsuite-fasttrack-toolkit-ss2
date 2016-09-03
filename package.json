@@ -41,7 +41,6 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "@types/requirejs": "^2.1.26",
     "aurelia-logging": "https://github.com/ironside/logging.git#logger-specific-loglevel",
     "lazy.js": "^0.4.2",
     "lodash": "^4.15.0",

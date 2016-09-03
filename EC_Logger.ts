@@ -3,8 +3,7 @@
  * @NApiVersion 2.x
  */
 
-/* ///<amd-dependency path='./moment' name="moment"> */
-import * as moment from "NFT/moment"
+import * as moment from "./moment"
 import {Logger, addAppender, logLevel, getLogger, Appender, LogLevel} from "./aurelia-logging"
 import * as nslog from "N/log"
 import * as runtime from "N/runtime"

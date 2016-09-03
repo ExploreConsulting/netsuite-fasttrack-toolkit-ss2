@@ -3,26 +3,24 @@
     "module": "amd",
     "target": "es5",
     "noImplicitAny": false,
+    // using this lets us have rootDirs resolve stuff like moment with "./moment"
     "moduleResolution":"node",
+    // the gulp build brings moment and lodash into the root folder - these settings fake that for the TS compiler
+    "rootDirs": ["node_modules/@types","node_modules","." ],
     "sourceMap": false,
     "newLine": "LF",
     "declaration": true,
     //"allowSyntheticDefaultImports": true
     //"emitDecoratorMetadata": true,
-    "types": ["requirejs"],
     "experimentalDecorators": true,
     "baseUrl": ".",
     "lib":["es5","es2015.promise"],
     "paths": {
-      "NFT/moment": ["node_modules/moment/moment.d.ts"],
       "N/*": [
         "node_modules/@hitc/netsuite-types/N/*"
-      ],
-      "NFT/*": [
-        "./*"
       ]
     }
-    //"rootDirs": ["./"]
   },
+  "include": ["./*.ts", "DataAccess/*.ts"],
   "exclude": ["node_modules", "test", "declarations"]
 }
