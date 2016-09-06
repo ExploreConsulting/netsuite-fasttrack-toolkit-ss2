@@ -15,7 +15,6 @@ This initial preview includes:
 First, as usual run:
 
     npm install
-    typings install # if using typescript
 
 
 There is a intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0)
@@ -23,12 +22,6 @@ There is a intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O
 _These instructions are a work in progress. In the steps below replace the #.#.# with the actual version number you
 see after building the lib._
 
-1. Clone this repository
-2. run `gulp declarations`
-3. Copy (or symlink) the `/N` folder to your project root. This provides the TypeScript declarations
-for NetSuite built in modules.
-4. Symlink the `declarations/` folder to local name `NFT-SS2-#.#.#`. This provides the TypeScript declarations for
-our custom code.
 
 
 
