@@ -24,8 +24,7 @@ var declarations = ['*.d.ts', 'DataAccess/*.d.ts','!example.d.ts'];
 var includedNPMlibs = ['node_modules/lodash/lodash.js',
    'node_modules/moment/moment.js', 'node_modules/aurelia-logging/dist/amd/aurelia-logging.js'];
 
-var otherTypings = ['node_modules/moment/moment.d.ts','node_modules/@types/lodash/index.d.ts',
-      'aurelia-logging.d.ts'];
+var otherTypings = ['node_modules/moment/moment.d.ts','aurelia-logging.d.ts'];
 
 var buildFolderName = "/NFT-SS2-" + version;
 
@@ -42,15 +41,6 @@ gulp.task('copyfiles', ['clean'], function () {
 gulp.task('declarations',['cleandeclarations'], function () {
    return merge(gulp.src(declarations, {base: '.'}), 
       gulp.src(otherTypings))
-      .pipe($.rename( function(path){
-         // we rename lodash's typings (which are in @types/lodash/index.d.ts
-         // to make it consistent for developers using NFT to do something like
-         // 'import * as _ from "../NFT-SS2-x.y.z/lodash' in their code and not require ///<amd-dependency...
-         if( path.basename == 'index.d' ) {
-            console.log('renaming lodash from index.d.ts to lodash.d.ts')
-            path.basename = 'lodash.d'
-         }
-      }))
       .pipe($.debug({title: 'copying typescript declaration files:'}))
       .pipe(gulp.dest(decldir))//
 })
