@@ -12,17 +12,17 @@ This initial preview includes:
 * logging
 
 # Getting Started
-First, as usual run:
+Install this package as a dependency and global typings for lodash. The need to install typings here is to avoid 
+duplicate symbol errors.
 
-    npm install
+    npm install netsuite-fasttrack-toolkit-ss2 --save
+    npm install @types/lodash --save-dev
 
 
 There is a intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0)
 
 _These instructions are a work in progress. In the steps below replace the #.#.# with the actual version number you
 see after building the lib._
-
-
 
 
 ## Deploy core library to NS
