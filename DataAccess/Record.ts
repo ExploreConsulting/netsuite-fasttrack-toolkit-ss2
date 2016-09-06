@@ -13,7 +13,6 @@ import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
 import * as moment from "moment"
-import * as _ from "lodash"
 
 var log = LogManager.getLogger('nsdal')
 
@@ -31,7 +30,7 @@ export abstract class NetsuiteRecord {
    /**
     * The netsuite record type (constant string) - this is declared here and overriden in derived classes
     */
-   public static recordType:record.RecordTypes | string
+   public static recordType: string
 
    /**
     * The underlying netsuite 'record' object

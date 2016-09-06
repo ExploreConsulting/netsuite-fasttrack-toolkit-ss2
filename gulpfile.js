@@ -24,6 +24,8 @@ var declarations = ['*.d.ts', 'DataAccess/*.d.ts'];
 var includedNPMlibs = ['node_modules/lodash/lodash.js',
    'node_modules/moment/moment.js', 'node_modules/aurelia-logging/dist/amd/aurelia-logging.js'];
 
+var otherTypings = ['node_modules/moment/moment.d.ts', 'aurelia-logging.d.ts'];
+
 var buildFolderName = "/NFT-SS2-" + version;
 
 var versionedDistPath = path.join(outdir, buildFolderName);
@@ -38,7 +40,7 @@ gulp.task('copyfiles', ['clean'], function () {
 // copies typescript declaration files into a staging location in prep for ZIP
 gulp.task('declarations',['cleandeclarations'], function () {
    return merge(gulp.src(declarations, {base: '.'}), 
-      gulp.src('aurelia-logging.d.ts'))
+      gulp.src(otherTypings))
       .pipe($.debug({title: 'copying typescript declaration files:'}))
       .pipe(gulp.dest(decldir))//
 })
