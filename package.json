@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc; gulp; gulp declarations",
+    "postinstall": "echo `pwd`;ln -s --backup `pwd`/declarations ../../NFT-SS2-$npm_package_version"
   },
   "author": "Explore Consulting",
   "license": "MIT",
@@ -21,6 +23,7 @@
     "gulp-copy": "0.0.2",
     "gulp-debug": "^2.1.2",
     "gulp-load-plugins": "^1.2.2",
+    "gulp-rename": "^1.2.2",
     "gulp-size": "^2.1.0",
     "gulp-zip": "^3.2.0",
     "karma": "^0.13.22",
@@ -45,5 +48,9 @@
     "lazy.js": "^0.4.2",
     "lodash": "^4.15.0",
     "moment": "^2.14.1"
-  }
+  },
+  "files": [
+    "declarations",
+    "dist"
+  ]
 }
