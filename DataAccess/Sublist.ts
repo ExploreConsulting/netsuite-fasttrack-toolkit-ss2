@@ -22,11 +22,11 @@ export namespace SublistFieldType {
    export var datetime = _.partial(dateTimeSublistDescriptor, format.Type.DATETIME)
    export var email = defaultSublistDescriptor
    export var freeformtext = defaultSublistDescriptor
-   export var decimalnumber         = _.partial(formattedSublistDescriptor, format.Type.FLOAT)
+   export var decimalnumber         = defaultSublistDescriptor// _.partial(formattedSublistDescriptor, format.Type.FLOAT)
    export var float         = defaultSublistDescriptor //_.partial(formattedSublistDescriptor, format.Type.FLOAT)
    export var hyperlink = defaultSublistDescriptor
    export var image = defaultSublistDescriptor
-   export var integernumber = _.partial(formattedSublistDescriptor, format.Type.INTEGER)
+   export var integernumber = defaultSublistDescriptor// _.partial(formattedSublistDescriptor, format.Type.INTEGER)
    export var longtext = defaultSublistDescriptor
    export var multiselect = defaultSublistDescriptor
    export var percent         = _.partial(formattedSublistDescriptor, format.Type.PERCENT)

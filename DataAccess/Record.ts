@@ -222,16 +222,16 @@ function formattedDescriptor(formatType:format.Type, target:any, propertyKey:str
 export namespace FieldType {
    export var address       = defaultDescriptor
    export var checkbox      = defaultDescriptor
-   export var currency      = _.partial(formattedDescriptor, format.Type.CURRENCY)
+   export var currency      = defaultDescriptor
    export var date          = _.partial(dateTimeDescriptor, format.Type.DATE)
    export var datetime      = _.partial(dateTimeDescriptor, format.Type.DATETIME)
    export var email         = defaultDescriptor
    export var freeformtext  = defaultDescriptor
-   export var float         = _.partial(formattedDescriptor, format.Type.FLOAT)
-   export var decimalnumber         = _.partial(formattedDescriptor, format.Type.FLOAT)
+   export var float         = defaultDescriptor
+   export var decimalnumber      = float
    export var hyperlink     = defaultDescriptor
    export var image         = defaultDescriptor
-   export var integernumber = _.partial(formattedDescriptor, format.Type.INTEGER)
+   export var integernumber = defaultDescriptor
    export var longtext      = defaultDescriptor
    export var multiselect   = defaultDescriptor
    export var percent         = _.partial(formattedDescriptor, format.Type.PERCENT)
