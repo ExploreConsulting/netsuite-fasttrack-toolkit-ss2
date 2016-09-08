@@ -3,16 +3,12 @@
  *
  */
 
-/*
 ///<amd-dependency path='../lodash' name="_">
-///<amd-dependency path='../moment' name="moment">
-*/
-
 
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
-import * as moment from "moment"
+import * as moment from "../moment"
 
 var log = LogManager.getLogger('nsdal')
 
@@ -22,7 +18,7 @@ export abstract class NetsuiteRecord {
     * Netsuite internal id of this record
     * @type {number}
     */
-   private _id:number
+   private _id: number
    get id() {
       return this._id
    }
@@ -35,7 +31,7 @@ export abstract class NetsuiteRecord {
    /**
     * The underlying netsuite 'record' object
     */
-   nsrecord:record.Record
+   nsrecord: record.Record
 
    /**
     * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
@@ -55,8 +51,8 @@ export abstract class NetsuiteRecord {
     * @param ignoreMandatoryFields
     * @returns {number}
     */
-   save(enableSourcing?:boolean, ignoreMandatoryFields?:boolean) {
-      var id   = this.nsrecord.save({
+   save(enableSourcing?: boolean, ignoreMandatoryFields?: boolean) {
+      var id = this.nsrecord.save({
          enableSourcing: enableSourcing,
          ignoreMandatoryFields: ignoreMandatoryFields
       })
@@ -64,7 +60,7 @@ export abstract class NetsuiteRecord {
       return id
    }
 
-   constructor(rec?:number | record.Record, isDynamic?:boolean, defaultValue?:Object) {
+   constructor(rec?: number | record.Record, isDynamic?: boolean, defaultValue?: Object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
@@ -98,7 +94,7 @@ export abstract class NetsuiteRecord {
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-export function defaultDescriptor(target:any, propertyKey:string):any {
+export function defaultDescriptor(target: any, propertyKey: string): any {
    return {
       get: function () {
          return this.nsrecord.getValue({fieldId: propertyKey})
@@ -111,27 +107,25 @@ export function defaultDescriptor(target:any, propertyKey:string):any {
       enumerable: true //default is false
    };
 }
-
 /**
- * Generic property descriptor with algorithm NS checkbox to native boolean.
+ * Just like the default decriptor but calls Number() on the value
+ * @returns an object property descriptor to be used
+ * with Object.defineProperty
  */
-// TODO: confirm that this is NEVER needed for SS2.0? seems possibly inconsistent
-// export function checkboxDescriptor(target:any, propertyKey:string):any {
-//    log.debug('creating property', `${propertyKey} as boolean`)
-//    return {
-//       get: function () {
-//          return this.nsrecord.getValue({fieldId:propertyKey}) === 'T';
-//       },
-//       set: function (value) {
-//          // allow null to flow through, but ignore undefined's
-//          if (value !== undefined) this.nsrecord.setValue({
-//             fieldId: propertyKey,
-//             value: value === true ? 'T' : 'F'
-//          })
-//       },
-//       enumerable: true // default is false - this lets you JSON.stringify() this prop
-//    }
-// }
+export function numericDescriptor(target: any, propertyKey: string): any {
+   return {
+      get: function () {
+         return this.nsrecord.getValue({fieldId: propertyKey})
+      },
+      set: function (value) {
+         // ignore undefined's
+         if (value !== undefined) this.nsrecord.setValue({fieldId: propertyKey, value: Number(value)})
+         else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
+      },
+      enumerable: true //default is false
+   };
+}
+
 /**
  * Generic property descriptor with algorithm for date handling. Surfaces dates as moment() instances
  * note: does not take into account timezone
@@ -141,7 +135,7 @@ export function defaultDescriptor(target:any, propertyKey:string):any {
  * @returns  an object property descriptor to be used
  * with decorators
  */
-function dateTimeDescriptor(formatType:format.Type, target:any, propertyKey:string):any {
+function dateTimeDescriptor(formatType: format.Type, target: any, propertyKey: string): any {
    return {
       get: function () {
          var value = this.nsrecord.getValue({fieldId: propertyKey})
@@ -154,7 +148,7 @@ function dateTimeDescriptor(formatType:format.Type, target:any, propertyKey:stri
          if (value !== undefined) {
             var asDate;
             // the value needs to either be a moment already, or a moment compatible string else null
-            if ( moment.isMoment(value) ) asDate = value.toDate()
+            if (moment.isMoment(value)) asDate = value.toDate()
             else asDate = value ? moment(value).toDate() : null
             log.debug(`setting field [${propertyKey}:${formatType}]`, `to date [${asDate}]`)
             this.nsrecord.setValue({fieldId: propertyKey, value: asDate})
@@ -165,8 +159,10 @@ function dateTimeDescriptor(formatType:format.Type, target:any, propertyKey:stri
    };
 }
 
+
 /**
- * Generic property descriptor with algorithm for values that need to go through the NS format module
+ * Generic property descriptor with algorithm for values that need to go through the NS format module on field
+ * write. Returns plain getValue() on reads
  * note: does not take into account timezone
  * @param {string} formatType the NS field type (e.g. 'date')
  * @param target
@@ -174,41 +170,17 @@ function dateTimeDescriptor(formatType:format.Type, target:any, propertyKey:stri
  * @returns  an object property descriptor to be used
  * with decorators
  */
-function formattedDescriptor(formatType:format.Type, target:any, propertyKey:string):any {
+function formattedDescriptor(formatType: format.Type, target: any, propertyKey: string): any {
    return {
       get: function () {
-         var value = this.nsrecord.getValue({fieldId: propertyKey})
-         log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
-         // ensure we don't return moments for null, undefined, etc.
-         // returns the 'raw' type which is a string or number for our purposes
-         return value ? format.parse({type: formatType, value: value}) : value
+         return this.nsrecord.getValue({fieldId: propertyKey})
       },
       set: function (value) {
-         var formattedValue = undefined
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
-            switch (formatType) {
-               // ensure numeric typed fields get formatted to what netsuite needs
-               // in testing with 2016.1 fields like currency had to be a number formatted specifically (e.g. 1.00
-               // rather than 1 or 1.0 for them to be accepted without error
-               case format.Type.CURRENCY:
-               case format.Type.CURRENCY2:
-               case format.Type.FLOAT:
-               case format.Type.INTEGER:
-               case format.Type.NONNEGCURRENCY:
-               case format.Type.NONNEGFLOAT:
-               case format.Type.PERCENT:
-               case format.Type.POSCURRENCY:
-               case format.Type.POSFLOAT:
-               case format.Type.POSINTEGER:
-               case format.Type.RATE:
-               case format.Type.RATEHIGHPRECISION:
-                  formattedValue = Number(format.format({type: formatType, value: value}))
-                  break;
-               default:
-                  formattedValue = format.format({type: formatType, value: value})
-            }
-            log.debug(`setting field [${propertyKey}:${formatType}]`, `to formatted value [${formattedValue}]`)
+            var formattedValue = format.format({type: formatType, value: value})
+            log.debug(`setting field [${propertyKey}:${formatType}]`,
+               `to formatted value [${formattedValue}] javascript type:${typeof formattedValue}`)
             if (value === null) this.nsrecord.setValue({fieldId: propertyKey, value: null})
             else this.nsrecord.setValue({fieldId: propertyKey, value: formattedValue})
          }
@@ -223,21 +195,21 @@ function formattedDescriptor(formatType:format.Type, target:any, propertyKey:str
  model's field type.
  */
 export namespace FieldType {
-   export var address       = defaultDescriptor
-   export var checkbox      = defaultDescriptor
-   export var currency      = _.partial(formattedDescriptor, format.Type.CURRENCY)
-   export var date          = _.partial(dateTimeDescriptor, format.Type.DATE)
-   export var datetime      = _.partial(dateTimeDescriptor, format.Type.DATETIME)
-   export var email         = defaultDescriptor
-   export var freeformtext  = defaultDescriptor
-   export var float         = _.partial(formattedDescriptor, format.Type.FLOAT)
-   export var decimalnumber         = _.partial(formattedDescriptor, format.Type.FLOAT)
-   export var hyperlink     = defaultDescriptor
-   export var image         = defaultDescriptor
-   export var integernumber = _.partial(formattedDescriptor, format.Type.INTEGER)
-   export var longtext      = defaultDescriptor
-   export var multiselect   = defaultDescriptor
-   export var percent         = _.partial(formattedDescriptor, format.Type.PERCENT)
-   export var select        = defaultDescriptor
-   export var textarea      = defaultDescriptor
+   export var address = defaultDescriptor
+   export var checkbox = defaultDescriptor
+   export var currency = numericDescriptor
+   export var date = _.partial(dateTimeDescriptor, format.Type.DATE)
+   export var datetime = _.partial(dateTimeDescriptor, format.Type.DATETIME)
+   export var email = defaultDescriptor
+   export var freeformtext = defaultDescriptor
+   export var float = numericDescriptor
+   export var decimalnumber = float
+   export var hyperlink = defaultDescriptor
+   export var image = defaultDescriptor
+   export var integernumber = numericDescriptor
+   export var longtext = defaultDescriptor
+   export var multiselect = defaultDescriptor
+   export var percent = _.partial(formattedDescriptor, format.Type.PERCENT)
+   export var select = defaultDescriptor
+   export var textarea = defaultDescriptor
 }

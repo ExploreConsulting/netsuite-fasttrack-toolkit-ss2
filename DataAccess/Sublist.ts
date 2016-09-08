@@ -7,12 +7,11 @@
 
 
 ///<amd-dependency path='../lodash' name="_">
-///<amd-dependency path='../moment' name="moment">
 
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
-import * as moment from "moment"
+import * as moment from "../moment"
 
 var log = LogManager.getLogger('nsdal')
 
@@ -23,11 +22,11 @@ export namespace SublistFieldType {
    export var datetime = _.partial(dateTimeSublistDescriptor, format.Type.DATETIME)
    export var email = defaultSublistDescriptor
    export var freeformtext = defaultSublistDescriptor
-   export var decimalnumber         = _.partial(formattedSublistDescriptor, format.Type.FLOAT)
+   export var decimalnumber         = defaultSublistDescriptor// _.partial(formattedSublistDescriptor, format.Type.FLOAT)
    export var float         = defaultSublistDescriptor //_.partial(formattedSublistDescriptor, format.Type.FLOAT)
    export var hyperlink = defaultSublistDescriptor
    export var image = defaultSublistDescriptor
-   export var integernumber = _.partial(formattedSublistDescriptor, format.Type.INTEGER)
+   export var integernumber = defaultSublistDescriptor// _.partial(formattedSublistDescriptor, format.Type.INTEGER)
    export var longtext = defaultSublistDescriptor
    export var multiselect = defaultSublistDescriptor
    export var percent         = _.partial(formattedSublistDescriptor, format.Type.PERCENT)

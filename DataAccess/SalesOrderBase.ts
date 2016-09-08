@@ -3,7 +3,7 @@
  */
 
 import {SublistLine, SublistFieldType} from './Sublist'
-import * as moment from "moment"
+import * as moment from "../moment"
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 
