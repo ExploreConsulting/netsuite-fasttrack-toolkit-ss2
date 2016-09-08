@@ -15,6 +15,16 @@ import * as moment from "../moment"
 
 var log = LogManager.getLogger('nsdal')
 
+/*
+ note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.
+ this differs from body fields behavior - it seems body fields required the numericDescriptor (see numericDescriptor
+ in Record.ts
+ */
+
+/**
+ * decorators for sublist fields. Adorn your class properties with these to bind your class property name with
+ * the specific behavior for the type of field it represents in NetSuite.
+ */
 export namespace SublistFieldType {
    export var checkbox = defaultSublistDescriptor
    export var currency      = defaultSublistDescriptor//_.partial(formattedSublistDescriptor, format.Type.CURRENCY)

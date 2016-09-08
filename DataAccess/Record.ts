@@ -108,7 +108,10 @@ export function defaultDescriptor(target: any, propertyKey: string): any {
    };
 }
 /**
- * Just like the default decriptor but calls Number() on the value
+ * Just like the default decriptor but calls Number() on the value. This exists for numeric types that
+ * would blow up if you tried to assign number primitive values to a field. Don't know why - did various checks
+ * with lodash and typeof to confirm the raw value was a number but only passing through Number() worked on sets.
+ * Reads still seem to return a number.
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
