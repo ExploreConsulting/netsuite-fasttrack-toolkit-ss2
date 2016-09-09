@@ -8,16 +8,17 @@ This initial preview includes:
 
 * lodash
 * momentjs
-* nsdal
+* nsdal (**n**etsuite **d**ata **a**ccess **l**ayer)
 * logging
 
-# Getting Started
-Install this package as a dependency and global typings for lodash. The need to install typings here is to avoid 
-duplicate symbol errors.
+# Installation
+Install this package as a dependency and global typings for lodash. 
+_Run these commands from a bash shell_ (e.g. Windows Anniversary Editrion bash shell or git bash) 
 
     npm install netsuite-fasttrack-toolkit-ss2 --save
     npm install @types/lodash --save-dev
 
+The need to install `@types/lodash` here is to avoid duplicate symbol errors.
 
 There is a intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0)
 
@@ -26,23 +27,24 @@ see after building the lib._
 
 
 ## Deploy core library to NS
-* Use the NetSuite file cabinet _advanced add_ to upload the `dist/NFT-SS2-#.#.#.zip` file to your SuiteScripts folder.
-Choose to 'extract' all files.
+Use the NetSuite file cabinet _advanced add_ button to upload the `dist/NFT-SS2-#.#.#.zip` file to the same folder 
+in which you place your SuiteScripts. It will extract to a subfolder named NFT-SS2-#.#.#.
 
-## Use
-Extract the zip file created above into your project folder such that it has the same relative path
-structure as in your NetSuite file cabinet. This is to support SuiteScript 2.0 requiring relative
-paths for custom modules.
+If you typically just put your SuiteScripts under the `/SuiteScripts/` folder in the NS file cabinet then simply 
+extract the zip there. 
 
-If you typically just put your SuiteScripts under the `SuiteScripts/` folder directly then simply extract
-the zip directly into your project folder. 
+## Getting Started
+After install you should get a folder link at your project root named NFT-SS2-#.#.#
+This creates a folder structure mirroring what you have in NetSuite so you can use relative paths when you 
+`import`.
+
 
 __NOTE: NetSuite Limitation__
 NetSuite SuiteScript 2.0 appears to have a defect where you can't _create_ a complete sample like
  shown below with complex custom libraries.  To get around this create your script as an empty shell
  first - then upload the full txt to the file cabinet.
 
- For example, upload something like this as a 'skeleton' Suitelet:
+ For example, first upload something like this as a 'skeleton' Suitelet:
 
  ```javascript
  /**
@@ -72,21 +74,23 @@ Reference the NFT modules using relative path names. Here is a complete Suitelet
  * @NApiVersion 2.x
  * @NScriptType Suitelet
  */
-/* these two lines bring lodash into scope for compile time, and add it as a silent dependency of this
- module (in the correct path of ./lodash assuming lodash is installed in the same folder as this script)
+/* This line brings lodash into scope for compile time, and adds it as a silent dependency of this
+ module 
  */
-///<amd-dependency path="./lodash" name="_" />
+///<amd-dependency path="./NFT-SS2-0.2.1/lodash" name="_" />
 
-import * as LogManager from './NFT-SS2-0.2.0/EC_Logger'
-import * as customer from "./NFT-SS2-0.2.0/DataAccess/CustomerBase"
-import * as nsdal from "./NFT-SS2-0.2.0/DataAccess/EC_nsdal"
-import * as moment from "./NFT-SS2-0.2.0/moment"
+import * as LogManager from './NFT-SS2-0.2.1/EC_Logger'
+import * as customer from "./NFT-SS2-0.2.1/DataAccess/CustomerBase"
+import * as nsdal from "./NFT-SS2-0.2.1/DataAccess/EC_nsdal"
+import * as moment from "./NFT-SS2-0.2.1/moment"
+
+// each script should request the DefaultLogger
 var log = LogManager.DefaultLogger
 
-
 /**
- * define the nsdal custom record for this client including a couple custom fields
- * This could be in a separate file
+ * define a customer class for our NetSuite account including custom fields. Standard fields come from customer.Base 
+ * so we don't have to repeat them here. This Customer class could be in a separate file (e.g Customer.ts) and 
+ * reused across all scripts via `import {Customer} from "./Customer"`
  */
 class Customer extends customer.Base {
    @nsdal.FieldType.multiselect
@@ -101,9 +105,7 @@ export = {
 
    onRequest: (req, resp) => {
 
-      log.debug('hello world')
-
-      // turn on debug logging for just the nsdal logger
+      // turn on debug logging for just the nsdal logger - each module can have it's own debugger
       nsdal.log.setLevel(LogManager.logLevel.debug)
 
       // load customer internal id 1542
@@ -119,11 +121,16 @@ export = {
 
       // just log a couple properties from our customer object
       log.debug('customer', _.pick(c,['custentity_shawn_date', 'companyname']))
-
    }
 }
 
 ```
+
+## Logging
+NFT provides an advanced logging mechanism based on [Aurelia's](http://aurelia.io) logger. 
+
+It means you can have multiple loggers and control the logging verbosity of each.
+
 ### AutoLogging - work in progress
 Automatically log entry and exit of methods with rich options by adding a line like this to the end of your script:
 
@@ -132,6 +139,9 @@ LogManager.autoLogMethodEntryExit({target:EC,method:/\w/})
 ```
 The above line will automatically log all methods defined on the _EC_ object
 
+Other configuration options include automatic logging of execution time, governance usage, and other goodies.
+
+See the jsdoc help for `autologMethodEntryExit()`
 
 # Contributing
 Please do.
