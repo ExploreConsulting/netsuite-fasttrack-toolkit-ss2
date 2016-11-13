@@ -39,10 +39,13 @@ gulp.task('copyfiles', ['clean'], function () {
 
 // copies typescript declaration files into a staging location in prep for ZIP
 gulp.task('declarations',['cleandeclarations'], function () {
-   return merge(gulp.src(declarations, {base: '.'}), 
+    merge(gulp.src(declarations, {base: '.'}),
       gulp.src(otherTypings))
       .pipe($.debug({title: 'copying typescript declaration files:'}))
-      .pipe(gulp.dest(decldir))//
+      .pipe(gulp.dest(decldir))
+   // include lodash but we need to rename it to 'lodash' so we can import it with the proper name
+   return   gulp.src('node_modules/@types/lodash/index.d.ts')
+      .pipe($.rename('lodash.d.ts')).pipe(gulp.dest(decldir))
 })
 
 
