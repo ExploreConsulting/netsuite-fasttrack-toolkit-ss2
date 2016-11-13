@@ -14,7 +14,7 @@
   "author": "Explore Consulting",
   "license": "MIT",
   "devDependencies": {
-    "@hitc/netsuite-types": "github:exploreconsulting/typings-suitescript-2.0#typescript-2.0.0",
+    "@hitc/netsuite-types": "2016.2.4",
     "@types/lazy.js": "^0.3.27",
     "@types/lodash": "^4.14.34",
     "chai": "^3.5.0",
@@ -44,7 +44,7 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "aurelia-logging": "https://github.com/ironside/logging.git#logger-specific-loglevel",
+    "aurelia-logging": "1.1.1",
     "lazy.js": "^0.4.2",
     "lodash": "^4.15.0",
     "moment": "^2.14.1"

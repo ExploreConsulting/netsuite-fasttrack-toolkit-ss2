@@ -26,7 +26,7 @@ export abstract class NetsuiteRecord {
    /**
     * The netsuite record type (constant string) - this is declared here and overriden in derived classes
     */
-   public static recordType: string
+   public static recordType: record.Type | string
 
    /**
     * The underlying netsuite 'record' object
@@ -60,7 +60,7 @@ export abstract class NetsuiteRecord {
       return id
    }
 
-   constructor(rec?: number | record.Record, isDynamic?: boolean, defaultValue?: Object) {
+   constructor(rec?: number | record.Record, isDynamic?: boolean, defaultValues?: Object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
@@ -71,13 +71,13 @@ export abstract class NetsuiteRecord {
             type: type,
             id: rec,
             isDynamic: isDynamic || false,
-            defaultValue: defaultValue
+            defaultValue: defaultValues
          }))
          this._id = this.nsrecord.id
       }
       else if (!rec) {
-         log.debug('creating new record', `type:${type}`)
-         this.makeRecordProp(record.create({type: type, isDynamic: isDynamic, defaultValue: defaultValue}))
+         log.debug('creating new record', `type:${type}  isDyanamic:${isDynamic} defaultValues:${defaultValues}`)
+         this.makeRecordProp(record.create({type: type, isDynamic: isDynamic, defaultValues: defaultValues}))
       }
       else {
          log.debug('using existing record', `type:${rec.type}, id:${rec.id}`)
