@@ -5,14 +5,11 @@
  * three's for DRY).
  */
 
-
-///<amd-dependency path='../lodash' name="_">
-
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
 import * as moment from "../moment"
-
+import * as _ from "../lodash"
 var log = LogManager.getLogger('nsdal')
 
 /*

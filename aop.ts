@@ -47,7 +47,7 @@ var aop = (function() {
 			};
 		}
 
-		var aspect;
+		var aspect:any;
 		if (advice.type == _after || advice.type == _afterThrow || advice.type == _afterFinally)
 			aspect = function() {
 				var returnValue, exceptionThrown = null;

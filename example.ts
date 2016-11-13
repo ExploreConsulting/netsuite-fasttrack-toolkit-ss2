@@ -8,12 +8,12 @@
 this line adds lodash it as a silent dependency of this
 module (in the correct path of ./lodash assuming lodash is installed in the same folder as this script)
 */
-///<amd-dependency path="./lodash" name="_" />
 
 import * as moment from "./moment"
 import * as LogManager from './EC_Logger'
 import * as customer from "./DataAccess/CustomerBase"
 import * as nsdal from "./DataAccess/EC_nsdal"
+import * as _ from "./lodash"
 var log = LogManager.DefaultLogger
 
 export = {
