@@ -11,13 +11,17 @@ import * as moment from "../moment"
 import * as _ from "../lodash"
 var log = LogManager.getLogger('nsdal')
 
-export abstract class NetsuiteRecord {
+/**
+ * Since the netsuite defined 'CurrentRecord' type has almost all the same operations as the normal 'Record'
+ * we use this as our base class
+ */
+export abstract class NetsuiteCurrentRecord {
 
    /**
     * Netsuite internal id of this record
     * @type {number}
     */
-   private _id: number
+   protected _id: number
    get id() {
       return this._id
    }
@@ -28,9 +32,10 @@ export abstract class NetsuiteRecord {
    public static recordType: record.Type | string
 
    /**
-    * The underlying netsuite 'record' object
+    * The underlying netsuite 'record' object. For client scripts, this is the slightly less feature rich
+    * 'ClientCurrentRecord' when accessing the 'current' record the script is associated to.
     */
-   nsrecord: record.Record
+   nsrecord: record.Record | record.ClientCurrentRecord
 
    /**
     * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
@@ -44,22 +49,7 @@ export abstract class NetsuiteRecord {
       })
    }
 
-   /**
-    * Persists this record to the NS database
-    * @param enableSourcing
-    * @param ignoreMandatoryFields
-    * @returns {number}
-    */
-   save(enableSourcing?: boolean, ignoreMandatoryFields?: boolean) {
-      var id = this.nsrecord.save({
-         enableSourcing: enableSourcing,
-         ignoreMandatoryFields: ignoreMandatoryFields
-      })
-      this._id = id
-      return id
-   }
-
-   constructor(rec?: number | record.Record, isDynamic?: boolean, defaultValues?: Object) {
+   constructor(rec?: number | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, defaultValues?: Object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
@@ -83,9 +73,34 @@ export abstract class NetsuiteRecord {
          this.makeRecordProp(rec)
          this._id = rec.id
       }
-
    }
 }
+
+/**
+ * A regular netsuite record.
+ */
+export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
+   /**
+    * underlying netsuite record
+    */
+   nsrecord: record.Record
+
+   /**
+    * Persists this record to the NS database
+    * @param enableSourcing
+    * @param ignoreMandatoryFields
+    * @returns {number}
+    */
+   save(enableSourcing?: boolean, ignoreMandatoryFields?: boolean) {
+      var id = this.nsrecord.save({
+         enableSourcing: enableSourcing,
+         ignoreMandatoryFields: ignoreMandatoryFields
+      })
+      this._id = id
+      return id
+   }
+}
+
 
 /**
  * Generic property descriptor with basic default algorithm that exposes the field value directly with no

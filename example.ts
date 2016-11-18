@@ -12,20 +12,32 @@ module (in the correct path of ./lodash assuming lodash is installed in the same
 import * as moment from "./moment"
 import * as LogManager from './EC_Logger'
 import * as customer from "./DataAccess/CustomerBase"
-import * as nsdal from "./DataAccess/EC_nsdal"
 import * as _ from "./lodash"
-var log = LogManager.DefaultLogger
+let log = LogManager.DefaultLogger
+
+class Customer extends customer.Base {
+
+}
 
 export = {
 
    onRequest: (req, resp) => {
       log.debug('are some true', _.some([true,true]))
       log.debug('hello world')
-      var now = moment()
+      let now = moment()
 
       now.add(1, 'day')
       // turn on debug logging for just the nsdal logger
       // nsdal.log.setLevel(LogManager.logLevel.debug)
       log.debug('tomorrow is', now.format())
+
+      let c = new Customer(227)
+
+      c.comments = c.comments + _.random(1,100).toString()
+      log.warn('warning', 'this is a warning')
+      log.info('customer', c)
+      let id = c.save()
+
+
    }
 }
