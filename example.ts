@@ -13,9 +13,15 @@ import * as moment from "./moment"
 import * as LogManager from './EC_Logger'
 import * as customer from "./DataAccess/CustomerBase"
 import * as _ from "./lodash"
+import {FieldType} from "./NFT-SS2-0.4.0/DataAccess/EC_nsdal"
+
+
 let log = LogManager.DefaultLogger
 
 class Customer extends customer.Base {
+
+   @FieldType.select(true)
+   subsidiary:string
 
 }
 

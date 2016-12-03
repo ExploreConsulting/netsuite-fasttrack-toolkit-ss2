@@ -13,7 +13,7 @@ export class Base extends TransactionBase {
 
    static recordType = record.Type.CASH_REFUND
 
-   @FieldType.select
+   @FieldType.select()
    account:number
 
    @FieldType.freeformtext

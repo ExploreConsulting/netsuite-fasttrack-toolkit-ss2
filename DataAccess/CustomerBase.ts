@@ -14,7 +14,7 @@ export class Base extends NetsuiteRecord {
    accountnumber:string
 
    @FieldType.select
-   category:number
+   category:number | string
 
    @FieldType.textarea
    comments:string
@@ -23,7 +23,7 @@ export class Base extends NetsuiteRecord {
    companyname:string
 
    @FieldType.select
-   currency:number
+   currency:number | string
 
    @FieldType.select
    customform:number
@@ -38,7 +38,7 @@ export class Base extends NetsuiteRecord {
    entityid:string
 
    @FieldType.select
-   entitystatus:number
+   entitystatus:number | string
 
    @FieldType.freeformtext
    externalid:string
@@ -59,31 +59,31 @@ export class Base extends NetsuiteRecord {
    lastmodifieddate:moment.Moment
 
    @FieldType.select
-   language:number
+   language:number | string
 
    @FieldType.freeformtext
    lastname:string
 
    @FieldType.select
-   parent:number
+   parent:number | string
 
    @FieldType.freeformtext
    phone:string
 
    @FieldType.select
-   salesrep:number
+   salesrep:number | string
 
    @FieldType.select
-   subsidiary:number
+   subsidiary:number | string
 
    @FieldType.checkbox
    taxable:boolean
 
    @FieldType.select
-   taxitem:number
+   taxitem:number | string
 
    @FieldType.select
-   terms:number
+   terms:number | string
 }
 
 /**

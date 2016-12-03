@@ -105,17 +105,25 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
 /**
  * Generic property descriptor with basic default algorithm that exposes the field value directly with no
  * other processing.
+ * @param target
+ * @param propertyKey
+ * @param getText if true, property read (get) uses getText() rather than getValue().
+ * @param setText if true, property write (set) uses setText() rather than setValue()
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-export function defaultDescriptor(target: any, propertyKey: string): any {
+export function defaultDescriptor(getText = false, setText = false, target: any, propertyKey: string): any {
    return {
       get: function () {
-         return this.nsrecord.getValue({fieldId: propertyKey})
+         return getText ? this.nsrecord.getText({fieldId: propertyKey})
+            : this.nsrecord.getValue({fieldId: propertyKey})
       },
       set: function (value) {
          // ignore undefined's
-         if (value !== undefined) this.nsrecord.setValue({fieldId: propertyKey, value: value})
+         if (value !== undefined) {
+            if (setText) this.nsrecord.setText({fieldId: propertyKey, text: value})
+            else  this.nsrecord.setValue({fieldId: propertyKey, value: value})
+         }
          else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
       },
       enumerable: true //default is false
@@ -207,26 +215,27 @@ function formattedDescriptor(formatType: format.Type, target: any, propertyKey: 
    };
 }
 
+export type FieldDecorator = (getText?:boolean, setText?:boolean)=> (target:any, propertyKey:string) => any
 /**
  Netsuite field types - decorate your model properties with these to tie netsuite field types to your
  model's field type.
  */
 export namespace FieldType {
-   export var address = defaultDescriptor
-   export var checkbox = defaultDescriptor
+   export var address = _.partial(defaultDescriptor,false,false)
+   export var checkbox = _.partial(defaultDescriptor,false,false)
    export var currency = numericDescriptor
    export var date = _.partial(dateTimeDescriptor, format.Type.DATE)
    export var datetime = _.partial(dateTimeDescriptor, format.Type.DATETIME)
-   export var email = defaultDescriptor
-   export var freeformtext = defaultDescriptor
+   export var email = _.partial(defaultDescriptor,false,false)
+   export var freeformtext = _.partial(defaultDescriptor,false,false)
    export var float = numericDescriptor
    export var decimalnumber = float
-   export var hyperlink = defaultDescriptor
-   export var image = defaultDescriptor
+   export var hyperlink = _.partial(defaultDescriptor,false,false)
+   export var image = _.partial(defaultDescriptor,false,false)
    export var integernumber = numericDescriptor
-   export var longtext = defaultDescriptor
-   export var multiselect = defaultDescriptor
+   export var longtext = _.partial(defaultDescriptor,false,false)
+   export var multiselect:FieldDecorator = _.curry(defaultDescriptor)
    export var percent = _.partial(formattedDescriptor, format.Type.PERCENT)
-   export var select = defaultDescriptor
-   export var textarea = defaultDescriptor
+   export var select:FieldDecorator = (x=false,y=false) => _.partial(defaultDescriptor, x,y)
+   export var textarea = _.partial(defaultDescriptor,false,false)
 }
