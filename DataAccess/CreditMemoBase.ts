@@ -13,7 +13,7 @@ export class Base extends TransactionBase {
 
    static recordType = record.Type.CREDIT_MEMO
 
-   @FieldType.select
+   @FieldType.select()
    customer:number
 
    @FieldType.currency

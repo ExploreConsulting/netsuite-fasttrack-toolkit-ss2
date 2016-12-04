@@ -14,7 +14,7 @@ export class Base extends TransactionBase {
 
    static recordType = record.Type.CUSTOMER_PAYMENT
 
-   @FieldType.select
+   @FieldType.select()
    customer:number
 
    @FieldType.freeformtext
@@ -23,7 +23,7 @@ export class Base extends TransactionBase {
    @FieldType.currency
    payment:number
 
-   @FieldType.select
+   @FieldType.select()
    paymentmethod:number
 
    @FieldType.checkbox

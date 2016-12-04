@@ -21,7 +21,7 @@ export class Base extends NetsuiteRecord {
    
    @FieldType.freeformtext
    
-   @FieldType.select
+   @FieldType.select()
    currency:number
 
    @FieldType.email
@@ -42,7 +42,7 @@ export class Base extends NetsuiteRecord {
    @FieldType.freeformtext
    legalname:string
 
-   @FieldType.select
+   @FieldType.select()
    logo:number
 
    @FieldType.freeformtext
@@ -51,7 +51,7 @@ export class Base extends NetsuiteRecord {
    @FieldType.checkbox
    override:boolean
    
-   @FieldType.select
+   @FieldType.select()
    parent:number
 }
 
@@ -91,7 +91,7 @@ export class AddressBase extends NetsuiteRecord {
    @FieldType.freeformtext
    city:string
 
-   @FieldType.select
+   @FieldType.select()
    country:number
 
    @FieldType.freeformtext

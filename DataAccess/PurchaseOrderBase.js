@@ -24,7 +24,7 @@ define(["require", "exports", 'N/record', "./Transaction", './Sublist', './Recor
         }
         Base.recordType = record.Type.PURCHASE_ORDER;
         __decorate([
-            Record_1.FieldType.select
+            Record_1.FieldType.select()
         ], Base.prototype, "approvalstatus", void 0);
         return Base;
     }(Transaction_1.TransactionBase));
