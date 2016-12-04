@@ -103,31 +103,31 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
 
 
 /**
- * Generic property descriptor with basic default algorithm that exposes the field value directly with no
+ * Generic decorator factory with basic default algorithm that exposes the field value directly with no
  * other processing.
- * @param target
- * @param propertyKey
  * @param getText if true, property read (get) uses getText() rather than getValue().
  * @param setText if true, property write (set) uses setText() rather than setValue()
- * @returns an object property descriptor to be used
+ * @returns a decorator that returns a property descriptor to be used
  * with Object.defineProperty
  */
-export function defaultDescriptor(getText = false, setText = false, target: any, propertyKey: string): any {
-   return {
-      get: function () {
-         return getText ? this.nsrecord.getText({fieldId: propertyKey})
-            : this.nsrecord.getValue({fieldId: propertyKey})
-      },
-      set: function (value) {
-         // ignore undefined's
-         if (value !== undefined) {
-            if (setText) this.nsrecord.setText({fieldId: propertyKey, text: value})
-            else  this.nsrecord.setValue({fieldId: propertyKey, value: value})
-         }
-         else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
-      },
-      enumerable: true //default is false
-   };
+export function defaultDescriptor(getText = false, setText = false): any {
+   return function(target:any, propertyKey:string) {
+      return {
+         get: function () {
+            return getText ? this.nsrecord.getText({fieldId: propertyKey})
+               : this.nsrecord.getValue({fieldId: propertyKey})
+         },
+         set: function (value) {
+            // ignore undefined's
+            if (value !== undefined) {
+               if (setText) this.nsrecord.setText({fieldId: propertyKey, text: value})
+               else  this.nsrecord.setValue({fieldId: propertyKey, value: value})
+            }
+            else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
+         },
+         enumerable: true //default is false
+      }
+   }
 }
 /**
  * Just like the default decriptor but calls Number() on the value. This exists for numeric types that
@@ -221,21 +221,26 @@ export type FieldDecorator = (getText?:boolean, setText?:boolean)=> (target:any,
  model's field type.
  */
 export namespace FieldType {
-   export var address = _.partial(defaultDescriptor,false,false)
-   export var checkbox = _.partial(defaultDescriptor,false,false)
+   export var address = defaultDescriptor()
+   export var checkbox = defaultDescriptor()
    export var currency = numericDescriptor
    export var date = _.partial(dateTimeDescriptor, format.Type.DATE)
    export var datetime = _.partial(dateTimeDescriptor, format.Type.DATETIME)
-   export var email = _.partial(defaultDescriptor,false,false)
-   export var freeformtext = _.partial(defaultDescriptor,false,false)
+   export var email = defaultDescriptor()
+   export var freeformtext = defaultDescriptor()
    export var float = numericDescriptor
    export var decimalnumber = float
-   export var hyperlink = _.partial(defaultDescriptor,false,false)
-   export var image = _.partial(defaultDescriptor,false,false)
+   export var hyperlink = defaultDescriptor()
+   export var image = defaultDescriptor()
    export var integernumber = numericDescriptor
-   export var longtext = _.partial(defaultDescriptor,false,false)
-   export var multiselect:FieldDecorator = _.curry(defaultDescriptor)
+   export var longtext = defaultDescriptor()
+   export var multiselect= defaultDescriptor
    export var percent = _.partial(formattedDescriptor, format.Type.PERCENT)
-   export var select:FieldDecorator = (x=false,y=false) => _.partial(defaultDescriptor, x,y)
-   export var textarea = _.partial(defaultDescriptor,false,false)
+   /**
+    * NetSuite 'Select' field type.
+    * set getText = true to have the decorated
+    * @type {(getText?:boolean, setText?:boolean)=>any}
+    */
+   export var select = defaultDescriptor
+   export var textarea = defaultDescriptor()
 }
