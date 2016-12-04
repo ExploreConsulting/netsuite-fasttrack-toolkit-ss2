@@ -13,8 +13,8 @@ export class Base extends NetsuiteRecord {
    @FieldType.freeformtext
    accountnumber:string
 
-   @FieldType.select()
-   category:number | string
+   @FieldType.select
+   category:number
 
    @FieldType.textarea
    comments:string
@@ -22,10 +22,10 @@ export class Base extends NetsuiteRecord {
    @FieldType.freeformtext
    companyname:string
 
-   @FieldType.select()
-   currency:number | string
+   @FieldType.select
+   currency:number
 
-   @FieldType.select()
+   @FieldType.select
    customform:number
 
    @FieldType.datetime
@@ -37,8 +37,8 @@ export class Base extends NetsuiteRecord {
    @FieldType.freeformtext
    entityid:string
 
-   @FieldType.select()
-   entitystatus:number | string
+   @FieldType.select
+   entitystatus:number
 
    @FieldType.freeformtext
    externalid:string
@@ -58,32 +58,32 @@ export class Base extends NetsuiteRecord {
    @FieldType.datetime
    lastmodifieddate:moment.Moment
 
-   @FieldType.select()
-   language:number | string
+   @FieldType.select
+   language:number
 
    @FieldType.freeformtext
    lastname:string
 
-   @FieldType.select()
-   parent:number | string
+   @FieldType.select
+   parent:number
 
    @FieldType.freeformtext
    phone:string
 
-   @FieldType.select()
-   salesrep:number | string
+   @FieldType.select
+   salesrep:number
 
-   @FieldType.select()
-   subsidiary:number | string
+   @FieldType.select
+   subsidiary:number
 
    @FieldType.checkbox
    taxable:boolean
 
-   @FieldType.select()
-   taxitem:number | string
+   @FieldType.select
+   taxitem:number
 
-   @FieldType.select()
-   terms:number | string
+   @FieldType.select
+   terms:number
 }
 
 /**
@@ -122,7 +122,7 @@ export class AddressBase extends NetsuiteRecord {
    @FieldType.freeformtext
    city:string
 
-   @FieldType.select()
+   @FieldType.select
    country:number
 
    @FieldType.freeformtext

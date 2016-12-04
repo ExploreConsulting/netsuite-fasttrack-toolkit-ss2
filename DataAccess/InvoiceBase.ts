@@ -14,7 +14,7 @@ export class Base extends TransactionBase {
 
    static recordType = record.Type.INVOICE
 
-   @FieldType.select()
+   @FieldType.select
    account:number
 
    @FieldType.currency
@@ -23,7 +23,7 @@ export class Base extends TransactionBase {
    @FieldType.currency
    amountremaining:number
 
-   @FieldType.select()
+   @FieldType.select
    approvalstatus:number
 
    @FieldType.currency
@@ -50,10 +50,10 @@ export class Base extends TransactionBase {
    @FieldType.freeformtext
    billaddress:string
 
-   @FieldType.select()
+   @FieldType.select
    currency:number
 
-   @FieldType.select()
+   @FieldType.select
    customform:number
 
    @FieldType.currency
@@ -74,19 +74,19 @@ export class Base extends TransactionBase {
    @FieldType.currency
    handlingcost:number
 
-   @FieldType.select()
+   @FieldType.select
    handlingtaxcode:number
 
    @FieldType.checkbox
    istaxable:boolean
 
-   @FieldType.select()
+   @FieldType.select
    leadsource:number
 
    @FieldType.freeformtext
    linkedtrackingnumbers:string
 
-   @FieldType.select()
+   @FieldType.select
    promocode:number
 
    @FieldType.checkbox
@@ -104,7 +104,7 @@ export class Base extends TransactionBase {
    @FieldType.currency
    subtotal:number
 
-   @FieldType.select()
+   @FieldType.select
    taxitem:number
 
    @FieldType.freeformtext

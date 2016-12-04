@@ -10,22 +10,22 @@ import * as moment from "../moment"
  */
 export abstract class TransactionBase extends NetsuiteRecord {
 
-   @FieldType.select()
+   @FieldType.select
    customform:number
 
-   @FieldType.select()
+   @FieldType.select
    department:number
 
    @FieldType.freeformtext
    email:string
 
-   @FieldType.select()
+   @FieldType.select
    entity:number
 
    @FieldType.freeformtext
    externalid:string
 
-   @FieldType.select()
+   @FieldType.select
    location:number
 
    @FieldType.freeformtext
@@ -34,10 +34,10 @@ export abstract class TransactionBase extends NetsuiteRecord {
    @FieldType.freeformtext
    otherrefnum:string
 
-   @FieldType.select()
+   @FieldType.select
    postingperiod:number
 
-   @FieldType.select()
+   @FieldType.select
    salesrep:number
 
    @FieldType.freeformtext
@@ -46,7 +46,7 @@ export abstract class TransactionBase extends NetsuiteRecord {
    @FieldType.freeformtext
    statusRef:number
 
-   @FieldType.select()
+   @FieldType.select
    subsidiary:number
 
    @FieldType.freeformtext

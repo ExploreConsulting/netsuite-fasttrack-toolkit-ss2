@@ -10,16 +10,16 @@ import {SublistLine, SublistFieldType} from './Sublist'
 export class Base extends NetsuiteRecord {
    static recordType = record.Type.JOURNAL_ENTRY
 
-   @FieldType.select()
+   @FieldType.select
    accountingbook:number
 
    @FieldType.checkbox
    approved:boolean
 
-   @FieldType.select()
+   @FieldType.select
    department:number
 
-   @FieldType.select()
+   @FieldType.select
    subsidiary:number
 }
 
