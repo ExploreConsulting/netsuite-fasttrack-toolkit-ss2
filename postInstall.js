@@ -9,10 +9,15 @@ var path = require('path')
 
 var target = path.join(process.cwd(),"declarations")
 var path = '../../NFT-SS2-' + process.env.npm_package_version;
-
-if (fs.lstatSync(path) && fs.lstatSync(path).isSymbolicLink()) {
-   console.log('removing existing folder link:' + path)
-   fs.unlinkSync(path)
+try {
+   if (fs.lstatSync(path) && fs.lstatSync(path).isSymbolicLink()) {
+      console.log('removing existing folder link:' + path)
+      fs.unlinkSync(path)
+   }
+} catch(e) {
+   console.log('existing link not found or could not delete old link - trying to create link as new')
+   // ignoring error on purpose - if we can't delete the link we'll go ahead and try to create it as new
 }
+
 console.log('creating symbolic link to ' + path )
 fs.symlinkSync(target,path,'dir')
