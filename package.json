@@ -14,7 +14,7 @@
   "author": "Explore Consulting",
   "license": "MIT",
   "devDependencies": {
-    "@hitc/netsuite-types": "2016.2.4",
+    "@hitc/netsuite-types": "2016.2.13",
     "@types/lazy.js": "^0.3.27",
     "@types/lodash": "^4.14.34",
     "chai": "^3.5.0",
@@ -34,7 +34,7 @@
     "mocha": "^2.4.5",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.7.0",
-    "typescript": "^2.0.0"
+    "typescript": "^2.1.0"
   },
   "repository": {
     "type": "git",
