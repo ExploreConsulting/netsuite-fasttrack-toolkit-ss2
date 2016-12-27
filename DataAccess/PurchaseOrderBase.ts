@@ -4,8 +4,8 @@
 
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
-import {SublistLine, SublistFieldType} from './Sublist'
-import {FieldType} from './Record'
+import {SublistLine, SublistFieldType} from "./Sublist"
+import {FieldType} from "./Record"
 
 /**
  * NetSuite Purchase Order Record

@@ -2,28 +2,24 @@
 
 NFT (NetSuite Fasttrack Toolkit) for SuiteScript 2.0
 ===============================================
-This is all the goodness (and more) of NFT re-imagined for SuiteScript 2.x
+This is a small but powerful framework for writing SuitScript that scales. The goal is to 
+enable authoring scripts that easy to write and easy to maintain.
 
-This initial preview includes:
-
+_Includes_
+* nsdal (**n**etsuite **d**ata **a**ccess **l**ayer)
 * lodash
 * momentjs
-* nsdal (**n**etsuite **d**ata **a**ccess **l**ayer)
 * logging
 
 # Installation
 Install this package as a dependency and global typings for lodash. 
-_Run these commands from a bash shell_ (e.g. Windows Anniversary Editrion bash shell or git bash) 
 
     npm install netsuite-fasttrack-toolkit-ss2 --save
     npm install @types/lodash --save-dev
 
 The need to install `@types/lodash` here is to avoid duplicate symbol errors.
 
-There is a intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0)
-
-_These instructions are a work in progress. In the steps below replace the #.#.# with the actual version number you
-see after building the lib._
+**For more, check out the intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0)**
 
 
 ## Deploy core library to NS
@@ -74,15 +70,11 @@ Reference the NFT modules using relative path names. Here is a complete Suitelet
  * @NApiVersion 2.x
  * @NScriptType Suitelet
  */
-/* This line brings lodash into scope for compile time, and adds it as a silent dependency of this
- module 
- */
-///<amd-dependency path="./NFT-SS2-0.2.1/lodash" name="_" />
-
-import * as LogManager from './NFT-SS2-0.2.1/EC_Logger'
-import * as customer from "./NFT-SS2-0.2.1/DataAccess/CustomerBase"
-import * as nsdal from "./NFT-SS2-0.2.1/DataAccess/EC_nsdal"
-import * as moment from "./NFT-SS2-0.2.1/moment"
+import * as LogManager from './NFT-SS2-0.4.0/EC_Logger'
+import * as customer from "./NFT-SS2-0.4.0/DataAccess/CustomerBase"
+import * as nsdal from "./NFT-SS2-0.4.0/DataAccess/EC_nsdal"
+import * as moment from "./NFT-SS2-0.4.0/moment"
+import * as _ from "./NFT-SS2-0.4.0/lodash"
 
 // each script should request the DefaultLogger
 var log = LogManager.DefaultLogger
@@ -147,8 +139,7 @@ See the jsdoc help for `autologMethodEntryExit()`
 Please do.
 
 # TypeScript
-This is written with TS and is most powerful when consumed by TS. However, it can be used by javascript
-clients as well.
+This is written with TS and is recommended. However, it can be used by javascript clients as well.
 
 ## NetSuite Module Declarations
 * Typescript definitions (_N/*.d.ts_ files) are defined via the 
