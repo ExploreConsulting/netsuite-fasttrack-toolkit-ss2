@@ -103,23 +103,31 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
 
 
 /**
- * Generic property descriptor with basic default algorithm that exposes the field value directly with no
- * other processing.
- * @returns an object property descriptor to be used
+ * Generic decorator factory with basic default algorithm that exposes the field value directly with no
+ * other processing. If the property name ends with "Text" then the property will use getText()/setText()
+ *
+ * @returns a decorator that returns a property descriptor to be used
  * with Object.defineProperty
  */
 export function defaultDescriptor(target: any, propertyKey: string): any {
+   let isTextField = _.endsWith(propertyKey,'Text')
+   let nsfield = isTextField ? _.trimEnd(propertyKey, 'Text') : propertyKey
    return {
       get: function () {
-         return this.nsrecord.getValue({fieldId: propertyKey})
+         log.debug('field GET', `${nsfield}, as text:${isTextField}`)
+         return isTextField ? this.nsrecord.getText({fieldId: nsfield})
+            : this.nsrecord.getValue({fieldId: nsfield })
       },
       set: function (value) {
          // ignore undefined's
-         if (value !== undefined) this.nsrecord.setValue({fieldId: propertyKey, value: value})
+         if (value !== undefined) {
+            if (isTextField) this.nsrecord.setText({fieldId: nsfield, text: value})
+            else  this.nsrecord.setValue({fieldId: nsfield, value: value})
+         }
          else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
       },
       enumerable: true //default is false
-   };
+   }
 }
 /**
  * Just like the default decriptor but calls Number() on the value. This exists for numeric types that
@@ -207,9 +215,12 @@ function formattedDescriptor(formatType: format.Type, target: any, propertyKey: 
    };
 }
 
+export type FieldDecorator = (getText?: boolean, setText?: boolean)=> (target: any, propertyKey: string) => any
 /**
- Netsuite field types - decorate your model properties with these to tie netsuite field types to your
- model's field type.
+ *  Netsuite field types - decorate your model properties with these to tie netsuite field types to your
+ *  model's field type.
+ *  To get 'Text' rather than field value, suffix your property name with 'Text' e.g. 'afieldText' for the
+ *  field 'afield'.
  */
 export namespace FieldType {
    export var address = defaultDescriptor
@@ -227,6 +238,9 @@ export namespace FieldType {
    export var longtext = defaultDescriptor
    export var multiselect = defaultDescriptor
    export var percent = _.partial(formattedDescriptor, format.Type.PERCENT)
+   /**
+    * NetSuite 'Select' field type.
+    */
    export var select = defaultDescriptor
    export var textarea = defaultDescriptor
 }

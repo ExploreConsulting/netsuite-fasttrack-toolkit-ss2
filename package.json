@@ -1,6 +1,6 @@
 {
   "name": "netsuite-fasttrack-toolkit-ss2",
-  "version": "0.3.0",
+  "version": "0.4.2",
   "description": "Power library for NetSuite SuiteScript 2.x projects.",
   "main": "none",
   "directories": {
@@ -9,12 +9,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "tsc; gulp; gulp declarations",
-    "postinstall": "echo `pwd`;ln -s `pwd`/declarations ../../NFT-SS2-$npm_package_version"
+    "postinstall": "node postInstall.js"
   },
   "author": "Explore Consulting",
   "license": "MIT",
   "devDependencies": {
-    "@hitc/netsuite-types": "2016.2.4",
+    "@hitc/netsuite-types": "2016.2.13",
     "@types/lazy.js": "^0.3.27",
     "@types/lodash": "^4.14.34",
     "chai": "^3.5.0",
@@ -34,7 +34,7 @@
     "mocha": "^2.4.5",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.7.0",
-    "typescript": "^2.0.0"
+    "typescript": "^2.1.0"
   },
   "repository": {
     "type": "git",
@@ -51,6 +51,7 @@
   },
   "files": [
     "declarations",
-    "dist"
+    "dist",
+    "postInstall.js"
   ]
 }
