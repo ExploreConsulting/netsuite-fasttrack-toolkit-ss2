@@ -2,30 +2,50 @@
  * Test file for SuiteScript 2.0
  * @NApiVersion 2.x
  * @NScriptType Suitelet
- * @NAmdConfig ./myconfig.json
- *
- * note that myconfig.json needs to be deployed alongside example.js, and the NFT ZIP file should be extracted to the same folder
  */
 
+/*
+this line adds lodash it as a silent dependency of this
+module (in the correct path of ./lodash assuming lodash is installed in the same folder as this script)
+*/
 
-import * as LogManager from 'NFT/EC_Logger'
-import {Base as JournalEntry} from "NFT/DataAccess/JournalEntryBase"
+import * as moment from "./NFT-SS2-0.4.2/moment"
+import * as LogManager from './NFT-SS2-0.4.2/EC_Logger'
+import * as customer from "./NFT-SS2-0.4.2/DataAccess/CustomerBase"
+import * as _ from "./NFT-SS2-0.4.2/lodash"
+import * as nsdal from "./NFT-SS2-0.4.2/DataAccess/EC_nsdal"
+
 
 let log = LogManager.DefaultLogger
 
+class Customer extends customer.Base {
+
+   @nsdal.FieldType.select
+   subsidiaryText: string
+
+}
+
 export = {
+
    onRequest: (req, resp) => {
-      log.info('entering onRequest')
+      log.debug('are some true', _.some([true,true]))
       log.debug('hello world')
+      let now = moment()
+      now.add(1, 'day')
+      // turn on debug logging for just the nsdal logger
+      nsdal.log.setLevel(LogManager.logLevel.info)
+      //log.debug('tomorrow is', now.format())
 
-      let a = new JournalEntry()
-      let b = new JournalEntry()
+      let c = new Customer(227)
 
-      a.line.addLine().account = 4
-      b.line.addLine().account = 10
-      b.line.addLine()
-      b.line.addLine()
-      log.info('JE a', a)
-      log.info('JE b', b)
+      log.info('subsidiary value', c.subsidiary)
+      log.info('subsidiary text', c.subsidiaryText)
+
+      c.comments = c.comments + _.random(1,100).toString()
+      log.warn('warning', 'this is a warning')
+      log.info('customer', c)
+      let id = c.save()
+
+
    }
 }
