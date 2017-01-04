@@ -31,9 +31,11 @@
     "karma-jasmine": "^0.2.3",
     "karma-mocha": "^0.2.2",
     "merge-stream": "^1.0.0",
-    "mocha": "^2.4.5",
+    "mocha": "^2.5.3",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.7.0",
+    "testdouble": "^1.10.2",
+    "ts-node": "^2.0.0",
     "typescript": "^2.1.0"
   },
   "repository": {

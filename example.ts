@@ -31,7 +31,6 @@ export = {
       log.debug('are some true', _.some([true,true]))
       log.debug('hello world')
       let now = moment()
-
       now.add(1, 'day')
       // turn on debug logging for just the nsdal logger
       nsdal.log.setLevel(LogManager.logLevel.info)
