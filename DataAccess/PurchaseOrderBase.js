@@ -29,10 +29,6 @@ define(["require", "exports", "N/record", "./Transaction", "./Sublist", "./Recor
         Record_1.FieldType.select
     ], Base.prototype, "approvalstatus", void 0);
     exports.Base = Base;
-    Base.recordType = record.Type.PURCHASE_ORDER;
-    __decorate([
-        Record_1.FieldType.select
-    ], Base.prototype, "approvalstatus", void 0);
     /**
      * Sublist 'item' on purchase orders
      */
@@ -59,19 +55,4 @@ define(["require", "exports", "N/record", "./Transaction", "./Sublist", "./Recor
         Sublist_1.SublistFieldType.select
     ], ItemSublist.prototype, "department", void 0);
     exports.ItemSublist = ItemSublist;
-    __decorate([
-        Sublist_1.SublistFieldType.select
-    ], ItemSublist.prototype, "item", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.decimalnumber
-    ], ItemSublist.prototype, "quantity", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.decimalnumber
-    ], ItemSublist.prototype, "amount", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.decimalnumber
-    ], ItemSublist.prototype, "rate", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.select
-    ], ItemSublist.prototype, "department", void 0);
 });
