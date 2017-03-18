@@ -16,13 +16,13 @@ export class Base extends TransactionBase {
    @FieldType.select
    account:number
 
-   @FieldType.decimalnumber
+   @FieldType.select
    adjlocation:number
 
-   @FieldType.decimalnumber
+   @FieldType.select
    "class":number
 
-   @FieldType.decimalnumber
+   @FieldType.select
    customer:number
 
    @FieldType.currency
