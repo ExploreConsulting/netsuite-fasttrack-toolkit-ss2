@@ -6,6 +6,7 @@ import {SublistLine, SublistFieldType} from './Sublist'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 import {FieldType} from "./Record";
+import * as moment from "../moment"
 
 /**
  * NetSuite Inventory Adjustment Record
@@ -22,11 +23,17 @@ export class Base extends TransactionBase {
    @FieldType.select
    "class":number
 
+   @FieldType.datetime
+   createddate:moment.Moment
+
    @FieldType.select
    customer:number
 
    @FieldType.currency
    estimatedtotalvalue:number
+
+   @FieldType.datetime
+   lastmodifieddate:moment.Moment
 
 }
 

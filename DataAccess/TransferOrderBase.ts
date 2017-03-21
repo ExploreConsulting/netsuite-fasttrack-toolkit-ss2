@@ -6,7 +6,7 @@ import {SublistLine, SublistFieldType} from './Sublist'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 import {FieldType} from "./Record";
-import * as moment from "../NFT-SS2-0.4.2/moment";
+import * as moment from "../moment";
 
 /**
  * NetSuite Transfer Order Record

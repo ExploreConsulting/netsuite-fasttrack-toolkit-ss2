@@ -29,7 +29,7 @@ if (!comments) {
    customer.setValue({fieldId: "comments", value: "hello world"})
 }
 
-import * as cust from "./NFT-SS2-0.4.0/DataAccess/CustomerBase"
+import * as cust from "./NFT-SS2-0.5.0/DataAccess/CustomerBase"
 import {FieldType} from "./DataAccess/EC_nsdal"
 
 namespace B {
@@ -85,34 +85,35 @@ for ( var x = 0; x < count; x++) {
 }
 
 
-import * as so from "./NFT-SS2-0.4.0/DataAccess/SalesOrderBase"
-import {Sublist} from "./NFT-SS2-0.4.0/DataAccess/EC_nsdal"
+import * as so from "./NFT-SS2-0.5.0/DataAccess/SalesOrderBase"
+import {Sublist} from "./NFT-SS2-0.5.0/DataAccess/EC_nsdal"
 namespace C {
 
    class SalesOrder extends so.Base {
       // define a strongly typed item sublist
-      item = new Sublist<so.ItemSublist>(so.ItemSublist,this.nsrecord,'item')
+      item = new Sublist<so.ItemSublist>(so.ItemSublist, this.nsrecord, 'item')
    }
 
    var salesorder = new SalesOrder(1234)
    salesorder.item // already a collection of line items with fields defined by so.ItemSublist
-}
 
+}
 
 //endregion
 
-
 //region logging
-   import * as log from 'N/log'
+import * as log from "N/log" // NS logger
+import * as LogManager from './NFT-SS2-0.5.0/EC_Logger' // NFT logger
 
+namespace NetSuiteLogger {
    log.debug('title', 'details')
    log.audit('title', 'details')
    log.error('title', 'details')
    log.emergency('title', 'details')
-
-import {DefaultLogger as log, logLevel} from "./NFT-SS2-0.4.0/EC_Logger"
+}
 
 namespace NFT {
+   const log = LogManager.DefaultLogger
 
    // note method names are slightly different
    log.debug('title','details')
@@ -120,7 +121,7 @@ namespace NFT {
    log.warn('title','details')
    log.error('title','details')
 
-   log.setLevel(logLevel.error) // only log errors and above
+   log.setLevel(LogManager.logLevel.error) // only log errors and above
 
 //endregion
 }

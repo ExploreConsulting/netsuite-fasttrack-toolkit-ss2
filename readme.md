@@ -147,3 +147,8 @@ This is written with TS and is recommended. However, it can be used by javascrip
 
 
 
+# Build and Publish
+
+    gulp
+    gulp declarations
+    npm publish
