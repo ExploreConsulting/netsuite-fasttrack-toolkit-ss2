@@ -23,8 +23,8 @@ The need to install `@types/lodash` here is to avoid duplicate symbol errors.
 
 
 ## Deploy core library to NS
-Use the NetSuite file cabinet _advanced add_ button to upload the `dist/NFT-SS2-#.#.#.zip` file to the same folder 
-in which you place your SuiteScripts. It will extract to a subfolder named NFT-SS2-#.#.#.
+Use the NetSuite file cabinet _advanced add_ button to upload the `node_modules/netsuite-fasttracktoolkit-ss2/dist/NFT-SS2-#.#.#.zip` 
+file to the same folder in which you place your SuiteScripts. It will extract to a subfolder named NFT-SS2-#.#.#.
 
 If you typically just put your SuiteScripts under the `/SuiteScripts/` folder in the NS file cabinet then simply 
 extract the zip there. 
