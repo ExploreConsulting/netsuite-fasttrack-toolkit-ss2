@@ -62,7 +62,7 @@ function log(loglevel:number, logger:Logger, ...rest:any[]) {
  * warn -> NS 'ERROR'
  * error -> NS 'emergency'
  */
-class ExecutionLogAppender implements Appender {
+export class ExecutionLogAppender implements Appender {
 
 
    debug(logger:Logger, ...rest:any[]) {
