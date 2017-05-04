@@ -29,7 +29,7 @@ if (!comments) {
    customer.setValue({fieldId: "comments", value: "hello world"})
 }
 
-import * as cust from "./NFT-SS2-0.5.0/DataAccess/CustomerBase"
+import * as cust from "./NFT-SS2-0.5.3/DataAccess/CustomerBase"
 import {FieldType} from "./DataAccess/EC_nsdal"
 
 namespace B {
@@ -85,8 +85,8 @@ for ( var x = 0; x < count; x++) {
 }
 
 
-import * as so from "./NFT-SS2-0.5.0/DataAccess/SalesOrderBase"
-import {Sublist} from "./NFT-SS2-0.5.0/DataAccess/EC_nsdal"
+import * as so from "./NFT-SS2-0.5.3/DataAccess/SalesOrderBase"
+import {Sublist} from "./NFT-SS2-0.5.3/DataAccess/EC_nsdal"
 namespace C {
 
    class SalesOrder extends so.Base {
@@ -103,7 +103,7 @@ namespace C {
 
 //region logging
 import * as log from "N/log" // NS logger
-import * as LogManager from './NFT-SS2-0.5.0/EC_Logger' // NFT logger
+import * as LogManager from './NFT-SS2-0.5.3/EC_Logger' // NFT logger
 
 namespace NetSuiteLogger {
    log.debug('title', 'details')
