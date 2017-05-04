@@ -1,5 +1,5 @@
 /**
- * NetSuite cash sale Transaction record
+ * NetSuite opportunity transaction record
  */
 
 import {SublistLine, SublistFieldType} from './Sublist'
@@ -8,14 +8,14 @@ import {TransactionBase} from "./Transaction";
 import {FieldType} from "./Record"
 import * as moment from "../moment"
 /**
- * NetSuite Cashsale Record
+ * NetSuite Opportunity Record
  */
 export class Base extends TransactionBase {
 
    static recordType = record.Type.OPPORTUNITY
 
    @FieldType.currency
-   balanace:number
+   balance:number
 
    @FieldType.freeformtext
    billaddr1:string
@@ -55,7 +55,7 @@ export class Base extends TransactionBase {
 }
 
 /**
- * The 'item' sublist on invoices
+ * The 'item' sublist on opportunity records
  */
 export class ItemSublist extends SublistLine {
 
