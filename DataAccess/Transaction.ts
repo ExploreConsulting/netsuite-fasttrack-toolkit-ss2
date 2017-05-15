@@ -40,11 +40,18 @@ export abstract class TransactionBase extends NetsuiteRecord {
    @FieldType.select
    salesrep:number
 
+   /**
+    * Note unlike other identifiers in NetSuite, this one is a string (e.g. 'Partially Fulfilled')
+    */
    @FieldType.freeformtext
-   status:number
+   status:string
 
+   /**
+    * Note unlike other references in NetSuite, this one is a set of undocumented string keys (e.g. 'partiallyFulfilled')
+    * The possible statusref values differ for each transaction type
+    */
    @FieldType.freeformtext
-   statusRef:number
+   statusRef:string
 
    @FieldType.select
    subsidiary:number
