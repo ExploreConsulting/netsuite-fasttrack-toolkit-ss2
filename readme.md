@@ -123,11 +123,11 @@ NFT provides an advanced logging mechanism based on [Aurelia's](http://aurelia.i
 
 It means you can have multiple loggers and control the logging verbosity of each.
 
-### AutoLogging - work in progress
+### AutoLogging
 Automatically log entry and exit of methods with rich options by adding a line like this to the end of your script:
 
 ```javascript
-LogManager.autoLogMethodEntryExit({target:EC,method:/\w/})
+LogManager.autoLogMethodEntryExit({target:EC,method:/\w/}, { withProfiling:true })
 ```
 The above line will automatically log all methods defined on the _EC_ object
 
