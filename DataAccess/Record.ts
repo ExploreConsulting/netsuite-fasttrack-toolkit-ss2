@@ -233,6 +233,7 @@ export namespace FieldType {
    export var float = numericDescriptor
    export var decimalnumber = float
    export var hyperlink = defaultDescriptor
+   export var inlinehtml = defaultDescriptor
    export var image = defaultDescriptor
    export var integernumber = numericDescriptor
    export var longtext = defaultDescriptor

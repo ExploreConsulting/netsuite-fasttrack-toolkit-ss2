@@ -33,6 +33,7 @@ export namespace SublistFieldType {
    export var float         = defaultSublistDescriptor //_.partial(formattedSublistDescriptor, format.Type.FLOAT)
    export var hyperlink = defaultSublistDescriptor
    export var image = defaultSublistDescriptor
+   export var inlinehtml = defaultSublistDescriptor
    export var integernumber = defaultSublistDescriptor// _.partial(formattedSublistDescriptor, format.Type.INTEGER)
    export var longtext = defaultSublistDescriptor
    export var multiselect = defaultSublistDescriptor
