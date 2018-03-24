@@ -70,6 +70,7 @@ Reference the NFT modules using relative path names. Here is a complete Suitelet
  * @NApiVersion 2.x
  * @NScriptType Suitelet
  */
+
 import * as LogManager from './NFT-SS2-0.5.3/EC_Logger'
 import * as customer from "./NFT-SS2-0.5.3/DataAccess/CustomerBase"
 import * as nsdal from "./NFT-SS2-0.5.3/DataAccess/EC_nsdal"
