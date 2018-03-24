@@ -23,42 +23,42 @@ define(["require", "exports", "N/record", "./Transaction", "./Sublist", "./Recor
     /**
      * NetSuite Purchase Order Record
      */
-    var Base = (function (_super) {
+    var Base = /** @class */ (function (_super) {
         __extends(Base, _super);
         function Base() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        Base.recordType = record.Type.PURCHASE_ORDER;
+        __decorate([
+            Record_1.FieldType.select
+        ], Base.prototype, "approvalstatus", void 0);
         return Base;
     }(Transaction_1.TransactionBase));
-    Base.recordType = record.Type.PURCHASE_ORDER;
-    __decorate([
-        Record_1.FieldType.select
-    ], Base.prototype, "approvalstatus", void 0);
     exports.Base = Base;
     /**
      * Sublist 'item' on purchase orders
      */
-    var ItemSublist = (function (_super) {
+    var ItemSublist = /** @class */ (function (_super) {
         __extends(ItemSublist, _super);
         function ItemSublist() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "item", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.decimalnumber
+        ], ItemSublist.prototype, "quantity", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.decimalnumber
+        ], ItemSublist.prototype, "amount", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.decimalnumber
+        ], ItemSublist.prototype, "rate", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "department", void 0);
         return ItemSublist;
     }(Sublist_1.SublistLine));
-    __decorate([
-        Sublist_1.SublistFieldType.select
-    ], ItemSublist.prototype, "item", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.decimalnumber
-    ], ItemSublist.prototype, "quantity", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.decimalnumber
-    ], ItemSublist.prototype, "amount", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.decimalnumber
-    ], ItemSublist.prototype, "rate", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.select
-    ], ItemSublist.prototype, "department", void 0);
     exports.ItemSublist = ItemSublist;
 });

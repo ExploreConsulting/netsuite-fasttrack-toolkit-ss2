@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{netsuite-fasttrack-toolkit-ss2/node_modules}" />
-    <file url="file://$PROJECT_DIR$/EC_Logger.ts" libraries="{netsuite-fasttrack-toolkit-ss2/node_modules}" />
     <file url="PROJECT" libraries="{tsconfig$roots}" />
   </component>
 </project>
