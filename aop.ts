@@ -24,12 +24,12 @@ var aop = (function() {
 	var _arguments = 'arguments';
 	var _undef = 'undefined';
 
-	var isFunc = function(obj) { return typeof(obj) == 'function'; };
+	var isFunc = function(obj:any) { return typeof(obj) == 'function'; };
 
 	/**
 	 * Private weaving function.
 	 */
-	var weaveOne = function(source, method, advice) {
+	var weaveOne = function(source:any, method:any, advice:any) {
 
 		var old = source[method];
 
@@ -129,7 +129,7 @@ var aop = (function() {
 	/**
 	 * Private weaver and pointcut parser.
 	 */
-	var weave = function(pointcut, advice) {
+	var weave = function(pointcut:any, advice:any) {
 
 		var source = typeof(pointcut.target.prototype) != _undef ? pointcut.target.prototype : pointcut.target;
 		var advices = [];
@@ -186,7 +186,7 @@ var aop = (function() {
 		 * @type Array<Function>
 		 * @cat Plugins/General
 		 */
-		after : function(pointcut, advice)
+		after : function(pointcut:any, advice:any)
 		{
 			return weave( pointcut, { type: _after, value: advice } );
 		},
@@ -249,7 +249,7 @@ var aop = (function() {
 		 * @type Array<Function>
 		 * @cat Plugins/General
 		 */
-		afterFinally : function(pointcut, advice)
+		afterFinally : function(pointcut:any, advice:any)
 		{
 			return weave( pointcut, { type: _afterFinally, value: advice } );
 		},
@@ -279,7 +279,7 @@ var aop = (function() {
 		 * @type Array<Function>
 		 * @cat Plugins/General
 		 */
-		before : function(pointcut, advice)
+		before : function(pointcut:any, advice:any)
 		{
 			return weave( pointcut, { type: _before, value: advice } );
 		},

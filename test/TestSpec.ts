@@ -1,4 +1,4 @@
-import {Invoice as Inv} from "../DataAccess/EC_nsdal"
+import * as Inv from "../DataAccess/InvoiceBase"
 import {Sublist} from "../DataAccess/Sublist";
 class Invoice extends Inv.Base {
    

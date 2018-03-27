@@ -238,8 +238,9 @@ export class Sublist<T extends SublistLine> {
       })
    }
 
-   constructor(private sublistLineType: { new(sublistId:string, nsrec:record.Record, line:number): T },
+   constructor(public readonly sublistLineType: { new(sublistId:string, nsrec:record.Record, line:number): T },
                rec:record.Record, public sublistId:string) {
+      this.sublistLineType = sublistLineType
       this.makeRecordProp(rec)
       log.debug('creating sublist', `type:${sublistId}, linecount:${this.length}`)
       // create properties for all keys in our target type T

@@ -3,13 +3,14 @@
  *
  */
 
-
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
 import * as moment from "../moment"
 import * as _ from "../lodash"
-var log = LogManager.getLogger('nsdal')
+import {Sublist, SublistLine} from "./Sublist"
+
+const log = LogManager.getLogger('nsdal')
 
 /**
  * Since the netsuite defined 'CurrentRecord' type has almost all the same operations as the normal 'Record'
@@ -22,7 +23,7 @@ export abstract class NetsuiteCurrentRecord {
     * @type {number}
     */
    protected _id: number
-   get id() {
+   get id () {
       return this._id
    }
 
@@ -42,14 +43,14 @@ export abstract class NetsuiteCurrentRecord {
     * field properties defined on derived classes should be seen when enumerating
     * @param value
     */
-   private makeRecordProp(value) {
+   private makeRecordProp (value) {
       Object.defineProperty(this, 'nsrecord', {
          value: value,
-         enumerable: false
+         enumerable: false,
       })
    }
 
-   constructor(rec?: number | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, defaultValues?: Object) {
+   constructor (rec?: number | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, defaultValues?: Object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
@@ -60,7 +61,7 @@ export abstract class NetsuiteCurrentRecord {
             type: type,
             id: rec,
             isDynamic: isDynamic || false,
-            defaultValue: defaultValues
+            defaultValue: defaultValues,
          }))
          this._id = this.nsrecord.id
       }
@@ -91,16 +92,15 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
     * @param ignoreMandatoryFields
     * @returns {number}
     */
-   save(enableSourcing?: boolean, ignoreMandatoryFields?: boolean) {
+   save (enableSourcing?: boolean, ignoreMandatoryFields?: boolean) {
       var id = this.nsrecord.save({
          enableSourcing: enableSourcing,
-         ignoreMandatoryFields: ignoreMandatoryFields
+         ignoreMandatoryFields: ignoreMandatoryFields,
       })
       this._id = id
       return id
    }
 }
-
 
 /**
  * Generic decorator factory with basic default algorithm that exposes the field value directly with no
@@ -109,26 +109,27 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
  * @returns a decorator that returns a property descriptor to be used
  * with Object.defineProperty
  */
-export function defaultDescriptor(target: any, propertyKey: string): any {
-   let isTextField = _.endsWith(propertyKey,'Text')
+export function defaultDescriptor (target: any, propertyKey: string): any {
+   let isTextField = _.endsWith(propertyKey, 'Text')
    let nsfield = isTextField ? _.trimEnd(propertyKey, 'Text') : propertyKey
    return {
       get: function () {
          log.debug('field GET', `${nsfield}, as text:${isTextField}`)
          return isTextField ? this.nsrecord.getText({fieldId: nsfield})
-            : this.nsrecord.getValue({fieldId: nsfield })
+            : this.nsrecord.getValue({fieldId: nsfield})
       },
       set: function (value) {
          // ignore undefined's
          if (value !== undefined) {
             if (isTextField) this.nsrecord.setText({fieldId: nsfield, text: value})
-            else  this.nsrecord.setValue({fieldId: nsfield, value: value})
+            else this.nsrecord.setValue({fieldId: nsfield, value: value})
          }
          else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
       },
       enumerable: true //default is false
    }
 }
+
 /**
  * Just like the default decriptor but calls Number() on the value. This exists for numeric types that
  * would blow up if you tried to assign number primitive values to a field. Don't know why - did various checks
@@ -137,7 +138,7 @@ export function defaultDescriptor(target: any, propertyKey: string): any {
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-export function numericDescriptor(target: any, propertyKey: string): any {
+export function numericDescriptor (target: any, propertyKey: string): any {
    return {
       get: function () {
          return this.nsrecord.getValue({fieldId: propertyKey})
@@ -148,7 +149,7 @@ export function numericDescriptor(target: any, propertyKey: string): any {
          else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
       },
       enumerable: true //default is false
-   };
+   }
 }
 
 /**
@@ -160,7 +161,7 @@ export function numericDescriptor(target: any, propertyKey: string): any {
  * @returns  an object property descriptor to be used
  * with decorators
  */
-function dateTimeDescriptor(formatType: format.Type, target: any, propertyKey: string): any {
+function dateTimeDescriptor (formatType: format.Type, target: any, propertyKey: string): any {
    return {
       get: function () {
          var value = this.nsrecord.getValue({fieldId: propertyKey})
@@ -171,7 +172,7 @@ function dateTimeDescriptor(formatType: format.Type, target: any, propertyKey: s
       set: function (value) {
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
-            var asDate;
+            var asDate
             // the value needs to either be a moment already, or a moment compatible string else null
             if (moment.isMoment(value)) asDate = value.toDate()
             else asDate = value ? moment(value).toDate() : null
@@ -181,9 +182,33 @@ function dateTimeDescriptor(formatType: format.Type, target: any, propertyKey: s
          else log.info(`not setting ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
-   };
+   }
 }
 
+// this is the shape of SublistLine class constructor
+type LineConstructor<T> = new (s: string, r: record.Record, n: number) => T
+
+/**
+ * Decorator for adding sublists with each line of the sublist represented by a type T which
+ * defines the properties you want on the sublist
+ * @param ctor Constructor for the type that has the properties you want from each sublist line.
+ * e.g. Invoice.ItemSublistLine
+ */
+function sublistDescriptor<T extends SublistLine> (ctor:  LineConstructor<T> )  {
+   return function (target: any, propertyKey: string): any {
+      let _sl // lazy initialize this on first access
+      return {
+         // sublist is read only for now - if we have a use case where this should be assigned then tackle it
+         get: function () {
+            if (!_sl) {
+               log.debug('initializing sublist', `sublist property named ${propertyKey}`)
+               _sl = new Sublist(ctor, this.nsrecord, propertyKey)
+            }
+            return _sl
+         },
+      }
+   }
+}
 
 /**
  * Generic property descriptor with algorithm for values that need to go through the NS format module on field
@@ -195,7 +220,7 @@ function dateTimeDescriptor(formatType: format.Type, target: any, propertyKey: s
  * @returns  an object property descriptor to be used
  * with decorators
  */
-function formattedDescriptor(formatType: format.Type, target: any, propertyKey: string): any {
+function formattedDescriptor (formatType: format.Type, target: any, propertyKey: string): PropertyDescriptor {
    return {
       get: function () {
          return this.nsrecord.getValue({fieldId: propertyKey})
@@ -212,10 +237,9 @@ function formattedDescriptor(formatType: format.Type, target: any, propertyKey: 
          else log.info(`not setting ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
-   };
+   }
 }
 
-export type FieldDecorator = (getText?: boolean, setText?: boolean)=> (target: any, propertyKey: string) => any
 /**
  *  Netsuite field types - decorate your model properties with these to tie netsuite field types to your
  *  model's field type.
@@ -244,4 +268,16 @@ export namespace FieldType {
     */
    export var select = defaultDescriptor
    export var textarea = defaultDescriptor
+   /**
+    * this isn't a native NS 'field' type, but rather is used to indicate a property should represent a NS sub-list.
+    * Pass a type derived from SublistLine that describes the sublist fields you want. e.g. Invoice.ItemSublistLine
+    * @example
+    * class MySublistLine extends Invoice.ItemSublistLine { custcol_foo:string }
+    * class Invoice {
+    * @FieldType.sublist(MySublistLine)
+    * item: SublistLine<MySublistLine>
+    * }
+    */
+   export var sublist = sublistDescriptor
 }
+

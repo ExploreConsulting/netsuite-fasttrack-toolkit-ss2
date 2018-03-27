@@ -2,11 +2,62 @@
  * NetSuite generic Transaction record
  */
 
-import {SublistLine, SublistFieldType} from './Sublist'
+import {Sublist, SublistLine, SublistFieldType} from './Sublist'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 import {FieldType} from "./Record"
 import * as moment from "../moment"
+
+
+/**
+ * The 'item' sublist on invoices
+ */
+export class ItemSublist extends SublistLine {
+
+   @SublistFieldType.freeformtext
+   account:string
+
+   @SublistFieldType.currency
+   amount:number
+
+   @SublistFieldType.textarea
+   description:string
+
+   @SublistFieldType.checkbox
+   istaxable:boolean
+
+   @SublistFieldType.select
+   item:number
+
+   @SublistFieldType.integernumber
+   linenumber:number
+
+   @SublistFieldType.select
+   price:number
+
+   @SublistFieldType.float
+   quantity:number
+
+   @SublistFieldType.float
+   rate:number
+
+   @SublistFieldType.date
+   revrecstartdate:moment.Moment
+
+   @SublistFieldType.date
+   revrecenddate:moment.Moment
+
+   @SublistFieldType.select
+   taxcode:number
+
+   @SublistFieldType.percent
+   taxrate1:number
+
+   @SublistFieldType.select
+   units:number
+}
+
+
 /**
  * NetSuite Invoice Record
  */
@@ -109,56 +160,10 @@ export class Base extends TransactionBase {
 
    @FieldType.freeformtext
    trackingnumbers:string
+
+   @FieldType.sublist(ItemSublist)
+   item : Sublist<ItemSublist>
 }
 
-/**
- * The 'item' sublist on invoices
- */
-export class ItemSublist extends SublistLine {
 
-   @SublistFieldType.freeformtext
-   account:string
-
-   @SublistFieldType.currency
-   amount:number
-
-   @SublistFieldType.textarea
-   description:string
-
-   @SublistFieldType.checkbox
-   istaxable:boolean
-
-   @SublistFieldType.select
-   item:number
-
-   @SublistFieldType.integernumber
-   linenumber:number
-
-   @SublistFieldType.select
-   price:number
-
-   @SublistFieldType.float
-   quantity:number
-
-   @SublistFieldType.float
-   rate:number
-
-   @SublistFieldType.date
-   revrecstartdate:moment.Moment
-
-   @SublistFieldType.date
-   revrecenddate:moment.Moment
-
-   @SublistFieldType.select
-   taxcode:number
-
-   @SublistFieldType.percent
-   taxrate1:number
-
-   @SublistFieldType.select
-   units:number
-
-}
-   
-   
 
