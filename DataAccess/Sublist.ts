@@ -10,7 +10,8 @@ import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
 import * as moment from "../moment"
 import * as _ from "../lodash"
-var log = LogManager.getLogger('nsdal')
+
+const log = LogManager.getLogger('nsdal')
 
 /*
  note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.
@@ -52,20 +53,20 @@ export namespace SublistFieldType {
 export function defaultSublistDescriptor(target:any, propertyKey:string):any {
    log.debug('creating default descriptor', `field: ${propertyKey}`)
    return {
-      get: function () {
-         var options = {
+      get: function (this:SublistLine) {
+         const options = {
             sublistId: this.sublistId,
-            line: this.line,
-            fieldId: propertyKey
+            line: this._line,
+            fieldId: propertyKey,
          }
          log.debug('getting sublist value', options)
          return this.nsrecord.getSublistValue(options)
       },
-      set: function (value) {
+      set: function (this:SublistLine, value) {
          // ignore undefined's
          if (value !== undefined) this.nsrecord.setSublistValue({
             sublistId: this.sublistId,
-            line: this.line,
+            line: this._line,
             fieldId: propertyKey,
             value: value
          })
@@ -86,25 +87,25 @@ export function defaultSublistDescriptor(target:any, propertyKey:string):any {
  */
 export function dateTimeSublistDescriptor(formatType: format.Type, target:any, propertyKey:string) :any {
    return {
-      get: function () {
-         var value = this.nsrecord.getSublistValue({
+      get: function (this:SublistLine) {
+         const value = this.nsrecord.getSublistValue({
             sublistId: this.sublistId,
-            line: this.line,
-            fieldId: propertyKey})
+            line: this._line,
+            fieldId: propertyKey}) as any
          log.debug(`transforming field format type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
          return value ? moment(format.parse({type: formatType, value: value})) : value
       },
-      set: function (value) {
+      set: function (this:SublistLine,value) {
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
-            var asDate;
+            let asDate
             // the value needs to either be a moment already, or a moment compatible string else null
             if (moment.isMoment(value)) asDate = value.toDate()
             else asDate = value ? moment(value).toDate() : null
             this.nsrecord.setSublistValue({
                sublistId: this.sublistId,
-               line: this.line,
+               line: this._line,
                fieldId: propertyKey,
                value: asDate
             })
@@ -126,19 +127,20 @@ export function dateTimeSublistDescriptor(formatType: format.Type, target:any, p
  */
 export function formattedSublistDescriptor(formatType:format.Type, target:any, propertyKey:string):any {
    return {
-      get: function () {
+      get: function (this:SublistLine) {
          log.debug(`getting formatted field [${propertyKey}]`)
-         var value = this.nsrecord.getSublistValue({
+         const value = this.nsrecord.getSublistValue({
             sublistId: this.sublistId,
-            line: this.line,
-            fieldId: propertyKey})
+            line: this._line,
+            fieldId: propertyKey,
+         }) as string // to satisfy typing for format.parse(value) below.
          log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
          // returns the 'raw' type which is a string or number for our purposes
          return value ? format.parse({type: formatType, value: value}) : value
       },
-      set: function (value) {
-         var formattedValue = undefined
+      set: function (this:SublistLine,value) {
+         let formattedValue = undefined
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
             switch (formatType) {
@@ -165,12 +167,12 @@ export function formattedSublistDescriptor(formatType:format.Type, target:any, p
                `to formatted value [${formattedValue}] (unformatted vale: ${value})`)
             if (value === null) this.nsrecord.setSublistValue({
                sublistId: this.sublistId,
-               line:this.line,
+               line:this._line,
                fieldId: propertyKey,
                value: null})
             else this.nsrecord.setSublistValue({
                sublistId: this.sublistId,
-               line:this.line,
+               line:this._line,
                fieldId: propertyKey,
                value: formattedValue})
          }
@@ -243,7 +245,7 @@ export class Sublist<T extends SublistLine> {
       this.sublistLineType = sublistLineType
       this.makeRecordProp(rec)
       log.debug('creating sublist', `type:${sublistId}, linecount:${this.length}`)
-      // create properties for all keys in our target type T
+      // create a sublist line indexed property of type T for each member of the underlying sublist
       for (let i = 0; i < this.length; i++ ){
          this[i] = new sublistLineType(this.sublistId, this.nsrecord, i)
       }
@@ -252,7 +254,7 @@ export class Sublist<T extends SublistLine> {
 }
 
 /**
- * contains minimim requirements for a sublist line - 1. which sublist are we working with, 2. on which record
+ * contains minimum requirements for a sublist line - 1. which sublist are we working with, 2. on which record
  * 3. which line on the sublist does this instance represent
  */
 export abstract class SublistLine {
@@ -271,7 +273,15 @@ export abstract class SublistLine {
 
    nsrecord:record.Record
 
-   constructor(public sublistId:string, rec:record.Record, public line:number){
+   /**
+    * Note that the sublistId and _line are used by the Sublist decorators to actually implement functionality, even
+    * though they are not referenced directly in this class
+    * @param {string} sublistId
+    * @param {Record} rec
+    * @param {number} _line the line number needed in decorator calls to underlying sublist. That's also why this is
+    * public - so that the decorators have access to it. TODO: consider how to make this protected?
+    */
+   constructor(public sublistId:string, rec:record.Record, public _line:number){
       this.makeRecordProp(rec)
    }
 }
