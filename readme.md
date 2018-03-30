@@ -6,7 +6,8 @@ This is a small but powerful framework for writing SuitScript that scales. The g
 enable authoring scripts that easy to write and easy to maintain.
 
 _Includes_
-* nsdal (**n**etsuite **d**ata **a**ccess **l**ayer)
+* nsdal (**n**etsuite **d**ata **a**ccess **l**ayer) which includes predefined strong types for many
+NetSuite record types. 
 * lodash
 * momentjs
 * logging
@@ -62,7 +63,7 @@ cabinet)
 
 Reference the NFT modules using relative path names. Here is a complete Suitelet example (TypeScript)
 
-### Example.ts
+### Example
 
 ```typescript
 /**
@@ -71,11 +72,11 @@ Reference the NFT modules using relative path names. Here is a complete Suitelet
  * @NScriptType Suitelet
  */
 
-import * as LogManager from './NFT-SS2-0.5.3/EC_Logger'
-import * as customer from "./NFT-SS2-0.5.3/DataAccess/CustomerBase"
-import * as nsdal from "./NFT-SS2-0.5.3/DataAccess/EC_nsdal"
-import * as moment from "./NFT-SS2-0.5.3/moment"
-import * as _ from "./NFT-SS2-0.5.3/lodash"
+import * as LogManager from './NFT-SS2-0.6.1/EC_Logger'
+import * as customer from "./NFT-SS2-0.6.1/DataAccess/CustomerBase"
+import * as nsdal from "./NFT-SS2-0.6.1/DataAccess/EC_nsdal"
+import * as moment from "./NFT-SS2-0.6.1/moment"
+import * as _ from "./NFT-SS2-0.6.1/lodash"
 
 // each script should request the DefaultLogger
 var log = LogManager.DefaultLogger
@@ -118,6 +119,8 @@ export = {
 }
 
 ```
+
+see also `example.ts` in this package.
 
 ## Logging
 NFT provides an advanced logging mechanism based on [Aurelia's](http://aurelia.io) logger. 
