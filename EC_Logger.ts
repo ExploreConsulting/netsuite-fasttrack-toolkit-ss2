@@ -103,6 +103,8 @@ function toNetSuiteLogLevel(level:number) {
            return 'error'
       case logLevel.error:
            return 'emergency'
+      default:
+         return 'debug'
       }
 }
 
@@ -143,7 +145,7 @@ export function autoLogMethodEntryExit(methodsToLogEntryExit: {target:Object, me
 
    return aop.around(methodsToLogEntryExit, function (invocation) {
       // record function entry with details for every method on our explore object
-      log(config.logLevel || logLevel.debug,logger,`Enter ${invocation.method}() ${getGovernanceMessage(withGovernance)}`,
+      log(config!.logLevel || logLevel.debug,logger,`Enter ${invocation.method}() ${getGovernanceMessage(withGovernance)}`,
          withArgs ? 'args: ' + JSON.stringify(arguments[0].arguments) : null)
       let startTime = moment()
       let retval    = invocation.proceed()
@@ -154,7 +156,7 @@ export function autoLogMethodEntryExit(methodsToLogEntryExit: {target:Object, me
             moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + " minutes";
       }
       // record function exit for every method on our explore object
-      log(config.logLevel || logLevel.debug, logger,
+      log(config!.logLevel || logLevel.debug, logger,
          [  `Exit ${invocation.method}()`,
             elapsedMessage,
             getGovernanceMessage(withGovernance)].join(' ').trim(),

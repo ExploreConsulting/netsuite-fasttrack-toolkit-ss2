@@ -106,7 +106,7 @@ var aop = (function() {
 	 */
 	var search = function(source, pointcut, advice) {
 		
-		var methods = [];
+		var methods: any[] = [];
 
 		for (var method in source) {
 
@@ -132,7 +132,7 @@ var aop = (function() {
 	var weave = function(pointcut:any, advice:any) {
 
 		var source = typeof(pointcut.target.prototype) != _undef ? pointcut.target.prototype : pointcut.target;
-		var advices = [];
+		var advices : any[] = [];
 
 		// If it's not an introduction and no method was found, try with regex...
 		if (advice.type != _intro && typeof(source[pointcut.method]) == _undef) {

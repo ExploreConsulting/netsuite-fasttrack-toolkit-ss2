@@ -43,7 +43,6 @@ export namespace SublistFieldType {
    export var textarea = defaultSublistDescriptor
 }
 
-
 /**
  * Generic property descriptor with basic default algorithm that exposes the field value directly with no
  * other processing.
@@ -140,7 +139,7 @@ export function formattedSublistDescriptor(formatType:format.Type, target:any, p
          return value ? format.parse({type: formatType, value: value}) : value
       },
       set: function (this:SublistLine,value) {
-         let formattedValue = undefined
+         let formattedValue: number | null
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
             switch (formatType) {

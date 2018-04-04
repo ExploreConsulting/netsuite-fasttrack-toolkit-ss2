@@ -3,6 +3,7 @@
     "module": "amd",
     "target": "es5",
     "noImplicitAny": false,
+    "strictNullChecks" :true,
     // using this lets us have rootDirs resolve stuff like moment with "./moment"
     "moduleResolution":"node",
     // the gulp build brings moment and lodash into the root folder - these settings fake that for the TS compiler

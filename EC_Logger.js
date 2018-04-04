@@ -111,6 +111,8 @@ define(["require", "exports", "./moment", "./aurelia-logging", "N/log", "N/runti
                 return 'error';
             case aurelia_logging_1.logLevel.error:
                 return 'emergency';
+            default:
+                return 'debug';
         }
     }
     function getGovernanceMessage(governanceEnabled) {

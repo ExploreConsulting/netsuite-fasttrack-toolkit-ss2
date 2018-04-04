@@ -65,7 +65,7 @@ var count = salesorder.getLineCount({
 })
 
 // build a collection of item id and quantity objects for all items on the salesorder
-var itemInfo = [];
+var itemInfo: any[] = [];
 
 for ( var x = 0; x < count; x++) {
    var item = salesorder.getSublistValue({
