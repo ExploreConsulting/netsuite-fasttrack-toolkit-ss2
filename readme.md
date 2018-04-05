@@ -97,6 +97,20 @@ export = {
 
 see also `example.ts` in this package.
 
+## Search Helpers
+
+```typescript
+
+import {nsSearchResult2obj} from "NFT/search"
+import * as search from "N/search"
+
+const s = search.load({ id: 'somesearchid' } ).run().getRange({start:0, end:1000})
+const objects = _.map(s,nsSearchResult2obj)
+
+```
+
+
+
 ## Logging
 NFT provides an advanced logging mechanism based on [Aurelia's](http://aurelia.io) logger. 
 

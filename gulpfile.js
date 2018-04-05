@@ -17,7 +17,7 @@ var $       = require('gulp-load-plugins')();
 /**
  * All the sources files we need to zip up for deployment to NS
  */
-var sources = ['EC_Logger.js', 'config.js', 'DataAccess/*.js', 'aop.js'];
+var sources = ['search.js','EC_Logger.js', 'config.js', 'DataAccess/*.js', 'aop.js'];
 
 var declarations = ['*.d.ts', 'DataAccess/*.d.ts','!example.d.ts'];
 
