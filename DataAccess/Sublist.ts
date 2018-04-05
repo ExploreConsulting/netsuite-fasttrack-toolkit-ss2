@@ -185,15 +185,16 @@ export function formattedSublistDescriptor(formatType:format.Type, target:any, p
  * creates a sublist whose lines are of type T
  */
 export class Sublist<T extends SublistLine> {
-   nsrecord:record.Record
+   nsrecord: record.Record
+
    // enforce 'array like' interaction through indexers
-   [i:number]:T
+   [i: number]: T
 
    /**
     * array-like length property (linecount)
     * @returns {number} number of lines in this list
     */
-   get length() {
+   get length () {
       return this.nsrecord.getLineCount({sublistId: this.sublistId})
    }
 
@@ -201,10 +202,10 @@ export class Sublist<T extends SublistLine> {
     * adds a new line to this sublist
     * @param ignoreRecalc
     */
-   addLine(ignoreRecalc = true):T {
+   addLine (ignoreRecalc = true): T {
       log.debug('inserting line', `sublist: ${this.sublistId} insert at line:${this.length}`)
       let insertAt = this.length
-      this[insertAt] = new this.sublistLineType(this.sublistId,this.nsrecord,insertAt)
+      this[insertAt] = new this.sublistLineType(this.sublistId, this.nsrecord, insertAt)
       this.nsrecord.insertLine({
          sublistId: this.sublistId,
          line: insertAt,
@@ -217,12 +218,12 @@ export class Sublist<T extends SublistLine> {
    /**
     * commits the currently selected line on this sublist. When adding new lines you don't need to call this method
     */
-   commitLine() {
-      log.debug('committing line',`sublist: ${this.sublistId}` )
-      this.nsrecord.commitLine({ sublistId:this.sublistId })
+   commitLine () {
+      log.debug('committing line', `sublist: ${this.sublistId}`)
+      this.nsrecord.commitLine({sublistId: this.sublistId})
    }
 
-   selectLine(line:number) {
+   selectLine (line: number) {
       log.debug('selecting line', line)
       this.nsrecord.selectLine({sublistId: this.sublistId, line: line})
    }
@@ -232,26 +233,27 @@ export class Sublist<T extends SublistLine> {
     * field properties defined on derived classes should be seen when enumerating
     * @param value
     */
-   private makeRecordProp(value) {
+   private makeRecordProp (value) {
       Object.defineProperty(this, 'nsrecord', {
          value: value,
          enumerable: false
       })
    }
 
-   constructor(public readonly sublistLineType: { new(sublistId:string, nsrec:record.Record, line:number): T },
-               rec:record.Record, public sublistId:string) {
+   constructor (public readonly sublistLineType: { new (sublistId: string, nsrec: record.Record, line: number): T },
+                rec: record.Record, public sublistId: string) {
       this.sublistLineType = sublistLineType
       this.makeRecordProp(rec)
       log.debug('creating sublist', `type:${sublistId}, linecount:${this.length}`)
       // create a sublist line indexed property of type T for each member of the underlying sublist
-      for (let i = 0; i < this.length; i++ ){
+      for (let i = 0; i < this.length; i++) {
          this[i] = new sublistLineType(this.sublistId, this.nsrecord, i)
       }
    }
 
+   // serialize lines to an array with properties shown
+   toJSON = () => _.map(this,_.toPlainObject)
 }
-
 /**
  * contains minimum requirements for a sublist line - 1. which sublist are we working with, 2. on which record
  * 3. which line on the sublist does this instance represent
@@ -274,14 +276,17 @@ export abstract class SublistLine {
 
    /**
     * Note that the sublistId and _line are used by the Sublist decorators to actually implement functionality, even
-    * though they are not referenced directly in this class
-    * @param {string} sublistId
-    * @param {Record} rec
+    * though they are not referenced directly in this class. We mark them as not-enumerable because they are an implementation
+    * detail and need not be exposed to the typical consumer
+    * @param {string} sublistId netsuite internal id (string name) of the sublist
+    * @param {Record} rec netsuite record on which the sublist exists
     * @param {number} _line the line number needed in decorator calls to underlying sublist. That's also why this is
-    * public - so that the decorators have access to it. TODO: consider how to make this protected?
+    * public - so that the decorators have access to it.
     */
    constructor(public sublistId:string, rec:record.Record, public _line:number){
       this.makeRecordProp(rec)
+      Object.defineProperty(this,'sublistId',{enumerable:false})
+      Object.defineProperty(this,'_line',{enumerable:false})
    }
 }
 

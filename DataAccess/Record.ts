@@ -43,18 +43,13 @@ export abstract class NetsuiteCurrentRecord {
     * field properties defined on derived classes should be seen when enumerating
     * @param value
     */
-   private makeRecordProp (value) {
-      Object.defineProperty(this, 'nsrecord', {
-         value: value,
-         enumerable: false,
-      })
-   }
+   private makeRecordProp = (value) => Object.defineProperty(this,'nsrecord',{value:value})
 
    constructor (rec?: number | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, defaultValues?: Object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
-      var type = Object.getPrototypeOf(this).constructor.recordType
+      let type = Object.getPrototypeOf(this).constructor.recordType
       if (typeof rec === "number") {
          log.debug('loading existing record', `type:${type}, id:${rec}`)
          this.makeRecordProp(record.load({
@@ -93,7 +88,7 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
     * @returns {number}
     */
    save (enableSourcing?: boolean, ignoreMandatoryFields?: boolean) {
-      var id = this.nsrecord.save({
+      const id = this.nsrecord.save({
          enableSourcing: enableSourcing,
          ignoreMandatoryFields: ignoreMandatoryFields,
       })
@@ -164,7 +159,7 @@ export function numericDescriptor (target: any, propertyKey: string): any {
 function dateTimeDescriptor (formatType: format.Type, target: any, propertyKey: string): any {
    return {
       get: function () {
-         var value = this.nsrecord.getValue({fieldId: propertyKey})
+         let value = this.nsrecord.getValue({fieldId: propertyKey})
          log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
          return value ? moment(format.parse({type: formatType, value: value})) : value
@@ -172,7 +167,7 @@ function dateTimeDescriptor (formatType: format.Type, target: any, propertyKey: 
       set: function (value) {
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
-            var asDate
+            let asDate
             // the value needs to either be a moment already, or a moment compatible string else null
             if (moment.isMoment(value)) asDate = value.toDate()
             else asDate = value ? moment(value).toDate() : null
@@ -196,15 +191,19 @@ type LineConstructor<T> = new (s: string, r: record.Record, n: number) => T
  */
 function sublistDescriptor<T extends SublistLine> (ctor:  LineConstructor<T> )  {
    return function (target: any, propertyKey: string): any {
-      let _sl // lazy initialize this on first access
+      const privateProp = `_${propertyKey}`
       return {
+         enumerable:true,
          // sublist is read only for now - if we have a use case where this should be assigned then tackle it
          get: function () {
-            if (!_sl) {
+
+            if (!this[privateProp]) {
                log.debug('initializing sublist', `sublist property named ${propertyKey}`)
-               _sl = new Sublist(ctor, this.nsrecord, propertyKey)
+               // using defineProperty() here defaults to making the property non-enumerable which is what we want
+               // for this 'private' property so it doesn't appear on serialization (e.g. JSON.stringify())
+               Object.defineProperty(this,privateProp,{ value:new Sublist(ctor, this.nsrecord, propertyKey)})
             }
-            return _sl
+            return this[privateProp]
          },
       }
    }
@@ -228,7 +227,7 @@ function formattedDescriptor (formatType: format.Type, target: any, propertyKey:
       set: function (value) {
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
-            var formattedValue = format.format({type: formatType, value: value})
+            let formattedValue = format.format({type: formatType, value: value})
             log.debug(`setting field [${propertyKey}:${formatType}]`,
                `to formatted value [${formattedValue}] javascript type:${typeof formattedValue}`)
             if (value === null) this.nsrecord.setValue({fieldId: propertyKey, value: null})

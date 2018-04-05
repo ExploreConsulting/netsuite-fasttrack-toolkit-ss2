@@ -19,7 +19,8 @@
     "paths": {
       "N/*": [
         "node_modules/@hitc/netsuite-types/N/*"
-      ]
+      ],
+      "NFT/*": [ "./*"]
     }
   },
   "include": ["./*.ts", "DataAccess/*.ts"],
