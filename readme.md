@@ -33,32 +33,7 @@ extract the zip there.
 ## Getting Started
 After install you should get a folder link at your project root named NFT-SS2-#.#.#
 This creates a folder structure mirroring what you have in NetSuite so you can use relative paths when you 
-`import`.
-
-
-__NOTE: NetSuite Limitation__
-NetSuite SuiteScript 2.0 appears to have a defect where you can't _create_ a complete sample like
- shown below with complex custom libraries.  To get around this create your script as an empty shell
- first - then upload the full txt to the file cabinet.
-
- For example, first upload something like this as a 'skeleton' Suitelet:
-
- ```javascript
- /**
-  * Test file for SuiteScript 2.0
-  * @NApiVersion 2.x
-  * @NScriptType Suitelet
-  */
-  define([], function () {
-      return {
-          onRequest: function (req, resp) {
-          }
-      };
-  });
-
-````
-.. then _after_ you create the script record you can upload the full example (replacing the file in the file
-cabinet)
+`import` from the library.
 
 
 Reference the NFT modules using relative path names. Here is a complete Suitelet example (TypeScript)
