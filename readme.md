@@ -41,17 +41,20 @@ Reference the NFT modules using relative path names. Here is a complete Suitelet
 ### Example
 
 ```typescript
+
+
 /**
  * Test file for SuiteScript 2.0
  * @NApiVersion 2.x
  * @NScriptType Suitelet
+ * @NAmdConfig ./myconfig.json
  */
 
-import * as LogManager from './NFT-SS2-0.6.1/EC_Logger'
-import * as customer from "./NFT-SS2-0.6.1/DataAccess/CustomerBase"
-import * as nsdal from "./NFT-SS2-0.6.1/DataAccess/EC_nsdal"
-import * as moment from "./NFT-SS2-0.6.1/moment"
-import * as _ from "./NFT-SS2-0.6.1/lodash"
+import * as LogManager from 'NFT/EC_Logger'
+import * as customer from "NFT/DataAccess/CustomerBase"
+import * as nsdal from "NFT/DataAccess/EC_nsdal"
+import * as moment from "NFT/moment"
+import * as _ from "NFT/lodash"
 
 // each script should request the DefaultLogger
 var log = LogManager.DefaultLogger
