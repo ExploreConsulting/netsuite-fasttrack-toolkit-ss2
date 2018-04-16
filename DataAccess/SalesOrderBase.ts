@@ -15,19 +15,57 @@ export class Base extends TransactionBase {
    static recordType = record.Type.SALES_ORDER
 }
 
+
 /**
  * Sublist 'item' on the Sales Order record
  */
 export class ItemSublist extends SublistLine {
 
-   @SublistFieldType.select
-   item:number
-
-   @SublistFieldType.decimalnumber
-   quantity:number
-
    @SublistFieldType.decimalnumber
    amount:number
+
+   @SublistFieldType.select
+   commitinventory:number
+
+   @SublistFieldType.currency
+   costestimate:number
+
+   @SublistFieldType.currency
+   costestimaterate:number
+
+   @SublistFieldType.checkbox
+   deferrevrec:boolean
+
+   @SublistFieldType.textarea
+   description:string
+
+   @SublistFieldType.date
+   expectedshipdate:moment.Moment
+
+   @SublistFieldType.checkbox
+   isclosed:boolean
+
+   @SublistFieldType.checkbox
+   isestimate:boolean
+
+   @SublistFieldType.checkbox
+   istaxable:boolean
+
+
+   @SublistFieldType.select
+   item: number
+
+   @SublistFieldType.freeformtext
+   itemtype:string
+
+   @SublistFieldType.currency
+   porate:number
+
+   @SublistFieldType.select
+   price:number
+
+   @SublistFieldType.float
+   quantity:number
 
    @SublistFieldType.decimalnumber
    rate:number
@@ -62,3 +100,4 @@ export class SalesTeamSublist extends SublistLine {
    @SublistFieldType.decimalnumber
    contribution:number
 }
+
