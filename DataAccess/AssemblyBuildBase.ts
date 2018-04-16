@@ -1,7 +1,7 @@
 import * as record from 'N/record'
-import {FieldType, NetsuiteRecord} from "NFT/DataAccess/Record"
+import {FieldType, NetsuiteRecord} from "./Record"
 import * as moment from "../moment"
-import {SublistLine, Sublist, SublistFieldType} from 'NFT/DataAccess/Sublist'
+import {SublistLine, Sublist, SublistFieldType} from './Sublist'
 
 /**
  * the Components (component) sublist on AssemblyBuild records
