@@ -62,5 +62,44 @@ export abstract class TransactionBase extends NetsuiteRecord {
    @FieldType.date
    trandate:moment.Moment | string
 
+   /**
+    * locates line on the 'apply' sublist that corresponds to the passed related record internal id
+    * expose this method in derived classes that need dynamic access to the apply sublist
+    */
+   protected findApplyLine(docId: number) : {apply: boolean, amount:number, line:number} {
+      let rec = this.nsrecord
+      if (!rec.isDynamic || !this.defaultValues)
+         throw new Error('record must be in dynamic mode and have default values set to use this method')
+
+      const line = rec.findSublistLineWithValue({
+         sublistId: 'apply',
+         fieldId: 'doc',
+         value: docId.toString()
+      })
+
+      // helper function for adding a 'current sublist' getter/settor for the given property name on the apply sublist
+      const addProp = (o: object, prop: any) => {
+         Object.defineProperty(o, prop, {
+            get: function () {
+               rec.selectLine({sublistId: 'apply', line: line})
+               return rec.getCurrentSublistValue({sublistId: 'apply', fieldId: prop})
+            },
+            set: function (value) {
+               rec.selectLine({sublistId: 'apply', line: line})
+               rec.setCurrentSublistValue({sublistId: 'apply', fieldId: prop, value: value})
+               rec.commitLine({sublistId: 'apply'})
+            }
+         })
+      }
+
+      if (line >= 0) {
+         let newLine = {line: line}
+         addProp(newLine, 'apply')
+         addProp(newLine, 'amount')
+         return newLine as { apply: boolean, amount:number, line:number}
+      }
+   }
 }
+
+
 

@@ -45,7 +45,7 @@ export abstract class NetsuiteCurrentRecord {
     */
    private makeRecordProp = (value) => Object.defineProperty(this,'nsrecord',{value:value})
 
-   constructor (rec?: number | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, defaultValues?: Object) {
+   constructor (rec?: number | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, protected defaultValues?: object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
