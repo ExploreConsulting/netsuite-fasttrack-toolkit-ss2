@@ -112,6 +112,9 @@ const objects = _.map(s,nsSearchResult2obj)
 
 ```
 
+## Special 'apply' sublist support
+
+See `CustomerRefundBase.findApplyLine()` and `Transaction.ts` for help.
 
 
 ## Logging
