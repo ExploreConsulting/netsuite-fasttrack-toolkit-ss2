@@ -1,0 +1,5 @@
+export const create = jest.fn().mockReturnThis().mockName('create')
+export const Type = jest.fn()
+export const getValue = jest.fn().mockName('getValue')
+export const setValue = jest.fn().mockName('setValue')
+export const load = jest.fn().mockReturnThis().mockName('load')
