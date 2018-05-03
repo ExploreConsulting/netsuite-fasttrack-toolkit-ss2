@@ -18,6 +18,7 @@
     "@types/jest": "^22.2.3",
     "@types/lazy.js": "^0.3.28",
     "@types/lodash": "4.14.92",
+    "@types/node": "^7.0.63",
     "chai": "^3.5.0",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
@@ -36,6 +37,7 @@
     "mocha": "^5.0.5",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.7.0",
+    "ts-node": "^6.0.2",
     "typescript": "^2.8.1"
   },
   "repository": {
