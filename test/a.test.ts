@@ -1,7 +1,11 @@
+/**
+ * Basic tests on instantiating nsdal objects and manipulating them
+ */
+
+
 import * as mockrecord from '__mocks__/N/record'
 import * as _ from "lodash"
 import * as cust from "NFT/DataAccess/CustomerBase"
-import mock = jest.mock
 
 test('instantiate new object', function() {
 
@@ -63,4 +67,16 @@ test('set a field', function() {
 
    expect(mockrecord.setValue).toHaveBeenCalledTimes(1)
    expect(mockrecord.getValue).not.toHaveBeenCalled()
+})
+
+test('read a field', function() {
+
+   const c = new cust.Base('123')
+
+   expect(c).toBeTruthy()
+
+   if (c.comments) {}
+
+   expect(mockrecord.getValue).toHaveBeenCalledTimes(1)
+   expect(mockrecord.setValue).not.toHaveBeenCalled()
 })
