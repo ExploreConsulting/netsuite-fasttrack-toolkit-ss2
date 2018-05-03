@@ -45,12 +45,22 @@ export abstract class NetsuiteCurrentRecord {
     */
    private makeRecordProp = (value) => Object.defineProperty(this,'nsrecord',{value:value})
 
-   constructor (rec?: number | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, protected defaultValues?: object) {
+   constructor (rec?: number | string | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, protected defaultValues?: object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
       let type = Object.getPrototypeOf(this).constructor.recordType
-      if (typeof rec === "number") {
+      if (!rec) {
+         log.debug('creating new record', `type:${type}  isDyanamic:${isDynamic} defaultValues:${defaultValues}`)
+         this.makeRecordProp(record.create({type: type, isDynamic: isDynamic, defaultValues: defaultValues}))
+      }
+      else if (typeof rec === 'object') {
+         log.debug('using existing record', `type:${rec.type}, id:${rec.id}`)
+         this.makeRecordProp(rec)
+         this._id = rec.id
+      }
+      // allow
+      else if (typeof rec === 'number' || +rec )  {
          log.debug('loading existing record', `type:${type}, id:${rec}`)
          this.makeRecordProp(record.load({
             type: type,
@@ -60,15 +70,8 @@ export abstract class NetsuiteCurrentRecord {
          }))
          this._id = this.nsrecord.id
       }
-      else if (!rec) {
-         log.debug('creating new record', `type:${type}  isDyanamic:${isDynamic} defaultValues:${defaultValues}`)
-         this.makeRecordProp(record.create({type: type, isDynamic: isDynamic, defaultValues: defaultValues}))
-      }
-      else {
-         log.debug('using existing record', `type:${rec.type}, id:${rec.id}`)
-         this.makeRecordProp(rec)
-         this._id = rec.id
-      }
+      else throw new Error(`invalid value for argument "rec": ${rec}. 
+      Must be one of: null/undefined, an internal id, or an existing record`)
    }
 }
 
