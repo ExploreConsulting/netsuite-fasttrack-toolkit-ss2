@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "amd",
+    "module": "umd",
     "target": "es5",
     "noImplicitAny": false,
     "strictNullChecks" :false,
@@ -23,6 +23,6 @@
       "NFT/*": [ "./*"]
     }
   },
-  "include": ["./*.ts", "DataAccess/*.ts"],
-  "exclude": ["node_modules", "test", "declarations", "dist"]
+  "include": ["./*.ts", "DataAccess/*.ts", "test/*.ts", "__mocks__"],
+  "exclude": ["node_modules", "declarations", "dist"]
 }
