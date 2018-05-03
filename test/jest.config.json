@@ -1,0 +1,9 @@
+{
+  "automock": false,
+  "clearMocks":true,
+  "moduleNameMapper":{
+    "NFT/(.*)": "../$1",
+    "N/(.*)": "<rootDir>/../__mocks__/N/$1"
+  }
+}
+
