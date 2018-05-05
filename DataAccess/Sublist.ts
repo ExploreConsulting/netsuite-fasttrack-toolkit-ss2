@@ -7,7 +7,7 @@
 
 import * as record from 'N/record'
 import * as format from 'N/format'
-import * as LogManager from '../EC_Logger'
+import * as LogManager from 'NFT/EC_Logger'
 import * as moment from "moment"
 import * as _ from "lodash"
 
@@ -265,7 +265,7 @@ export abstract class SublistLine {
     * field properties defined on derived classes should be seen when enumerating
     * @param value
     */
-   private makeRecordProp(value) {
+   protected makeRecordProp(value) {
       Object.defineProperty(this, 'nsrecord', {
          value: value,
          enumerable: false

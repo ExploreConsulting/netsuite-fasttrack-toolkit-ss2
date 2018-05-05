@@ -2,11 +2,11 @@
  * Represents a Return Authorization (returnauthorization) transaction type in NetSuite
  */
 
-import {FieldType} from './Record'
+import {FieldType} from 'NFT/DataAccess/Record'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction"
-import {SublistLine, SublistFieldType, Sublist} from './Sublist'
-import * as moment from "../moment"
+import {TransactionBase} from "NFT/DataAccess/Transaction"
+import {SublistLine, SublistFieldType, Sublist} from 'NFT/DataAccess/Sublist'
+import * as moment from "moment"
 
 /**
  * Return Authorization Items (item) sublist

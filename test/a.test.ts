@@ -3,9 +3,15 @@
  */
 
 
-import * as mockrecord from '__mocks__/N/record'
+if (typeof define !== 'function') {var define = require('amdefine')(module)}
+
+
+import * as mockrecord from '../__mocks__/N/record'
 import * as _ from "lodash"
+
+require('amdefine/intercept')
 import * as cust from "NFT/DataAccess/CustomerBase"
+
 
 test('instantiate new object', function() {
 

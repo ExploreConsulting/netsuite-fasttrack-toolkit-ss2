@@ -7,13 +7,17 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "__mocks__/N/record", "lodash", "NFT/DataAccess/CustomerBase"], factory);
+        define(["require", "exports", "../__mocks__/N/record", "lodash", "NFT/DataAccess/CustomerBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var mockrecord = require("__mocks__/N/record");
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
+    var mockrecord = require("../__mocks__/N/record");
     var _ = require("lodash");
+    require('amdefine/intercept');
     var cust = require("NFT/DataAccess/CustomerBase");
     test('instantiate new object', function () {
         var c = new cust.Base;

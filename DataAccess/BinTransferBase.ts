@@ -3,10 +3,10 @@
  */
 
 
-import {FieldType, NetsuiteRecord} from './Record'
+import {FieldType, NetsuiteRecord} from 'NFT/DataAccess/Record'
 import * as record from 'N/record'
-import {SublistLine, SublistFieldType, Sublist} from './Sublist'
-import * as moment from "../moment"
+import {SublistLine, SublistFieldType, Sublist} from 'NFT/DataAccess/Sublist'
+import * as moment from "moment"
 
 /**
  * represents the Adjustments sublist on Bin Transfer records

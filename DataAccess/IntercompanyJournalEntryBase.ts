@@ -3,8 +3,8 @@
  */
 
 import * as record from 'N/record'
-import {Base as JournalEntry} from "./JournalEntryBase";
-import {SublistLine,SublistFieldType} from "./Sublist";
+import {Base as JournalEntry} from "NFT/DataAccess/JournalEntryBase";
+import {SublistLine,SublistFieldType} from "NFT/DataAccess/Sublist";
 
 /**
  * defines an Inter-company journal entry (basically identical to a normal journal entry?)

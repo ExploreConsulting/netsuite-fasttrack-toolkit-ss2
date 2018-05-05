@@ -2,11 +2,11 @@
  * Represents a Customer Refund (customerrefund) transaction type in NetSuite
  */
 
-import {FieldType} from './Record'
+import {FieldType} from 'NFT/DataAccess/Record'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction"
-import {Sublist, SublistFieldType, SublistLine} from './Sublist'
-import * as moment from "../moment"
+import {TransactionBase} from "NFT/DataAccess/Transaction"
+import {Sublist, SublistFieldType, SublistLine} from 'NFT/DataAccess/Sublist'
+import * as moment from "moment"
 
 /**
  * The Credits (apply) sublist on Customer Refund transaction

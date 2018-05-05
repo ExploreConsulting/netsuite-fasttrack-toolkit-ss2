@@ -9,11 +9,11 @@ this line adds lodash it as a silent dependency of this
 module (in the correct path of ./lodash assuming lodash is installed in the same folder as this script)
 */
 
-import * as moment from "./NFT-SS2-0.4.2/moment"
-import * as LogManager from './NFT-SS2-0.4.2/EC_Logger'
-import * as customer from "./NFT-SS2-0.4.2/DataAccess/CustomerBase"
-import * as _ from "./NFT-SS2-0.4.2/lodash"
-import * as nsdal from "./NFT-SS2-0.4.2/DataAccess/EC_nsdal"
+import * as moment from "moment"
+import * as LogManager from 'NFT/EC_Logger'
+import * as customer from "NFT/DataAccess/CustomerBase"
+import * as _ from "lodash"
+import * as nsdal from "NFT/DataAccess/EC_nsdal"
 
 
 let log = LogManager.DefaultLogger

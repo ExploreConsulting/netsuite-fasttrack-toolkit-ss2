@@ -2,24 +2,9 @@
  * Created by shawn on 4/6/16.
  * @NApiVersion 2.x
  */
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "moment", "aurelia-logging", "N/log", "N/runtime", "./aop", "lodash", "aurelia-logging"], factory);
-    }
-})(function (require, exports) {
+define(["require", "exports", "moment", "aurelia-logging", "N/log", "N/runtime", "./aop", "lodash", "aurelia-logging"], function (require, exports, moment, aurelia_logging_1, nslog, runtime, aop, _, aurelia_logging_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var moment = require("moment");
-    var aurelia_logging_1 = require("aurelia-logging");
-    var nslog = require("N/log");
-    var runtime = require("N/runtime");
-    var aop = require("./aop");
-    var _ = require("lodash");
-    var aurelia_logging_2 = require("aurelia-logging");
     exports.getLogger = aurelia_logging_2.getLogger;
     exports.Logger = aurelia_logging_2.Logger;
     exports.logLevel = aurelia_logging_2.logLevel;

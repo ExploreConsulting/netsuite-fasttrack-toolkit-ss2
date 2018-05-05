@@ -1,0 +1,17 @@
+{
+  "extends":"../tsconfig.json",
+  "compilerOptions": {
+    "module": "umd",
+    "baseUrl": ".",
+    "paths": {
+      "N/*": [
+        "../node_modules/@hitc/netsuite-types/N/*"
+      ],
+      "NFT/*": [
+        "../declarations/*"
+      ]
+    }
+  },
+  "include": ["./*.ts","../*.ts", "../DataAccess/*.ts"],
+  "exclude": ["node_modules", "declarations", "dist"]
+}

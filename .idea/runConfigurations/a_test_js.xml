@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="a.test.js" type="JavaScriptTestRunnerJest" factoryName="Jest" nameIsGenerated="true">
+    <config-file value="$PROJECT_DIR$/test/jest.config.json" />
+    <node-interpreter value="project" />
+    <node-options value="" />
+    <working-dir value="$PROJECT_DIR$" />
+    <envs />
+    <scope-kind value="TEST_FILE" />
+    <test-file value="$PROJECT_DIR$/test/a.test.js" />
+    <method>
+      <option name="TypeScript.Before.Run" enabled="true" FAIL_ON_ERROR="true" CONFIG_PATH="$PROJECT_DIR$/test/tsconfig.json" />
+    </method>
+  </configuration>
+</component>

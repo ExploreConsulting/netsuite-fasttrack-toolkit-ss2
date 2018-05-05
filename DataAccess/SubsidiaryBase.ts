@@ -2,9 +2,9 @@
  * NS Base subsidiary record - contains definitions built in fields
  */
 
-import {FieldType, NetsuiteRecord} from './Record'
+import {FieldType, NetsuiteRecord} from 'NFT/DataAccess/Record'
 import * as record from 'N/record'
-import {SublistLine, SublistFieldType} from './Sublist'
+import {SublistLine, SublistFieldType} from 'NFT/DataAccess/Sublist'
 
 
 export class Base extends NetsuiteRecord {

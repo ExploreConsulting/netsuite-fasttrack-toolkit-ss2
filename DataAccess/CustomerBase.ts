@@ -2,10 +2,10 @@
  * NS Base customer record - contains definitions for most of the built in fields
  */
 
-import {FieldType, NetsuiteRecord} from './Record'
+import {FieldType, NetsuiteRecord} from 'NFT/DataAccess/Record'
 import * as record from 'N/record'
-import {SublistLine, SublistFieldType} from './Sublist'
-import * as moment from "../moment"
+import {SublistLine, SublistFieldType} from 'NFT/DataAccess/Sublist'
+import * as moment from "moment"
 
 export class Base extends NetsuiteRecord {
    static recordType = record.Type.CUSTOMER

@@ -2,10 +2,10 @@
  * NS Base jounral entry record - contains definitions for fields and sublists
  */
 
-import {FieldType, NetsuiteRecord} from './Record'
+import {FieldType, NetsuiteRecord} from 'NFT/DataAccess/Record'
 import * as record from 'N/record'
-import {SublistLine, SublistFieldType, Sublist} from './Sublist'
-import * as moment from '../moment'
+import {SublistLine, SublistFieldType, Sublist} from 'NFT/DataAccess/Sublist'
+import * as moment from 'moment'
 
 /**
  * 'line' sublist on the standard Journal Entry Record

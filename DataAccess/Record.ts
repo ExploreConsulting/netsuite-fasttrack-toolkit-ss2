@@ -5,10 +5,10 @@
 
 import * as record from 'N/record'
 import * as format from 'N/format'
-import * as LogManager from '../EC_Logger'
+import * as LogManager from 'NFT/EC_Logger'
 import * as moment from "moment"
 import * as _ from "lodash"
-import {Sublist, SublistLine} from "./Sublist"
+import {Sublist, SublistLine} from "NFT/DataAccess/Sublist"
 
 const log = LogManager.getLogger('nsdal')
 
@@ -184,7 +184,7 @@ function dateTimeDescriptor (formatType: format.Type, target: any, propertyKey: 
 }
 
 // this is the shape of SublistLine class constructor
-type LineConstructor<T> = new (s: string, r: record.Record, n: number) => T
+type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, n: number) => T
 
 /**
  * Decorator for adding sublists with each line of the sublist represented by a type T which

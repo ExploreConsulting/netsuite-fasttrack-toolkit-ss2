@@ -1,6 +1,7 @@
 {
   "automock": false,
   "clearMocks":true,
+  "moduleDirectories" :["node_modules","."],
   "moduleNameMapper":{
     "NFT/(.*)": "../$1",
     "N/(.*)": "<rootDir>/../__mocks__/N/$1"

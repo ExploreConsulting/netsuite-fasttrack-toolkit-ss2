@@ -2,11 +2,11 @@
  * NetSuite cash sale Transaction record
  */
 
-import {SublistLine, SublistFieldType} from './Sublist'
+import {SublistLine, SublistFieldType} from 'NFT/DataAccess/Sublist'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction";
-import {FieldType} from "./Record"
-import * as moment from "../moment"
+import {TransactionBase} from "NFT/DataAccess/Transaction";
+import {FieldType} from "NFT/DataAccess/Record"
+import * as moment from "moment"
 /**
  * NetSuite Cashsale Record
  */
