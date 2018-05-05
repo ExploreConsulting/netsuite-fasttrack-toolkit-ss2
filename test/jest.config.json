@@ -5,6 +5,19 @@
   "moduleNameMapper":{
     "NFT/(.*)": "../$1",
     "N/(.*)": "<rootDir>/../__mocks__/N/$1"
-  }
+  },
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.(tsx?)$",
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx",
+    "json",
+    "node"
+  ]
 }
+
 
