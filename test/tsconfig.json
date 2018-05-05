@@ -2,7 +2,7 @@
   "extends":"../tsconfig.json",
   "compilerOptions": {
     "declaration" :false,
-    "module": "umd",
+    "module": "commonjs",
     "baseUrl": ".",
     "paths": {
       "N/*": [
