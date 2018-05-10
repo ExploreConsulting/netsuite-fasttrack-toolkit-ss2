@@ -2,24 +2,21 @@
 
 NFT (NetSuite Fasttrack Toolkit) for SuiteScript 2.0
 ===============================================
-This is a small but powerful framework for writing SuitScript that scales. The goal is to 
+This is a small but powerful framework for writing SuitScript that scales. A primary goal is to 
 enable authoring scripts that easy to write and easy to maintain.
 
 _Includes_
-* nsdal (**n**etsuite **d**ata **a**ccess **l**ayer) which includes predefined strong types for many
-NetSuite record types. 
+* nsdal (**n**etsuite **d**ata **a**ccess **l**ayer) _ActiveRecord_-like approach with strongly 
+predefined strong types for many NetSuite record types. 
 * lodash
 * momentjs
-* logging
+* advanced logging
 
 # Installation
 Install this package as a dependency and global typings for lodash. 
 
-    npm install netsuite-fasttrack-toolkit-ss2 --save
-    npm install @types/lodash --save-dev
-
-The need to install `@types/lodash` here is to avoid duplicate symbol errors.
-
+    npm install netsuite-fasttrack-toolkit-ss2 
+    
 **For more, check out the intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0)**
 
 
@@ -140,6 +137,20 @@ Please do.
 # TypeScript
 This is written with TS and is recommended. However, it can be used by javascript clients as well.
 
+Configure tsconfig to include `paths` for NetSuite modules and NFT modules:
+
+        "paths": {
+          "N/*": [
+            "node_modules/@hitc/netsuite-types/N/*"
+          ],
+          "NFT/*": [
+            "node_modules/netsuite-fasttrack-toolkit-ss2/declarations/*"
+          ]
+        }
+
+
+
+
 ## NetSuite Module Declarations
 * Typescript definitions (_N/*.d.ts_ files) are defined via the 
 [@hitc/netsuite-types](https://www.npmjs.com/package/@hitc/netsuite-types) project
@@ -148,7 +159,7 @@ This is written with TS and is recommended. However, it can be used by javascrip
 # Tests
 The `test/` folder is configured to use `ts-jest` to compile the sources, and jest caches the output. This means the 
 sources in the project are not changed. This is important because the tests use the modules compiled to run in Nodejs 
-(commonjs compatible). The production build _must_ be AMD
+(commonjs compatible). The production build _must_ be AMD to function in NetSuite.
 
 # Build and Publish
 The production build is AMD. Ensure that compiled files (e.g. `DataAccess/JournalEntryBase.js`) are in AMD format.
