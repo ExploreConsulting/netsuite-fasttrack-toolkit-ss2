@@ -67,7 +67,7 @@ export abstract class TransactionBase extends NetsuiteRecord {
     * expose this method in derived classes that need dynamic access to the apply sublist
     * returns undefined
     */
-   protected findApplyLine(docId: number) : {apply: boolean, amount:number, line:number} | undefined {
+   protected findApplyLine(docId: number) : {apply: boolean, amount:number, line:number} | null {
       let rec = this.nsrecord
       if (!rec.isDynamic || !this.defaultValues)
          throw new Error('record must be in dynamic mode and have default values set to use this method')
@@ -98,7 +98,7 @@ export abstract class TransactionBase extends NetsuiteRecord {
          addProp(newLine, 'apply')
          addProp(newLine, 'amount')
          return newLine as { apply: boolean, amount:number, line:number}
-      }
+      } else return null
    }
 }
 
