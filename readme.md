@@ -12,28 +12,29 @@ predefined strong types for many NetSuite record types.
 * momentjs
 * advanced logging
 
-# Installation
-Install this package as a dependency and global typings for lodash. 
+# Getting Started (Typescript)
+Install this package as a dependency and the SS2 typings from @hitc 
 
     npm install netsuite-fasttrack-toolkit-ss2 
+    npm install @hitc/netsuite-types --save-dev 
     
-**For more, check out the intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0)**
+**Also see the intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0)**
 
 
 ## Deploy core library to NS
-Use the NetSuite file cabinet _advanced add_ button to upload the `node_modules/netsuite-fasttracktoolkit-ss2/dist/NFT-SS2-#.#.#.zip` 
+Use the NetSuite file cabinet _advanced add_ button to upload the `node_modules/netsuite-fasttrack-toolkit-ss2/dist/NFT-SS2-#.#.#.zip` 
 file to the same folder in which you place your SuiteScripts. It will extract to a subfolder named NFT-SS2-#.#.#.
 
 If you typically just put your SuiteScripts under the `/SuiteScripts/` folder in the NS file cabinet then simply 
 extract the zip there. 
 
-## Getting Started
 After install you should get a folder link at your project root named NFT-SS2-#.#.#
 This creates a folder structure mirroring what you have in NetSuite so you can use relative paths when you 
 `import` from the library.
 
 
-Reference the NFT modules using relative path names. Here is a complete Suitelet example (TypeScript)
+Reference the NFT modules using `@NAmdConfig` directive in your script. Here is a complete Suitelet example (TypeScript)
+See the `amdconfig.json` file in this repository for an example
 
 ### Example
 
@@ -44,7 +45,7 @@ Reference the NFT modules using relative path names. Here is a complete Suitelet
  * Test file for SuiteScript 2.0
  * @NApiVersion 2.x
  * @NScriptType Suitelet
- * @NAmdConfig ./myconfig.json
+ * @NAmdConfig ./amdconfig.json
  */
 
 import * as LogManager from 'NFT/EC_Logger'

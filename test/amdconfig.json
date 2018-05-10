@@ -1,9 +1,0 @@
-{
-  "paths" : {
-    "moment":"/SuiteScripts/ExploreConsulting/SS2/NFT-SS2-1.0.0/moment",
-    "lodash":"/SuiteScripts/ExploreConsulting/SS2/NFT-SS2-1.0.0/lodash",
-    "aurelia-logging":"/SuiteScripts/ExploreConsulting/SS2/NFT-SS2-1.0.0/aurelia-logging",
-    "aop":"/SuiteScripts/ExploreConsulting/SS2/NFT-SS2-1.0.0/aop",
-    "NFT": "/SuiteScripts/ExploreConsulting/SS2/NFT-SS2-1.0.0"
-  }
-}

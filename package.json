@@ -13,7 +13,7 @@
   "author": "Explore Consulting",
   "license": "MIT",
   "devDependencies": {
-    "@hitc/netsuite-types": "2017.2.28",
+    "@hitc/netsuite-types": "2017.2.32",
     "@types/jest": "^22.2.3",
     "@types/lazy.js": "^0.3.28",
     "@types/node": "^7.0.63",
