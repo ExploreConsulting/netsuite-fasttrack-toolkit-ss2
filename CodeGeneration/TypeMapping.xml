@@ -1,0 +1,41 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<!-- this file maintains relationships between how custom fields are represented in SDF XML and the corresponding
+NFT/TypeScript snippets needed for generating code
+
+Note that how e.g. bodysale in SDF (<bodysale>T<bodysale>) means it applies to several related NS records hence
+it is repeated here so we can generate distinct TS classes for each.
+
+When you run the generation commandline you must specify type= values from the className element.
+-->
+<fields >
+    <!--Records that are included if you check "SALES TRANSACTIONS" on the custom field applies to checkbox-->
+    <field name="bodysale">
+        <className>SalesOrder</className>
+        <parentClass>so.Base</parentClass>
+        <imports>
+            <import>import * as so from "NFT/DataAccess/SalesOrderBase"</import>
+        </imports>
+    </field>
+    <field name="bodysale">
+        <className>CashSale</className>
+        <parentClass>cs.Base</parentClass>
+        <imports>
+            <import>import * as cs from "NFT/DataAccess/CashSaleBase"</import>
+        </imports>
+    </field>
+    <field name="bodysale">
+        <className>Invoice</className>
+        <parentClass>inv.Base</parentClass>
+        <imports>
+            <import>import * as inv from "NFT/DataAccess/InvoiceBase"</import>
+        </imports>
+    </field>
+
+    <field name="bodypurchase">
+        <className>PurchaseOrder</className>
+        <parentClass>po.Base</parentClass>
+        <imports>
+            <import>import * as po from "NFT/DataAccess/PurchaseOrderBase"</import>
+        </imports>
+    </field>
+</fields>
