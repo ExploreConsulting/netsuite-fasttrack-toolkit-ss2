@@ -1,0 +1,48 @@
+<customrecordtype scriptid="customrecord_eperform_ez_review_form">
+  <accesstype>CUSTRECORDENTRYPERM</accesstype>
+  <allowattachments>T</allowattachments>
+  <allowinlinedeleting>F</allowinlinedeleting>
+  <allowinlinedetaching>T</allowinlinedetaching>
+  <allowinlineediting>F</allowinlineediting>
+  <allowmobileaccess>F</allowmobileaccess>
+  <allownumberingoverride>F</allownumberingoverride>
+  <allowquickadd>F</allowquickadd>
+  <allowquicksearch>F</allowquicksearch>
+  <allowuiaccess>T</allowuiaccess>
+  <description></description>
+  <enabledle>T</enabledle>
+  <enablekeywords>T</enablekeywords>
+  <enablemailmerge>F</enablemailmerge>
+  <enablenametranslation>F</enablenametranslation>
+  <enablenumbering>F</enablenumbering>
+  <enableoptimisticlocking>F</enableoptimisticlocking>
+  <enablesystemnotes>T</enablesystemnotes>
+  <hierarchical>F</hierarchical>
+  <icon></icon>
+  <iconbuiltin>T</iconbuiltin>
+  <iconindex></iconindex>
+  <includeinsearchmenu>T</includeinsearchmenu>
+  <includename>F</includename>
+  <isinactive>F</isinactive>
+  <isordered>F</isordered>
+  <numberinginit></numberinginit>
+  <numberingmindigits></numberingmindigits>
+  <numberingprefix></numberingprefix>
+  <numberingsuffix></numberingsuffix>
+  <recordname>eP EZ Review Form</recordname>
+  <showcreationdate>F</showcreationdate>
+  <showcreationdateonlist>F</showcreationdateonlist>
+  <showid>T</showid>
+  <showlastmodified>F</showlastmodified>
+  <showlastmodifiedonlist>F</showlastmodifiedonlist>
+  <shownotes>T</shownotes>
+  <showowner>F</showowner>
+  <showownerallowchange>F</showownerallowchange>
+  <showowneronlist>F</showowneronlist>
+  <subtabs>
+    <subtab scriptid="tab_106_t1441298_793">
+      <tabparent></tabparent>
+      <tabtitle>Category 3</tabtitle>
+    </subtab>
+  </subtabs>
+</customrecordtype>
