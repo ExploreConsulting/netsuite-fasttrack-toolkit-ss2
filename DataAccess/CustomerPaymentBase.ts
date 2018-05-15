@@ -10,7 +10,7 @@ import {FieldType} from './Record'
 /**
  * Customer Payment Record
  */
-export class Base extends TransactionBase {
+export class CustomerPaymentBase extends TransactionBase {
 
    static recordType = record.Type.CUSTOMER_PAYMENT
 

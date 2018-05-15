@@ -13,7 +13,7 @@ import * as  moment from "moment"
 describe('instantiation', function () {
    test('new record from scratch', function() {
 
-      const c = new cust.Base
+      const c = new cust.CustomerBase()
       expect(c).toBeTruthy()
       expect(c).toHaveProperty('companyname')
       // should have called create (once)
@@ -27,7 +27,7 @@ describe('instantiation', function () {
 
    test('with STRING internal id', function() {
 
-      const c = new cust.Base('123')
+      const c = new cust.CustomerBase('123')
 
       expect(c).toBeTruthy()
       // should call load once
@@ -38,12 +38,12 @@ describe('instantiation', function () {
 
    test('with STRING with whitespace', function() {
 
-      expect(()=> new cust.Base(' 123 ')).not.toThrow()
+      expect(()=> new cust.CustomerBase(' 123 ')).not.toThrow()
    })
 
    test('with NUMERIC internal id', function() {
 
-      const c = new cust.Base(123)
+      const c = new cust.CustomerBase(123)
 
       expect(c).toBeTruthy()
       // should call load once
@@ -53,7 +53,7 @@ describe('instantiation', function () {
 
    test('with record object', function() {
 
-      const c = new cust.Base(mockrecord.create({ type:'foo'}))
+      const c = new cust.CustomerBase(mockrecord.create({ type:'foo'}))
 
       expect(c).toBeTruthy()
       // should not call load if we insantiate with an existing object
@@ -62,7 +62,7 @@ describe('instantiation', function () {
 
    test('invalid STRING internal id', function() {
 
-      expect(() => new cust.Base('hello world'))
+      expect(() => new cust.CustomerBase('hello world'))
          .toThrowError()
    })
 
@@ -71,7 +71,7 @@ describe('instantiation', function () {
 describe('body field access', function () {
    test('set a field', function () {
 
-      const c = new cust.Base('123')
+      const c = new cust.CustomerBase('123')
 
       expect(c).toBeTruthy()
 
@@ -83,7 +83,7 @@ describe('body field access', function () {
 
    test('read a field', function () {
 
-      const c = new cust.Base('123')
+      const c = new cust.CustomerBase('123')
 
       expect(c).toBeTruthy()
 

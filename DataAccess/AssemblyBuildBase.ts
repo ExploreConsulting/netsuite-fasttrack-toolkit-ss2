@@ -28,7 +28,7 @@ export class ComponentSublist extends SublistLine {
  * Note it does not inherit from our transaction base because it has a differing subset of fields documented in the
  * records browser
  */
-export class Base extends NetsuiteRecord {
+export class AssemblyBuildBase extends NetsuiteRecord {
 
   static recordType: record.Type = record.Type.ASSEMBLY_BUILD
 

@@ -11,7 +11,7 @@ import * as moment from "../moment"
 /**
  * NetSuite Inventory Adjustment Record
  */
-export class Base extends TransactionBase {
+export class InventoryAdjustmentBase extends TransactionBase {
    static recordType = record.Type.INVENTORY_ADJUSTMENT
 
    @FieldType.select

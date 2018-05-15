@@ -10,7 +10,7 @@ import {TransactionBase} from "./Transaction";
 /**
  * NetSuite Sales Order Record
  */
-export class Base extends TransactionBase {
+export class SalesOrderBase extends TransactionBase {
 
    static recordType = record.Type.SALES_ORDER
 }

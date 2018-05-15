@@ -11,7 +11,7 @@ import * as moment from "../moment";
 /**
  * NetSuite Transfer Order Record
  */
-export class Base extends TransactionBase {
+export class TransferOrderBase extends TransactionBase {
    static recordType = record.Type.TRANSFER_ORDER
 
    @FieldType.select

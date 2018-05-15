@@ -3,13 +3,13 @@
  */
 
 import * as record from 'N/record'
-import {Base as JournalEntry} from "./JournalEntryBase";
+import {JournalEntryBase} from "./JournalEntryBase";
 import {SublistLine,SublistFieldType} from "./Sublist";
 
 /**
  * defines an Inter-company journal entry (basically identical to a normal journal entry?)
  */
-export class Base extends JournalEntry {
+export class IntercompanyJournalEntryBase extends JournalEntryBase {
    static recordType = record.Type.INTER_COMPANY_JOURNAL_ENTRY
 }
 

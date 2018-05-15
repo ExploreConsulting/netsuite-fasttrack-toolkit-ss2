@@ -61,7 +61,7 @@ export class ItemSublist extends SublistLine {
 /**
  * NetSuite Invoice Record
  */
-export class Base extends TransactionBase {
+export class InvoiceBase extends TransactionBase {
 
    static recordType = record.Type.INVOICE
 

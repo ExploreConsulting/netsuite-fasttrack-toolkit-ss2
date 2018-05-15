@@ -53,7 +53,7 @@ export class ApplySublist extends SublistLine {
 /**
  * The Customer Refund (customerrefund) transaction in NetSuite
  */
-export class Base extends TransactionBase {
+export class CustomerRefundBase extends TransactionBase {
 
    static recordType = record.Type.CUSTOMER_REFUND
 

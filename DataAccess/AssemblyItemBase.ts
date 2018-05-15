@@ -39,7 +39,7 @@ export class MemberSublist extends SublistLine {
 /**
  * NetSuite Build/Assembly Item (assemblyitem) item type.
  */
-export class Base extends NetsuiteRecord {
+export class AssemblyItemBase extends NetsuiteRecord {
 
    static recordType: record.Type = record.Type.ASSEMBLY_ITEM
 

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * NetSuite Purchase Order Record
  */
@@ -17,48 +18,49 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define(["require", "exports", "N/record", "./Transaction", "./Sublist", "./Record"], function (require, exports, record, Transaction_1, Sublist_1, Record_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    /**
-     * NetSuite Purchase Order Record
-     */
-    var Base = /** @class */ (function (_super) {
-        __extends(Base, _super);
-        function Base() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        Base.recordType = record.Type.PURCHASE_ORDER;
-        __decorate([
-            Record_1.FieldType.select
-        ], Base.prototype, "approvalstatus", void 0);
-        return Base;
-    }(Transaction_1.TransactionBase));
-    exports.Base = Base;
-    /**
-     * Sublist 'item' on purchase orders
-     */
-    var ItemSublist = /** @class */ (function (_super) {
-        __extends(ItemSublist, _super);
-        function ItemSublist() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], ItemSublist.prototype, "item", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.decimalnumber
-        ], ItemSublist.prototype, "quantity", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.decimalnumber
-        ], ItemSublist.prototype, "amount", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.decimalnumber
-        ], ItemSublist.prototype, "rate", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], ItemSublist.prototype, "department", void 0);
-        return ItemSublist;
-    }(Sublist_1.SublistLine));
-    exports.ItemSublist = ItemSublist;
-});
+Object.defineProperty(exports, "__esModule", { value: true });
+var record = require("N/record");
+var Transaction_1 = require("./Transaction");
+var Sublist_1 = require("./Sublist");
+var Record_1 = require("./Record");
+/**
+ * NetSuite Purchase Order Record
+ */
+var PurchaseOrderBase = /** @class */ (function (_super) {
+    __extends(PurchaseOrderBase, _super);
+    function PurchaseOrderBase() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    PurchaseOrderBase.recordType = record.Type.PURCHASE_ORDER;
+    __decorate([
+        Record_1.FieldType.select
+    ], PurchaseOrderBase.prototype, "approvalstatus", void 0);
+    return PurchaseOrderBase;
+}(Transaction_1.TransactionBase));
+exports.PurchaseOrderBase = PurchaseOrderBase;
+/**
+ * Sublist 'item' on purchase orders
+ */
+var ItemSublist = /** @class */ (function (_super) {
+    __extends(ItemSublist, _super);
+    function ItemSublist() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    __decorate([
+        Sublist_1.SublistFieldType.select
+    ], ItemSublist.prototype, "item", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.decimalnumber
+    ], ItemSublist.prototype, "quantity", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.decimalnumber
+    ], ItemSublist.prototype, "amount", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.decimalnumber
+    ], ItemSublist.prototype, "rate", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.select
+    ], ItemSublist.prototype, "department", void 0);
+    return ItemSublist;
+}(Sublist_1.SublistLine));
+exports.ItemSublist = ItemSublist;

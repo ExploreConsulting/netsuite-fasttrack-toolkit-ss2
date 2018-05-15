@@ -10,7 +10,7 @@ import * as moment from "../moment"
 /**
  * NetSuite Opportunity Record
  */
-export class Base extends TransactionBase {
+export class OpportunityBase extends TransactionBase {
 
    static recordType = record.Type.OPPORTUNITY
 

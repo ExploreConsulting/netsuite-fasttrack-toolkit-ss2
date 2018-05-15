@@ -59,7 +59,7 @@ export class ItemSublist extends SublistLine {
 /**
  * Return Authorization Base Type
  */
-export class Base extends TransactionBase {
+export class ReturnAuthorizationBase extends TransactionBase {
 
    static recordType = record.Type.RETURN_AUTHORIZATION
 

@@ -34,7 +34,7 @@ export class AdjustmentsSublistLine extends SublistLine {
 /**
  * NetSuite Bin Transfer record
  */
-export class Base extends NetsuiteRecord {
+export class BinTransferBase extends NetsuiteRecord {
 
    static recordType = record.Type.BIN_TRANSFER
 

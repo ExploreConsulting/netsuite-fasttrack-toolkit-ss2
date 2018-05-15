@@ -7,7 +7,7 @@ import * as record from 'N/record'
 import {SublistLine, SublistFieldType} from './Sublist'
 import * as moment from "../moment"
 
-export class Base extends NetsuiteRecord {
+export class CustomerBase extends NetsuiteRecord {
    static recordType = record.Type.CUSTOMER
 
    @FieldType.freeformtext

@@ -10,15 +10,15 @@ module (in the correct path of ./lodash assuming lodash is installed in the same
 */
 
 import * as moment from "moment"
-import * as LogManager from 'NFT/EC_Logger'
-import * as customer from "NFT/DataAccess/CustomerBase"
+import * as LogManager from './EC_Logger'
+import * as customer from "./DataAccess/CustomerBase"
 import * as _ from "lodash"
-import * as nsdal from "NFT/DataAccess/EC_nsdal"
+import * as nsdal from "./DataAccess/EC_nsdal"
 
 
 let log = LogManager.DefaultLogger
 
-class Customer extends customer.Base {
+class Customer extends customer.CustomerBase {
 
    @nsdal.FieldType.select
    subsidiaryText: string

@@ -11,7 +11,7 @@ import {SublistLine, SublistFieldType} from './Sublist'
 /**
  * Item Fulfillment Base Type
  */
-export class Base extends TransactionBase {
+export class ItemFulfillmentBase extends TransactionBase {
 
    static recordType = record.Type.ITEM_FULFILLMENT
 

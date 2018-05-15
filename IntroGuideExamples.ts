@@ -29,12 +29,12 @@ if (!comments) {
    customer.setValue({fieldId: "comments", value: "hello world"})
 }
 
-import * as cust from "NFT/DataAccess/CustomerBase"
+import * as cust from "./DataAccess/CustomerBase"
 import {FieldType} from "./DataAccess/EC_nsdal"
 
 namespace B {
 
-   class Customer extends cust.Base {
+   class Customer extends cust.CustomerBase {
       // define custom customer fields here, built-in fields are defined on the base
       @FieldType.freeformtext
       custbody_field: string
@@ -85,13 +85,15 @@ for ( var x = 0; x < count; x++) {
 }
 
 
-import * as so from "NFT/DataAccess/SalesOrderBase"
-import {Sublist} from "NFT/DataAccess/EC_nsdal"
+import * as so from "./DataAccess/SalesOrderBase"
+import {Sublist} from "./DataAccess/EC_nsdal"
 namespace C {
 
-   class SalesOrder extends so.Base {
+   class SalesOrder extends so.SalesOrderBase {
+
+      @FieldType.sublist(so.ItemSublist)
       // define a strongly typed item sublist
-      item = new Sublist<so.ItemSublist>(so.ItemSublist,this.nsrecord,'item')
+      item : Sublist<so.ItemSublist>
    }
 
    var salesorder = new SalesOrder(1234)
@@ -110,7 +112,7 @@ namespace C {
    nslog.error('title', 'details')
    nslog.emergency('title', 'details')
 
-import {DefaultLogger as log, logLevel} from "NFT/EC_Logger"
+import {DefaultLogger as log, logLevel} from "./EC_Logger"
 
 namespace NFT {
 

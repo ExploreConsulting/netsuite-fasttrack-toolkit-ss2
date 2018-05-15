@@ -10,7 +10,7 @@ import * as moment from "../moment"
 /**
  * NetSuite Cashsale Record
  */
-export class Base extends TransactionBase {
+export class CashSaleBase extends TransactionBase {
 
    static recordType = record.Type.CASH_SALE
 

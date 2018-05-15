@@ -10,7 +10,7 @@ import {FieldType} from "./Record"
 /**
  * NetSuite Purchase Order Record
  */
-export class Base extends TransactionBase {
+export class PurchaseOrderBase extends TransactionBase {
    static recordType = record.Type.PURCHASE_ORDER
 
    @FieldType.select

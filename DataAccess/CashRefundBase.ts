@@ -9,7 +9,7 @@ import {TransactionBase} from "./Transaction";
 import {SublistLine, SublistFieldType} from './Sublist'
 import * as moment from "../moment"
 
-export class Base extends TransactionBase {
+export class CashRefundBase extends TransactionBase {
 
    static recordType = record.Type.CASH_REFUND
 
