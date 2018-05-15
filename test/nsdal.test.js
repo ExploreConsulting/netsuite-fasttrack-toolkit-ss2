@@ -45,17 +45,19 @@ describe('instantiation', function () {
             .toThrowError();
     });
 });
-test('set a field', function () {
-    var c = new cust.Base('123');
-    expect(c).toBeTruthy();
-    c.comments = 'random comments';
-    expect(mockrecord.setValue).toHaveBeenCalledTimes(1);
-    expect(mockrecord.getValue).not.toHaveBeenCalled();
-});
-test('read a field', function () {
-    var c = new cust.Base('123');
-    expect(c).toBeTruthy();
-    if (c.comments) { }
-    expect(mockrecord.getValue).toHaveBeenCalledTimes(1);
-    expect(mockrecord.setValue).not.toHaveBeenCalled();
+describe('body field access', function () {
+    test('set a field', function () {
+        var c = new cust.Base('123');
+        expect(c).toBeTruthy();
+        c.comments = 'random comments';
+        expect(mockrecord.setValue).toHaveBeenCalledTimes(1);
+        expect(mockrecord.getValue).not.toHaveBeenCalled();
+    });
+    test('read a field', function () {
+        var c = new cust.Base('123');
+        expect(c).toBeTruthy();
+        if (c.comments) { }
+        expect(mockrecord.getValue).toHaveBeenCalledTimes(1);
+        expect(mockrecord.setValue).not.toHaveBeenCalled();
+    });
 });

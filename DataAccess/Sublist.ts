@@ -7,9 +7,9 @@
 
 import * as record from 'N/record'
 import * as format from 'N/format'
-import * as LogManager from 'NFT/EC_Logger'
-import * as moment from "moment"
-import * as _ from "lodash"
+import * as LogManager from '../EC_Logger'
+import * as moment from "../moment"
+import * as _ from "../lodash"
 
 const log = LogManager.getLogger('nsdal')
 

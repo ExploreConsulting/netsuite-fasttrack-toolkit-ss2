@@ -2,8 +2,8 @@
  * NetSuite generic Transaction record
  */
 
-import {FieldType, NetsuiteRecord} from 'NFT/DataAccess/Record'
-import * as moment from "moment"
+import {FieldType, NetsuiteRecord} from './Record'
+import * as moment from "../moment"
 
 /**
  * Fields common to all transactions in NS

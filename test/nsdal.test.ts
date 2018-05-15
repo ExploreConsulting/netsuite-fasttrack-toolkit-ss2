@@ -8,6 +8,7 @@ import * as mockrecord from '../__mocks__/N/record'
 import * as _ from "lodash"
 
 import * as cust from "NFT/DataAccess/CustomerBase"
+import * as  moment from "moment"
 
 describe('instantiation', function () {
    test('new record from scratch', function() {
@@ -67,26 +68,27 @@ describe('instantiation', function () {
 
 })
 
-test('set a field', function() {
+describe('body field access', function () {
+   test('set a field', function () {
 
-   const c = new cust.Base('123')
+      const c = new cust.Base('123')
 
-   expect(c).toBeTruthy()
+      expect(c).toBeTruthy()
 
-   c.comments = 'random comments'
+      c.comments = 'random comments'
 
-   expect(mockrecord.setValue).toHaveBeenCalledTimes(1)
-   expect(mockrecord.getValue).not.toHaveBeenCalled()
-})
+      expect(mockrecord.setValue).toHaveBeenCalledTimes(1)
+      expect(mockrecord.getValue).not.toHaveBeenCalled()
+   })
 
-test('read a field', function() {
+   test('read a field', function () {
 
-   const c = new cust.Base('123')
+      const c = new cust.Base('123')
 
-   expect(c).toBeTruthy()
+      expect(c).toBeTruthy()
 
-   if (c.comments) {}
+      if (c.comments) {}
 
-   expect(mockrecord.getValue).toHaveBeenCalledTimes(1)
-   expect(mockrecord.setValue).not.toHaveBeenCalled()
-})
+      expect(mockrecord.getValue).toHaveBeenCalledTimes(1)
+      expect(mockrecord.setValue).not.toHaveBeenCalled()
+   })

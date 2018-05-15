@@ -1,6 +1,6 @@
 {
   "name": "netsuite-fasttrack-toolkit-ss2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Power library for NetSuite SuiteScript 2.x projects.",
   "main": "none",
   "directories": {
@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "jest --config test/jest.config.json",
-    "prepublishOnly": "tsc; gulp; gulp declarations"
+    "prepublishOnly": "tsc; gulp; gulp declarations",
+    "postinstall": "node postInstall.js"
   },
   "author": "Explore Consulting",
   "license": "MIT",

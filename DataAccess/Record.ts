@@ -5,10 +5,10 @@
 
 import * as record from 'N/record'
 import * as format from 'N/format'
-import * as LogManager from 'NFT/EC_Logger'
-import * as moment from "moment"
-import * as _ from "lodash"
-import {Sublist, SublistLine} from "NFT/DataAccess/Sublist"
+import * as LogManager from '../EC_Logger'
+import * as moment from "../moment"
+import * as _ from "../lodash"
+import {Sublist, SublistLine} from "./Sublist"
 
 const log = LogManager.getLogger('nsdal')
 

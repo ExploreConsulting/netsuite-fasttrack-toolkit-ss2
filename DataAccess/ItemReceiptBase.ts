@@ -3,10 +3,10 @@
  */
 
 
-import {FieldType} from 'NFT/DataAccess/Record'
+import {FieldType} from './Record'
 import * as record from 'N/record'
-import {TransactionBase} from "NFT/DataAccess/Transaction";
-import {SublistLine, SublistFieldType} from 'NFT/DataAccess/Sublist'
+import {TransactionBase} from "./Transaction";
+import {SublistLine, SublistFieldType} from './Sublist'
 import * as moment from "../moment"
 
 export class Base extends TransactionBase {

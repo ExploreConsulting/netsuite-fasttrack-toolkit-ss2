@@ -3,14 +3,14 @@
  * @NApiVersion 2.x
  */
 
-import * as moment from "moment"
-import {Logger, addAppender, logLevel, getLogger, Appender, LogLevel} from "aurelia-logging"
+import * as moment from "./moment"
+import {Logger, addAppender, logLevel, getLogger, Appender, LogLevel} from "./aurelia-logging"
 import * as nslog from "N/log"
 import * as runtime from "N/runtime"
 import * as aop from "./aop"
-import * as _ from "lodash"
+import * as _ from "./lodash"
 
-export {getLogger, Logger, logLevel} from 'aurelia-logging'
+export {getLogger, Logger, logLevel} from './aurelia-logging'
 
 /**
  * Value to be prepended to each log message title. Defaults to a random 4 digit integer

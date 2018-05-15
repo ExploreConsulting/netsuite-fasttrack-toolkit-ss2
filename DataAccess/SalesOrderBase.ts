@@ -2,10 +2,10 @@
  * NetSuite generic Transaction record
  */
 
-import {SublistLine, SublistFieldType} from 'NFT/DataAccess/Sublist'
+import {SublistLine, SublistFieldType} from './Sublist'
 import * as moment from "../moment"
 import * as record from 'N/record'
-import {TransactionBase} from "NFT/DataAccess/Transaction";
+import {TransactionBase} from "./Transaction";
 
 /**
  * NetSuite Sales Order Record

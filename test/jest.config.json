@@ -4,7 +4,10 @@
   "moduleDirectories" :["node_modules","."],
   "moduleNameMapper":{
     "NFT/(.*)": "../$1",
-    "N/(.*)": "<rootDir>/../__mocks__/N/$1"
+    "N/(.*)": "<rootDir>/../__mocks__/N/$1",
+    "./moment":"node_modules/moment",
+    "./aurelia-logging":"node_modules/aurelia-logging",
+    "./lodash":"node_modules/lodash"
   },
   "transform": {
     "^.+\\.tsx?$": "ts-jest"

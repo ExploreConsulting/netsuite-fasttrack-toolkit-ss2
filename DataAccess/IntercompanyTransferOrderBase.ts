@@ -2,10 +2,10 @@
  *  Represents an Intercompany Transfer Order (intercompanytransferorder) transaction type in NetSuite
  */
 
-import {SublistLine, SublistFieldType} from 'NFT/DataAccess/Sublist'
+import {SublistLine, SublistFieldType} from './Sublist'
 import * as record from 'N/record'
 import * as TransferOrder from "./TransferOrderBase";
-import {FieldType} from "NFT/DataAccess/Record";
+import {FieldType} from "./Record";
 
 /**
  * NetSuite Intercompany Transfer Order Record

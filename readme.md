@@ -33,9 +33,6 @@ This creates a folder structure mirroring what you have in NetSuite so you can u
 `import` from the library.
 
 
-Reference the NFT modules using `@NAmdConfig` directive in your script. Here is a complete Suitelet example (TypeScript)
-See the `amdconfig.json` file in this repository for an example
-
 ### Example
 
 ```typescript
