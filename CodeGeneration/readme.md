@@ -1,3 +1,10 @@
+# NFT NSDAL Code Generation
+This subproject generates NSDAL classes from the output from SDF (or record data downloaded from the UI)
+
+Currently only _custom records_ and some _transaction body fields_ are supported.
+
+
+
 downloading some stuffs
 
     sdfcli importobjects  -type customrecordtype  -scriptid ALL -p ./ -destinationfolder '/Objects'
