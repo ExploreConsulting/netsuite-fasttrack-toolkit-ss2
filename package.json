@@ -1,6 +1,6 @@
 {
   "name": "netsuite-fasttrack-toolkit-ss2",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Power library for NetSuite SuiteScript 2.x projects.",
   "main": "none",
   "directories": {
@@ -19,7 +19,6 @@
     "@types/lazy.js": "^0.3.28",
     "@types/node": "^7.0.63",
     "del": "^2.2.0",
-    "fs-extra": "^2.1.2",
     "gulp": "^3.9.1",
     "gulp-copy": "0.0.2",
     "gulp-debug": "^2.1.2",
@@ -41,6 +40,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
+    "fs-extra": "^2.1.2",
     "aurelia-logging": "1.3.1",
     "lodash": "^4.15.0",
     "moment": "^2.14.1"

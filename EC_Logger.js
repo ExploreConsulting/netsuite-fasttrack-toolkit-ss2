@@ -2,7 +2,7 @@
  * Created by shawn on 4/6/16.
  * @NApiVersion 2.x
  */
-define(["require", "exports", "moment", "aurelia-logging", "N/log", "N/runtime", "./aop", "lodash", "aurelia-logging"], function (require, exports, moment, aurelia_logging_1, nslog, runtime, aop, _, aurelia_logging_2) {
+define(["require", "exports", "./moment", "./aurelia-logging", "N/log", "N/runtime", "./aop", "./lodash", "./aurelia-logging"], function (require, exports, moment, aurelia_logging_1, nslog, runtime, aop, _, aurelia_logging_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getLogger = aurelia_logging_2.getLogger;
