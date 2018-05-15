@@ -15,3 +15,6 @@ Commandline usage [reference here](http://www.saxonica.com/documentation/index.h
     # see TypeMapping.xml for which types you can generate (transaction body fields only for now)
     java -jar saxon9he.jar -xsl:TransactionBodyField.xslt -s:TypeMapping.xml -o:SalesOrder.ts type=SalesOrder
 
+
+After code generation completes, update generated source files `import ...NFT/` references; replace the `NFT` with the path to your specific
+NFT install version.
