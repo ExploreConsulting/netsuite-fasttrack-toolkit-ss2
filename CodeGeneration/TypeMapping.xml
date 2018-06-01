@@ -20,39 +20,53 @@ When you run the generation commandline you must specify type= values from the c
 -->
     <field name="bodysale">
         <className>SalesOrder</className>
-        <parentClass>so.Base</parentClass>
+        <parentClass>SalesOrderBase</parentClass>
         <imports>
-            <import>import * as so from "NFT/DataAccess/SalesOrderBase"</import>
+            <import>import {SalesOrderBase} from "NFT/DataAccess/SalesOrderBase"</import>
         </imports>
     </field>
     <field name="bodysale">
         <className>CashSale</className>
-        <parentClass>cs.Base</parentClass>
+        <parentClass>CashSaleBase</parentClass>
         <imports>
-            <import>import * as cs from "NFT/DataAccess/CashSaleBase"</import>
+            <import>import {CashSaleBase} from "NFT/DataAccess/CashSaleBase"</import>
         </imports>
     </field>
     <field name="bodysale">
         <className>Invoice</className>
-        <parentClass>inv.Base</parentClass>
+        <parentClass>InvoiceBase</parentClass>
         <imports>
-            <import>import * as inv from "NFT/DataAccess/InvoiceBase"</import>
+            <import>import {InvoiceBase} from "NFT/DataAccess/InvoiceBase"</import>
         </imports>
     </field>
 
     <field name="bodysale">
         <className>ReturnAuthorization</className>
-        <parentClass>ra.Base</parentClass>
+        <parentClass>ReturnAuthorizationBase</parentClass>
         <imports>
-            <import>import * as ra from "NFT/DataAccess/ReturnAuthorizationBase"</import>
+            <import>import {ReturnAuthorizationBase} from "NFT/DataAccess/ReturnAuthorizationBase"</import>
         </imports>
     </field>
 
     <field name="bodysale">
         <className>CreditMemo</className>
-        <parentClass>cm.Base</parentClass>
+        <parentClass>CreditMemoBase</parentClass>
         <imports>
-            <import>import * as cm from "NFT/DataAccess/CreditMemoBase"</import>
+            <import>import {CreditMemoBase} from "NFT/DataAccess/CreditMemoBase"</import>
         </imports>
     </field>
+<!--Applies to 'Purchase' checkbox on body field effects these records
+• Purchase Orders
+• Vendor Return Authorization
+• Bill
+• Bill Credit
+-->
+    <field name="bodypurchase">
+        <className>PurchaseOrder</className>
+        <parentClass>PurchaseOrderBase</parentClass>
+        <imports>
+            <import>import {PurchaseOrderBase} from "NFT/DataAccess/InvoiceBase"</import>
+        </imports>
+    </field>
+
 </fields>
