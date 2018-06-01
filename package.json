@@ -14,7 +14,7 @@
   "author": "Explore Consulting",
   "license": "MIT",
   "devDependencies": {
-    "@hitc/netsuite-types": "2017.2.32",
+    "@hitc/netsuite-types": "2018.1.1",
     "@types/jest": "^22.2.3",
     "@types/lazy.js": "^0.3.28",
     "@types/node": "^7.0.63",
@@ -31,7 +31,7 @@
     "merge-stream": "^1.0.0",
     "ts-jest": "^22.4.4",
     "ts-node": "^6.0.2",
-    "typescript": "^2.8.3"
+    "typescript": "^2.9.1"
   },
   "repository": {
     "type": "git",
