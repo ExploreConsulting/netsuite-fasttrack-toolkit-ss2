@@ -9,6 +9,15 @@ When you run the generation commandline you must specify type= values from the c
 -->
 <fields >
     <!--Records that are included if you check "SALES TRANSACTIONS" on the custom field applies to checkbox-->
+ <!--Sale:
+• Sales Orders
+• Invoices
+• Cash Sales
+• Estimates
+• Checks
+• Return Authorization
+• Credit Memo
+-->
     <field name="bodysale">
         <className>SalesOrder</className>
         <parentClass>so.Base</parentClass>
@@ -31,11 +40,19 @@ When you run the generation commandline you must specify type= values from the c
         </imports>
     </field>
 
-    <field name="bodypurchase">
-        <className>PurchaseOrder</className>
-        <parentClass>po.Base</parentClass>
+    <field name="bodysale">
+        <className>ReturnAuthorization</className>
+        <parentClass>ra.Base</parentClass>
         <imports>
-            <import>import * as po from "NFT/DataAccess/PurchaseOrderBase"</import>
+            <import>import * as ra from "NFT/DataAccess/ReturnAuthorizationBase"</import>
+        </imports>
+    </field>
+
+    <field name="bodysale">
+        <className>CreditMemo</className>
+        <parentClass>cm.Base</parentClass>
+        <imports>
+            <import>import * as cm from "NFT/DataAccess/CreditMemoBase"</import>
         </imports>
     </field>
 </fields>
