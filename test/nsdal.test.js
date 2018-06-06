@@ -56,7 +56,8 @@ describe('body field access', function () {
     test('read a field', function () {
         var c = new cust.CustomerBase('123');
         expect(c).toBeTruthy();
-        if (c.comments) { }
+        if (c.comments) {
+        }
         expect(mockrecord.getValue).toHaveBeenCalledTimes(1);
         expect(mockrecord.setValue).not.toHaveBeenCalled();
     });

@@ -44,6 +44,27 @@ define(["require", "exports", "N/record", "./Transaction", "./Sublist", "./Recor
             return _super !== null && _super.apply(this, arguments) || this;
         }
         __decorate([
+            Sublist_1.SublistFieldType.decimalnumber
+        ], ItemSublist.prototype, "amount", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "class", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "customer", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.checkbox
+        ], ItemSublist.prototype, "deferrevrec", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "department", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.textarea
+        ], ItemSublist.prototype, "description", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.checkbox
+        ], ItemSublist.prototype, "isclosed", void 0);
+        __decorate([
             Sublist_1.SublistFieldType.select
         ], ItemSublist.prototype, "item", void 0);
         __decorate([
@@ -51,13 +72,7 @@ define(["require", "exports", "N/record", "./Transaction", "./Sublist", "./Recor
         ], ItemSublist.prototype, "quantity", void 0);
         __decorate([
             Sublist_1.SublistFieldType.decimalnumber
-        ], ItemSublist.prototype, "amount", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.decimalnumber
         ], ItemSublist.prototype, "rate", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], ItemSublist.prototype, "department", void 0);
         return ItemSublist;
     }(Sublist_1.SublistLine));
     exports.ItemSublist = ItemSublist;

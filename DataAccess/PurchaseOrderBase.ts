@@ -23,6 +23,27 @@ export class PurchaseOrderBase extends TransactionBase {
  */
 export class ItemSublist extends SublistLine {
 
+   @SublistFieldType.decimalnumber
+   amount:number
+
+   @SublistFieldType.select
+   class:number
+
+   @SublistFieldType.select
+   customer:number
+
+   @SublistFieldType.checkbox
+   deferrevrec:boolean
+
+   @SublistFieldType.select
+   department:number
+
+   @SublistFieldType.textarea
+   description:string
+
+   @SublistFieldType.checkbox
+   isclosed: boolean
+
    @SublistFieldType.select
    item:number
 
@@ -30,11 +51,6 @@ export class ItemSublist extends SublistLine {
    quantity:number
 
    @SublistFieldType.decimalnumber
-   amount:number
-
-   @SublistFieldType.decimalnumber
    rate:number
 
-   @SublistFieldType.select
-   department:number
 }
