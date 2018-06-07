@@ -47,7 +47,9 @@ import {NetsuiteRecord} from "NFT/DataAccess/Record"
 import {FieldType} from "NFT/DataAccess/Record"
 import * as moment from "NFT/moment"</xsl:text><xsl:value-of select="$imports"/>
 <xsl:where-populated expand-text="yes">
-{description}
+/**
+ *   {description}
+ */
 </xsl:where-populated>
 <xsl:text expand-text="yes">
 export class {$className} extends {$parentClass} {{
