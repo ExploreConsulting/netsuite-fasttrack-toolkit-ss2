@@ -21,7 +21,10 @@ Commandline usage [reference here](http://www.saxonica.com/documentation/index.h
     # generating a custom SalesOrder class with all applicable transaction body custom fields
     # see TypeMapping.xml for which types you can generate (transaction body fields only for now)
     java -jar saxon9he.jar -xsl:TransactionBodyField.xslt -s:TypeMapping.xml -o:SalesOrder.ts type=SalesOrder
-
+    
+    # to then generate another class, e.g. Invoice from commandline (bash)
+    # could also script this if we feel it's useful
+    !!:gs/SalesOrder/Invoice/
 
 After code generation completes, update generated source files `import ...NFT/` references; replace the `NFT` with the path to your specific
 NFT install version.
