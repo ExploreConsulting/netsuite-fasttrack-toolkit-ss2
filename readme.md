@@ -6,14 +6,17 @@ This is a small but powerful framework for writing SuitScript that scales. A pri
 enable authoring scripts that easy to write and easy to maintain.
 
 _Includes_
-* nsdal (**n**etsuite **d**ata **a**ccess **l**ayer) _ActiveRecord_-like approach with strongly 
-predefined strong types for many NetSuite record types. 
+* nsdal (**n**etsuite **d**ata **a**ccess **l**ayer) _ActiveRecord_-like approach with 
+predefined strong types for NetSuite record types 
 * lodash
 * momentjs
 * advanced logging
+* helpers for N/search
+
 
 # Getting Started (Typescript)
-Install this package as a dependency and the SS2 typings from @hitc 
+
+Install this package as a dependency and the SuiteScript 2.x (SS2) typings from @hitc 
 
     npm install netsuite-fasttrack-toolkit-ss2 
     npm install @hitc/netsuite-types --save-dev 
@@ -30,7 +33,7 @@ extract the zip there.
 
 After install you should get a folder link at your project root named NFT-SS2-#.#.#
 This creates a folder structure mirroring what you have in NetSuite so you can use relative paths when you 
-`import` from the library.
+`import` from the library (e.g. `import {CustomerBase} from "./NFT-SS2-1.2.3/DataAcess/CustomerBase`)
 
 
 ### Example
@@ -39,14 +42,14 @@ This creates a folder structure mirroring what you have in NetSuite so you can u
 
 
 /**
- * Test file for SuiteScript 2.0
+ * Test file for SuiteScript 2.0 
+ * (replace 'NFT/' below with the relative path to your NFT-SS2-x.y.z folder)
  * @NApiVersion 2.x
  * @NScriptType Suitelet
- * @NAmdConfig ./amdconfig.json
  */
 
 import * as LogManager from 'NFT/EC_Logger'
-import * as customer from "NFT/DataAccess/CustomerBase"
+import {CustomerBase} from "NFT/DataAccess/CustomerBase"
 import * as nsdal from "NFT/DataAccess/EC_nsdal"
 import * as moment from "NFT/moment"
 import * as _ from "NFT/lodash"
@@ -59,7 +62,7 @@ var log = LogManager.DefaultLogger
  * so we don't have to repeat them here. This Customer class could be in a separate file (e.g Customer.ts) and 
  * reused across all scripts via `import {Customer} from "./Customer"`
  */
-class Customer extends customer.Base {
+class Customer extends CustomerBase {
    @nsdal.FieldType.multiselect
    custentity_multiselect:number[]
 
@@ -73,6 +76,7 @@ export = {
    onRequest: (req, resp) => {
 
       // turn on debug logging for just the nsdal logger - each module can have it's own debugger
+      // default is logLevel.none as normally we don't care about nsdal logging its inner workings
       nsdal.log.setLevel(LogManager.logLevel.debug)
 
       // load customer internal id 1542
@@ -81,19 +85,19 @@ export = {
       // strongly typed field access
       c.companyname = 'a new company name'
       c.custentity_multiselect = [1, 2]
-      c.custentity_shawn_date = moment()
+      c.custentity_a_date = moment()
 
       // persist our changes
       c.save();
 
       // just log a couple properties from our customer object
-      log.debug('customer', _.pick(c,['custentity_shawn_date', 'companyname']))
+      log.debug('customer', _.pick(c,['custentity_a_date', 'companyname']))
    }
 }
 
 ```
 
-see also `example.ts` in this package.
+**see also [`example.ts`](https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/master/example.ts)**
 
 ## Search Helpers
 
