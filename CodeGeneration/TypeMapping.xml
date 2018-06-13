@@ -6,6 +6,8 @@ Note that how e.g. bodysale in SDF (<bodysale>T<bodysale>) means it applies to s
 it is repeated here so we can generate distinct TS classes for each.
 
 When you run the generation commandline you must specify type= values from the className element.
+
+e.g. java -jar saxon9he.jar -xsl:TransactionBodyField.xslt -s:TypeMapping.xml -o:SalesOrder.ts type=SalesOrder
 -->
 <fields >
     <!--Records that are included if you check "SALES TRANSACTIONS" on the custom field applies to checkbox-->
