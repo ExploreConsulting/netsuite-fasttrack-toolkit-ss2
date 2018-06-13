@@ -156,12 +156,12 @@ When you run the generation commandline you must specify type= values from the c
         </imports>
     </field>
 
-    <!--Applies to Customer Payment -->
-    <field name="bodycustomerpayment">
-        <className>CustomerPayment</className>
-        <parentClass>CustomerPaymentBase</parentClass>
+    <!--Applies to Assembly Build -->
+    <field name="bodyassemblybuild">
+        <className>AssemblyBuild</className>
+        <parentClass>AssemblyBuildBase</parentClass>
         <imports>
-            <import>import {CustomerPaymentBase} from "NFT/DataAccess/CustomerPaymentBase"</import>
+            <import>import {AssemblyBuildBase} from "NFT/DataAccess/AssemblyBuildBase"</import>
         </imports>
     </field>
 
