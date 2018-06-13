@@ -69,4 +69,101 @@ When you run the generation commandline you must specify type= values from the c
         </imports>
     </field>
 
+    <field name="bodypurchase">
+        <className>VendorBill</className>
+        <parentClass>VendorBillBase</parentClass>
+        <imports>
+            <import>import {VendorBillBase} from "NFT/DataAccess/InvoiceBase"</import>
+        </imports>
+    </field>
+
+    <!--Applies to Opportunity -->
+    <field name="bodyopportunity">
+        <className>Opportunity</className>
+        <parentClass>OpportunityBase</parentClass>
+        <imports>
+            <import>import {OpportunityBase} from "NFT/DataAccess/OpportunityBase"</import>
+        </imports>
+    </field>
+
+    <!--Applies to Journal Entry -->
+    <field name="bodyjournal">
+        <className>JournalEntry</className>
+        <parentClass>JournalEntryBase</parentClass>
+        <imports>
+            <import>import {JournalEntryBase} from "NFT/DataAccess/JournalEntryBase"</import>
+        </imports>
+    </field>
+
+    <!--Applies to Transfer Order -->
+    <field name="bodytransferorder">
+        <className>TransferOrder</className>
+        <parentClass>TransferOrderBase</parentClass>
+        <imports>
+            <import>import {TransferOrderBase} from "NFT/DataAccess/TransferOrderBase"</import>
+        </imports>
+    </field>
+
+    <field name="bodytransferorder">
+        <className>IntercompanyTransferOrder</className>
+        <parentClass>IntercompanyTransferOrderBase</parentClass>
+        <imports>
+            <import>import {IntercompanyTransferOrderBase} from "NFT/DataAccess/IntercompanyTransferOrderBase"</import>
+        </imports>
+    </field>
+
+    <!--Applies to Item Receipt -->
+    <field name="bodyitemreceipt">
+        <className>ItemReceipt</className>
+        <parentClass>ItemReceiptBase</parentClass>
+        <imports>
+            <import>import {ItemReceiptBase} from "NFT/DataAccess/ItemReceiptBase"</import>
+        </imports>
+    </field>
+
+    <!--Applies to Inventory Adjustment -->
+    <field name="bodyinventoryadjustment">
+        <className>InventoryAdjustment</className>
+        <parentClass>InventoryAdjustmentBase</parentClass>
+        <imports>
+            <import>import {InventoryAdjustmentBase} from "NFT/DataAccess/InventoryAdjustmentBase"</import>
+        </imports>
+    </field>
+
+    <!--Applies to Item Fulfillment -->
+    <field name="bodyitemfulfillment">
+        <className>ItemFulfillment</className>
+        <parentClass>ItemFulfillmentBase</parentClass>
+        <imports>
+            <import>import {ItemFulfillmentBase} from "NFT/DataAccess/ItemFulfillmentBase"</import>
+        </imports>
+    </field>
+
+    <!--Applies to Customer Payment -->
+    <field name="bodycustomerpayment">
+        <className>CustomerPayment</className>
+        <parentClass>CustomerPaymentBase</parentClass>
+        <imports>
+            <import>import {CustomerPaymentBase} from "NFT/DataAccess/CustomerPaymentBase"</import>
+        </imports>
+    </field>
+
+    <field name="bodycustomerpayment">
+        <className>CustomerRefund</className>
+        <parentClass>CustomerRefundBase</parentClass>
+        <imports>
+            <import>import {CustomerRefundBase} from "NFT/DataAccess/CustomerRefundBase"</import>
+        </imports>
+    </field>
+
+    <!--Applies to Customer Payment -->
+    <field name="bodycustomerpayment">
+        <className>CustomerPayment</className>
+        <parentClass>CustomerPaymentBase</parentClass>
+        <imports>
+            <import>import {CustomerPaymentBase} from "NFT/DataAccess/CustomerPaymentBase"</import>
+        </imports>
+    </field>
+
+
 </fields>
