@@ -2,18 +2,11 @@
  * NetSuite generic Transaction record
  */
 
-import {SublistLine, SublistFieldType} from './Sublist'
+import {SublistLine, SublistFieldType, Sublist} from './Sublist'
 import * as moment from "../moment"
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
-
-/**
- * NetSuite Sales Order Record
- */
-export class SalesOrderBase extends TransactionBase {
-
-   static recordType = record.Type.SALES_ORDER
-}
+import {FieldType} from "./Record";
 
 
 /**
@@ -51,12 +44,17 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.checkbox
    istaxable:boolean
 
-
    @SublistFieldType.select
    item: number
 
    @SublistFieldType.freeformtext
    itemtype:string
+
+   @SublistFieldType.freeformtext
+   lineuniquekey:string
+
+   @SublistFieldType.integernumber
+   linenumber:number
 
    @SublistFieldType.currency
    porate:number
@@ -84,6 +82,9 @@ export class ItemSublist extends SublistLine {
 
    @SublistFieldType.decimalnumber
    taxrate1:number
+
+   @SublistFieldType.select
+   units:number
 }
 
 /**
@@ -91,13 +92,31 @@ export class ItemSublist extends SublistLine {
  */
 export class SalesTeamSublist extends SublistLine {
 
+   @SublistFieldType.decimalnumber
+   contribution:number
+
    @SublistFieldType.select
    employee:number
 
    @SublistFieldType.checkbox
    isprimary:boolean
 
-   @SublistFieldType.decimalnumber
-   contribution:number
+   @SublistFieldType.select
+   salesrole:number
+}
+
+
+/**
+ * NetSuite Sales Order Record
+ */
+export class SalesOrderBase extends TransactionBase {
+
+   static recordType = record.Type.SALES_ORDER
+
+   @FieldType.sublist(ItemSublist)
+   item: Sublist<ItemSublist>
+
+   @FieldType.sublist(SalesTeamSublist)
+   salesteam: Sublist<SalesTeamSublist>
 }
 

@@ -17,21 +17,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define(["require", "exports", "./Sublist", "N/record", "./Transaction"], function (require, exports, Sublist_1, record, Transaction_1) {
+define(["require", "exports", "./Sublist", "N/record", "./Transaction", "./Record"], function (require, exports, Sublist_1, record, Transaction_1, Record_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    /**
-     * NetSuite Sales Order Record
-     */
-    var SalesOrderBase = /** @class */ (function (_super) {
-        __extends(SalesOrderBase, _super);
-        function SalesOrderBase() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        SalesOrderBase.recordType = record.Type.SALES_ORDER;
-        return SalesOrderBase;
-    }(Transaction_1.TransactionBase));
-    exports.SalesOrderBase = SalesOrderBase;
     /**
      * Sublist 'item' on the Sales Order record
      */
@@ -77,6 +65,12 @@ define(["require", "exports", "./Sublist", "N/record", "./Transaction"], functio
             Sublist_1.SublistFieldType.freeformtext
         ], ItemSublist.prototype, "itemtype", void 0);
         __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ItemSublist.prototype, "lineuniquekey", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.integernumber
+        ], ItemSublist.prototype, "linenumber", void 0);
+        __decorate([
             Sublist_1.SublistFieldType.currency
         ], ItemSublist.prototype, "porate", void 0);
         __decorate([
@@ -103,6 +97,9 @@ define(["require", "exports", "./Sublist", "N/record", "./Transaction"], functio
         __decorate([
             Sublist_1.SublistFieldType.decimalnumber
         ], ItemSublist.prototype, "taxrate1", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "units", void 0);
         return ItemSublist;
     }(Sublist_1.SublistLine));
     exports.ItemSublist = ItemSublist;
@@ -115,15 +112,36 @@ define(["require", "exports", "./Sublist", "N/record", "./Transaction"], functio
             return _super !== null && _super.apply(this, arguments) || this;
         }
         __decorate([
+            Sublist_1.SublistFieldType.decimalnumber
+        ], SalesTeamSublist.prototype, "contribution", void 0);
+        __decorate([
             Sublist_1.SublistFieldType.select
         ], SalesTeamSublist.prototype, "employee", void 0);
         __decorate([
             Sublist_1.SublistFieldType.checkbox
         ], SalesTeamSublist.prototype, "isprimary", void 0);
         __decorate([
-            Sublist_1.SublistFieldType.decimalnumber
-        ], SalesTeamSublist.prototype, "contribution", void 0);
+            Sublist_1.SublistFieldType.select
+        ], SalesTeamSublist.prototype, "salesrole", void 0);
         return SalesTeamSublist;
     }(Sublist_1.SublistLine));
     exports.SalesTeamSublist = SalesTeamSublist;
+    /**
+     * NetSuite Sales Order Record
+     */
+    var SalesOrderBase = /** @class */ (function (_super) {
+        __extends(SalesOrderBase, _super);
+        function SalesOrderBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        SalesOrderBase.recordType = record.Type.SALES_ORDER;
+        __decorate([
+            Record_1.FieldType.sublist(ItemSublist)
+        ], SalesOrderBase.prototype, "item", void 0);
+        __decorate([
+            Record_1.FieldType.sublist(SalesTeamSublist)
+        ], SalesOrderBase.prototype, "salesteam", void 0);
+        return SalesOrderBase;
+    }(Transaction_1.TransactionBase));
+    exports.SalesOrderBase = SalesOrderBase;
 });
