@@ -27,6 +27,9 @@ define(["require", "exports", "./Record", "N/record", "./Transaction", "./Sublis
         }
         CreditMemoBase.recordType = record.Type.CREDIT_MEMO;
         __decorate([
+            Record_1.FieldType.select
+        ], CreditMemoBase.prototype, "account", void 0);
+        __decorate([
             Record_1.FieldType.currency
         ], CreditMemoBase.prototype, "amountpaid", void 0);
         __decorate([
@@ -42,11 +45,20 @@ define(["require", "exports", "./Record", "N/record", "./Transaction", "./Sublis
             Record_1.FieldType.currency
         ], CreditMemoBase.prototype, "balance", void 0);
         __decorate([
+            Record_1.FieldType.select
+        ], CreditMemoBase.prototype, "class", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], CreditMemoBase.prototype, "currency", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], CreditMemoBase.prototype, "subtotal", void 0);
+        __decorate([
             Record_1.FieldType.currency
         ], CreditMemoBase.prototype, "total", void 0);
         __decorate([
             Record_1.FieldType.currency
-        ], CreditMemoBase.prototype, "subtotal", void 0);
+        ], CreditMemoBase.prototype, "unapplied", void 0);
         return CreditMemoBase;
     }(Transaction_1.TransactionBase));
     exports.CreditMemoBase = CreditMemoBase;

@@ -12,6 +12,9 @@ export class CreditMemoBase extends TransactionBase {
 
    static recordType = record.Type.CREDIT_MEMO
 
+   @FieldType.select
+   account:number
+
    @FieldType.currency
    amountpaid:number
 
@@ -27,11 +30,20 @@ export class CreditMemoBase extends TransactionBase {
    @FieldType.currency
    balance:number
 
+   @FieldType.select
+   class:number
+
+   @FieldType.select
+   currency:number
+
+   @FieldType.currency
+   subtotal:number
+
    @FieldType.currency
    total:number
 
    @FieldType.currency
-   subtotal:number
+   unapplied:number
 }
 
 
