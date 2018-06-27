@@ -166,6 +166,7 @@ sources in the project are not changed. This is important because the tests use 
 # Build and Publish
 The production build is AMD. Ensure that compiled files (e.g. `DataAccess/JournalEntryBase.js`) are in AMD format.
     
+    tsc
     gulp
     gulp declarations
     npm publish
