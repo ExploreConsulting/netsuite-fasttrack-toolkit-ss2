@@ -21,10 +21,10 @@ var sources = ['search.js','EC_Logger.js', 'config.js', 'DataAccess/*.js', 'aop.
 
 var declarations = ['*.d.ts', 'DataAccess/*.d.ts','!example.d.ts'];
 
-var includedNPMlibs = ['node_modules/lodash/lodash.js',
+var includedNPMlibs = ['node_modules/lodash/lodash.js','node_modules/immutable/dist/immutable.js',
    'node_modules/moment/moment.js', 'node_modules/aurelia-logging/dist/amd/aurelia-logging.js'];
 
-var otherTypings = ['node_modules/moment/moment.d.ts','aurelia-logging.d.ts'];
+var otherTypings = ['node_modules/moment/moment.d.ts', 'aurelia-logging.d.ts'];
 
 var buildFolderName = "/NFT-SS2-" + version;
 
@@ -44,8 +44,11 @@ gulp.task('declarations',['cleandeclarations'], function () {
       .pipe($.debug({title: 'copying typescript declaration files:'}))
       .pipe(gulp.dest(decldir))
    // include lodash but we need to rename it to 'lodash' so we can import it with the proper name
-   return   gulp.src('node_modules/@types/lodash/index.d.ts')
-      .pipe($.rename('lodash.d.ts')).pipe(gulp.dest(decldir))
+     gulp.src('node_modules/@types/lodash/index.d.ts')
+      .pipe($.rename('lodash.d.ts')).pipe(gulp.dest(decldir))// include lodash but we need to rename it to 'lodash' so we can import it with the proper name
+   // similar to above
+   return   gulp.src('node_modules/immutable/dist/immutable-nonambient.d.ts')
+      .pipe($.rename('immutable.d.ts')).pipe(gulp.dest(decldir))
 })
 
 

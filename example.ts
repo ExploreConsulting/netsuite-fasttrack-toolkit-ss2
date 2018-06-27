@@ -12,7 +12,7 @@ module (in the correct path of ./lodash assuming lodash is installed in the same
 import * as moment from "moment"
 import * as LogManager from './EC_Logger'
 import {CustomerBase} from "./DataAccess/CustomerBase"
-import {ItemSublist, SalesOrderBase} from "NFT/DataAccess/SalesOrderBase";
+import {ItemSublist, SalesOrderBase} from "./DataAccess/SalesOrderBase";
 import * as _ from "lodash"
 import * as nsdal from "./DataAccess/EC_nsdal"
 
