@@ -101,6 +101,8 @@ export = {
 
 ## Search Helpers
 
+`nsSearchResult2obj` turns a netsuite `search.Result` into a POJO
+
 ```typescript
 
 import {nsSearchResult2obj} from "NFT/search"
@@ -110,6 +112,16 @@ const s = search.load({ id: 'somesearchid' } ).run().getRange({start:0, end:1000
 const objects = _.map(s,nsSearchResult2obj)
 
 ```
+
+### Lazy Search ###
+
+```typescript
+import {nsSearchResult2obj, LazySearch} from "./search"
+import {Seq} from "immutable"
+
+let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj).first()
+```
+
 
 ## Special 'apply' sublist support
 

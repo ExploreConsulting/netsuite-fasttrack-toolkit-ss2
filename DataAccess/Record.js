@@ -208,6 +208,7 @@ define(["require", "exports", "N/record", "N/format", "../EC_Logger", "../moment
             };
         };
     }
+    exports.sublistDescriptor = sublistDescriptor;
     /**
      * Generic property descriptor with algorithm for values that need to go through the NS format module on field
      * write. Returns plain getValue() on reads

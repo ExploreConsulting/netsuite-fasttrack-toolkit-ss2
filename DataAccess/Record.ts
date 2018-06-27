@@ -192,7 +192,7 @@ type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, 
  * @param ctor Constructor for the type that has the properties you want from each sublist line.
  * e.g. Invoice.ItemSublistLine
  */
-function sublistDescriptor<T extends SublistLine> (ctor:  LineConstructor<T> )  {
+export function sublistDescriptor<T extends SublistLine> (ctor:  LineConstructor<T> )  {
    return function (target: any, propertyKey: string): any {
       const privateProp = `_${propertyKey}`
       return {
