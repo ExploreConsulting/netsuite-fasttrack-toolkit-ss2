@@ -84,7 +84,7 @@ export class LazySearch implements Iterator<search.Result | null> {
     * @param {number} pageSize optional pagesize, can be up to 1000
     */
    private constructor(private search: search.Search, private pageSize = 500) {
-      if (pageSize >= 1000) throw new Error('page size must be <= 1000')
+      if (pageSize > 1000) throw new Error('page size must be <= 1000')
       this.log = LogManager.getLogger(LazySearch.LOGNAME)
       this.pagedData = this.search.runPaged({pageSize: pageSize})
       this.currentPage = this.pagedData.fetch({index: 0})
