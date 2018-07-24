@@ -1,7 +1,7 @@
 {
   "name": "netsuite-fasttrack-toolkit-ss2",
-  "version": "2.1.0",
-  "description": "Power library for NetSuite SuiteScript 2.x projects.",
+  "version": "2.1.1",
+  "description": "Power library for NetSuite SuiteScript 2.x",
   "main": "none",
   "directories": {
     "test": "tests"

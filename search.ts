@@ -10,7 +10,7 @@ export type ObjectWithId<T> = T & { id: string }
  * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to _.map()
  * @param {Result} result a single netsuite search result to transform into a POJO
  */
-export function nsSearchResult2obj<T> (result: Result): ObjectWithId<T> {
+export function nsSearchResult2obj<T>(result: Result): ObjectWithId<T> {
    let output = {id: result.id}
 
    // assigns each column VALUE from the search result to the output object, and if the column
@@ -68,7 +68,7 @@ export class LazySearch implements Iterator<search.Result | null> {
    }
 
    // logger for this module
-   log:LogManager.Logger
+   log: LogManager.Logger
    // outer paged data object from NS search. This is only set once when search is initially runPaged()
    pagedData: search.PagedData
    // the current page of data. This is replaced as we cross from one page to the next
@@ -100,20 +100,23 @@ export class LazySearch implements Iterator<search.Result | null> {
     * @returns {IteratorResult<Result | null>}
     */
    next(): IteratorResult<search.Result | null> {
-      // if we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
-      if (this.index === this.currentData.length) {
+      const atEndOfPage = this.index === this.currentData.length
+      const done = this.currentPage.isLast && atEndOfPage
+
+      if (done) return {
+         done: true,
+         value: null
+      }
+
+      // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
+      if (atEndOfPage) {
          this.currentPage = this.currentPage.next()
          this.currentData = this.currentPage.data
          this.log.debug('loaded next page', `is last page: ${this.currentPage.isLast}`)
          this.index = 0
       }
-
-      if (this.currentPage.isLast && this.currentData.length <= this.index) {
-         return {
-            done: true,
-            value: null
-         }
-      } else return {
+      // return the next result from existing page (which may have been loaded immediately prior above)
+      return {
          done: false,
          value: this.currentData[this.index++]
       }
