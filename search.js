@@ -46,7 +46,7 @@ define(["require", "exports", "./lodash", "N/search", "./EC_Logger"], function (
             if (pageSize === void 0) { pageSize = 500; }
             this.search = search;
             this.pageSize = pageSize;
-            if (pageSize >= 1000)
+            if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazySearch.LOGNAME);
             this.pagedData = this.search.runPaged({ pageSize: pageSize });
@@ -79,24 +79,25 @@ define(["require", "exports", "./lodash", "N/search", "./EC_Logger"], function (
          * @returns {IteratorResult<Result | null>}
          */
         LazySearch.prototype.next = function () {
-            // if we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
-            if (this.index === this.currentData.length) {
+            var atEndOfPage = this.index === this.currentData.length;
+            var done = this.currentPage.isLast && atEndOfPage;
+            if (done)
+                return {
+                    done: true,
+                    value: null
+                };
+            // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
+            if (atEndOfPage) {
                 this.currentPage = this.currentPage.next();
                 this.currentData = this.currentPage.data;
                 this.log.debug('loaded next page', "is last page: " + this.currentPage.isLast);
                 this.index = 0;
             }
-            if (this.currentPage.isLast && this.currentData.length <= this.index) {
-                return {
-                    done: true,
-                    value: null
-                };
-            }
-            else
-                return {
-                    done: false,
-                    value: this.currentData[this.index++]
-                };
+            // return the next result from existing page (which may have been loaded immediately prior above)
+            return {
+                done: false,
+                value: this.currentData[this.index++]
+            };
         };
         // the name of the custom logger for this component for independent logging control
         LazySearch.LOGNAME = 'lazy';
