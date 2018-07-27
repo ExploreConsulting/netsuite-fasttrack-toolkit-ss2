@@ -3,6 +3,11 @@ import * as _ from "./lodash"
 import * as search from "N/search";
 import * as LogManager from "./EC_Logger";
 
+
+// include this as a convenience since it will often be used with arbitrary long search results to manage governance
+export {governanceRemains} from "./governance"
+
+
 // Any object that includes an 'id' property, which our search results always have
 export type ObjectWithId<T> = T & { id: string }
 

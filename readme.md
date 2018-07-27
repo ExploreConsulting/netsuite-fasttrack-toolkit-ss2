@@ -11,7 +11,8 @@ predefined strong types for NetSuite record types
 * lodash
 * momentjs
 * advanced logging
-* helpers for N/search
+* immutablejs
+* helpers for N/search and governance management
 
 
 # Getting Started (Typescript)

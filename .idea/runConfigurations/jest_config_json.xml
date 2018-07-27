@@ -6,6 +6,6 @@
     <working-dir value="$PROJECT_DIR$" />
     <envs />
     <scope-kind value="ALL" />
-    <method />
+    <method v="2" />
   </configuration>
 </component>

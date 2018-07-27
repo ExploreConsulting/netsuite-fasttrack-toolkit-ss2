@@ -1,6 +1,7 @@
-define(["require", "exports", "./lodash", "N/search", "./EC_Logger"], function (require, exports, _, search, LogManager) {
+define(["require", "exports", "./lodash", "N/search", "./EC_Logger", "./governance"], function (require, exports, _, search, LogManager, governance_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.governanceRemains = governance_1.governanceRemains;
     /**
      * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to _.map()
      * @param {Result} result a single netsuite search result to transform into a POJO
