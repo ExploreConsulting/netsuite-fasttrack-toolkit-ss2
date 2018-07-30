@@ -140,9 +140,9 @@ namespace NFT {
  * @NScriptType Suitelet
  */
 
-import * as LogManager from "./NFT-SS2-2.1.1/EC_Logger"
-import {nsSearchResult2obj, LazySearch} from "./NFT-SS2-2.1.1/search"
-import {Seq} from "./NFT-SS2-2.1.1/immutable"
+import * as LogManager from "./NFT-SS2-2.2.1/EC_Logger"
+import {nsSearchResult2obj, LazySearch} from "./NFT-SS2-2.2.1/search"
+import {Seq} from "./NFT-SS2-2.2.1/immutable"
 
 
 LogManager.getLogger(LazySearch.LOGNAME).setLevel(LogManager.logLevel.debug)

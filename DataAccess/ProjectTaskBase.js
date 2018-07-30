@@ -17,7 +17,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define(["require", "exports", "../NFT-SS2-2.1.1/DataAccess/Record", "N/record", "../NFT-SS2-2.1.1/DataAccess/Record", "../NFT-SS2-2.1.1/DataAccess/Sublist"], function (require, exports, Record_1, record, Record_2, Sublist_1) {
+define(["require", "exports", "./Record", "N/record", "./Sublist"], function (require, exports, Record_1, record, Sublist_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
@@ -176,6 +176,6 @@ define(["require", "exports", "../NFT-SS2-2.1.1/DataAccess/Record", "N/record", 
             Record_1.FieldType.sublist(AssigneeSublist)
         ], ProjectTaskBase.prototype, "assignee", void 0);
         return ProjectTaskBase;
-    }(Record_2.NetsuiteRecord));
+    }(Record_1.NetsuiteRecord));
     exports.ProjectTaskBase = ProjectTaskBase;
 });

@@ -2,11 +2,10 @@
  * Represents an Project Task record in NetSuite
  */
 
-import { FieldType } from '../NFT-SS2-2.1.1/DataAccess/Record'
+import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
-import { NetsuiteRecord } from '../NFT-SS2-2.1.1/DataAccess/Record'
-import { SublistLine, SublistFieldType, Sublist } from '../NFT-SS2-2.1.1/DataAccess/Sublist'
-import * as moment from '../NFT-SS2-2.1.1/moment'
+import { SublistLine, SublistFieldType, Sublist } from './Sublist'
+import * as moment from '../moment'
 
 /**
  * Project task resource assignment ( ) sublist
