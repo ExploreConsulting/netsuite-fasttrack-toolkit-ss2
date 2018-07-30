@@ -92,8 +92,14 @@ export class LazySearch implements Iterator<search.Result | null> {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
       this.log = LogManager.getLogger(LazySearch.LOGNAME)
       this.pagedData = this.search.runPaged({pageSize: pageSize})
-      this.currentPage = this.pagedData.fetch({index: 0})
-      this.currentData = this.currentPage.data
+      // only load a page if we have records
+      if (this.pagedData.count > 0) {
+         this.currentPage = this.pagedData.fetch({index: 0})
+         this.currentData = this.currentPage.data
+      } else {
+         this.currentData = []
+         this.log.debug('runPaged() search return zero results')
+      }
       this.index = 0
       this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`,
          `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`)
@@ -106,7 +112,7 @@ export class LazySearch implements Iterator<search.Result | null> {
     */
    next(): IteratorResult<search.Result | null> {
       const atEndOfPage = this.index === this.currentData.length
-      const done = this.currentPage.isLast && atEndOfPage
+      const done = !this.currentPage || (this.currentPage.isLast && atEndOfPage)
 
       if (done) return {
          done: true,
