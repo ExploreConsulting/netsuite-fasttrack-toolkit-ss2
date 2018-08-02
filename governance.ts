@@ -1,6 +1,7 @@
 import * as moment from "./moment"
 import * as runtime from "N/runtime"
 import {DefaultLogger as log} from "./EC_Logger"
+import * as task from "N/task"
 
 /**
  * returns a predicate function which returns true if we're not out of governance, false if we have reached time
@@ -25,4 +26,29 @@ export const governanceRemains = (starttime = moment(), minutes = 45, units = 20
 
    return ok
 }
+
+/**
+ * Reschedules the current script using the same deployment id if we're out of governance
+ * @param params optional script parameters to provide to the newly scheduled script
+ * @param governancePredicate governance checker - if it returns false then script will reschedule.
+ * typically this would be your invocation of `governanceRemains()`
+ * @example
+ *
+ * results.takeWhile( rescheduleIfNeeded(governanceRemains) ).filter(...).map(...)
+ */
+export function rescheduleIfNeeded(governancePredicate: () => boolean, params?:object) {
+   const outOfGovernance = !governancePredicate()
+   if (outOfGovernance) {
+      task.create({
+         taskType: task.TaskType.SCHEDULED_SCRIPT,
+         scriptId: runtime.getCurrentScript().id,
+         deploymentId:runtime.getCurrentScript().deploymentId,
+         params:params
+      }).submit()
+   }
+
+   return outOfGovernance
+}
+
+
 
