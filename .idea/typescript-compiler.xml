@@ -2,7 +2,6 @@
 <project version="4">
   <component name="TypeScriptCompiler">
     <option name="recompileOnChanges" value="true" />
-    <option name="nodeInterpreterTextField" value="wsl://UBUNTU_LEGACY@/usr/bin/node" />
     <option name="showAllErrors" value="true" />
   </component>
 </project>
