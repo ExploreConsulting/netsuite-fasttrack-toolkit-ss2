@@ -1,7 +1,9 @@
 // mock must be declared at top of file because ts-jest uses babel to auto-hoist and it was erroring all tests
-jest.mock('EC_Logger')
+import * as mockrecord from "../__mocks__/N/record"
 
-import {governanceRemains} from "../governance"
+jest.mock('EC_Logger')
+import * as mocktask from '../__mocks__/N/task'
+import {governanceRemains,rescheduleIfNeeded} from "../governance"
 import * as mockruntime from '../__mocks__/N/runtime'
 import * as moment from "moment"
 
@@ -54,3 +56,37 @@ describe('governance', function () {
 })
 
 
+describe('rescheduling', function () {
+   test('should not reschedule if governance remains (no parms)', function () {
+
+      const alwaysTrue = () => true
+
+      const sut = rescheduleIfNeeded( alwaysTrue )
+
+      expect(sut()).toEqual(true)
+      expect(mocktask.create).not.toHaveBeenCalled()
+   })
+
+   test('does not reschedule if governance exhausted (no parms)', function () {
+
+      const alwaysFalse = () => false
+
+      const sut = rescheduleIfNeeded( alwaysFalse )
+
+      expect(sut()).toEqual(false)
+      expect(mocktask.create).toHaveBeenCalled()
+   })
+
+   test('passes script params when rescheduling', function () {
+
+      const alwaysFalse = () => false
+
+      let scriptParams = { foo: 'bar'}
+      const sut = rescheduleIfNeeded( alwaysFalse, scriptParams )
+
+      expect(sut()).toEqual(false)
+      // task.create() is called with our script params
+      expect(mocktask.create.mock.calls[0][0]).toEqual( expect.objectContaining({params: scriptParams }) )
+   })
+
+});

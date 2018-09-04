@@ -33,21 +33,26 @@ export const governanceRemains = (starttime = moment(), minutes = 45, units = 20
  * @param governancePredicate governance checker - if it returns false then script will reschedule.
  * typically this would be your invocation of `governanceRemains()`
  * @example
+ * results.takeWhile( rescheduleIfNeeded(governanceRemains()) ).filter(...).map(...)
+ * @returns a function that returns the same boolean that the governancePredicate() does
+ * ( so it can be invoked by takeWhile() as well)
  *
- * results.takeWhile( rescheduleIfNeeded(governanceRemains) ).filter(...).map(...)
  */
-export function rescheduleIfNeeded(governancePredicate: () => boolean, params?:object) {
-   const outOfGovernance = !governancePredicate()
-   if (outOfGovernance) {
-      task.create({
-         taskType: task.TaskType.SCHEDULED_SCRIPT,
-         scriptId: runtime.getCurrentScript().id,
-         deploymentId:runtime.getCurrentScript().deploymentId,
-         params:params
-      }).submit()
+export function rescheduleIfNeeded(governancePredicate: () => boolean, params?: object) {
+   return () => {
+      const governanceRemains = governancePredicate()
+      if (!governanceRemains) {
+         log.warn('out of governance, rescheduling',
+            task.create({
+               taskType: task.TaskType.SCHEDULED_SCRIPT,
+               scriptId: runtime.getCurrentScript().id,
+               deploymentId: runtime.getCurrentScript().deploymentId,
+               params: params
+            }).submit()
+         )
+      }
+      return governanceRemains
    }
-
-   return outOfGovernance
 }
 
 
