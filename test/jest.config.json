@@ -20,7 +20,13 @@
     "jsx",
     "json",
     "node"
-  ]
+  ],
+  "globals": {
+    "ts-jest": {
+      "skipBabel": true,
+      "enableTsDiagnostics": true
+    }
+  }
 }
 
 
