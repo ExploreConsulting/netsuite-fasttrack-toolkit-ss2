@@ -31,13 +31,15 @@ file to the same folder in which you place your SuiteScripts. It will extract to
 
 If you typically just put your SuiteScripts under the `/SuiteScripts/` folder in the NS file cabinet then simply 
 extract the zip there. 
+A recommended practice is to put your SuiteScript 2.0 files under a subfolder, such as `SuiteScripts/SS2/`. This 
+creates a convenient _'root'_ folder for your SS2 projects.
 
 After install you should get a folder link at your project root named NFT-SS2-#.#.#
 This creates a folder structure mirroring what you have in NetSuite so you can use relative paths when you 
 `import` from the library (e.g. `import {CustomerBase} from "./NFT-SS2-1.2.3/DataAcess/CustomerBase`)
 
 
-### Example
+###  Overview Example
 
 ```typescript
 
@@ -102,7 +104,8 @@ export = {
 
 ## Search Helpers
 
-`nsSearchResult2obj` turns a netsuite `search.Result` into a POJO
+`nsSearchResult2obj` turns a netsuite `search.Result` into a POJO, especially useful when chaining operations or returning
+search results from an API. 
 
 ```typescript
 
@@ -110,7 +113,11 @@ import {nsSearchResult2obj} from "NFT/search"
 import * as search from "N/search"
 
 const s = search.load({ id: 'somesearchid' } ).run().getRange({start:0, end:1000})
-const objects = _.map(s,nsSearchResult2obj)
+const objects = _.map(s,nsSearchResult2obj).toArray()
+
+// objects will be array of plain javascript objects with property names matching the field names in netsuite.
+// fields with a non-falsey 'Text' value surface as properties suffixed with "Text"
+// e.g. `result.fieldname` or `result.fieldnameText`
 
 ```
 
@@ -120,8 +127,47 @@ const objects = _.map(s,nsSearchResult2obj)
 import {nsSearchResult2obj, LazySearch} from "./search"
 import {Seq} from "immutable"
 
+// get the first result as a POJO 
 let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj).first()
 ```
+
+### Governance ###
+The governance handler utilties can be used with any script, but most often are used with a saved search in 
+a scheduled script.
+
+There are two functions, one for checking governance usage (`governanceRemains()`) and another which additionally
+auto-reschedules the currently executing script (`rescheduleIfNeeded()`)
+
+`governanceRemains` supports parameters for setting thresholds on both time and units usage. See the tsdocs for more on this function.
+
+`rescheduleIfNeeded` executes the passed predicate, and if it returns false it automatically 
+reschedules the script (using `N/task`) passing along script parameters if provided.
+
+Example: exit processing automatically when governance falls below time or units threshold.
+```typescript
+import {nsSearchResult2obj, LazySearch} from "./search"
+import {governanceRemains, rescheduleIfNeeded} from "./governance"
+import {Seq} from "immutable"
+
+
+// process results from search id '123' until out of governance. Governance checks are run for each iteration of the 
+// `forEach()` and gracefully exit. 
+Seq(LazySearch.load("123")).takeWhile(governanceRemains()).map(nsSearchResult2obj).forEach( result => {
+   // .. do something with search result. 
+})
+
+
+// same as above, but with automatic graceful exit AND rescheduling
+Seq(LazySearch.load("123"))
+   .takeWhile( rescheduleIfNeeded(governanceRemains()))
+   .map(nsSearchResult2obj)
+   .forEach( result => {
+   // .. do something with search result. 
+})
+
+
+```
+
 
 
 ## Special 'apply' sublist support
@@ -132,7 +178,10 @@ See `CustomerRefundBase.findApplyLine()` and `Transaction.ts` for help.
 ## Logging
 NFT provides an advanced logging mechanism based on [Aurelia's](http://aurelia.io) logger. 
 
-It means you can have multiple loggers and control the logging verbosity of each.
+It means you can have multiple loggers and control the logging verbosity of each. In other words, it's a lightweight
+but much richer logging facility than the NetSuite provided logger.
+
+
 
 ### AutoLogging
 Automatically log entry and exit of methods with rich options by adding a line like this to the end of your script:
@@ -157,13 +206,8 @@ Configure tsconfig to include `paths` for NetSuite modules and NFT modules:
         "paths": {
           "N/*": [
             "node_modules/@hitc/netsuite-types/N/*"
-          ],
-          "NFT/*": [
-            "node_modules/netsuite-fasttrack-toolkit-ss2/declarations/*"
           ]
         }
-
-
 
 
 ## NetSuite Module Declarations
@@ -174,12 +218,18 @@ Configure tsconfig to include `paths` for NetSuite modules and NFT modules:
 # Tests
 The `test/` folder is configured to use `ts-jest` to compile the sources, and jest caches the output. This means the 
 sources in the project are not changed. This is important because the tests use the modules compiled to run in Nodejs 
-(commonjs compatible). The production build _must_ be AMD to function in NetSuite.
+(commonjs compatible). The production build _must_ be AMD to function in NetSuite. 
+
+to run the test suite:
+
+    npm test
+    
+
 
 # Build and Publish
 The production build is AMD. Ensure that compiled files (e.g. `DataAccess/JournalEntryBase.js`) are in AMD format.
     
-    tsc
-    gulp
-    gulp declarations
+    node_modules/.bin/tsc
+    node_modules/.bin/gulp
+    node_modules/.bin/gulp declarations
     npm publish
