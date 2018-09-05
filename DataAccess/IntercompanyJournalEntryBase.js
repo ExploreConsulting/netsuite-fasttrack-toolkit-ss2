@@ -1,5 +1,5 @@
 /**
- * NS Base intercompany journal entry record - contains definitions for fields and sublists
+ * NS Base intercompany journal entry record (intercompanyjournalentry) - contains definitions for fields and sublists
  */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -20,9 +20,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define(["require", "exports", "N/record", "./JournalEntryBase", "./Sublist"], function (require, exports, record, JournalEntryBase_1, Sublist_1) {
+define(["require", "exports", "N/record", "./JournalEntryBase", "./Sublist", "./Record"], function (require, exports, record, JournalEntryBase_1, Sublist_1, Record_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Intercompany Journal Entry Line (line) sublist
+     */
+    var LineSublist = /** @class */ (function (_super) {
+        __extends(LineSublist, _super);
+        function LineSublist() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], LineSublist.prototype, "linesubsidiary", void 0);
+        return LineSublist;
+    }(JournalEntryBase_1.LineSublist));
+    exports.LineSublist = LineSublist;
     /**
      * defines an Inter-company journal entry (basically identical to a normal journal entry?)
      */
@@ -32,21 +46,10 @@ define(["require", "exports", "N/record", "./JournalEntryBase", "./Sublist"], fu
             return _super !== null && _super.apply(this, arguments) || this;
         }
         IntercompanyJournalEntryBase.recordType = record.Type.INTER_COMPANY_JOURNAL_ENTRY;
+        __decorate([
+            Record_1.FieldType.sublist(LineSublist)
+        ], IntercompanyJournalEntryBase.prototype, "line", void 0);
         return IntercompanyJournalEntryBase;
     }(JournalEntryBase_1.JournalEntryBase));
     exports.IntercompanyJournalEntryBase = IntercompanyJournalEntryBase;
-    var LineSublist = /** @class */ (function (_super) {
-        __extends(LineSublist, _super);
-        function LineSublist() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], LineSublist.prototype, "location", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], LineSublist.prototype, "linesubsidiary", void 0);
-        return LineSublist;
-    }(Sublist_1.SublistLine));
-    exports.LineSublist = LineSublist;
 });

@@ -35,6 +35,9 @@ define(["require", "exports", "./Record", "N/record", "./Sublist"], function (re
             Sublist_1.SublistFieldType.select
         ], LineSublist.prototype, "account", void 0);
         __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], LineSublist.prototype, "amortizationtype", void 0);
+        __decorate([
             Sublist_1.SublistFieldType.currency
         ], LineSublist.prototype, "credit", void 0);
         __decorate([
@@ -59,6 +62,24 @@ define(["require", "exports", "./Record", "N/record", "./Sublist"], function (re
             Sublist_1.SublistFieldType.select
         ], LineSublist.prototype, "entity", void 0);
         __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], LineSublist.prototype, "entitytype", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], LineSublist.prototype, "grossamt", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.integernumber
+        ], LineSublist.prototype, "item", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.integernumber
+        ], LineSublist.prototype, "line", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], LineSublist.prototype, "linetaxcode", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.percent
+        ], LineSublist.prototype, "linetaxrate", void 0);
+        __decorate([
             Sublist_1.SublistFieldType.select
         ], LineSublist.prototype, "location", void 0);
         __decorate([
@@ -66,7 +87,34 @@ define(["require", "exports", "./Record", "N/record", "./Sublist"], function (re
         ], LineSublist.prototype, "memo", void 0);
         __decorate([
             Sublist_1.SublistFieldType.select
-        ], LineSublist.prototype, "subsidiary", void 0);
+        ], LineSublist.prototype, "revenuerecognitionrule", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], LineSublist.prototype, "schedule", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], LineSublist.prototype, "schedulenum", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.date
+        ], LineSublist.prototype, "startdate", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], LineSublist.prototype, "tax1acct", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], LineSublist.prototype, "tax1amt", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], LineSublist.prototype, "taxaccount", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], LineSublist.prototype, "taxbasis", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], LineSublist.prototype, "taxcode", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.percent
+        ], LineSublist.prototype, "taxrate1", void 0);
         __decorate([
             Sublist_1.SublistFieldType.currency
         ], LineSublist.prototype, "totalamount", void 0);
@@ -86,6 +134,9 @@ define(["require", "exports", "./Record", "N/record", "./Sublist"], function (re
             Record_1.FieldType.select
         ], JournalEntryBase.prototype, "accountingbook", void 0);
         __decorate([
+            Record_1.FieldType.select
+        ], JournalEntryBase.prototype, "approvalstatus", void 0);
+        __decorate([
             Record_1.FieldType.checkbox
         ], JournalEntryBase.prototype, "approved", void 0);
         __decorate([
@@ -96,16 +147,52 @@ define(["require", "exports", "./Record", "N/record", "./Sublist"], function (re
         ], JournalEntryBase.prototype, "createddate", void 0);
         __decorate([
             Record_1.FieldType.select
+        ], JournalEntryBase.prototype, "createdfrom", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], JournalEntryBase.prototype, "credittotal", void 0);
+        __decorate([
+            Record_1.FieldType.select
         ], JournalEntryBase.prototype, "currency", void 0);
         __decorate([
             Record_1.FieldType.select
+        ], JournalEntryBase.prototype, "customform", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], JournalEntryBase.prototype, "debittotal", void 0);
+        __decorate([
+            Record_1.FieldType.select
         ], JournalEntryBase.prototype, "department", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], JournalEntryBase.prototype, "entitynexus", void 0);
         __decorate([
             Record_1.FieldType.currency
         ], JournalEntryBase.prototype, "exchangerate", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
+        ], JournalEntryBase.prototype, "externalid", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], JournalEntryBase.prototype, "isbasecurrecy", void 0);
+        __decorate([
+            Record_1.FieldType.datetime
+        ], JournalEntryBase.prototype, "lastmodifieddate", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
         ], JournalEntryBase.prototype, "memo", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], JournalEntryBase.prototype, "nextapprover", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], JournalEntryBase.prototype, "nexus", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], JournalEntryBase.prototype, "parentexpensealloc", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], JournalEntryBase.prototype, "postingperiod", void 0);
         __decorate([
             Record_1.FieldType.date
         ], JournalEntryBase.prototype, "reversaldate", void 0);
@@ -114,7 +201,13 @@ define(["require", "exports", "./Record", "N/record", "./Sublist"], function (re
         ], JournalEntryBase.prototype, "reversaldefer", void 0);
         __decorate([
             Record_1.FieldType.select
+        ], JournalEntryBase.prototype, "subsidiarytaxregnum", void 0);
+        __decorate([
+            Record_1.FieldType.select
         ], JournalEntryBase.prototype, "subsidiary", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], JournalEntryBase.prototype, "tosubsidiary", void 0);
         __decorate([
             Record_1.FieldType.date
         ], JournalEntryBase.prototype, "trandate", void 0);

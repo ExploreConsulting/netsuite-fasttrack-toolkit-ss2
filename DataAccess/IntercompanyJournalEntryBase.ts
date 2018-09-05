@@ -1,22 +1,16 @@
 /**
- * NS Base intercompany journal entry record - contains definitions for fields and sublists
+ * NS Base intercompany journal entry record (intercompanyjournalentry) - contains definitions for fields and sublists
  */
 
 import * as record from 'N/record'
-import {JournalEntryBase} from "./JournalEntryBase";
-import {SublistLine,SublistFieldType} from "./Sublist";
+import {JournalEntryBase, LineSublist as JeLineSublist} from "./JournalEntryBase";
+import {SublistFieldType, Sublist} from "./Sublist";
+import {FieldType} from "./Record"
 
 /**
- * defines an Inter-company journal entry (basically identical to a normal journal entry?)
+ * Intercompany Journal Entry Line (line) sublist
  */
-export class IntercompanyJournalEntryBase extends JournalEntryBase {
-   static recordType = record.Type.INTER_COMPANY_JOURNAL_ENTRY
-}
-
-export class LineSublist extends SublistLine {
-
-   @SublistFieldType.select
-   location:number
+export class LineSublist extends JeLineSublist {
 
     /**
      * the line-level subsidiary - this is a difference between normal journal entry and intercompany JE
@@ -24,3 +18,15 @@ export class LineSublist extends SublistLine {
    @SublistFieldType.select
    linesubsidiary:number
 }
+
+/**
+ * defines an Inter-company journal entry (basically identical to a normal journal entry?)
+ */
+export class IntercompanyJournalEntryBase extends JournalEntryBase {
+   static recordType = record.Type.INTER_COMPANY_JOURNAL_ENTRY
+
+
+   @FieldType.sublist(LineSublist)
+   line: Sublist<LineSublist>
+}
+
