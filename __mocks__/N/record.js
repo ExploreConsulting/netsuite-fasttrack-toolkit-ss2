@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.create = jest.fn().mockReturnThis().mockName('create');
 exports.Type = jest.fn();
 exports.getValue = jest.fn().mockName('getValue');
