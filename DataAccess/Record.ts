@@ -222,7 +222,7 @@ export function sublistDescriptor<T extends SublistLine> (ctor:  LineConstructor
  * @returns  an object property descriptor to be used
  * with decorators
  */
-function formattedDescriptor (formatType: format.Type, target: any, propertyKey: string): PropertyDescriptor {
+function formattedDescriptor (formatType: format.Type, target: any, propertyKey: string): any {
    return {
       get: function () {
          return this.nsrecord.getValue({fieldId: propertyKey})
