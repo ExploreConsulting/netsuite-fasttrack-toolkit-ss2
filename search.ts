@@ -8,26 +8,41 @@ import * as LogManager from "./EC_Logger";
 export {governanceRemains, rescheduleIfNeeded} from "./governance"
 
 
-// Any object that includes an 'id' property, which our search results always have
+// Any object that includes an 'id' property, which NS search results always have
 export type ObjectWithId<T> = T & { id: string }
 
 /**
  * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to _.map()
- * @param {Result} result a single netsuite search result to transform into a POJO
+ * @param useLabels set to false to ignore search column labels, using the column name (internalid) instead.
+ * Defaults to true which means the property names on the returned object will match the column label names if set.
+ * If useLabels = true and no label exists, falls back to using column name. Note that label strings should be valid
+ * characters for property names (e.g. contain no ':', '-', '>' etc.)
+ * @returns a mapping function taking a NetSuite search result and returns a POJO representation of that search result.
+ * The return type will always have an 'id' property merged with type T if provided.
+ *
+ * @example
+ *
+ *  // default (uses column labels if present)
+ *  Seq(LazySearch.load(1234)).map(nsSearchResult2obj()).forEach(...)
+ *
+ *  // force ignoring search column labels
+ *  Seq(LazySearch.load(1234)).map(nsSearchResult2obj(false)).forEach(...)
  */
-export function nsSearchResult2obj<T>(result: Result): ObjectWithId<T> {
-   let output = {id: result.id}
+export function nsSearchResult2obj <T>(useLabels = true): (r:Result)=> ObjectWithId<T> {
+   return function (result: Result) {
+      let output = {id: result.id}
+      // assigns each column VALUE from the search result to the output object, and if the column
+      // has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
+      _.reduce(result.columns, (acc, x) => {
+         const propName = (useLabels && x.label) ? x.label : x.name
+         acc[propName] = result.getValue(x)
+         const text = result.getText(x)
+         if (text) acc[`${propName}Text`] = text
+         return acc
+      }, output)
 
-   // assigns each column VALUE from the search result to the output object, and if the column
-   // has a truthy text value includes that as a propnameText field similar to how nsdal does
-   _.reduce(result.columns, (acc, x) => {
-      acc[x.name] = result.getValue(x)
-      const text = result.getText(x)
-      if (text) acc[`${x.name}Text`] = text
-      return acc
-   }, output)
-
-   return output as T & { id: string }
+      return output as ObjectWithId<T>
+   }
 }
 
 /**
