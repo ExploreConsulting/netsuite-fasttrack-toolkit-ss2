@@ -1,4 +1,3 @@
-"use strict";
 /**
  * Represents an Bin record in NetSuite
  */
@@ -21,33 +20,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var Record_1 = require("./Record");
-var record = require("N/record");
-/**
- * Bin Base Type (bin)
- */
-var BinBase = /** @class */ (function (_super) {
-    __extends(BinBase, _super);
-    function BinBase() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    BinBase.recordType = record.Type.BIN;
-    __decorate([
-        Record_1.FieldType.freeformtext
-    ], BinBase.prototype, "binnumber", void 0);
-    __decorate([
-        Record_1.FieldType.freeformtext
-    ], BinBase.prototype, "externalid", void 0);
-    __decorate([
-        Record_1.FieldType.checkbox
-    ], BinBase.prototype, "isinactive", void 0);
-    __decorate([
-        Record_1.FieldType.select
-    ], BinBase.prototype, "location", void 0);
-    __decorate([
-        Record_1.FieldType.textarea
-    ], BinBase.prototype, "memo", void 0);
-    return BinBase;
-}(Record_1.NetsuiteRecord));
-exports.BinBase = BinBase;
+define(["require", "exports", "./Record", "N/record"], function (require, exports, Record_1, record) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Bin Base Type (bin)
+     */
+    var BinBase = /** @class */ (function (_super) {
+        __extends(BinBase, _super);
+        function BinBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BinBase.recordType = record.Type.BIN;
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], BinBase.prototype, "binnumber", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], BinBase.prototype, "externalid", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], BinBase.prototype, "isinactive", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], BinBase.prototype, "location", void 0);
+        __decorate([
+            Record_1.FieldType.textarea
+        ], BinBase.prototype, "memo", void 0);
+        return BinBase;
+    }(Record_1.NetsuiteRecord));
+    exports.BinBase = BinBase;
+});
