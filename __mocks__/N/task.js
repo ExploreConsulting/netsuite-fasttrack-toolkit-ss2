@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.create = jest.fn().mockReturnThis().mockName('create');
 exports.submit = jest.fn().mockName('submit');
 var TaskType;
