@@ -53,7 +53,7 @@ This creates a folder structure mirroring what you have in NetSuite so you can u
 
 import * as LogManager from 'NFT/EC_Logger'
 import {CustomerBase} from "NFT/DataAccess/CustomerBase"
-import * as nsdal from "NFT/DataAccess/EC_nsdal"
+import {FieldType} from "NFT/DataAccess/Record"
 import * as moment from "NFT/moment"
 import * as _ from "NFT/lodash"
 
@@ -66,10 +66,10 @@ var log = LogManager.DefaultLogger
  * reused across all scripts via `import {Customer} from "./Customer"`
  */
 class Customer extends CustomerBase {
-   @nsdal.FieldType.multiselect
+   @FieldType.multiselect
    custentity_multiselect:number[]
 
-   @nsdal.FieldType.datetime
+   @FieldType.datetime
    custentity_shawn_date : moment.Moment
 }
 
@@ -77,10 +77,6 @@ class Customer extends CustomerBase {
 export = {
 
    onRequest: (req, resp) => {
-
-      // turn on debug logging for just the nsdal logger - each module can have it's own debugger
-      // default is logLevel.none as normally we don't care about nsdal logging its inner workings
-      nsdal.log.setLevel(LogManager.logLevel.debug)
 
       // load customer internal id 1542
       var c = new Customer(1542)
@@ -113,11 +109,13 @@ import {nsSearchResult2obj} from "NFT/search"
 import * as search from "N/search"
 
 const s = search.load({ id: 'somesearchid' } ).run().getRange({start:0, end:1000})
-const objects = _.map(s,nsSearchResult2obj).toArray()
+const objects = _.map(s,nsSearchResult2obj()).toArray()
 
 // objects will be array of plain javascript objects with property names matching the field names in netsuite.
 // fields with a non-falsey 'Text' value surface as properties suffixed with "Text"
 // e.g. `result.fieldname` or `result.fieldnameText`
+
+// see inline help for more (e.g. support for column labels
 
 ```
 
@@ -128,7 +126,7 @@ import {nsSearchResult2obj, LazySearch} from "./search"
 import {Seq} from "immutable"
 
 // get the first result as a POJO 
-let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj).first()
+let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj()).first()
 ```
 
 ### Governance ###
@@ -152,7 +150,7 @@ import {Seq} from "immutable"
 
 // process results from search id '123' until out of governance. Governance checks are run for each iteration of the 
 // `forEach()` and gracefully exit. 
-Seq(LazySearch.load("123")).takeWhile(governanceRemains()).map(nsSearchResult2obj).forEach( result => {
+Seq(LazySearch.load("123")).takeWhile(governanceRemains()).map(nsSearchResult2obj()).forEach( result => {
    // .. do something with search result. 
 })
 
@@ -160,7 +158,7 @@ Seq(LazySearch.load("123")).takeWhile(governanceRemains()).map(nsSearchResult2ob
 // same as above, but with automatic graceful exit AND rescheduling
 Seq(LazySearch.load("123"))
    .takeWhile( rescheduleIfNeeded(governanceRemains()))
-   .map(nsSearchResult2obj)
+   .map(nsSearchResult2obj())
    .forEach( result => {
    // .. do something with search result. 
 })
@@ -176,7 +174,7 @@ See `CustomerRefundBase.findApplyLine()` and `Transaction.ts` for help.
 
 
 ## Logging
-NFT provides an advanced logging mechanism based on [Aurelia's](http://aurelia.io) logger. 
+NFT provides an advanced logging mechanism based on [Aurelia's](https://github.com/aurelia/logging) logger. 
 
 It means you can have multiple loggers and control the logging verbosity of each. In other words, it's a lightweight
 but much richer logging facility than the NetSuite provided logger.
@@ -189,7 +187,7 @@ Automatically log entry and exit of methods with rich options by adding a line l
 ```javascript
 LogManager.autoLogMethodEntryExit({target:EC,method:/\w/}, { withProfiling:true })
 ```
-The above line will automatically log all methods defined on the _EC_ object
+The above line will automatically log all methods defined on the _EC_ object/namespace
 
 Other configuration options include automatic logging of execution time, governance usage, and other goodies.
 
