@@ -74,6 +74,9 @@ define(["require", "exports", "./Sublist", "N/record", "./Transaction", "./Recor
             Sublist_1.SublistFieldType.integernumber
         ], ItemSublist.prototype, "linenumber", void 0);
         __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "location", void 0);
+        __decorate([
             Sublist_1.SublistFieldType.currency
         ], ItemSublist.prototype, "porate", void 0);
         __decorate([
