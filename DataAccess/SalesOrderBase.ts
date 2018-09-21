@@ -56,6 +56,9 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.integernumber
    linenumber:number
 
+   @SublistFieldType.select
+   location:number
+
    @SublistFieldType.currency
    porate:number
 
