@@ -2,10 +2,9 @@
  * NS Base customer record - contains definitions for most of the built in fields
  */
 
-import {FieldType, NetsuiteRecord} from './Record'
+import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
-import {SublistLine, SublistFieldType} from './Sublist'
-import * as moment from "../moment"
+import { SublistFieldType, SublistLine } from './Sublist'
 
 export class CustomerBase extends NetsuiteRecord {
    static recordType = record.Type.CUSTOMER
@@ -29,7 +28,7 @@ export class CustomerBase extends NetsuiteRecord {
    customform:number
 
    @FieldType.datetime
-   datecreated:moment.Moment
+   datecreated:Date
 
    @FieldType.email
    email:string
@@ -56,7 +55,7 @@ export class CustomerBase extends NetsuiteRecord {
    isperson:boolean
 
    @FieldType.datetime
-   lastmodifieddate:moment.Moment
+   lastmodifieddate:Date
 
    @FieldType.select
    language:number

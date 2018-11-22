@@ -1,7 +1,6 @@
 import * as record from 'N/record'
-import {FieldType, NetsuiteRecord} from "./Record"
-import * as moment from "../moment"
-import {SublistLine, Sublist, SublistFieldType} from './Sublist'
+import { FieldType, NetsuiteRecord } from './Record'
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 
 /**
  * the Members (member) sublist on AssemblyItem (assemblyitem) records
@@ -9,7 +8,7 @@ import {SublistLine, Sublist, SublistFieldType} from './Sublist'
 export class MemberSublist extends SublistLine {
 
    @SublistFieldType.date
-   effectivedate: moment.Moment
+   effectivedate: Date
 
    @SublistFieldType.select
    effectiverevision:number
@@ -84,7 +83,7 @@ export class AssemblyItemBase extends NetsuiteRecord {
 
 
    @FieldType.datetime
-   createddate: moment.Moment
+   createddate: Date
 
    @FieldType.select
    customform: number
@@ -153,7 +152,7 @@ export class AssemblyItemBase extends NetsuiteRecord {
    itemtype:string
 
    @FieldType.datetime
-   lastmodifieddate: moment.Moment
+   lastmodifieddate: Date
 
    @FieldType.select
    location: number

@@ -1,7 +1,16 @@
 
 //region load customer example
 
-import * as record from "N/record"
+import * as record from 'N/record'
+import * as cust from './DataAccess/CustomerBase'
+import { FieldType, Sublist } from './DataAccess/EC_nsdal'
+import * as so from './DataAccess/SalesOrderBase'
+//region logging
+import * as nslog from 'N/log'
+import { DefaultLogger as log, logLevel } from './EC_Logger'
+import * as LogManager from './NFT-SS2-2.2.1/EC_Logger'
+import { LazySearch, nsSearchResult2obj } from './NFT-SS2-2.2.1/search'
+import { Seq } from './NFT-SS2-2.2.1/immutable'
 
 var customer = record.load({
    type: record.Type.CUSTOMER,
@@ -28,9 +37,6 @@ var datecreated = customer.getValue({
 if (!comments) {
    customer.setValue({fieldId: "comments", value: "hello world"})
 }
-
-import * as cust from "./DataAccess/CustomerBase"
-import {FieldType} from "./DataAccess/EC_nsdal"
 
 namespace B {
 
@@ -84,9 +90,6 @@ for ( var x = 0; x < count; x++) {
    })
 }
 
-
-import * as so from "./DataAccess/SalesOrderBase"
-import {Sublist} from "./DataAccess/EC_nsdal"
 namespace C {
 
    class SalesOrder extends so.SalesOrderBase {
@@ -103,16 +106,10 @@ namespace C {
 
 //endregion
 
-
-//region logging
-   import * as nslog from 'N/log'
-
-   nslog.debug('title', 'details')
+nslog.debug('title', 'details')
    nslog.audit('title', 'details')
    nslog.error('title', 'details')
    nslog.emergency('title', 'details')
-
-import {DefaultLogger as log, logLevel} from "./EC_Logger"
 
 namespace NFT {
 
@@ -140,11 +137,6 @@ namespace NFT {
  * @NScriptType Suitelet
  */
 
-import * as LogManager from "./NFT-SS2-2.2.1/EC_Logger"
-import {nsSearchResult2obj, LazySearch} from "./NFT-SS2-2.2.1/search"
-import {Seq} from "./NFT-SS2-2.2.1/immutable"
-
-
 LogManager.getLogger(LazySearch.LOGNAME).setLevel(LogManager.logLevel.debug)
 
 
@@ -158,7 +150,7 @@ namespace X {
             Seq(LazySearch.load('730'))
                .skip(123)
                .take(1)
-               .map(nsSearchResult2obj)
+               .map(nsSearchResult2obj())
                .forEach(i=> log.debug('result',i))
 
             break

@@ -1,6 +1,19 @@
-define(["require", "exports", "./lodash", "N/search", "./EC_Logger", "./governance"], function (require, exports, _, search, LogManager, governance_1) {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "./lodash", "N/search", "./EC_Logger", "./governance"], factory);
+    }
+})(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var _ = require("./lodash");
+    var search = require("N/search");
+    var LogManager = require("./EC_Logger");
+    // include this as a convenience since it will often be used with arbitrary long search results to manage governance
+    var governance_1 = require("./governance");
     exports.governanceRemains = governance_1.governanceRemains;
     exports.rescheduleIfNeeded = governance_1.rescheduleIfNeeded;
     /**

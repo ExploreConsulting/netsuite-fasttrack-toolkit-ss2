@@ -2,11 +2,10 @@
  * Vendor Payment base record
  */
 
-import {SublistLine, Sublist, SublistFieldType} from "./Sublist"
-import * as moment from "../moment"
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction"
-import {FieldType} from "./Record"
+import { TransactionBase } from './Transaction'
+import { FieldType } from './Record'
 
 /**
  * Sublist 'apply' on the Vendor Payment record
@@ -15,7 +14,7 @@ export class ApplySublist extends SublistLine {
    @SublistFieldType.checkbox
    apply: boolean
    @SublistFieldType.date
-   applydate: moment.Moment
+   applydate: Date
    @SublistFieldType.currency
    amount: number
    @SublistFieldType.freeformtext
@@ -25,13 +24,13 @@ export class ApplySublist extends SublistLine {
    @SublistFieldType.currency
    discamt: number
    @SublistFieldType.date
-   discdate: moment.Moment
+   discdate: Date
    @SublistFieldType.freeformtext
    doc: string
    @SublistFieldType.currency
    due: number
    @SublistFieldType.date
-   duedate: moment.Moment
+   duedate: Date
    @SublistFieldType.freeformtext
    internalid: string
    @SublistFieldType.integernumber

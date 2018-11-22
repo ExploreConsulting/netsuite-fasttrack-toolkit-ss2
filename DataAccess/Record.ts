@@ -6,9 +6,8 @@
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
-import * as moment from "../moment"
-import * as _ from "../lodash"
-import {Sublist, SublistLine} from "./Sublist"
+import * as _ from '../lodash'
+import { Sublist, SublistLine } from './Sublist'
 
 const log = LogManager.getLogger('nsdal')
 
@@ -150,38 +149,6 @@ export function numericDescriptor (target: any, propertyKey: string): any {
    }
 }
 
-/**
- * Generic property descriptor with algorithm for date handling. Surfaces dates as moment() instances
- * note: does not take into account timezone
- * @param {string} formatType the NS field type (e.g. 'date')
- * @param target
- * @param propertyKey
- * @returns  an object property descriptor to be used
- * with decorators
- */
-function dateTimeDescriptor (formatType: format.Type, target: any, propertyKey: string): any {
-   return {
-      get: function () {
-         let value = this.nsrecord.getValue({fieldId: propertyKey})
-         log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
-         // ensure we don't return moments for null, undefined, etc.
-         return value ? moment(format.parse({type: formatType, value: value})) : value
-      },
-      set: function (value) {
-         // allow null to flow through, but ignore undefined's
-         if (value !== undefined) {
-            let asDate
-            // the value needs to either be a moment already, or a moment compatible string else null
-            if (moment.isMoment(value)) asDate = value.toDate()
-            else asDate = value ? moment(value).toDate() : null
-            log.debug(`setting field [${propertyKey}:${formatType}]`, `to date [${asDate}]`)
-            this.nsrecord.setValue({fieldId: propertyKey, value: asDate})
-         }
-         else log.info(`not setting ${propertyKey} field`, 'value was undefined')
-      },
-      enumerable: true //default is false
-   }
-}
 
 // this is the shape of SublistLine class constructor
 type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, n: number) => T
@@ -252,8 +219,8 @@ export namespace FieldType {
    export var address = defaultDescriptor
    export var checkbox = defaultDescriptor
    export var currency = numericDescriptor
-   export var date = _.partial(dateTimeDescriptor, format.Type.DATE)
-   export var datetime = _.partial(dateTimeDescriptor, format.Type.DATETIME)
+   export var date = defaultDescriptor
+   export var datetime = defaultDescriptor
    export var email = defaultDescriptor
    export var freeformtext = defaultDescriptor
    export var float = numericDescriptor

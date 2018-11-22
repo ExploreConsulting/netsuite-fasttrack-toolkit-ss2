@@ -2,11 +2,10 @@
  * Represents a Return Authorization (returnauthorization) transaction type in NetSuite
  */
 
-import {FieldType} from './Record'
+import { FieldType } from './Record'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction"
-import {SublistLine, SublistFieldType, Sublist} from './Sublist'
-import * as moment from "../moment"
+import { TransactionBase } from './Transaction'
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 
 /**
  * Return Authorization Items (item) sublist
@@ -41,10 +40,10 @@ export class ItemSublist extends SublistLine {
    rate: number
 
    @SublistFieldType.date
-   revrecstartdate: moment.Moment
+   revrecstartdate: Date
 
    @SublistFieldType.date
-   revrecenddate: moment.Moment
+   revrecenddate: Date
 
    @SublistFieldType.select
    taxcode: number

@@ -2,12 +2,10 @@
  * NetSuite generic Transaction record
  */
 
-import {Sublist, SublistLine, SublistFieldType} from './Sublist'
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction";
-import {FieldType} from "./Record"
-import * as moment from "../moment"
-
+import { TransactionBase } from './Transaction'
+import { FieldType } from './Record'
 
 /**
  * The 'item' sublist on invoices
@@ -42,10 +40,10 @@ export class ItemSublist extends SublistLine {
    rate:number
 
    @SublistFieldType.date
-   revrecstartdate:moment.Moment
+   revrecstartdate:Date
 
    @SublistFieldType.date
-   revrecenddate:moment.Moment
+   revrecenddate:Date
 
    @SublistFieldType.select
    taxcode:number
@@ -111,10 +109,10 @@ export class InvoiceBase extends TransactionBase {
    discountamount:number
 
    @FieldType.date
-   discountdate:moment.Moment
+   discountdate:Date
 
    @FieldType.date
-   duedate:moment.Moment
+   duedate:Date
 
    @FieldType.freeformtext
    fob:string

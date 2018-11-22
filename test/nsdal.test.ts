@@ -2,13 +2,10 @@
  * Basic tests on instantiating nsdal objects and manipulating them
  */
 
-
-
 import * as mockrecord from '../__mocks__/N/record'
-import * as _ from "lodash"
+import * as _ from 'lodash'
 
-import * as cust from "NFT/DataAccess/CustomerBase"
-import * as  moment from "moment"
+import * as cust from '../DataAccess/CustomerBase'
 
 describe('instantiation', function () {
    test('new record from scratch', function() {

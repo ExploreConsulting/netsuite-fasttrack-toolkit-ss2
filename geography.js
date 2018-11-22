@@ -1,9 +1,18 @@
 /**
  *
  */
-define(["require", "exports", "./lodash"], function (require, exports, _) {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "./lodash"], factory);
+    }
+})(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var _ = require("./lodash");
     /**
     * Represents US states. First one is blank to allow easy binding to a UI dropdown
     * 1/23/2018 RMH Added Canadian Provinces to support Canadian addresses

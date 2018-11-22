@@ -2,11 +2,10 @@
  * Represents a Customer Refund (customerrefund) transaction type in NetSuite
  */
 
-import {FieldType} from './Record'
+import { FieldType } from './Record'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction"
-import {Sublist, SublistFieldType, SublistLine} from './Sublist'
-import * as moment from "../moment"
+import { TransactionBase } from './Transaction'
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 
 /**
  * The Credits (apply) sublist on Customer Refund transaction
@@ -19,7 +18,7 @@ export class ApplySublist extends SublistLine {
    apply:boolean
 
    @SublistFieldType.date
-   applydate: moment.Moment
+   applydate: Date
 
    @SublistFieldType.freeformtext
    createdfrom:string
@@ -31,7 +30,7 @@ export class ApplySublist extends SublistLine {
    due:number
 
    @SublistFieldType.date
-   duedate:moment.Moment
+   duedate:Date
 
    @SublistFieldType.freeformtext
    internalid:string

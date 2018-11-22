@@ -1,6 +1,18 @@
-define(["require", "exports", "./moment", "N/runtime", "./EC_Logger", "N/task"], function (require, exports, moment, runtime, EC_Logger_1, task) {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "./moment", "N/runtime", "./EC_Logger", "N/task"], factory);
+    }
+})(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var moment = require("./moment");
+    var runtime = require("N/runtime");
+    var EC_Logger_1 = require("./EC_Logger");
+    var task = require("N/task");
     /**
      * returns a predicate function which returns true if we're not out of governance, false if we have reached time
      * remaining and/or units thresholds.

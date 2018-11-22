@@ -2,12 +2,9 @@
  * Represents an Item Fulfillment (itemfulfillment) transaction type in NetSuite
  */
 
-
-import {FieldType, NetsuiteRecord} from './Record'
+import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
-import {SublistLine, SublistFieldType, Sublist} from './Sublist'
-import * as moment from "../moment"
-
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 
 /**
  * Project resource sublist
@@ -69,10 +66,10 @@ export class ProjectBase extends NetsuiteRecord {
   billingschedule: number
 
   @FieldType.date
-  calculatedenddate: moment.Moment
+  calculatedenddate: Date
 
   @FieldType.date
-  calculatedenddatebaseline: moment.Moment
+  calculatedenddatebaseline: Date
 
   @FieldType.select
   category: number
@@ -99,10 +96,10 @@ export class ProjectBase extends NetsuiteRecord {
   customform: number
 
   @FieldType.datetime
-  datecreated: moment.Moment
+  datecreated: Date
 
   @FieldType.date
-  enddate: moment.Moment
+  enddate: Date
 
   @FieldType.freeformtext
   entityid: string
@@ -186,10 +183,10 @@ export class ProjectBase extends NetsuiteRecord {
   language: number
 
   @FieldType.date
-  lastbaselinedate: moment.Moment
+  lastbaselinedate: Date
 
   @FieldType.datetime
-  lastmodifieddate: moment.Moment
+  lastmodifieddate: Date
 
   @FieldType.checkbox
   limittimetoassignees: boolean
@@ -210,10 +207,10 @@ export class ProjectBase extends NetsuiteRecord {
   percenttimecomplete: string
 
   @FieldType.date
-  projectedenddate: moment.Moment
+  projectedenddate: Date
 
   @FieldType.date
-  projectedenddatebaseline: moment.Moment
+  projectedenddatebaseline: Date
 
   @FieldType.select
   projectexpensetype: number
@@ -222,10 +219,10 @@ export class ProjectBase extends NetsuiteRecord {
   stage: string
 
   @FieldType.date
-  startdate: moment.Moment
+  startdate: Date
 
   @FieldType.date
-  startdatebaseline: moment.Moment
+  startdatebaseline: Date
 
   @FieldType.select
   subsidiary: number

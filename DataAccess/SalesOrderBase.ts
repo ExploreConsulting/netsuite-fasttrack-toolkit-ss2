@@ -2,12 +2,10 @@
  * NetSuite generic Transaction record
  */
 
-import {SublistLine, SublistFieldType, Sublist} from './Sublist'
-import * as moment from "../moment"
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction";
-import {FieldType} from "./Record";
-
+import { TransactionBase } from './Transaction'
+import { FieldType } from './Record'
 
 /**
  * Sublist 'item' on the Sales Order record
@@ -33,7 +31,7 @@ export class ItemSublist extends SublistLine {
    description:string
 
    @SublistFieldType.date
-   expectedshipdate:moment.Moment
+   expectedshipdate:Date
 
    @SublistFieldType.checkbox
    isclosed:boolean
@@ -78,10 +76,10 @@ export class ItemSublist extends SublistLine {
    department:number
 
    @SublistFieldType.date
-   revrecstartdate:moment.Moment
+   revrecstartdate:Date
 
    @SublistFieldType.date
-   revrecenddate:moment.Moment
+   revrecenddate:Date
 
    @SublistFieldType.decimalnumber
    taxrate1:number

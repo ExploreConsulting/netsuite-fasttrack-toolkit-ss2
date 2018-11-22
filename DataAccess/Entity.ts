@@ -2,8 +2,7 @@
  * NetSuite generic Entity, meant to be inherited by concrete record types to avoid duplicating effort on fields
  */
 
-import {FieldType, NetsuiteRecord} from './Record'
-import * as moment from "../moment"
+import { FieldType, NetsuiteRecord } from './Record'
 
 /**
  * Fields common to all 'entity' records in NS
@@ -41,7 +40,7 @@ export abstract class Entity extends NetsuiteRecord {
    customform: number
 
    @FieldType.datetime
-   datecreated: moment.Moment
+   datecreated: Date
 
    @FieldType.freeformtext
    email: string
@@ -68,7 +67,7 @@ export abstract class Entity extends NetsuiteRecord {
    isperson: boolean
 
    @FieldType.datetime
-   lastmodifieddate: moment.Moment
+   lastmodifieddate: Date
 
    @FieldType.select
    language: number

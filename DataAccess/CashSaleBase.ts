@@ -2,11 +2,11 @@
  * NetSuite cash sale Transaction record
  */
 
-import {SublistLine, SublistFieldType} from './Sublist'
+import { SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction";
-import {FieldType} from "./Record"
-import * as moment from "../moment"
+import { TransactionBase } from './Transaction'
+import { FieldType } from './Record'
+
 /**
  * NetSuite Cashsale Record
  */
@@ -129,10 +129,10 @@ export class ItemSublist extends SublistLine {
    rate:number
 
    @SublistFieldType.date
-   revrecstartdate:moment.Moment
+   revrecstartdate:Date
 
    @SublistFieldType.date
-   revrecenddate:moment.Moment
+   revrecenddate:Date
 
    @SublistFieldType.select
    taxcode:number

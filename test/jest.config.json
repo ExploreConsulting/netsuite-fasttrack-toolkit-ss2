@@ -1,32 +1,26 @@
 {
   "automock": false,
-  "clearMocks":true,
-  "moduleDirectories" :["node_modules","."],
-  "moduleNameMapper":{
+  "clearMocks": true,
+  "moduleDirectories": [
+    "node_modules",
+    "."
+  ],
+  "moduleNameMapper": {
     "NFT/(.*)": "../$1",
     "N/(.*)": "<rootDir>/../__mocks__/N/$1",
-    "./moment":"node_modules/moment",
-    "./aurelia-logging":"node_modules/aurelia-logging",
-    "./lodash":"node_modules/lodash"
-  },
-  "transform": {
-    "^.+\\.tsx?$": "ts-jest"
+    "./moment": "node_modules/moment",
+    "./aurelia-logging": "node_modules/aurelia-logging",
+    "./lodash": "node_modules/lodash"
   },
   "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.(tsx?)$",
-  "moduleFileExtensions": [
-    "ts",
-    "tsx",
-    "js",
-    "jsx",
-    "json",
-    "node"
-  ],
   "globals": {
     "ts-jest": {
-      "skipBabel": true,
-      "enableTsDiagnostics": true
+      "diagnostics": {
+        "warnOnly": false
+      }
     }
-  }
+  },
+  "preset": "ts-jest",
+  "testMatch": null
 }
-
 

@@ -20,9 +20,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define(["require", "exports", "N/record", "./JournalEntryBase", "./Sublist", "./Record"], function (require, exports, record, JournalEntryBase_1, Sublist_1, Record_1) {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "N/record", "./JournalEntryBase", "./Sublist", "./Record"], factory);
+    }
+})(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var record = require("N/record");
+    var JournalEntryBase_1 = require("./JournalEntryBase");
+    var Sublist_1 = require("./Sublist");
+    var Record_1 = require("./Record");
     /**
      * Intercompany Journal Entry Line (line) sublist
      */

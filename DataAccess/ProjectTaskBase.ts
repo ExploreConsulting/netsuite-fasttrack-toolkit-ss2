@@ -4,8 +4,7 @@
 
 import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
-import { SublistLine, SublistFieldType, Sublist } from './Sublist'
-import * as moment from '../moment'
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 
 /**
  * Project task resource assignment ( ) sublist
@@ -69,10 +68,10 @@ export class ProjectTaskBase extends NetsuiteRecord {
   customform: number
 
   @FieldType.date
-  enddate: moment.Moment
+  enddate: Date
 
   @FieldType.datetime
-  enddatebaseline: moment.Moment
+  enddatebaseline: Date
 
   @FieldType.float
   estimatedwork: number
@@ -87,7 +86,7 @@ export class ProjectTaskBase extends NetsuiteRecord {
   externalid: string
 
   @FieldType.date
-  finishbydate: moment.Moment
+  finishbydate: Date
 
   @FieldType.currency
   fxrate: string
@@ -99,10 +98,10 @@ export class ProjectTaskBase extends NetsuiteRecord {
   isoncriticalpath: boolean
 
   @FieldType.date
-  lateend: moment.Moment
+  lateend: Date
 
   @FieldType.date
-  latestart: moment.Moment
+  latestart: Date
 
   @FieldType.textarea
   message: string
@@ -130,10 +129,10 @@ export class ProjectTaskBase extends NetsuiteRecord {
   slackminutes: number | string
 
   @FieldType.date
-  startdate: moment.Moment
+  startdate: Date
 
   @FieldType.datetime
-  startdatebaseline: moment.Moment
+  startdatebaseline: Date
   // we don't have a type for timeofday so leaving as string for now
 
   @FieldType.freeformtext

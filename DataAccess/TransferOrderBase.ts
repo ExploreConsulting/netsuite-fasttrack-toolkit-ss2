@@ -2,11 +2,10 @@
  *  Represents a Transfer Order (transferorder) transaction type in NetSuite
  */
 
-import {SublistLine, SublistFieldType} from './Sublist'
+import { SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction";
-import {FieldType} from "./Record";
-import * as moment from "../moment";
+import { TransactionBase } from './Transaction'
+import { FieldType } from './Record'
 
 /**
  * NetSuite Transfer Order Record
@@ -36,7 +35,7 @@ export class TransferOrderBase extends TransactionBase {
    shipcomplete: boolean
 
    @FieldType.date
-   shipdate: moment.Moment
+   shipdate: Date
 
    @FieldType.currency
    subtotal: number

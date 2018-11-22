@@ -2,12 +2,10 @@
  * NFT Quote/Estimate (estimate) Netsuite record type
  */
 
-
-import {FieldType} from './Record'
-import * as moment from "../moment"
-import {TransactionBase} from "./Transaction"
-import * as record from "N/record"
-import {Sublist, SublistFieldType, SublistLine} from "./Sublist"
+import { FieldType } from './Record'
+import { TransactionBase } from './Transaction'
+import * as record from 'N/record'
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 
 /**
  * Sublist 'item' on the Estimate record
@@ -73,10 +71,10 @@ export class EstimateBase extends TransactionBase {
    discounttotal: number | string
 
    @FieldType.date
-   duedate: moment.Moment
+   duedate: Date
 
    @FieldType.date
-   enddate: moment.Moment
+   enddate: Date
 
    @FieldType.select
    entitynexus: number
@@ -118,7 +116,7 @@ export class EstimateBase extends TransactionBase {
    salesgroup: number
 
    @FieldType.date
-   shipdate: moment.Moment
+   shipdate: Date
 
    @FieldType.select
    shipmethod: number

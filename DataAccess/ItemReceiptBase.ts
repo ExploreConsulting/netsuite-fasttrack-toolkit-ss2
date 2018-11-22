@@ -2,12 +2,10 @@
  * Represents an Item Receipt (itemreceipt) transaction type in NetSuite
  */
 
-
-import {FieldType} from './Record'
+import { FieldType } from './Record'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction";
-import {SublistLine, SublistFieldType} from './Sublist'
-import * as moment from "../moment"
+import { TransactionBase } from './Transaction'
+import { SublistFieldType, SublistLine } from './Sublist'
 
 export class ItemReceiptBase extends TransactionBase {
 
@@ -56,7 +54,7 @@ export class ItemSublist extends SublistLine {
    onhand:number
 
    @SublistFieldType.date
-   revrecenddate:moment.Moment
+   revrecenddate:Date
 
    @SublistFieldType.decimalnumber
    quantity:number

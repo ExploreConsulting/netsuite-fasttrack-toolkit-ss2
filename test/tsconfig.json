@@ -2,7 +2,6 @@
   "extends":"../tsconfig.json",
   "compilerOptions": {
     "declaration" :false,
-    "module": "commonjs",
     "baseUrl": ".",
     "paths": {
       "N/*": [

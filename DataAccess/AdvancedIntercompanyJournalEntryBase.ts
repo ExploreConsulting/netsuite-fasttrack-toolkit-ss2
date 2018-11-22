@@ -2,10 +2,9 @@
  * NS Base Advanced Intercompany Journal Entry record - contains definitions for fields and sublists
  */
 
-import {FieldType, NetsuiteRecord} from './Record'
+import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
-import {SublistLine, SublistFieldType, Sublist} from './Sublist'
-import * as moment from '../moment'
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 
 /**
  * 'line' sublist on the Advanced Intercompany Journal Entry Record
@@ -37,7 +36,7 @@ export class LineSublist extends SublistLine {
    eliminate: boolean
 
    @SublistFieldType.date
-   enddate: moment.Moment
+   enddate: Date
 
    @SublistFieldType.select
    entity: number
@@ -86,7 +85,7 @@ export class LineSublist extends SublistLine {
    schedulenum:number
 
    @SublistFieldType.date
-   startdate: moment.Moment
+   startdate: Date
 
    @SublistFieldType.select
    tax1acct:number
@@ -113,7 +112,7 @@ export class AdvancedIntercompanyJournalEntryBase extends NetsuiteRecord {
    approved: boolean
 
    @FieldType.datetime
-   createddate: moment.Moment
+   createddate: Date
 
    @FieldType.select
    createdfrom: number
@@ -146,7 +145,7 @@ export class AdvancedIntercompanyJournalEntryBase extends NetsuiteRecord {
    iscustomapproval: boolean
 
    @FieldType.datetime
-   lastmodifieddate: moment.Moment
+   lastmodifieddate: Date
 
    @FieldType.freeformtext
    memo: string
@@ -161,7 +160,7 @@ export class AdvancedIntercompanyJournalEntryBase extends NetsuiteRecord {
    postingperiod: number
 
    @FieldType.date
-   reversaldate: moment.Moment
+   reversaldate: Date
 
    @FieldType.checkbox
    reversaldefer: boolean
@@ -176,7 +175,7 @@ export class AdvancedIntercompanyJournalEntryBase extends NetsuiteRecord {
    tosubsidiaries: number
 
    @FieldType.date
-   trandate: moment.Moment
+   trandate: Date
 
    @FieldType.freeformtext
    tranid: string

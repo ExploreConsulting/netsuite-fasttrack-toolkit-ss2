@@ -2,11 +2,10 @@
  * NetSuite generic Transaction record
  */
 
-import {SublistLine, SublistFieldType} from './Sublist'
+import { SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction";
-import {FieldType} from "./Record";
-import * as moment from "../moment"
+import { TransactionBase } from './Transaction'
+import { FieldType } from './Record'
 
 /**
  * NetSuite Inventory Adjustment Record
@@ -24,7 +23,7 @@ export class InventoryAdjustmentBase extends TransactionBase {
    "class":number
 
    @FieldType.datetime
-   createddate:moment.Moment
+   createddate:Date
 
    @FieldType.select
    customer:number
@@ -33,7 +32,7 @@ export class InventoryAdjustmentBase extends TransactionBase {
    estimatedtotalvalue:number
 
    @FieldType.datetime
-   lastmodifieddate:moment.Moment
+   lastmodifieddate:Date
 
 }
 

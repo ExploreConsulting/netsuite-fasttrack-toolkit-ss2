@@ -15,9 +15,22 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "N/record", "N/format", "../EC_Logger", "../moment", "../lodash", "./Sublist"], function (require, exports, record, format, LogManager, moment, _, Sublist_1) {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "N/record", "N/format", "../EC_Logger", "../lodash", "./Sublist"], factory);
+    }
+})(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var record = require("N/record");
+    var format = require("N/format");
+    var LogManager = require("../EC_Logger");
+    var _ = require("../lodash");
+    var Sublist_1 = require("./Sublist");
     var log = LogManager.getLogger('nsdal');
     /**
      * Since the netsuite defined 'CurrentRecord' type has almost all the same operations as the normal 'Record'
@@ -151,43 +164,6 @@ define(["require", "exports", "N/record", "N/format", "../EC_Logger", "../moment
     }
     exports.numericDescriptor = numericDescriptor;
     /**
-     * Generic property descriptor with algorithm for date handling. Surfaces dates as moment() instances
-     * note: does not take into account timezone
-     * @param {string} formatType the NS field type (e.g. 'date')
-     * @param target
-     * @param propertyKey
-     * @returns  an object property descriptor to be used
-     * with decorators
-     */
-    function dateTimeDescriptor(formatType, target, propertyKey) {
-        return {
-            get: function () {
-                var value = this.nsrecord.getValue({ fieldId: propertyKey });
-                log.debug("transforming field [" + propertyKey + "] of type [" + formatType + "]", "with value " + value);
-                // ensure we don't return moments for null, undefined, etc.
-                return value ? moment(format.parse({ type: formatType, value: value })) : value;
-            },
-            set: function (value) {
-                // allow null to flow through, but ignore undefined's
-                if (value !== undefined) {
-                    var asDate 
-                    // the value needs to either be a moment already, or a moment compatible string else null
-                    = void 0;
-                    // the value needs to either be a moment already, or a moment compatible string else null
-                    if (moment.isMoment(value))
-                        asDate = value.toDate();
-                    else
-                        asDate = value ? moment(value).toDate() : null;
-                    log.debug("setting field [" + propertyKey + ":" + formatType + "]", "to date [" + asDate + "]");
-                    this.nsrecord.setValue({ fieldId: propertyKey, value: asDate });
-                }
-                else
-                    log.info("not setting " + propertyKey + " field", 'value was undefined');
-            },
-            enumerable: true //default is false
-        };
-    }
-    /**
      * Decorator for adding sublists with each line of the sublist represented by a type T which
      * defines the properties you want on the sublist
      * @param ctor Constructor for the type that has the properties you want from each sublist line.
@@ -254,8 +230,8 @@ define(["require", "exports", "N/record", "N/format", "../EC_Logger", "../moment
         FieldType.address = defaultDescriptor;
         FieldType.checkbox = defaultDescriptor;
         FieldType.currency = numericDescriptor;
-        FieldType.date = _.partial(dateTimeDescriptor, format.Type.DATE);
-        FieldType.datetime = _.partial(dateTimeDescriptor, format.Type.DATETIME);
+        FieldType.date = defaultDescriptor;
+        FieldType.datetime = defaultDescriptor;
         FieldType.email = defaultDescriptor;
         FieldType.freeformtext = defaultDescriptor;
         FieldType.float = numericDescriptor;

@@ -1,7 +1,6 @@
 import * as record from 'N/record'
-import {FieldType, NetsuiteRecord} from "./Record"
-import * as moment from "../moment"
-import {SublistLine, Sublist, SublistFieldType} from './Sublist'
+import { FieldType, NetsuiteRecord } from './Record'
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 
 /**
  * the Components (component) sublist on AssemblyBuild records
@@ -45,7 +44,7 @@ export class AssemblyBuildBase extends NetsuiteRecord {
   class:number
 
   @FieldType.datetime
-  createddate:moment.Moment
+  createddate:Date
 
   @FieldType.select
   customform:number
@@ -63,7 +62,7 @@ export class AssemblyBuildBase extends NetsuiteRecord {
   item:number
 
   @FieldType.datetime
-  lastmodifieddate:moment.Moment
+  lastmodifieddate:Date
 
   @FieldType.select
   location:number
@@ -91,7 +90,7 @@ export class AssemblyBuildBase extends NetsuiteRecord {
   subsidiary:number
 
   @FieldType.date
-  trandate:moment.Moment | string
+  trandate:Date | string
 
   @FieldType.freeformtext
   tranid:string

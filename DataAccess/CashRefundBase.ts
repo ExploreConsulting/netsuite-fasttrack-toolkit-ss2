@@ -2,12 +2,10 @@
  * Represents a Cash Refund (cashrefund) transaction type in NetSuite
  */
 
-
-import {FieldType} from './Record'
+import { FieldType } from './Record'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction";
-import {SublistLine, SublistFieldType} from './Sublist'
-import * as moment from "../moment"
+import { TransactionBase } from './Transaction'
+import { SublistFieldType, SublistLine } from './Sublist'
 
 export class CashRefundBase extends TransactionBase {
 
@@ -36,10 +34,10 @@ export class ItemSublist extends SublistLine {
    quantity:number
 
    @SublistFieldType.date
-   revrecstartdate:moment.Moment
+   revrecstartdate:Date
 
    @SublistFieldType.date
-   revrecenddate:moment.Moment
+   revrecenddate:Date
 
    @SublistFieldType.decimalnumber
    rate:number

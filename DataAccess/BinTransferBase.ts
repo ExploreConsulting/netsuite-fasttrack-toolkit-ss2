@@ -2,10 +2,9 @@
  * Represents a Bin Transfer (bintransfer) record type in NetSuite
  */
 
-import {FieldType, NetsuiteRecord} from './Record'
+import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
-import {SublistLine, SublistFieldType, Sublist} from './Sublist'
-import * as moment from "../moment"
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 
 /**
  * represents the Adjustments sublist on Bin Transfer records
@@ -39,13 +38,13 @@ export class BinTransferBase extends NetsuiteRecord {
    static recordType = record.Type.BIN_TRANSFER
 
    @FieldType.datetime
-   createddate:moment.Moment
+   createddate:Date
 
    @FieldType.freeformtext
    externalid:string
 
    @FieldType.datetime
-   lastmodifieddate:moment.Moment
+   lastmodifieddate:Date
 
    @FieldType.select
    location:number
@@ -60,7 +59,7 @@ export class BinTransferBase extends NetsuiteRecord {
    total:number
 
    @FieldType.date
-   trandate:moment.Moment
+   trandate:Date
 
    @FieldType.sublist(AdjustmentsSublistLine)
    inventory: Sublist<AdjustmentsSublistLine>

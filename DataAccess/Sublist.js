@@ -4,9 +4,21 @@
  * that here (yet) in interest of code clarity. Also the fact that it's only two copies (usually use the rule of
  * three's for DRY).
  */
-define(["require", "exports", "N/format", "../EC_Logger", "../moment", "../lodash"], function (require, exports, format, LogManager, moment, _) {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "N/format", "../EC_Logger", "../moment", "../lodash"], factory);
+    }
+})(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var format = require("N/format");
+    var LogManager = require("../EC_Logger");
+    var moment = require("../moment");
+    var _ = require("../lodash");
     var log = LogManager.getLogger('nsdal');
     /*
      note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.

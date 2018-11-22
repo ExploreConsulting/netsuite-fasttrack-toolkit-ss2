@@ -2,8 +2,7 @@
  * NetSuite generic Transaction record
  */
 
-import {FieldType, NetsuiteRecord} from './Record'
-import * as moment from "../moment"
+import { FieldType, NetsuiteRecord } from './Record'
 
 /**
  * Fields common to all transactions in NS
@@ -11,63 +10,63 @@ import * as moment from "../moment"
 export abstract class TransactionBase extends NetsuiteRecord {
 
    @FieldType.select
-   customform:number
+   customform: number
 
    @FieldType.select
-   department:number
+   department: number
 
    @FieldType.freeformtext
-   email:string
+   email: string
 
    @FieldType.select
-   entity:number
+   entity: number
 
    @FieldType.freeformtext
-   externalid:string
+   externalid: string
 
    @FieldType.select
-   location:number
+   location: number
 
    @FieldType.freeformtext
-   memo:string
+   memo: string
 
    @FieldType.freeformtext
-   otherrefnum:string
+   otherrefnum: string
 
    @FieldType.select
-   postingperiod:number
+   postingperiod: number
 
    @FieldType.select
-   salesrep:number
+   salesrep: number
 
    /**
     * Note unlike other identifiers in NetSuite, this one is a string (e.g. 'Partially Fulfilled')
     */
    @FieldType.freeformtext
-   status:string
+   status: string
 
    /**
     * Note unlike other references in NetSuite, this one is a set of undocumented string keys (e.g. 'partiallyFulfilled')
     * The possible statusref values differ for each transaction type
     */
    @FieldType.freeformtext
-   statusRef:string
+   statusRef: string
 
    @FieldType.select
-   subsidiary:number
+   subsidiary: number
 
    @FieldType.freeformtext
-   tranid:string
+   tranid: string
 
    @FieldType.date
-   trandate:moment.Moment | string
+   trandate: Date | string
 
    /**
     * locates line on the 'apply' sublist that corresponds to the passed related record internal id
     * expose this method in derived classes that need dynamic access to the apply sublist
     * returns undefined
     */
-   protected findApplyLine(docId: number) : {apply: boolean, amount:number, line:number} | null {
+   protected findApplyLine (docId: number): { apply: boolean, amount: number, line: number } | null {
       let rec = this.nsrecord
       if (!rec.isDynamic || !this.defaultValues)
          throw new Error('record must be in dynamic mode and have default values set to use this method')
@@ -97,7 +96,7 @@ export abstract class TransactionBase extends NetsuiteRecord {
          let newLine = {line: line}
          addProp(newLine, 'apply')
          addProp(newLine, 'amount')
-         return newLine as { apply: boolean, amount:number, line:number}
+         return newLine as { apply: boolean, amount: number, line: number }
       } else return null
    }
 }

@@ -1,11 +1,9 @@
 /**
  * Netsuite Vendor base Record
  */
-import {NetsuiteRecord, FieldType} from "./Record"
-import {Entity} from "./Entity"
-import * as record from 'N/record';
-import * as moment from "../moment"
-
+import { FieldType } from './Record'
+import { Entity } from './Entity'
+import * as record from 'N/record'
 
 /**
  * VendorBase
@@ -51,7 +49,7 @@ export class VendorBase extends Entity {
    openingbalanceaccount: number
 
    @FieldType.date
-   openingbalancedate: moment.Moment
+   openingbalancedate: Date
 
    @FieldType.select
    payablesaccount: number
