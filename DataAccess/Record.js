@@ -80,6 +80,7 @@ var __extends = (this && this.__extends) || (function () {
             enumerable: true,
             configurable: true
         });
+        NetsuiteCurrentRecord.prototype.toJSON = function () { return _.toPlainObject(this); };
         return NetsuiteCurrentRecord;
     }());
     exports.NetsuiteCurrentRecord = NetsuiteCurrentRecord;

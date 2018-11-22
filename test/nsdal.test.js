@@ -71,4 +71,25 @@
             expect(mockrecord.setValue).not.toHaveBeenCalled();
         });
     });
+    describe('serialization', function () {
+        test('serializes to json including inherited props', function () {
+            var c = new cust.CustomerBase('123');
+            mockrecord.getValue.mockImplementation(function (obj) {
+                var v = {
+                    companyname: 'acme',
+                    currency: undefined,
+                    accountnumber: '4',
+                    email: 'joeschmoe'
+                };
+                return v[obj.fieldId];
+            });
+            var serializedjson = JSON.stringify(c);
+            console.debug(serializedjson);
+            expect(serializedjson).toContain('companyname');
+            expect(serializedjson).toContain('accountnumber');
+            expect(serializedjson).toContain('email');
+            // JSON.stringify does not serialize undefined fields
+            expect(serializedjson).not.toContain('currency');
+        });
+    });
 });

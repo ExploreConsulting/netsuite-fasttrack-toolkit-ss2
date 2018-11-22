@@ -8,7 +8,7 @@ import * as _ from 'lodash'
 import * as cust from '../DataAccess/CustomerBase'
 
 describe('instantiation', function () {
-   test('new record from scratch', function() {
+   test('new record from scratch', function () {
 
       const c = new cust.CustomerBase()
       expect(c).toBeTruthy()
@@ -21,8 +21,7 @@ describe('instantiation', function () {
       console.log(_.toPlainObject(c))
    })
 
-
-   test('with STRING internal id', function() {
+   test('with STRING internal id', function () {
 
       const c = new cust.CustomerBase('123')
 
@@ -33,12 +32,12 @@ describe('instantiation', function () {
       console.log(_.toPlainObject(c))
    })
 
-   test('with STRING with whitespace', function() {
+   test('with STRING with whitespace', function () {
 
-      expect(()=> new cust.CustomerBase(' 123 ')).not.toThrow()
+      expect(() => new cust.CustomerBase(' 123 ')).not.toThrow()
    })
 
-   test('with NUMERIC internal id', function() {
+   test('with NUMERIC internal id', function () {
 
       const c = new cust.CustomerBase(123)
 
@@ -48,16 +47,16 @@ describe('instantiation', function () {
       console.log(_.toPlainObject(c))
    })
 
-   test('with record object', function() {
+   test('with record object', function () {
 
-      const c = new cust.CustomerBase(mockrecord.create({ type:'foo'}))
+      const c = new cust.CustomerBase(mockrecord.create({type: 'foo'}))
 
       expect(c).toBeTruthy()
       // should not call load if we insantiate with an existing object
       expect(mockrecord.load.mock.calls.length).toBe(0)
    })
 
-   test('invalid STRING internal id', function() {
+   test('invalid STRING internal id', function () {
 
       expect(() => new cust.CustomerBase('hello world'))
          .toThrowError()
@@ -89,6 +88,31 @@ describe('body field access', function () {
 
       expect(mockrecord.getValue).toHaveBeenCalledTimes(1)
       expect(mockrecord.setValue).not.toHaveBeenCalled()
+   })
+})
+
+describe('serialization', () => {
+   test('serializes to json including inherited props', function () {
+
+      const c = new cust.CustomerBase('123')
+      mockrecord.getValue.mockImplementation((obj) => {
+         const v = {
+            companyname: 'acme',
+            currency: undefined,
+            accountnumber: '4',
+            email: 'joeschmoe'
+         }
+         return v[obj.fieldId]
+      })
+
+      const serializedjson = JSON.stringify(c)
+
+      console.debug(serializedjson)
+      expect(serializedjson).toContain('companyname')
+      expect(serializedjson).toContain('accountnumber')
+      expect(serializedjson).toContain('email')
+      // JSON.stringify does not serialize undefined fields
+      expect(serializedjson).not.toContain('currency')
    })
 
 })

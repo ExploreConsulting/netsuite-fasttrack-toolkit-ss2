@@ -72,6 +72,8 @@ export abstract class NetsuiteCurrentRecord {
       else throw new Error(`invalid value for argument "rec": ${rec}. 
       Must be one of: null/undefined, an internal id, or an existing record`)
    }
+
+   toJSON () { return _.toPlainObject(this) }
 }
 
 /**

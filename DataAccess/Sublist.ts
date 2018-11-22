@@ -1,6 +1,6 @@
 /**
  * Represents Sublists and their field access. Sublists use a different api than body fields in NS.
- * Note that in NFT-SS1.0 we collapsed the sublist and body descriptors into a common codebase. Decided not to do 
+ * Note that in NFT-SS1.0 we collapsed the sublist and body descriptors into a common codebase. Decided not to do
  * that here (yet) in interest of code clarity. Also the fact that it's only two copies (usually use the rule of
  * three's for DRY).
  */
@@ -8,8 +8,8 @@
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
-import * as moment from "../moment"
-import * as _ from "../lodash"
+import * as moment from '../moment'
+import * as _ from '../lodash'
 
 const log = LogManager.getLogger('nsdal')
 
@@ -25,20 +25,20 @@ const log = LogManager.getLogger('nsdal')
  */
 export namespace SublistFieldType {
    export var checkbox = defaultSublistDescriptor
-   export var currency      = defaultSublistDescriptor//_.partial(formattedSublistDescriptor, format.Type.CURRENCY)
+   export var currency = defaultSublistDescriptor//_.partial(formattedSublistDescriptor, format.Type.CURRENCY)
    export var date = _.partial(dateTimeSublistDescriptor, format.Type.DATE)
    export var datetime = _.partial(dateTimeSublistDescriptor, format.Type.DATETIME)
    export var email = defaultSublistDescriptor
    export var freeformtext = defaultSublistDescriptor
-   export var decimalnumber         = defaultSublistDescriptor// _.partial(formattedSublistDescriptor, format.Type.FLOAT)
-   export var float         = defaultSublistDescriptor //_.partial(formattedSublistDescriptor, format.Type.FLOAT)
+   export var decimalnumber = defaultSublistDescriptor// _.partial(formattedSublistDescriptor, format.Type.FLOAT)
+   export var float = defaultSublistDescriptor //_.partial(formattedSublistDescriptor, format.Type.FLOAT)
    export var hyperlink = defaultSublistDescriptor
    export var image = defaultSublistDescriptor
    export var inlinehtml = defaultSublistDescriptor
    export var integernumber = defaultSublistDescriptor// _.partial(formattedSublistDescriptor, format.Type.INTEGER)
    export var longtext = defaultSublistDescriptor
    export var multiselect = defaultSublistDescriptor
-   export var percent         = _.partial(formattedSublistDescriptor, format.Type.PERCENT)
+   export var percent = _.partial(formattedSublistDescriptor, format.Type.PERCENT)
    export var select = defaultSublistDescriptor
    export var textarea = defaultSublistDescriptor
 }
@@ -49,10 +49,10 @@ export namespace SublistFieldType {
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-export function defaultSublistDescriptor(target:any, propertyKey:string):any {
+export function defaultSublistDescriptor (target: any, propertyKey: string): any {
    log.debug('creating default descriptor', `field: ${propertyKey}`)
    return {
-      get: function (this:SublistLine) {
+      get: function (this: SublistLine) {
          const options = {
             sublistId: this.sublistId,
             line: this._line,
@@ -61,7 +61,7 @@ export function defaultSublistDescriptor(target:any, propertyKey:string):any {
          log.debug('getting sublist value', options)
          return this.nsrecord.getSublistValue(options)
       },
-      set: function (this:SublistLine, value) {
+      set: function (this: SublistLine, value) {
          // ignore undefined's
          if (value !== undefined) this.nsrecord.setSublistValue({
             sublistId: this.sublistId,
@@ -72,7 +72,7 @@ export function defaultSublistDescriptor(target:any, propertyKey:string):any {
          else log.debug(`ignoring field [${propertyKey}]`, 'field value is undefined')
       },
       enumerable: true //default is false
-   };
+   }
 }
 
 /**
@@ -84,18 +84,19 @@ export function defaultSublistDescriptor(target:any, propertyKey:string):any {
  * @returns  an object property descriptor to be used
  * with decorators
  */
-export function dateTimeSublistDescriptor(formatType: format.Type, target:any, propertyKey:string) :any {
+export function dateTimeSublistDescriptor (formatType: format.Type, target: any, propertyKey: string): any {
    return {
-      get: function (this:SublistLine) {
+      get: function (this: SublistLine) {
          const value = this.nsrecord.getSublistValue({
             sublistId: this.sublistId,
             line: this._line,
-            fieldId: propertyKey}) as any
+            fieldId: propertyKey
+         }) as any
          log.debug(`transforming field format type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
          return value ? moment(format.parse({type: formatType, value: value})) : value
       },
-      set: function (this:SublistLine,value) {
+      set: function (this: SublistLine, value) {
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
             let asDate
@@ -108,11 +109,10 @@ export function dateTimeSublistDescriptor(formatType: format.Type, target:any, p
                fieldId: propertyKey,
                value: asDate
             })
-         }
-         else log.debug(`not setting sublist ${propertyKey} field`, 'value was undefined')
+         } else log.debug(`not setting sublist ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
-   };
+   }
 }
 
 /**
@@ -124,9 +124,9 @@ export function dateTimeSublistDescriptor(formatType: format.Type, target:any, p
  * @returns  an object property descriptor to be used
  * with decorators
  */
-export function formattedSublistDescriptor(formatType:format.Type, target:any, propertyKey:string):any {
+export function formattedSublistDescriptor (formatType: format.Type, target: any, propertyKey: string): any {
    return {
-      get: function (this:SublistLine) {
+      get: function (this: SublistLine) {
          log.debug(`getting formatted field [${propertyKey}]`)
          const value = this.nsrecord.getSublistValue({
             sublistId: this.sublistId,
@@ -138,7 +138,7 @@ export function formattedSublistDescriptor(formatType:format.Type, target:any, p
          // returns the 'raw' type which is a string or number for our purposes
          return value ? format.parse({type: formatType, value: value}) : value
       },
-      set: function (this:SublistLine,value) {
+      set: function (this: SublistLine, value) {
          let formattedValue: number | null
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
@@ -158,7 +158,7 @@ export function formattedSublistDescriptor(formatType:format.Type, target:any, p
                case format.Type.RATE:
                case format.Type.RATEHIGHPRECISION:
                   formattedValue = Number(format.format({type: formatType, value: value}))
-                  break;
+                  break
                default:
                   formattedValue = format.format({type: formatType, value: value})
             }
@@ -166,19 +166,20 @@ export function formattedSublistDescriptor(formatType:format.Type, target:any, p
                `to formatted value [${formattedValue}] (unformatted vale: ${value})`)
             if (value === null) this.nsrecord.setSublistValue({
                sublistId: this.sublistId,
-               line:this._line,
+               line: this._line,
                fieldId: propertyKey,
-               value: null})
+               value: null
+            })
             else this.nsrecord.setSublistValue({
                sublistId: this.sublistId,
-               line:this._line,
+               line: this._line,
                fieldId: propertyKey,
-               value: formattedValue})
-         }
-         else log.info(`not setting sublist ${propertyKey} field`, 'value was undefined')
+               value: formattedValue
+            })
+         } else log.info(`not setting sublist ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
-   };
+   }
 }
 
 /**
@@ -252,8 +253,9 @@ export class Sublist<T extends SublistLine> {
    }
 
    // serialize lines to an array with properties shown
-   toJSON = () => _.map(this,_.toPlainObject)
+   toJSON () { return _.map(this, _.toPlainObject) }
 }
+
 /**
  * contains minimum requirements for a sublist line - 1. which sublist are we working with, 2. on which record
  * 3. which line on the sublist does this instance represent
@@ -265,14 +267,14 @@ export abstract class SublistLine {
     * field properties defined on derived classes should be seen when enumerating
     * @param value
     */
-   protected makeRecordProp(value) {
+   protected makeRecordProp (value) {
       Object.defineProperty(this, 'nsrecord', {
          value: value,
          enumerable: false
       })
    }
 
-   nsrecord:record.Record
+   nsrecord: record.Record
 
    /**
     * Note that the sublistId and _line are used by the Sublist decorators to actually implement functionality, even
@@ -283,10 +285,10 @@ export abstract class SublistLine {
     * @param {number} _line the line number needed in decorator calls to underlying sublist. That's also why this is
     * public - so that the decorators have access to it.
     */
-   constructor(public sublistId:string, rec:record.Record, public _line:number){
+   constructor (public sublistId: string, rec: record.Record, public _line: number) {
       this.makeRecordProp(rec)
-      Object.defineProperty(this,'sublistId',{enumerable:false})
-      Object.defineProperty(this,'_line',{enumerable:false})
+      Object.defineProperty(this, 'sublistId', {enumerable: false})
+      Object.defineProperty(this, '_line', {enumerable: false})
    }
 }
 

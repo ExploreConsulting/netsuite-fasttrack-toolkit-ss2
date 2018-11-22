@@ -204,11 +204,8 @@
      */
     var Sublist = /** @class */ (function () {
         function Sublist(sublistLineType, rec, sublistId) {
-            var _this = this;
             this.sublistLineType = sublistLineType;
             this.sublistId = sublistId;
-            // serialize lines to an array with properties shown
-            this.toJSON = function () { return _.map(_this, _.toPlainObject); };
             this.sublistLineType = sublistLineType;
             this.makeRecordProp(rec);
             log.debug('creating sublist', "type:" + sublistId + ", linecount:" + this.length);
@@ -267,6 +264,8 @@
                 enumerable: false
             });
         };
+        // serialize lines to an array with properties shown
+        Sublist.prototype.toJSON = function () { return _.map(this, _.toPlainObject); };
         return Sublist;
     }());
     exports.Sublist = Sublist;
