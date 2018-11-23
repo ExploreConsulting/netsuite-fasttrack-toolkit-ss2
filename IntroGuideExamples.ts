@@ -7,10 +7,10 @@ import { FieldType, Sublist } from './DataAccess/EC_nsdal'
 import * as so from './DataAccess/SalesOrderBase'
 //region logging
 import * as nslog from 'N/log'
+import * as LogManager from './EC_Logger'
 import { DefaultLogger as log, logLevel } from './EC_Logger'
-import * as LogManager from './NFT-SS2-2.2.1/EC_Logger'
-import { LazySearch, nsSearchResult2obj } from './NFT-SS2-2.2.1/search'
-import { Seq } from './NFT-SS2-2.2.1/immutable'
+import { LazySearch, nsSearchResult2obj } from './search'
+import { Seq } from 'immutable'
 
 var customer = record.load({
    type: record.Type.CUSTOMER,
