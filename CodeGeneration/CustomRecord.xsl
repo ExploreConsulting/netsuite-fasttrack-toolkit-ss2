@@ -45,7 +45,7 @@ import {NetsuiteRecord} from "NFT/DataAccess/Record"
 
 <xsl:text>// Auto-Generated NFT NSDAL Class
 import {FieldType} from "NFT/DataAccess/Record"
-import * as moment from "NFT/moment"</xsl:text><xsl:value-of select="$imports"/>
+</xsl:text><xsl:value-of select="$imports"/>
 <xsl:where-populated expand-text="yes">
 /**
  *   {description}
@@ -146,12 +146,12 @@ export class {$className} extends {$parentClass} {{
     <xsl:when test="fieldtype='DATE'">
     <xsl:text>date
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : moment.Moment
+        <xsl:value-of select="@scriptid"/> : Date
     </xsl:when>
     <xsl:when test="fieldtype='DATETIMETZ'">
     <xsl:text>datetime
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : moment.Moment
+        <xsl:value-of select="@scriptid"/> : Date
     </xsl:when>
     <xsl:when test="fieldtype='EMAIL'">
     <xsl:text>email
