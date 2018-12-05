@@ -243,6 +243,20 @@
             return this[insertAt];
         };
         /**
+         * Removes all existing lines of this sublist, leaving effectively an empty array
+         * @param ignoreRecalc passed through to nsrecord.removeLine (ignores firing recalc event as each line is removed )
+         */
+        Sublist.prototype.removeAllLines = function (ignoreRecalc) {
+            if (ignoreRecalc === void 0) { ignoreRecalc = true; }
+            while (this.length > 0)
+                this.nsrecord.removeLine({
+                    sublistId: this.sublistId,
+                    ignoreRecalc: ignoreRecalc,
+                    line: this.length - 1
+                });
+            return this;
+        };
+        /**
          * commits the currently selected line on this sublist. When adding new lines you don't need to call this method
          */
         Sublist.prototype.commitLine = function () {

@@ -94,7 +94,7 @@ export function dateTimeSublistDescriptor (formatType: format.Type, target: any,
          }) as any
          log.debug(`transforming field format type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
-         return value ? moment(format.parse({type: formatType, value: value})) : value
+         return value ? moment(format.parse({ type: formatType, value: value })) : value
       },
       set: function (this: SublistLine, value) {
          // allow null to flow through, but ignore undefined's
@@ -136,7 +136,7 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
          log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
          // returns the 'raw' type which is a string or number for our purposes
-         return value ? format.parse({type: formatType, value: value}) : value
+         return value ? format.parse({ type: formatType, value: value }) : value
       },
       set: function (this: SublistLine, value) {
          let formattedValue: number | null
@@ -157,10 +157,10 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
                case format.Type.POSINTEGER:
                case format.Type.RATE:
                case format.Type.RATEHIGHPRECISION:
-                  formattedValue = Number(format.format({type: formatType, value: value}))
+                  formattedValue = Number(format.format({ type: formatType, value: value }))
                   break
                default:
-                  formattedValue = format.format({type: formatType, value: value})
+                  formattedValue = format.format({ type: formatType, value: value })
             }
             log.debug(`setting sublist field [${propertyKey}:${formatType}]`,
                `to formatted value [${formattedValue}] (unformatted vale: ${value})`)
@@ -196,7 +196,7 @@ export class Sublist<T extends SublistLine> {
     * @returns {number} number of lines in this list
     */
    get length () {
-      return this.nsrecord.getLineCount({sublistId: this.sublistId})
+      return this.nsrecord.getLineCount({ sublistId: this.sublistId })
    }
 
    /**
@@ -217,16 +217,30 @@ export class Sublist<T extends SublistLine> {
    }
 
    /**
+    * Removes all existing lines of this sublist, leaving effectively an empty array
+    * @param ignoreRecalc passed through to nsrecord.removeLine (ignores firing recalc event as each line is removed )
+    */
+   removeAllLines (ignoreRecalc:boolean = true) {
+      while (this.length > 0) this.nsrecord.removeLine({
+         sublistId:this.sublistId,
+         ignoreRecalc:ignoreRecalc,
+         line:this.length - 1
+      })
+      return this
+   }
+
+
+   /**
     * commits the currently selected line on this sublist. When adding new lines you don't need to call this method
     */
    commitLine () {
       log.debug('committing line', `sublist: ${this.sublistId}`)
-      this.nsrecord.commitLine({sublistId: this.sublistId})
+      this.nsrecord.commitLine({ sublistId: this.sublistId })
    }
 
    selectLine (line: number) {
       log.debug('selecting line', line)
-      this.nsrecord.selectLine({sublistId: this.sublistId, line: line})
+      this.nsrecord.selectLine({ sublistId: this.sublistId, line: line })
    }
 
    /**
@@ -287,8 +301,8 @@ export abstract class SublistLine {
     */
    constructor (public sublistId: string, rec: record.Record, public _line: number) {
       this.makeRecordProp(rec)
-      Object.defineProperty(this, 'sublistId', {enumerable: false})
-      Object.defineProperty(this, '_line', {enumerable: false})
+      Object.defineProperty(this, 'sublistId', { enumerable: false })
+      Object.defineProperty(this, '_line', { enumerable: false })
    }
 }
 

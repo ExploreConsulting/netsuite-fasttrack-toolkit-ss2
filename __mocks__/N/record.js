@@ -15,4 +15,6 @@
     exports.setValue = jest.fn().mockName('setValue');
     exports.load = jest.fn().mockReturnThis().mockName('load');
     exports.getLineCount = jest.fn().mockName('getLineCount');
+    exports.getFields = jest.fn();
+    exports.removeLine = jest.fn();
 });
