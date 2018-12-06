@@ -6,13 +6,15 @@ describe('Sublists', function () {
 
    class FakeSublistLine extends SublistLine {}
 
-   const fakeRec = record.create({type:'fake'})
-   let lineCount = 10
-   record.getLineCount.mockImplementation(()=> lineCount)
-   record.removeLine.mockImplementation( () => lineCount--)
 
 
    test('remove all lines results in zero length sublist', () => {
+
+      const fakeRec = record.create({type:'fake'})
+      let lineCount = 10
+      record.getLineCount.mockImplementation(()=> lineCount)
+      record.removeLine.mockImplementation( () => lineCount--)
+
       const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
 
       // initial linecount should be  10 from test setup
@@ -26,5 +28,19 @@ describe('Sublists', function () {
       // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
    })
 
+   test('remove all lines on an already empty sublist', () => {
+      const fakeRec = record.create({type:'fake'})
 
+      let lineCount = 0 // start with an empty sublist
+      record.getLineCount.mockImplementation(()=> lineCount)
+      record.removeLine.mockImplementation( () => lineCount--)
+
+      const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
+
+      sut.removeAllLines()
+
+      expect(sut.length).toBe(0)
+      expect(record.removeLine).not.toBeCalled()
+      // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
+   })
 });

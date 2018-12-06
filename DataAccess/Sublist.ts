@@ -221,11 +221,15 @@ export class Sublist<T extends SublistLine> {
     * @param ignoreRecalc passed through to nsrecord.removeLine (ignores firing recalc event as each line is removed )
     */
    removeAllLines (ignoreRecalc:boolean = true) {
-      while (this.length > 0) this.nsrecord.removeLine({
-         sublistId:this.sublistId,
-         ignoreRecalc:ignoreRecalc,
-         line:this.length - 1
-      })
+      while (this.length > 0) {
+         let line = {
+            sublistId:this.sublistId,
+            ignoreRecalc:ignoreRecalc,
+            line:this.length - 1
+         }
+         this.nsrecord.removeLine(line)
+         log.debug('removed line', line)
+      }
       return this
    }
 

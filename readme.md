@@ -7,11 +7,11 @@ enable authoring scripts that easy to write and easy to maintain.
 
 _Includes_
 * nsdal (**n**etsuite **d**ata **a**ccess **l**ayer) _ActiveRecord_-like approach with 
-predefined strong types for NetSuite record types 
+predefined strong types for NetSuite record types including sublist support. 
 * lodash
 * momentjs
 * advanced logging
-* immutablejs
+* immutablejs (used for arbitrary length sequences)
 * helpers for N/search and governance management
 
 

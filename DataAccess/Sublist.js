@@ -248,12 +248,15 @@
          */
         Sublist.prototype.removeAllLines = function (ignoreRecalc) {
             if (ignoreRecalc === void 0) { ignoreRecalc = true; }
-            while (this.length > 0)
-                this.nsrecord.removeLine({
+            while (this.length > 0) {
+                var line = {
                     sublistId: this.sublistId,
                     ignoreRecalc: ignoreRecalc,
                     line: this.length - 1
-                });
+                };
+                this.nsrecord.removeLine(line);
+                log.debug('removed line', line);
+            }
             return this;
         };
         /**
