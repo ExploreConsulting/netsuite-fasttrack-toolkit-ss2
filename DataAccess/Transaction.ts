@@ -59,7 +59,7 @@ export abstract class TransactionBase extends NetsuiteRecord {
    tranid: string
 
    @FieldType.date
-   trandate: Date | string
+   trandate: Date
 
    /**
     * locates line on the 'apply' sublist that corresponds to the passed related record internal id

@@ -90,7 +90,7 @@ export class AssemblyBuildBase extends NetsuiteRecord {
   subsidiary:number
 
   @FieldType.date
-  trandate:Date | string
+  trandate: Date
 
   @FieldType.freeformtext
   tranid:string
