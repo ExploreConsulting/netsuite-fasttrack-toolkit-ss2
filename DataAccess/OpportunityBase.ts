@@ -6,7 +6,6 @@ import {SublistLine, SublistFieldType, Sublist} from './Sublist'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 import {FieldType} from "./Record"
-import * as moment from "../moment"
 
 /**
  * The 'item' sublist on opportunity records

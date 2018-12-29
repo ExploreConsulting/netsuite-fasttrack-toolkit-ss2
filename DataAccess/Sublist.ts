@@ -8,7 +8,6 @@
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
-import * as moment from '../moment'
 import * as _ from '../lodash'
 
 const log = LogManager.getLogger('nsdal')
@@ -26,8 +25,8 @@ const log = LogManager.getLogger('nsdal')
 export namespace SublistFieldType {
    export var checkbox = defaultSublistDescriptor
    export var currency = defaultSublistDescriptor//_.partial(formattedSublistDescriptor, format.Type.CURRENCY)
-   export var date = _.partial(dateTimeSublistDescriptor, format.Type.DATE)
-   export var datetime = _.partial(dateTimeSublistDescriptor, format.Type.DATETIME)
+   export var date = defaultSublistDescriptor
+   export var datetime = defaultSublistDescriptor
    export var email = defaultSublistDescriptor
    export var freeformtext = defaultSublistDescriptor
    export var decimalnumber = defaultSublistDescriptor// _.partial(formattedSublistDescriptor, format.Type.FLOAT)
@@ -70,46 +69,6 @@ export function defaultSublistDescriptor (target: any, propertyKey: string): any
             value: value
          })
          else log.debug(`ignoring field [${propertyKey}]`, 'field value is undefined')
-      },
-      enumerable: true //default is false
-   }
-}
-
-/**
- * Generic sublist property descriptor with algorithm for date handling. Surfaces dates as moment() instances
- * note: does not take into account timezone
- * @param {string} formatType the NS field type (e.g. 'date')
- * @param target
- * @param propertyKey
- * @returns  an object property descriptor to be used
- * with decorators
- */
-export function dateTimeSublistDescriptor (formatType: format.Type, target: any, propertyKey: string): any {
-   return {
-      get: function (this: SublistLine) {
-         const value = this.nsrecord.getSublistValue({
-            sublistId: this.sublistId,
-            line: this._line,
-            fieldId: propertyKey
-         }) as any
-         log.debug(`transforming field format type [${formatType}]`, `with value ${value}`)
-         // ensure we don't return moments for null, undefined, etc.
-         return value ? moment(format.parse({ type: formatType, value: value })) : value
-      },
-      set: function (this: SublistLine, value) {
-         // allow null to flow through, but ignore undefined's
-         if (value !== undefined) {
-            let asDate
-            // the value needs to either be a moment already, or a moment compatible string else null
-            if (moment.isMoment(value)) asDate = value.toDate()
-            else asDate = value ? moment(value).toDate() : null
-            this.nsrecord.setSublistValue({
-               sublistId: this.sublistId,
-               line: this._line,
-               fieldId: propertyKey,
-               value: asDate
-            })
-         } else log.debug(`not setting sublist ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
    }

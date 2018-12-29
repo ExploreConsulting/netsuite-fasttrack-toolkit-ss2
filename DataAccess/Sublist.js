@@ -10,14 +10,13 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/format", "../EC_Logger", "../moment", "../lodash"], factory);
+        define(["require", "exports", "N/format", "../EC_Logger", "../lodash"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var format = require("N/format");
     var LogManager = require("../EC_Logger");
-    var moment = require("../moment");
     var _ = require("../lodash");
     var log = LogManager.getLogger('nsdal');
     /*
@@ -33,8 +32,8 @@
     (function (SublistFieldType) {
         SublistFieldType.checkbox = defaultSublistDescriptor;
         SublistFieldType.currency = defaultSublistDescriptor; //_.partial(formattedSublistDescriptor, format.Type.CURRENCY)
-        SublistFieldType.date = _.partial(dateTimeSublistDescriptor, format.Type.DATE);
-        SublistFieldType.datetime = _.partial(dateTimeSublistDescriptor, format.Type.DATETIME);
+        SublistFieldType.date = defaultSublistDescriptor;
+        SublistFieldType.datetime = defaultSublistDescriptor;
         SublistFieldType.email = defaultSublistDescriptor;
         SublistFieldType.freeformtext = defaultSublistDescriptor;
         SublistFieldType.decimalnumber = defaultSublistDescriptor; // _.partial(formattedSublistDescriptor, format.Type.FLOAT)
@@ -83,52 +82,6 @@
         };
     }
     exports.defaultSublistDescriptor = defaultSublistDescriptor;
-    /**
-     * Generic sublist property descriptor with algorithm for date handling. Surfaces dates as moment() instances
-     * note: does not take into account timezone
-     * @param {string} formatType the NS field type (e.g. 'date')
-     * @param target
-     * @param propertyKey
-     * @returns  an object property descriptor to be used
-     * with decorators
-     */
-    function dateTimeSublistDescriptor(formatType, target, propertyKey) {
-        return {
-            get: function () {
-                var value = this.nsrecord.getSublistValue({
-                    sublistId: this.sublistId,
-                    line: this._line,
-                    fieldId: propertyKey
-                });
-                log.debug("transforming field format type [" + formatType + "]", "with value " + value);
-                // ensure we don't return moments for null, undefined, etc.
-                return value ? moment(format.parse({ type: formatType, value: value })) : value;
-            },
-            set: function (value) {
-                // allow null to flow through, but ignore undefined's
-                if (value !== undefined) {
-                    var asDate 
-                    // the value needs to either be a moment already, or a moment compatible string else null
-                    = void 0;
-                    // the value needs to either be a moment already, or a moment compatible string else null
-                    if (moment.isMoment(value))
-                        asDate = value.toDate();
-                    else
-                        asDate = value ? moment(value).toDate() : null;
-                    this.nsrecord.setSublistValue({
-                        sublistId: this.sublistId,
-                        line: this._line,
-                        fieldId: propertyKey,
-                        value: asDate
-                    });
-                }
-                else
-                    log.debug("not setting sublist " + propertyKey + " field", 'value was undefined');
-            },
-            enumerable: true //default is false
-        };
-    }
-    exports.dateTimeSublistDescriptor = dateTimeSublistDescriptor;
     /**
      * Generic property descriptor with algorithm for values that need to go through the NS format module
      * note: does not take into account timezone
