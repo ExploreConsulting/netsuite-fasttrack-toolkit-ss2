@@ -101,17 +101,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], ItemReceiptBase.prototype, "createdfrom", void 0);
         __decorate([
+            Record_1.FieldType.select
+        ], ItemReceiptBase.prototype, "currency", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], ItemReceiptBase.prototype, "currencyname", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], ItemReceiptBase.prototype, "currencysymbol", void 0);
+        __decorate([
             Record_1.FieldType.currency
         ], ItemReceiptBase.prototype, "exchangerate", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], ItemReceiptBase.prototype, "inboundshipment", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], ItemReceiptBase.prototype, "isbasecurrency", void 0);
         __decorate([
             Record_1.FieldType.select
         ], ItemReceiptBase.prototype, "itemfulfillment", void 0);
         __decorate([
             Record_1.FieldType.checkbox
         ], ItemReceiptBase.prototype, "landedcostperline", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ItemReceiptBase.prototype, "location", void 0);
         __decorate([
             Record_1.FieldType.sublist(ItemSublist)
         ], ItemReceiptBase.prototype, "item", void 0);

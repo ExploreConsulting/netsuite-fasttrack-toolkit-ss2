@@ -31,9 +31,6 @@ export class InventoryAdjustmentBase extends TransactionBase {
    @FieldType.currency
    estimatedtotalvalue:number
 
-   @FieldType.datetime
-   lastmodifieddate:Date
-
 }
 
 /**

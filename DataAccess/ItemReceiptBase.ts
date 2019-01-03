@@ -68,18 +68,29 @@ export class ItemReceiptBase extends TransactionBase {
    @FieldType.select
    createdfrom:number
 
+   @FieldType.select
+   currency:number
+
+   @FieldType.freeformtext
+   currencyname:string
+
+   @FieldType.freeformtext
+   currencysymbol:string
+
    @FieldType.currency
    exchangerate:number
+
+   @FieldType.select
+   inboundshipment:number
+
+   @FieldType.checkbox
+   isbasecurrency:boolean
 
    @FieldType.select
    itemfulfillment:number
 
    @FieldType.checkbox
    landedcostperline:boolean
-
-   @FieldType.select
-   location:number
-
 
    @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>

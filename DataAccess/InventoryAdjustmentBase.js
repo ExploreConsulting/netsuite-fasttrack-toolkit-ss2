@@ -62,9 +62,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.currency
         ], InventoryAdjustmentBase.prototype, "estimatedtotalvalue", void 0);
-        __decorate([
-            Record_1.FieldType.datetime
-        ], InventoryAdjustmentBase.prototype, "lastmodifieddate", void 0);
         return InventoryAdjustmentBase;
     }(Transaction_1.TransactionBase));
     exports.InventoryAdjustmentBase = InventoryAdjustmentBase;

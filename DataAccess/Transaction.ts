@@ -24,6 +24,9 @@ export abstract class TransactionBase extends NetsuiteRecord {
    @FieldType.freeformtext
    externalid: string
 
+   @FieldType.datetime
+   lastmodifieddate: Date
+
    @FieldType.select
    location: number
 
