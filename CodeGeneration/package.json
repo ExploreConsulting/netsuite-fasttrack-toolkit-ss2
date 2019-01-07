@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^2.8.3"
+    "typescript": "^3.2.2"
   },
   "dependencies": {
-    "@hitc/netsuite-types": "^2017.2.31",
-    "netsuite-fasttrack-toolkit-ss2": "^1.0.1"
+    "@hitc/netsuite-types": "^2018.2.14",
+    "netsuite-fasttrack-toolkit-ss2": "^4.1.0"
   }
 }

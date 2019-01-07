@@ -2,6 +2,9 @@
 <xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" >
 
     <xsl:output method="text"/>
+    <!-- load the current version of NFT into a variable from package.json -->
+    <xsl:variable name="nft" select="json-doc('../package.json')('version')"/>
+    <xsl:variable name="nftPath" select="concat('../NFT-SS2-', $nft)"/>
 
 
     <xsl:template name="xsl:initial-template">
@@ -12,6 +15,8 @@
             <xsl:variable name="className"  select="replace(/customrecordtype/recordname,'\W','')"/>
 
            <xsl:message expand-text="yes">Generating Custom Record class: {$className}</xsl:message>
+           <xsl:message expand-text="yes">Using NFT path {$nftPath}</xsl:message>
+
             <!--This generates a separate document (.ts file) for each input .xml file -->
             <xsl:result-document method="text" href="src/{string-join(($className,'.ts'))}">
 
@@ -19,7 +24,7 @@
                     <xsl:with-param name="className" select="$className"/>
                     <!-- add imports used to define the TS class and properties -->
                     <xsl:with-param name="imports">
-import {NetsuiteRecord} from "NFT/DataAccess/Record"
+import {NetsuiteRecord} from "$nftPath/DataAccess/Record"
                     </xsl:with-param>
                 </xsl:apply-templates>
             </xsl:result-document>
@@ -44,7 +49,7 @@ import {NetsuiteRecord} from "NFT/DataAccess/Record"
 <!-- Always include these imports plus whatever the caller provided, to keep it DRY -->
 
 <xsl:text>// Auto-Generated NFT NSDAL Class
-import {FieldType} from "NFT/DataAccess/Record"
+import {FieldType} from "{$nftPath}/DataAccess/Record"
 </xsl:text><xsl:value-of select="$imports"/>
 <xsl:where-populated expand-text="yes">
 /**
