@@ -8,13 +8,14 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./moment", "./aurelia-logging", "N/log", "N/runtime", "./aop", "./lodash", "./aurelia-logging"], factory);
+        define(["require", "exports", "./moment", "./aurelia-logging", "./aurelia-logging-console", "N/log", "N/runtime", "./aop", "./lodash", "./aurelia-logging"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var moment = require("./moment");
     var aurelia_logging_1 = require("./aurelia-logging");
+    var aurelia_logging_console_1 = require("./aurelia-logging-console");
     var nslog = require("N/log");
     var runtime = require("N/runtime");
     var aop = require("./aop");
@@ -40,7 +41,7 @@
      * @param enable if true, adds correlationid to the log messages, otherwise no correlation id prefix is added
      */
     exports.setIncludeCorrelationId = function (enable) { return exports.includeCorrelationId = enable; };
-    // invokes the nsdal log function and handles adding a title tag 
+    // invokes the nsdal log function and handles adding a title tag
     function log(loglevel, logger) {
         var rest = [];
         for (var _i = 2; _i < arguments.length; _i++) {
@@ -48,7 +49,7 @@
         }
         var title = rest[0], details = rest[1];
         var prefix = '';
-        if (exports.includeCorrelationId === true) {
+        if (exports.includeCorrelationId) {
             prefix += exports.correlationId + ">";
         }
         // prefix all loggers except the 'default' one used by top level code
@@ -170,13 +171,13 @@
             var elapsedMessage;
             if (withProfiling) {
                 var elapsedMilliseconds = moment().diff(startTime);
-                elapsedMessage = elapsedMilliseconds + "ms = " +
-                    moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + " minutes";
+                elapsedMessage = elapsedMilliseconds + 'ms = ' +
+                    moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + ' minutes';
             }
             // record function exit for every method on our explore object
             log(config.logLevel || aurelia_logging_1.logLevel.debug, logger, ["Exit " + invocation.method + "()",
                 elapsedMessage,
-                getGovernanceMessage(withGovernance)].join(' ').trim(), withReturnValue ? "returned: " + JSON.stringify(retval) : null);
+                getGovernanceMessage(withGovernance)].join(' ').trim(), withReturnValue ? 'returned: ' + JSON.stringify(retval) : null);
             return retval;
         });
     }
@@ -190,5 +191,14 @@
      * @param value new correlation id, will be used on all subsequent logging
      */
     exports.setCorrelationId = function (value) { return exports.correlationId = value; };
-    aurelia_logging_1.addAppender(new ExecutionLogAppender());
+    // if we're executing client side, default to using the browser console for logging to avoid
+    // expensive network round trips to the NS execution log.
+    switch (runtime.executionContext) {
+        case runtime.ContextType.CLIENT:
+        case runtime.ContextType.USER_INTERFACE:
+            aurelia_logging_1.addAppender(new aurelia_logging_console_1.ConsoleAppender());
+            break;
+        default:
+            aurelia_logging_1.addAppender(new ExecutionLogAppender());
+    }
 });

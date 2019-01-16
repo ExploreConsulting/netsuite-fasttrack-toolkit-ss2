@@ -3,20 +3,21 @@
  * @NApiVersion 2.x
  */
 
-import * as moment from "./moment"
-import {Logger, addAppender, logLevel, getLogger, Appender, LogLevel} from "./aurelia-logging"
-import * as nslog from "N/log"
-import * as runtime from "N/runtime"
-import * as aop from "./aop"
-import * as _ from "./lodash"
+import * as moment from './moment'
+import { Logger, addAppender, logLevel, getLogger, Appender } from './aurelia-logging'
+import { ConsoleAppender } from './aurelia-logging-console'
+import * as nslog from 'N/log'
+import * as runtime from 'N/runtime'
+import * as aop from './aop'
+import * as _ from './lodash'
 
-export {getLogger, Logger, logLevel} from './aurelia-logging'
+export { getLogger, Logger, logLevel } from './aurelia-logging'
 
 /**
  * Value to be prepended to each log message title. Defaults to a random 4 digit integer
  * @type {string}
  */
-export let correlationId = Math.floor(Math.random() * 10000).toString();
+export let correlationId = Math.floor(Math.random() * 10000).toString()
 
 /**
  * if true then log message include a random integer (or your custom) prefix to each log entry title.
@@ -24,21 +25,20 @@ export let correlationId = Math.floor(Math.random() * 10000).toString();
  * of the same script (e.g. multiple runs of a scheduled script or discerning between multiple simultaneous calls
  * to a RESTlet or Suitelet)
  */
-export let includeCorrelationId = false;
+export let includeCorrelationId = false
 
 /**
  * Controls whether the correlation id prefixes should be included in log messages or not.
  * @param enable if true, adds correlationid to the log messages, otherwise no correlation id prefix is added
  */
-export let setIncludeCorrelationId = (enable:boolean) => includeCorrelationId = enable
+export let setIncludeCorrelationId = (enable: boolean) => includeCorrelationId = enable
 
-
-// invokes the nsdal log function and handles adding a title tag 
-function log(loglevel:number, logger:Logger, ...rest:any[]) {
+// invokes the nsdal log function and handles adding a title tag
+function log (loglevel: number, logger: Logger, ...rest: any[]) {
    let [title, details] = rest
    let prefix = ''
 
-   if (includeCorrelationId === true) {
+   if (includeCorrelationId) {
       prefix += `${correlationId}>`
    }
    // prefix all loggers except the 'default' one used by top level code
@@ -49,7 +49,7 @@ function log(loglevel:number, logger:Logger, ...rest:any[]) {
    // basically how JSON.stringify() works so I presume they are doing that?
    // To cover the most common use case of logging an object to see its properties, first convert to
    // a plain object if it's not one already.
-   if (_.isObject(details) && (!_.isPlainObject(details)) ) details = _.toPlainObject(details)
+   if (_.isObject(details) && (!_.isPlainObject(details))) details = _.toPlainObject(details)
    nslog[toNetSuiteLogLevel(loglevel)](`${prefix} ${title}`, details)
 }
 
@@ -64,8 +64,7 @@ function log(loglevel:number, logger:Logger, ...rest:any[]) {
  */
 export class ExecutionLogAppender implements Appender {
 
-
-   debug(logger:Logger, ...rest:any[]) {
+   debug (logger: Logger, ...rest: any[]) {
       log(logLevel.debug, logger, ...rest)
    }
 
@@ -74,15 +73,15 @@ export class ExecutionLogAppender implements Appender {
     * @param logger
     * @param rest
     */
-   info(logger:Logger, ...rest:any[]) {
+   info (logger: Logger, ...rest: any[]) {
       log(logLevel.info, logger, ...rest)
    }
 
-   warn(logger:Logger, ...rest:any[]) {
+   warn (logger: Logger, ...rest: any[]) {
       log(logLevel.warn, logger, ...rest)
    }
 
-   error(logger:Logger, ...rest:any[]) {
+   error (logger: Logger, ...rest: any[]) {
       log(logLevel.error, logger, ...rest)
    }
 }
@@ -93,22 +92,22 @@ let defaultLogger = getLogger('default')
 defaultLogger.setLevel(logLevel.debug)
 
 // maps aurelia numeric levels to NS string level names
-function toNetSuiteLogLevel(level:number) {
+function toNetSuiteLogLevel (level: number) {
    switch (level) {
       case logLevel.debug:
          return 'debug'
       case logLevel.info:
-           return 'audit'
+         return 'audit'
       case logLevel.warn:
-           return 'error'
+         return 'error'
       case logLevel.error:
-           return 'emergency'
+         return 'emergency'
       default:
          return 'debug'
-      }
+   }
 }
 
-function getGovernanceMessage(governanceEnabled:boolean) {
+function getGovernanceMessage (governanceEnabled: boolean) {
    return governanceEnabled ? `governance: ${runtime.getCurrentScript().getRemainingUsage()}` : undefined
 }
 
@@ -128,8 +127,8 @@ function getGovernanceMessage(governanceEnabled:boolean) {
  * @param {number} [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
  * @returns {} an array of jquery aop advices
  */
-export function autoLogMethodEntryExit(methodsToLogEntryExit: {target:Object, method:string | RegExp},
-                                       config?:AutoLogConfig) {
+export function autoLogMethodEntryExit (methodsToLogEntryExit: { target: Object, method: string | RegExp },
+                                        config?: AutoLogConfig) {
 
    if (!config) config = {}
    // include method parameters by default
@@ -145,25 +144,25 @@ export function autoLogMethodEntryExit(methodsToLogEntryExit: {target:Object, me
 
    return aop.around(methodsToLogEntryExit, function (invocation) {
       // record function entry with details for every method on our explore object
-      log(config!.logLevel || logLevel.debug,logger,`Enter ${invocation.method}() ${getGovernanceMessage(withGovernance)}`,
+      log(config!.logLevel || logLevel.debug, logger, `Enter ${invocation.method}() ${getGovernanceMessage(withGovernance)}`,
          withArgs ? 'args: ' + JSON.stringify(arguments[0].arguments) : null)
       let startTime = moment()
-      let retval    = invocation.proceed()
+      let retval = invocation.proceed()
       let elapsedMessage
       if (withProfiling) {
-         let elapsedMilliseconds = moment().diff(startTime);
-         elapsedMessage          = elapsedMilliseconds + "ms = " +
-            moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + " minutes";
+         let elapsedMilliseconds = moment().diff(startTime)
+         elapsedMessage = elapsedMilliseconds + 'ms = ' +
+            moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + ' minutes'
       }
       // record function exit for every method on our explore object
       log(config!.logLevel || logLevel.debug, logger,
-         [  `Exit ${invocation.method}()`,
+         [`Exit ${invocation.method}()`,
             elapsedMessage,
             getGovernanceMessage(withGovernance)].join(' ').trim(),
-         withReturnValue ? "returned: " + JSON.stringify(retval) : null);
+         withReturnValue ? 'returned: ' + JSON.stringify(retval) : null)
 
-      return retval;
-   });
+      return retval
+   })
 }
 
 /**
@@ -173,31 +172,41 @@ export interface AutoLogConfig {
    /**
     * set true to include automatically include passed method arguments in the logs
     */
-   withArgs?:boolean
+   withArgs?: boolean
    /**
     * If true, includes the function return value in the log
     */
-   withReturnValue?:boolean
+   withReturnValue?: boolean
    /**
     *
     */
-   withProfiling?:boolean
-   withGovernance?:boolean
-   logger?:Logger
+   withProfiling?: boolean
+   withGovernance?: boolean
+   logger?: Logger
    logLevel?: number
 }
 
 /**
  * The default logger - this should be the main top level logger used in scripts
  */
-export let DefaultLogger : Logger = defaultLogger
+export let DefaultLogger: Logger = defaultLogger
 
 /**
  * Use to set the correlation id to a value other than the default random number
  * @param value new correlation id, will be used on all subsequent logging
  */
-export let setCorrelationId = (value:string) => correlationId = value
+export let setCorrelationId = (value: string) => correlationId = value
 
-addAppender(new ExecutionLogAppender())
+// if we're executing client side, default to using the browser console for logging to avoid
+// expensive network round trips to the NS execution log.
+
+switch (runtime.executionContext) {
+   case runtime.ContextType.CLIENT:
+   case runtime.ContextType.USER_INTERFACE:
+      addAppender(new ConsoleAppender())
+      break
+   default:
+      addAppender(new ExecutionLogAppender())
+}
 
 
