@@ -40,8 +40,8 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "aurelia-logging-console": "https://github.com/aurelia/logging-console#372bf5ccb583fd93341aeef66df1f2195172a6d3",
-    "aurelia-logging": "1.5.0",
+    "aurelia-logging-console": "^1.1.0",
+    "aurelia-logging": "1.5.1",
     "fs-extra": "^2.1.2",
     "immutable": "^3.8.2",
     "lodash": "^4.15.0",

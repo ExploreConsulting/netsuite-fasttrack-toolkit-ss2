@@ -5,13 +5,14 @@
 
 import * as moment from './moment'
 import { Logger, addAppender, logLevel, getLogger, Appender } from './aurelia-logging'
+// noinspection TypeScriptPreferShortImport
 import { ConsoleAppender } from './aurelia-logging-console'
 import * as nslog from 'N/log'
 import * as runtime from 'N/runtime'
 import * as aop from './aop'
 import * as _ from './lodash'
 
-export { getLogger, Logger, logLevel } from './aurelia-logging'
+export {logLevel, Logger, getAppenders, clearAppenders, addAppender, getLogger, removeAppender, addCustomLevel, getLevel, setLevel, removeCustomLevel, Appender} from './aurelia-logging'
 
 /**
  * Value to be prepended to each log message title. Defaults to a random 4 digit integer
@@ -132,35 +133,37 @@ export function autoLogMethodEntryExit (methodsToLogEntryExit: { target: Object,
 
    if (!config) config = {}
    // include method parameters by default
-   let withArgs = config.withArgs !== false
+   const withArgs = config.withArgs !== false
    // include return values by default
-   let withReturnValue = config.withReturnValue !== false
+   const withReturnValue = config.withReturnValue !== false
    // default to not show profiling info
-   let withProfiling = config.withProfiling === true
+   const withProfiling = config.withProfiling === true
    // default to not show governance info
-   let withGovernance = config.withGovernance === true
-   // logger on which to autolog, default to the top level 'Default' logger used by scripts
-   let logger = config.logger || DefaultLogger
+   const withGovernance = config.withGovernance === true
+   // logger name on which to autolog, default to the top level 'Default' logger used by scripts
+   const logger = config.logger || DefaultLogger
+   // logging level specified in config else default to debug. need to translate from number loglevels back to names
+   const level = _.findKey(logLevel, o => o === (config!.logLevel || logLevel.debug))!
 
    return aop.around(methodsToLogEntryExit, function (invocation) {
       // record function entry with details for every method on our explore object
-      log(config!.logLevel || logLevel.debug, logger, `Enter ${invocation.method}() ${getGovernanceMessage(withGovernance)}`,
-         withArgs ? 'args: ' + JSON.stringify(arguments[0].arguments) : null)
-      let startTime = moment()
-      let retval = invocation.proceed()
-      let elapsedMessage
+      const entryTitle = `Enter ${invocation.method}() ${getGovernanceMessage(withGovernance)}`
+      const entryDetail = withArgs ? `args: ${JSON.stringify(arguments[0].arguments)}` : null
+
+      logger[level](entryTitle, entryDetail)
+
+      const startTime = moment()
+      const retval = invocation.proceed()
+      let elapsedMessage = ''
       if (withProfiling) {
          let elapsedMilliseconds = moment().diff(startTime)
          elapsedMessage = elapsedMilliseconds + 'ms = ' +
             moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + ' minutes'
       }
-      // record function exit for every method on our explore object
-      log(config!.logLevel || logLevel.debug, logger,
-         [`Exit ${invocation.method}()`,
-            elapsedMessage,
-            getGovernanceMessage(withGovernance)].join(' ').trim(),
-         withReturnValue ? 'returned: ' + JSON.stringify(retval) : null)
 
+      const exitTitle = `Exit ${invocation.method}(): ${elapsedMessage} ${getGovernanceMessage(withGovernance)}`
+      const exitDetail = withReturnValue ? `returned: ${JSON.stringify(retval)}` : null
+      logger[level](exitTitle, exitDetail)
       return retval
    })
 }
@@ -178,11 +181,20 @@ export interface AutoLogConfig {
     */
    withReturnValue?: boolean
    /**
-    *
+    * If true, including function (execution time) statistics
     */
    withProfiling?: boolean
+   /**
+    * If true, includes governance before and after function execution
+    */
    withGovernance?: boolean
+   /**
+    * Name of logger to use for autologging, defaults to 'default'
+    */
    logger?: Logger
+   /**
+    * The logging level autologging uses - defaults to 'debug'
+    */
    logLevel?: number
 }
 

@@ -15,15 +15,24 @@
     Object.defineProperty(exports, "__esModule", { value: true });
     var moment = require("./moment");
     var aurelia_logging_1 = require("./aurelia-logging");
+    // noinspection TypeScriptPreferShortImport
     var aurelia_logging_console_1 = require("./aurelia-logging-console");
     var nslog = require("N/log");
     var runtime = require("N/runtime");
     var aop = require("./aop");
     var _ = require("./lodash");
     var aurelia_logging_2 = require("./aurelia-logging");
-    exports.getLogger = aurelia_logging_2.getLogger;
-    exports.Logger = aurelia_logging_2.Logger;
     exports.logLevel = aurelia_logging_2.logLevel;
+    exports.Logger = aurelia_logging_2.Logger;
+    exports.getAppenders = aurelia_logging_2.getAppenders;
+    exports.clearAppenders = aurelia_logging_2.clearAppenders;
+    exports.addAppender = aurelia_logging_2.addAppender;
+    exports.getLogger = aurelia_logging_2.getLogger;
+    exports.removeAppender = aurelia_logging_2.removeAppender;
+    exports.addCustomLevel = aurelia_logging_2.addCustomLevel;
+    exports.getLevel = aurelia_logging_2.getLevel;
+    exports.setLevel = aurelia_logging_2.setLevel;
+    exports.removeCustomLevel = aurelia_logging_2.removeCustomLevel;
     /**
      * Value to be prepended to each log message title. Defaults to a random 4 digit integer
      * @type {string}
@@ -161,23 +170,26 @@
         var withProfiling = config.withProfiling === true;
         // default to not show governance info
         var withGovernance = config.withGovernance === true;
-        // logger on which to autolog, default to the top level 'Default' logger used by scripts
+        // logger name on which to autolog, default to the top level 'Default' logger used by scripts
         var logger = config.logger || exports.DefaultLogger;
+        // logging level specified in config else default to debug. need to translate from number loglevels back to names
+        var level = _.findKey(aurelia_logging_1.logLevel, function (o) { return o === (config.logLevel || aurelia_logging_1.logLevel.debug); });
         return aop.around(methodsToLogEntryExit, function (invocation) {
             // record function entry with details for every method on our explore object
-            log(config.logLevel || aurelia_logging_1.logLevel.debug, logger, "Enter " + invocation.method + "() " + getGovernanceMessage(withGovernance), withArgs ? 'args: ' + JSON.stringify(arguments[0].arguments) : null);
+            var entryTitle = "Enter " + invocation.method + "() " + getGovernanceMessage(withGovernance);
+            var entryDetail = withArgs ? "args: " + JSON.stringify(arguments[0].arguments) : null;
+            logger[level](entryTitle, entryDetail);
             var startTime = moment();
             var retval = invocation.proceed();
-            var elapsedMessage;
+            var elapsedMessage = '';
             if (withProfiling) {
                 var elapsedMilliseconds = moment().diff(startTime);
                 elapsedMessage = elapsedMilliseconds + 'ms = ' +
                     moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + ' minutes';
             }
-            // record function exit for every method on our explore object
-            log(config.logLevel || aurelia_logging_1.logLevel.debug, logger, ["Exit " + invocation.method + "()",
-                elapsedMessage,
-                getGovernanceMessage(withGovernance)].join(' ').trim(), withReturnValue ? 'returned: ' + JSON.stringify(retval) : null);
+            var exitTitle = "Exit " + invocation.method + "(): " + elapsedMessage + " " + getGovernanceMessage(withGovernance);
+            var exitDetail = withReturnValue ? "returned: " + JSON.stringify(retval) : null;
+            logger[level](exitTitle, exitDetail);
             return retval;
         });
     }
