@@ -8,15 +8,13 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./moment", "./aurelia-logging", "./aurelia-logging-console", "N/log", "N/runtime", "./aop", "./lodash", "./aurelia-logging"], factory);
+        define(["require", "exports", "./moment", "./aurelia-logging", "N/log", "N/runtime", "./aop", "./lodash", "./aurelia-logging"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var moment = require("./moment");
     var aurelia_logging_1 = require("./aurelia-logging");
-    // noinspection TypeScriptPreferShortImport
-    var aurelia_logging_console_1 = require("./aurelia-logging-console");
     var nslog = require("N/log");
     var runtime = require("N/runtime");
     var aop = require("./aop");
@@ -204,13 +202,15 @@
      */
     exports.setCorrelationId = function (value) { return exports.correlationId = value; };
     // if we're executing client side, default to using the browser console for logging to avoid
-    // expensive network round trips to the NS execution log.
-    switch (runtime.executionContext) {
-        case runtime.ContextType.CLIENT:
-        case runtime.ContextType.USER_INTERFACE:
-            aurelia_logging_1.addAppender(new aurelia_logging_console_1.ConsoleAppender());
-            break;
-        default:
-            aurelia_logging_1.addAppender(new ExecutionLogAppender());
+    // expensive network round trips to the NS execution log. aurelia-logging-console depends upon the
+    // global 'console' variable and will fail to load if it's not defined.
+    // @ts-ignore
+    if (typeof window.console != 'undefined') {
+        require(['./aurelia-logging-console'], function (alc) {
+            console.debug('** adding console appender **');
+            aurelia_logging_1.addAppender(new alc.ConsoleAppender());
+        });
     }
+    else
+        aurelia_logging_1.addAppender(new ExecutionLogAppender());
 });

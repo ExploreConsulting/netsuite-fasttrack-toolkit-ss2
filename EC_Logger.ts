@@ -4,15 +4,26 @@
  */
 
 import * as moment from './moment'
-import { Logger, addAppender, logLevel, getLogger, Appender } from './aurelia-logging'
-// noinspection TypeScriptPreferShortImport
-import { ConsoleAppender } from './aurelia-logging-console'
+import { Logger, addAppender, logLevel, getLogger, Appender, clearAppenders } from './aurelia-logging'
 import * as nslog from 'N/log'
 import * as runtime from 'N/runtime'
 import * as aop from './aop'
 import * as _ from './lodash'
 
-export {logLevel, Logger, getAppenders, clearAppenders, addAppender, getLogger, removeAppender, addCustomLevel, getLevel, setLevel, removeCustomLevel, Appender} from './aurelia-logging'
+export {
+   logLevel,
+   Logger,
+   getAppenders,
+   clearAppenders,
+   addAppender,
+   getLogger,
+   removeAppender,
+   addCustomLevel,
+   getLevel,
+   setLevel,
+   removeCustomLevel,
+   Appender
+} from './aurelia-logging'
 
 /**
  * Value to be prepended to each log message title. Defaults to a random 4 digit integer
@@ -207,18 +218,22 @@ export let DefaultLogger: Logger = defaultLogger
  * Use to set the correlation id to a value other than the default random number
  * @param value new correlation id, will be used on all subsequent logging
  */
-export let setCorrelationId = (value: string) => correlationId = value
+export const setCorrelationId = (value: string) => correlationId = value
 
+/**
+ * NetSuite also declares a function like this
+ * @param deps
+ */
+declare function require(deps:string[], cb: (...args:any[]) => void)
 // if we're executing client side, default to using the browser console for logging to avoid
-// expensive network round trips to the NS execution log.
-
-switch (runtime.executionContext) {
-   case runtime.ContextType.CLIENT:
-   case runtime.ContextType.USER_INTERFACE:
-      addAppender(new ConsoleAppender())
-      break
-   default:
-      addAppender(new ExecutionLogAppender())
-}
+// expensive network round trips to the NS execution log. aurelia-logging-console depends upon the
+// global 'console' variable and will fail to load if it's not defined.
+// @ts-ignore
+if (typeof window.console != 'undefined') {
+   require(['./aurelia-logging-console'], alc => {
+      console.debug('** adding console appender **')
+      addAppender(new alc.ConsoleAppender())
+   })
+} else addAppender(new ExecutionLogAppender())
 
 
