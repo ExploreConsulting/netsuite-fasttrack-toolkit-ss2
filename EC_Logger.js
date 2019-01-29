@@ -48,7 +48,7 @@
      * @param enable if true, adds correlationid to the log messages, otherwise no correlation id prefix is added
      */
     exports.setIncludeCorrelationId = function (enable) { return exports.includeCorrelationId = enable; };
-    // invokes the nsdal log function and handles adding a title tag
+    // internal function to invoke the ns log function and handles adding a title tag
     function log(loglevel, logger) {
         var rest = [];
         for (var _i = 2; _i < arguments.length; _i++) {
@@ -205,10 +205,11 @@
     // expensive network round trips to the NS execution log. aurelia-logging-console depends upon the
     // global 'console' variable and will fail to load if it's not defined.
     // @ts-ignore
-    if (typeof window.console != 'undefined') {
+    if (typeof console === 'object' /* exclude node? && typeof module !== 'object' */) {
         require(['./aurelia-logging-console'], function (alc) {
             console.debug('** adding console appender **');
             aurelia_logging_1.addAppender(new alc.ConsoleAppender());
+            defaultLogger.debug('added console appender');
         });
     }
     else

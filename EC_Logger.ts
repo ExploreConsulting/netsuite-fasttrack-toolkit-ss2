@@ -4,7 +4,7 @@
  */
 
 import * as moment from './moment'
-import { Logger, addAppender, logLevel, getLogger, Appender, clearAppenders } from './aurelia-logging'
+import { addAppender, Appender, clearAppenders, getLogger, Logger, logLevel } from './aurelia-logging'
 import * as nslog from 'N/log'
 import * as runtime from 'N/runtime'
 import * as aop from './aop'
@@ -45,7 +45,7 @@ export let includeCorrelationId = false
  */
 export let setIncludeCorrelationId = (enable: boolean) => includeCorrelationId = enable
 
-// invokes the nsdal log function and handles adding a title tag
+// internal function to invoke the ns log function and handles adding a title tag
 function log (loglevel: number, logger: Logger, ...rest: any[]) {
    let [title, details] = rest
    let prefix = ''
@@ -221,18 +221,20 @@ export let DefaultLogger: Logger = defaultLogger
 export const setCorrelationId = (value: string) => correlationId = value
 
 /**
- * NetSuite also declares a function like this
- * @param deps
+ * NetSuite also declares a require() function like this
+ * @param deps dependencies
+ * @param cb the callback to invoke when the dependencies are resolved
  */
 declare function require(deps:string[], cb: (...args:any[]) => void)
 // if we're executing client side, default to using the browser console for logging to avoid
 // expensive network round trips to the NS execution log. aurelia-logging-console depends upon the
 // global 'console' variable and will fail to load if it's not defined.
 // @ts-ignore
-if (typeof window.console != 'undefined') {
+if (typeof console === 'object' /* exclude node? && typeof module !== 'object' */) {
    require(['./aurelia-logging-console'], alc => {
       console.debug('** adding console appender **')
       addAppender(new alc.ConsoleAppender())
+      defaultLogger.debug('added console appender')
    })
 } else addAppender(new ExecutionLogAppender())
 
