@@ -201,16 +201,21 @@
      * @param value new correlation id, will be used on all subsequent logging
      */
     exports.setCorrelationId = function (value) { return exports.correlationId = value; };
+    function addConsoleAppender(alc) {
+        console.debug('** adding console appender **');
+        aurelia_logging_1.addAppender(new alc.ConsoleAppender());
+        defaultLogger.debug('added console appender');
+    }
     // if we're executing client side, default to using the browser console for logging to avoid
     // expensive network round trips to the NS execution log. aurelia-logging-console depends upon the
     // global 'console' variable and will fail to load if it's not defined.
-    // @ts-ignore
-    if (typeof console === 'object' /* exclude node? && typeof module !== 'object' */) {
-        require(['./aurelia-logging-console'], function (alc) {
-            console.debug('** adding console appender **');
-            aurelia_logging_1.addAppender(new alc.ConsoleAppender());
-            defaultLogger.debug('added console appender');
-        });
+    if (typeof console === 'object') {
+        var isNodeJS = typeof module === 'object';
+        // if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require()
+        if (isNodeJS)
+            addConsoleAppender(require('aurelia-logging-console'));
+        else
+            require(['./aurelia-logging-console'], addConsoleAppender);
     }
     else
         aurelia_logging_1.addAppender(new ExecutionLogAppender());

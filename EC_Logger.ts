@@ -220,22 +220,31 @@ export let DefaultLogger: Logger = defaultLogger
  */
 export const setCorrelationId = (value: string) => correlationId = value
 
+
+function addConsoleAppender( alc:any ) {
+   console.debug('** adding console appender **')
+   addAppender(new alc.ConsoleAppender())
+   defaultLogger.debug('added console appender')
+}
+
 /**
- * NetSuite also declares a require() function like this
+ * NetSuite also declares a require() function to accept an array and callback (AMD)
+ * this declaration is to allow either nodejs-style or netsuite style require calls used below
  * @param deps dependencies
  * @param cb the callback to invoke when the dependencies are resolved
  */
-declare function require(deps:string[], cb: (...args:any[]) => void)
+declare function require(deps:string | string[], cb?: (...args:any[]) => void)
+
 // if we're executing client side, default to using the browser console for logging to avoid
 // expensive network round trips to the NS execution log. aurelia-logging-console depends upon the
 // global 'console' variable and will fail to load if it's not defined.
-// @ts-ignore
-if (typeof console === 'object' /* exclude node? && typeof module !== 'object' */) {
-   require(['./aurelia-logging-console'], alc => {
-      console.debug('** adding console appender **')
-      addAppender(new alc.ConsoleAppender())
-      defaultLogger.debug('added console appender')
-   })
+if (typeof console === 'object') {
+
+   const isNodeJS = typeof module === 'object'
+   // if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require()
+   if (isNodeJS) addConsoleAppender(require('aurelia-logging-console'))
+   else require(['./aurelia-logging-console'], addConsoleAppender )
+
 } else addAppender(new ExecutionLogAppender())
 
 
