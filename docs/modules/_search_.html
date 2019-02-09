@@ -64,6 +64,17 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>This module provides a lazy, functional processing approach to working with NetSuite saved searches.
+						It automatically handles paging behind the scenes allowing the developer to focus on &#39;per result&#39; business logic.</p>
+					</div>
+					<p>Use <code>LazySearch.from()</code> and <code>LazySearch.load()</code> to get started.
+						Turn search results into plain objects using <code>nsSearchResult2obj()</code> and leverage
+					the methods of <a href="https://facebook.github.io/immutable-js/">ImmutableJS</a> to process search results.</p>
+				</div>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -97,9 +108,14 @@
 					<div class="tsd-signature tsd-kind-icon">Object<wbr>With<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/search.ts#L19">search.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/b37a34d/search.ts#L26">search.ts:26</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p> Any object that includes an &#39;id&#39; property, which NS search results always have</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -114,7 +130,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/search.ts#L38">search.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/b37a34d/search.ts#L52">search.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -123,10 +139,12 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>example</dt>
-									<dd><p> // default (uses column labels if present)
-										Seq(LazySearch.load(1234)).map(nsSearchResult2obj()).forEach(...)</p>
-										<p> // force ignoring search column labels
-										Seq(LazySearch.load(1234)).map(nsSearchResult2obj(false)).forEach(...)</p>
+									<dd><pre><code class="language-typescript"> <span class="hljs-comment">// default (uses column labels if present)</span>
+ Seq(LazySearch.load(<span class="hljs-number">1234</span>)).map(nsSearchResult2obj()).forEach(...)
+
+ <span class="hljs-comment">// force ignoring search column labels</span>
+ Seq(LazySearch.load(<span class="hljs-number">1234</span>)).map(nsSearchResult2obj(<span class="hljs-literal">false</span>)).forEach(...)
+</code></pre>
 									</dd>
 								</dl>
 							</div>
@@ -134,6 +152,11 @@
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>T</h4>
+									<div class="tsd-comment tsd-typography">
+										<p>declares the shape of the plain objects returned. e.g. <code>nsSearchResult2obj&lt;{ companyname, memo }&gt;</code> for a search result
+											that has columns <em>companyname</em> and <em>memo</em>. Including an optional type here ensures strong typing on followup chained
+										method calls.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>

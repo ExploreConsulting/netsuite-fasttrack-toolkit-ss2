@@ -70,7 +70,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>makes a NetSuite search an ES2015 style Iterator. That is, it follows the Iterator Protocol for iterating
+						<p>Makes a NetSuite search an ES2015 style Iterator. That is, it follows the Iterator Protocol for iterating
 							over search results in a forward-only fashion. The result can be passed to any library
 							that accepts Iterators (such as ImmutableJS)
 						to provide easy chainable logic on arbitrary length search result sets.</p>
@@ -82,9 +82,9 @@
 					road this class would be useful - i.e. it remains untied to any particular library.</p>
 					<dl class="tsd-comment-tags">
 						<dt>example</dt>
-						<dd><p>using immutablejs Sequence
-								import {Seq} from &#39;immutable&#39;
-							const oneResult = Seq(LazySearch.load(&#39;1234&#39;)).map(nsSearchResult2obj).take(1)</p>
+						<dd><p>take the first result of a search as a plain object</p>
+							<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {Seq} <span class="hljs-keyword">from</span> <span class="hljs-string">'./NFT-X.Y.Z/immutable'</span>
+<span class="hljs-keyword">const</span> oneResult = Seq(LazySearch.load(<span class="hljs-string">'1234'</span>)).map(nsSearchResult2obj()).take(<span class="hljs-number">1</span>)</code></pre>
 						</dd>
 					</dl>
 				</div>
@@ -110,11 +110,6 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_search_.lazysearch.html#currentdata" class="tsd-kind-icon">current<wbr>Data</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_search_.lazysearch.html#currentpage" class="tsd-kind-icon">current<wbr>Page</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_search_.lazysearch.html#index" class="tsd-kind-icon">index</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_search_.lazysearch.html#log" class="tsd-kind-icon">log</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_search_.lazysearch.html#pageddata" class="tsd-kind-icon">paged<wbr>Data</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_search_.lazysearch.html#logname" class="tsd-kind-icon">LOGNAME</a></li>
 							</ul>
 						</section>
@@ -131,65 +126,20 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="currentdata" class="tsd-anchor"></a>
-					<h3>current<wbr>Data</h3>
-					<div class="tsd-signature tsd-kind-icon">current<wbr>Data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Result</span><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/search.ts#L104">search.ts:104</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="currentpage" class="tsd-anchor"></a>
-					<h3>current<wbr>Page</h3>
-					<div class="tsd-signature tsd-kind-icon">current<wbr>Page<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Page</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/search.ts#L102">search.ts:102</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="index" class="tsd-anchor"></a>
-					<h3>index</h3>
-					<div class="tsd-signature tsd-kind-icon">index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/search.ts#L106">search.ts:106</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="log" class="tsd-anchor"></a>
-					<h3>log</h3>
-					<div class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/search.ts#L98">search.ts:98</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="pageddata" class="tsd-anchor"></a>
-					<h3>paged<wbr>Data</h3>
-					<div class="tsd-signature tsd-kind-icon">paged<wbr>Data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PagedData</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/search.ts#L100">search.ts:100</a></li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="logname" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> LOGNAME</h3>
 					<div class="tsd-signature tsd-kind-icon">LOGNAME<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;lazy&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/search.ts#L75">search.ts:75</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/b37a34d/search.ts#L93">search.ts:93</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the name of the custom logger for this component for independent logging control</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -204,7 +154,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/search.ts#L135">search.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/b37a34d/search.ts#L185">search.ts:185</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -212,6 +162,7 @@
 									<p>per the iterator protocol, retrieves the next element. Also returns <code>null</code> if done as the specification for
 									the protocol says the value property is optional when &#39;done&#39;</p>
 								</div>
+								<p>You don&#39;t typically call this function yourself - libraries like ImmutableJS do.</p>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IteratorResult</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Result</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -227,13 +178,29 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/search.ts#L93">search.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/b37a34d/search.ts#L141">search.ts:141</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>creates a lazy search from an existing NS search</p>
+									<p>Creates a lazy search from an existing NS search.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>create a search and begin lazy processing of results</p>
+										<pre><code><span class="hljs-keyword">import</span> {Seq} from './NFT-X.Y.Z/immutable'
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> search from 'N/search
+<span class="hljs-keyword">import</span> {governanceRemains, LazySearch, nsSearchResult2obj} from './NFT-X.Y.Z/search'
+
+Seq(LazySearch.from(search.create({
+   filters: [[<span class="hljs-string">'internalid'</span>, <span class="hljs-string">'anyof'</span>, [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]),
+   columns:[<span class="hljs-string">'item'</span>, <span class="hljs-string">'description'</span>],
+   type: search.Type.ITEM,
+ })))
+  .takeWhile(governanceRemains()) <span class="hljs-comment">// process until we drop below default governance threshold</span>
+  .map(nsSearchResult2obj()) <span class="hljs-comment">// convert search results to plain objects with properties</span>
+  .forEach( r =&gt; <span class="hljs-built_in">log</span>.debug(r))</code></pre></dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -258,21 +225,40 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/search.ts#L83">search.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/b37a34d/search.ts#L114">search.ts:114</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Loads an existing NS search by id and prepares it for lazy evaluation</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>do something for each search result, automatically exiting if out of governance.</p>
+										<pre><code class="language-typescript">
+<span class="hljs-keyword">import</span> {Seq} <span class="hljs-keyword">from</span> <span class="hljs-string">'./NFT-X.Y.Z/immutable'</span>
+<span class="hljs-keyword">import</span> {governanceRemains, LazySearch, nsSearchResult2obj} <span class="hljs-keyword">from</span> <span class="hljs-string">'./NFT-X.Y.Z/search'</span>
+
+Seq(LazySearch.load(<span class="hljs-string">'1234'</span>))
+  .takeWhile(governanceRemains()) <span class="hljs-comment">// process until we drop below default governance threshold</span>
+  .map(nsSearchResult2obj()) <span class="hljs-comment">// convert search results to plain objects with properties</span>
+  .forEach( <span class="hljs-function"><span class="hljs-params">r</span> =&gt;</span> log.debug(r))</code></pre>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>id: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>internal id of the search to load</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> pageSize: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>how many records to retrieve per page (paging is automatic) Maximum value: 1000</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_search_.lazysearch.html" class="tsd-signature-type">LazySearch</a></h4>
@@ -299,21 +285,6 @@
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_search_.lazysearch.html" class="tsd-kind-icon">Lazy<wbr>Search</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_search_.lazysearch.html#currentdata" class="tsd-kind-icon">current<wbr>Data</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_search_.lazysearch.html#currentpage" class="tsd-kind-icon">current<wbr>Page</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_search_.lazysearch.html#index" class="tsd-kind-icon">index</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_search_.lazysearch.html#log" class="tsd-kind-icon">log</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_search_.lazysearch.html#pageddata" class="tsd-kind-icon">paged<wbr>Data</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
 								<a href="_search_.lazysearch.html#logname" class="tsd-kind-icon">LOGNAME</a>
 							</li>
