@@ -30,6 +30,7 @@
     "merge-stream": "^1.0.0",
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
+    "typedoc": "^0.14.2",
     "typescript": "^3.3.1"
   },
   "repository": {
@@ -40,8 +41,8 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "aurelia-logging-console": "^1.1.0",
     "aurelia-logging": "1.5.1",
+    "aurelia-logging-console": "^1.1.0",
     "fs-extra": "^2.1.2",
     "immutable": "^3.8.2",
     "lodash": "^4.15.0",

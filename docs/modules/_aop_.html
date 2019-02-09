@@ -1,0 +1,411 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>&quot;aop&quot; | NetSuite FastTrack Toolkit (NFT)</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">NetSuite FastTrack Toolkit (NFT)</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="_aop_.html">&quot;aop&quot;</a>
+				</li>
+			</ul>
+			<h1>External module &quot;aop&quot;</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_aop_.html#aop" class="tsd-kind-icon">aop</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
+					<a name="aop" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagExport assignment">Export assignment</span> aop</h3>
+					<div class="tsd-signature tsd-kind-icon">aop<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;(function() {var _after			&#x3D; 1;var _afterThrow		&#x3D; 2;var _afterFinally	&#x3D; 3;var _before			&#x3D; 4;var _around			&#x3D; 5;var _intro			&#x3D; 6;var _regexEnabled &#x3D; true;var _arguments &#x3D; &#x27;arguments&#x27;;var _undef &#x3D; &#x27;undefined&#x27;;var isFunc &#x3D; function(obj:any) { return typeof(obj) &#x3D;&#x3D; &#x27;function&#x27;; };/*** Private weaving function.*/var weaveOne &#x3D; function(source:any, method:any, advice:any) {var old &#x3D; source[method];// Work-around IE6/7 behavior on some native method that return object instancesif (advice.type !&#x3D; _intro &amp;&amp; !isFunc(old)) {var oldObject &#x3D; old;old &#x3D; function() {var code &#x3D; arguments.length &gt; 0 ? _arguments + &#x27;[0]&#x27; : &#x27;&#x27;;for (var i&#x3D;1;i&lt;arguments.length;i++) {code +&#x3D; &#x27;,&#x27; + _arguments + &#x27;[&#x27; + i + &#x27;]&#x27;;}return eval(&#x27;oldObject(&#x27; + code + &#x27;);&#x27;);};}var aspect:any;if (advice.type &#x3D;&#x3D; _after || advice.type &#x3D;&#x3D; _afterThrow || advice.type &#x3D;&#x3D; _afterFinally)aspect &#x3D; function() {var returnValue, exceptionThrown &#x3D; null;try {returnValue &#x3D; old.apply(this, arguments);} catch (e) {exceptionThrown &#x3D; e;}if (advice.type &#x3D;&#x3D; _after)if (exceptionThrown &#x3D;&#x3D; null)returnValue &#x3D; advice.value.apply(this, [returnValue, method]);elsethrow exceptionThrown;else if (advice.type &#x3D;&#x3D; _afterThrow &amp;&amp; exceptionThrown !&#x3D; null)returnValue &#x3D; advice.value.apply(this, [exceptionThrown, method]);else if (advice.type &#x3D;&#x3D; _afterFinally)returnValue &#x3D; advice.value.apply(this, [returnValue, exceptionThrown, method]);return returnValue;};else if (advice.type &#x3D;&#x3D; _before)aspect &#x3D; function() {advice.value.apply(this, [arguments, method]);return old.apply(this, arguments);};else if (advice.type &#x3D;&#x3D; _intro)aspect &#x3D; function() {return advice.value.apply(this, arguments);};else if (advice.type &#x3D;&#x3D; _around) {aspect &#x3D; function() {var invocation &#x3D; { object: this, args: Array.prototype.slice.call(arguments) };return advice.value.apply(invocation.object, [{ arguments: invocation.args, method: method, proceed :function() {return old.apply(invocation.object, invocation.args);}}] );};}aspect.unweave &#x3D; function() {source[method] &#x3D; old;source &#x3D; aspect &#x3D; old &#x3D; null;};source[method] &#x3D; aspect;return aspect;};/*** Private method search*/var search &#x3D; function(source, pointcut, advice) {var methods: any[] &#x3D; [];for (var method in source) {var item &#x3D; null;// Ignore exceptions during method retrivaltry {item &#x3D; source[method];}catch (e) { }if (item !&#x3D; null &amp;&amp; method.match(pointcut.method) &amp;&amp; isFunc(item))methods[methods.length] &#x3D; { source: source, method: method, advice: advice };}return methods;};/*** Private weaver and pointcut parser.*/var weave &#x3D; function(pointcut:any, advice:any) {var source &#x3D; typeof(pointcut.target.prototype) !&#x3D; _undef ? pointcut.target.prototype : pointcut.target;var advices : any[] &#x3D; [];// If it&#x27;s not an introduction and no method was found, try with regex...if (advice.type !&#x3D; _intro &amp;&amp; typeof(source[pointcut.method]) &#x3D;&#x3D; _undef) {// First try directly on targetvar methods &#x3D; search(pointcut.target, pointcut, advice);// No method found, re-try directly on prototypeif (methods.length &#x3D;&#x3D; 0)methods &#x3D; search(source, pointcut, advice);for (var i&#x3D; 0; i &lt; methods.length; i++)advices[advices.length] &#x3D; weaveOne(methods[i].source, methods[i].method, methods[i].advice);}else{// Return as an array of one elementadvices[0] &#x3D; weaveOne(source, pointcut.method, advice);}return _regexEnabled ? advices : advices[0];};return 	{/*** Creates an advice after the defined point-cut. The advice will be executed after the point-cut method* has completed execution successfully, and will receive one parameter with the result of the execution.* This function returns an array of weaved aspects (Function).** @example aop.after( {target: window, method: &#x27;MyGlobalMethod&#x27;}, function(result) {*                alert(&#x27;Returned: &#x27; + result);*                return result;*          } );* @result Array&lt;Function&gt;** @example aop.after( {target: String, method: &#x27;indexOf&#x27;}, function(index) {*                alert(&#x27;Result found at: &#x27; + index + &#x27; on:&#x27; + this);*                return index;*          } );* @result Array&lt;Function&gt;** @name after* @param Map pointcut Definition of the point-cut to apply the advice. A point-cut is the definition of the object/s and method/s to be weaved.* @option Object target Target object to be weaved.* @option String method Name of the function to be weaved. Regex are supported, but not on built-in objects.* @param Function advice Function containing the code that will get called after the execution of the point-cut. It receives one parameter*                        with the result of the point-cut&#x27;s execution. The function can choose to return this same value or a different one.** @type Array&lt;Function&gt;* @cat Plugins/General*/after : function(pointcut:any, advice:any){return weave( pointcut, { type: _after, value: advice } );},/*** Creates an advice after the defined point-cut only for unhandled exceptions. The advice will be executed* after the point-cut method only if the execution failed and an exception has been thrown. It will receive one* parameter with the exception thrown by the point-cut method.* This function returns an array of weaved aspects (Function).** @example aop.afterThrow( {target: String, method: &#x27;indexOf&#x27;}, function(exception) {*                alert(&#x27;Unhandled exception: &#x27; + exception);*                return -1;*          } );* @result Array&lt;Function&gt;** @example aop.afterThrow( {target: calculator, method: &#x27;Calculate&#x27;}, function(exception) {*                console.log(&#x27;Unhandled exception: &#x27; + exception);*                throw exception;*          } );* @result Array&lt;Function&gt;** @name afterThrow* @param Map pointcut Definition of the point-cut to apply the advice. A point-cut is the definition of the object/s and method/s to be weaved.* @option Object target Target object to be weaved.* @option String method Name of the function to be weaved. Regex are supported, but not on built-in objects.* @param Function advice Function containing the code that will get called after the execution of the point-cut. It receives one parameter*                        with the exception thrown by the point-cut method.** @type Array&lt;Function&gt;* @cat Plugins/General*/afterThrow : function(pointcut, advice){return weave( pointcut, { type: _afterThrow, value: advice } );},/*** Creates an advice after the defined point-cut. The advice will be executed after the point-cut method* regardless of its success or failure, and it will receive two parameters: one with the* result of a successful execution or null, and another one with the exception thrown or null.* This function returns an array of weaved aspects (Function).** @example aop.afterFinally( {target: window, method: &#x27;MyGlobalMethod&#x27;}, function(result, exception) {*                if (exception &#x3D;&#x3D; null)*                    return &#x27;Returned: &#x27; + result;*                else*                    return &#x27;Unhandled exception: &#x27; + exception;*          } );* @result Array&lt;Function&gt;** @name afterFinally* @param Map pointcut Definition of the point-cut to apply the advice. A point-cut is the definition of the object/s and method/s to be weaved.* @option Object target Target object to be weaved.* @option String method Name of the function to be weaved. Regex are supported, but not on built-in objects.* @param Function advice Function containing the code that will get called after the execution of the point-cut regardless of its success or failure.*                        It receives two parameters, the first one with the result of a successful execution or null, and the second one with the*                        exception or null.** @type Array&lt;Function&gt;* @cat Plugins/General*/afterFinally : function(pointcut:any, advice:any){return weave( pointcut, { type: _afterFinally, value: advice } );},/*** Creates an advice before the defined point-cut. The advice will be executed before the point-cut method* but cannot modify the behavior of the method, or prevent its execution.* This function returns an array of weaved aspects (Function).** @example aop.before( {target: window, method: &#x27;MyGlobalMethod&#x27;}, function() {*                alert(&#x27;About to execute MyGlobalMethod&#x27;);*          } );* @result Array&lt;Function&gt;** @example aop.before( {target: String, method: &#x27;indexOf&#x27;}, function(index) {*                alert(&#x27;About to execute String.indexOf on: &#x27; + this);*          } );* @result Array&lt;Function&gt;** @name before* @param Map pointcut Definition of the point-cut to apply the advice. A point-cut is the definition of the object/s and method/s to be weaved.* @option Object target Target object to be weaved.* @option String method Name of the function to be weaved. Regex are supported, but not on built-in objects.* @param Function advice Function containing the code that will get called before the execution of the point-cut.** @type Array&lt;Function&gt;* @cat Plugins/General*/before : function(pointcut:any, advice:any){return weave( pointcut, { type: _before, value: advice } );},/*** Creates an advice &#x27;around&#x27; the defined point-cut. This type of advice can control the point-cut method execution by calling* the functions &#x27;.proceed()&#x27; on the &#x27;invocation&#x27; object, and also, can modify the arguments collection before sending them to the function call.* This function returns an array of weaved aspects (Function).** @example aop.around( {target: window, method: &#x27;MyGlobalMethod&#x27;}, function(invocation) {*                alert(&#x27;# of Arguments: &#x27; + invocation.arguments.length);*                return invocation.proceed();*          } );* @result Array&lt;Function&gt;** @example aop.around( {target: String, method: &#x27;indexOf&#x27;}, function(invocation) {*                alert(&#x27;Searching: &#x27; + invocation.arguments[0] + &#x27; on: &#x27; + this);*                return invocation.proceed();*          } );* @result Array&lt;Function&gt;** @example aop.around( {target: window, method: /Get(\d+)/}, function(invocation) {*                alert(&#x27;Executing &#x27; + invocation.method);*                return invocation.proceed();*          } );* @desc Matches all global methods starting with &#x27;Get&#x27; and followed by a number.* @result Array&lt;Function&gt;*** @name around* @param Map pointcut Definition of the point-cut to apply the advice. A point-cut is the definition of the object/s and method/s to be weaved.* @option Object target Target object to be weaved.* @option String method Name of the function to be weaved. Regex are supported, but not on built-in objects.* @param Function advice Function containing the code that will get called around the execution of the point-cut. This advice will be called with one*                        argument containing one function &#x27;.proceed()&#x27;, the collection of arguments &#x27;.arguments&#x27;, and the matched method name &#x27;.method&#x27;.** @type Array&lt;Function&gt;* @cat Plugins/General*/around : function(pointcut, advice){return weave( pointcut, { type: _around, value: advice } );},/*** Creates an introduction on the defined point-cut. This type of advice replaces any existing methods with the same* name. To restore them, just unweave it.* This function returns an array with only one weaved aspect (Function).** @example aop.introduction( {target: window, method: &#x27;MyGlobalMethod&#x27;}, function(result) {*                alert(&#x27;Returned: &#x27; + result);*          } );* @result Array&lt;Function&gt;** @example aop.introduction( {target: String, method: &#x27;log&#x27;}, function() {*                alert(&#x27;Console: &#x27; + this);*          } );* @result Array&lt;Function&gt;** @name introduction* @param Map pointcut Definition of the point-cut to apply the advice. A point-cut is the definition of the object/s and method/s to be weaved.* @option Object target Target object to be weaved.* @option String method Name of the function to be weaved.* @param Function advice Function containing the code that will be executed on the point-cut.** @type Array&lt;Function&gt;* @cat Plugins/General*/introduction : function(pointcut, advice){return weave( pointcut, { type: _intro, value: advice } );},/*** Configures global options.** @name setup* @param Map settings Configuration options.* @option Boolean regexMatch Enables/disables regex matching of method names.** @example aop.setup( { regexMatch: false } );* @desc Disable regex matching.** @type Void* @cat Plugins/General*/setup: function(settings){_regexEnabled &#x3D; settings.regexMatch;}};})()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/aop.ts#L15">aop.ts:15</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>jQuery AOP - jQuery plugin to add features of aspect-oriented programming (AOP) to jQuery.
+							<a href="http://jquery-aop.googlecode.com/">http://jquery-aop.googlecode.com/</a></p>
+						</div>
+						<p>Licensed under the MIT license:
+						<a href="http://www.opensource.org/licenses/mit-license.php">http://www.opensource.org/licenses/mit-license.php</a></p>
+						<p>Version: 1.3</p>
+						<p>Cross-frame type detection based on Daniel Steigerwald&#39;s code (<a href="http://daniel.steigerwald.cz">http://daniel.steigerwald.cz</a>)
+						<a href="http://gist.github.com/204554">http://gist.github.com/204554</a></p>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>after<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">after<span class="tsd-signature-symbol">(</span>pointcut<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, advice<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/aop.ts#L189">aop.ts:189</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Creates an advice after the defined point-cut. The advice will be executed after the point-cut method
+													has completed execution successfully, and will receive one parameter with the result of the execution.
+												This function returns an array of weaved aspects (Function).</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>pointcut: <span class="tsd-signature-type">any</span></h5>
+											</li>
+											<li>
+												<h5>advice: <span class="tsd-signature-type">any</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>after<wbr>Finally<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">after<wbr>Finally<span class="tsd-signature-symbol">(</span>pointcut<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, advice<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/aop.ts#L252">aop.ts:252</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Creates an advice after the defined point-cut. The advice will be executed after the point-cut method
+													regardless of its success or failure, and it will receive two parameters: one with the
+													result of a successful execution or null, and another one with the exception thrown or null.
+												This function returns an array of weaved aspects (Function).</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>pointcut: <span class="tsd-signature-type">any</span></h5>
+											</li>
+											<li>
+												<h5>advice: <span class="tsd-signature-type">any</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>after<wbr>Throw<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">after<wbr>Throw<span class="tsd-signature-symbol">(</span>pointcut<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, advice<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/aop.ts#L222">aop.ts:222</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Creates an advice after the defined point-cut only for unhandled exceptions. The advice will be executed
+													after the point-cut method only if the execution failed and an exception has been thrown. It will receive one
+													parameter with the exception thrown by the point-cut method.
+												This function returns an array of weaved aspects (Function).</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>pointcut: <span class="tsd-signature-type">any</span></h5>
+											</li>
+											<li>
+												<h5>advice: <span class="tsd-signature-type">any</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>around<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">around<span class="tsd-signature-symbol">(</span>pointcut<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, advice<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/aop.ts#L323">aop.ts:323</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Creates an advice &#39;around&#39; the defined point-cut. This type of advice can control the point-cut method execution by calling
+													the functions &#39;.proceed()&#39; on the &#39;invocation&#39; object, and also, can modify the arguments collection before sending them to the function call.
+												This function returns an array of weaved aspects (Function).</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>pointcut: <span class="tsd-signature-type">any</span></h5>
+											</li>
+											<li>
+												<h5>advice: <span class="tsd-signature-type">any</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>before<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">before<span class="tsd-signature-symbol">(</span>pointcut<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, advice<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/aop.ts#L282">aop.ts:282</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Creates an advice before the defined point-cut. The advice will be executed before the point-cut method
+													but cannot modify the behavior of the method, or prevent its execution.
+												This function returns an array of weaved aspects (Function).</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>pointcut: <span class="tsd-signature-type">any</span></h5>
+											</li>
+											<li>
+												<h5>advice: <span class="tsd-signature-type">any</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>introduction<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">introduction<span class="tsd-signature-symbol">(</span>pointcut<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, advice<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/aop.ts#L352">aop.ts:352</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Creates an introduction on the defined point-cut. This type of advice replaces any existing methods with the same
+													name. To restore them, just unweave it.
+												This function returns an array with only one weaved aspect (Function).</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>pointcut: <span class="tsd-signature-type">any</span></h5>
+											</li>
+											<li>
+												<h5>advice: <span class="tsd-signature-type">any</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>setup<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">setup<span class="tsd-signature-symbol">(</span>settings<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/a27839a/aop.ts#L370">aop.ts:370</a></li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Configures global options.</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>settings: <span class="tsd-signature-type">any</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+							</ul>        </li>
+						</ul>
+					</div>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="_aop_.html">"aop"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="_aop_.html#aop" class="tsd-kind-icon">aop</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
