@@ -64,6 +64,18 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Provides a rich logging facility with more control and flexibility than the native NetSuite logger.</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>napiversion</dt>
+						<dd><p>2.x</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -113,7 +125,7 @@
 					<div class="tsd-signature tsd-kind-icon">Default<wbr>Logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span><span class="tsd-signature-symbol"> =&nbsp;defaultLogger</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L215">EC_Logger.ts:215</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L220">EC_Logger.ts:220</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -128,18 +140,13 @@
 					<div class="tsd-signature tsd-kind-icon">correlation<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;Math.floor(Math.random() * 10000).toString()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L32">EC_Logger.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L34">EC_Logger.ts:34</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Value to be prepended to each log message title. Defaults to a random 4 digit integer</p>
 						</div>
-						<dl class="tsd-comment-tags">
-							<dt>type</dt>
-							<dd><p>{string}</p>
-							</dd>
-						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
@@ -148,7 +155,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span><span class="tsd-signature-symbol"> =&nbsp;getLogger(&#x27;default&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L103">EC_Logger.ts:103</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L108">EC_Logger.ts:108</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -158,7 +165,7 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Correlation<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L40">EC_Logger.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L42">EC_Logger.ts:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -183,13 +190,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L224">EC_Logger.ts:224</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L232">EC_Logger.ts:232</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds the passed aurelia logging console appender with diagnostic logging</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>alc: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the aurelia-logging-console module</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -206,7 +221,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L142">EC_Logger.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L147">EC_Logger.ts:147</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -253,7 +268,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L122">EC_Logger.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L127">EC_Logger.ts:127</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -279,7 +294,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L49">EC_Logger.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L51">EC_Logger.ts:51</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -308,7 +323,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L236">EC_Logger.ts:236</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L244">EC_Logger.ts:244</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -346,7 +361,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L221">EC_Logger.ts:221</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L226">EC_Logger.ts:226</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -379,7 +394,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L46">EC_Logger.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L48">EC_Logger.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -412,7 +427,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/c178f85/EC_Logger.ts#L107">EC_Logger.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/4ec792f/EC_Logger.ts#L112">EC_Logger.ts:112</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
