@@ -76,7 +76,9 @@ gulp.task('cleandeclarations', function () {
 
 gulp.task('docs', function(cb) {
    var exec = require('child_process').exec
-   exec('node_modules/.bin/typedoc --excludeExternals --exclude test --out docs --theme default  --excludeProtected --excludePrivate --name \'NetSuite FastTrack Toolkit (NFT)\'',
+   var options =
+   exec('node_modules/.bin/typedoc --excludeExternals --exclude "*+(example.ts|IntroGuideExamples.ts)" --out docs --theme default  --excludeProtected ' +
+      '--excludePrivate --name \'NetSuite FastTrack Toolkit (NFT)\'',
       function (err, stdout,stderr) {
          console.log(stdout)
          console.log(stderr)
