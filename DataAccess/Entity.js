@@ -1,6 +1,3 @@
-/**
- * NetSuite generic Entity, meant to be inherited by concrete record types to avoid duplicating effort on fields
- */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -31,9 +28,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     dummy comment for TypeDoc
+     */
     var Record_1 = require("./Record");
     /**
-     * Fields common to all 'entity' records in NS
+     * NetSuite generic Entity used as a common base class for 'entity-like' records,
+     * This is meant to be inherited by concrete record types to avoid duplicating effort on fields.
+     * Note that this inheritance hierarchy emerged empirically - it's not documented by NetSuite.
+     *
+     * It contains fields common to all 'entity' records in NS
      */
     var Entity = /** @class */ (function (_super) {
         __extends(Entity, _super);

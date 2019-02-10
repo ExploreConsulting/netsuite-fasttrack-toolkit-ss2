@@ -80,6 +80,13 @@ gulp.task('docs', function(cb) {
       function (err, stdout,stderr) {
          console.log(stdout)
          console.log(stderr)
-         cb(err)
+         // by default the typedoc build above cleans the output directory. Drop a .nojekyll file after
+         // so that GitHub pages doesn't try to treat the generated _ files specially
+         exec('touch docs/.nojekyll',
+            function (err, stdout,stderr) {
+               console.log(stdout)
+               console.log(stderr)
+               cb(err)
+            })
       })
 })

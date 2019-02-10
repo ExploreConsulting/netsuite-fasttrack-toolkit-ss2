@@ -1,11 +1,14 @@
 /**
- * NetSuite generic Entity, meant to be inherited by concrete record types to avoid duplicating effort on fields
+ dummy comment for TypeDoc
  */
-
 import { FieldType, NetsuiteRecord } from './Record'
 
 /**
- * Fields common to all 'entity' records in NS
+ * NetSuite generic Entity used as a common base class for 'entity-like' records,
+ * This is meant to be inherited by concrete record types to avoid duplicating effort on fields.
+ * Note that this inheritance hierarchy emerged empirically - it's not documented by NetSuite.
+ *
+ * It contains fields common to all 'entity' records in NS
  */
 export abstract class Entity extends NetsuiteRecord {
 
