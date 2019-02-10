@@ -1,5 +1,15 @@
 /**
  * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
+ *
+ * Utilizes the [Aurelia logger](https://aurelia.io/docs/api/logging) under the hood.
+ * This logger library adopts the common pattern of separating _how_ you log
+ * (e.g. `log.debug()`) from _where_ the log messages are sent.
+ *
+ * By default, log messages are sent to the NetSuite Execution Log - *except* for client scripts which log to the
+ * *browser console* by default.
+ *
+ * You can create as many named loggers as you like, but most often you'll work with the [Default Logger](#defaultlogger)
+ *
  * @NApiVersion 2.x
  */
 (function (factory) {
@@ -48,6 +58,7 @@
     /**
      * Controls whether the correlation id prefixes should be included in log messages or not.
      * @param enable if true, adds correlationid to the log messages, otherwise no correlation id prefix is added
+     * returns the newly set value
      */
     exports.setIncludeCorrelationId = function (enable) { return exports.includeCorrelationId = enable; };
     // internal function to invoke the ns log function and handles adding a title tag
@@ -148,7 +159,8 @@
     }
     /**
      * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
-     * Call this method at the end of your script. Log entries are 'DEBUG' level.
+     * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
+     * as described below.
      *
      * @param methodsToLogEntryExit array of pointcuts
      * @param {Object} config configuration settings
@@ -161,6 +173,24 @@
      * false. Colors not configurable so that we maintain consistency across all our scripts.
      * @param {number} [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
      * @returns {} an array of jquery aop advices
+     *
+     * @example log all methods on the object `X`
+     * ```
+     * namespace X {
+     *   export onRequest() {
+     *     log.debug('hello world')
+     *   }
+     * }
+     * LogManager.autoLogMethodEntryExit({ target:X, method:/\w+/})
+     *
+     * ```
+     * The above results in automatic log entries similar to:
+     *
+     * |Log Title   | Detail |
+     * |--------|--------|
+       |Enter onRequest()| args:[] |
+       |hello world |   |
+       |Exit onRequest() | returned: undefined |
      */
     function autoLogMethodEntryExit(methodsToLogEntryExit, config) {
         if (!config)
@@ -199,11 +229,28 @@
     exports.autoLogMethodEntryExit = autoLogMethodEntryExit;
     /**
      * The default logger - this should be the main top level logger used in scripts
+     *
+     * This logger defaults to log level 'debug' and is named 'default'.
+     * For client scripts, it logs to the _browser console_ (not NS execution log because it incurs significant
+     * overhead). For server-side scripts it logs to the NS Exectuion Log.
+     *
+     * @example To make a client script log to both the local browser console and the NS script execution log
+     *```
+     * import * as LogManager from "./NFT/EC_Logger"
+     *
+     * LogManager.addAppender(new LogManager.ExecutionLogAppender())
+     *```
+     * @example
+     *```
+     * import * as LogManager from "./NFT/EC_Logger"
+     * const log = LogManager.DefaultLogger
+     * log.debug('hello world')
+     * ```
      */
     exports.DefaultLogger = defaultLogger;
     /**
      * Use to set the correlation id to a value other than the default random number
-     * @param value new correlation id, will be used on all subsequent logging
+     * @param value new correlation id, will be used on all subsequent log messages
      */
     exports.setCorrelationId = function (value) { return exports.correlationId = value; };
     /**
