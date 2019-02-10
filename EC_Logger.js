@@ -1,5 +1,5 @@
 /**
- * Created by shawn on 4/6/16.
+ * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
  * @NApiVersion 2.x
  */
 (function (factory) {
@@ -13,6 +13,9 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * dummy comment for TypeDoc
+     */
     var moment = require("./moment");
     var aurelia_logging_1 = require("./aurelia-logging");
     var nslog = require("N/log");
@@ -33,7 +36,6 @@
     exports.removeCustomLevel = aurelia_logging_2.removeCustomLevel;
     /**
      * Value to be prepended to each log message title. Defaults to a random 4 digit integer
-     * @type {string}
      */
     exports.correlationId = Math.floor(Math.random() * 10000).toString();
     /**
@@ -76,9 +78,12 @@
      * Severities are mapped as follows:
      *
      * debug -> NS 'DEBUG'
+     *
      * info -> NS 'AUDIT'
+     *
      * warn -> NS 'ERROR'
-     * error -> NS 'emergency'
+     *
+     * error -> NS 'EMERGENCY'
      */
     var ExecutionLogAppender = /** @class */ (function () {
         function ExecutionLogAppender() {
@@ -201,6 +206,10 @@
      * @param value new correlation id, will be used on all subsequent logging
      */
     exports.setCorrelationId = function (value) { return exports.correlationId = value; };
+    /**
+     * Adds the passed aurelia logging console appender with diagnostic logging
+     * @param alc the aurelia-logging-console module
+     */
     function addConsoleAppender(alc) {
         console.debug('** adding console appender **');
         aurelia_logging_1.addAppender(new alc.ConsoleAppender());

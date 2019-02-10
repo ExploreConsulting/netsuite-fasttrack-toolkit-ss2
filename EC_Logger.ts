@@ -1,8 +1,11 @@
 /**
- * Created by shawn on 4/6/16.
+ * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
  * @NApiVersion 2.x
  */
 
+/**
+ * dummy comment for TypeDoc
+ */
 import * as moment from './moment'
 import { addAppender, Appender, clearAppenders, getLogger, Logger, logLevel } from './aurelia-logging'
 import * as nslog from 'N/log'
@@ -27,7 +30,6 @@ export {
 
 /**
  * Value to be prepended to each log message title. Defaults to a random 4 digit integer
- * @type {string}
  */
 export let correlationId = Math.floor(Math.random() * 10000).toString()
 
@@ -70,9 +72,12 @@ function log (loglevel: number, logger: Logger, ...rest: any[]) {
  * Severities are mapped as follows:
  *
  * debug -> NS 'DEBUG'
+ *
  * info -> NS 'AUDIT'
+ *
  * warn -> NS 'ERROR'
- * error -> NS 'emergency'
+ *
+ * error -> NS 'EMERGENCY'
  */
 export class ExecutionLogAppender implements Appender {
 
@@ -220,8 +225,11 @@ export let DefaultLogger: Logger = defaultLogger
  */
 export const setCorrelationId = (value: string) => correlationId = value
 
-
-function addConsoleAppender( alc:any ) {
+/**
+ * Adds the passed aurelia logging console appender with diagnostic logging
+ * @param alc the aurelia-logging-console module
+ */
+function addConsoleAppender (alc: any) {
    console.debug('** adding console appender **')
    addAppender(new alc.ConsoleAppender())
    defaultLogger.debug('added console appender')
@@ -233,7 +241,7 @@ function addConsoleAppender( alc:any ) {
  * @param deps dependencies
  * @param cb the callback to invoke when the dependencies are resolved
  */
-declare function require(deps:string | string[], cb?: (...args:any[]) => void)
+declare function require (deps: string | string[], cb?: (...args: any[]) => void)
 
 // if we're executing client side, default to using the browser console for logging to avoid
 // expensive network round trips to the NS execution log. aurelia-logging-console depends upon the
@@ -243,7 +251,7 @@ if (typeof console === 'object') {
    const isNodeJS = typeof module === 'object'
    // if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require()
    if (isNodeJS) addConsoleAppender(require('aurelia-logging-console'))
-   else require(['./aurelia-logging-console'], addConsoleAppender )
+   else require(['./aurelia-logging-console'], addConsoleAppender)
 
 } else addAppender(new ExecutionLogAppender())
 
