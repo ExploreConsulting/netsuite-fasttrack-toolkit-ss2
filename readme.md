@@ -223,9 +223,7 @@ Configure tsconfig to include `paths` for NetSuite modules and NFT modules:
 
 
 # Tests
-The `test/` folder is configured to use `ts-jest` to compile the sources, and jest caches the output. This means the 
-sources in the project are not changed. This is important because the tests use the modules compiled to run in Nodejs 
-(commonjs compatible). The production build _must_ be AMD to function in NetSuite. 
+The `test/` folder is configured to use `ts-jest` to compile the sources.
 
 to run the test suite:
 
@@ -234,7 +232,6 @@ to run the test suite:
 
 
 # Build and Publish
-The production build is AMD. Ensure that compiled files (e.g. `DataAccess/JournalEntryBase.js`) are in AMD format.
     
     node_modules/.bin/tsc
     node_modules/.bin/gulp
