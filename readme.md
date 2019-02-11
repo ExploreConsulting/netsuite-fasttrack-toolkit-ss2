@@ -38,6 +38,17 @@ This creates a folder structure mirroring what you have in NetSuite so you can u
 `import` from the library (e.g. `import {CustomerBase} from "./NFT-SS2-1.2.3/DataAcess/CustomerBase`)
 
 
+## NetSuite Data Access Layer (NSDAL)
+NSDAL is a variation of the Active Record pattern for working with NetSuite records. 
+
+Native SuiteScript 2.0 requires method calls and passing ‘config’ objects to access data.
+NSDAL uses regular javascript objects with properties, so you work with it the same way as any other javascript code.
+
+NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields. Otherwise you derive your own class and add custom fields as shown in the code example that follows.
+
+![NSDAL Inheritance Diagram](media/images/NFT-NSDAL-Inheritance.png)
+
+
 ###  Overview Example
 
 ```typescript

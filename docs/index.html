@@ -90,6 +90,12 @@
 				<p>After install you should get a folder link at your project root named NFT-SS2-#.#.#
 					This creates a folder structure mirroring what you have in NetSuite so you can use relative paths when you
 				<code>import</code> from the library (e.g. <code>import {CustomerBase} from &quot;./NFT-SS2-1.2.3/DataAcess/CustomerBase</code>)</p>
+				<h2 id="netsuite-data-access-layer-nsdal-">NetSuite Data Access Layer (NSDAL)</h2>
+				<p>NSDAL is a variation of the Active Record pattern for working with NetSuite records. </p>
+				<p>Native SuiteScript 2.0 requires method calls and passing ‘config’ objects to access data.
+				NSDAL uses regular javascript objects with properties, so you work with it the same way as any other javascript code.</p>
+				<p>NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields. Otherwise you derive your own class and add custom fields as shown in the code example that follows.</p>
+				<p><img src="media/images/NFT-NSDAL-Inheritance.png" alt="NSDAL Inheritance Diagram"></p>
 				<h3 id="overview-example">Overview Example</h3>
 				<pre><code class="language-typescript">
 
