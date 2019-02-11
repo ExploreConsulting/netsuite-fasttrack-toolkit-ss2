@@ -54,7 +54,6 @@ This creates a folder structure mirroring what you have in NetSuite so you can u
 import * as LogManager from 'NFT/EC_Logger'
 import {CustomerBase} from "NFT/DataAccess/CustomerBase"
 import {FieldType} from "NFT/DataAccess/Record"
-import * as moment from "NFT/moment"
 import * as _ from "NFT/lodash"
 
 // each script should request the DefaultLogger
@@ -70,7 +69,7 @@ class Customer extends CustomerBase {
    custentity_multiselect:number[]
 
    @FieldType.datetime
-   custentity_shawn_date : moment.Moment
+   custentity_shawn_date : Date
 }
 
 
@@ -84,7 +83,7 @@ export = {
       // strongly typed field access
       c.companyname = 'a new company name'
       c.custentity_multiselect = [1, 2]
-      c.custentity_a_date = moment()
+      c.custentity_a_date = new Date()
 
       // persist our changes
       c.save();
