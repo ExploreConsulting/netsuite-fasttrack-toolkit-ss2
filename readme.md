@@ -22,8 +22,6 @@ Install this package as a dependency and the SuiteScript 2.x (SS2) typings from 
     npm install netsuite-fasttrack-toolkit-ss2 
     npm install @hitc/netsuite-types --save-dev 
     
-**Also see the intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0)**
-
 
 ## Deploy core library to NS
 Use the NetSuite file cabinet _advanced add_ button to upload the `node_modules/netsuite-fasttrack-toolkit-ss2/dist/NFT-SS2-#.#.#.zip` 
