@@ -14,6 +14,7 @@ predefined strong types for NetSuite record types including sublist support.
 * immutablejs (used for arbitrary length sequences)
 * helpers for N/search and governance management
 
+![NFT Intro Image](media/images/NFTIntroDiagram.png)
 
 # Getting Started (Typescript)
 
