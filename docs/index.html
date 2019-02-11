@@ -79,8 +79,7 @@
 				<h1 id="getting-started-typescript-">Getting Started (Typescript)</h1>
 				<p>Install this package as a dependency and the SuiteScript 2.x (SS2) typings from @hitc </p>
 				<pre><code><span class="hljs-built_in">npm</span> install netsuite-fasttrack-toolkit-ss2
-<span class="hljs-built_in">npm</span> install @hitc/netsuite-types --save-dev </code></pre><p><strong>Also see the intro/guide <a href="https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0">here</a></strong></p>
-				<h2 id="deploy-core-library-to-ns">Deploy core library to NS</h2>
+<span class="hljs-built_in">npm</span> install @hitc/netsuite-types --save-dev </code></pre><h2 id="deploy-core-library-to-ns">Deploy core library to NS</h2>
 				<p>Use the NetSuite file cabinet <em>advanced add</em> button to upload the <code>node_modules/netsuite-fasttrack-toolkit-ss2/dist/NFT-SS2-#.#.#.zip</code>
 				file to the same folder in which you place your SuiteScripts. It will extract to a subfolder named NFT-SS2-#.#.#.</p>
 				<p>If you typically just put your SuiteScripts under the <code>/SuiteScripts/</code> folder in the NS file cabinet then simply
@@ -103,7 +102,6 @@
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> LogManager <span class="hljs-keyword">from</span> <span class="hljs-string">'NFT/EC_Logger'</span>
 <span class="hljs-keyword">import</span> {CustomerBase} <span class="hljs-keyword">from</span> <span class="hljs-string">"NFT/DataAccess/CustomerBase"</span>
 <span class="hljs-keyword">import</span> {FieldType} <span class="hljs-keyword">from</span> <span class="hljs-string">"NFT/DataAccess/Record"</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> moment <span class="hljs-keyword">from</span> <span class="hljs-string">"NFT/moment"</span>
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> _ <span class="hljs-keyword">from</span> <span class="hljs-string">"NFT/lodash"</span>
 
 <span class="hljs-comment">// each script should request the DefaultLogger</span>
@@ -119,7 +117,7 @@
    custentity_multiselect:<span class="hljs-built_in">number</span>[]
 
    <span class="hljs-meta">@FieldType</span>.datetime
-   custentity_shawn_date : moment.Moment
+   custentity_shawn_date : <span class="hljs-built_in">Date</span>
 }
 
 
@@ -133,7 +131,7 @@
       <span class="hljs-comment">// strongly typed field access</span>
       c.companyname = <span class="hljs-string">'a new company name'</span>
       c.custentity_multiselect = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
-      c.custentity_a_date = moment()
+      c.custentity_a_date = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
 
       <span class="hljs-comment">// persist our changes</span>
       c.save();
