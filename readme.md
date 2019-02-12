@@ -6,13 +6,15 @@ This is a small but powerful framework for writing SuitScript that scales. A pri
 enable authoring scripts that easy to write and easy to maintain.
 
 _Includes_
-* nsdal (**n**etsuite **d**ata **a**ccess **l**ayer) _ActiveRecord_-like approach with 
-predefined strong types for NetSuite record types including sublist support. 
+* nsdal (Netsuite Data Access Layer) _ActiveRecord_-like approach using 
+predefined strong types for NetSuite record access including sublist support. 
+* advanced logging facility
+* enhanced search handling
+* immutablejs (used for arbitrary length sequences and elegant search result processing)
+* governance management
 * lodash
 * momentjs
-* advanced logging
-* immutablejs (used for arbitrary length sequences)
-* helpers for N/search and governance management
+
 
 ![NFT Intro Image](media/images/NFTIntroDiagram.png)
 
