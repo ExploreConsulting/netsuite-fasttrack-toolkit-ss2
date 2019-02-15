@@ -68,13 +68,14 @@
 				enable authoring scripts that easy to write and easy to maintain.</p>
 				<p><em>Includes</em></p>
 				<ul>
-					<li>nsdal (<strong>n*<em>etsuite *</em>d</strong>ata <strong>a*<em>ccess *</em>l</strong>ayer) <em>ActiveRecord</em>-like approach with
-					predefined strong types for NetSuite record types including sublist support. </li>
+					<li>nsdal (Netsuite Data Access Layer) <em>ActiveRecord</em>-like approach using
+					predefined strong types for NetSuite record access including sublist support. </li>
+					<li>advanced logging facility</li>
+					<li>enhanced search handling</li>
+					<li>immutablejs (used for arbitrary length sequences and elegant search result processing)</li>
+					<li>governance management</li>
 					<li>lodash</li>
 					<li>momentjs</li>
-					<li>advanced logging</li>
-					<li>immutablejs (used for arbitrary length sequences)</li>
-					<li>helpers for N/search and governance management</li>
 				</ul>
 				<p><img src="media/images/NFTIntroDiagram.png" alt="NFT Intro Image"></p>
 				<h1 id="getting-started-typescript-">Getting Started (Typescript)</h1>
@@ -228,12 +229,9 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 					<a href="https://www.npmjs.com/package/@hitc/netsuite-types">@hitc/netsuite-types</a> project</li>
 				</ul>
 				<h1 id="tests">Tests</h1>
-				<p>The <code>test/</code> folder is configured to use <code>ts-jest</code> to compile the sources, and jest caches the output. This means the
-					sources in the project are not changed. This is important because the tests use the modules compiled to run in Nodejs
-				(commonjs compatible). The production build <em>must</em> be AMD to function in NetSuite. </p>
+				<p>The <code>test/</code> folder is configured to use <code>ts-jest</code> to compile the sources.</p>
 				<p>to run the test suite:</p>
 				<pre><code>npm <span class="hljs-built_in">test</span></code></pre><h1 id="build-and-publish">Build and Publish</h1>
-				<p>The production build is AMD. Ensure that compiled files (e.g. <code>DataAccess/JournalEntryBase.js</code>) are in AMD format.</p>
 				<pre><code><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/tsc
 </span><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/gulp
 </span><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/gulp </span>declarations
@@ -272,6 +270,9 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_customerbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_customerdepositbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Deposit<wbr>Base"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_customerpaymentbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Payment<wbr>Base"</a>
@@ -326,6 +327,9 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_returnauthorizationbase_.html">"<wbr>Data<wbr>Access/<wbr>Return<wbr>Authorization<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_revenuerecognitionplanbase_.html">"<wbr>Data<wbr>Access/<wbr>Revenue<wbr>Recognition<wbr>Plan<wbr>Base"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_salesorderbase_.html">"<wbr>Data<wbr>Access/<wbr>Sales<wbr>Order<wbr>Base"</a>
