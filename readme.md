@@ -15,6 +15,7 @@ predefined strong types for NetSuite record access including sublist support.
 * lodash
 * momentjs
 
+See API [docs here](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2)
 
 ![NFT Intro Image](media/images/NFTIntroDiagram.png)
 
@@ -46,7 +47,8 @@ NSDAL is a variation of the Active Record pattern for working with NetSuite reco
 Native SuiteScript 2.0 requires method calls and passing ‘config’ objects to access data.
 NSDAL uses regular javascript objects with properties, so you work with it the same way as any other javascript code.
 
-NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields. Otherwise you derive your own class and add custom fields as shown in the code example that follows.
+NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields. 
+Otherwise you derive your own class and add custom fields as shown in the code example that follows.
 
 ![NSDAL Inheritance Diagram](media/images/NFT-NSDAL-Inheritance.png)
 
@@ -73,8 +75,8 @@ var log = LogManager.DefaultLogger
 
 /**
  * define a customer class for our NetSuite account including custom fields. Standard fields come from customer.Base 
- * so we don't have to repeat them here. This Customer class could be in a separate file (e.g Customer.ts) and 
- * reused across all scripts via `import {Customer} from "./Customer"`
+ * so we don't have to repeat them here. This Customer class could be in a separate file/folder (e.g RecordTypes/Customer.ts) and 
+ * reused across all scripts via `import {Customer} from "./RecordTypes/Customer"`
  */
 class Customer extends CustomerBase {
    @FieldType.multiselect
@@ -140,6 +142,10 @@ import {Seq} from "immutable"
 let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj()).first()
 ```
 
+
+Also see [search](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_search_.html) in the API documentation,
+especially the `LazySearch` class.
+
 ### Governance ###
 The governance handler utilties can be used with any script, but most often are used with a saved search in 
 a scheduled script.
@@ -174,9 +180,8 @@ Seq(LazySearch.load("123"))
    // .. do something with search result. 
 })
 
-
 ```
-
+Also see [governance](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_governance_.html) API docs
 
 
 ## Special 'apply' sublist support
