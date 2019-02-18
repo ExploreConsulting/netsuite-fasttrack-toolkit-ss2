@@ -3,20 +3,9 @@
  */
 
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction";
-import {SublistLine, SublistFieldType} from "./Sublist"
-import {FieldType} from "./Record"
-
-/**
- * NetSuite Purchase Order Record
- */
-export class PurchaseOrderBase extends TransactionBase {
-   static recordType = record.Type.PURCHASE_ORDER
-
-   @FieldType.select
-   approvalstatus:number
-
-}
+import { TransactionBase } from './Transaction'
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
+import { FieldType } from './Record'
 
 /**
  * Sublist 'item' on purchase orders
@@ -54,3 +43,18 @@ export class ItemSublist extends SublistLine {
    rate:number
 
 }
+
+/**
+ * NetSuite Purchase Order Record
+ */
+export class PurchaseOrderBase extends TransactionBase {
+   static recordType = record.Type.PURCHASE_ORDER
+
+   @FieldType.select
+   approvalstatus:number
+
+   @FieldType.sublist(ItemSublist)
+   item: Sublist<ItemSublist>
+}
+
+

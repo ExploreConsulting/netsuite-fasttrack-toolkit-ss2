@@ -36,21 +36,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var Transaction_1 = require("./Transaction");
     var Sublist_1 = require("./Sublist");
     /**
-     * Item Fulfillment Base Type
-     */
-    var ItemFulfillmentBase = /** @class */ (function (_super) {
-        __extends(ItemFulfillmentBase, _super);
-        function ItemFulfillmentBase() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        ItemFulfillmentBase.recordType = record.Type.ITEM_FULFILLMENT;
-        __decorate([
-            Record_1.FieldType.select
-        ], ItemFulfillmentBase.prototype, "createdfrom", void 0);
-        return ItemFulfillmentBase;
-    }(Transaction_1.TransactionBase));
-    exports.ItemFulfillmentBase = ItemFulfillmentBase;
-    /**
      * Item Fulfillment Items (item) sublist
      */
     var ItemSublist = /** @class */ (function (_super) {
@@ -88,4 +73,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         return ItemSublist;
     }(Sublist_1.SublistLine));
     exports.ItemSublist = ItemSublist;
+    /**
+     * Item Fulfillment Base Type
+     */
+    var ItemFulfillmentBase = /** @class */ (function (_super) {
+        __extends(ItemFulfillmentBase, _super);
+        function ItemFulfillmentBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        ItemFulfillmentBase.recordType = record.Type.ITEM_FULFILLMENT;
+        __decorate([
+            Record_1.FieldType.select
+        ], ItemFulfillmentBase.prototype, "createdfrom", void 0);
+        __decorate([
+            Record_1.FieldType.sublist(ItemSublist)
+        ], ItemFulfillmentBase.prototype, "item", void 0);
+        return ItemFulfillmentBase;
+    }(Transaction_1.TransactionBase));
+    exports.ItemFulfillmentBase = ItemFulfillmentBase;
 });

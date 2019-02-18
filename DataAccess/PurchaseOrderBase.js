@@ -36,21 +36,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var Sublist_1 = require("./Sublist");
     var Record_1 = require("./Record");
     /**
-     * NetSuite Purchase Order Record
-     */
-    var PurchaseOrderBase = /** @class */ (function (_super) {
-        __extends(PurchaseOrderBase, _super);
-        function PurchaseOrderBase() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        PurchaseOrderBase.recordType = record.Type.PURCHASE_ORDER;
-        __decorate([
-            Record_1.FieldType.select
-        ], PurchaseOrderBase.prototype, "approvalstatus", void 0);
-        return PurchaseOrderBase;
-    }(Transaction_1.TransactionBase));
-    exports.PurchaseOrderBase = PurchaseOrderBase;
-    /**
      * Sublist 'item' on purchase orders
      */
     var ItemSublist = /** @class */ (function (_super) {
@@ -91,4 +76,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         return ItemSublist;
     }(Sublist_1.SublistLine));
     exports.ItemSublist = ItemSublist;
+    /**
+     * NetSuite Purchase Order Record
+     */
+    var PurchaseOrderBase = /** @class */ (function (_super) {
+        __extends(PurchaseOrderBase, _super);
+        function PurchaseOrderBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        PurchaseOrderBase.recordType = record.Type.PURCHASE_ORDER;
+        __decorate([
+            Record_1.FieldType.select
+        ], PurchaseOrderBase.prototype, "approvalstatus", void 0);
+        __decorate([
+            Record_1.FieldType.sublist(ItemSublist)
+        ], PurchaseOrderBase.prototype, "item", void 0);
+        return PurchaseOrderBase;
+    }(Transaction_1.TransactionBase));
+    exports.PurchaseOrderBase = PurchaseOrderBase;
 });
