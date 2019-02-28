@@ -19,7 +19,8 @@ predefined strong types for NetSuite record access including sublist support.
 
 See API [docs here](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2)
 
-![NFT Intro Image](media/images/NFT-Intro.svg)
+<object data="media/images/NFT-Intro.svg">
+</object>
 
 # Getting Started (Typescript)
 
