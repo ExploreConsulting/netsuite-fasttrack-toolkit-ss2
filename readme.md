@@ -1,7 +1,9 @@
 [![Gitter](https://badges.gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2.svg)](https://gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-NFT (NetSuite Fasttrack Toolkit) for SuiteScript 2.0
-===============================================
+NFT (NetSuite Fasttrack Toolkit)
+==============================================
+_for SuiteScript 2.0_
+
 This is a small but powerful framework for writing SuitScript that scales. A primary goal is to 
 enable authoring scripts that easy to write and easy to maintain.
 
