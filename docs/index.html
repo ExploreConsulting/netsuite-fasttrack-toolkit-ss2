@@ -77,6 +77,7 @@
 					<li>lodash</li>
 					<li>momentjs</li>
 				</ul>
+				<p>See API <a href="https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2">docs here</a></p>
 				<p><img src="media/images/NFTIntroDiagram.png" alt="NFT Intro Image"></p>
 				<h1 id="getting-started-typescript-">Getting Started (Typescript)</h1>
 				<p>Install this package as a dependency and the SuiteScript 2.x (SS2) typings from @hitc </p>
@@ -95,7 +96,8 @@
 				<p>NSDAL is a variation of the Active Record pattern for working with NetSuite records. </p>
 				<p>Native SuiteScript 2.0 requires method calls and passing ‘config’ objects to access data.
 				NSDAL uses regular javascript objects with properties, so you work with it the same way as any other javascript code.</p>
-				<p>NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields. Otherwise you derive your own class and add custom fields as shown in the code example that follows.</p>
+				<p>NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields.
+				Otherwise you derive your own class and add custom fields as shown in the code example that follows.</p>
 				<p><img src="media/images/NFT-NSDAL-Inheritance.png" alt="NSDAL Inheritance Diagram"></p>
 				<h3 id="overview-example">Overview Example</h3>
 				<pre><code class="language-typescript">
@@ -117,8 +119,8 @@
 
 <span class="hljs-comment">/**
  * define a customer class for our NetSuite account including custom fields. Standard fields come from customer.Base 
- * so we don't have to repeat them here. This Customer class could be in a separate file (e.g Customer.ts) and 
- * reused across all scripts via `import {Customer} from "./Customer"`
+ * so we don't have to repeat them here. This Customer class could be in a separate file/folder (e.g RecordTypes/Customer.ts) and 
+ * reused across all scripts via `import {Customer} from "./RecordTypes/Customer"`
  */</span>
 <span class="hljs-keyword">class</span> Customer <span class="hljs-keyword">extends</span> CustomerBase {
    <span class="hljs-meta">@FieldType</span>.multiselect
@@ -172,6 +174,8 @@
 
 <span class="hljs-comment">// get the first result as a POJO </span>
 <span class="hljs-keyword">let</span> firstResultAsObj = Seq(LazySearch.load(<span class="hljs-string">"123"</span>)).map(nsSearchResult2obj()).first()</code></pre>
+				<p>Also see <a href="https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_search_.html">search</a> in the API documentation,
+				especially the <code>LazySearch</code> class.</p>
 				<h3 id="governance">Governance</h3>
 				<p>The governance handler utilties can be used with any script, but most often are used with a saved search in
 				a scheduled script.</p>
@@ -200,8 +204,8 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
    .forEach( <span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
    <span class="hljs-comment">// .. do something with search result. </span>
 })
-
 </code></pre>
+				<p>Also see <a href="https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_governance_.html">governance</a> API docs</p>
 				<h2 id="special-apply-sublist-support">Special &#39;apply&#39; sublist support</h2>
 				<p>See <code>CustomerRefundBase.findApplyLine()</code> and <code>Transaction.ts</code> for help.</p>
 				<h2 id="logging">Logging</h2>
@@ -327,6 +331,9 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_returnauthorizationbase_.html">"<wbr>Data<wbr>Access/<wbr>Return<wbr>Authorization<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_revenuearrangementbase_.html">"<wbr>Data<wbr>Access/<wbr>Revenue<wbr>Arrangement<wbr>Base"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_revenuerecognitionplanbase_.html">"<wbr>Data<wbr>Access/<wbr>Revenue<wbr>Recognition<wbr>Plan<wbr>Base"</a>
