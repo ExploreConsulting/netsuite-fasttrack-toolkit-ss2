@@ -94,7 +94,7 @@
 			<v:textRect cx="63.5625" cy="569.625" width="111.24" height="74.1563"/>
 			<path d="M0 569.62 A63.5625 42.375 0 1 1 127.13 569.62 A63.5625 42.375 0 1 1 0 569.62 Z" class="st4"/>
 			<text x="44.53" y="573.83" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>NSDAL</text>		</g>
-		<a xlink:href="modules/_search_.html" xlink:title="Lazy Search Module">
+		<a xlink:href="../../modules/_search_.html" xlink:title="Lazy Search Module">
 			<g id="shape6-15" v:mID="6" v:groupContext="shape" transform="translate(384.75,-392.25)">
 				<title>Ellipse.6</title>
 				<desc>LazySearch</desc>
