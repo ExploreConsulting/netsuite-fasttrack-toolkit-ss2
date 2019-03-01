@@ -1,0 +1,456 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>NetSuite FastTrack Toolkit (NFT)</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">NetSuite FastTrack Toolkit (NFT)</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> NetSuite FastTrack Toolkit (NFT)</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<p><a href="https://gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2.svg" alt="Gitter"></a></p>
+				<h1 id="nft-netsuite-fasttrack-toolkit-">NFT (NetSuite Fasttrack Toolkit)</h1>
+				<p><em>for SuiteScript 2.0</em></p>
+				<p>This is a small but powerful framework for writing SuitScript that scales. A primary goal is to
+				enable authoring scripts that easy to write and easy to maintain.</p>
+				<p><em>Includes</em></p>
+				<ul>
+					<li>nsdal (Netsuite Data Access Layer) <em>ActiveRecord</em>-like approach using
+					predefined strong types for NetSuite record access including sublist support. </li>
+					<li>advanced logging facility</li>
+					<li>enhanced search handling</li>
+					<li>immutablejs (used for arbitrary length sequences and elegant search result processing)</li>
+					<li>governance management</li>
+					<li>lodash</li>
+					<li>momentjs</li>
+				</ul>
+				<p>See API <a href="https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2">docs here</a></p>
+				<p><img src="media/images/NFT-Intro.svg" alt="NFT Intro Image"></p>
+				<h1 id="getting-started-typescript-">Getting Started (Typescript)</h1>
+				<p>Install this package as a dependency and the SuiteScript 2.x (SS2) typings from @hitc </p>
+				<pre><code><span class="hljs-built_in">npm</span> install netsuite-fasttrack-toolkit-ss2
+<span class="hljs-built_in">npm</span> install @hitc/netsuite-types --save-dev </code></pre><h2 id="deploy-core-library-to-ns">Deploy core library to NS</h2>
+				<p>Use the NetSuite file cabinet <em>advanced add</em> button to upload the <code>node_modules/netsuite-fasttrack-toolkit-ss2/dist/NFT-SS2-#.#.#.zip</code>
+				file to the same folder in which you place your SuiteScripts. It will extract to a subfolder named NFT-SS2-#.#.#.</p>
+				<p>If you typically just put your SuiteScripts under the <code>/SuiteScripts/</code> folder in the NS file cabinet then simply
+					extract the zip there.
+					A recommended practice is to put your SuiteScript 2.0 files under a subfolder, such as <code>SuiteScripts/SS2/</code>. This
+				creates a convenient <em>&#39;root&#39;</em> folder for your SS2 projects.</p>
+				<p>After install you should get a folder link at your project root named NFT-SS2-#.#.#
+					This creates a folder structure mirroring what you have in NetSuite so you can use relative paths when you
+				<code>import</code> from the library (e.g. <code>import {CustomerBase} from &quot;./NFT-SS2-1.2.3/DataAcess/CustomerBase</code>)</p>
+				<h2 id="netsuite-data-access-layer-nsdal-">NetSuite Data Access Layer (NSDAL)</h2>
+				<p>NSDAL is a variation of the Active Record pattern for working with NetSuite records. </p>
+				<p>Native SuiteScript 2.0 requires method calls and passing ‘config’ objects to access data.
+				NSDAL uses regular javascript objects with properties, so you work with it the same way as any other javascript code.</p>
+				<p>NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields.
+				Otherwise you derive your own class and add custom fields as shown in the code example that follows.</p>
+				<p><img src="media/images/NFT-NSDAL-Inheritance.png" alt="NSDAL Inheritance Diagram"></p>
+				<h3 id="overview-example">Overview Example</h3>
+				<pre><code class="language-typescript">
+
+<span class="hljs-comment">/**
+ * Test file for SuiteScript 2.0 
+ * (replace 'NFT/' below with the relative path to your NFT-SS2-x.y.z folder)
+ * @NApiVersion 2.x
+ * @NScriptType Suitelet
+ */</span>
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> LogManager <span class="hljs-keyword">from</span> <span class="hljs-string">'NFT/EC_Logger'</span>
+<span class="hljs-keyword">import</span> {CustomerBase} <span class="hljs-keyword">from</span> <span class="hljs-string">"NFT/DataAccess/CustomerBase"</span>
+<span class="hljs-keyword">import</span> {FieldType} <span class="hljs-keyword">from</span> <span class="hljs-string">"NFT/DataAccess/Record"</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> _ <span class="hljs-keyword">from</span> <span class="hljs-string">"NFT/lodash"</span>
+
+<span class="hljs-comment">// each script should request the DefaultLogger</span>
+<span class="hljs-keyword">var</span> log = LogManager.DefaultLogger
+
+<span class="hljs-comment">/**
+ * define a customer class for our NetSuite account including custom fields. Standard fields come from customer.Base 
+ * so we don't have to repeat them here. This Customer class could be in a separate file/folder (e.g RecordTypes/Customer.ts) and 
+ * reused across all scripts via `import {Customer} from "./RecordTypes/Customer"`
+ */</span>
+<span class="hljs-keyword">class</span> Customer <span class="hljs-keyword">extends</span> CustomerBase {
+   <span class="hljs-meta">@FieldType</span>.multiselect
+   custentity_multiselect:<span class="hljs-built_in">number</span>[]
+
+   <span class="hljs-meta">@FieldType</span>.datetime
+   custentity_shawn_date : <span class="hljs-built_in">Date</span>
+}
+
+
+<span class="hljs-keyword">export</span> = {
+
+   onRequest: <span class="hljs-function">(<span class="hljs-params">req, resp</span>) =&gt;</span> {
+
+      <span class="hljs-comment">// load customer internal id 1542</span>
+      <span class="hljs-keyword">var</span> c = <span class="hljs-keyword">new</span> Customer(<span class="hljs-number">1542</span>)
+
+      <span class="hljs-comment">// strongly typed field access</span>
+      c.companyname = <span class="hljs-string">'a new company name'</span>
+      c.custentity_multiselect = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+      c.custentity_a_date = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+
+      <span class="hljs-comment">// persist our changes</span>
+      c.save();
+
+      <span class="hljs-comment">// just log a couple properties from our customer object</span>
+      log.debug(<span class="hljs-string">'customer'</span>, _.pick(c,[<span class="hljs-string">'custentity_a_date'</span>, <span class="hljs-string">'companyname'</span>]))
+   }
+}
+</code></pre>
+				<p><strong>see also <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/master/example.ts"><code>example.ts</code></a></strong></p>
+				<h2 id="search-helpers">Search Helpers</h2>
+				<p><code>nsSearchResult2obj</code> turns a netsuite <code>search.Result</code> into a POJO, especially useful when chaining operations or returning
+				search results from an API. </p>
+				<pre><code class="language-typescript">
+<span class="hljs-keyword">import</span> {nsSearchResult2obj} <span class="hljs-keyword">from</span> <span class="hljs-string">"NFT/search"</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> search <span class="hljs-keyword">from</span> <span class="hljs-string">"N/search"</span>
+
+<span class="hljs-keyword">const</span> s = search.load({ id: <span class="hljs-string">'somesearchid'</span> } ).run().getRange({start:<span class="hljs-number">0</span>, end:<span class="hljs-number">1000</span>})
+<span class="hljs-keyword">const</span> objects = _.map(s,nsSearchResult2obj()).toArray()
+
+<span class="hljs-comment">// objects will be array of plain javascript objects with property names matching the field names in netsuite.</span>
+<span class="hljs-comment">// fields with a non-falsey 'Text' value surface as properties suffixed with "Text"</span>
+<span class="hljs-comment">// e.g. `result.fieldname` or `result.fieldnameText`</span>
+
+<span class="hljs-comment">// see inline help for more (e.g. support for column labels</span>
+</code></pre>
+				<h3 id="lazy-search">Lazy Search</h3>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {nsSearchResult2obj, LazySearch} <span class="hljs-keyword">from</span> <span class="hljs-string">"./search"</span>
+<span class="hljs-keyword">import</span> {Seq} <span class="hljs-keyword">from</span> <span class="hljs-string">"immutable"</span>
+
+<span class="hljs-comment">// get the first result as a POJO </span>
+<span class="hljs-keyword">let</span> firstResultAsObj = Seq(LazySearch.load(<span class="hljs-string">"123"</span>)).map(nsSearchResult2obj()).first()</code></pre>
+				<p>Also see <a href="https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_search_.html">search</a> in the API documentation,
+				especially the <code>LazySearch</code> class.</p>
+				<h3 id="governance">Governance</h3>
+				<p>The governance handler utilties can be used with any script, but most often are used with a saved search in
+				a scheduled script.</p>
+				<p>There are two functions, one for checking governance usage (<code>governanceRemains()</code>) and another which additionally
+				auto-reschedules the currently executing script (<code>rescheduleIfNeeded()</code>)</p>
+				<p><code>governanceRemains</code> supports parameters for setting thresholds on both time and units usage. See the tsdocs for more on this function.</p>
+				<p><code>rescheduleIfNeeded</code> executes the passed predicate, and if it returns false it automatically
+				reschedules the script (using <code>N/task</code>) passing along script parameters if provided.</p>
+				<p>Example: exit processing automatically when governance falls below time or units threshold.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {nsSearchResult2obj, LazySearch} <span class="hljs-keyword">from</span> <span class="hljs-string">"./search"</span>
+<span class="hljs-keyword">import</span> {governanceRemains, rescheduleIfNeeded} <span class="hljs-keyword">from</span> <span class="hljs-string">"./governance"</span>
+<span class="hljs-keyword">import</span> {Seq} <span class="hljs-keyword">from</span> <span class="hljs-string">"immutable"</span>
+
+
+<span class="hljs-comment">// process results from search id '123' until out of governance. Governance checks are run for each iteration of the </span>
+<span class="hljs-comment">// `forEach()` and gracefully exit. </span>
+Seq(LazySearch.load(<span class="hljs-string">"123"</span>)).takeWhile(governanceRemains()).map(nsSearchResult2obj()).forEach( <span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+   <span class="hljs-comment">// .. do something with search result. </span>
+})
+
+
+<span class="hljs-comment">// same as above, but with automatic graceful exit AND rescheduling</span>
+Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
+   .takeWhile( rescheduleIfNeeded(governanceRemains()))
+   .map(nsSearchResult2obj())
+   .forEach( <span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+   <span class="hljs-comment">// .. do something with search result. </span>
+})
+</code></pre>
+				<p>Also see <a href="https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_governance_.html">governance</a> API docs</p>
+				<h2 id="special-apply-sublist-support">Special &#39;apply&#39; sublist support</h2>
+				<p>See <code>CustomerRefundBase.findApplyLine()</code> and <code>Transaction.ts</code> for help.</p>
+				<h2 id="logging">Logging</h2>
+				<p>NFT provides an advanced logging mechanism based on <a href="https://github.com/aurelia/logging">Aurelia&#39;s</a> logger. </p>
+				<p>It means you can have multiple loggers and control the logging verbosity of each. In other words, it&#39;s a lightweight
+				but much richer logging facility than the NetSuite provided logger.</p>
+				<h3 id="autologging">AutoLogging</h3>
+				<p>Automatically log entry and exit of methods with rich options by adding a line like this to the end of your script:</p>
+				<pre><code class="language-javascript">LogManager.autoLogMethodEntryExit({<span class="hljs-attr">target</span>:EC,<span class="hljs-attr">method</span>:<span class="hljs-regexp">/\w/</span>}, { <span class="hljs-attr">withProfiling</span>:<span class="hljs-literal">true</span> })</code></pre>
+				<p>The above line will automatically log all methods defined on the <em>EC</em> object/namespace</p>
+				<p>Other configuration options include automatic logging of execution time, governance usage, and other goodies.</p>
+				<p>See the jsdoc help for <code>autologMethodEntryExit()</code></p>
+				<h1 id="contributing">Contributing</h1>
+				<p>Please do.</p>
+				<h1 id="typescript">TypeScript</h1>
+				<p>This is written with TS and is recommended. However, it can be used by javascript clients as well.</p>
+				<p>Configure tsconfig to include <code>paths</code> for NetSuite modules and NFT modules:</p>
+				<pre><code>    <span class="hljs-string">"paths"</span>: {
+      <span class="hljs-string">"N/*"</span>: [
+        <span class="hljs-string">"node_modules/@hitc/netsuite-types/N/*"</span>
+      ]
+    }</code></pre><h2 id="netsuite-module-declarations">NetSuite Module Declarations</h2>
+				<ul>
+					<li>Typescript definitions (<em>N/*.d.ts</em> files) are defined via the
+					<a href="https://www.npmjs.com/package/@hitc/netsuite-types">@hitc/netsuite-types</a> project</li>
+				</ul>
+				<h1 id="tests">Tests</h1>
+				<p>The <code>test/</code> folder is configured to use <code>ts-jest</code> to compile the sources.</p>
+				<p>to run the test suite:</p>
+				<pre><code>npm <span class="hljs-built_in">test</span></code></pre><h1 id="build-and-publish">Build and Publish</h1>
+				<pre><code><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/tsc
+</span><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/gulp
+</span><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/gulp </span>declarations
+<span class="hljs-symbol">npm</span> publish</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_advancedintercompanyjournalentrybase_.html">"<wbr>Data<wbr>Access/<wbr>Advanced<wbr>Intercompany<wbr>Journal<wbr>Entry<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_assemblybuildbase_.html">"<wbr>Data<wbr>Access/<wbr>Assembly<wbr>Build<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_assemblyitembase_.html">"<wbr>Data<wbr>Access/<wbr>Assembly<wbr>Item<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_binbase_.html">"<wbr>Data<wbr>Access/<wbr>Bin<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_bintransferbase_.html">"<wbr>Data<wbr>Access/<wbr>Bin<wbr>Transfer<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_cashrefundbase_.html">"<wbr>Data<wbr>Access/<wbr>Cash<wbr>Refund<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_cashsalebase_.html">"<wbr>Data<wbr>Access/<wbr>Cash<wbr>Sale<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_creditmemobase_.html">"<wbr>Data<wbr>Access/<wbr>Credit<wbr>Memo<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_customerbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_customerdepositbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Deposit<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_customerpaymentbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Payment<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_customerrefundbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Refund<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_ec_nsdal_.html">"<wbr>Data<wbr>Access/EC_<wbr>nsdal"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_entity_.html">"<wbr>Data<wbr>Access/<wbr>Entity"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_estimatebase_.html">"<wbr>Data<wbr>Access/<wbr>Estimate<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_intercompanyjournalentrybase_.html">"<wbr>Data<wbr>Access/<wbr>Intercompany<wbr>Journal<wbr>Entry<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_intercompanytransferorderbase_.html">"<wbr>Data<wbr>Access/<wbr>Intercompany<wbr>Transfer<wbr>Order<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_inventoryadjustmentbase_.html">"<wbr>Data<wbr>Access/<wbr>Inventory<wbr>Adjustment<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_invoicebase_.html">"<wbr>Data<wbr>Access/<wbr>Invoice<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_itemfulfillmentbase_.html">"<wbr>Data<wbr>Access/<wbr>Item<wbr>Fulfillment<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_itemreceiptbase_.html">"<wbr>Data<wbr>Access/<wbr>Item<wbr>Receipt<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_journalentrybase_.html">"<wbr>Data<wbr>Access/<wbr>Journal<wbr>Entry<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_opportunitybase_.html">"<wbr>Data<wbr>Access/<wbr>Opportunity<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_projectbase_.html">"<wbr>Data<wbr>Access/<wbr>Project<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_projecttaskbase_.html">"<wbr>Data<wbr>Access/<wbr>Project<wbr>Task<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_purchaseorderbase_.html">"<wbr>Data<wbr>Access/<wbr>Purchase<wbr>Order<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_record_.html">"<wbr>Data<wbr>Access/<wbr>Record"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_returnauthorizationbase_.html">"<wbr>Data<wbr>Access/<wbr>Return<wbr>Authorization<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_revenuearrangementbase_.html">"<wbr>Data<wbr>Access/<wbr>Revenue<wbr>Arrangement<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_revenuerecognitionplanbase_.html">"<wbr>Data<wbr>Access/<wbr>Revenue<wbr>Recognition<wbr>Plan<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_salesorderbase_.html">"<wbr>Data<wbr>Access/<wbr>Sales<wbr>Order<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_sublist_.html">"<wbr>Data<wbr>Access/<wbr>Sublist"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_subsidiarybase_.html">"<wbr>Data<wbr>Access/<wbr>Subsidiary<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_transaction_.html">"<wbr>Data<wbr>Access/<wbr>Transaction"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_transferorderbase_.html">"<wbr>Data<wbr>Access/<wbr>Transfer<wbr>Order<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_vendorbase_.html">"<wbr>Data<wbr>Access/<wbr>Vendor<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_vendorbillbase_.html">"<wbr>Data<wbr>Access/<wbr>Vendor<wbr>Bill<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_vendorpaymentbase_.html">"<wbr>Data<wbr>Access/<wbr>Vendor<wbr>Payment<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ec_logger_.html">"EC_<wbr><wbr>Logger"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_aop_.html">"aop"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_geography_.html">"geography"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_governance_.html">"governance"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_search_.html">"search"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

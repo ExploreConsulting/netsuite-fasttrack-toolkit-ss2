@@ -1,5 +1,15 @@
 /**
- * Created by shawn on 4/6/16.
+ * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
+ *
+ * Utilizes the [Aurelia logger](https://aurelia.io/docs/api/logging) under the hood.
+ * This logger library adopts the common pattern of separating _how_ you log
+ * (e.g. `log.debug()`) from _where_ the log messages are sent.
+ *
+ * By default, log messages are sent to the NetSuite Execution Log - *except* for client scripts which log to the
+ * *browser console* by default.
+ *
+ * You can create as many named loggers as you like, but most often you'll work with the [Default Logger](#defaultlogger)
+ *
  * @NApiVersion 2.x
  */
 (function (factory) {
@@ -13,6 +23,9 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * dummy comment for TypeDoc
+     */
     var moment = require("./moment");
     var aurelia_logging_1 = require("./aurelia-logging");
     var nslog = require("N/log");
@@ -20,12 +33,19 @@
     var aop = require("./aop");
     var _ = require("./lodash");
     var aurelia_logging_2 = require("./aurelia-logging");
-    exports.getLogger = aurelia_logging_2.getLogger;
-    exports.Logger = aurelia_logging_2.Logger;
     exports.logLevel = aurelia_logging_2.logLevel;
+    exports.Logger = aurelia_logging_2.Logger;
+    exports.getAppenders = aurelia_logging_2.getAppenders;
+    exports.clearAppenders = aurelia_logging_2.clearAppenders;
+    exports.addAppender = aurelia_logging_2.addAppender;
+    exports.getLogger = aurelia_logging_2.getLogger;
+    exports.removeAppender = aurelia_logging_2.removeAppender;
+    exports.addCustomLevel = aurelia_logging_2.addCustomLevel;
+    exports.getLevel = aurelia_logging_2.getLevel;
+    exports.setLevel = aurelia_logging_2.setLevel;
+    exports.removeCustomLevel = aurelia_logging_2.removeCustomLevel;
     /**
      * Value to be prepended to each log message title. Defaults to a random 4 digit integer
-     * @type {string}
      */
     exports.correlationId = Math.floor(Math.random() * 10000).toString();
     /**
@@ -38,9 +58,10 @@
     /**
      * Controls whether the correlation id prefixes should be included in log messages or not.
      * @param enable if true, adds correlationid to the log messages, otherwise no correlation id prefix is added
+     * returns the newly set value
      */
     exports.setIncludeCorrelationId = function (enable) { return exports.includeCorrelationId = enable; };
-    // invokes the nsdal log function and handles adding a title tag 
+    // internal function to invoke the ns log function and handles adding a title tag
     function log(loglevel, logger) {
         var rest = [];
         for (var _i = 2; _i < arguments.length; _i++) {
@@ -48,7 +69,7 @@
         }
         var title = rest[0], details = rest[1];
         var prefix = '';
-        if (exports.includeCorrelationId === true) {
+        if (exports.includeCorrelationId) {
             prefix += exports.correlationId + ">";
         }
         // prefix all loggers except the 'default' one used by top level code
@@ -68,9 +89,12 @@
      * Severities are mapped as follows:
      *
      * debug -> NS 'DEBUG'
+     *
      * info -> NS 'AUDIT'
+     *
      * warn -> NS 'ERROR'
-     * error -> NS 'emergency'
+     *
+     * error -> NS 'EMERGENCY'
      */
     var ExecutionLogAppender = /** @class */ (function () {
         function ExecutionLogAppender() {
@@ -135,7 +159,8 @@
     }
     /**
      * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
-     * Call this method at the end of your script. Log entries are 'DEBUG' level.
+     * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
+     * as described below.
      *
      * @param methodsToLogEntryExit array of pointcuts
      * @param {Object} config configuration settings
@@ -148,6 +173,24 @@
      * false. Colors not configurable so that we maintain consistency across all our scripts.
      * @param {number} [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
      * @returns {} an array of jquery aop advices
+     *
+     * @example log all methods on the object `X`
+     * ```
+     * namespace X {
+     *   export onRequest() {
+     *     log.debug('hello world')
+     *   }
+     * }
+     * LogManager.autoLogMethodEntryExit({ target:X, method:/\w+/})
+     *
+     * ```
+     * The above results in automatic log entries similar to:
+     *
+     * |Log Title   | Detail |
+     * |--------|--------|
+       |Enter onRequest()| args:[] |
+       |hello world |   |
+       |Exit onRequest() | returned: undefined |
      */
     function autoLogMethodEntryExit(methodsToLogEntryExit, config) {
         if (!config)
@@ -160,35 +203,76 @@
         var withProfiling = config.withProfiling === true;
         // default to not show governance info
         var withGovernance = config.withGovernance === true;
-        // logger on which to autolog, default to the top level 'Default' logger used by scripts
+        // logger name on which to autolog, default to the top level 'Default' logger used by scripts
         var logger = config.logger || exports.DefaultLogger;
+        // logging level specified in config else default to debug. need to translate from number loglevels back to names
+        var level = _.findKey(aurelia_logging_1.logLevel, function (o) { return o === (config.logLevel || aurelia_logging_1.logLevel.debug); });
         return aop.around(methodsToLogEntryExit, function (invocation) {
             // record function entry with details for every method on our explore object
-            log(config.logLevel || aurelia_logging_1.logLevel.debug, logger, "Enter " + invocation.method + "() " + getGovernanceMessage(withGovernance), withArgs ? 'args: ' + JSON.stringify(arguments[0].arguments) : null);
+            var entryTitle = "Enter " + invocation.method + "() " + getGovernanceMessage(withGovernance);
+            var entryDetail = withArgs ? "args: " + JSON.stringify(arguments[0].arguments) : null;
+            logger[level](entryTitle, entryDetail);
             var startTime = moment();
             var retval = invocation.proceed();
-            var elapsedMessage;
+            var elapsedMessage = '';
             if (withProfiling) {
                 var elapsedMilliseconds = moment().diff(startTime);
-                elapsedMessage = elapsedMilliseconds + "ms = " +
-                    moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + " minutes";
+                elapsedMessage = elapsedMilliseconds + 'ms = ' +
+                    moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + ' minutes';
             }
-            // record function exit for every method on our explore object
-            log(config.logLevel || aurelia_logging_1.logLevel.debug, logger, ["Exit " + invocation.method + "()",
-                elapsedMessage,
-                getGovernanceMessage(withGovernance)].join(' ').trim(), withReturnValue ? "returned: " + JSON.stringify(retval) : null);
+            var exitTitle = "Exit " + invocation.method + "(): " + elapsedMessage + " " + getGovernanceMessage(withGovernance);
+            var exitDetail = withReturnValue ? "returned: " + JSON.stringify(retval) : null;
+            logger[level](exitTitle, exitDetail);
             return retval;
         });
     }
     exports.autoLogMethodEntryExit = autoLogMethodEntryExit;
     /**
      * The default logger - this should be the main top level logger used in scripts
+     *
+     * This logger defaults to log level 'debug' and is named 'default'.
+     * For client scripts, it logs to the _browser console_ (not NS execution log because it incurs significant
+     * overhead). For server-side scripts it logs to the NS Exectuion Log.
+     *
+     * @example To make a client script log to both the local browser console and the NS script execution log
+     *```
+     * import * as LogManager from "./NFT/EC_Logger"
+     *
+     * LogManager.addAppender(new LogManager.ExecutionLogAppender())
+     *```
+     * @example
+     *```
+     * import * as LogManager from "./NFT/EC_Logger"
+     * const log = LogManager.DefaultLogger
+     * log.debug('hello world')
+     * ```
      */
     exports.DefaultLogger = defaultLogger;
     /**
      * Use to set the correlation id to a value other than the default random number
-     * @param value new correlation id, will be used on all subsequent logging
+     * @param value new correlation id, will be used on all subsequent log messages
      */
     exports.setCorrelationId = function (value) { return exports.correlationId = value; };
-    aurelia_logging_1.addAppender(new ExecutionLogAppender());
+    /**
+     * Adds the passed aurelia logging console appender with diagnostic logging
+     * @param alc the aurelia-logging-console module
+     */
+    function addConsoleAppender(alc) {
+        console.debug('** adding console appender **');
+        aurelia_logging_1.addAppender(new alc.ConsoleAppender());
+        defaultLogger.debug('added console appender');
+    }
+    // if we're executing client side, default to using the browser console for logging to avoid
+    // expensive network round trips to the NS execution log. aurelia-logging-console depends upon the
+    // global 'console' variable and will fail to load if it's not defined.
+    if (typeof console === 'object') {
+        var isNodeJS = typeof module === 'object';
+        // if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require()
+        if (isNodeJS)
+            addConsoleAppender(require('aurelia-logging-console'));
+        else
+            require(['./aurelia-logging-console'], addConsoleAppender);
+    }
+    else
+        aurelia_logging_1.addAppender(new ExecutionLogAppender());
 });

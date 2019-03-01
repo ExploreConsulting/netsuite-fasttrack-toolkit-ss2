@@ -14,9 +14,15 @@
     Object.defineProperty(exports, "__esModule", { value: true });
     var geography_1 = require("../geography");
     describe('get states info', function () {
-        test('get WA by abbreviation', function () {
+        test('get WA by id', function () {
             var foundstate = geography_1.getStateById(48);
             expect(foundstate).toHaveProperty('abbrev', 'WA');
+        });
+    });
+    describe('get country info', function () {
+        test('get USA by id', function () {
+            var foundstate = geography_1.getCountryById(230);
+            expect(foundstate).toHaveProperty('abbrev', 'US');
         });
     });
 });

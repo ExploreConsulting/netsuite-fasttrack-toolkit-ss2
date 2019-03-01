@@ -1,19 +1,25 @@
 [![Gitter](https://badges.gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2.svg)](https://gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-NFT (NetSuite Fasttrack Toolkit) for SuiteScript 2.0
-===============================================
+NFT (NetSuite Fasttrack Toolkit)
+==============================================
+_for SuiteScript 2.0_
+
 This is a small but powerful framework for writing SuitScript that scales. A primary goal is to 
 enable authoring scripts that easy to write and easy to maintain.
 
 _Includes_
-* nsdal (**n**etsuite **d**ata **a**ccess **l**ayer) _ActiveRecord_-like approach with 
-predefined strong types for NetSuite record types including sublist support. 
+* nsdal (Netsuite Data Access Layer) _ActiveRecord_-like approach using 
+predefined strong types for NetSuite record access including sublist support. 
+* advanced logging facility
+* enhanced search handling
+* immutablejs (used for arbitrary length sequences and elegant search result processing)
+* governance management
 * lodash
 * momentjs
-* advanced logging
-* immutablejs (used for arbitrary length sequences)
-* helpers for N/search and governance management
 
+See API [docs here](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2)
+
+![NFT Intro Image](media/images/NFT-Intro.svg)
 
 # Getting Started (Typescript)
 
@@ -22,8 +28,6 @@ Install this package as a dependency and the SuiteScript 2.x (SS2) typings from 
     npm install netsuite-fasttrack-toolkit-ss2 
     npm install @hitc/netsuite-types --save-dev 
     
-**Also see the intro/guide [here](https://docs.google.com/document/d/1n0dpVByRMy3T6O1hf7S5z0383xVSNYCzQMgZ3U0arl0)**
-
 
 ## Deploy core library to NS
 Use the NetSuite file cabinet _advanced add_ button to upload the `node_modules/netsuite-fasttrack-toolkit-ss2/dist/NFT-SS2-#.#.#.zip` 
@@ -37,6 +41,18 @@ creates a convenient _'root'_ folder for your SS2 projects.
 After install you should get a folder link at your project root named NFT-SS2-#.#.#
 This creates a folder structure mirroring what you have in NetSuite so you can use relative paths when you 
 `import` from the library (e.g. `import {CustomerBase} from "./NFT-SS2-1.2.3/DataAcess/CustomerBase`)
+
+
+## NetSuite Data Access Layer (NSDAL)
+NSDAL is a variation of the Active Record pattern for working with NetSuite records. 
+
+Native SuiteScript 2.0 requires method calls and passing ‘config’ objects to access data.
+NSDAL uses regular javascript objects with properties, so you work with it the same way as any other javascript code.
+
+NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields. 
+Otherwise you derive your own class and add custom fields as shown in the code example that follows.
+
+![NSDAL Inheritance Diagram](media/images/NFT-NSDAL-Inheritance.png)
 
 
 ###  Overview Example
@@ -54,7 +70,6 @@ This creates a folder structure mirroring what you have in NetSuite so you can u
 import * as LogManager from 'NFT/EC_Logger'
 import {CustomerBase} from "NFT/DataAccess/CustomerBase"
 import {FieldType} from "NFT/DataAccess/Record"
-import * as moment from "NFT/moment"
 import * as _ from "NFT/lodash"
 
 // each script should request the DefaultLogger
@@ -62,15 +77,15 @@ var log = LogManager.DefaultLogger
 
 /**
  * define a customer class for our NetSuite account including custom fields. Standard fields come from customer.Base 
- * so we don't have to repeat them here. This Customer class could be in a separate file (e.g Customer.ts) and 
- * reused across all scripts via `import {Customer} from "./Customer"`
+ * so we don't have to repeat them here. This Customer class could be in a separate file/folder (e.g RecordTypes/Customer.ts) and 
+ * reused across all scripts via `import {Customer} from "./RecordTypes/Customer"`
  */
 class Customer extends CustomerBase {
    @FieldType.multiselect
    custentity_multiselect:number[]
 
    @FieldType.datetime
-   custentity_shawn_date : moment.Moment
+   custentity_shawn_date : Date
 }
 
 
@@ -84,7 +99,7 @@ export = {
       // strongly typed field access
       c.companyname = 'a new company name'
       c.custentity_multiselect = [1, 2]
-      c.custentity_a_date = moment()
+      c.custentity_a_date = new Date()
 
       // persist our changes
       c.save();
@@ -129,6 +144,10 @@ import {Seq} from "immutable"
 let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj()).first()
 ```
 
+
+Also see [search](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_search_.html) in the API documentation,
+especially the `LazySearch` class.
+
 ### Governance ###
 The governance handler utilties can be used with any script, but most often are used with a saved search in 
 a scheduled script.
@@ -163,9 +182,8 @@ Seq(LazySearch.load("123"))
    // .. do something with search result. 
 })
 
-
 ```
-
+Also see [governance](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_governance_.html) API docs
 
 
 ## Special 'apply' sublist support
@@ -214,9 +232,7 @@ Configure tsconfig to include `paths` for NetSuite modules and NFT modules:
 
 
 # Tests
-The `test/` folder is configured to use `ts-jest` to compile the sources, and jest caches the output. This means the 
-sources in the project are not changed. This is important because the tests use the modules compiled to run in Nodejs 
-(commonjs compatible). The production build _must_ be AMD to function in NetSuite. 
+The `test/` folder is configured to use `ts-jest` to compile the sources.
 
 to run the test suite:
 
@@ -225,7 +241,6 @@ to run the test suite:
 
 
 # Build and Publish
-The production build is AMD. Ensure that compiled files (e.g. `DataAccess/JournalEntryBase.js`) are in AMD format.
     
     node_modules/.bin/tsc
     node_modules/.bin/gulp

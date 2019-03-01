@@ -22,8 +22,10 @@ var sources = ['search.js','EC_Logger.js', 'config.js', 'DataAccess/*.js',
 
 var declarations = ['*.d.ts', 'DataAccess/*.d.ts','!example.d.ts'];
 
+// npm libraries we choose to bundle (e.g. moment) or we actually depend on (e.g. logging)
 var includedNPMlibs = ['node_modules/lodash/lodash.js','node_modules/immutable/dist/immutable.js',
-   'node_modules/moment/moment.js', 'node_modules/aurelia-logging/dist/amd/aurelia-logging.js'];
+   'node_modules/moment/moment.js', 'node_modules/aurelia-logging/dist/amd/aurelia-logging.js',
+'node_modules/aurelia-logging-console/dist/amd/aurelia-logging-console.js'];
 
 var otherTypings = ['node_modules/moment/moment.d.ts', 'aurelia-logging.d.ts'];
 
@@ -71,3 +73,22 @@ gulp.task('clean', function () {
 gulp.task('cleandeclarations', function () {
    return del(decldir);
 });
+
+gulp.task('docs', function(cb) {
+   var exec = require('child_process').exec
+   var options =
+   exec('node_modules/.bin/typedoc --excludeExternals --exclude "*+(example.ts|IntroGuideExamples.ts)" --out docs --theme default  --excludeProtected ' +
+      '--excludePrivate --name \'NetSuite FastTrack Toolkit (NFT)\' --media media',
+      function (err, stdout,stderr) {
+         console.log(stdout)
+         console.log(stderr)
+         // by default the typedoc build above cleans the output directory. Drop a .nojekyll file after
+         // so that GitHub pages doesn't try to treat the generated _ files specially
+         exec('touch docs/.nojekyll',
+            function (err, stdout,stderr) {
+               console.log(stdout)
+               console.log(stderr)
+               cb(err)
+            })
+      })
+})
