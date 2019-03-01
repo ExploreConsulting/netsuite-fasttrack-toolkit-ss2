@@ -24,7 +24,8 @@
                     <xsl:with-param name="className" select="$className"/>
                     <!-- add imports used to define the TS class and properties -->
                     <xsl:with-param name="imports">
-import {NetsuiteRecord} from "$nftPath/DataAccess/Record"
+<xsl:text>
+import {NetsuiteRecord} from "</xsl:text><xsl:value-of select="$nftPath"/><xsl:text>/DataAccess/Record"</xsl:text>
                     </xsl:with-param>
                 </xsl:apply-templates>
             </xsl:result-document>
@@ -47,10 +48,12 @@ import {NetsuiteRecord} from "$nftPath/DataAccess/Record"
     <xsl:param required="yes" name="className"/>
 
 <!-- Always include these imports plus whatever the caller provided, to keep it DRY -->
-
-<xsl:text>// Auto-Generated NFT NSDAL Class
-import {FieldType} from "{$nftPath}/DataAccess/Record"
-</xsl:text><xsl:value-of select="$imports"/>
+    <xsl:text>
+// Auto-Generated NFT NSDAL Class
+import {FieldType} from "</xsl:text>
+        <xsl:value-of select="$nftPath"/>
+    <xsl:text>/DataAccess/Record"</xsl:text>
+<xsl:value-of select="$imports"/>
 <xsl:where-populated expand-text="yes">
 /**
  *   {description}
