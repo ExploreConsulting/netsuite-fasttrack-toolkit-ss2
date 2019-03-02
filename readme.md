@@ -135,6 +135,19 @@ const objects = _.map(s,nsSearchResult2obj()).toArray()
 ```
 
 ### Lazy Search ###
+While `nsSearchResult2obj()` is useful on its own, we usually use it with `LazySearch`. This adds powerful and _lazy_ processing of
+search results. Here 'lazy' means records are paged in from the search, as needed, never consuming more than 1 page 
+in memory at a time. Contrast this with `underscore` or `lodash` which create complete copies of the target collection
+for each chained operation by default.
+
+For example `_.map(searchResults, ...)` creates a __new collection__ in memory holding the output of the `map`, 
+doubling overall memory use (`searchResults` remains unchanged, and `map()` emits a new collection of the same
+length as `searchResults)
+
+`LazySearch` processes one result at a time, passing it through all chained operation methods. It never creates intermediate
+collections or exceeds 1 page of results stored in memory. This bounded memory usage holds true whether there are 1 or 
+1 million search results. The limitation is `LazySearch` is intended for _forward-only_ iteration of search results - which we
+ find is overwhelmingly the most common use case.
 
 ```typescript
 import {nsSearchResult2obj, LazySearch} from "./search"
