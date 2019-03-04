@@ -54,6 +54,10 @@ Otherwise you derive your own class and add custom fields as shown in the code e
 
 ![NSDAL Inheritance Diagram](media/images/NFT-NSDAL-Inheritance.png)
 
+_\<expermimental\>_
+Subrecord support! Take a look at the `CustomerBase.addressbook` sublist.
+`CustomerBase.addressbook[0].addressbookaddress` gets the strongly typed `AddressBase` SubRecord. It works mostly like any 
+other record you just don't explicitly `save()` it. 
 
 ###  Overview Example
 
@@ -142,7 +146,7 @@ for each chained operation by default.
 
 For example `_.map(searchResults, ...)` creates a __new collection__ in memory holding the output of the `map`, 
 doubling overall memory use (`searchResults` remains unchanged, and `map()` emits a new collection of the same
-length as `searchResults)
+length as `searchResults`)
 
 `LazySearch` processes one result at a time, passing it through all chained operation methods. It never creates intermediate
 collections or exceeds 1 page of results stored in memory. This bounded memory usage holds true whether there are 1 or 
