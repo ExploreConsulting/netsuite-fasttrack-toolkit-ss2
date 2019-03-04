@@ -72,7 +72,7 @@ other record you just don't explicitly `save()` it.
  */
 
 import * as LogManager from 'NFT/EC_Logger'
-import {CustomerBase} from "NFT/DataAccess/CustomerBase"
+import {CustomerBase} from  'NFT/DataAccess/CustomerBase"
 import {FieldType} from "NFT/DataAccess/Record"
 import * as _ from "NFT/lodash"
 
@@ -110,6 +110,14 @@ export = {
 
       // just log a couple properties from our customer object
       log.debug('customer', _.pick(c,['custentity_a_date', 'companyname']))
+      
+      // address book - including experimental subrecord access
+      // get addressbook subrecord of first address on the customer
+      
+      const addrSubRecord = c.addressbook[0].addressbookaddress
+      // addrSubRecord has fields like addr1, addr2, city, country, state, addrphone etc.
+      log.debug('address subrecord', addrSubRecord)
+          
    }
 }
 
