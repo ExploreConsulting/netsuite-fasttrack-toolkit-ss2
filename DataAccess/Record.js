@@ -233,6 +233,7 @@ var __extends = (this && this.__extends) || (function () {
         FieldType.currency = numericDescriptor;
         FieldType.date = defaultDescriptor;
         FieldType.datetime = defaultDescriptor;
+        FieldType.document = defaultDescriptor;
         FieldType.email = defaultDescriptor;
         FieldType.freeformtext = defaultDescriptor;
         FieldType.float = numericDescriptor;

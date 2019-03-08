@@ -54,6 +54,10 @@ Otherwise you derive your own class and add custom fields as shown in the code e
 
 ![NSDAL Inheritance Diagram](media/images/NFT-NSDAL-Inheritance.png)
 
+_\<expermimental\>_
+Subrecord support! Take a look at the `CustomerBase.addressbook` sublist.
+`CustomerBase.addressbook[0].addressbookaddress` gets the strongly typed `AddressBase` SubRecord. It works mostly like any 
+other record you just don't explicitly `save()` it. 
 
 ###  Overview Example
 
@@ -68,7 +72,7 @@ Otherwise you derive your own class and add custom fields as shown in the code e
  */
 
 import * as LogManager from 'NFT/EC_Logger'
-import {CustomerBase} from "NFT/DataAccess/CustomerBase"
+import {CustomerBase} from  'NFT/DataAccess/CustomerBase"
 import {FieldType} from "NFT/DataAccess/Record"
 import * as _ from "NFT/lodash"
 
@@ -86,6 +90,10 @@ class Customer extends CustomerBase {
 
    @FieldType.datetime
    custentity_shawn_date : Date
+   
+   // add 'Text' suffix to any property to `getText()` instead of `getValue()`
+   @FieldType.datetime
+   custentity_shawn_dateText: string
 }
 
 
@@ -106,6 +114,14 @@ export = {
 
       // just log a couple properties from our customer object
       log.debug('customer', _.pick(c,['custentity_a_date', 'companyname']))
+      
+      // address book - including experimental subrecord access
+      // get addressbook subrecord of first address on the customer
+      
+      const addrSubRecord = c.addressbook[0].addressbookaddress
+      // addrSubRecord has fields like addr1, addr2, city, country, state, addrphone etc.
+      log.debug('address subrecord', addrSubRecord)
+          
    }
 }
 
@@ -135,6 +151,19 @@ const objects = _.map(s,nsSearchResult2obj()).toArray()
 ```
 
 ### Lazy Search ###
+While `nsSearchResult2obj()` is useful on its own, we usually use it with `LazySearch`. This adds powerful and _lazy_ processing of
+search results. Here 'lazy' means records are paged in from the search, as needed, never consuming more than 1 page 
+in memory at a time. Contrast this with `underscore` or `lodash` which create complete copies of the target collection
+for each chained operation by default.
+
+For example `_.map(searchResults, ...)` creates a __new collection__ in memory holding the output of the `map`, 
+doubling overall memory use (`searchResults` remains unchanged, and `map()` emits a new collection of the same
+length as `searchResults`)
+
+`LazySearch` processes one result at a time, passing it through all chained operation methods. It never creates intermediate
+collections or exceeds 1 page of results stored in memory. This bounded memory usage holds true whether there are 1 or 
+1 million search results. The limitation is `LazySearch` is intended for _forward-only_ iteration of search results - which we
+ find is overwhelmingly the most common use case.
 
 ```typescript
 import {nsSearchResult2obj, LazySearch} from "./search"
