@@ -2,7 +2,7 @@
   "name": "netsuite-fasttrack-toolkit-ss2",
   "version": "4.3.0",
   "description": "Power library for NetSuite SuiteScript 2.x",
-  "main": "none",
+  "main": "nft-codegen",
   "directories": {
     "test": "tests"
   },
@@ -13,6 +13,9 @@
   },
   "author": "Explore Consulting",
   "license": "MIT",
+  "bin": {
+    "nft-codegen" : "./CodeGeneration/generate.bash"
+  },
   "devDependencies": {
     "@hitc/netsuite-types": "2018.2.10",
     "@types/jest": "^23.3.9",
@@ -38,7 +41,7 @@
     "url": "https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2.git"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "dependencies": {
     "aurelia-logging": "1.5.1",
