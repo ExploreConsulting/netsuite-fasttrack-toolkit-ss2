@@ -7,7 +7,7 @@ import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
 import * as _ from '../lodash'
-import { Sublist, SublistLine } from './Sublist'
+import {Sublist, SublistLine} from './Sublist'
 
 const log = LogManager.getLogger('nsdal')
 
@@ -223,6 +223,7 @@ export namespace FieldType {
    export var currency = numericDescriptor
    export var date = defaultDescriptor
    export var datetime = defaultDescriptor
+   export var document = defaultDescriptor
    export var email = defaultDescriptor
    export var freeformtext = defaultDescriptor
    export var float = numericDescriptor
