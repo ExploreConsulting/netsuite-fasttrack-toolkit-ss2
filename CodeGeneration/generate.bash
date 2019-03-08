@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+# echo the directory this script is located in
+echo `dirname $0`
 
-## Handle custom records
+echo `pwd`
+
+alias sdfcli=java -jar ~/cli-2019.1.0.jar
 
 # get custom record definitions from NS and save into ./Objects/CustomRecords
 sdfcli importobjects  -type customrecordtype  -scriptid ALL -p ./ -destinationfolder '/Objects/CustomRecords'
