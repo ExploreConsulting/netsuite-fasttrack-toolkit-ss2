@@ -90,6 +90,10 @@ class Customer extends CustomerBase {
 
    @FieldType.datetime
    custentity_shawn_date : Date
+   
+   // add 'Text' suffix to any property to `getText()` instead of `getValue()`
+   @FieldType.datetime
+   custentity_shawn_dateText: string
 }
 
 
