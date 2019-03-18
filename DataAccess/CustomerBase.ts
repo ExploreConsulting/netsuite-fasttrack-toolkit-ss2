@@ -2,9 +2,9 @@
  * NS Base customer record - contains definitions for most of the built in fields
  */
 
-import { FieldType, NetsuiteRecord } from './Record'
+import {FieldType, NetsuiteRecord} from './Record'
 import * as record from 'N/record'
-import { Sublist, SublistFieldType, SublistLine } from './Sublist'
+import {Sublist, SublistFieldType, SublistLine} from './Sublist'
 
 /**
  * The addressbook 'subrecord'. In SS2.0 this is mostly treated as a normal record object.
@@ -159,8 +159,8 @@ export class CustomerBase extends NetsuiteRecord {
    @FieldType.checkbox
    isinactive:boolean
 
-   @FieldType.checkbox
-   isperson:boolean
+   @FieldType.freeformtext
+   isperson: 'T' | 'F'
 
    @FieldType.datetime
    lastmodifieddate:Date

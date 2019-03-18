@@ -198,7 +198,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.checkbox
         ], CustomerBase.prototype, "isinactive", void 0);
         __decorate([
-            Record_1.FieldType.checkbox
+            Record_1.FieldType.freeformtext
         ], CustomerBase.prototype, "isperson", void 0);
         __decorate([
             Record_1.FieldType.datetime
