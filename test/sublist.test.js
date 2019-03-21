@@ -56,6 +56,18 @@ var __extends = (this && this.__extends) || (function () {
             expect(sut.length).toBe(0);
             expect(record.removeLine).not.toBeCalled();
             // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
-        });
+        }),
+            test('getText() on field', function () {
+                var fakeRec = record.create({ type: 'fake' });
+                var lineCount = 0; // start with an empty sublist
+                record.getLineCount.mockImplementation(function () { return lineCount; });
+                record.removeLine.mockImplementation(function () { return lineCount--; });
+                //record.getSublistText = mock.fn()
+                var sut = new Sublist_1.Sublist(FakeSublistLine, fakeRec, 'fakesublist');
+                sut.removeAllLines();
+                expect(sut.length).toBe(0);
+                expect(record.removeLine).not.toBeCalled();
+                // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
+            });
     });
 });

@@ -4,6 +4,17 @@
  * that here (yet) in interest of code clarity. Also the fact that it's only two copies (usually use the rule of
  * three's for DRY).
  */
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
@@ -56,27 +67,31 @@
      */
     function defaultSublistDescriptor(target, propertyKey) {
         log.debug('creating default descriptor', "field: " + propertyKey);
+        var isTextField = _.endsWith(propertyKey, 'Text');
+        var nsfield = isTextField ? _.trimEnd(propertyKey, 'Text') : propertyKey;
         return {
             get: function () {
                 var options = {
                     sublistId: this.sublistId,
                     line: this._line,
-                    fieldId: propertyKey,
+                    fieldId: nsfield,
                 };
                 log.debug('getting sublist value', options);
-                return this.nsrecord.getSublistValue(options);
+                return isTextField ? this.nsrecord.getSublistText(options) : this.nsrecord.getSublistValue(options);
             },
             set: function (value) {
                 // ignore undefined's
-                if (value !== undefined)
-                    this.nsrecord.setSublistValue({
+                if (value !== undefined) {
+                    var options = {
                         sublistId: this.sublistId,
                         line: this._line,
-                        fieldId: propertyKey,
-                        value: value
-                    });
+                        fieldId: nsfield
+                    };
+                    isTextField ? this.nsrecord.setSublistText(__assign({}, options, { text: value }))
+                        : this.nsrecord.setSublistValue(__assign({}, options, { value: value }));
+                }
                 else
-                    log.debug("ignoring field [" + propertyKey + "]", 'field value is undefined');
+                    log.debug("ignoring field [" + nsfield + "]", 'field value is undefined');
             },
             enumerable: true //default is false
         };

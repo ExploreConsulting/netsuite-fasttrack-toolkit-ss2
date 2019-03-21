@@ -1,4 +1,4 @@
-import { Sublist, SublistLine } from '../DataAccess/Sublist'
+import {Sublist, SublistLine} from '../DataAccess/Sublist'
 
 import * as record from '../__mocks__/N/record'
 
@@ -35,6 +35,22 @@ describe('Sublists', function () {
       record.getLineCount.mockImplementation(()=> lineCount)
       record.removeLine.mockImplementation( () => lineCount--)
 
+      const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
+
+      sut.removeAllLines()
+
+      expect(sut.length).toBe(0)
+      expect(record.removeLine).not.toBeCalled()
+      // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
+   }),
+
+      test('getText() on field', () => {
+      const fakeRec = record.create({type:'fake'})
+
+      let lineCount = 0 // start with an empty sublist
+      record.getLineCount.mockImplementation(()=> lineCount)
+      record.removeLine.mockImplementation( () => lineCount--)
+      //record.getSublistText = mock.fn()
       const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
 
       sut.removeAllLines()

@@ -50,25 +50,29 @@ export namespace SublistFieldType {
  */
 export function defaultSublistDescriptor (target: any, propertyKey: string): any {
    log.debug('creating default descriptor', `field: ${propertyKey}`)
+   let isTextField = _.endsWith(propertyKey, 'Text')
+   let nsfield = isTextField ? _.trimEnd(propertyKey, 'Text') : propertyKey
    return {
       get: function (this: SublistLine) {
          const options = {
             sublistId: this.sublistId,
             line: this._line,
-            fieldId: propertyKey,
+            fieldId: nsfield,
          }
          log.debug('getting sublist value', options)
-         return this.nsrecord.getSublistValue(options)
+         return isTextField ? this.nsrecord.getSublistText(options) : this.nsrecord.getSublistValue(options)
       },
       set: function (this: SublistLine, value) {
          // ignore undefined's
-         if (value !== undefined) this.nsrecord.setSublistValue({
-            sublistId: this.sublistId,
-            line: this._line,
-            fieldId: propertyKey,
-            value: value
-         })
-         else log.debug(`ignoring field [${propertyKey}]`, 'field value is undefined')
+         if (value !== undefined) {
+            const options = {
+               sublistId: this.sublistId,
+               line: this._line,
+               fieldId: nsfield
+            }
+            isTextField ? this.nsrecord.setSublistText({...options, text: value})
+               : this.nsrecord.setSublistValue({...options, value: value})
+         } else log.debug(`ignoring field [${nsfield}]`, 'field value is undefined')
       },
       enumerable: true //default is false
    }
@@ -95,7 +99,7 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
          log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
          // returns the 'raw' type which is a string or number for our purposes
-         return value ? format.parse({ type: formatType, value: value }) : value
+         return value ? format.parse({type: formatType, value: value}) : value
       },
       set: function (this: SublistLine, value) {
          let formattedValue: number | null
@@ -116,10 +120,10 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
                case format.Type.POSINTEGER:
                case format.Type.RATE:
                case format.Type.RATEHIGHPRECISION:
-                  formattedValue = Number(format.format({ type: formatType, value: value }))
+                  formattedValue = Number(format.format({type: formatType, value: value}))
                   break
                default:
-                  formattedValue = format.format({ type: formatType, value: value })
+                  formattedValue = format.format({type: formatType, value: value})
             }
             log.debug(`setting sublist field [${propertyKey}:${formatType}]`,
                `to formatted value [${formattedValue}] (unformatted vale: ${value})`)
@@ -155,7 +159,7 @@ export class Sublist<T extends SublistLine> {
     * @returns {number} number of lines in this list
     */
    get length () {
-      return this.nsrecord.getLineCount({ sublistId: this.sublistId })
+      return this.nsrecord.getLineCount({sublistId: this.sublistId})
    }
 
    /**
@@ -179,12 +183,12 @@ export class Sublist<T extends SublistLine> {
     * Removes all existing lines of this sublist, leaving effectively an empty array
     * @param ignoreRecalc passed through to nsrecord.removeLine (ignores firing recalc event as each line is removed )
     */
-   removeAllLines (ignoreRecalc:boolean = true) {
+   removeAllLines (ignoreRecalc: boolean = true) {
       while (this.length > 0) {
          let line = {
-            sublistId:this.sublistId,
-            ignoreRecalc:ignoreRecalc,
-            line:this.length - 1
+            sublistId: this.sublistId,
+            ignoreRecalc: ignoreRecalc,
+            line: this.length - 1
          }
          this.nsrecord.removeLine(line)
          log.debug('removed line', line)
@@ -192,18 +196,17 @@ export class Sublist<T extends SublistLine> {
       return this
    }
 
-
    /**
     * commits the currently selected line on this sublist. When adding new lines you don't need to call this method
     */
    commitLine () {
       log.debug('committing line', `sublist: ${this.sublistId}`)
-      this.nsrecord.commitLine({ sublistId: this.sublistId })
+      this.nsrecord.commitLine({sublistId: this.sublistId})
    }
 
    selectLine (line: number) {
       log.debug('selecting line', line)
-      this.nsrecord.selectLine({ sublistId: this.sublistId, line: line })
+      this.nsrecord.selectLine({sublistId: this.sublistId, line: line})
    }
 
    /**
@@ -264,8 +267,8 @@ export abstract class SublistLine {
     */
    constructor (public sublistId: string, rec: record.Record, public _line: number) {
       this.makeRecordProp(rec)
-      Object.defineProperty(this, 'sublistId', { enumerable: false })
-      Object.defineProperty(this, '_line', { enumerable: false })
+      Object.defineProperty(this, 'sublistId', {enumerable: false})
+      Object.defineProperty(this, '_line', {enumerable: false})
    }
 }
 
