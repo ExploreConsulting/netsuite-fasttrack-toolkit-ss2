@@ -118,7 +118,7 @@ var __extends = (this && this.__extends) || (function () {
      */
     function defaultDescriptor(target, propertyKey) {
         var isTextField = _.endsWith(propertyKey, 'Text');
-        var nsfield = isTextField ? _.trimEnd(propertyKey, 'Text') : propertyKey;
+        var nsfield = isTextField ? _.replace(propertyKey, 'Text', '') : propertyKey;
         return {
             get: function () {
                 log.debug('field GET', nsfield + ", as text:" + isTextField);

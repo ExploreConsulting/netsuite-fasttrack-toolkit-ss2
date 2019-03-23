@@ -110,7 +110,7 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
  */
 export function defaultDescriptor (target: any, propertyKey: string): any {
    let isTextField = _.endsWith(propertyKey, 'Text')
-   let nsfield = isTextField ? _.trimEnd(propertyKey, 'Text') : propertyKey
+   let nsfield = isTextField ? _.replace(propertyKey, 'Text','') : propertyKey
    return {
       get: function () {
          log.debug('field GET', `${nsfield}, as text:${isTextField}`)
