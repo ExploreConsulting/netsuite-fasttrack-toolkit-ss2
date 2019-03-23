@@ -149,6 +149,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         ], AddressSublist.prototype, "zip", void 0);
         return AddressSublist;
     }(Sublist_1.SublistLine));
+    exports.AddressSublist = AddressSublist;
     var CustomerBase = /** @class */ (function (_super) {
         __extends(CustomerBase, _super);
         function CustomerBase() {

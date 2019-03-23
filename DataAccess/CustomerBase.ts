@@ -60,7 +60,7 @@ export class AddressBase extends NetsuiteRecord {
  * The address _sublist_ on customer records, not to be confused with the Address _subrecord_.
  * Customer address info is split between this sublist and the subrecord pointed to by the _addressbook_ field.
  */
-class AddressSublist extends SublistLine {
+export class AddressSublist extends SublistLine {
 
    /**
     * Address subrecord
