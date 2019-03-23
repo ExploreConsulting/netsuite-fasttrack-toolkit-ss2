@@ -44,14 +44,15 @@ export namespace SublistFieldType {
 
 /**
  * Generic property descriptor with basic default algorithm that exposes the field value directly with no
- * other processing.
+ * other processing. If the target field name ends with 'Text' it uses NetSuite `getText()/setText()` otherwise (default)
+ * uses `getValue()/setValue()`
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
 export function defaultSublistDescriptor (target: any, propertyKey: string): any {
    log.debug('creating default descriptor', `field: ${propertyKey}`)
    let isTextField = _.endsWith(propertyKey, 'Text')
-   let nsfield = isTextField ? _.trimEnd(propertyKey, 'Text') : propertyKey
+   let nsfield = isTextField ? _.replace(propertyKey, 'Text', '') : propertyKey
    return {
       get: function (this: SublistLine) {
          const options = {
@@ -59,7 +60,7 @@ export function defaultSublistDescriptor (target: any, propertyKey: string): any
             line: this._line,
             fieldId: nsfield,
          }
-         log.debug('getting sublist value', options)
+         log.debug(`getting sublist ${isTextField ? "text": "value"}`, options)
          return isTextField ? this.nsrecord.getSublistText(options) : this.nsrecord.getSublistValue(options)
       },
       set: function (this: SublistLine, value) {
@@ -239,6 +240,19 @@ export class Sublist<T extends SublistLine> {
 /**
  * contains minimum requirements for a sublist line - 1. which sublist are we working with, 2. on which record
  * 3. which line on the sublist does this instance represent
+ *
+ * You extend from this class (or a pre-existing subclass) to define the fields to surface on the NetSuite sublist.
+ * Class property names should be the netsuite field internal id. By default these fields surface the `value` of the field
+ * To `get/setText()` instead, append the field name with `Text`.
+ *
+ * @example Surfaces the `price` field both as _value_ (numeric internal id) and _text_
+ *       class SalesOrderItemSublist extends SublistLine {
+ *         @SublistFieldType.select
+ *         price:number
+ *
+ *         @SublistFieldType.freeformtext
+ *         priceText:string
+ *       }
  */
 export abstract class SublistLine {
 
