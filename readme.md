@@ -74,10 +74,25 @@ other record you just don't explicitly `save()` it.
 import * as LogManager from 'NFT/EC_Logger'
 import {CustomerBase} from  'NFT/DataAccess/CustomerBase"
 import {FieldType} from "NFT/DataAccess/Record"
+import {SublistFieldType,Sublist,SublistLine} from "NFT/DataAccess/Sublist"
 import * as _ from "NFT/lodash"
 
 // each script should request the DefaultLogger
 var log = LogManager.DefaultLogger
+
+/**
+* Define fields for the 'contactroles' sublist on customer
+*/
+class ContactRolesSublist extends SublistLine {
+   // the country internal id
+   @SublistFieldType.select
+   role: number
+
+   // adding `Text` suffix to field name surfaces the text value
+   // instead of internalid
+   @SublistFieldType.select
+   roleText: string
+}
 
 /**
  * define a customer class for our NetSuite account including custom fields. Standard fields come from customer.Base 
@@ -94,6 +109,9 @@ class Customer extends CustomerBase {
    // add 'Text' suffix to any property to `getText()` instead of `getValue()`
    @FieldType.datetime
    custentity_shawn_dateText: string
+   
+   @FieldType.sublist(ContactRolesSublist)
+   contactroles: Sublist<ContactRolesSublist>
 }
 
 
@@ -108,8 +126,12 @@ export = {
       c.companyname = 'a new company name'
       c.custentity_multiselect = [1, 2]
       c.custentity_a_date = new Date()
+      // access `role` field VALUE of first contact role 
+      c.contactroles[0].role 
+      // access `country` field TEXT of first contact role
+      c.contactroles[0].roleText
 
-      // persist our changes
+      // persist changes
       c.save();
 
       // just log a couple properties from our customer object
@@ -117,11 +139,9 @@ export = {
       
       // address book - including experimental subrecord access
       // get addressbook subrecord of first address on the customer
-      
       const addrSubRecord = c.addressbook[0].addressbookaddress
       // addrSubRecord has fields like addr1, addr2, city, country, state, addrphone etc.
       log.debug('address subrecord', addrSubRecord)
-          
    }
 }
 
