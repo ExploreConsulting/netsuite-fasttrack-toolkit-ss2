@@ -13,8 +13,17 @@
     exports.Type = jest.fn();
     exports.getValue = jest.fn().mockName('getValue');
     exports.setValue = jest.fn().mockName('setValue');
+    exports.getText = jest.fn().mockName('getText');
+    exports.setText = jest.fn().mockName('setText');
     exports.load = jest.fn().mockReturnThis().mockName('load');
     exports.getLineCount = jest.fn().mockName('getLineCount');
     exports.getFields = jest.fn();
     exports.removeLine = jest.fn();
+    exports.findSublistLineWithValue = jest.fn();
+    exports.getSublistText = jest.fn();
+    exports.getSublistValue = jest.fn();
+    exports.setSublistText = jest.fn();
+    exports.setSublistValue = jest.fn();
+    exports.getSublistFields = jest.fn();
+    exports.getSublistField = jest.fn();
 });
