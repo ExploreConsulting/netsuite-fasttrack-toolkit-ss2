@@ -17,7 +17,7 @@
  * dummy comment for TypeDoc
  */
 import * as moment from './moment'
-import { addAppender, Appender, clearAppenders, getLogger, Logger, logLevel } from './aurelia-logging'
+import {addAppender, Appender, clearAppenders, getLogger, Logger, logLevel} from './aurelia-logging'
 import * as nslog from 'N/log'
 import * as runtime from 'N/runtime'
 import * as aop from './aop'
@@ -44,10 +44,15 @@ export {
 export let correlationId = Math.floor(Math.random() * 10000).toString()
 
 /**
- * if true then log message include a random integer (or your custom) prefix to each log entry title.
+ * if true then log message includes a random integer (or your custom) prefix to each log entry title.
  * which is fixed for the duration of this script run. This can be used to correlate between different runs
  * of the same script (e.g. multiple runs of a scheduled script or discerning between multiple simultaneous calls
  * to a RESTlet or Suitelet)
+ *
+ * @example output
+ * 1234> My log title
+ * 1234> Another log title from the same run of the script
+ * 5683> Log message from a subsequent execution of the script
  */
 export let includeCorrelationId = false
 
@@ -55,6 +60,11 @@ export let includeCorrelationId = false
  * Controls whether the correlation id prefixes should be included in log messages or not.
  * @param enable if true, adds correlationid to the log messages, otherwise no correlation id prefix is added
  * returns the newly set value
+ *
+ * @example for `setIncludeCorrelationId(true)`
+ * 1234> My log title
+ * 1234> Another log title from the same run of the script
+ * 5683> Log message from a subsequent execution of the script
  */
 export const setIncludeCorrelationId = (enable: boolean) => includeCorrelationId = enable
 
@@ -79,7 +89,9 @@ function log (loglevel: number, logger: Logger, ...rest: any[]) {
 }
 
 /**
- * Log appender targeting the NS execution log
+ * Log appender targeting the NS execution log. This is the default appender for everything except Client scripts
+ * which log the browser console by default.
+ *
  * Severities are mapped as follows:
  *
  * debug -> NS 'DEBUG'
@@ -269,12 +281,12 @@ export let DefaultLogger: Logger = defaultLogger
 
 /**
  * Use to set the correlation id to a value other than the default random number
- * @param value new correlation id, will be used on all subsequent log messages
+ * @param value new correlation id, will be used on all subsequent log messages for the current script execution
  */
 export const setCorrelationId = (value: string) => correlationId = value
 
 /**
- * Adds the passed aurelia logging console appender with diagnostic logging
+ * Adds the passed aurelia logging console (browser/node) appender with diagnostic logging
  * @param alc the aurelia-logging-console module
  */
 function addConsoleAppender (alc: any) {
