@@ -49,16 +49,26 @@
      */
     exports.correlationId = Math.floor(Math.random() * 10000).toString();
     /**
-     * if true then log message include a random integer (or your custom) prefix to each log entry title.
+     * if true then log message includes a random integer (or your custom) prefix to each log entry title.
      * which is fixed for the duration of this script run. This can be used to correlate between different runs
      * of the same script (e.g. multiple runs of a scheduled script or discerning between multiple simultaneous calls
      * to a RESTlet or Suitelet)
+     *
+     * @example output
+     * 1234> My log title
+     * 1234> Another log title from the same run of the script
+     * 5683> Log message from a subsequent execution of the script
      */
     exports.includeCorrelationId = false;
     /**
      * Controls whether the correlation id prefixes should be included in log messages or not.
      * @param enable if true, adds correlationid to the log messages, otherwise no correlation id prefix is added
      * returns the newly set value
+     *
+     * @example for `setIncludeCorrelationId(true)`
+     * 1234> My log title
+     * 1234> Another log title from the same run of the script
+     * 5683> Log message from a subsequent execution of the script
      */
     exports.setIncludeCorrelationId = function (enable) { return exports.includeCorrelationId = enable; };
     // internal function to invoke the ns log function and handles adding a title tag
@@ -85,7 +95,9 @@
         nslog[toNetSuiteLogLevel(loglevel)](prefix + " " + title, details);
     }
     /**
-     * Log appender targeting the NS execution log
+     * Log appender targeting the NS execution log. This is the default appender for everything except Client scripts
+     * which log the browser console by default.
+     *
      * Severities are mapped as follows:
      *
      * debug -> NS 'DEBUG'
@@ -250,11 +262,11 @@
     exports.DefaultLogger = defaultLogger;
     /**
      * Use to set the correlation id to a value other than the default random number
-     * @param value new correlation id, will be used on all subsequent log messages
+     * @param value new correlation id, will be used on all subsequent log messages for the current script execution
      */
     exports.setCorrelationId = function (value) { return exports.correlationId = value; };
     /**
-     * Adds the passed aurelia logging console appender with diagnostic logging
+     * Adds the passed aurelia logging console (browser/node) appender with diagnostic logging
      * @param alc the aurelia-logging-console module
      */
     function addConsoleAppender(alc) {
