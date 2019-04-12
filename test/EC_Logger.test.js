@@ -47,16 +47,29 @@
         });
         describe('AutoLogging', function () {
             // an object with a method, for which we'll autolog invocations
-            var X = {
-                dummy: function (arg) { return arg; }
-            };
+            function getTarget() {
+                return {
+                    dummy: function (arg) { return arg; }
+                };
+            }
             it('should autolog arguments and return value', function () {
+                var X = getTarget();
                 LogManager.autoLogMethodEntryExit({ target: X, method: 'dummy' });
                 // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
                 X.dummy(4);
                 expect(fakedebug).toBeCalledTimes(2);
                 expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', 'args: [4]');
                 expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined', 'returned: 4');
+            });
+            it('should autolog method timing', function () {
+                var X = getTarget();
+                var fakedebug = jest.spyOn(console, 'debug');
+                LogManager.autoLogMethodEntryExit({ target: X, method: 'dummy' }, { withProfiling: true });
+                // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
+                X.dummy(4);
+                expect(fakedebug).toBeCalledTimes(2);
+                expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', 'args: [4]');
+                expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy(): 0ms = 0.00 minutes undefined', 'returned: 4');
             });
         });
     });

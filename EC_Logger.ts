@@ -16,7 +16,6 @@
 /**
  * dummy comment for TypeDoc
  */
-import * as moment from './moment'
 import {addAppender, Appender, clearAppenders, getLogger, Logger, logLevel} from './aurelia-logging'
 import * as nslog from 'N/log'
 import * as runtime from 'N/runtime'
@@ -210,13 +209,13 @@ export function autoLogMethodEntryExit (methodsToLogEntryExit: { target: Object,
 
       logger[level](entryTitle, entryDetail)
 
-      const startTime = moment()
+      const startTime = Date.now()
       const retval = invocation.proceed()
       let elapsedMessage = ''
       if (withProfiling) {
-         let elapsedMilliseconds = moment().diff(startTime)
-         elapsedMessage = elapsedMilliseconds + 'ms = ' +
-            moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + ' minutes'
+         const elapsedMilliseconds = Date.now() - startTime
+         const elapsedMinutes = ((elapsedMilliseconds/1000)/60).toFixed(2)
+         elapsedMessage = `${elapsedMilliseconds}ms = ${elapsedMinutes} minutes`
       }
 
       const exitTitle = `Exit ${invocation.method}(): ${elapsedMessage} ${getGovernanceMessage(withGovernance)}`

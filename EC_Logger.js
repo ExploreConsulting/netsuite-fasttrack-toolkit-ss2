@@ -18,7 +18,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./moment", "./aurelia-logging", "N/log", "N/runtime", "./aop", "./lodash", "./aurelia-logging"], factory);
+        define(["require", "exports", "./aurelia-logging", "N/log", "N/runtime", "./aop", "./lodash", "./aurelia-logging"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -26,7 +26,6 @@
     /**
      * dummy comment for TypeDoc
      */
-    var moment = require("./moment");
     var aurelia_logging_1 = require("./aurelia-logging");
     var nslog = require("N/log");
     var runtime = require("N/runtime");
@@ -224,13 +223,13 @@
             var entryTitle = "Enter " + invocation.method + "() " + getGovernanceMessage(withGovernance);
             var entryDetail = withArgs ? "args: " + JSON.stringify(arguments[0].arguments) : null;
             logger[level](entryTitle, entryDetail);
-            var startTime = moment();
+            var startTime = Date.now();
             var retval = invocation.proceed();
             var elapsedMessage = '';
             if (withProfiling) {
-                var elapsedMilliseconds = moment().diff(startTime);
-                elapsedMessage = elapsedMilliseconds + 'ms = ' +
-                    moment.duration(elapsedMilliseconds).asMinutes().toFixed(2) + ' minutes';
+                var elapsedMilliseconds = Date.now() - startTime;
+                var elapsedMinutes = ((elapsedMilliseconds / 1000) / 60).toFixed(2);
+                elapsedMessage = elapsedMilliseconds + "ms = " + elapsedMinutes + " minutes";
             }
             var exitTitle = "Exit " + invocation.method + "(): " + elapsedMessage + " " + getGovernanceMessage(withGovernance);
             var exitDetail = withReturnValue ? "returned: " + JSON.stringify(retval) : null;
