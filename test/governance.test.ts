@@ -31,7 +31,7 @@ describe('governance', function () {
 
       getRemainingUsage.mockReturnValue(1000)
       // simulate a start time 46 minutes in the past
-      const inThePast = moment().subtract(46, 'minutes')
+      const inThePast = moment().subtract(46, 'minutes').valueOf()
 
       const sut = governanceRemains(inThePast)
 
@@ -44,7 +44,7 @@ describe('governance', function () {
 
       getRemainingUsage.mockReturnValue(100)
       // simulate a start time 46 minutes in the past
-      const inThePast = moment().subtract(46, 'minutes')
+      const inThePast = moment().subtract(46, 'minutes').valueOf()
 
       const sut = governanceRemains(inThePast)
 
@@ -52,7 +52,16 @@ describe('governance', function () {
 
    })
 
+   test('time remains should return true', function () {
 
+      getRemainingUsage.mockReturnValue(1000)
+      // simulate a start time 30 minutes in the past - still has 15 minutes of time before the default 45 min limit
+      const inThePast = moment().subtract(30, 'minutes').valueOf()
+
+      const sut = governanceRemains(inThePast)
+
+      expect(sut()).toEqual(true)
+   })
 })
 
 

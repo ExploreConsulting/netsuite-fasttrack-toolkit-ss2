@@ -29,16 +29,23 @@
         test('drop below time threshold returns false', function () {
             getRemainingUsage.mockReturnValue(1000);
             // simulate a start time 46 minutes in the past
-            var inThePast = moment().subtract(46, 'minutes');
+            var inThePast = moment().subtract(46, 'minutes').valueOf();
             var sut = governance_1.governanceRemains(inThePast);
             expect(sut()).toEqual(false);
         });
         test('drop below time threshold and units returns false', function () {
             getRemainingUsage.mockReturnValue(100);
             // simulate a start time 46 minutes in the past
-            var inThePast = moment().subtract(46, 'minutes');
+            var inThePast = moment().subtract(46, 'minutes').valueOf();
             var sut = governance_1.governanceRemains(inThePast);
             expect(sut()).toEqual(false);
+        });
+        test('time remains should return true', function () {
+            getRemainingUsage.mockReturnValue(1000);
+            // simulate a start time 30 minutes in the past - still has 15 minutes of time before the default 45 min limit
+            var inThePast = moment().subtract(30, 'minutes').valueOf();
+            var sut = governance_1.governanceRemains(inThePast);
+            expect(sut()).toEqual(true);
         });
     });
     describe('rescheduling', function () {
