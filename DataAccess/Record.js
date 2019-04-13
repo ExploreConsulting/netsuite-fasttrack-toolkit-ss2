@@ -21,7 +21,7 @@ var __extends = (this && this.__extends) || (function () {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/record", "N/format", "../EC_Logger", "../lodash", "./Sublist"], factory);
+        define(["require", "exports", "N/record", "N/format", "../EC_Logger", "./Sublist"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -29,7 +29,6 @@ var __extends = (this && this.__extends) || (function () {
     var record = require("N/record");
     var format = require("N/format");
     var LogManager = require("../EC_Logger");
-    var _ = require("../lodash");
     var Sublist_1 = require("./Sublist");
     var log = LogManager.getLogger('nsdal');
     /**
@@ -80,7 +79,14 @@ var __extends = (this && this.__extends) || (function () {
             enumerable: true,
             configurable: true
         });
-        NetsuiteCurrentRecord.prototype.toJSON = function () { return _.toPlainObject(this); };
+        NetsuiteCurrentRecord.prototype.toJSON = function () {
+            // surface inherited properties on a new object so JSON.stringify() sees them all
+            var result = {};
+            for (var key in this) { // noinspection JSUnfilteredForInLoop
+                result[key] = this[key];
+            }
+            return result;
+        };
         return NetsuiteCurrentRecord;
     }());
     exports.NetsuiteCurrentRecord = NetsuiteCurrentRecord;
@@ -117,8 +123,8 @@ var __extends = (this && this.__extends) || (function () {
      * with Object.defineProperty
      */
     function defaultDescriptor(target, propertyKey) {
-        var isTextField = _.endsWith(propertyKey, 'Text');
-        var nsfield = isTextField ? _.replace(propertyKey, 'Text', '') : propertyKey;
+        var isTextField = propertyKey.slice(-4) === 'Text';
+        var nsfield = isTextField ? propertyKey.replace('Text', '') : propertyKey;
         return {
             get: function () {
                 log.debug('field GET', nsfield + ", as text:" + isTextField);
@@ -230,8 +236,8 @@ var __extends = (this && this.__extends) || (function () {
     (function (FieldType) {
         FieldType.address = defaultDescriptor;
         FieldType.checkbox = defaultDescriptor;
-        FieldType.currency = numericDescriptor;
         FieldType.date = defaultDescriptor;
+        FieldType.currency = numericDescriptor;
         FieldType.datetime = defaultDescriptor;
         FieldType.document = defaultDescriptor;
         FieldType.email = defaultDescriptor;
@@ -244,7 +250,8 @@ var __extends = (this && this.__extends) || (function () {
         FieldType.integernumber = numericDescriptor;
         FieldType.longtext = defaultDescriptor;
         FieldType.multiselect = defaultDescriptor;
-        FieldType.percent = _.partial(formattedDescriptor, format.Type.PERCENT);
+        //@see formattedDescriptor
+        FieldType.percent = function (target, propertyKey) { return formattedDescriptor(format.Type.PERCENT, target, propertyKey); };
         /**
          * NetSuite 'Select' field type.
          */

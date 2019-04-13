@@ -6,8 +6,7 @@
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
-import * as _ from '../lodash'
-import {Sublist, SublistLine} from './Sublist'
+import { Sublist, SublistLine } from './Sublist'
 
 const log = LogManager.getLogger('nsdal')
 
@@ -42,7 +41,7 @@ export abstract class NetsuiteCurrentRecord {
     * field properties defined on derived classes should be seen when enumerating
     * @param value
     */
-   private makeRecordProp = (value) => Object.defineProperty(this,'nsrecord',{value:value})
+   private makeRecordProp = (value) => Object.defineProperty(this, 'nsrecord', { value: value })
 
    constructor (rec?: number | string | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, protected defaultValues?: object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
@@ -51,15 +50,14 @@ export abstract class NetsuiteCurrentRecord {
       let type = Object.getPrototypeOf(this).constructor.recordType
       if (!rec) {
          log.debug('creating new record', `type:${type}  isDyanamic:${isDynamic} defaultValues:${defaultValues}`)
-         this.makeRecordProp(record.create({type: type, isDynamic: isDynamic, defaultValues: defaultValues}))
-      }
-      else if (typeof rec === 'object') {
+         this.makeRecordProp(record.create({ type: type, isDynamic: isDynamic, defaultValues: defaultValues }))
+      } else if (typeof rec === 'object') {
          log.debug('using existing record', `type:${rec.type}, id:${rec.id}`)
          this.makeRecordProp(rec)
          this._id = rec.id
       }
       // allow
-      else if (typeof rec === 'number' || +rec )  {
+      else if (typeof rec === 'number' || +rec) {
          log.debug('loading existing record', `type:${type}, id:${rec}`)
          this.makeRecordProp(record.load({
             type: type,
@@ -68,12 +66,18 @@ export abstract class NetsuiteCurrentRecord {
             defaultValue: defaultValues,
          }))
          this._id = this.nsrecord.id
-      }
-      else throw new Error(`invalid value for argument "rec": ${rec}. 
+      } else throw new Error(`invalid value for argument "rec": ${rec}. 
       Must be one of: null/undefined, an internal id, or an existing record`)
    }
 
-   toJSON () { return _.toPlainObject(this) }
+   toJSON () {
+      // surface inherited properties on a new object so JSON.stringify() sees them all
+      const result: any = {}
+      for (const key in this) { // noinspection JSUnfilteredForInLoop
+         result[key] = this[key]
+      }
+      return result
+   }
 }
 
 /**
@@ -109,21 +113,20 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
  * with Object.defineProperty
  */
 export function defaultDescriptor (target: any, propertyKey: string): any {
-   let isTextField = _.endsWith(propertyKey, 'Text')
-   let nsfield = isTextField ? _.replace(propertyKey, 'Text','') : propertyKey
+   let isTextField = propertyKey.slice(-4) === 'Text'
+   let nsfield = isTextField ? propertyKey.replace('Text', '') : propertyKey
    return {
       get: function () {
          log.debug('field GET', `${nsfield}, as text:${isTextField}`)
-         return isTextField ? this.nsrecord.getText({fieldId: nsfield})
-            : this.nsrecord.getValue({fieldId: nsfield})
+         return isTextField ? this.nsrecord.getText({ fieldId: nsfield })
+            : this.nsrecord.getValue({ fieldId: nsfield })
       },
       set: function (value) {
          // ignore undefined's
          if (value !== undefined) {
-            if (isTextField) this.nsrecord.setText({fieldId: nsfield, text: value})
-            else this.nsrecord.setValue({fieldId: nsfield, value: value})
-         }
-         else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
+            if (isTextField) this.nsrecord.setText({ fieldId: nsfield, text: value })
+            else this.nsrecord.setValue({ fieldId: nsfield, value: value })
+         } else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
       },
       enumerable: true //default is false
    }
@@ -140,17 +143,16 @@ export function defaultDescriptor (target: any, propertyKey: string): any {
 export function numericDescriptor (target: any, propertyKey: string): any {
    return {
       get: function () {
-         return this.nsrecord.getValue({fieldId: propertyKey})
+         return this.nsrecord.getValue({ fieldId: propertyKey })
       },
       set: function (value) {
          // ignore undefined's
-         if (value !== undefined) this.nsrecord.setValue({fieldId: propertyKey, value: Number(value)})
+         if (value !== undefined) this.nsrecord.setValue({ fieldId: propertyKey, value: Number(value) })
          else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
       },
       enumerable: true //default is false
    }
 }
-
 
 // this is the shape of SublistLine class constructor
 type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, n: number) => T
@@ -161,11 +163,11 @@ type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, 
  * @param ctor Constructor for the type that has the properties you want from each sublist line.
  * e.g. Invoice.ItemSublistLine
  */
-export function sublistDescriptor<T extends SublistLine> (ctor:  LineConstructor<T> )  {
+export function sublistDescriptor<T extends SublistLine> (ctor: LineConstructor<T>) {
    return function (target: any, propertyKey: string): any {
       const privateProp = `_${propertyKey}`
       return {
-         enumerable:true,
+         enumerable: true,
          // sublist is read only for now - if we have a use case where this should be assigned then tackle it
          get: function () {
 
@@ -173,7 +175,7 @@ export function sublistDescriptor<T extends SublistLine> (ctor:  LineConstructor
                log.debug('initializing sublist', `sublist property named ${propertyKey}`)
                // using defineProperty() here defaults to making the property non-enumerable which is what we want
                // for this 'private' property so it doesn't appear on serialization (e.g. JSON.stringify())
-               Object.defineProperty(this,privateProp,{ value:new Sublist(ctor, this.nsrecord, propertyKey)})
+               Object.defineProperty(this, privateProp, { value: new Sublist(ctor, this.nsrecord, propertyKey) })
             }
             return this[privateProp]
          },
@@ -194,18 +196,17 @@ export function sublistDescriptor<T extends SublistLine> (ctor:  LineConstructor
 function formattedDescriptor (formatType: format.Type, target: any, propertyKey: string): any {
    return {
       get: function () {
-         return this.nsrecord.getValue({fieldId: propertyKey})
+         return this.nsrecord.getValue({ fieldId: propertyKey })
       },
       set: function (value) {
          // allow null to flow through, but ignore undefined's
          if (value !== undefined) {
-            let formattedValue = format.format({type: formatType, value: value})
+            let formattedValue = format.format({ type: formatType, value: value })
             log.debug(`setting field [${propertyKey}:${formatType}]`,
                `to formatted value [${formattedValue}] javascript type:${typeof formattedValue}`)
-            if (value === null) this.nsrecord.setValue({fieldId: propertyKey, value: null})
-            else this.nsrecord.setValue({fieldId: propertyKey, value: formattedValue})
-         }
-         else log.info(`not setting ${propertyKey} field`, 'value was undefined')
+            if (value === null) this.nsrecord.setValue({ fieldId: propertyKey, value: null })
+            else this.nsrecord.setValue({ fieldId: propertyKey, value: formattedValue })
+         } else log.info(`not setting ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
    }
@@ -218,23 +219,24 @@ function formattedDescriptor (formatType: format.Type, target: any, propertyKey:
  *  field 'afield'.
  */
 export namespace FieldType {
-   export var address = defaultDescriptor
-   export var checkbox = defaultDescriptor
-   export var currency = numericDescriptor
-   export var date = defaultDescriptor
-   export var datetime = defaultDescriptor
-   export var document = defaultDescriptor
-   export var email = defaultDescriptor
-   export var freeformtext = defaultDescriptor
-   export var float = numericDescriptor
-   export var decimalnumber = float
-   export var hyperlink = defaultDescriptor
-   export var inlinehtml = defaultDescriptor
-   export var image = defaultDescriptor
-   export var integernumber = numericDescriptor
-   export var longtext = defaultDescriptor
-   export var multiselect = defaultDescriptor
-   export var percent = _.partial(formattedDescriptor, format.Type.PERCENT)
+   export const address = defaultDescriptor
+   export const checkbox = defaultDescriptor
+   export const date = defaultDescriptor
+   export const currency = numericDescriptor
+   export const datetime = defaultDescriptor
+   export const document = defaultDescriptor
+   export const email = defaultDescriptor
+   export const freeformtext = defaultDescriptor
+   export const float = numericDescriptor
+   export const decimalnumber = float
+   export const hyperlink = defaultDescriptor
+   export const inlinehtml = defaultDescriptor
+   export const image = defaultDescriptor
+   export const integernumber = numericDescriptor
+   export const longtext = defaultDescriptor
+   export const multiselect = defaultDescriptor
+   //@see formattedDescriptor
+   export const percent = (target, propertyKey) => formattedDescriptor(format.Type.PERCENT, target, propertyKey)
    /**
     * NetSuite 'Select' field type.
     */
