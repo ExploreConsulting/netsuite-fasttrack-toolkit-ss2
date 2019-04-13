@@ -79,6 +79,11 @@ function log (loglevel: number, logger: Logger, ...rest: any[]) {
    if (logger.id !== 'default') {
       prefix += `[${logger.id}]`
    }
+   // NetSuite now supports logging js objects but does not log properties from the prototype chain. This is
+   // basically how JSON.stringify() works so I presume they are doing that?
+   // To cover the most common use case of logging an object to see its properties, first convert to
+   // a plain object if it's not one already.
+   if (_.isObject(details) && (!_.isPlainObject(details))) details = _.toPlainObject(details)
    nslog[toNetSuiteLogLevel(loglevel)](`${prefix} ${title}`, details)
 }
 
@@ -195,7 +200,7 @@ export function autoLogMethodEntryExit (methodsToLogEntryExit: { target: Object,
    // logger name on which to autolog, default to the top level 'Default' logger used by scripts
    const logger = config.logger || DefaultLogger
    // logging level specified in config else default to debug. need to translate from number loglevels back to names
-   const level =  _.findKey(logLevel, o => o === (config!.logLevel || logLevel.debug))!
+   const level = _.findKey(logLevel, o => o === (config!.logLevel || logLevel.debug))!
 
    return aop.around(methodsToLogEntryExit, function (invocation) {
       // record function entry with details for every method on our explore object

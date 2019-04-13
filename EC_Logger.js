@@ -85,6 +85,12 @@
         if (logger.id !== 'default') {
             prefix += "[" + logger.id + "]";
         }
+        // NetSuite now supports logging js objects but does not log properties from the prototype chain. This is
+        // basically how JSON.stringify() works so I presume they are doing that?
+        // To cover the most common use case of logging an object to see its properties, first convert to
+        // a plain object if it's not one already.
+        if (_.isObject(details) && (!_.isPlainObject(details)))
+            details = _.toPlainObject(details);
         nslog[toNetSuiteLogLevel(loglevel)](prefix + " " + title, details);
     }
     /**
