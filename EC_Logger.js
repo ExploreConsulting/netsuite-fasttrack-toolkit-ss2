@@ -18,7 +18,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./aurelia-logging", "N/log", "N/runtime", "./aop", "./lodash", "./aurelia-logging"], factory);
+        define(["require", "exports", "./aurelia-logging", "N/log", "N/runtime", "./aop", "./aurelia-logging"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -30,7 +30,6 @@
     var nslog = require("N/log");
     var runtime = require("N/runtime");
     var aop = require("./aop");
-    var _ = require("./lodash");
     var aurelia_logging_2 = require("./aurelia-logging");
     exports.logLevel = aurelia_logging_2.logLevel;
     exports.Logger = aurelia_logging_2.Logger;
@@ -85,12 +84,6 @@
         if (logger.id !== 'default') {
             prefix += "[" + logger.id + "]";
         }
-        // NetSuite now supports logging js objects but does not log properties from the prototype chain. This is
-        // basically how JSON.stringify() works so I presume they are doing that?
-        // To cover the most common use case of logging an object to see its properties, first convert to
-        // a plain object if it's not one already.
-        if (_.isObject(details) && (!_.isPlainObject(details)))
-            details = _.toPlainObject(details);
         nslog[toNetSuiteLogLevel(loglevel)](prefix + " " + title, details);
     }
     /**
@@ -169,6 +162,49 @@
         return governanceEnabled ? "governance: " + runtime.getCurrentScript().getRemainingUsage() : undefined;
     }
     /**
+     * (taken from lodash https://github.com/lodash/lodash/blob/a0a3a6af910e475d8dd14dabc452f957e436e28b/findKey.js)
+     * This method is like `find` except that it returns the key of the first
+     * element `predicate` returns truthy for instead of the element itself.
+     *
+     * @since 1.1.0
+     * @category Object
+     * @param {Object} object The object to inspect.
+     * @param {Function} predicate The function invoked per iteration.
+     * @returns {string|undefined} Returns the key of the matched element,
+     *  else `undefined`.
+     * @see find, findIndex, findLast, findLastIndex, findLastKey
+     * @example
+     *
+     * const users = {
+     *   'barney':  { 'age': 36, 'active': true },
+     *   'fred':    { 'age': 40, 'active': false },
+     *   'pebbles': { 'age': 1,  'active': true }
+     * }
+     *
+     * findKey(users, ({ age }) => age < 40)
+     * // => 'barney' (iteration order is not guaranteed)
+     */
+    function findKey(object, predicate) {
+        var result;
+        if (object == null) {
+            // @ts-ignore
+            // noinspection JSUnusedAssignment
+            return result;
+        }
+        Object.keys(object).some(function (key) {
+            var value = object[key];
+            if (predicate(value, key, object)) {
+                result = key;
+                return true;
+            }
+            else
+                return false;
+        });
+        // @ts-ignore
+        // noinspection JSUnusedAssignment
+        return result;
+    }
+    /**
      * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
      * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
      * as described below.
@@ -217,7 +253,7 @@
         // logger name on which to autolog, default to the top level 'Default' logger used by scripts
         var logger = config.logger || exports.DefaultLogger;
         // logging level specified in config else default to debug. need to translate from number loglevels back to names
-        var level = _.findKey(aurelia_logging_1.logLevel, function (o) { return o === (config.logLevel || aurelia_logging_1.logLevel.debug); });
+        var level = findKey(aurelia_logging_1.logLevel, function (o) { return o === (config.logLevel || aurelia_logging_1.logLevel.debug); });
         return aop.around(methodsToLogEntryExit, function (invocation) {
             // record function entry with details for every method on our explore object
             var entryTitle = "Enter " + invocation.method + "() " + getGovernanceMessage(withGovernance);
