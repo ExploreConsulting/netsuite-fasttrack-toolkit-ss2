@@ -5,10 +5,8 @@
 
   ```typescript
 
-    _.find(stateMapping, m => m.abbrev === 'WA')
-   // returns { name: 'Washington', id: 48, abbrev: 'WA' },
-
    getStateById(3) // returns { name: 'Arkansas', id: 3, abbrev: 'AR' }
+   getStateById(-123) // returns undefined
 
   ```
  */
