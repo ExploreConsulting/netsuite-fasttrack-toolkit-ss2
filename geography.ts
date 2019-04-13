@@ -16,7 +16,6 @@
 /**
  * dummy comment for typedoc
  */
-import * as _ from './lodash'
 
 interface State { id: number, name: string, abbrev: string }
 interface Country { id: number, name: string, abbrev: string }
@@ -341,7 +340,11 @@ export const stateMapping : State[] = [{ name: '', id: 0, abbrev: '' },
  * Retrieves the state object for the given internal id else null
  * @param id internal id of the state you wish to find.
  */
-export const getStateById: (number ) => State | undefined = (id:number) => _.find(stateMapping, (x:State) => x.id === id)
+export const getStateById: (number ) => State | undefined = (id:number) => {
+   const s = stateMapping.filter((x:State) => x.id === id)
+   if (s.length) return s[0]
+   else return undefined
+}
 
 /**
  * Mappings of country abbreviation, name and NetSuite internal id.
@@ -608,5 +611,9 @@ export const countryMapping: Country[] = [{ name: '', id: 0, abbrev: '' },
  * @see `countryMapping`
  * @param id country internal id
  */
-export const getCountryById : (id:number) => Country | undefined = (id: number) => _.find(countryMapping, x => x.id === id)
+export const getCountryById : (id:number) => Country | undefined = (id: number) => {
+   const countries = countryMapping.filter((x:State) => x.id === id)
+   if (countries.length) return countries[0]
+   else return undefined
+}
 

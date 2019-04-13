@@ -18,15 +18,11 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./lodash"], factory);
+        define(["require", "exports"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    /**
-     * dummy comment for typedoc
-     */
-    var _ = require("./lodash");
     /**
      * Represents geographic states used in NetSuite. First one is blank to allow easy binding to a UI dropdown
      * Contains values for US States, Canadian Provinces, and similar for Australia, Japan, China,
@@ -345,7 +341,13 @@
      * Retrieves the state object for the given internal id else null
      * @param id internal id of the state you wish to find.
      */
-    exports.getStateById = function (id) { return _.find(exports.stateMapping, function (x) { return x.id === id; }); };
+    exports.getStateById = function (id) {
+        var s = exports.stateMapping.filter(function (x) { return x.id === id; });
+        if (s.length)
+            return s[0];
+        else
+            return undefined;
+    };
     /**
      * Mappings of country abbreviation, name and NetSuite internal id.
      */
@@ -610,5 +612,11 @@
      * @see `countryMapping`
      * @param id country internal id
      */
-    exports.getCountryById = function (id) { return _.find(exports.countryMapping, function (x) { return x.id === id; }); };
+    exports.getCountryById = function (id) {
+        var countries = exports.countryMapping.filter(function (x) { return x.id === id; });
+        if (countries.length)
+            return countries[0];
+        else
+            return undefined;
+    };
 });

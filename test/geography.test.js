@@ -18,11 +18,19 @@
             var foundstate = geography_1.getStateById(48);
             expect(foundstate).toHaveProperty('abbrev', 'WA');
         });
+        test('get unknown state by id', function () {
+            var foundState = geography_1.getCountryById(-22);
+            expect(foundState).toBeUndefined();
+        });
     });
     describe('get country info', function () {
         test('get USA by id', function () {
-            var foundstate = geography_1.getCountryById(230);
-            expect(foundstate).toHaveProperty('abbrev', 'US');
+            var foundCountry = geography_1.getCountryById(230);
+            expect(foundCountry).toHaveProperty('abbrev', 'US');
+        });
+        test('get unknown country by id', function () {
+            var foundCountry = geography_1.getCountryById(-22);
+            expect(foundCountry).toBeUndefined();
         });
     });
 });
