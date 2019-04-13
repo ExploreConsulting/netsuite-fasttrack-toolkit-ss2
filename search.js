@@ -12,7 +12,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/search", "./lodash", "./EC_Logger", "./governance"], factory);
+        define(["require", "exports", "N/search", "./EC_Logger", "./governance"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -21,7 +21,6 @@
      * dummy comment for the import so TypeDoc renders the comment above this one
      */
     var search = require("N/search");
-    var _ = require("./lodash");
     var LogManager = require("./EC_Logger");
     // include this as a convenience since it will often be used with arbitrary long search results to manage governance
     var governance_1 = require("./governance");
@@ -57,14 +56,13 @@
             var output = { id: result.id };
             // assigns each column VALUE from the search result to the output object, and if the column
             // has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
-            _.reduce(result.columns, function (acc, x) {
-                var propName = (useLabels && x.label) ? x.label : x.name;
-                acc[propName] = result.getValue(x);
-                var text = result.getText(x);
+            result.columns.forEach(function (col) {
+                var propName = (useLabels && col.label) ? col.label : col.name;
+                output[propName] = result.getValue(col);
+                var text = result.getText(col);
                 if (text)
-                    acc[propName + "Text"] = text;
-                return acc;
-            }, output);
+                    output[propName + "Text"] = text;
+            });
             return output;
         };
     }

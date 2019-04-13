@@ -12,7 +12,6 @@
  */
 import * as search from 'N/search'
 import { Result } from 'N/search'
-import * as _ from './lodash'
 import * as LogManager from './EC_Logger'
 
 // include this as a convenience since it will often be used with arbitrary long search results to manage governance
@@ -53,14 +52,12 @@ export function nsSearchResult2obj <T>(useLabels = true): (r:Result)=> ObjectWit
       let output = {id: result.id}
       // assigns each column VALUE from the search result to the output object, and if the column
       // has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
-      _.reduce(result.columns, (acc, x) => {
-         const propName = (useLabels && x.label) ? x.label : x.name
-         acc[propName] = result.getValue(x)
-         const text = result.getText(x)
-         if (text) acc[`${propName}Text`] = text
-         return acc
-      }, output)
-
+      result.columns.forEach((col) => {
+         const propName = (useLabels && col.label) ? col.label : col.name
+         output[propName] = result.getValue(col)
+         const text = result.getText(col)
+         if (text) output[`${propName}Text`] = text
+      })
       return output as ObjectWithId<T>
    }
 }

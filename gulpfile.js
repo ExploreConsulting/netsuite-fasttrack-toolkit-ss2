@@ -24,7 +24,7 @@ var declarations = ['*.d.ts', 'DataAccess/*.d.ts','!example.d.ts'];
 
 // npm libraries we choose to bundle (e.g. moment) or we actually depend on (e.g. logging)
 var includedNPMlibs = ['node_modules/lodash/lodash.js','node_modules/immutable/dist/immutable.js',
-   'node_modules/moment/moment.js', 'node_modules/aurelia-logging/dist/amd/aurelia-logging.js',
+    'node_modules/aurelia-logging/dist/amd/aurelia-logging.js',
 'node_modules/aurelia-logging-console/dist/amd/aurelia-logging-console.js'];
 
 var otherTypings = ['node_modules/moment/moment.d.ts', 'aurelia-logging.d.ts'];
