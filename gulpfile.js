@@ -23,11 +23,11 @@ var sources = ['search.js','EC_Logger.js', 'config.js', 'DataAccess/*.js',
 var declarations = ['*.d.ts', 'DataAccess/*.d.ts','!example.d.ts'];
 
 // npm libraries we choose to bundle (e.g. moment) or we actually depend on (e.g. logging)
-var includedNPMlibs = ['node_modules/lodash/lodash.js','node_modules/immutable/dist/immutable.js',
-   'node_modules/moment/moment.js', 'node_modules/aurelia-logging/dist/amd/aurelia-logging.js',
+var includedNPMlibs = [
+    'node_modules/aurelia-logging/dist/amd/aurelia-logging.js',
 'node_modules/aurelia-logging-console/dist/amd/aurelia-logging-console.js'];
 
-var otherTypings = ['node_modules/moment/moment.d.ts', 'aurelia-logging.d.ts'];
+var otherTypings = ['aurelia-logging.d.ts'];
 
 var buildFolderName = "/NFT-SS2-" + version;
 
@@ -42,16 +42,17 @@ gulp.task('copyfiles', ['clean'], function () {
 
 // copies typescript declaration files into a staging location in prep for ZIP
 gulp.task('declarations',['cleandeclarations'], function () {
-    merge(gulp.src(declarations, {base: '.'}),
+   return merge(gulp.src(declarations, {base: '.'}),
       gulp.src(otherTypings))
       .pipe($.debug({title: 'copying typescript declaration files:'}))
       .pipe(gulp.dest(decldir))
    // include lodash but we need to rename it to 'lodash' so we can import it with the proper name
-     gulp.src('node_modules/@types/lodash/index.d.ts')
-      .pipe($.rename('lodash.d.ts')).pipe(gulp.dest(decldir))// include lodash but we need to rename it to 'lodash' so we can import it with the proper name
-   // similar to above
-   return   gulp.src('node_modules/immutable/dist/immutable-nonambient.d.ts')
-      .pipe($.rename('immutable.d.ts')).pipe(gulp.dest(decldir))
+   //  gulp.src('node_modules/@types/lodash/index.d.ts')
+      // include lodash but we need to rename it to 'lodash' so we can import it with the proper name similar to above
+      //   .pipe($.rename('lodash.d.ts'))
+      .pipe(gulp.dest(decldir))
+   //return   gulp.src('node_modules/immutable/dist/immutable-nonambient.d.ts')
+    //  .pipe($.rename('immutable.d.ts')).pipe(gulp.dest(decldir))
 })
 
 
