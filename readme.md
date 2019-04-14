@@ -12,8 +12,11 @@ _Includes_
 predefined strong types for NetSuite record access including sublist support. 
 * advanced logging facility
 * enhanced search handling
-* immutablejs (used for arbitrary length sequences and elegant search result processing)
 * governance management
+* aop lib
+
+_also included (only as a convenience, NFT does not depend on these):_
+* immutablejs (used for arbitrary length sequences and elegant search result processing)
 * lodash
 * momentjs
 

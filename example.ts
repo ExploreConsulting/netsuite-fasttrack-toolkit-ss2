@@ -9,7 +9,6 @@ this line adds lodash it as a silent dependency of this
 module (in the correct path of ./lodash assuming lodash is installed in the same folder as this script)
 */
 
-import * as moment from "moment"
 import * as LogManager from './EC_Logger'
 import {CustomerBase} from "./DataAccess/CustomerBase"
 import {ItemSublist, SalesOrderBase} from "./DataAccess/SalesOrderBase";
@@ -75,13 +74,8 @@ function demoSalesOrderLineItems () {
 export = {
 
    onRequest: (req, resp) => {
-      log.debug('are some true', _.some([true,true]))
-      log.debug('hello world')
-      let now = moment()
-      now.add(1, 'day')
-      // turn on debug logging for just the nsdal logger
+      // bump nsdal logging to 'info' level from default of 'debug'
       nsdal.log.setLevel(LogManager.logLevel.info)
-      //log.debug('tomorrow is', now.format())
 
       let c = new Customer(227)
 

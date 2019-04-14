@@ -27,7 +27,7 @@
     exports.governanceRemains = governance_1.governanceRemains;
     exports.rescheduleIfNeeded = governance_1.rescheduleIfNeeded;
     /**
-     * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to _.map()
+     * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to `map()`
      * @param useLabels set to false to ignore search column labels, using the column name (internalid) instead.
      * Defaults to true which means the property names on the returned object will match the column label names if set.
      * If useLabels = true and no label exists, falls back to using column name. Note that label strings should be valid
@@ -39,7 +39,7 @@
      * that has columns _companyname_ and _memo_. Including an optional type here ensures strong typing on followup chained
      * method calls.
      *
-     * @example
+     * @example  (using Immutable JS Sequence)
      *
      * ```typescript
      *  // default (uses column labels if present)
@@ -80,7 +80,7 @@
      * I've heard Ramda may support iterators so if we choose to go a more pure FP route down the
      * road this class would be useful - i.e. it remains untied to any particular library.
      *
-     * @example take the first result of a search as a plain object
+     * @example take the first result of a search as a plain object (ImmutableJS)
      * ```typescript
      * import {Seq} from './NFT-X.Y.Z/immutable'
      * const oneResult = Seq(LazySearch.load('1234')).map(nsSearchResult2obj()).take(1)
