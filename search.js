@@ -12,7 +12,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/search", "./EC_Logger", "./governance"], factory);
+        define(["require", "exports", "N/search", "./EC_Logger"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -22,10 +22,6 @@
      */
     var search = require("N/search");
     var LogManager = require("./EC_Logger");
-    // include this as a convenience since it will often be used with arbitrary long search results to manage governance
-    var governance_1 = require("./governance");
-    exports.governanceRemains = governance_1.governanceRemains;
-    exports.rescheduleIfNeeded = governance_1.rescheduleIfNeeded;
     /**
      * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to `map()`
      * @param useLabels set to false to ignore search column labels, using the column name (internalid) instead.
