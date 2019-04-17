@@ -21,14 +21,13 @@ var __assign = (this && this.__assign) || function () {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/format", "../EC_Logger", "../lodash"], factory);
+        define(["require", "exports", "N/format", "../EC_Logger"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var format = require("N/format");
     var LogManager = require("../EC_Logger");
-    var _ = require("../lodash");
     var log = LogManager.getLogger('nsdal');
     /*
      note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.
@@ -42,20 +41,20 @@ var __assign = (this && this.__assign) || function () {
     var SublistFieldType;
     (function (SublistFieldType) {
         SublistFieldType.checkbox = defaultSublistDescriptor;
-        SublistFieldType.currency = defaultSublistDescriptor; //_.partial(formattedSublistDescriptor, format.Type.CURRENCY)
+        SublistFieldType.currency = defaultSublistDescriptor;
         SublistFieldType.date = defaultSublistDescriptor;
         SublistFieldType.datetime = defaultSublistDescriptor;
         SublistFieldType.email = defaultSublistDescriptor;
         SublistFieldType.freeformtext = defaultSublistDescriptor;
-        SublistFieldType.decimalnumber = defaultSublistDescriptor; // _.partial(formattedSublistDescriptor, format.Type.FLOAT)
-        SublistFieldType.float = defaultSublistDescriptor; //_.partial(formattedSublistDescriptor, format.Type.FLOAT)
+        SublistFieldType.decimalnumber = defaultSublistDescriptor;
+        SublistFieldType.float = defaultSublistDescriptor;
         SublistFieldType.hyperlink = defaultSublistDescriptor;
         SublistFieldType.image = defaultSublistDescriptor;
         SublistFieldType.inlinehtml = defaultSublistDescriptor;
-        SublistFieldType.integernumber = defaultSublistDescriptor; // _.partial(formattedSublistDescriptor, format.Type.INTEGER)
+        SublistFieldType.integernumber = defaultSublistDescriptor;
         SublistFieldType.longtext = defaultSublistDescriptor;
         SublistFieldType.multiselect = defaultSublistDescriptor;
-        SublistFieldType.percent = _.partial(formattedSublistDescriptor, format.Type.PERCENT);
+        SublistFieldType.percent = function (target, propertyKey) { return formattedSublistDescriptor(format.Type.PERCENT, target, propertyKey); };
         SublistFieldType.select = defaultSublistDescriptor;
         SublistFieldType.textarea = defaultSublistDescriptor;
     })(SublistFieldType = exports.SublistFieldType || (exports.SublistFieldType = {}));
@@ -68,8 +67,7 @@ var __assign = (this && this.__assign) || function () {
      */
     function defaultSublistDescriptor(target, propertyKey) {
         log.debug('creating default descriptor', "field: " + propertyKey);
-        var isTextField = _.endsWith(propertyKey, 'Text');
-        var nsfield = isTextField ? _.replace(propertyKey, 'Text', '') : propertyKey;
+        var _a = parseProp(propertyKey), isTextField = _a[0], nsfield = _a[1];
         return {
             get: function () {
                 var options = {
@@ -77,7 +75,7 @@ var __assign = (this && this.__assign) || function () {
                     line: this._line,
                     fieldId: nsfield,
                 };
-                log.debug("getting sublist " + (isTextField ? "text" : "value"), options);
+                log.debug("getting sublist " + (isTextField ? 'text' : 'value'), options);
                 return isTextField ? this.nsrecord.getSublistText(options) : this.nsrecord.getSublistValue(options);
             },
             set: function (value) {
@@ -169,6 +167,16 @@ var __assign = (this && this.__assign) || function () {
     }
     exports.formattedSublistDescriptor = formattedSublistDescriptor;
     /**
+     * parses a property name from a declaration (supporting 'Text' suffix per our convention)
+     * @param propertyKey original property name as declared on class
+     * @returns pair consisting of a flag indicating this field wants 'text' behavior and the actual ns field name (with
+     * Text suffix removed)
+     */
+    function parseProp(propertyKey) {
+        var endsWithText = propertyKey.slice(-4) === 'Text';
+        return [endsWithText, endsWithText ? propertyKey.replace('Text', '') : propertyKey];
+    }
+    /**
      * creates a sublist whose lines are of type T
      */
     var Sublist = /** @class */ (function () {
@@ -251,7 +259,13 @@ var __assign = (this && this.__assign) || function () {
             });
         };
         // serialize lines to an array with properties shown
-        Sublist.prototype.toJSON = function () { return _.map(this, _.toPlainObject); };
+        Sublist.prototype.toJSON = function () {
+            var result = {};
+            for (var key in this) { // noinspection JSUnfilteredForInLoop
+                result[key] = this[key];
+            }
+            return result;
+        };
         return Sublist;
     }());
     exports.Sublist = Sublist;

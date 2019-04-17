@@ -106,6 +106,17 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
 }
 
 /**
+ * parses a property name from a declaration (supporting 'Text' suffix per our convention)
+ * @param propertyKey original property name as declared on class
+ * @returns pair consisting of a flag indicating this field wants 'text' behavior and the actual ns field name (with
+ * Text suffix removed)
+ */
+function parseProp (propertyKey: string): [boolean, string] {
+   let endsWithText = propertyKey.slice(-4) === 'Text'
+   return [endsWithText, endsWithText ? propertyKey.replace('Text', '') : propertyKey]
+}
+
+/**
  * Generic decorator factory with basic default algorithm that exposes the field value directly with no
  * other processing. If the property name ends with "Text" then the property will use getText()/setText()
  *
@@ -113,8 +124,7 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
  * with Object.defineProperty
  */
 export function defaultDescriptor (target: any, propertyKey: string): any {
-   let isTextField = propertyKey.slice(-4) === 'Text'
-   let nsfield = isTextField ? propertyKey.replace('Text', '') : propertyKey
+   const [isTextField, nsfield] = parseProp(propertyKey)
    return {
       get: function () {
          log.debug('field GET', `${nsfield}, as text:${isTextField}`)
@@ -141,14 +151,18 @@ export function defaultDescriptor (target: any, propertyKey: string): any {
  * with Object.defineProperty
  */
 export function numericDescriptor (target: any, propertyKey: string): any {
+   const [isTextField, nsfield] = parseProp(propertyKey)
    return {
       get: function () {
-         return this.nsrecord.getValue({ fieldId: propertyKey })
+         return isTextField ? this.nsrecord.getText({ fieldId: nsfield })
+            : this.nsrecord.getValue({ fieldId: nsfield })
       },
       set: function (value) {
          // ignore undefined's
-         if (value !== undefined) this.nsrecord.setValue({ fieldId: propertyKey, value: Number(value) })
-         else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
+         if (value !== undefined) {
+            if (isTextField) this.nsrecord.setText({ fieldId: nsfield, text: value })
+            else this.nsrecord.setValue({ fieldId: nsfield, value: Number(value) })
+         } else log.info(`ignoring field [${propertyKey}]`, 'field value is undefined')
       },
       enumerable: true //default is false
    }

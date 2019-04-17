@@ -8,7 +8,6 @@
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
-import * as _ from '../lodash'
 
 const log = LogManager.getLogger('nsdal')
 
@@ -24,20 +23,20 @@ const log = LogManager.getLogger('nsdal')
  */
 export namespace SublistFieldType {
    export var checkbox = defaultSublistDescriptor
-   export var currency = defaultSublistDescriptor//_.partial(formattedSublistDescriptor, format.Type.CURRENCY)
+   export var currency = defaultSublistDescriptor
    export var date = defaultSublistDescriptor
    export var datetime = defaultSublistDescriptor
    export var email = defaultSublistDescriptor
    export var freeformtext = defaultSublistDescriptor
-   export var decimalnumber = defaultSublistDescriptor// _.partial(formattedSublistDescriptor, format.Type.FLOAT)
-   export var float = defaultSublistDescriptor //_.partial(formattedSublistDescriptor, format.Type.FLOAT)
+   export var decimalnumber = defaultSublistDescriptor
+   export var float = defaultSublistDescriptor
    export var hyperlink = defaultSublistDescriptor
    export var image = defaultSublistDescriptor
    export var inlinehtml = defaultSublistDescriptor
-   export var integernumber = defaultSublistDescriptor// _.partial(formattedSublistDescriptor, format.Type.INTEGER)
+   export var integernumber = defaultSublistDescriptor
    export var longtext = defaultSublistDescriptor
    export var multiselect = defaultSublistDescriptor
-   export var percent = _.partial(formattedSublistDescriptor, format.Type.PERCENT)
+   export var percent = (target, propertyKey) => formattedSublistDescriptor(format.Type.PERCENT, target, propertyKey)
    export var select = defaultSublistDescriptor
    export var textarea = defaultSublistDescriptor
 }
@@ -51,8 +50,7 @@ export namespace SublistFieldType {
  */
 export function defaultSublistDescriptor (target: any, propertyKey: string): any {
    log.debug('creating default descriptor', `field: ${propertyKey}`)
-   let isTextField = _.endsWith(propertyKey, 'Text')
-   let nsfield = isTextField ? _.replace(propertyKey, 'Text', '') : propertyKey
+   const [isTextField, nsfield] = parseProp(propertyKey)
    return {
       get: function (this: SublistLine) {
          const options = {
@@ -60,7 +58,7 @@ export function defaultSublistDescriptor (target: any, propertyKey: string): any
             line: this._line,
             fieldId: nsfield,
          }
-         log.debug(`getting sublist ${isTextField ? "text": "value"}`, options)
+         log.debug(`getting sublist ${isTextField ? 'text' : 'value'}`, options)
          return isTextField ? this.nsrecord.getSublistText(options) : this.nsrecord.getSublistValue(options)
       },
       set: function (this: SublistLine, value) {
@@ -71,8 +69,8 @@ export function defaultSublistDescriptor (target: any, propertyKey: string): any
                line: this._line,
                fieldId: nsfield
             }
-            isTextField ? this.nsrecord.setSublistText({...options, text: value})
-               : this.nsrecord.setSublistValue({...options, value: value})
+            isTextField ? this.nsrecord.setSublistText({ ...options, text: value })
+               : this.nsrecord.setSublistValue({ ...options, value: value })
          } else log.debug(`ignoring field [${nsfield}]`, 'field value is undefined')
       },
       enumerable: true //default is false
@@ -100,7 +98,7 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
          log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
          // returns the 'raw' type which is a string or number for our purposes
-         return value ? format.parse({type: formatType, value: value}) : value
+         return value ? format.parse({ type: formatType, value: value }) : value
       },
       set: function (this: SublistLine, value) {
          let formattedValue: number | null
@@ -121,10 +119,10 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
                case format.Type.POSINTEGER:
                case format.Type.RATE:
                case format.Type.RATEHIGHPRECISION:
-                  formattedValue = Number(format.format({type: formatType, value: value}))
+                  formattedValue = Number(format.format({ type: formatType, value: value }))
                   break
                default:
-                  formattedValue = format.format({type: formatType, value: value})
+                  formattedValue = format.format({ type: formatType, value: value })
             }
             log.debug(`setting sublist field [${propertyKey}:${formatType}]`,
                `to formatted value [${formattedValue}] (unformatted vale: ${value})`)
@@ -147,6 +145,17 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
 }
 
 /**
+ * parses a property name from a declaration (supporting 'Text' suffix per our convention)
+ * @param propertyKey original property name as declared on class
+ * @returns pair consisting of a flag indicating this field wants 'text' behavior and the actual ns field name (with
+ * Text suffix removed)
+ */
+function parseProp (propertyKey: string): [boolean, string] {
+   let endsWithText = propertyKey.slice(-4) === 'Text'
+   return [endsWithText, endsWithText ? propertyKey.replace('Text', '') : propertyKey]
+}
+
+/**
  * creates a sublist whose lines are of type T
  */
 export class Sublist<T extends SublistLine> {
@@ -160,7 +169,7 @@ export class Sublist<T extends SublistLine> {
     * @returns {number} number of lines in this list
     */
    get length () {
-      return this.nsrecord.getLineCount({sublistId: this.sublistId})
+      return this.nsrecord.getLineCount({ sublistId: this.sublistId })
    }
 
    /**
@@ -202,12 +211,12 @@ export class Sublist<T extends SublistLine> {
     */
    commitLine () {
       log.debug('committing line', `sublist: ${this.sublistId}`)
-      this.nsrecord.commitLine({sublistId: this.sublistId})
+      this.nsrecord.commitLine({ sublistId: this.sublistId })
    }
 
    selectLine (line: number) {
       log.debug('selecting line', line)
-      this.nsrecord.selectLine({sublistId: this.sublistId, line: line})
+      this.nsrecord.selectLine({ sublistId: this.sublistId, line: line })
    }
 
    /**
@@ -234,7 +243,13 @@ export class Sublist<T extends SublistLine> {
    }
 
    // serialize lines to an array with properties shown
-   toJSON () { return _.map(this, _.toPlainObject) }
+   toJSON () { // surface inherited properties on a new object so JSON.stringify() sees them all
+      const result: any = {}
+      for (const key in this) { // noinspection JSUnfilteredForInLoop
+         result[key] = this[key]
+      }
+      return result
+   }
 }
 
 /**
@@ -281,8 +296,8 @@ export abstract class SublistLine {
     */
    constructor (public sublistId: string, rec: record.Record, public _line: number) {
       this.makeRecordProp(rec)
-      Object.defineProperty(this, 'sublistId', {enumerable: false})
-      Object.defineProperty(this, '_line', {enumerable: false})
+      Object.defineProperty(this, 'sublistId', { enumerable: false })
+      Object.defineProperty(this, '_line', { enumerable: false })
    }
 }
 
