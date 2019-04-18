@@ -43,11 +43,6 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "optionalDependencies": {
-    "immutable": "^3.8.2",
-    "lodash": "^4.17.11",
-    "moment": "^2.24.0"
-  },
   "dependencies": {
     "aurelia-logging": "1.5.2",
     "aurelia-logging-console": "^1.1.1",
