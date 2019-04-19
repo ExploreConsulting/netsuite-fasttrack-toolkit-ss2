@@ -88,40 +88,69 @@
                 // note no 'barText' here
             });
         });
-        describe('ImuutableJS behavior', function () {
-            test('indirect toString() of Seq causes eager eval', function () {
-                var alwaysTrue = jest.fn(function (val) {
-                    console.log("alwaysTrue called with value " + val);
-                    return true;
-                });
-                immutable_1.Seq.of(1, 2, 3, 4, 5)
-                    .takeWhile(alwaysTrue)
-                    // subtle issue - this causes repeated eager evaluation due to serializing the 3rd argument passed
-                    .forEach(console.log);
-                // above forEach() passes value, key, and the *entire iterable* to console.log. console.log then proceeds to
-                // convert its given arguments to strings. When toString() is called on the third param (the iterable sequence)
-                // it forces eager evaluation of the whole sequence because a Seq() has toString() defined to do just that.
-                //
-                // So each value of the sequence is first passed through takeWhile() predicate (alwaysTrue()) then the
-                // entire sequence is passed through alwaysTrue() again as it's being serialized to [1,2,3,4,5]. This results
-                // in 6 invocations of alwaysTrue() for each element - once as expected by the forEach() and 5 more as we
-                // reserialize the entire sequence (1..5)
-                // see next test for workaround
-                expect(alwaysTrue).toBeCalledTimes(5 * 6);
+    });
+    describe('ImuutableJS behavior', function () {
+        test('indirect toString() of Seq causes eager eval', function () {
+            var alwaysTrue = jest.fn(function (val) {
+                console.log("alwaysTrue called with value " + val);
+                return true;
             });
-            test('how to avoid eager eval of Seq', function () {
-                var alwaysTrue = jest.fn(function (val) {
-                    console.log("alwaysTrue called with value " + val);
-                    return true;
-                });
-                immutable_1.Seq.of(1, 2, 3, 4, 5)
-                    .takeWhile(alwaysTrue)
-                    // arity-1 function will NOT cause repeated eager evaluation of the sequence 1..5
-                    // because console.log only proceses the value, not also receiving the key and iterable
-                    .forEach(function (x) { return console.log(x); });
-                // above forEach() passes just value to console.log
-                expect(alwaysTrue).toBeCalledTimes(5);
+            immutable_1.Seq.of(1, 2, 3, 4, 5)
+                .takeWhile(alwaysTrue)
+                // subtle issue - this causes repeated eager evaluation due to serializing the 3rd argument passed
+                .forEach(console.log);
+            // above forEach() passes value, key, and the *entire iterable* to console.log. console.log then proceeds to
+            // convert its given arguments to strings. When toString() is called on the third param (the iterable sequence)
+            // it forces eager evaluation of the whole sequence because a Seq() has toString() defined to do just that.
+            //
+            // So each value of the sequence is first passed through takeWhile() predicate (alwaysTrue()) then the
+            // entire sequence is passed through alwaysTrue() again as it's being serialized to [1,2,3,4,5]. This results
+            // in 6 invocations of alwaysTrue() for each element - once as expected by the forEach() and 5 more as we
+            // reserialize the entire sequence (1..5)
+            // see next test for workaround
+            expect(alwaysTrue).toBeCalledTimes(5 * 6);
+        });
+        test('how to avoid eager eval of Seq', function () {
+            var alwaysTrue = jest.fn(function (val) {
+                console.log("alwaysTrue called with value " + val);
+                return true;
             });
+            immutable_1.Seq.of(1, 2, 3, 4, 5)
+                .takeWhile(alwaysTrue)
+                // arity-1 function will NOT cause repeated eager evaluation of the sequence 1..5
+                // because console.log only proceses the value, not also receiving the key and iterable
+                .forEach(function (x) { return console.log(x); });
+            // above forEach() passes just value to console.log
+            expect(alwaysTrue).toBeCalledTimes(5);
+        });
+        test('behavior of groupBy', function () {
+            var taker = jest.fn(function (val) {
+                console.log("taker called with value " + val + ", length " + val.size);
+                return val.size === 1;
+            });
+            var sideEffect = jest.fn(function (val) {
+                console.log("side effect called with value " + val);
+            });
+            immutable_1.Seq.of(1, 2, 3, 4, 4, 5, 5)
+                // groupBy returns a keyed sequence (<key, value>) that for some reason I don't understand
+                // invokes the .map() *eagerly* (though we do know groupBy() itself must be eager)
+                .groupBy(function (x) { return x; })
+                .takeWhile(taker)
+                .forEach(function (x) { return sideEffect(x); });
+            // see the console log here - all calls to take() happen before any calls to sideEffect()
+            expect(taker).toBeCalledTimes(4);
+            // expect our side effect to only be called 3 times due to .takeWhile()
+            expect(sideEffect).toBeCalledTimes(3);
+            console.log('---- BETTER/EXPECTED BEHAVIOR ---');
+            immutable_1.Seq.of(1, 2, 3, 4, 4, 5, 5)
+                // groupBy returns a keyed sequence (<key, value>) that for some reason I don't understand
+                // invokes the .map() *eagerly* (though we do know groupBy() itself must be eager)
+                .groupBy(function (x) { return x; })
+                .valueSeq() // converting to a valueSeq Here gets us back into lazy eval
+                .takeWhile(taker)
+                .forEach(function (x) { return sideEffect(x); });
+            // see console output from above - now take is called then sideEffect as expected,
+            // once per each passing value.
         });
     });
 });
