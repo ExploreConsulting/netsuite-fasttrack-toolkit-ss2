@@ -52,13 +52,14 @@
             var output = { id: result.id };
             // assigns each column VALUE from the search result to the output object, and if the column
             // has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
-            result.columns.forEach(function (col) {
-                var propName = (useLabels && col.label) ? col.label : col.name;
-                output[propName] = result.getValue(col);
-                var text = result.getText(col);
-                if (text)
-                    output[propName + "Text"] = text;
-            });
+            if (result.columns && result.columns.length > 0)
+                result.columns.forEach(function (col) {
+                    var propName = (useLabels && col.label) ? col.label : col.name;
+                    output[propName] = result.getValue(col);
+                    var text = result.getText(col);
+                    if (text)
+                        output[propName + "Text"] = text;
+                });
             return output;
         };
     }

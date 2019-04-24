@@ -11,7 +11,7 @@
  * dummy comment for the import so TypeDoc renders the comment above this one
  */
 import * as search from 'N/search'
-import { Result } from 'N/search'
+import {Result} from 'N/search'
 import * as LogManager from './EC_Logger'
 
 /**
@@ -48,6 +48,7 @@ export function nsSearchResult2obj <T>(useLabels = true): (r:Result)=> ObjectWit
       let output = {id: result.id}
       // assigns each column VALUE from the search result to the output object, and if the column
       // has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
+      if (result.columns && result.columns.length > 0)
       result.columns.forEach((col) => {
          const propName = (useLabels && col.label) ? col.label : col.name
          output[propName] = result.getValue(col)
