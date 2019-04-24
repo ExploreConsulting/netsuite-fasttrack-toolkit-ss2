@@ -92,6 +92,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_dataaccess_sublist_.html#defaultsublistdescriptor" class="tsd-kind-icon">default<wbr>Sublist<wbr>Descriptor</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_dataaccess_sublist_.html#formattedsublistdescriptor" class="tsd-kind-icon">formatted<wbr>Sublist<wbr>Descriptor</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_dataaccess_sublist_.html#parseprop" class="tsd-kind-icon">parse<wbr>Prop</a></li>
 							</ul>
 						</section>
 					</div>
@@ -105,7 +106,7 @@
 					<div class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span><span class="tsd-signature-symbol"> =&nbsp;LogManager.getLogger(&#x27;nsdal&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/DataAccess/Sublist.ts#L13">DataAccess/Sublist.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/DataAccess/Sublist.ts#L12">DataAccess/Sublist.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -122,13 +123,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/DataAccess/Sublist.ts#L51">DataAccess/Sublist.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/DataAccess/Sublist.ts#L51">DataAccess/Sublist.ts:51</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Generic property descriptor with basic default algorithm that exposes the field value directly with no
-									other processing.</p>
+										other processing. If the target field name ends with &#39;Text&#39; it uses NetSuite <code>getText()/setText()</code> otherwise (default)
+									uses <code>getValue()/setValue()</code></p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -156,7 +158,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/DataAccess/Sublist.ts#L86">DataAccess/Sublist.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/DataAccess/Sublist.ts#L89">DataAccess/Sublist.ts:89</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -183,6 +185,39 @@
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 							<p>an object property descriptor to be used
 							with decorators</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="parseprop" class="tsd-anchor"></a>
+					<h3>parse<wbr>Prop</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">parse<wbr>Prop<span class="tsd-signature-symbol">(</span>propertyKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/DataAccess/Sublist.ts#L153">DataAccess/Sublist.ts:153</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>parses a property name from a declaration (supporting &#39;Text&#39; suffix per our convention)</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>propertyKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>original property name as declared on class</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span></h4>
+							<p>pair consisting of a flag indicating this field wants &#39;text&#39; behavior and the actual ns field name (with
+							Text suffix removed)</p>
 						</li>
 					</ul>
 				</section>
@@ -220,6 +255,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_dataaccess_sublist_.html#formattedsublistdescriptor" class="tsd-kind-icon">formatted<wbr>Sublist<wbr>Descriptor</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_dataaccess_sublist_.html#parseprop" class="tsd-kind-icon">parse<wbr>Prop</a>
 					</li>
 				</ul>
 			</nav>

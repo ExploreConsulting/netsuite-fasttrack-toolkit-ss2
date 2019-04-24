@@ -71,6 +71,7 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_governance_.html#autoreschedule" class="tsd-kind-icon">auto<wbr>Reschedule</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_governance_.html#governanceremains" class="tsd-kind-icon">governance<wbr>Remains</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_governance_.html#rescheduleifneeded" class="tsd-kind-icon">reschedule<wbr>IfNeeded</a></li>
 							</ul>
@@ -81,16 +82,67 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="governanceremains" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> governance<wbr>Remains</h3>
+					<a name="autoreschedule" class="tsd-anchor"></a>
+					<h3>auto<wbr>Reschedule</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">governance<wbr>Remains<span class="tsd-signature-symbol">(</span>starttime<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Moment</span>, minutes<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, units<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+						<li class="tsd-signature tsd-kind-icon">auto<wbr>Reschedule<span class="tsd-signature-symbol">(</span>startTime<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, minutes<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, units<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/governance.ts#L18">governance.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/governance.ts#L70">governance.ts:70</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Automatically reschedule the current task if governance is exhausted.
+									Convenience function that composes <code>governanceRemains</code> and <code>rescheduleIfNeeded</code></p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>// defaults to 200 units threshold and starts elapsed time tracking at this invocation
+										sequence.takeWhile(autoReschedule())</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> startTime: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>when (as a Date timestamp) to start counting elapsed time for clock-time governance,
+										defaults to <code>Date.now()</code></p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> minutes: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>threshold for maximum number of minutes allowed to elapse before rescheduling</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> units: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>threshold for minimum remaining governance units before rescheduling</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="governanceremains" class="tsd-anchor"></a>
+					<h3>governance<wbr>Remains</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">governance<wbr>Remains<span class="tsd-signature-symbol">(</span>startTime<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, minutes<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, units<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/governance.ts#L17">governance.ts:17</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -98,31 +150,31 @@
 									<p>returns a predicate function which returns true if we&#39;re not out of governance, false if we have reached time
 									remaining and/or units thresholds.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>// defaults to 200 units threshold and starts elapsed time tracking at this invocation
+										sequence.takeWhile(governanceRemains())</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> starttime: <span class="tsd-signature-type">Moment</span><span class="tsd-signature-symbol"> =&nbsp;moment()</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> startTime: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;Date.now()</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>when to start counting elapsed time for clock-time governance, defaults to &#39;now&#39;</p>
-										</div>
+										<p>when to start counting elapsed time for clock-time governance, ms since the epoch (e.g. Date.now())</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> minutes: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;45</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>threshold for maximum number of minutes allowed to elapse</p>
-										</div>
+										<p>threshold for maximum number of minutes allowed to elapse</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> units: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;200</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>threshold for minimum remaining governance units</p>
-										</div>
+										<p>threshold for minimum remaining governance units</p>
 									</div>
 								</li>
 							</ul>
@@ -140,7 +192,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/governance.ts#L41">governance.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/governance.ts#L40">governance.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -202,6 +254,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_governance_.html#autoreschedule" class="tsd-kind-icon">auto<wbr>Reschedule</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_governance_.html#governanceremains" class="tsd-kind-icon">governance<wbr>Remains</a>
 					</li>

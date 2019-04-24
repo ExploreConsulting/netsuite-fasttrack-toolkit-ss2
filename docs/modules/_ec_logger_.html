@@ -112,6 +112,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ec_logger_.html#addconsoleappender" class="tsd-kind-icon">add<wbr>Console<wbr>Appender</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_ec_logger_.html#autologmethodentryexit" class="tsd-kind-icon">auto<wbr>Log<wbr>Method<wbr>Entry<wbr>Exit</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ec_logger_.html#findkey" class="tsd-kind-icon">find<wbr>Key</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ec_logger_.html#getgovernancemessage" class="tsd-kind-icon">get<wbr>Governance<wbr>Message</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ec_logger_.html#log" class="tsd-kind-icon">log</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_ec_logger_.html#require" class="tsd-kind-icon">require</a></li>
@@ -131,7 +132,7 @@
 					<div class="tsd-signature tsd-kind-icon">Default<wbr>Logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span><span class="tsd-signature-symbol"> =&nbsp;defaultLogger</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L267">EC_Logger.ts:267</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L312">EC_Logger.ts:312</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -160,7 +161,7 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 					<div class="tsd-signature tsd-kind-icon">correlation<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;Math.floor(Math.random() * 10000).toString()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L44">EC_Logger.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L42">EC_Logger.ts:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -175,7 +176,7 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span><span class="tsd-signature-symbol"> =&nbsp;getLogger(&#x27;default&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L119">EC_Logger.ts:119</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L124">EC_Logger.ts:124</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -185,16 +186,24 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Correlation<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L52">EC_Logger.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L55">EC_Logger.ts:55</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>if true then log message include a random integer (or your custom) prefix to each log entry title.
+							<p>if true then log message includes a random integer (or your custom) prefix to each log entry title.
 								which is fixed for the duration of this script run. This can be used to correlate between different runs
 								of the same script (e.g. multiple runs of a scheduled script or discerning between multiple simultaneous calls
 							to a RESTlet or Suitelet)</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>example</dt>
+							<dd><p>output
+									1234&gt; My log title
+									1234&gt; Another log title from the same run of the script
+								5683&gt; Log message from a subsequent execution of the script</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 			</section>
@@ -210,12 +219,12 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L280">EC_Logger.ts:280</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L325">EC_Logger.ts:325</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Adds the passed aurelia logging console appender with diagnostic logging</p>
+									<p>Adds the passed aurelia logging console (browser/node) appender with diagnostic logging</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -241,7 +250,7 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L177">EC_Logger.ts:177</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L222">EC_Logger.ts:222</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -312,6 +321,67 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="findkey" class="tsd-anchor"></a>
+					<h3>find<wbr>Key</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>Key<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, predicate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L169">EC_Logger.ts:169</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>(taken from lodash <a href="https://github.com/lodash/lodash/blob/a0a3a6af910e475d8dd14dabc452f957e436e28b/findKey.js">https://github.com/lodash/lodash/blob/a0a3a6af910e475d8dd14dabc452f957e436e28b/findKey.js</a>)
+										This method is like <code>find</code> except that it returns the key of the first
+									element <code>predicate</code> returns truthy for instead of the element itself.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>since</dt>
+									<dd><p>1.1.0</p>
+									</dd>
+									<dt>category</dt>
+									<dd><p>Object</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>find, findIndex, findLast, findLastIndex, findLastKey</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const users = {
+											&#39;barney&#39;:  { &#39;age&#39;: 36, &#39;active&#39;: true },
+											&#39;fred&#39;:    { &#39;age&#39;: 40, &#39;active&#39;: false },
+											&#39;pebbles&#39;: { &#39;age&#39;: 1,  &#39;active&#39;: true }
+										}</p>
+										<p>findKey(users, ({ age }) =&gt; age &lt; 40)
+										// =&gt; &#39;barney&#39; (iteration order is not guaranteed)</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>object: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The object to inspect.</p>
+									</div>
+								</li>
+								<li>
+									<h5>predicate: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The function invoked per iteration.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Returns the key of the matched element,
+							else <code>undefined</code>.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="getgovernancemessage" class="tsd-anchor"></a>
 					<h3>get<wbr>Governance<wbr>Message</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
@@ -321,7 +391,7 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L138">EC_Logger.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L143">EC_Logger.ts:143</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -347,7 +417,7 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L62">EC_Logger.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L70">EC_Logger.ts:70</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -376,7 +446,7 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L292">EC_Logger.ts:292</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L337">EC_Logger.ts:337</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -414,7 +484,7 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L274">EC_Logger.ts:274</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L319">EC_Logger.ts:319</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -428,7 +498,7 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 									<h5>value: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>new correlation id, will be used on all subsequent log messages</p>
+											<p>new correlation id, will be used on all subsequent log messages for the current script execution</p>
 										</div>
 									</div>
 								</li>
@@ -447,7 +517,7 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L59">EC_Logger.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L67">EC_Logger.ts:67</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -481,7 +551,7 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/EC_Logger.ts#L123">EC_Logger.ts:123</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/EC_Logger.ts#L128">EC_Logger.ts:128</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -539,6 +609,9 @@ const <span class="hljs-keyword">log</span> = LogManager.DefaultLogger
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_ec_logger_.html#autologmethodentryexit" class="tsd-kind-icon">auto<wbr>Log<wbr>Method<wbr>Entry<wbr>Exit</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_ec_logger_.html#findkey" class="tsd-kind-icon">find<wbr>Key</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_ec_logger_.html#getgovernancemessage" class="tsd-kind-icon">get<wbr>Governance<wbr>Message</a>

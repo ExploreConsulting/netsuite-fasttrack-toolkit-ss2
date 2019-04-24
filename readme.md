@@ -298,3 +298,8 @@ to run the test suite:
     node_modules/.bin/gulp
     node_modules/.bin/gulp declarations
     npm publish
+
+
+# Build API docs (hosted on Github Pages)
+
+    node_modules/.bin/gulp docs

@@ -108,7 +108,7 @@
 					<div class="tsd-signature tsd-kind-icon">Object<wbr>With<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/search.ts#L25">search.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/search.ts#L20">search.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -130,16 +130,17 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/search.ts#L51">search.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/search.ts#L46">search.ts:46</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to _.map()</p>
+									<p>Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to <code>map()</code></p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>example</dt>
-									<dd><pre><code class="language-typescript"> <span class="hljs-comment">// default (uses column labels if present)</span>
+									<dd><p>(using Immutable JS Sequence)</p>
+										<pre><code class="language-typescript"> <span class="hljs-comment">// default (uses column labels if present)</span>
  Seq(LazySearch.load(<span class="hljs-number">1234</span>)).map(nsSearchResult2obj()).forEach(...)
 
  <span class="hljs-comment">// force ignoring search column labels</span>

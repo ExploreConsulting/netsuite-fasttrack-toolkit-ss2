@@ -99,6 +99,7 @@
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_dataaccess_record_.html#defaultdescriptor" class="tsd-kind-icon">default<wbr>Descriptor</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_dataaccess_record_.html#formatteddescriptor" class="tsd-kind-icon">formatted<wbr>Descriptor</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_dataaccess_record_.html#numericdescriptor" class="tsd-kind-icon">numeric<wbr>Descriptor</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_dataaccess_record_.html#parseprop" class="tsd-kind-icon">parse<wbr>Prop</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_dataaccess_record_.html#sublistdescriptor" class="tsd-kind-icon">sublist<wbr>Descriptor</a></li>
 							</ul>
 						</section>
@@ -113,7 +114,7 @@
 					<div class="tsd-signature tsd-kind-icon">Line<wbr>Constructor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/DataAccess/Record.ts#L156">DataAccess/Record.ts:156</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/DataAccess/Record.ts#L172">DataAccess/Record.ts:172</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -131,7 +132,7 @@
 					<div class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span><span class="tsd-signature-symbol"> =&nbsp;LogManager.getLogger(&#x27;nsdal&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/DataAccess/Record.ts#L12">DataAccess/Record.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/DataAccess/Record.ts#L11">DataAccess/Record.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -148,7 +149,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/DataAccess/Record.ts#L111">DataAccess/Record.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/DataAccess/Record.ts#L126">DataAccess/Record.ts:126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -182,7 +183,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/DataAccess/Record.ts#L194">DataAccess/Record.ts:194</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/DataAccess/Record.ts#L210">DataAccess/Record.ts:210</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -223,7 +224,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/DataAccess/Record.ts#L140">DataAccess/Record.ts:140</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/DataAccess/Record.ts#L153">DataAccess/Record.ts:153</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -249,6 +250,39 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="parseprop" class="tsd-anchor"></a>
+					<h3>parse<wbr>Prop</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">parse<wbr>Prop<span class="tsd-signature-symbol">(</span>propertyKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/DataAccess/Record.ts#L114">DataAccess/Record.ts:114</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>parses a property name from a declaration (supporting &#39;Text&#39; suffix per our convention)</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>propertyKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>original property name as declared on class</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span></h4>
+							<p>pair consisting of a flag indicating this field wants &#39;text&#39; behavior and the actual ns field name (with
+							Text suffix removed)</p>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
 					<a name="sublistdescriptor" class="tsd-anchor"></a>
 					<h3>sublist<wbr>Descriptor</h3>
@@ -259,7 +293,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/909d9fa/DataAccess/Record.ts#L164">DataAccess/Record.ts:164</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/14cc39f/DataAccess/Record.ts#L180">DataAccess/Record.ts:180</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -328,6 +362,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_dataaccess_record_.html#numericdescriptor" class="tsd-kind-icon">numeric<wbr>Descriptor</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_dataaccess_record_.html#parseprop" class="tsd-kind-icon">parse<wbr>Prop</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_dataaccess_record_.html#sublistdescriptor" class="tsd-kind-icon">sublist<wbr>Descriptor</a>

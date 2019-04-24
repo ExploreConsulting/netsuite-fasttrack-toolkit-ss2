@@ -73,8 +73,12 @@
 					predefined strong types for NetSuite record access including sublist support. </li>
 					<li>advanced logging facility</li>
 					<li>enhanced search handling</li>
-					<li>immutablejs (used for arbitrary length sequences and elegant search result processing)</li>
 					<li>governance management</li>
+					<li>aop lib</li>
+				</ul>
+				<p><em>also included (only as a convenience, NFT does not depend on these):</em></p>
+				<ul>
+					<li>immutablejs (used for arbitrary length sequences and elegant search result processing)</li>
 					<li>lodash</li>
 					<li>momentjs</li>
 				</ul>
@@ -100,55 +104,91 @@
 				<p>NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields.
 				Otherwise you derive your own class and add custom fields as shown in the code example that follows.</p>
 				<p><img src="media/images/NFT-NSDAL-Inheritance.png" alt="NSDAL Inheritance Diagram"></p>
+				<p><em><expermimental></em>
+					Subrecord support! Take a look at the <code>CustomerBase.addressbook</code> sublist.
+					<code>CustomerBase.addressbook[0].addressbookaddress</code> gets the strongly typed <code>AddressBase</code> SubRecord. It works mostly like any
+				other record you just don&#39;t explicitly <code>save()</code> it. </p>
 				<h3 id="overview-example">Overview Example</h3>
 				<pre><code class="language-typescript">
 
-<span class="hljs-comment">/**
+/**
  * Test file for SuiteScript 2.0 
  * (replace 'NFT/' below with the relative path to your NFT-SS2-x.y.z folder)
  * @NApiVersion 2.x
  * @NScriptType Suitelet
- */</span>
+ */
 
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> LogManager <span class="hljs-keyword">from</span> <span class="hljs-string">'NFT/EC_Logger'</span>
-<span class="hljs-keyword">import</span> {CustomerBase} <span class="hljs-keyword">from</span> <span class="hljs-string">"NFT/DataAccess/CustomerBase"</span>
-<span class="hljs-keyword">import</span> {FieldType} <span class="hljs-keyword">from</span> <span class="hljs-string">"NFT/DataAccess/Record"</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> _ <span class="hljs-keyword">from</span> <span class="hljs-string">"NFT/lodash"</span>
+import * as LogManager from 'NFT/EC_Logger'
+import {CustomerBase} from  'NFT/DataAccess/CustomerBase"
+import {FieldType} from "NFT/DataAccess/Record"
+import {SublistFieldType,Sublist,SublistLine} from "NFT/DataAccess/Sublist"
+import * as _ from "NFT/lodash"
 
-<span class="hljs-comment">// each script should request the DefaultLogger</span>
-<span class="hljs-keyword">var</span> log = LogManager.DefaultLogger
+// each script should request the DefaultLogger
+var log = LogManager.DefaultLogger
 
-<span class="hljs-comment">/**
+/**
+* Define fields for the 'contactroles' sublist on customer
+*/
+class ContactRolesSublist extends SublistLine {
+   // the country internal id
+   @SublistFieldType.select
+   role: number
+
+   // adding `Text` suffix to field name surfaces the text value
+   // instead of internalid
+   @SublistFieldType.select
+   roleText: string
+}
+
+/**
  * define a customer class for our NetSuite account including custom fields. Standard fields come from customer.Base 
  * so we don't have to repeat them here. This Customer class could be in a separate file/folder (e.g RecordTypes/Customer.ts) and 
  * reused across all scripts via `import {Customer} from "./RecordTypes/Customer"`
- */</span>
-<span class="hljs-keyword">class</span> Customer <span class="hljs-keyword">extends</span> CustomerBase {
-   <span class="hljs-meta">@FieldType</span>.multiselect
-   custentity_multiselect:<span class="hljs-built_in">number</span>[]
+ */
+class Customer extends CustomerBase {
+   @FieldType.multiselect
+   custentity_multiselect:number[]
 
-   <span class="hljs-meta">@FieldType</span>.datetime
-   custentity_shawn_date : <span class="hljs-built_in">Date</span>
+   @FieldType.datetime
+   custentity_shawn_date : Date
+
+   // add 'Text' suffix to any property to `getText()` instead of `getValue()`
+   @FieldType.datetime
+   custentity_shawn_dateText: string
+
+   @FieldType.sublist(ContactRolesSublist)
+   contactroles: Sublist&lt;ContactRolesSublist&gt;
 }
 
 
-<span class="hljs-keyword">export</span> = {
+export = {
 
-   onRequest: <span class="hljs-function">(<span class="hljs-params">req, resp</span>) =&gt;</span> {
+   onRequest: (req, resp) =&gt; {
 
-      <span class="hljs-comment">// load customer internal id 1542</span>
-      <span class="hljs-keyword">var</span> c = <span class="hljs-keyword">new</span> Customer(<span class="hljs-number">1542</span>)
+      // load customer internal id 1542
+      var c = new Customer(1542)
 
-      <span class="hljs-comment">// strongly typed field access</span>
-      c.companyname = <span class="hljs-string">'a new company name'</span>
-      c.custentity_multiselect = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
-      c.custentity_a_date = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+      // strongly typed field access
+      c.companyname = 'a new company name'
+      c.custentity_multiselect = [1, 2]
+      c.custentity_a_date = new Date()
+      // access `role` field VALUE of first contact role 
+      c.contactroles[0].role 
+      // access `country` field TEXT of first contact role
+      c.contactroles[0].roleText
 
-      <span class="hljs-comment">// persist our changes</span>
+      // persist changes
       c.save();
 
-      <span class="hljs-comment">// just log a couple properties from our customer object</span>
-      log.debug(<span class="hljs-string">'customer'</span>, _.pick(c,[<span class="hljs-string">'custentity_a_date'</span>, <span class="hljs-string">'companyname'</span>]))
+      // just log a couple properties from our customer object
+      log.debug('customer', _.pick(c,['custentity_a_date', 'companyname']))
+
+      // address book - including experimental subrecord access
+      // get addressbook subrecord of first address on the customer
+      const addrSubRecord = c.addressbook[0].addressbookaddress
+      // addrSubRecord has fields like addr1, addr2, city, country, state, addrphone etc.
+      log.debug('address subrecord', addrSubRecord)
    }
 }
 </code></pre>
@@ -170,6 +210,17 @@
 <span class="hljs-comment">// see inline help for more (e.g. support for column labels</span>
 </code></pre>
 				<h3 id="lazy-search">Lazy Search</h3>
+				<p>While <code>nsSearchResult2obj()</code> is useful on its own, we usually use it with <code>LazySearch</code>. This adds powerful and <em>lazy</em> processing of
+					search results. Here &#39;lazy&#39; means records are paged in from the search, as needed, never consuming more than 1 page
+					in memory at a time. Contrast this with <code>underscore</code> or <code>lodash</code> which create complete copies of the target collection
+				for each chained operation by default.</p>
+				<p>For example <code>_.map(searchResults, ...)</code> creates a <strong>new collection</strong> in memory holding the output of the <code>map</code>,
+					doubling overall memory use (<code>searchResults</code> remains unchanged, and <code>map()</code> emits a new collection of the same
+				length as <code>searchResults</code>)</p>
+				<p><code>LazySearch</code> processes one result at a time, passing it through all chained operation methods. It never creates intermediate
+					collections or exceeds 1 page of results stored in memory. This bounded memory usage holds true whether there are 1 or
+					1 million search results. The limitation is <code>LazySearch</code> is intended for <em>forward-only</em> iteration of search results - which we
+				find is overwhelmingly the most common use case.</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {nsSearchResult2obj, LazySearch} <span class="hljs-keyword">from</span> <span class="hljs-string">"./search"</span>
 <span class="hljs-keyword">import</span> {Seq} <span class="hljs-keyword">from</span> <span class="hljs-string">"immutable"</span>
 
@@ -240,7 +291,8 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 				<pre><code><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/tsc
 </span><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/gulp
 </span><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/gulp </span>declarations
-<span class="hljs-symbol">npm</span> publish</code></pre>
+<span class="hljs-symbol">npm</span> publish</code></pre><h1 id="build-api-docs-hosted-on-github-pages-">Build API docs (hosted on Github Pages)</h1>
+				<pre><code><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/gulp </span>docs</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -287,6 +339,9 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_ec_nsdal_.html">"<wbr>Data<wbr>Access/EC_<wbr>nsdal"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_emailtemplate_.html">"<wbr>Data<wbr>Access/<wbr>Email<wbr>Template"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_entity_.html">"<wbr>Data<wbr>Access/<wbr>Entity"</a>
@@ -365,6 +420,9 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_ec_logger_.html">"EC_<wbr><wbr>Logger"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ec_shawntest_.html">"EC_<wbr><wbr>Shawn<wbr>Test"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_aop_.html">"aop"</a>
