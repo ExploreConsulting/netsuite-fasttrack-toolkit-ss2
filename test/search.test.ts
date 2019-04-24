@@ -97,6 +97,21 @@ describe('nsSearchResult2obj', function () {
          // note no 'barText' here
       })
    })
+
+   test('handles search result with NO columns', () => {
+      const noColumnsResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'value text')
+      delete noColumnsResult.columns
+
+      // mock the second call to getValue() to return 5 (for the 'bar' property)
+      const mockGetValue = noColumnsResult.getValue as jest.Mock
+      mockGetValue.mockReturnValueOnce(5)
+
+      const x = nsSearchResult2obj()(noColumnsResult)
+      expect(x).toEqual({
+         // id always there,  note no additional columns defined
+         id: '1'
+      })
+   })
 })
 describe('ImuutableJS behavior', () => {
 

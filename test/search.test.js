@@ -88,6 +88,18 @@
                 // note no 'barText' here
             });
         });
+        test('handles search result with NO columns', function () {
+            var noColumnsResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'value text');
+            delete noColumnsResult.columns;
+            // mock the second call to getValue() to return 5 (for the 'bar' property)
+            var mockGetValue = noColumnsResult.getValue;
+            mockGetValue.mockReturnValueOnce(5);
+            var x = search_1.nsSearchResult2obj()(noColumnsResult);
+            expect(x).toEqual({
+                // id always there,  note no additional columns defined
+                id: '1'
+            });
+        });
     });
     describe('ImuutableJS behavior', function () {
         test('indirect toString() of Seq causes eager eval', function () {
