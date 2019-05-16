@@ -32,6 +32,9 @@ export class CashRefundBase extends TransactionBase {
    @FieldType.freeformtext
    pnrefnum:string
 
+   @FieldType.currency
+   total:number
+
 }
 
 export class ItemSublist extends SublistLine {
