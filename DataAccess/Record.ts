@@ -186,10 +186,14 @@ export function sublistDescriptor<T extends SublistLine> (ctor: LineConstructor<
          get: function () {
 
             if (!this[privateProp]) {
-               log.debug('initializing sublist', `sublist property named ${propertyKey}`)
+	       var sublistId = propertyKey
+	       if (propertyKey.slice(-7) == "Sublist") {
+	         sublistId = propertyKey.slice(0, -7)
+	       }
+               log.debug('initializing sublist', `sublist property named ${propertyKey}, sublist id ${sublistId}`)
                // using defineProperty() here defaults to making the property non-enumerable which is what we want
                // for this 'private' property so it doesn't appear on serialization (e.g. JSON.stringify())
-               Object.defineProperty(this, privateProp, { value: new Sublist(ctor, this.nsrecord, propertyKey) })
+               Object.defineProperty(this, privateProp, { value: new Sublist(ctor, this.nsrecord, sublistId) })
             }
             return this[privateProp]
          },
