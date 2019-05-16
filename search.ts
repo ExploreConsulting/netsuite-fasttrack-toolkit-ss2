@@ -197,4 +197,12 @@ export class LazySearch implements Iterator<search.Result | null> {
          value: this.currentData[this.index++]
       }
    }
+
+   /**
+    * Returns the total result count using the PagedData object's count property
+    * @returns {number}
+    */
+   size(): number {
+      return this.pagedData.count
+   }
 }
