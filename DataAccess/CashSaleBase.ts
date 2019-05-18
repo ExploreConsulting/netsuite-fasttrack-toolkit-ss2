@@ -38,6 +38,9 @@ export class CashSaleBase extends TransactionBase {
    @FieldType.freeformtext
    billaddress:string
 
+   @FieldType.checkbox
+   ccapproved:boolean
+
    @FieldType.select
    createdfrom: number
 
@@ -46,6 +49,9 @@ export class CashSaleBase extends TransactionBase {
 
    @FieldType.currency
    discounttotal:number
+
+   @FieldType.decimalnumber
+   exchangerate:number
 
    @FieldType.freeformtext
    fob:string
@@ -73,6 +79,9 @@ export class CashSaleBase extends TransactionBase {
 
    @FieldType.select
    paymentmethod:number
+
+   @FieldType.freeformtext
+   pnrefnum:string
 
    @FieldType.select
    promocode:number
