@@ -14,11 +14,26 @@ export class CashRefundBase extends TransactionBase {
    @FieldType.select
    account:number
 
+   @FieldType.checkbox
+   ccapproved:boolean
+
+   @FieldType.freeformtext
+   ccexpiredate:string
+
    @FieldType.freeformtext
    ccname:string
 
    @FieldType.freeformtext
    ccnumber:string
+
+   @FieldType.select
+   paymentmethod:number
+
+   @FieldType.freeformtext
+   pnrefnum:string
+
+   @FieldType.currency
+   total:number
 
 }
 
