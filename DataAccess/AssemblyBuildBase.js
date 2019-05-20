@@ -82,6 +82,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function AssemblyBuildBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        Object.defineProperty(AssemblyBuildBase.prototype, "inventorydetail", {
+            /**
+             * Inventory Detail subrecord
+             */
+            get: function () {
+                return new InventoryDetailBase_1.InventoryDetailBase(this.nsrecord.getSubrecord({
+                    fieldId: 'inventorydetail'
+                }));
+            },
+            enumerable: true,
+            configurable: true
+        });
         AssemblyBuildBase.recordType = record.Type.ASSEMBLY_BUILD;
         __decorate([
             Record_1.FieldType.select

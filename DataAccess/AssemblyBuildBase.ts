@@ -73,6 +73,15 @@ export class AssemblyBuildBase extends NetsuiteRecord {
   @FieldType.select
   item:number
 
+   /**
+    * Inventory Detail subrecord
+    */
+   get inventorydetail () {
+      return new InventoryDetailBase(this.nsrecord.getSubrecord({
+         fieldId:'inventorydetail'
+      }))
+   }
+
   @FieldType.datetime
   lastmodifieddate:Date
 
