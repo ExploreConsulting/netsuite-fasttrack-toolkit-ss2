@@ -23,7 +23,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/record", "./Record", "./Sublist"], factory);
+        define(["require", "exports", "N/record", "./Record", "./Sublist", "./InventoryDetailBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -31,6 +31,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var record = require("N/record");
     var Record_1 = require("./Record");
     var Sublist_1 = require("./Sublist");
+    var InventoryDetailBase_1 = require("./InventoryDetailBase");
     /**
      * the Components (component) sublist on AssemblyBuild records
      */
@@ -39,6 +40,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function ComponentSublist() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        Object.defineProperty(ComponentSublist.prototype, "componentinventorydetail", {
+            /**
+             * Inventory Detail subrecord
+             */
+            get: function () {
+                return new InventoryDetailBase_1.InventoryDetailBase(this.nsrecord.getSublistSubrecord({
+                    sublistId: 'component',
+                    fieldId: 'componentinventorydetail',
+                    line: this._line
+                }));
+            },
+            enumerable: true,
+            configurable: true
+        });
         __decorate([
             Sublist_1.SublistFieldType.freeformtext
         ], ComponentSublist.prototype, "item", void 0);
