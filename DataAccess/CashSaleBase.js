@@ -69,6 +69,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.freeformtext
         ], CashSaleBase.prototype, "billaddress", void 0);
         __decorate([
+            Record_1.FieldType.checkbox
+        ], CashSaleBase.prototype, "ccapproved", void 0);
+        __decorate([
             Record_1.FieldType.select
         ], CashSaleBase.prototype, "createdfrom", void 0);
         __decorate([
@@ -77,6 +80,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.currency
         ], CashSaleBase.prototype, "discounttotal", void 0);
+        __decorate([
+            Record_1.FieldType.decimalnumber
+        ], CashSaleBase.prototype, "exchangerate", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
         ], CashSaleBase.prototype, "fob", void 0);
@@ -104,6 +110,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.select
         ], CashSaleBase.prototype, "paymentmethod", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], CashSaleBase.prototype, "pnrefnum", void 0);
         __decorate([
             Record_1.FieldType.select
         ], CashSaleBase.prototype, "promocode", void 0);
