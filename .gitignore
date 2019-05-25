@@ -2,3 +2,5 @@
 node_modules
 dist
 declarations
+*.d.ts
+workspace.xml
