@@ -26,7 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Record", "N/record", "./Sublist"], factory);
+        define(["require", "exports", "./Record", "N/record", "./Sublist", "./AddressBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -34,57 +34,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var Record_1 = require("./Record");
     var record = require("N/record");
     var Sublist_1 = require("./Sublist");
-    /**
-     * The addressbook 'subrecord'. In SS2.0 this is mostly treated as a normal record object.
-     * However I caution against trying to create new instances of it, only passing an existing record
-     * to the constructor. For example, on the customer record you can get an address sublist record
-     * with Record.getSublistSubrecord() then pass the returned record to the Address constructor.
-     * Currently this has only been tested for read access to aqddress properties defined below.
-     */
-    var AddressBase = /** @class */ (function (_super) {
-        __extends(AddressBase, _super);
-        function AddressBase() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addr1", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addr2", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addr3", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addressee", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addrphone", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addrtext", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "attention", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "city", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AddressBase.prototype, "country", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "state", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "zip", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AddressBase.prototype, "override", void 0);
-        return AddressBase;
-    }(Record_1.NetsuiteRecord));
-    exports.AddressBase = AddressBase;
+    var AddressBase_1 = require("./AddressBase");
     /**
      * The address _sublist_ on customer records, not to be confused with the Address _subrecord_.
      * Customer address info is split between this sublist and the subrecord pointed to by the _addressbook_ field.
@@ -96,10 +46,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         }
         Object.defineProperty(AddressSublist.prototype, "addressbookaddress", {
             /**
-             * Address subrecord
+             * The Address subrecord associated to this line
+             *
+             * Extend this class and override this property
+             * if you want to replace AddressBase with a custom Address subclass.
+             *
+             * @example
+             export class MyCustomAddressClass extends AddressBase {
+             }
+         
+             export class MyAddressSublist extends AddressSublist {
+               get addressbookaddress() {
+                  return new MyCustomAddressClass(this.nsrecord.getSublistSubrecord({
+                  sublistId:'addressbook',
+                  fieldId:'addressbookaddress',
+                  line: this._line
+                  }))
+               }
+            }
              */
             get: function () {
-                return new AddressBase(this.nsrecord.getSublistSubrecord({
+                return new AddressBase_1.AddressBase(this.nsrecord.getSublistSubrecord({
                     sublistId: 'addressbook',
                     fieldId: 'addressbookaddress',
                     line: this._line
