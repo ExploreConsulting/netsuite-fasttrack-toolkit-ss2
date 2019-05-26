@@ -241,15 +241,6 @@ export class Sublist<T extends SublistLine> {
          this[i] = new sublistLineType(this.sublistId, this.nsrecord, i)
       }
    }
-
-   // serialize lines to an array with properties shown
-   toJSON () { // surface inherited properties on a new object so JSON.stringify() sees them all
-      const result: any = {}
-      for (const key in this) { // noinspection JSUnfilteredForInLoop
-         result[key] = this[key]
-      }
-      return result
-   }
 }
 
 /**
@@ -298,6 +289,15 @@ export abstract class SublistLine {
       this.makeRecordProp(rec)
       Object.defineProperty(this, 'sublistId', { enumerable: false })
       Object.defineProperty(this, '_line', { enumerable: false })
+   }
+
+   // serialize lines to an array with properties shown
+   toJSON () { // surface inherited properties on a new object so JSON.stringify() sees them all
+      const result: any = {}
+      for (const key in this) { // noinspection JSUnfilteredForInLoop
+         result[key] = this[key]
+      }
+      return result
    }
 }
 

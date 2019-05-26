@@ -258,14 +258,6 @@ var __assign = (this && this.__assign) || function () {
                 enumerable: false
             });
         };
-        // serialize lines to an array with properties shown
-        Sublist.prototype.toJSON = function () {
-            var result = {};
-            for (var key in this) { // noinspection JSUnfilteredForInLoop
-                result[key] = this[key];
-            }
-            return result;
-        };
         return Sublist;
     }());
     exports.Sublist = Sublist;
@@ -313,6 +305,14 @@ var __assign = (this && this.__assign) || function () {
                 value: value,
                 enumerable: false
             });
+        };
+        // serialize lines to an array with properties shown
+        SublistLine.prototype.toJSON = function () {
+            var result = {};
+            for (var key in this) { // noinspection JSUnfilteredForInLoop
+                result[key] = this[key];
+            }
+            return result;
         };
         return SublistLine;
     }());
