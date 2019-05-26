@@ -1,12 +1,24 @@
 import * as record from 'N/record'
-import { FieldType, NetsuiteRecord } from './Record'
-import { Sublist, SublistFieldType, SublistLine } from './Sublist'
+import {FieldType, NetsuiteRecord} from './Record'
+import {Sublist, SublistFieldType, SublistLine} from './Sublist'
+import {InventoryDetailBase} from "./InventoryDetailBase"
 
 /**
  * the Components (component) sublist on AssemblyBuild records
  */
 export class ComponentSublist extends SublistLine {
-  @SublistFieldType.freeformtext
+   /**
+    * Inventory Detail subrecord
+    */
+   get componentinventorydetail () {
+      return new InventoryDetailBase(this.nsrecord.getSublistSubrecord({
+         sublistId:'component',
+         fieldId:'componentinventorydetail',
+         line: this._line
+      }))
+   }
+
+   @SublistFieldType.freeformtext
   item:string
 
   @SublistFieldType.integernumber
@@ -60,6 +72,15 @@ export class AssemblyBuildBase extends NetsuiteRecord {
    */
   @FieldType.select
   item:number
+
+   /**
+    * Inventory Detail subrecord
+    */
+   get inventorydetail () {
+      return new InventoryDetailBase(this.nsrecord.getSubrecord({
+         fieldId:'inventorydetail'
+      }))
+   }
 
   @FieldType.datetime
   lastmodifieddate:Date
