@@ -1,10 +1,10 @@
 /**
- * NS Base Invetory Detail subrecord contains definitions for the built in fields
+ * NS Base Inventory Detail subrecord contains definitions for the built in fields
  */
 
-import {FieldType, NetsuiteRecord} from './Record'
+import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
-import {Sublist, SublistFieldType, SublistLine} from './Sublist'
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 
 export class InventoryAssignmentSublist extends SublistLine {
 

@@ -1,5 +1,5 @@
 /**
- * NS Base Invetory Detail subrecord contains definitions for the built in fields
+ * NS Base Inventory Detail subrecord contains definitions for the built in fields
  */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
