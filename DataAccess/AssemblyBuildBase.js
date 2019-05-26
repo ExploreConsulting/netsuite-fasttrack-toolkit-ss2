@@ -40,20 +40,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function ComponentSublist() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        Object.defineProperty(ComponentSublist.prototype, "componentinventorydetail", {
-            /**
-             * Inventory Detail subrecord
-             */
-            get: function () {
-                return new InventoryDetailBase_1.InventoryDetailBase(this.nsrecord.getSublistSubrecord({
-                    sublistId: 'component',
-                    fieldId: 'componentinventorydetail',
-                    line: this._line
-                }));
-            },
-            enumerable: true,
-            configurable: true
-        });
+        __decorate([
+            Sublist_1.SublistFieldType.subrecord(InventoryDetailBase_1.InventoryDetailBase)
+        ], ComponentSublist.prototype, "componentinventorydetail", void 0);
         __decorate([
             Sublist_1.SublistFieldType.freeformtext
         ], ComponentSublist.prototype, "item", void 0);
@@ -82,18 +71,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function AssemblyBuildBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        Object.defineProperty(AssemblyBuildBase.prototype, "inventorydetail", {
-            /**
-             * Inventory Detail subrecord
-             */
-            get: function () {
-                return new InventoryDetailBase_1.InventoryDetailBase(this.nsrecord.getSubrecord({
-                    fieldId: 'inventorydetail'
-                }));
-            },
-            enumerable: true,
-            configurable: true
-        });
         AssemblyBuildBase.recordType = record.Type.ASSEMBLY_BUILD;
         __decorate([
             Record_1.FieldType.select
@@ -122,6 +99,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.select
         ], AssemblyBuildBase.prototype, "item", void 0);
+        __decorate([
+            Record_1.FieldType.subrecord(InventoryDetailBase_1.InventoryDetailBase)
+        ], AssemblyBuildBase.prototype, "inventorydetail", void 0);
         __decorate([
             Record_1.FieldType.datetime
         ], AssemblyBuildBase.prototype, "lastmodifieddate", void 0);

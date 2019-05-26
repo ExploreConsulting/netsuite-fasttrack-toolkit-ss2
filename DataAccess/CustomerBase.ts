@@ -21,25 +21,16 @@ export class AddressSublist extends SublistLine {
     *
     * @example
     export class MyCustomAddressClass extends AddressBase {
+         // ... custom fields here
     }
 
     export class MyAddressSublist extends AddressSublist {
-      get addressbookaddress() {
-         return new MyCustomAddressClass(this.nsrecord.getSublistSubrecord({
-         sublistId:'addressbook',
-         fieldId:'addressbookaddress',
-         line: this._line
-         }))
-      }
+      @SublistFieldType.subrecord(MyCustomAddressClass)
+      addressbookaddress: MyCustomAddressClass
    }
     */
-   get addressbookaddress () {
-      return new AddressBase(this.nsrecord.getSublistSubrecord({
-         sublistId: 'addressbook',
-         fieldId: 'addressbookaddress',
-         line: this._line
-      }))
-   }
+   @SublistFieldType.subrecord(AddressBase)
+   addressbookaddress: AddressBase
 
    @SublistFieldType.freeformtext
    attention: string

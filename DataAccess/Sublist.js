@@ -57,6 +57,7 @@ var __assign = (this && this.__assign) || function () {
         SublistFieldType.percent = function (target, propertyKey) { return formattedSublistDescriptor(format.Type.PERCENT, target, propertyKey); };
         SublistFieldType.select = defaultSublistDescriptor;
         SublistFieldType.textarea = defaultSublistDescriptor;
+        SublistFieldType.subrecord = subrecordDescriptor;
     })(SublistFieldType = exports.SublistFieldType || (exports.SublistFieldType = {}));
     /**
      * Generic property descriptor with basic default algorithm that exposes the field value directly with no
@@ -95,7 +96,6 @@ var __assign = (this && this.__assign) || function () {
             enumerable: true //default is false
         };
     }
-    exports.defaultSublistDescriptor = defaultSublistDescriptor;
     /**
      * Generic property descriptor with algorithm for values that need to go through the NS format module
      * note: does not take into account timezone
@@ -166,6 +166,27 @@ var __assign = (this && this.__assign) || function () {
         };
     }
     exports.formattedSublistDescriptor = formattedSublistDescriptor;
+    /**
+     * Decorator for *subrecord* fields with the subrecord shape represented by T (which
+     * defines the properties you want on the subrecord)
+     * @param ctor Constructor for the subrecord class you want (e.g. `AddressBase`, `InventoryDetail`).
+     */
+    function subrecordDescriptor(ctor) {
+        return function (target, propertyKey) {
+            return {
+                enumerable: true,
+                // sublist is read only for now - if we have a use case where this should be assigned then tackle it
+                get: function () {
+                    return new ctor(this.nsrecord.getSublistSubrecord({
+                        fieldId: propertyKey,
+                        line: this._line,
+                        sublistId: this.sublistId
+                    }));
+                },
+            };
+        };
+    }
+    exports.subrecordDescriptor = subrecordDescriptor;
     /**
      * parses a property name from a declaration (supporting 'Text' suffix per our convention)
      * @param propertyKey original property name as declared on class

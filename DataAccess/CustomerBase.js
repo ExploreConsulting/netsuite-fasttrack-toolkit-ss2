@@ -44,37 +44,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function AddressSublist() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        Object.defineProperty(AddressSublist.prototype, "addressbookaddress", {
-            /**
-             * The Address subrecord associated to this line
-             *
-             * Extend this class and override this property
-             * if you want to replace AddressBase with a custom Address subclass.
-             *
-             * @example
-             export class MyCustomAddressClass extends AddressBase {
-             }
-         
-             export class MyAddressSublist extends AddressSublist {
-               get addressbookaddress() {
-                  return new MyCustomAddressClass(this.nsrecord.getSublistSubrecord({
-                  sublistId:'addressbook',
-                  fieldId:'addressbookaddress',
-                  line: this._line
-                  }))
-               }
-            }
-             */
-            get: function () {
-                return new AddressBase_1.AddressBase(this.nsrecord.getSublistSubrecord({
-                    sublistId: 'addressbook',
-                    fieldId: 'addressbookaddress',
-                    line: this._line
-                }));
-            },
-            enumerable: true,
-            configurable: true
-        });
+        __decorate([
+            Sublist_1.SublistFieldType.subrecord(AddressBase_1.AddressBase)
+        ], AddressSublist.prototype, "addressbookaddress", void 0);
         __decorate([
             Sublist_1.SublistFieldType.freeformtext
         ], AddressSublist.prototype, "attention", void 0);

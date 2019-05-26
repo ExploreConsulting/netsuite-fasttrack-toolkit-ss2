@@ -177,7 +177,7 @@ type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, 
  * @param ctor Constructor for the type that has the properties you want from each sublist line.
  * e.g. Invoice.ItemSublistLine
  */
-export function sublistDescriptor<T extends SublistLine> (ctor: LineConstructor<T>) {
+ function sublistDescriptor<T extends SublistLine> (ctor: LineConstructor<T>) {
    return function (target: any, propertyKey: string): any {
       const privateProp = `_${propertyKey}`
       return {
@@ -192,6 +192,26 @@ export function sublistDescriptor<T extends SublistLine> (ctor: LineConstructor<
                Object.defineProperty(this, privateProp, { value: new Sublist(ctor, this.nsrecord, propertyKey) })
             }
             return this[privateProp]
+         },
+      }
+   }
+}
+
+/**
+ * Decorator for *subrecord* fields with the subrecord shape represented by T (which
+ * defines the properties you want on the subrecord)
+ * @param ctor Constructor for the type that has the properties you want from the subrecord.
+ * e.g. AssemblyBuild.InventoryDetail
+ */
+function subrecordDescriptor<T extends NetsuiteCurrentRecord> (ctor: new (rec:record.Record) => T ) {
+   return function (target: any, propertyKey: string): any {
+      return {
+         enumerable: true,
+         // sublist is read only for now - if we have a use case where this should be assigned then tackle it
+         get: function () {
+            return new ctor(this.nsrecord.getSubrecord({
+               fieldId:propertyKey
+            }))
          },
       }
    }
@@ -233,7 +253,13 @@ function formattedDescriptor (formatType: format.Type, target: any, propertyKey:
  *  field 'afield'.
  */
 export namespace FieldType {
+   /**
+    * use for ns  _address_ field type
+    */
    export const address = defaultDescriptor
+   /**
+    * use for NS _checkbox_ field type - surfaces as `boolean` in TypeScript
+    */
    export const checkbox = defaultDescriptor
    export const date = defaultDescriptor
    export const currency = numericDescriptor
@@ -241,6 +267,7 @@ export namespace FieldType {
    export const document = defaultDescriptor
    export const email = defaultDescriptor
    export const freeformtext = defaultDescriptor
+
    export const float = numericDescriptor
    export const decimalnumber = float
    export const hyperlink = defaultDescriptor
@@ -267,5 +294,20 @@ export namespace FieldType {
     * }
     */
    export var sublist = sublistDescriptor
+   /**
+    * NetSuite _SubRecord_ field type (reference to a subrecord object, usually described as 'summary' in the
+    * records browser.
+    * Pass in the (TypeScript) type that matches the subrecord this property points to
+    * @example the `assemblybuild.inventorydetail` property
+    * ```typescript
+    * import { InventoryDetail } from './DataAceess/InventoryDetail'
+    *
+    * class AssemblyBuild {
+    *    @FieldType.subrecord(InventoryDetail)
+    *    inventorydetail: InventoryDetail
+    * }
+    * ```
+    */
+   export var subrecord = subrecordDescriptor
 }
 
