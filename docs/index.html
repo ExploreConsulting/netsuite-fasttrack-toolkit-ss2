@@ -193,7 +193,16 @@ export = {
 }
 </code></pre>
 				<p><strong>see also <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/master/example.ts"><code>example.ts</code></a></strong></p>
-				<h2 id="search-helpers">Search Helpers</h2>
+				<h3 id="sublists-and-subrecords">Sublists and Subrecords</h3>
+				<p>Use <a href="mailto:%60@FieldType.subrecord">`@FieldType.subrecord</a><code>and</code>@SublistFieldType.subrecord<code>to designate fields that
+point to NetSuite subrecords. Use them similarly to the</code>sublist` field type.</p>
+				<p>Initially we have <code>Address</code> and <code>InventoryDetail</code> subrecords defined.</p>
+				<p>This lets you work with subrecords as plain javascript objects just like the rest of
+				NSDAL. e.g.</p>
+				<pre><code>    const <span class="hljs-keyword">build </span>= new AssemblyBuild(<span class="hljs-number">123</span>)
+
+    // reading the quantity <span class="hljs-meta">field</span> of the InventoryDetail <span class="hljs-keyword">body </span><span class="hljs-meta">field</span> on Assembly <span class="hljs-keyword">Build </span>record 
+    <span class="hljs-keyword">build.inventorydetail.quantity </span></code></pre><h2 id="search-helpers">Search Helpers</h2>
 				<p><code>nsSearchResult2obj</code> turns a netsuite <code>search.Result</code> into a POJO, especially useful when chaining operations or returning
 				search results from an API. </p>
 				<pre><code class="language-typescript">
@@ -302,6 +311,9 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_addressbase_.html">"<wbr>Data<wbr>Access/<wbr>Address<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_advancedintercompanyjournalentrybase_.html">"<wbr>Data<wbr>Access/<wbr>Advanced<wbr>Intercompany<wbr>Journal<wbr>Entry<wbr>Base"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -357,6 +369,9 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_inventoryadjustmentbase_.html">"<wbr>Data<wbr>Access/<wbr>Inventory<wbr>Adjustment<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_inventorydetailbase_.html">"<wbr>Data<wbr>Access/<wbr>Inventory<wbr>Detail<wbr>Base"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_invoicebase_.html">"<wbr>Data<wbr>Access/<wbr>Invoice<wbr>Base"</a>
@@ -420,9 +435,6 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_ec_logger_.html">"EC_<wbr><wbr>Logger"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_ec_shawntest_.html">"EC_<wbr><wbr>Shawn<wbr>Test"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_aop_.html">"aop"</a>
