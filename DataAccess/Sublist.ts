@@ -178,31 +178,10 @@ function parseProp (propertyKey: string): [boolean, string] {
    return [endsWithText, endsWithText ? propertyKey.replace('Text', '') : propertyKey]
 }
 
-
-
-interface ISublist<T extends SublistLine> {
-   readonly length: number
-   readonly sublistLineType: { new (sublistId: string, nsrec: record.Record, line: number): T }
-   sublistId: string
-
-   /**
-    * adds a new line to this sublist
-    * @param ignoreRecalc
-    */
-   addLine (ignoreRecalc): T
-
-   /**
-    * commits the currently selected line on this sublist. When adding new lines you don't need to call this method
-    */
-   commitLine (): void
-
-   selectLine (line: number): void
-}
-
 /**
  * creates a sublist whose lines are of type T
  */
-export class Sublist<T extends SublistLine> implements ISublist<T> {
+export class Sublist<T extends SublistLine> {
    nsrecord: record.Record
 
    // enforce 'array like' interaction through indexers
