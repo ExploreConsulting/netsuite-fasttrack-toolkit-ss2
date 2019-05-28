@@ -37,6 +37,59 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var Record_1 = require("./Record");
     var AddressBase_1 = require("./AddressBase");
     /**
+     * The 'item' sublist on invoices
+     */
+    var ItemSublist = /** @class */ (function (_super) {
+        __extends(ItemSublist, _super);
+        function ItemSublist() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], ItemSublist.prototype, "amount", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.textarea
+        ], ItemSublist.prototype, "description", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.checkbox
+        ], ItemSublist.prototype, "istaxable", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "item", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.integernumber
+        ], ItemSublist.prototype, "linenumber", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "price", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.float
+        ], ItemSublist.prototype, "quantity", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.float
+        ], ItemSublist.prototype, "rate", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.date
+        ], ItemSublist.prototype, "revrecstartdate", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.date
+        ], ItemSublist.prototype, "revrecenddate", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.subrecord(AddressBase_1.AddressBase)
+        ], ItemSublist.prototype, "shippingaddress", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "taxcode", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.percent
+        ], ItemSublist.prototype, "taxrate1", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "units", void 0);
+        return ItemSublist;
+    }(Sublist_1.SublistLine));
+    exports.ItemSublist = ItemSublist;
+    /**
      * NetSuite Cashsale Record
      */
     var CashSaleBase = /** @class */ (function (_super) {
@@ -103,6 +156,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.checkbox
         ], CashSaleBase.prototype, "istaxable", void 0);
         __decorate([
+            Record_1.FieldType.sublist(ItemSublist)
+        ], CashSaleBase.prototype, "item", void 0);
+        __decorate([
             Record_1.FieldType.select
         ], CashSaleBase.prototype, "leadsource", void 0);
         __decorate([
@@ -147,54 +203,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         return CashSaleBase;
     }(Transaction_1.TransactionBase));
     exports.CashSaleBase = CashSaleBase;
-    /**
-     * The 'item' sublist on invoices
-     */
-    var ItemSublist = /** @class */ (function (_super) {
-        __extends(ItemSublist, _super);
-        function ItemSublist() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        __decorate([
-            Sublist_1.SublistFieldType.currency
-        ], ItemSublist.prototype, "amount", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.textarea
-        ], ItemSublist.prototype, "description", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.checkbox
-        ], ItemSublist.prototype, "istaxable", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], ItemSublist.prototype, "item", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.integernumber
-        ], ItemSublist.prototype, "linenumber", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], ItemSublist.prototype, "price", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.float
-        ], ItemSublist.prototype, "quantity", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.float
-        ], ItemSublist.prototype, "rate", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.date
-        ], ItemSublist.prototype, "revrecstartdate", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.date
-        ], ItemSublist.prototype, "revrecenddate", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], ItemSublist.prototype, "taxcode", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.percent
-        ], ItemSublist.prototype, "taxrate1", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], ItemSublist.prototype, "units", void 0);
-        return ItemSublist;
-    }(Sublist_1.SublistLine));
-    exports.ItemSublist = ItemSublist;
 });

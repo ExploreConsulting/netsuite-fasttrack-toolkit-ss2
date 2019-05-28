@@ -2,11 +2,63 @@
  * NetSuite cash sale Transaction record
  */
 
-import { SublistFieldType, SublistLine } from './Sublist'
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
 import { FieldType } from './Record'
 import { AddressBase } from './AddressBase'
+
+/**
+ * The 'item' sublist on invoices
+ */
+export class ItemSublist extends SublistLine {
+
+   @SublistFieldType.currency
+   amount:number
+
+   @SublistFieldType.textarea
+   description:string
+
+   @SublistFieldType.checkbox
+   istaxable:boolean
+
+   @SublistFieldType.select
+   item:number
+
+   @SublistFieldType.integernumber
+   linenumber:number
+
+   @SublistFieldType.select
+   price:number
+
+   @SublistFieldType.float
+   quantity:number
+
+   @SublistFieldType.float
+   rate:number
+
+   @SublistFieldType.date
+   revrecstartdate:Date
+
+   @SublistFieldType.date
+   revrecenddate:Date
+
+   /**
+    * This field only exists if 'multi ship to' is enabled.
+    */
+   @SublistFieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase
+
+   @SublistFieldType.select
+   taxcode:number
+
+   @SublistFieldType.percent
+   taxrate1:number
+
+   @SublistFieldType.select
+   units:number
+}
+
 
 /**
  * NetSuite Cashsale Record
@@ -72,6 +124,9 @@ export class CashSaleBase extends TransactionBase {
    @FieldType.checkbox
    istaxable:boolean
 
+   @FieldType.sublist(ItemSublist)
+   item: Sublist<ItemSublist>
+
    @FieldType.select
    leadsource:number
 
@@ -115,51 +170,6 @@ export class CashSaleBase extends TransactionBase {
    total:number
 }
 
-/**
- * The 'item' sublist on invoices
- */
-export class ItemSublist extends SublistLine {
-
-   @SublistFieldType.currency
-   amount:number
-
-   @SublistFieldType.textarea
-   description:string
-
-   @SublistFieldType.checkbox
-   istaxable:boolean
-
-   @SublistFieldType.select
-   item:number
-
-   @SublistFieldType.integernumber
-   linenumber:number
-
-   @SublistFieldType.select
-   price:number
-
-   @SublistFieldType.float
-   quantity:number
-
-   @SublistFieldType.float
-   rate:number
-
-   @SublistFieldType.date
-   revrecstartdate:Date
-
-   @SublistFieldType.date
-   revrecenddate:Date
-
-   @SublistFieldType.select
-   taxcode:number
-
-   @SublistFieldType.percent
-   taxrate1:number
-
-   @SublistFieldType.select
-   units:number
-
-}
 
 
 
