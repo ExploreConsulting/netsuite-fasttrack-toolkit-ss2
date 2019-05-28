@@ -6,6 +6,7 @@ import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
 import { FieldType } from './Record'
+import { AddressBase } from './AddressBase'
 
 /**
  * Sublist 'item' on the Sales Order record
@@ -113,6 +114,12 @@ export class SalesTeamSublist extends SublistLine {
 export class SalesOrderBase extends TransactionBase {
 
    static recordType = record.Type.SALES_ORDER
+
+   @FieldType.subrecord(AddressBase)
+   billingaddress: AddressBase
+
+   @FieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase
 
    @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>

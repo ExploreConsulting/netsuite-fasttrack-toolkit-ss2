@@ -6,6 +6,7 @@ import {SublistLine, SublistFieldType, Sublist} from './Sublist'
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction";
 import {FieldType} from "./Record"
+import { AddressBase } from './AddressBase'
 
 /**
  * The 'item' sublist on opportunity records
@@ -58,6 +59,9 @@ export class OpportunityBase extends TransactionBase {
    @FieldType.currency
    balance:number
 
+   @FieldType.subrecord(AddressBase)
+   billingaddress: AddressBase
+
    @FieldType.freeformtext
    billaddr1:string
 
@@ -90,6 +94,9 @@ export class OpportunityBase extends TransactionBase {
 
    @FieldType.select
    partner:number
+
+   @FieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase
 
    @FieldType.currency
    total:number

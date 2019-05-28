@@ -6,6 +6,7 @@ import { SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
 import { FieldType } from './Record'
+import { AddressBase } from './AddressBase'
 
 /**
  * NetSuite Transfer Order Record
@@ -36,6 +37,9 @@ export class TransferOrderBase extends TransactionBase {
 
    @FieldType.date
    shipdate: Date
+
+   @FieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase
 
    @FieldType.currency
    subtotal: number

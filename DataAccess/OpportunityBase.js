@@ -26,7 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Sublist", "N/record", "./Transaction", "./Record"], factory);
+        define(["require", "exports", "./Sublist", "N/record", "./Transaction", "./Record", "./AddressBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -35,6 +35,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var record = require("N/record");
     var Transaction_1 = require("./Transaction");
     var Record_1 = require("./Record");
+    var AddressBase_1 = require("./AddressBase");
     /**
      * The 'item' sublist on opportunity records
      */
@@ -92,6 +93,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.currency
         ], OpportunityBase.prototype, "balance", void 0);
         __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], OpportunityBase.prototype, "billingaddress", void 0);
+        __decorate([
             Record_1.FieldType.freeformtext
         ], OpportunityBase.prototype, "billaddr1", void 0);
         __decorate([
@@ -124,6 +128,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.select
         ], OpportunityBase.prototype, "partner", void 0);
+        __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], OpportunityBase.prototype, "shippingaddress", void 0);
         __decorate([
             Record_1.FieldType.currency
         ], OpportunityBase.prototype, "total", void 0);

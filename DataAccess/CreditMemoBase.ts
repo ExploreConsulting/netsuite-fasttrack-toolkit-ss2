@@ -6,6 +6,7 @@ import { FieldType } from './Record'
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
 import { SublistFieldType, SublistLine } from './Sublist'
+import { AddressBase } from './AddressBase'
 
 export class CreditMemoBase extends TransactionBase {
 
@@ -29,11 +30,17 @@ export class CreditMemoBase extends TransactionBase {
    @FieldType.currency
    balance:number
 
+   @FieldType.subrecord(AddressBase)
+   billingaddress: AddressBase
+
    @FieldType.select
    class:number
 
    @FieldType.select
    currency:number
+
+   @FieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase
 
    @FieldType.currency
    subtotal:number

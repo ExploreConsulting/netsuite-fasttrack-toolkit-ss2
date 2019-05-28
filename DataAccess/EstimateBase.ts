@@ -6,6 +6,7 @@ import { FieldType } from './Record'
 import { TransactionBase } from './Transaction'
 import * as record from 'N/record'
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
+import { AddressBase } from './AddressBase'
 
 /**
  * Sublist 'item' on the Estimate record
@@ -39,6 +40,9 @@ export class EstimateBase extends TransactionBase {
 
    @FieldType.currency
    balance: number | string
+
+   @FieldType.subrecord(AddressBase)
+   billingaddress: AddressBase
 
    @FieldType.select
    billaddresslist: number
@@ -120,6 +124,9 @@ export class EstimateBase extends TransactionBase {
 
    @FieldType.select
    shipmethod: number
+
+   @FieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase
 
    @FieldType.select
    shippingtaxcode: number

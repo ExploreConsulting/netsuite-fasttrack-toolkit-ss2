@@ -2,22 +2,23 @@
  * NetSuite Vendor Bill record
  */
 
-import * as nsdal from "./EC_nsdal"
-import {SublistLine, Sublist} from "./Sublist"
+import {SublistLine, Sublist, SublistFieldType} from "./Sublist"
 import * as record from 'N/record'
 import {TransactionBase} from "./Transaction"
+import { FieldType } from './Record'
+import { AddressBase } from './AddressBase'
 
 /**
  * Sublist 'item' on the Vendor Bill record
  */
 export class ItemSublist extends SublistLine {
-   @nsdal.SublistFieldType.select
+   @SublistFieldType.select
    item: number
-   @nsdal.SublistFieldType.integernumber
+   @SublistFieldType.integernumber
    quantity: number
-   @nsdal.SublistFieldType.currency
+   @SublistFieldType.currency
    amount: number
-   @nsdal.SublistFieldType.currency
+   @SublistFieldType.currency
    rate: number
 }
 
@@ -25,25 +26,25 @@ export class ItemSublist extends SublistLine {
  * Sublist 'expense' on the Vendor Bill record
  */
 export class ExpenseSublist extends SublistLine {
-   @nsdal.SublistFieldType.select
+   @SublistFieldType.select
    account: number
 
-   @nsdal.SublistFieldType.currency
+   @SublistFieldType.currency
    amount: number
 
-   @nsdal.SublistFieldType.select
+   @SublistFieldType.select
    categoryexpaccount: number
 
-   @nsdal.SublistFieldType.select
+   @SublistFieldType.select
    department: number
 
-   @nsdal.SublistFieldType.integernumber
+   @SublistFieldType.integernumber
    line: number
 
-   @nsdal.SublistFieldType.freeformtext
+   @SublistFieldType.freeformtext
    lineuniquekey: string
 
-   @nsdal.SublistFieldType.select
+   @SublistFieldType.select
    location: number
 }
 
@@ -53,10 +54,13 @@ export class ExpenseSublist extends SublistLine {
 export class VendorBillBase extends TransactionBase {
    static recordType = record.Type.VENDOR_BILL
 
-   @nsdal.FieldType.sublist(ItemSublist)
+   @FieldType.subrecord(AddressBase)
+   billingaddress: AddressBase
+
+   @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>
 
-   @nsdal.FieldType.sublist(ExpenseSublist)
+   @FieldType.sublist(ExpenseSublist)
    expense: Sublist<ExpenseSublist>
 }
 

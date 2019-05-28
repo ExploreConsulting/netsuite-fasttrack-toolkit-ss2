@@ -26,7 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/record", "./Transaction", "./Sublist", "./Record"], factory);
+        define(["require", "exports", "N/record", "./Transaction", "./Sublist", "./Record", "./AddressBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -35,6 +35,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var Transaction_1 = require("./Transaction");
     var Sublist_1 = require("./Sublist");
     var Record_1 = require("./Record");
+    var AddressBase_1 = require("./AddressBase");
     /**
      * Sublist 'item' on purchase orders
      */
@@ -85,6 +86,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return _super !== null && _super.apply(this, arguments) || this;
         }
         PurchaseOrderBase.recordType = record.Type.PURCHASE_ORDER;
+        __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], PurchaseOrderBase.prototype, "billingaddress", void 0);
+        __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], PurchaseOrderBase.prototype, "shippingaddress", void 0);
         __decorate([
             Record_1.FieldType.select
         ], PurchaseOrderBase.prototype, "approvalstatus", void 0);

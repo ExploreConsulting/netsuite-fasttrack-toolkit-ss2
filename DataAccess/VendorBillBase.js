@@ -26,15 +26,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./EC_nsdal", "./Sublist", "N/record", "./Transaction"], factory);
+        define(["require", "exports", "./Sublist", "N/record", "./Transaction", "./Record", "./AddressBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var nsdal = require("./EC_nsdal");
     var Sublist_1 = require("./Sublist");
     var record = require("N/record");
     var Transaction_1 = require("./Transaction");
+    var Record_1 = require("./Record");
+    var AddressBase_1 = require("./AddressBase");
     /**
      * Sublist 'item' on the Vendor Bill record
      */
@@ -44,16 +45,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return _super !== null && _super.apply(this, arguments) || this;
         }
         __decorate([
-            nsdal.SublistFieldType.select
+            Sublist_1.SublistFieldType.select
         ], ItemSublist.prototype, "item", void 0);
         __decorate([
-            nsdal.SublistFieldType.integernumber
+            Sublist_1.SublistFieldType.integernumber
         ], ItemSublist.prototype, "quantity", void 0);
         __decorate([
-            nsdal.SublistFieldType.currency
+            Sublist_1.SublistFieldType.currency
         ], ItemSublist.prototype, "amount", void 0);
         __decorate([
-            nsdal.SublistFieldType.currency
+            Sublist_1.SublistFieldType.currency
         ], ItemSublist.prototype, "rate", void 0);
         return ItemSublist;
     }(Sublist_1.SublistLine));
@@ -67,25 +68,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return _super !== null && _super.apply(this, arguments) || this;
         }
         __decorate([
-            nsdal.SublistFieldType.select
+            Sublist_1.SublistFieldType.select
         ], ExpenseSublist.prototype, "account", void 0);
         __decorate([
-            nsdal.SublistFieldType.currency
+            Sublist_1.SublistFieldType.currency
         ], ExpenseSublist.prototype, "amount", void 0);
         __decorate([
-            nsdal.SublistFieldType.select
+            Sublist_1.SublistFieldType.select
         ], ExpenseSublist.prototype, "categoryexpaccount", void 0);
         __decorate([
-            nsdal.SublistFieldType.select
+            Sublist_1.SublistFieldType.select
         ], ExpenseSublist.prototype, "department", void 0);
         __decorate([
-            nsdal.SublistFieldType.integernumber
+            Sublist_1.SublistFieldType.integernumber
         ], ExpenseSublist.prototype, "line", void 0);
         __decorate([
-            nsdal.SublistFieldType.freeformtext
+            Sublist_1.SublistFieldType.freeformtext
         ], ExpenseSublist.prototype, "lineuniquekey", void 0);
         __decorate([
-            nsdal.SublistFieldType.select
+            Sublist_1.SublistFieldType.select
         ], ExpenseSublist.prototype, "location", void 0);
         return ExpenseSublist;
     }(Sublist_1.SublistLine));
@@ -100,10 +101,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         }
         VendorBillBase.recordType = record.Type.VENDOR_BILL;
         __decorate([
-            nsdal.FieldType.sublist(ItemSublist)
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], VendorBillBase.prototype, "billingaddress", void 0);
+        __decorate([
+            Record_1.FieldType.sublist(ItemSublist)
         ], VendorBillBase.prototype, "item", void 0);
         __decorate([
-            nsdal.FieldType.sublist(ExpenseSublist)
+            Record_1.FieldType.sublist(ExpenseSublist)
         ], VendorBillBase.prototype, "expense", void 0);
         return VendorBillBase;
     }(Transaction_1.TransactionBase));

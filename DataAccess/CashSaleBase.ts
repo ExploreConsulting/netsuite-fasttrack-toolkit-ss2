@@ -6,6 +6,7 @@ import { SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
 import { FieldType } from './Record'
+import { AddressBase } from './AddressBase'
 
 /**
  * NetSuite Cashsale Record
@@ -34,6 +35,9 @@ export class CashSaleBase extends TransactionBase {
 
    @FieldType.freeformtext
    billzip:string
+
+   @FieldType.subrecord(AddressBase)
+   billingaddress: AddressBase
 
    @FieldType.freeformtext
    billaddress:string
@@ -85,6 +89,9 @@ export class CashSaleBase extends TransactionBase {
 
    @FieldType.select
    promocode:number
+
+   @FieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase
 
    @FieldType.currency
    subtotal:number
