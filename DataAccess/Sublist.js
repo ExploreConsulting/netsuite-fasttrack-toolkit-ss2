@@ -167,7 +167,7 @@ var __assign = (this && this.__assign) || function () {
     }
     exports.formattedSublistDescriptor = formattedSublistDescriptor;
     /**
-     * Decorator for *subrecord* fields with the subrecord shape represented by T (which
+     * Decorator for sublist *subrecord* fields with the subrecord shape represented by T (which
      * defines the properties you want on the subrecord)
      * @param ctor Constructor for the subrecord class you want (e.g. `AddressBase`, `InventoryDetail`).
      */
@@ -177,12 +177,8 @@ var __assign = (this && this.__assign) || function () {
                 enumerable: true,
                 // sublist is read only for now - if we have a use case where this should be assigned then tackle it
                 get: function () {
-                    return new ctor(this.nsrecord.getSublistSubrecord({
-                        fieldId: propertyKey,
-                        line: this._line,
-                        sublistId: this.sublistId
-                    }));
-                },
+                    return new ctor(this.getSubRecord(propertyKey));
+                }
             };
         };
     }
@@ -201,6 +197,13 @@ var __assign = (this && this.__assign) || function () {
      * creates a sublist whose lines are of type T
      */
     var Sublist = /** @class */ (function () {
+        /**
+         * Constructs a new array-like representation of a NS sublist.
+         * @param sublistLineType the type (should be a class extending `SublistLine`) to represent individual rows
+         * of this sublist
+         * @param rec the NS native`record.Record` instance to manipulate
+         * @param sublistId name of the sublist we're representing
+         */
         function Sublist(sublistLineType, rec, sublistId) {
             this.sublistLineType = sublistLineType;
             this.sublistId = sublistId;
@@ -326,6 +329,15 @@ var __assign = (this && this.__assign) || function () {
                 value: value,
                 enumerable: false
             });
+        };
+        /**
+         * Gets the a subrecord, handling both dynamic/standard mode sublists
+         * @param fieldId the field that points to the subrecord
+         */
+        SublistLine.prototype.getSubRecord = function (fieldId) {
+            return this.nsrecord.isDynamic ?
+                this.nsrecord.getCurrentSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId })
+                : this.nsrecord.getSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId, line: this._line });
         };
         // serialize lines to an array with properties shown
         SublistLine.prototype.toJSON = function () {

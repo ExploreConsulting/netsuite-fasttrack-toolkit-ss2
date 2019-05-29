@@ -44,7 +44,8 @@ export class ItemSublist extends SublistLine {
    revrecenddate:Date
 
    /**
-    * This field only exists if 'multi ship to' is enabled.
+    * This field only exists if `ismultishipto === true` and record is in _dynamic mode_
+    * @experimental
     */
    @SublistFieldType.subrecord(AddressBase)
    shippingaddress: AddressBase
@@ -123,6 +124,9 @@ export class CashSaleBase extends TransactionBase {
 
    @FieldType.checkbox
    istaxable:boolean
+
+   @FieldType.checkbox
+   ismultishipto: boolean
 
    @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>

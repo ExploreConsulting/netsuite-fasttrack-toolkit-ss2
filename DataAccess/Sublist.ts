@@ -50,7 +50,7 @@ export namespace SublistFieldType {
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
- function defaultSublistDescriptor (target: any, propertyKey: string): any {
+function defaultSublistDescriptor (target: any, propertyKey: string): any {
    log.debug('creating default descriptor', `field: ${propertyKey}`)
    const [isTextField, nsfield] = parseProp(propertyKey)
    return {
@@ -147,22 +147,18 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
 }
 
 /**
- * Decorator for *subrecord* fields with the subrecord shape represented by T (which
+ * Decorator for sublist *subrecord* fields with the subrecord shape represented by T (which
  * defines the properties you want on the subrecord)
  * @param ctor Constructor for the subrecord class you want (e.g. `AddressBase`, `InventoryDetail`).
  */
-export function subrecordDescriptor<T extends NetsuiteCurrentRecord> (ctor: new (rec:record.Record) => T ) {
+export function subrecordDescriptor<T extends NetsuiteCurrentRecord> (ctor: new (rec: record.Record) => T) {
    return function (target: any, propertyKey: string): any {
       return {
          enumerable: true,
          // sublist is read only for now - if we have a use case where this should be assigned then tackle it
-         get: function () {
-            return new ctor(this.nsrecord.getSublistSubrecord({
-               fieldId:propertyKey,
-               line: this._line,
-               sublistId: this.sublistId
-            }))
-         },
+         get: function (this: SublistLine) {
+            return new ctor(this.getSubRecord(propertyKey))
+         }
       }
    }
 }
@@ -254,6 +250,13 @@ export class Sublist<T extends SublistLine> {
       })
    }
 
+   /**
+    * Constructs a new array-like representation of a NS sublist.
+    * @param sublistLineType the type (should be a class extending `SublistLine`) to represent individual rows
+    * of this sublist
+    * @param rec the NS native`record.Record` instance to manipulate
+    * @param sublistId name of the sublist we're representing
+    */
    constructor (readonly sublistLineType: { new (sublistId: string, nsrec: record.Record, line: number): T },
                 rec: record.Record, public sublistId: string) {
       this.sublistLineType = sublistLineType
@@ -312,6 +315,16 @@ export abstract class SublistLine {
       this.makeRecordProp(rec)
       Object.defineProperty(this, 'sublistId', { enumerable: false })
       Object.defineProperty(this, '_line', { enumerable: false })
+   }
+
+   /**
+    * Gets the a subrecord, handling both dynamic/standard mode sublists
+    * @param fieldId the field that points to the subrecord
+    */
+   getSubRecord (fieldId) {
+      return this.nsrecord.isDynamic ?
+         this.nsrecord.getCurrentSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId })
+         : this.nsrecord.getSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId, line: this._line })
    }
 
    // serialize lines to an array with properties shown
