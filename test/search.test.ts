@@ -115,31 +115,7 @@ describe('nsSearchResult2obj', function () {
 })
 describe('ImuutableJS behavior', () => {
 
-   test('indirect toString() of Seq causes eager eval', function () {
-
-      const alwaysTrue = jest.fn((val) => {
-         console.log(`alwaysTrue called with value ${val}`)
-         return true
-      })
-
-      Seq.of(1, 2, 3, 4, 5)
-         .takeWhile(alwaysTrue)
-         // subtle issue - this causes repeated eager evaluation due to serializing the 3rd argument passed
-         .forEach(console.log)
-
-      // above forEach() passes value, key, and the *entire iterable* to console.log. console.log then proceeds to
-      // convert its given arguments to strings. When toString() is called on the third param (the iterable sequence)
-      // it forces eager evaluation of the whole sequence because a Seq() has toString() defined to do just that.
-      //
-      // So each value of the sequence is first passed through takeWhile() predicate (alwaysTrue()) then the
-      // entire sequence is passed through alwaysTrue() again as it's being serialized to [1,2,3,4,5]. This results
-      // in 6 invocations of alwaysTrue() for each element - once as expected by the forEach() and 5 more as we
-      // reserialize the entire sequence (1..5)
-      // see next test for workaround
-      expect(alwaysTrue).toBeCalledTimes(5 * 6)
-   })
-
-   test('how to avoid eager eval of Seq', function () {
+   test('behavior of Seq.takeWhile', function () {
 
       const alwaysTrue = jest.fn((val) => {
          console.log(`alwaysTrue called with value ${val}`)
@@ -150,7 +126,7 @@ describe('ImuutableJS behavior', () => {
          .takeWhile(alwaysTrue)
          // arity-1 function will NOT cause repeated eager evaluation of the sequence 1..5
          // because console.log only proceses the value, not also receiving the key and iterable
-         .forEach(x => console.log(x))
+         .forEach(console.log)
 
       // above forEach() passes just value to console.log
       expect(alwaysTrue).toBeCalledTimes(5)
