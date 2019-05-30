@@ -26,7 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Sublist", "N/record", "./Transaction", "./Record"], factory);
+        define(["require", "exports", "./Sublist", "N/record", "./Transaction", "./Record", "./AddressBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -35,6 +35,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var record = require("N/record");
     var Transaction_1 = require("./Transaction");
     var Record_1 = require("./Record");
+    var AddressBase_1 = require("./AddressBase");
     /**
      * Sublist 'item' on the Sales Order record
      */
@@ -153,6 +154,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return _super !== null && _super.apply(this, arguments) || this;
         }
         SalesOrderBase.recordType = record.Type.SALES_ORDER;
+        __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], SalesOrderBase.prototype, "billingaddress", void 0);
+        __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], SalesOrderBase.prototype, "shippingaddress", void 0);
         __decorate([
             Record_1.FieldType.sublist(ItemSublist)
         ], SalesOrderBase.prototype, "item", void 0);

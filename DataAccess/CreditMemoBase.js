@@ -26,7 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Record", "N/record", "./Transaction", "./Sublist"], factory);
+        define(["require", "exports", "./Record", "N/record", "./Transaction", "./Sublist", "./AddressBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -35,6 +35,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var record = require("N/record");
     var Transaction_1 = require("./Transaction");
     var Sublist_1 = require("./Sublist");
+    var AddressBase_1 = require("./AddressBase");
     var CreditMemoBase = /** @class */ (function (_super) {
         __extends(CreditMemoBase, _super);
         function CreditMemoBase() {
@@ -60,11 +61,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.currency
         ], CreditMemoBase.prototype, "balance", void 0);
         __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], CreditMemoBase.prototype, "billingaddress", void 0);
+        __decorate([
             Record_1.FieldType.select
         ], CreditMemoBase.prototype, "class", void 0);
         __decorate([
             Record_1.FieldType.select
         ], CreditMemoBase.prototype, "currency", void 0);
+        __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], CreditMemoBase.prototype, "shippingaddress", void 0);
         __decorate([
             Record_1.FieldType.currency
         ], CreditMemoBase.prototype, "subtotal", void 0);

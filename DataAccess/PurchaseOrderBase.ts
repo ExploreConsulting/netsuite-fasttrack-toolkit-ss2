@@ -6,6 +6,7 @@ import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 import { FieldType } from './Record'
+import { AddressBase } from './AddressBase'
 
 /**
  * Sublist 'item' on purchase orders
@@ -49,6 +50,12 @@ export class ItemSublist extends SublistLine {
  */
 export class PurchaseOrderBase extends TransactionBase {
    static recordType = record.Type.PURCHASE_ORDER
+
+   @FieldType.subrecord(AddressBase)
+   billingaddress: AddressBase
+
+   @FieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase
 
    @FieldType.select
    approvalstatus:number

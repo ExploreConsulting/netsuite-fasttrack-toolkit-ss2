@@ -8,6 +8,7 @@
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
+import { NetsuiteCurrentRecord } from './Record'
 
 const log = LogManager.getLogger('nsdal')
 
@@ -39,6 +40,7 @@ export namespace SublistFieldType {
    export var percent = (target, propertyKey) => formattedSublistDescriptor(format.Type.PERCENT, target, propertyKey)
    export var select = defaultSublistDescriptor
    export var textarea = defaultSublistDescriptor
+   export const subrecord = subrecordDescriptor
 }
 
 /**
@@ -48,7 +50,7 @@ export namespace SublistFieldType {
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-export function defaultSublistDescriptor (target: any, propertyKey: string): any {
+ function defaultSublistDescriptor (target: any, propertyKey: string): any {
    log.debug('creating default descriptor', `field: ${propertyKey}`)
    const [isTextField, nsfield] = parseProp(propertyKey)
    return {
@@ -173,6 +175,27 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
 }
 
 /**
+ * Decorator for *subrecord* fields with the subrecord shape represented by T (which
+ * defines the properties you want on the subrecord)
+ * @param ctor Constructor for the subrecord class you want (e.g. `AddressBase`, `InventoryDetail`).
+ */
+export function subrecordDescriptor<T extends NetsuiteCurrentRecord> (ctor: new (rec:record.Record) => T ) {
+   return function (target: any, propertyKey: string): any {
+      return {
+         enumerable: true,
+         // sublist is read only for now - if we have a use case where this should be assigned then tackle it
+         get: function () {
+            return new ctor(this.nsrecord.getSublistSubrecord({
+               fieldId:propertyKey,
+               line: this._line,
+               sublistId: this.sublistId
+            }))
+         },
+      }
+   }
+}
+
+/**
  * parses a property name from a declaration (supporting 'Text' suffix per our convention)
  * @param propertyKey original property name as declared on class
  * @returns pair consisting of a flag indicating this field wants 'text' behavior and the actual ns field name (with
@@ -259,7 +282,7 @@ export class Sublist<T extends SublistLine> {
       })
    }
 
-   constructor (public readonly sublistLineType: { new (sublistId: string, nsrec: record.Record, line: number): T },
+   constructor (readonly sublistLineType: { new (sublistId: string, nsrec: record.Record, line: number): T },
                 rec: record.Record, public sublistId: string) {
       this.sublistLineType = sublistLineType
       this.makeRecordProp(rec)
@@ -268,15 +291,6 @@ export class Sublist<T extends SublistLine> {
       for (let i = 0; i < this.length; i++) {
          this[i] = new sublistLineType(this.sublistId, this.nsrecord, i)
       }
-   }
-
-   // serialize lines to an array with properties shown
-   toJSON () { // surface inherited properties on a new object so JSON.stringify() sees them all
-      const result: any = {}
-      for (const key in this) { // noinspection JSUnfilteredForInLoop
-         result[key] = this[key]
-      }
-      return result
    }
 }
 
@@ -326,6 +340,15 @@ export abstract class SublistLine {
       this.makeRecordProp(rec)
       Object.defineProperty(this, 'sublistId', { enumerable: false })
       Object.defineProperty(this, '_line', { enumerable: false })
+   }
+
+   // serialize lines to an array with properties shown
+   toJSON () { // surface inherited properties on a new object so JSON.stringify() sees them all
+      const result: any = {}
+      for (const key in this) { // noinspection JSUnfilteredForInLoop
+         result[key] = this[key]
+      }
+      return result
    }
 }
 

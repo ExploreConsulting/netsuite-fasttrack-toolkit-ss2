@@ -6,6 +6,7 @@ import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
 import { FieldType } from './Record'
+import { AddressBase } from './AddressBase'
 
 /**
  * The 'item' sublist on invoices
@@ -78,6 +79,9 @@ export class InvoiceBase extends TransactionBase {
    @FieldType.currency
    balance:number
 
+   @FieldType.subrecord(AddressBase)
+   billingaddress: AddressBase
+
    @FieldType.freeformtext
    billaddr1:string
 
@@ -137,6 +141,9 @@ export class InvoiceBase extends TransactionBase {
 
    @FieldType.select
    promocode:number
+
+   @FieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase
 
    @FieldType.checkbox
    tobeemailed:boolean

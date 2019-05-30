@@ -45,11 +45,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], CashRefundBase.prototype, "account", void 0);
         __decorate([
+            Record_1.FieldType.checkbox
+        ], CashRefundBase.prototype, "ccapproved", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], CashRefundBase.prototype, "ccexpiredate", void 0);
+        __decorate([
             Record_1.FieldType.freeformtext
         ], CashRefundBase.prototype, "ccname", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
         ], CashRefundBase.prototype, "ccnumber", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], CashRefundBase.prototype, "paymentmethod", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], CashRefundBase.prototype, "pnrefnum", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], CashRefundBase.prototype, "total", void 0);
         return CashRefundBase;
     }(Transaction_1.TransactionBase));
     exports.CashRefundBase = CashRefundBase;

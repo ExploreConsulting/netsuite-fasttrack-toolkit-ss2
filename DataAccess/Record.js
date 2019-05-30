@@ -209,7 +209,25 @@ var __extends = (this && this.__extends) || (function () {
             };
         };
     }
-    exports.sublistDescriptor = sublistDescriptor;
+    /**
+     * Decorator for *subrecord* fields with the subrecord shape represented by T (which
+     * defines the properties you want on the subrecord)
+     * @param ctor Constructor for the type that has the properties you want from the subrecord.
+     * e.g. AssemblyBuild.InventoryDetail
+     */
+    function subrecordDescriptor(ctor) {
+        return function (target, propertyKey) {
+            return {
+                enumerable: true,
+                // sublist is read only for now - if we have a use case where this should be assigned then tackle it
+                get: function () {
+                    return new ctor(this.nsrecord.getSubrecord({
+                        fieldId: propertyKey
+                    }));
+                },
+            };
+        };
+    }
     /**
      * Generic property descriptor with algorithm for values that need to go through the NS format module on field
      * write. Returns plain getValue() on reads
@@ -249,7 +267,13 @@ var __extends = (this && this.__extends) || (function () {
      */
     var FieldType;
     (function (FieldType) {
+        /**
+         * use for ns  _address_ field type
+         */
         FieldType.address = defaultDescriptor;
+        /**
+         * use for NS _checkbox_ field type - surfaces as `boolean` in TypeScript
+         */
         FieldType.checkbox = defaultDescriptor;
         FieldType.date = defaultDescriptor;
         FieldType.currency = numericDescriptor;
@@ -283,5 +307,20 @@ var __extends = (this && this.__extends) || (function () {
          * }
          */
         FieldType.sublist = sublistDescriptor;
+        /**
+         * NetSuite _SubRecord_ field type (reference to a subrecord object, usually described as 'summary' in the
+         * records browser.
+         * Pass in the (TypeScript) type that matches the subrecord this property points to
+         * @example the `assemblybuild.inventorydetail` property
+         * ```typescript
+         * import { InventoryDetail } from './DataAceess/InventoryDetail'
+         *
+         * class AssemblyBuild {
+         *    @FieldType.subrecord(InventoryDetail)
+         *    inventorydetail: InventoryDetail
+         * }
+         * ```
+         */
+        FieldType.subrecord = subrecordDescriptor;
     })(FieldType = exports.FieldType || (exports.FieldType = {}));
 });

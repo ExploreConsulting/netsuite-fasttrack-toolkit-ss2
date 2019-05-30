@@ -2,59 +2,10 @@
  * NS Base customer record - contains definitions for most of the built in fields
  */
 
-import {FieldType, NetsuiteRecord} from './Record'
+import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
-import {Sublist, SublistFieldType, SublistLine} from './Sublist'
-
-/**
- * The addressbook 'subrecord'. In SS2.0 this is mostly treated as a normal record object.
- * However I caution against trying to create new instances of it, only passing an existing record
- * to the constructor. For example, on the customer record you can get an address sublist record
- * with Record.getSublistSubrecord() then pass the returned record to the Address constructor.
- * Currently this has only been tested for read access to aqddress properties defined below.
- */
-export class AddressBase extends NetsuiteRecord {
-
-   @FieldType.freeformtext
-   addr1:string
-
-   @FieldType.freeformtext
-   addr2:string
-
-   @FieldType.freeformtext
-   addr3:string
-
-   @FieldType.freeformtext
-   addressee:string
-
-   /**
-    * note this field name differs from the 'records browser' documentation
-    */
-   @FieldType.freeformtext
-   addrphone:string
-
-   @FieldType.freeformtext
-   addrtext:string
-
-   @FieldType.freeformtext
-   attention:string
-
-   @FieldType.freeformtext
-   city:string
-
-   @FieldType.select
-   country:number
-
-   @FieldType.freeformtext
-   state:string
-
-   @FieldType.freeformtext
-   zip:string
-
-   @FieldType.checkbox
-   override:boolean
-}
-
+import { Sublist, SublistFieldType, SublistLine } from './Sublist'
+import { AddressBase } from './AddressBase'
 
 /**
  * The address _sublist_ on customer records, not to be confused with the Address _subrecord_.
@@ -63,36 +14,44 @@ export class AddressBase extends NetsuiteRecord {
 export class AddressSublist extends SublistLine {
 
    /**
-    * Address subrecord
-    */
-   get addressbookaddress() : AddressBase {
-      return new AddressBase(this.nsrecord.getSublistSubrecord({
-         sublistId:'addressbook',
-         fieldId:'addressbookaddress',
-         line: this._line
-      }))
+    * The Address subrecord associated to this line
+    *
+    * Extend this class and override this property
+    * if you want to replace AddressBase with a custom Address subclass.
+    *
+    * @example
+    export class MyCustomAddressClass extends AddressBase {
+         // ... custom fields here
+    }
+
+    export class MyAddressSublist extends AddressSublist {
+      @SublistFieldType.subrecord(MyCustomAddressClass)
+      addressbookaddress: MyCustomAddressClass
    }
+    */
+   @SublistFieldType.subrecord(AddressBase)
+   addressbookaddress: AddressBase
 
    @SublistFieldType.freeformtext
-   attention:string
+   attention: string
 
    @SublistFieldType.checkbox
-   defaultbilling:boolean
+   defaultbilling: boolean
 
    @SublistFieldType.checkbox
-   defaultshipping:boolean
+   defaultshipping: boolean
 
    @SublistFieldType.freeformtext
-   displaystate:string
+   displaystate: string
 
    @SublistFieldType.select
-   dropdownstate:number
+   dropdownstate: number
 
    @SublistFieldType.integernumber
    id: number
 
    @SublistFieldType.integernumber
-   internalid:number
+   internalid: number
 
    @SublistFieldType.checkbox
    isresidential: boolean
@@ -101,125 +60,123 @@ export class AddressSublist extends SublistLine {
    label: string
 
    @SublistFieldType.checkbox
-   override:boolean
+   override: boolean
 
    @SublistFieldType.freeformtext
-   phone:string
+   phone: string
 
    @SublistFieldType.freeformtext
-   state:string
+   state: string
 
    @SublistFieldType.freeformtext
-   zip:string
+   zip: string
 }
-
 
 export class CustomerBase extends NetsuiteRecord {
    static recordType = record.Type.CUSTOMER
 
    @FieldType.freeformtext
-   accountnumber:string
+   accountnumber: string
 
    @FieldType.select
-   category:number
+   category: number
 
    @FieldType.textarea
-   comments:string
+   comments: string
 
    @FieldType.freeformtext
-   companyname:string
+   companyname: string
 
    @FieldType.select
-   currency:number
+   currency: number
 
    @FieldType.select
-   customform:number
+   customform: number
 
    @FieldType.datetime
-   datecreated:Date
+   datecreated: Date
 
    @FieldType.email
-   email:string
+   email: string
 
    @FieldType.freeformtext
-   entityid:string
+   entityid: string
 
    @FieldType.select
-   entitystatus:number
+   entitystatus: number
 
    @FieldType.freeformtext
-   externalid:string
+   externalid: string
 
    @FieldType.freeformtext
-   fax:string
+   fax: string
 
    @FieldType.freeformtext
-   firstname:string
+   firstname: string
 
    @FieldType.checkbox
-   isinactive:boolean
+   isinactive: boolean
 
    @FieldType.freeformtext
    isperson: 'T' | 'F'
 
    @FieldType.datetime
-   lastmodifieddate:Date
+   lastmodifieddate: Date
 
    @FieldType.select
-   language:number
+   language: number
 
    @FieldType.freeformtext
-   lastname:string
+   lastname: string
 
    @FieldType.select
-   parent:number
+   parent: number
 
    @FieldType.freeformtext
-   phone:string
+   phone: string
 
    @FieldType.select
-   salesrep:number
+   salesrep: number
 
    @FieldType.select
-   subsidiary:number
+   subsidiary: number
 
    @FieldType.checkbox
-   taxable:boolean
+   taxable: boolean
 
    @FieldType.select
-   taxitem:number
+   taxitem: number
 
    @FieldType.select
-   terms:number
+   terms: number
 
    @FieldType.sublist(AddressSublist)
    addressbook: Sublist<AddressSublist>
 }
 
-
 export class ContactsSublist extends SublistLine {
 
    @SublistFieldType.select
-   contact:number
+   contact: number
 
    @SublistFieldType.email
-   email:string
+   email: string
 
    @SublistFieldType.checkbox
-   giveaccess:boolean
+   giveaccess: boolean
 
    @SublistFieldType.checkbox
-   passwordconfirm:boolean
+   passwordconfirm: boolean
 
    @SublistFieldType.select
-   role:number
+   role: number
 
    @SublistFieldType.checkbox
-   sendemail:boolean
+   sendemail: boolean
 
-    /**
-     * Password strength
-     */
+   /**
+    * Password strength
+    */
    @SublistFieldType.freeformtext
-   strength:string
+   strength: string
 }

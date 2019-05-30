@@ -1,25 +1,32 @@
 import * as record from 'N/record'
 import { FieldType, NetsuiteRecord } from './Record'
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
+import { InventoryDetailBase } from './InventoryDetailBase'
 
 /**
  * the Components (component) sublist on AssemblyBuild records
  */
 export class ComponentSublist extends SublistLine {
-  @SublistFieldType.freeformtext
-  item:string
+   /**
+    * Inventory Detail subrecord
+    */
+   @SublistFieldType.subrecord(InventoryDetailBase)
+   componentinventorydetail: InventoryDetailBase
 
-  @SublistFieldType.integernumber
-  linenumber:number
+   @SublistFieldType.freeformtext
+   item: string
 
-  @SublistFieldType.float
-  quantity:number
+   @SublistFieldType.integernumber
+   linenumber: number
 
-  @SublistFieldType.float
-  quantityonhand:number
+   @SublistFieldType.float
+   quantity: number
 
-  @SublistFieldType.float
-  unitcost:number
+   @SublistFieldType.float
+   quantityonhand: number
+
+   @SublistFieldType.float
+   unitcost: number
 }
 
 /**
@@ -29,75 +36,81 @@ export class ComponentSublist extends SublistLine {
  */
 export class AssemblyBuildBase extends NetsuiteRecord {
 
-  static recordType: record.Type = record.Type.ASSEMBLY_BUILD
+   static recordType: record.Type = record.Type.ASSEMBLY_BUILD
 
-  @FieldType.select
-  billofmaterials:number
+   @FieldType.select
+   billofmaterials: number
 
-  @FieldType.select
-  billofmaterialsrevision:number
+   @FieldType.select
+   billofmaterialsrevision: number
 
-  @FieldType.float
-  buildable:number
+   @FieldType.float
+   buildable: number
 
-  @FieldType.select
-  class:number
+   @FieldType.select
+   class: number
 
-  @FieldType.datetime
-  createddate:Date
+   @FieldType.datetime
+   createddate: Date
 
-  @FieldType.select
-  customform:number
+   @FieldType.select
+   customform: number
 
-  @FieldType.select
-  department:number
+   @FieldType.select
+   department: number
 
-  @FieldType.freeformtext
-  externalid:string
+   @FieldType.freeformtext
+   externalid: string
 
-  /**
-   * Select the assembly item you want to build. You must create assembly item records first before you can build assembly items.
-   */
-  @FieldType.select
-  item:number
+   /**
+    * Select the assembly item you want to build. You must create assembly item records first before you can build assembly items.
+    */
+   @FieldType.select
+   item: number
 
-  @FieldType.datetime
-  lastmodifieddate:Date
+   /**
+    * Inventory Detail subrecord
+    */
+   @FieldType.subrecord(InventoryDetailBase)
+   inventorydetail: InventoryDetailBase
 
-  @FieldType.select
-  location:number
+   @FieldType.datetime
+   lastmodifieddate: Date
 
-  @FieldType.freeformtext
-  memo:string
+   @FieldType.select
+   location: number
 
-  @FieldType.select
-  postingperiod:number
+   @FieldType.freeformtext
+   memo: string
 
-  /**
-   * Enter the number of assembly items you want to build or unbuild. You cannot build a number higher than the number
-   * in the Buildable Quantity (buildable) field. You cannot unbuild a number higher than the number in the Built field.
-   */
-  @FieldType.float
-  quantity:number
+   @FieldType.select
+   postingperiod: number
 
-  @FieldType.select
-  revision:number
+   /**
+    * Enter the number of assembly items you want to build or unbuild. You cannot build a number higher than the number
+    * in the Buildable Quantity (buildable) field. You cannot unbuild a number higher than the number in the Built field.
+    */
+   @FieldType.float
+   quantity: number
 
-  @FieldType.textarea
-  revisionmemo:string
+   @FieldType.select
+   revision: number
 
-  @FieldType.select
-  subsidiary:number
+   @FieldType.textarea
+   revisionmemo: string
 
-  @FieldType.date
-  trandate: Date
+   @FieldType.select
+   subsidiary: number
 
-  @FieldType.freeformtext
-  tranid:string
+   @FieldType.date
+   trandate: Date
 
-  @FieldType.select
-  units:number
+   @FieldType.freeformtext
+   tranid: string
 
-  @FieldType.sublist(ComponentSublist)
-  component: Sublist<ComponentSublist>
+   @FieldType.select
+   units: number
+
+   @FieldType.sublist(ComponentSublist)
+   component: Sublist<ComponentSublist>
 }

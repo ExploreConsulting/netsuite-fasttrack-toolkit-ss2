@@ -26,7 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Sublist", "N/record", "./Transaction", "./Record"], factory);
+        define(["require", "exports", "./Sublist", "N/record", "./Transaction", "./Record", "./AddressBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -35,6 +35,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var record = require("N/record");
     var Transaction_1 = require("./Transaction");
     var Record_1 = require("./Record");
+    var AddressBase_1 = require("./AddressBase");
     /**
      * NetSuite Cashsale Record
      */
@@ -66,8 +67,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.freeformtext
         ], CashSaleBase.prototype, "billzip", void 0);
         __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], CashSaleBase.prototype, "billingaddress", void 0);
+        __decorate([
             Record_1.FieldType.freeformtext
         ], CashSaleBase.prototype, "billaddress", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], CashSaleBase.prototype, "ccapproved", void 0);
         __decorate([
             Record_1.FieldType.select
         ], CashSaleBase.prototype, "createdfrom", void 0);
@@ -77,6 +84,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.currency
         ], CashSaleBase.prototype, "discounttotal", void 0);
+        __decorate([
+            Record_1.FieldType.decimalnumber
+        ], CashSaleBase.prototype, "exchangerate", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
         ], CashSaleBase.prototype, "fob", void 0);
@@ -105,8 +115,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], CashSaleBase.prototype, "paymentmethod", void 0);
         __decorate([
+            Record_1.FieldType.freeformtext
+        ], CashSaleBase.prototype, "pnrefnum", void 0);
+        __decorate([
             Record_1.FieldType.select
         ], CashSaleBase.prototype, "promocode", void 0);
+        __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], CashSaleBase.prototype, "shippingaddress", void 0);
         __decorate([
             Record_1.FieldType.currency
         ], CashSaleBase.prototype, "subtotal", void 0);

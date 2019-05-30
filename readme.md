@@ -152,6 +152,24 @@ export = {
 
 **see also [`example.ts`](https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/master/example.ts)**
 
+### Sublists and Subrecords
+
+Use `@FieldType.subrecord` and `@SublistFieldType.subrecord` to designate fields that
+point to NetSuite subrecords. Use them similarly to the `sublist` field type.
+
+Initially we have `Address` and `InventoryDetail` subrecords defined.
+
+This lets you work with subrecords as plain javascript objects just like the rest of
+NSDAL. e.g.
+        
+        const build = new AssemblyBuild(123)
+        
+        // reading the quantity field of the InventoryDetail body field on Assembly Build record 
+        build.inventorydetail.quantity 
+       
+ 
+
+
 ## Search Helpers
 
 `nsSearchResult2obj` turns a netsuite `search.Result` into a POJO, especially useful when chaining operations or returning

@@ -26,7 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Record", "./Transaction", "N/record", "./Sublist"], factory);
+        define(["require", "exports", "./Record", "./Transaction", "N/record", "./Sublist", "./AddressBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -35,6 +35,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var Transaction_1 = require("./Transaction");
     var record = require("N/record");
     var Sublist_1 = require("./Sublist");
+    var AddressBase_1 = require("./AddressBase");
     /**
      * Sublist 'item' on the Estimate record
      */
@@ -79,6 +80,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.currency
         ], EstimateBase.prototype, "balance", void 0);
+        __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], EstimateBase.prototype, "billingaddress", void 0);
         __decorate([
             Record_1.FieldType.select
         ], EstimateBase.prototype, "billaddresslist", void 0);
@@ -160,6 +164,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.select
         ], EstimateBase.prototype, "shipmethod", void 0);
+        __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], EstimateBase.prototype, "shippingaddress", void 0);
         __decorate([
             Record_1.FieldType.select
         ], EstimateBase.prototype, "shippingtaxcode", void 0);
