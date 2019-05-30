@@ -72,6 +72,53 @@ export class AddressSublist extends SublistLine {
    zip: string
 }
 
+export enum CurrencySymbolPlacement {
+   BeforeNumber = 1,
+   AfterNumber = 2,
+}
+
+export class CurrencySublist extends SublistLine {
+
+   @SublistFieldType.currency
+   readonly balance: number
+
+   @SublistFieldType.currency
+   readonly consolbalance: number
+
+   @SublistFieldType.currency
+   readonly consoldepositbalance: number
+
+   @SublistFieldType.currency
+   readonly consoloverduebalance: number
+
+   @SublistFieldType.currency
+   readonly consolunbilledorders: number
+
+   @SublistFieldType.select
+   currency: number
+
+   @SublistFieldType.freeformtext
+   readonly currencyformatsample: string
+
+   @SublistFieldType.currency
+   readonly depositbalance: number
+
+   @SublistFieldType.freeformtext
+   displaysymbol: string
+
+   @SublistFieldType.currency
+   readonly overduebalance: number
+
+   @SublistFieldType.checkbox
+   overridecurrencyformat: boolean
+
+   @SublistFieldType.select
+   symbolplacement: CurrencySymbolPlacement
+
+   @SublistFieldType.currency
+   readonly unbilledorders: number
+}
+
 export class CustomerBase extends NetsuiteRecord {
    static recordType = record.Type.CUSTOMER
 
@@ -152,6 +199,9 @@ export class CustomerBase extends NetsuiteRecord {
 
    @FieldType.sublist(AddressSublist)
    addressbook: Sublist<AddressSublist>
+
+   @FieldType.sublist(CurrencySublist)
+   currencySublist: Sublist<CurrencySublist>
 }
 
 export class ContactsSublist extends SublistLine {
