@@ -112,7 +112,7 @@ describe('serialization', () => {
       expect(serializedjson).toContain('accountnumber')
       expect(serializedjson).toContain('email')
       // JSON.stringify does not serialize undefined fields
-      expect(serializedjson).not.toContain('currency')
+      expect(serializedjson).not.toContain('externalid')
    })
 
 })

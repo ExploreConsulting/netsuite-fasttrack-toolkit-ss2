@@ -16,7 +16,7 @@
     exports.getText = jest.fn().mockName('getText');
     exports.setText = jest.fn().mockName('setText');
     exports.load = jest.fn().mockReturnThis().mockName('load');
-    exports.getLineCount = jest.fn().mockName('getLineCount');
+    exports.getLineCount = jest.fn().mockReturnValue(1).mockName('getLineCount');
     exports.getFields = jest.fn();
     exports.removeLine = jest.fn();
     exports.findSublistLineWithValue = jest.fn();
