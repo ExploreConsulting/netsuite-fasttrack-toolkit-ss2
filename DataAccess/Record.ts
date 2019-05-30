@@ -105,16 +105,31 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
    }
 }
 
+type ParseFunc = (propertyKey: string) => [boolean, string]
+
+function suffixParser(suffixToSearch: string): ParseFunc {
+   const suffixLength = suffixToSearch.length
+   return function(propertyKey: string) {
+      const endsWithSuffix = propertyKey.slice(-suffixLength) === suffixToSearch
+      return [endsWithSuffix, endsWithSuffix ? propertyKey.slice(0, -suffixLength) : propertyKey]
+   }
+}
+
 /**
- * parses a property name from a declaration (supporting 'Text' suffix per our convention)
+ * parses a property name from a declaration (supporting 'Text' suffix per convention)
  * @param propertyKey original property name as declared on class
  * @returns pair consisting of a flag indicating this field wants 'text' behavior and the actual ns field name (with
  * Text suffix removed)
  */
-function parseProp (propertyKey: string): [boolean, string] {
-   let endsWithText = propertyKey.slice(-4) === 'Text'
-   return [endsWithText, endsWithText ? propertyKey.replace('Text', '') : propertyKey]
-}
+const parseProp: ParseFunc = suffixParser('Text')
+
+/**
+ * parses a property name from a declaration (supporting 'Sublist' suffix per convention)
+ * @param propertyKey original property name as declared on class
+ * @returns pair consisting of a flag indicating this is actually a sublist and the actual ns sublist name (with
+ * Sublist suffix removed)
+ */
+const parseSublistProp: ParseFunc = suffixParser('Sublist')
 
 /**
  * Generic decorator factory with basic default algorithm that exposes the field value directly with no
@@ -179,21 +194,18 @@ type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, 
  */
  function sublistDescriptor<T extends SublistLine> (ctor: LineConstructor<T>) {
    return function (target: any, propertyKey: string): any {
-      const privateProp = `_${propertyKey}`
+      const [_, nssublist] = parseSublistProp(propertyKey)
+      const privateProp = `_${nssublist}`
       return {
          enumerable: true,
          // sublist is read only for now - if we have a use case where this should be assigned then tackle it
          get: function () {
 
             if (!this[privateProp]) {
-               var sublistId = propertyKey
-               if (propertyKey.slice(-7) == "Sublist") {
-                  sublistId = propertyKey.slice(0, -7)
-               }
-               log.debug('initializing sublist', `sublist property named ${propertyKey}, sublist id ${sublistId}`)
+               log.debug('initializing sublist', `sublist property named ${propertyKey}, sublist id ${nssublist}`)
                // using defineProperty() here defaults to making the property non-enumerable which is what we want
                // for this 'private' property so it doesn't appear on serialization (e.g. JSON.stringify())
-               Object.defineProperty(this, privateProp, { value: new Sublist(ctor, this.nsrecord, sublistId) })
+               Object.defineProperty(this, privateProp, { value: new Sublist(ctor, this.nsrecord, nssublist) })
             }
             return this[privateProp]
          },
