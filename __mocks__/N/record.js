@@ -26,4 +26,5 @@
     exports.setSublistValue = jest.fn();
     exports.getSublistFields = jest.fn();
     exports.getSublistField = jest.fn();
+    exports.getSublistSubrecord = jest.fn();
 });
