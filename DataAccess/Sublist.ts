@@ -233,6 +233,10 @@ export class Sublist<T extends SublistLine> {
       this.nsrecord.commitLine({ sublistId: this.sublistId })
    }
 
+   /**
+    * Selects the given line on this sublist
+    * @param line line number
+    */
    selectLine (line: number) {
       log.debug('selecting line', line)
       this.nsrecord.selectLine({ sublistId: this.sublistId, line: line })
@@ -322,9 +326,10 @@ export abstract class SublistLine {
     * @param fieldId the field that points to the subrecord
     */
    getSubRecord (fieldId) {
-      return this.nsrecord.isDynamic ?
-         this.nsrecord.getCurrentSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId })
-         : this.nsrecord.getSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId, line: this._line })
+      if (this.nsrecord.isDynamic) {
+         this.nsrecord.selectLine({sublistId:this.sublistId, line:this._line})
+         return this.nsrecord.getCurrentSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId })
+      } else return this.nsrecord.getSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId, line: this._line })
    }
 
    // serialize lines to an array with properties shown
