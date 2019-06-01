@@ -44,6 +44,44 @@ export namespace SublistFieldType {
 }
 
 /**
+ * handles setting sublist fields for any combination of setValue/setText and standard/dynamic record
+ * @param fieldId
+ * @param value
+ * @param isText
+ */
+function setSublistValue (this: SublistLine, fieldId: string, value: any, isText: boolean) {
+   // ignore undefined's
+   if (value !== undefined) {
+      const options = {
+         sublistId: this.sublistId,
+         fieldId: fieldId
+      }
+      if (isText) {
+         this.nsrecord.isDynamic ? this.nsrecord.setCurrentSublistText({ ...options, text: value })
+            : this.nsrecord.setSublistText({ ...options, line: this._line, text: value })
+      } else {
+         this.nsrecord.isDynamic ? this.nsrecord.setCurrentSublistValue({ ...options, value: value })
+            : this.nsrecord.setSublistValue({ ...options, line: this._line, value: value })
+      }
+   } else log.debug(`ignoring field [${fieldId}]`, 'field value is undefined')
+}
+
+function getSublistValue (this: SublistLine, fieldId: string, isText: boolean) {
+   const dynamicMode = this.nsrecord.isDynamic
+   const options = {
+      sublistId: this.sublistId,
+      line: this._line,
+      fieldId: fieldId,
+   }
+   log.debug(`getting sublist ${isText ? 'text' : 'value'}`, options)
+   if (isText) {
+      return dynamicMode ? this.nsrecord.getCurrentSublistText(options) : this.nsrecord.getSublistText(options)
+   } else {
+      return dynamicMode ? this.nsrecord.getCurrentSublistValue(options) : this.nsrecord.getSublistValue(options)
+   }
+}
+
+/**
  * Generic property descriptor with basic default algorithm that exposes the field value directly with no
  * other processing. If the target field name ends with 'Text' it uses NetSuite `getText()/setText()` otherwise (default)
  * uses `getValue()/setValue()`
@@ -55,25 +93,10 @@ function defaultSublistDescriptor (target: any, propertyKey: string): any {
    const [isTextField, nsfield] = parseProp(propertyKey)
    return {
       get: function (this: SublistLine) {
-         const options = {
-            sublistId: this.sublistId,
-            line: this._line,
-            fieldId: nsfield,
-         }
-         log.debug(`getting sublist ${isTextField ? 'text' : 'value'}`, options)
-         return isTextField ? this.nsrecord.getSublistText(options) : this.nsrecord.getSublistValue(options)
+         return getSublistValue.bind(this)(nsfield, isTextField)
       },
       set: function (this: SublistLine, value) {
-         // ignore undefined's
-         if (value !== undefined) {
-            const options = {
-               sublistId: this.sublistId,
-               line: this._line,
-               fieldId: nsfield
-            }
-            isTextField ? this.nsrecord.setSublistText({ ...options, text: value })
-               : this.nsrecord.setSublistValue({ ...options, value: value })
-         } else log.debug(`ignoring field [${nsfield}]`, 'field value is undefined')
+         setSublistValue.bind(this)(nsfield, value, isTextField)
       },
       enumerable: true //default is false
    }
@@ -92,11 +115,7 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
    return {
       get: function (this: SublistLine) {
          log.debug(`getting formatted field [${propertyKey}]`)
-         const value = this.nsrecord.getSublistValue({
-            sublistId: this.sublistId,
-            line: this._line,
-            fieldId: propertyKey,
-         }) as string // to satisfy typing for format.parse(value) below.
+         const value = getSublistValue.bind(this)(propertyKey, false) as string // to satisfy typing for format.parse(value) below.
          log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
          // returns the 'raw' type which is a string or number for our purposes
@@ -128,18 +147,8 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
             }
             log.debug(`setting sublist field [${propertyKey}:${formatType}]`,
                `to formatted value [${formattedValue}] (unformatted vale: ${value})`)
-            if (value === null) this.nsrecord.setSublistValue({
-               sublistId: this.sublistId,
-               line: this._line,
-               fieldId: propertyKey,
-               value: null
-            })
-            else this.nsrecord.setSublistValue({
-               sublistId: this.sublistId,
-               line: this._line,
-               fieldId: propertyKey,
-               value: formattedValue
-            })
+            if (value === null) setSublistValue.bind(this)(propertyKey, null)
+            else setSublistValue.bind(this)(propertyKey, formattedValue)
          } else log.info(`not setting sublist ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
@@ -199,11 +208,15 @@ export class Sublist<T extends SublistLine> {
       log.debug('inserting line', `sublist: ${this.sublistId} insert at line:${this.length}`)
       let insertAt = this.length
       this[insertAt] = new this.sublistLineType(this.sublistId, this.nsrecord, insertAt)
-      this.nsrecord.insertLine({
-         sublistId: this.sublistId,
-         line: insertAt,
-         ignoreRecalc: ignoreRecalc
-      })
+
+      if (this.nsrecord.isDynamic) this.nsrecord.selectNewLine({ sublistId: this.sublistId })
+      else {
+         this.nsrecord.insertLine({
+            sublistId: this.sublistId,
+            line: insertAt,
+            ignoreRecalc: ignoreRecalc
+         })
+      }
       log.debug('line count after adding', this.length)
       return this[insertAt]
    }
@@ -327,7 +340,7 @@ export abstract class SublistLine {
     */
    getSubRecord (fieldId) {
       if (this.nsrecord.isDynamic) {
-         this.nsrecord.selectLine({sublistId:this.sublistId, line:this._line})
+         this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line })
          return this.nsrecord.getCurrentSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId })
       } else return this.nsrecord.getSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId, line: this._line })
    }

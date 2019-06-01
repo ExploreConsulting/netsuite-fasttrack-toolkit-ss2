@@ -60,6 +60,46 @@ var __assign = (this && this.__assign) || function () {
         SublistFieldType.subrecord = subrecordDescriptor;
     })(SublistFieldType = exports.SublistFieldType || (exports.SublistFieldType = {}));
     /**
+     * handles setting sublist fields for any combination of setValue/setText and standard/dynamic record
+     * @param fieldId
+     * @param value
+     * @param isText
+     */
+    function setSublistValue(fieldId, value, isText) {
+        // ignore undefined's
+        if (value !== undefined) {
+            var options = {
+                sublistId: this.sublistId,
+                fieldId: fieldId
+            };
+            if (isText) {
+                this.nsrecord.isDynamic ? this.nsrecord.setCurrentSublistText(__assign({}, options, { text: value }))
+                    : this.nsrecord.setSublistText(__assign({}, options, { line: this._line, text: value }));
+            }
+            else {
+                this.nsrecord.isDynamic ? this.nsrecord.setCurrentSublistValue(__assign({}, options, { value: value }))
+                    : this.nsrecord.setSublistValue(__assign({}, options, { line: this._line, value: value }));
+            }
+        }
+        else
+            log.debug("ignoring field [" + fieldId + "]", 'field value is undefined');
+    }
+    function getSublistValue(fieldId, isText) {
+        var dynamicMode = this.nsrecord.isDynamic;
+        var options = {
+            sublistId: this.sublistId,
+            line: this._line,
+            fieldId: fieldId,
+        };
+        log.debug("getting sublist " + (isText ? 'text' : 'value'), options);
+        if (isText) {
+            return dynamicMode ? this.nsrecord.getCurrentSublistText(options) : this.nsrecord.getSublistText(options);
+        }
+        else {
+            return dynamicMode ? this.nsrecord.getCurrentSublistValue(options) : this.nsrecord.getSublistValue(options);
+        }
+    }
+    /**
      * Generic property descriptor with basic default algorithm that exposes the field value directly with no
      * other processing. If the target field name ends with 'Text' it uses NetSuite `getText()/setText()` otherwise (default)
      * uses `getValue()/setValue()`
@@ -71,27 +111,10 @@ var __assign = (this && this.__assign) || function () {
         var _a = parseProp(propertyKey), isTextField = _a[0], nsfield = _a[1];
         return {
             get: function () {
-                var options = {
-                    sublistId: this.sublistId,
-                    line: this._line,
-                    fieldId: nsfield,
-                };
-                log.debug("getting sublist " + (isTextField ? 'text' : 'value'), options);
-                return isTextField ? this.nsrecord.getSublistText(options) : this.nsrecord.getSublistValue(options);
+                return getSublistValue.bind(this)(nsfield, isTextField);
             },
             set: function (value) {
-                // ignore undefined's
-                if (value !== undefined) {
-                    var options = {
-                        sublistId: this.sublistId,
-                        line: this._line,
-                        fieldId: nsfield
-                    };
-                    isTextField ? this.nsrecord.setSublistText(__assign({}, options, { text: value }))
-                        : this.nsrecord.setSublistValue(__assign({}, options, { value: value }));
-                }
-                else
-                    log.debug("ignoring field [" + nsfield + "]", 'field value is undefined');
+                setSublistValue.bind(this)(nsfield, value, isTextField);
             },
             enumerable: true //default is false
         };
@@ -109,11 +132,7 @@ var __assign = (this && this.__assign) || function () {
         return {
             get: function () {
                 log.debug("getting formatted field [" + propertyKey + "]");
-                var value = this.nsrecord.getSublistValue({
-                    sublistId: this.sublistId,
-                    line: this._line,
-                    fieldId: propertyKey,
-                }); // to satisfy typing for format.parse(value) below.
+                var value = getSublistValue.bind(this)(propertyKey, false); // to satisfy typing for format.parse(value) below.
                 log.debug("transforming field [" + propertyKey + "] of type [" + formatType + "]", "with value " + value);
                 // ensure we don't return moments for null, undefined, etc.
                 // returns the 'raw' type which is a string or number for our purposes
@@ -145,19 +164,9 @@ var __assign = (this && this.__assign) || function () {
                     }
                     log.debug("setting sublist field [" + propertyKey + ":" + formatType + "]", "to formatted value [" + formattedValue + "] (unformatted vale: " + value + ")");
                     if (value === null)
-                        this.nsrecord.setSublistValue({
-                            sublistId: this.sublistId,
-                            line: this._line,
-                            fieldId: propertyKey,
-                            value: null
-                        });
+                        setSublistValue.bind(this)(propertyKey, null);
                     else
-                        this.nsrecord.setSublistValue({
-                            sublistId: this.sublistId,
-                            line: this._line,
-                            fieldId: propertyKey,
-                            value: formattedValue
-                        });
+                        setSublistValue.bind(this)(propertyKey, formattedValue);
                 }
                 else
                     log.info("not setting sublist " + propertyKey + " field", 'value was undefined');
@@ -235,11 +244,15 @@ var __assign = (this && this.__assign) || function () {
             log.debug('inserting line', "sublist: " + this.sublistId + " insert at line:" + this.length);
             var insertAt = this.length;
             this[insertAt] = new this.sublistLineType(this.sublistId, this.nsrecord, insertAt);
-            this.nsrecord.insertLine({
-                sublistId: this.sublistId,
-                line: insertAt,
-                ignoreRecalc: ignoreRecalc
-            });
+            if (this.nsrecord.isDynamic)
+                this.nsrecord.selectNewLine({ sublistId: this.sublistId });
+            else {
+                this.nsrecord.insertLine({
+                    sublistId: this.sublistId,
+                    line: insertAt,
+                    ignoreRecalc: ignoreRecalc
+                });
+            }
             log.debug('line count after adding', this.length);
             return this[insertAt];
         };
@@ -267,6 +280,10 @@ var __assign = (this && this.__assign) || function () {
             log.debug('committing line', "sublist: " + this.sublistId);
             this.nsrecord.commitLine({ sublistId: this.sublistId });
         };
+        /**
+         * Selects the given line on this sublist
+         * @param line line number
+         */
         Sublist.prototype.selectLine = function (line) {
             log.debug('selecting line', line);
             this.nsrecord.selectLine({ sublistId: this.sublistId, line: line });
@@ -335,9 +352,12 @@ var __assign = (this && this.__assign) || function () {
          * @param fieldId the field that points to the subrecord
          */
         SublistLine.prototype.getSubRecord = function (fieldId) {
-            return this.nsrecord.isDynamic ?
-                this.nsrecord.getCurrentSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId })
-                : this.nsrecord.getSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId, line: this._line });
+            if (this.nsrecord.isDynamic) {
+                this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
+                return this.nsrecord.getCurrentSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId });
+            }
+            else
+                return this.nsrecord.getSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId, line: this._line });
         };
         // serialize lines to an array with properties shown
         SublistLine.prototype.toJSON = function () {

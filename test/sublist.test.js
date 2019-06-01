@@ -85,6 +85,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 expect(record.getSublistText).toBeCalledTimes(1);
                 expect(record.getValue).not.toHaveBeenCalled();
             }),
+            test('getText() on field - dynamic record', function () {
+                var fakeRec = record.create({ type: 'fake' });
+                fakeRec.isDynamic = true;
+                record.getSublistText.mockReturnValue('some text');
+                record.getSublistValue.mockImplementation(function () { throw new Error(); });
+                var sut = new SublistWithTextField('fakesublist', fakeRec, 0);
+                sut.fooText;
+                expect(record.getCurrentSublistText).toBeCalledTimes(1);
+                expect(record.getSublistText).not.toHaveBeenCalled();
+            }),
             test('setText() on field', function () {
                 var fakeRec = record.create({ type: 'fake' });
                 record.getSublistText.mockReturnValue('some text');
@@ -92,12 +102,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 var sut = new SublistWithTextField('fakesublist', fakeRec, 0);
                 sut.fooText = 'hello world';
                 expect(record.setSublistText).toBeCalledWith({
-                    "fieldId": "foo",
-                    "line": 0,
-                    "sublistId": "fakesublist",
-                    "text": "hello world"
+                    'fieldId': 'foo',
+                    'line': 0,
+                    'sublistId': 'fakesublist',
+                    'text': 'hello world'
                 });
                 expect(record.getValue).not.toHaveBeenCalled();
             });
+        test('setText() on field - dynamic mode', function () {
+            var fakeRec = record.create({ type: 'fake', isDynamic: true });
+            record.getSublistText.mockReturnValue('some text');
+            record.getSublistValue.mockImplementation(function () { throw new Error(); });
+            var sut = new SublistWithTextField('fakesublist', fakeRec, 0);
+            sut.fooText = 'hello world';
+            expect(record.setCurrentSublistText).toBeCalledWith({
+                'fieldId': 'foo',
+                'sublistId': 'fakesublist',
+                'text': 'hello world'
+            });
+        });
     });
 });

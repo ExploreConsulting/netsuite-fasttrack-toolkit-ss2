@@ -9,7 +9,10 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.create = jest.fn().mockReturnThis().mockName('create');
+    exports.create = jest.fn(function (config) {
+        this.isDynamic = config.isDynamic;
+        return this;
+    }).mockName('create');
     exports.Type = jest.fn();
     exports.getValue = jest.fn().mockName('getValue');
     exports.setValue = jest.fn().mockName('setValue');
@@ -20,10 +23,18 @@
     exports.getFields = jest.fn();
     exports.removeLine = jest.fn();
     exports.findSublistLineWithValue = jest.fn();
-    exports.getSublistText = jest.fn();
-    exports.getSublistValue = jest.fn();
-    exports.setSublistText = jest.fn();
-    exports.setSublistValue = jest.fn();
+    exports.getSublistText = jest.fn().mockName('getSublistText');
+    exports.getSublistValue = jest.fn().mockName('getSublistValue');
+    exports.setSublistText = jest.fn().mockName('setSublistText');
+    exports.setSublistValue = jest.fn().mockName('setSublistValue');
     exports.getSublistFields = jest.fn();
     exports.getSublistField = jest.fn();
+    exports.getCurrentSublistText = jest.fn().mockName('getCurrentSublistText');
+    exports.setCurrentSublistText = jest.fn().mockName('setCurrentSublistText');
+    exports.getCurrentSublistValue = jest.fn().mockName('getCurrentSublistValue');
+    exports.setCurrentSublistValue = jest.fn().mockName('setCurrentSublistValue');
+    exports.getCurrentSublistSubrecord = jest.fn().mockName('getCurrentSublistSubrecord');
+    exports.getSublistSubrecord = jest.fn().mockName('getSublistSubrecord');
+    exports.selectLine = jest.fn().mockName('selectLine');
+    exports.isDynamic = false;
 });
