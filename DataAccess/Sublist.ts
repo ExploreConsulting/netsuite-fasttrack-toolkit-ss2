@@ -52,33 +52,38 @@ export namespace SublistFieldType {
 function setSublistValue (this: SublistLine, fieldId: string, value: any, isText: boolean) {
    // ignore undefined's
    if (value !== undefined) {
+
       const options = {
          sublistId: this.sublistId,
          fieldId: fieldId
       }
-      if (isText) {
-         this.nsrecord.isDynamic ? this.nsrecord.setCurrentSublistText({ ...options, text: value })
-            : this.nsrecord.setSublistText({ ...options, line: this._line, text: value })
+
+      if (this.nsrecord.isDynamic) {
+         this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line })
+         isText ? this.nsrecord.setCurrentSublistText({ ...options, text: value })
+            : this.nsrecord.setCurrentSublistValue({ ...options, value: value })
       } else {
-         this.nsrecord.isDynamic ? this.nsrecord.setCurrentSublistValue({ ...options, value: value })
+         isText ? this.nsrecord.setSublistText({ ...options, line: this._line, text: value })
             : this.nsrecord.setSublistValue({ ...options, line: this._line, value: value })
       }
    } else log.debug(`ignoring field [${fieldId}]`, 'field value is undefined')
 }
 
 function getSublistValue (this: SublistLine, fieldId: string, isText: boolean) {
-   const dynamicMode = this.nsrecord.isDynamic
    const options = {
       sublistId: this.sublistId,
-      line: this._line,
       fieldId: fieldId,
    }
-   log.debug(`getting sublist ${isText ? 'text' : 'value'}`, options)
-   if (isText) {
-      return dynamicMode ? this.nsrecord.getCurrentSublistText(options) : this.nsrecord.getSublistText(options)
+
+   if (this.nsrecord.isDynamic) {
+      this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line })
+      isText ? this.nsrecord.getCurrentSublistText(options)
+         : this.nsrecord.getCurrentSublistValue(options)
    } else {
-      return dynamicMode ? this.nsrecord.getCurrentSublistValue(options) : this.nsrecord.getSublistValue(options)
+      isText ? this.nsrecord.getSublistText({ ...options, line: this._line })
+         : this.nsrecord.getSublistValue({ ...options, line: this._line})
    }
+   log.debug(`getting sublist ${isText ? 'text' : 'value'}`, options)
 }
 
 /**

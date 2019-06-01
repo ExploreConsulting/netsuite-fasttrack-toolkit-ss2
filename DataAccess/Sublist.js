@@ -72,12 +72,13 @@ var __assign = (this && this.__assign) || function () {
                 sublistId: this.sublistId,
                 fieldId: fieldId
             };
-            if (isText) {
-                this.nsrecord.isDynamic ? this.nsrecord.setCurrentSublistText(__assign({}, options, { text: value }))
-                    : this.nsrecord.setSublistText(__assign({}, options, { line: this._line, text: value }));
+            if (this.nsrecord.isDynamic) {
+                this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
+                isText ? this.nsrecord.setCurrentSublistText(__assign({}, options, { text: value }))
+                    : this.nsrecord.setCurrentSublistValue(__assign({}, options, { value: value }));
             }
             else {
-                this.nsrecord.isDynamic ? this.nsrecord.setCurrentSublistValue(__assign({}, options, { value: value }))
+                isText ? this.nsrecord.setSublistText(__assign({}, options, { line: this._line, text: value }))
                     : this.nsrecord.setSublistValue(__assign({}, options, { line: this._line, value: value }));
             }
         }
@@ -85,19 +86,20 @@ var __assign = (this && this.__assign) || function () {
             log.debug("ignoring field [" + fieldId + "]", 'field value is undefined');
     }
     function getSublistValue(fieldId, isText) {
-        var dynamicMode = this.nsrecord.isDynamic;
         var options = {
             sublistId: this.sublistId,
-            line: this._line,
             fieldId: fieldId,
         };
-        log.debug("getting sublist " + (isText ? 'text' : 'value'), options);
-        if (isText) {
-            return dynamicMode ? this.nsrecord.getCurrentSublistText(options) : this.nsrecord.getSublistText(options);
+        if (this.nsrecord.isDynamic) {
+            this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
+            isText ? this.nsrecord.getCurrentSublistText(options)
+                : this.nsrecord.getCurrentSublistValue(options);
         }
         else {
-            return dynamicMode ? this.nsrecord.getCurrentSublistValue(options) : this.nsrecord.getSublistValue(options);
+            isText ? this.nsrecord.getSublistText(__assign({}, options, { line: this._line }))
+                : this.nsrecord.getSublistValue(__assign({}, options, { line: this._line }));
         }
+        log.debug("getting sublist " + (isText ? 'text' : 'value'), options);
     }
     /**
      * Generic property descriptor with basic default algorithm that exposes the field value directly with no
