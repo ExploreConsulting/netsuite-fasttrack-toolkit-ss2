@@ -113,10 +113,10 @@ var __assign = (this && this.__assign) || function () {
         var _a = parseProp(propertyKey), isTextField = _a[0], nsfield = _a[1];
         return {
             get: function () {
-                return getSublistValue.bind(this)(nsfield, isTextField);
+                return getSublistValue.call(this, nsfield, isTextField);
             },
             set: function (value) {
-                setSublistValue.bind(this)(nsfield, value, isTextField);
+                setSublistValue.call(this, nsfield, value, isTextField);
             },
             enumerable: true //default is false
         };

@@ -98,10 +98,10 @@ function defaultSublistDescriptor (target: any, propertyKey: string): any {
    const [isTextField, nsfield] = parseProp(propertyKey)
    return {
       get: function (this: SublistLine) {
-         return getSublistValue.bind(this)(nsfield, isTextField)
+         return getSublistValue.call(this,nsfield, isTextField)
       },
       set: function (this: SublistLine, value) {
-         setSublistValue.bind(this)(nsfield, value, isTextField)
+         setSublistValue.call(this,nsfield, value, isTextField)
       },
       enumerable: true //default is false
    }
