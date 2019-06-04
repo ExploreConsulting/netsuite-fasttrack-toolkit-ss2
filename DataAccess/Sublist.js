@@ -134,7 +134,7 @@ var __assign = (this && this.__assign) || function () {
         return {
             get: function () {
                 log.debug("getting formatted field [" + propertyKey + "]");
-                var value = getSublistValue.bind(this)(propertyKey, false); // to satisfy typing for format.parse(value) below.
+                var value = getSublistValue.call(this, propertyKey, false); // to satisfy typing for format.parse(value) below.
                 log.debug("transforming field [" + propertyKey + "] of type [" + formatType + "]", "with value " + value);
                 // ensure we don't return moments for null, undefined, etc.
                 // returns the 'raw' type which is a string or number for our purposes
@@ -166,9 +166,9 @@ var __assign = (this && this.__assign) || function () {
                     }
                     log.debug("setting sublist field [" + propertyKey + ":" + formatType + "]", "to formatted value [" + formattedValue + "] (unformatted vale: " + value + ")");
                     if (value === null)
-                        setSublistValue.bind(this)(propertyKey, null);
+                        setSublistValue.call(this, propertyKey, null);
                     else
-                        setSublistValue.bind(this)(propertyKey, formattedValue);
+                        setSublistValue.call(this, propertyKey, formattedValue);
                 }
                 else
                     log.info("not setting sublist " + propertyKey + " field", 'value was undefined');

@@ -120,7 +120,7 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
    return {
       get: function (this: SublistLine) {
          log.debug(`getting formatted field [${propertyKey}]`)
-         const value = getSublistValue.bind(this)(propertyKey, false) as string // to satisfy typing for format.parse(value) below.
+         const value = getSublistValue.call(this,propertyKey, false) as string // to satisfy typing for format.parse(value) below.
          log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
          // returns the 'raw' type which is a string or number for our purposes
@@ -152,8 +152,8 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
             }
             log.debug(`setting sublist field [${propertyKey}:${formatType}]`,
                `to formatted value [${formattedValue}] (unformatted vale: ${value})`)
-            if (value === null) setSublistValue.bind(this)(propertyKey, null)
-            else setSublistValue.bind(this)(propertyKey, formattedValue)
+            if (value === null) setSublistValue.call(this,propertyKey, null)
+            else setSublistValue.call(this,propertyKey, formattedValue)
          } else log.info(`not setting sublist ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
