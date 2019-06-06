@@ -111,10 +111,31 @@ export abstract class NetsuiteRecord extends NetsuiteCurrentRecord {
  * @returns pair consisting of a flag indicating this field wants 'text' behavior and the actual ns field name (with
  * Text suffix removed)
  */
-function parseProp (propertyKey: string): [boolean, string] {
-   let endsWithText = propertyKey.slice(-4) === 'Text'
-   return [endsWithText, endsWithText ? propertyKey.replace('Text', '') : propertyKey]
+const parseProp = suffixParser('Text')
+
+/**
+ * returns a function for parsing property names from a declaration (e.g.
+ * properties that end with 'Text' or 'Sublist' suffix per convention)
+ * @param suffixToSearch string that may be at the end of a property name. this string will be strippped off
+ * the end of the property name if it is present.
+ * @returns function that takes a property name and returns a pair [flag indicating this field matched the suffix,
+ * the stripped property name (with suffix removed)]
+ */
+function suffixParser (suffixToSearch: string) : (propertyKey: string) => [boolean, string] {
+   const suffixLength = suffixToSearch.length
+   return function (propertyKey: string) {
+      const endsWithSuffix = propertyKey.slice(-suffixLength) === suffixToSearch
+      return [endsWithSuffix, endsWithSuffix ? propertyKey.slice(0, -suffixLength) : propertyKey]
+   }
 }
+
+/**
+ * parses a property name from a declaration (supporting 'Sublist' suffix per convention)
+ * @param propertyKey original property name as declared on class
+ * @returns pair consisting of a flag indicating this is actually a sublist and the actual ns sublist name (with
+ * Sublist suffix removed)
+ */
+const parseSublistProp = suffixParser('Sublist')
 
 /**
  * Generic decorator factory with basic default algorithm that exposes the field value directly with no
@@ -177,19 +198,20 @@ type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, 
  * @param ctor Constructor for the type that has the properties you want from each sublist line.
  * e.g. Invoice.ItemSublistLine
  */
- function sublistDescriptor<T extends SublistLine> (ctor: LineConstructor<T>) {
+function sublistDescriptor<T extends SublistLine> (ctor: LineConstructor<T>) {
    return function (target: any, propertyKey: string): any {
-      const privateProp = `_${propertyKey}`
+      const [_, nssublist] = parseSublistProp(propertyKey)
+      const privateProp = `_${nssublist}`
       return {
          enumerable: true,
          // sublist is read only for now - if we have a use case where this should be assigned then tackle it
          get: function () {
 
             if (!this[privateProp]) {
-               log.debug('initializing sublist', `sublist property named ${propertyKey}`)
+               log.debug('initializing sublist', `sublist property named ${propertyKey}, sublist id ${nssublist}`)
                // using defineProperty() here defaults to making the property non-enumerable which is what we want
                // for this 'private' property so it doesn't appear on serialization (e.g. JSON.stringify())
-               Object.defineProperty(this, privateProp, { value: new Sublist(ctor, this.nsrecord, propertyKey) })
+               Object.defineProperty(this, privateProp, { value: new Sublist(ctor, this.nsrecord, nssublist) })
             }
             return this[privateProp]
          },
@@ -203,14 +225,14 @@ type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, 
  * @param ctor Constructor for the type that has the properties you want from the subrecord.
  * e.g. AssemblyBuild.InventoryDetail
  */
-function subrecordDescriptor<T extends NetsuiteCurrentRecord> (ctor: new (rec:record.Record) => T ) {
+function subrecordDescriptor<T extends NetsuiteCurrentRecord> (ctor: new (rec: record.Record) => T) {
    return function (target: any, propertyKey: string): any {
       return {
          enumerable: true,
          // sublist is read only for now - if we have a use case where this should be assigned then tackle it
          get: function () {
             return new ctor(this.nsrecord.getSubrecord({
-               fieldId:propertyKey
+               fieldId: propertyKey
             }))
          },
       }
