@@ -89,6 +89,58 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         return AddressSublist;
     }(Sublist_1.SublistLine));
     exports.AddressSublist = AddressSublist;
+    var CurrencySymbolPlacement;
+    (function (CurrencySymbolPlacement) {
+        CurrencySymbolPlacement[CurrencySymbolPlacement["BeforeNumber"] = 1] = "BeforeNumber";
+        CurrencySymbolPlacement[CurrencySymbolPlacement["AfterNumber"] = 2] = "AfterNumber";
+    })(CurrencySymbolPlacement = exports.CurrencySymbolPlacement || (exports.CurrencySymbolPlacement = {}));
+    var CurrencySublist = /** @class */ (function (_super) {
+        __extends(CurrencySublist, _super);
+        function CurrencySublist() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], CurrencySublist.prototype, "balance", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], CurrencySublist.prototype, "consolbalance", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], CurrencySublist.prototype, "consoldepositbalance", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], CurrencySublist.prototype, "consoloverduebalance", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], CurrencySublist.prototype, "consolunbilledorders", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], CurrencySublist.prototype, "currency", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], CurrencySublist.prototype, "currencyformatsample", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], CurrencySublist.prototype, "depositbalance", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], CurrencySublist.prototype, "displaysymbol", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], CurrencySublist.prototype, "overduebalance", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.checkbox
+        ], CurrencySublist.prototype, "overridecurrencyformat", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], CurrencySublist.prototype, "symbolplacement", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], CurrencySublist.prototype, "unbilledorders", void 0);
+        return CurrencySublist;
+    }(Sublist_1.SublistLine));
+    exports.CurrencySublist = CurrencySublist;
     var CustomerBase = /** @class */ (function (_super) {
         __extends(CustomerBase, _super);
         function CustomerBase() {
@@ -173,6 +225,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.sublist(AddressSublist)
         ], CustomerBase.prototype, "addressbook", void 0);
+        __decorate([
+            Record_1.FieldType.sublist(CurrencySublist)
+        ], CustomerBase.prototype, "currencySublist", void 0);
         return CustomerBase;
     }(Record_1.NetsuiteRecord));
     exports.CustomerBase = CustomerBase;
