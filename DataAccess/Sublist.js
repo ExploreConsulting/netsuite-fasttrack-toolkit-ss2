@@ -92,11 +92,11 @@ var __assign = (this && this.__assign) || function () {
         };
         if (this.nsrecord.isDynamic) {
             this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
-            isText ? this.nsrecord.getCurrentSublistText(options)
+            return isText ? this.nsrecord.getCurrentSublistText(options)
                 : this.nsrecord.getCurrentSublistValue(options);
         }
         else {
-            isText ? this.nsrecord.getSublistText(__assign({}, options, { line: this._line }))
+            return isText ? this.nsrecord.getSublistText(__assign({}, options, { line: this._line }))
                 : this.nsrecord.getSublistValue(__assign({}, options, { line: this._line }));
         }
         log.debug("getting sublist " + (isText ? 'text' : 'value'), options);

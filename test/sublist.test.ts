@@ -14,6 +14,19 @@ describe('Sublists', function () {
       anotherfield: boolean
    }
 
+   test('read value from sublist property', () => {
+      const fakeRec = record.create({ type: 'fake' })
+      record.getSublistValue.mockReturnValue('some text')
+      record.getLineCount.mockImplementation(() => 1)
+      class MyLine extends FakeSublistLine {
+         @SublistFieldType.freeformtext
+         myfield:string
+      }
+
+      const sut = new Sublist(MyLine, fakeRec, 'fakesublist')
+      expect(sut[0].myfield).toEqual('some text')
+   })
+
    test('remove all lines results in zero length sublist', () => {
 
       const fakeRec = record.create({ type: 'fake' })

@@ -51,6 +51,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             ], SublistWithTextField.prototype, "anotherfield", void 0);
             return SublistWithTextField;
         }(Sublist_1.SublistLine));
+        test('read value from sublist property', function () {
+            var fakeRec = record.create({ type: 'fake' });
+            record.getSublistValue.mockReturnValue('some text');
+            record.getLineCount.mockImplementation(function () { return 1; });
+            var MyLine = /** @class */ (function (_super) {
+                __extends(MyLine, _super);
+                function MyLine() {
+                    return _super !== null && _super.apply(this, arguments) || this;
+                }
+                __decorate([
+                    Sublist_1.SublistFieldType.freeformtext
+                ], MyLine.prototype, "myfield", void 0);
+                return MyLine;
+            }(FakeSublistLine));
+            var sut = new Sublist_1.Sublist(MyLine, fakeRec, 'fakesublist');
+            expect(sut[0].myfield).toEqual('some text');
+        });
         test('remove all lines results in zero length sublist', function () {
             var fakeRec = record.create({ type: 'fake' });
             var lineCount = 10;
