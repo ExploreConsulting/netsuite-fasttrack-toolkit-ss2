@@ -2,7 +2,7 @@
   "name": "shawn",
   "version": "1.0.0",
   "description": "",
-  "main": "out.js",
+  "main": "generate.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,10 +10,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^3.2.2"
+    "typescript": "^3.5.3"
   },
   "dependencies": {
-    "@hitc/netsuite-types": "^2018.2.14",
-    "netsuite-fasttrack-toolkit-ss2": "^4.1.0"
+    "commander": "^2.20.0"
   }
 }
