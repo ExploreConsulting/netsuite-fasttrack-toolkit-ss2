@@ -13,10 +13,9 @@ downloading some stuffs
 ### Using Saxon
 Commandline usage [reference here](http://www.saxonica.com/documentation/index.html#!using-xsl/commandline)
 
-    # custom records generation (source xml expected to be under Objects/CustomRecords/*.xml    
-    java -jar saxon9he.jar -it -xsl:CustomRecord.xsl
+    # custom records generation     
+    java -jar saxon9he.jar -it -xsl:CustomRecord.xsl -s:Objects/CustomRecords/customrecord11.xml outputDir=/run/shm
 
-    
     
     # generating a custom SalesOrder class with all applicable transaction body custom fields
     # see TypeMapping.xml for which types you can generate (transaction body fields only for now)
