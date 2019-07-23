@@ -13,6 +13,7 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
+    "@reactivex/rxjs": "^6.5.2",
     "commander": "^2.20.0"
   }
 }
