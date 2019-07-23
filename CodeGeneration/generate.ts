@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
-import { execSync } from 'child_process'
 import { promisify } from 'util'
 import * as commander from 'commander'
 import * as fs from 'fs'
-import { bindNodeCallback,of } from 'rxjs'
-import {catchError, map, first } from 'rxjs/operators'
 import { Stats } from 'fs'
+import { bindNodeCallback, of } from 'rxjs'
+import { catchError, first, map } from 'rxjs/operators'
 
 const stat = bindNodeCallback(fs.stat)
 
@@ -16,8 +15,19 @@ const program = new commander.Command()
 program.version(require('./package.json').version)
 program.option('-f, --foo', 'does some foo')
 program.option('-d, --debug', 'output debug stuffs')
+
+async function f () {
+   function a(err:any, stat:any) {
+      return stat
+   }
+   fs.stat('FileCabinet',  await a)
+}
+
 program.command('isproject')
-   .action((e, o) => {
+   .action(async (e, o) => {
+
+      console.log('isProject', await isProject())
+
       isSDFproject().subscribe(v => {
          console.log(`is SDF project? ${v}`)
       })
@@ -26,6 +36,16 @@ program.command('isproject')
 
 program.parse(process.argv)
 if (program.debug) console.log(program.opts())
+
+async function isProject() {
+   try {
+      return await promisify(fs.stat)('FileCabinet')
+   } catch (ex) {
+      console.log('error but continuing', ex.toString())
+      return new Stats()
+   }
+}
+
 
 function isSDFproject () {
      // return an empty Stats rather than throwing an exception
