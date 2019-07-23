@@ -41,7 +41,7 @@ async function isProject() {
    try {
       return await promisify(fs.stat)('FileCabinet')
    } catch (ex) {
-      console.log('error but continuing', ex.toString())
+      console.log('error but continuing with empty stats', ex.toString())
       return new Stats()
    }
 }

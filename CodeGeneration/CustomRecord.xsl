@@ -1,24 +1,21 @@
 <!--This transforms SDF xml for custom records into NFT-SS2 TypeScript classes -->
 <xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" >
-
     <xsl:output method="text"/>
     <!-- load the current version of NFT into a variable from package.json -->
     <xsl:variable name="nft" select="json-doc('../package.json')('version')"/>
     <xsl:variable name="nftPath" select="concat('../NFT-SS2-', $nft)"/>
-
-
+    <xsl:param name="outputDir"/>
     <xsl:template name="xsl:initial-template">
-        <xsl:for-each select="collection('./Objects/CustomRecords?select=customrecord*.xml')">
             <!-- this variable tries to create a valid TS class name out of the <recordname>
             by limiting the name to only word characters. This still won't catch a record that starts with a number
             -->
             <xsl:variable name="className"  select="replace(/customrecordtype/recordname,'\W','')"/>
-
            <xsl:message expand-text="yes">Generating Custom Record class: {$className}</xsl:message>
            <xsl:message expand-text="yes">Using NFT path {$nftPath}</xsl:message>
-
+        <xsl:variable name="fulloutput" select="string-join(($outputDir,'/',$className,'.ts'))"/>
+        <xsl:message expand-text="yes">Writing output to {$fulloutput}</xsl:message>
             <!--This generates a separate document (.ts file) for each input .xml file -->
-            <xsl:result-document method="text" href="src/{string-join(($className,'.ts'))}">
+            <xsl:result-document method="text" href="{$fulloutput}">
 
                 <xsl:apply-templates>
                     <xsl:with-param name="className" select="$className"/>
@@ -29,7 +26,6 @@ import {NetsuiteRecord} from "</xsl:text><xsl:value-of select="$nftPath"/><xsl:t
                     </xsl:with-param>
                 </xsl:apply-templates>
             </xsl:result-document>
-        </xsl:for-each>
 
     </xsl:template>
 
