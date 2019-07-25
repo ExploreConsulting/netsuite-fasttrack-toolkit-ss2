@@ -14,7 +14,13 @@ const fs = __importStar(require("fs"));
 const fs_1 = require("fs");
 const rxjs_1 = require("rxjs");
 const operators_1 = require("rxjs/operators");
+const commandExists = require("command-exists");
 const stat = rxjs_1.bindNodeCallback(fs.stat);
+async function javaExists() {
+    let exists = false;
+    await commandExists('jdava').then(() => exists = true).catch(() => exists = false);
+    return exists;
+}
 const program = new commander.Command();
 program.version(require('./package.json').version);
 program.option('-f, --foo', 'does some foo');
@@ -27,6 +33,7 @@ async function f() {
 }
 program.command('isproject')
     .action(async (e, o) => {
+    console.log('java installed?', await javaExists());
     console.log('isProject', await isProject());
     isSDFproject().subscribe(v => {
         console.log(`is SDF project? ${v}`);

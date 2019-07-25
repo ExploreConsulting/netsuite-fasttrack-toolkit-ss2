@@ -5,10 +5,18 @@ import * as commander from 'commander'
 import * as fs from 'fs'
 import { Stats } from 'fs'
 import { bindNodeCallback, of } from 'rxjs'
-import { catchError, first, map } from 'rxjs/operators'
 
+import { catchError, first, map } from 'rxjs/operators'
+import commandExists = require('command-exists')
 const stat = bindNodeCallback(fs.stat)
 
+
+
+async function javaExists() {
+   let exists = false
+   await commandExists('jdava').then(()=> exists = true).catch(()=> exists = false)
+   return exists
+}
 
 
 const program = new commander.Command()
@@ -26,6 +34,7 @@ async function f () {
 program.command('isproject')
    .action(async (e, o) => {
 
+      console.log('java installed?', await javaExists())
       console.log('isProject', await isProject())
 
       isSDFproject().subscribe(v => {
