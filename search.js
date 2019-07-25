@@ -49,7 +49,7 @@
     function nsSearchResult2obj(useLabels) {
         if (useLabels === void 0) { useLabels = true; }
         return function (result) {
-            var output = { id: result.id };
+            var output = { id: result.id, recordType: result.recordType };
             // assigns each column VALUE from the search result to the output object, and if the column
             // has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
             if (result.columns && result.columns.length > 0)

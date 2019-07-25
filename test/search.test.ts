@@ -93,8 +93,9 @@ describe('nsSearchResult2obj', function () {
          id: '1',
          fooLabel: 'value',
          fooLabelText: 'value text',
-         bar: 5
+         bar: 5,
          // note no 'barText' here
+         recordType:'recordType'
       })
    })
 
@@ -109,7 +110,9 @@ describe('nsSearchResult2obj', function () {
       const x = nsSearchResult2obj()(noColumnsResult)
       expect(x).toEqual({
          // id always there,  note no additional columns defined
-         id: '1'
+         id: '1',
+         // recordType is always present on search results
+         recordType: "recordType"
       })
    })
 })
