@@ -11,13 +11,20 @@
  * dummy comment for the import so TypeDoc renders the comment above this one
  */
 import * as search from 'N/search'
-import {Result} from 'N/search'
 import * as LogManager from './EC_Logger'
 
 /**
  *  Any object that includes an 'id' property, which NS search results always have
  */
 export type ObjectWithId<T> = T & { id: string }
+
+/**
+ * NetSuite search results always have an `id` property and `recordType` property.
+ * These two should flow through to the output of `nsSearchResult2Obj()`. Note that custom column labels will take
+ * precedence over these values, so don't use `id` or `recordType` as your custom column label if you want the
+ * native SearchResult property values to be used.
+ */
+export type BaseSearchResult<T> = ObjectWithId<T> & { recordType:string }
 
 /**
  * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to `map()`
@@ -43,9 +50,9 @@ export type ObjectWithId<T> = T & { id: string }
  *
  *  ```
  */
-export function nsSearchResult2obj <T>(useLabels = true): (r:Result)=> ObjectWithId<T> {
-   return function (result: Result) {
-      let output = {id: result.id}
+export function nsSearchResult2obj <T>(useLabels = true): (r:search.Result)=> BaseSearchResult<T> {
+   return function (result: search.Result) {
+      let output : { id:string, recordType?:string | search.Type } = {id: result.id, recordType:result.recordType }
       // assigns each column VALUE from the search result to the output object, and if the column
       // has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
       if (result.columns && result.columns.length > 0)
@@ -55,7 +62,7 @@ export function nsSearchResult2obj <T>(useLabels = true): (r:Result)=> ObjectWit
          const text = result.getText(col)
          if (text) output[`${propName}Text`] = text
       })
-      return output as ObjectWithId<T>
+      return output as BaseSearchResult<T>
    }
 }
 
