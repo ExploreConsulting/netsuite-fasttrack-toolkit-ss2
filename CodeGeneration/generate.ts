@@ -4,24 +4,29 @@ import { promisify } from 'util'
 import * as commander from 'commander'
 import * as fs from 'fs'
 import { Stats } from 'fs'
-import { bindNodeCallback, of } from 'rxjs'
+import { bindNodeCallback, of, from } from 'rxjs'
 
 import { catchError, first, map } from 'rxjs/operators'
 import commandExists = require('command-exists')
+import { fromPromise } from 'rxjs/internal-compatibility'
 const stat = bindNodeCallback(fs.stat)
 
 
 
 async function javaExists() {
    let exists = false
-   await commandExists('jdava').then(()=> exists = true).catch(()=> exists = false)
+   await commandExists('java').then(()=> exists = true).catch(()=> exists = false)
    return exists
 }
 
+function jexists() {
+   from(commandExists('java')).subscribe()
+}
 
 const program = new commander.Command()
 program.version(require('./package.json').version)
-program.option('-f, --foo', 'does some foo')
+program.option('--customrecord <sdf_file> ', 'generates a TypeScript class from a SDF custom record definition')
+program.option('-o --outDir', 'directory in which to place output TypeScript files e.g. `./RecordTypes`')
 program.option('-d, --debug', 'output debug stuffs')
 
 async function f () {
@@ -59,12 +64,12 @@ async function isProject() {
 function isSDFproject () {
      // return an empty Stats rather than throwing an exception
    return stat('FileCabinet').pipe(
-        catchError(e=> of(new Stats())),
+        catchError(() =>of(new Stats())),
         map( x=> !!x.ino), first())
 }
 
 //const result = execSync('echo \'hello world\'', { stdio: 'inherit' })
-
+console.log('SDF must be configured for TBA')
 //TODO: feature - bootstrap authentication? resuse existing SDF config? expect users to have TBA already setup? use existing .SDF?
 
 //TODO: feature - download all custom records

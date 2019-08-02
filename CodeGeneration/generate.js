@@ -18,12 +18,16 @@ const commandExists = require("command-exists");
 const stat = rxjs_1.bindNodeCallback(fs.stat);
 async function javaExists() {
     let exists = false;
-    await commandExists('jdava').then(() => exists = true).catch(() => exists = false);
+    await commandExists('java').then(() => exists = true).catch(() => exists = false);
     return exists;
+}
+function jexists() {
+    rxjs_1.from(commandExists('java')).subscribe();
 }
 const program = new commander.Command();
 program.version(require('./package.json').version);
-program.option('-f, --foo', 'does some foo');
+program.option('--customrecord <sdf_file> ', 'generates a TypeScript class from a SDF custom record definition');
+program.option('-o --outDir', 'directory in which to place output TypeScript files e.g. `./RecordTypes`');
 program.option('-d, --debug', 'output debug stuffs');
 async function f() {
     function a(err, stat) {
@@ -54,9 +58,10 @@ async function isProject() {
 }
 function isSDFproject() {
     // return an empty Stats rather than throwing an exception
-    return stat('FileCabinet').pipe(operators_1.catchError(e => rxjs_1.of(new fs_1.Stats())), operators_1.map(x => !!x.ino), operators_1.first());
+    return stat('FileCabinet').pipe(operators_1.catchError(() => rxjs_1.of(new fs_1.Stats())), operators_1.map(x => !!x.ino), operators_1.first());
 }
 //const result = execSync('echo \'hello world\'', { stdio: 'inherit' })
+console.log('SDF must be configured for TBA');
 //TODO: feature - bootstrap authentication? resuse existing SDF config? expect users to have TBA already setup? use existing .SDF?
 //TODO: feature - download all custom records
 //TODO: feature - download transaction body custom fields
