@@ -82,6 +82,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             expect(record.removeLine).lastCalledWith({ sublistId: 'fakesublist', ignoreRecalc: true, line: 0 });
             // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
         });
+        test('insert a line in the middle', function () {
+            var fakeRec = record.create({ type: 'fake' });
+            var lineCount = 10;
+            record.getLineCount.mockImplementation(function () { return lineCount; });
+            record.insertLine.mockImplementation(function () { return lineCount++; });
+            var sut = new Sublist_1.Sublist(FakeSublistLine, fakeRec, 'fakesublist');
+            // initial linecount should be  10 from test setup
+            expect(sut.length).toBe(10);
+            var newline = sut.addLine(true, 4);
+            expect(newline._line).toEqual(4);
+            expect(sut.length).toBe(11);
+            expect(record.insertLine).toBeCalled();
+            // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
+        });
+        test('insert a line', function () {
+            var fakeRec = record.create({ type: 'fake' });
+            var lineCount = 10;
+            record.getLineCount.mockImplementation(function () { return lineCount; });
+            record.insertLine.mockImplementation(function () { return lineCount++; });
+            var sut = new Sublist_1.Sublist(FakeSublistLine, fakeRec, 'fakesublist');
+            // initial linecount should be  10 from test setup
+            expect(sut.length).toBe(10);
+            // inserts line at the end by default
+            var newline = sut.addLine();
+            expect(newline).toHaveProperty("_line", 10);
+            expect(sut.length).toBe(11);
+            expect(record.insertLine).toBeCalled();
+            // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
+        });
         test('remove all lines on an already empty sublist', function () {
             var fakeRec = record.create({ type: 'fake' });
             var lineCount = 0; // start with an empty sublist

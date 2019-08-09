@@ -47,6 +47,44 @@ describe('Sublists', function () {
       // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
    })
 
+   test('insert a line in the middle', () => {
+
+      const fakeRec = record.create({ type: 'fake' })
+      let lineCount = 10
+      record.getLineCount.mockImplementation(() => lineCount)
+      record.insertLine.mockImplementation(()=> lineCount++)
+      const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
+
+      // initial linecount should be  10 from test setup
+      expect(sut.length).toBe(10)
+
+      const newline = sut.addLine(true, 4)
+
+      expect(newline._line).toEqual(4)
+      expect(sut.length).toBe(11)
+      expect(record.insertLine).toBeCalled()
+      // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
+   })
+   test('insert a line', () => {
+
+      const fakeRec = record.create({ type: 'fake' })
+      let lineCount = 10
+      record.getLineCount.mockImplementation(() => lineCount)
+      record.insertLine.mockImplementation(()=> lineCount++)
+      const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
+
+      // initial linecount should be  10 from test setup
+      expect(sut.length).toBe(10)
+
+      // inserts line at the end by default
+      const newline = sut.addLine()
+
+      expect(newline).toHaveProperty("_line", 10)
+      expect(sut.length).toBe(11)
+      expect(record.insertLine).toBeCalled()
+      // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
+   })
+
    test('remove all lines on an already empty sublist', () => {
       const fakeRec = record.create({ type: 'fake' })
 

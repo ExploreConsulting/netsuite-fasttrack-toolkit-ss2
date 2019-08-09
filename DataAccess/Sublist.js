@@ -238,13 +238,15 @@ var __assign = (this && this.__assign) || function () {
             configurable: true
         });
         /**
-         * adds a new line to this sublist
-         * @param ignoreRecalc
+         * adds a new line to this sublist at the given line number.
+         * @param ignoreRecalc set true to avoid line recalc
+         * @param insertAt optionally set line # insertion point - defaults to insert at the end of the sublist. If
+         * in dynamic mode this parameter is ignored (dynamic mode uses selectNewLine())
          */
-        Sublist.prototype.addLine = function (ignoreRecalc) {
+        Sublist.prototype.addLine = function (ignoreRecalc, insertAt) {
             if (ignoreRecalc === void 0) { ignoreRecalc = true; }
-            log.debug('inserting line', "sublist: " + this.sublistId + " insert at line:" + this.length);
-            var insertAt = this.length;
+            if (insertAt === void 0) { insertAt = this.length; }
+            log.debug('inserting line', "sublist: " + this.sublistId + " insert at line:" + insertAt);
             this[insertAt] = new this.sublistLineType(this.sublistId, this.nsrecord, insertAt);
             if (this.nsrecord.isDynamic)
                 this.nsrecord.selectNewLine({ sublistId: this.sublistId });

@@ -206,12 +206,13 @@ export class Sublist<T extends SublistLine> {
    }
 
    /**
-    * adds a new line to this sublist
-    * @param ignoreRecalc
+    * adds a new line to this sublist at the given line number.
+    * @param ignoreRecalc set true to avoid line recalc
+    * @param insertAt optionally set line # insertion point - defaults to insert at the end of the sublist. If
+    * in dynamic mode this parameter is ignored (dynamic mode uses selectNewLine())
     */
-   addLine (ignoreRecalc = true): T {
-      log.debug('inserting line', `sublist: ${this.sublistId} insert at line:${this.length}`)
-      let insertAt = this.length
+   addLine (ignoreRecalc = true, insertAt:number = this.length): T {
+      log.debug('inserting line', `sublist: ${this.sublistId} insert at line:${insertAt}`)
       this[insertAt] = new this.sublistLineType(this.sublistId, this.nsrecord, insertAt)
 
       if (this.nsrecord.isDynamic) this.nsrecord.selectNewLine({ sublistId: this.sublistId })
