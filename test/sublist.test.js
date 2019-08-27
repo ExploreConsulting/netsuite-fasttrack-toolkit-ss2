@@ -112,6 +112,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             //console.log('keys', Object.keys(sut))
             // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
         });
+        test('insert a line beyond the end throws', function () {
+            var fakeRec = record.create({ type: 'fake' });
+            var lineCount = 10;
+            record.getLineCount.mockImplementation(function () { return lineCount; });
+            record.insertLine.mockImplementation(function () { return lineCount++; });
+            var sut = new Sublist_1.Sublist(FakeSublistLine, fakeRec, 'fakesublist');
+            // initial linecount should be  10 from test setup
+            expect(sut.length).toBe(10);
+            // inserts line at the end by default
+            expect(function () { return sut.addLine(false, 22); }).toThrowError(/\(22\)/);
+        });
         test('remove all lines on an already empty sublist', function () {
             var fakeRec = record.create({ type: 'fake' });
             var lineCount = 0; // start with an empty sublist

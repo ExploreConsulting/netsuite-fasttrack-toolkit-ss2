@@ -87,6 +87,21 @@ describe('Sublists', function () {
       // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
    })
 
+   test('insert a line beyond the end throws', () => {
+
+      const fakeRec = record.create({ type: 'fake' })
+      let lineCount = 10
+      record.getLineCount.mockImplementation(() => lineCount)
+      record.insertLine.mockImplementation(()=> lineCount++)
+      const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
+
+      // initial linecount should be  10 from test setup
+      expect(sut.length).toBe(10)
+
+      // inserts line at the end by default
+      expect(() => sut.addLine(false, 22)).toThrowError(/\(22\)/)
+   })
+
    test('remove all lines on an already empty sublist', () => {
       const fakeRec = record.create({ type: 'fake' })
 
