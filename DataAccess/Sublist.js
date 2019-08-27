@@ -28,7 +28,7 @@ var __assign = (this && this.__assign) || function () {
     Object.defineProperty(exports, "__esModule", { value: true });
     var format = require("N/format");
     var LogManager = require("../EC_Logger");
-    var log = LogManager.getLogger('nsdal');
+    var log = LogManager.getLogger('nsdal-sublist');
     /*
      note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.
      this differs from body fields behavior - it seems body fields required the numericDescriptor (see numericDescriptor
@@ -90,6 +90,7 @@ var __assign = (this && this.__assign) || function () {
             sublistId: this.sublistId,
             fieldId: fieldId,
         };
+        log.debug("getting sublist " + (isText ? 'text' : 'value'), options);
         if (this.nsrecord.isDynamic) {
             this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
             return isText ? this.nsrecord.getCurrentSublistText(options)
@@ -99,7 +100,6 @@ var __assign = (this && this.__assign) || function () {
             return isText ? this.nsrecord.getSublistText(__assign({}, options, { line: this._line }))
                 : this.nsrecord.getSublistValue(__assign({}, options, { line: this._line }));
         }
-        log.debug("getting sublist " + (isText ? 'text' : 'value'), options);
     }
     /**
      * Generic property descriptor with basic default algorithm that exposes the field value directly with no
@@ -220,11 +220,7 @@ var __assign = (this && this.__assign) || function () {
             this.sublistId = sublistId;
             this.sublistLineType = sublistLineType;
             this.makeRecordProp(rec);
-            log.debug('creating sublist', "type:" + sublistId + ", linecount:" + this.length);
-            // create a sublist line indexed property of type T for each member of the underlying sublist
-            for (var i = 0; i < this.length; i++) {
-                this[i] = new sublistLineType(this.sublistId, this.nsrecord, i);
-            }
+            this.rebuildArray();
         }
         Object.defineProperty(Sublist.prototype, "length", {
             /**
@@ -241,12 +237,16 @@ var __assign = (this && this.__assign) || function () {
          * adds a new line to this sublist at the given line number.
          * @param ignoreRecalc set true to avoid line recalc
          * @param insertAt optionally set line # insertion point - defaults to insert at the end of the sublist. If
-         * in dynamic mode this parameter is ignored (dynamic mode uses selectNewLine())
+         * in dynamic mode this parameter is ignored (dynamic mode uses selectNewLine()). The insertion point
+         * should be <= length of the list
          */
         Sublist.prototype.addLine = function (ignoreRecalc, insertAt) {
             if (ignoreRecalc === void 0) { ignoreRecalc = true; }
             if (insertAt === void 0) { insertAt = this.length; }
-            log.debug('inserting line', "sublist: " + this.sublistId + " insert at line:" + insertAt);
+            log.info('inserting line', "sublist: " + this.sublistId + " insert at line:" + insertAt);
+            if (insertAt > this.length) {
+                throw new Error("insertion index (" + insertAt + ") cannot be greater than sublist length (" + this.length + ")");
+            }
             this[insertAt] = new this.sublistLineType(this.sublistId, this.nsrecord, insertAt);
             if (this.nsrecord.isDynamic)
                 this.nsrecord.selectNewLine({ sublistId: this.sublistId });
@@ -257,7 +257,8 @@ var __assign = (this && this.__assign) || function () {
                     ignoreRecalc: ignoreRecalc
                 });
             }
-            log.debug('line count after adding', this.length);
+            log.info('line count after adding', this.length);
+            this.rebuildArray();
             return this[insertAt];
         };
         /**
@@ -267,14 +268,11 @@ var __assign = (this && this.__assign) || function () {
         Sublist.prototype.removeAllLines = function (ignoreRecalc) {
             if (ignoreRecalc === void 0) { ignoreRecalc = true; }
             while (this.length > 0) {
-                var line = {
-                    sublistId: this.sublistId,
-                    ignoreRecalc: ignoreRecalc,
-                    line: this.length - 1
-                };
-                this.nsrecord.removeLine(line);
-                log.debug('removed line', line);
+                var lineNum = this.length - 1;
+                this.removeLine(lineNum, ignoreRecalc);
+                log.debug('removed line', lineNum);
             }
+            this.rebuildArray();
             return this;
         };
         /**
@@ -302,6 +300,31 @@ var __assign = (this && this.__assign) || function () {
                 value: value,
                 enumerable: false
             });
+        };
+        /**
+         * removes a line at the given index. Note this causes the array to rebuild.
+         * @param line
+         * @param ignoreRecalc
+         */
+        Sublist.prototype.removeLine = function (line, ignoreRecalc) {
+            if (ignoreRecalc === void 0) { ignoreRecalc = false; }
+            this.nsrecord.removeLine({ line: line, sublistId: this.sublistId, ignoreRecalc: ignoreRecalc });
+            this.rebuildArray();
+        };
+        /**
+         * upserts the indexed props (array-like structure) This is called once at construction, but also
+         * as needed when a user dynamically inserts rows.
+         */
+        Sublist.prototype.rebuildArray = function () {
+            var _this = this;
+            log.info('deleting existing numeric properties');
+            Object.keys(this).filter(function (key) { return !isNaN(+key); }).forEach(function (key) { return delete _this[key]; }, this);
+            log.debug('sublist after deleting properties', this);
+            log.info('building sublist', "type:" + this.sublistId + ", linecount:" + this.length);
+            // create a sublist line indexed property of type T for each member of the underlying sublist
+            for (var i = 0; i < this.length; i++) {
+                this[i] = new this.sublistLineType(this.sublistId, this.nsrecord, i);
+            }
         };
         return Sublist;
     }());

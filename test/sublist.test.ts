@@ -27,7 +27,7 @@ describe('Sublists', function () {
       expect(sut[0].myfield).toEqual('some text')
    })
 
-   test('remove all lines results in zero length sublist', () => {
+   test('remove a lines in the middle', () => {
 
       const fakeRec = record.create({ type: 'fake' })
       let lineCount = 10
@@ -39,11 +39,11 @@ describe('Sublists', function () {
       // initial linecount should be  10 from test setup
       expect(sut.length).toBe(10)
 
-      sut.removeAllLines()
+      sut.removeLine(3, true)
 
-      expect(sut.length).toBe(0)
-      expect(record.removeLine.mock.calls.length).toBe(10)
-      expect(record.removeLine).lastCalledWith({ sublistId: 'fakesublist', ignoreRecalc: true, line: 0 })
+      expect(sut.length).toBe(9)
+      expect(record.removeLine.mock.calls.length).toBe(1)
+      expect(record.removeLine).lastCalledWith({ sublistId: 'fakesublist', ignoreRecalc: true, line: 3 })
       // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
    })
 
@@ -82,6 +82,8 @@ describe('Sublists', function () {
       expect(newline).toHaveProperty("_line", 10)
       expect(sut.length).toBe(11)
       expect(record.insertLine).toBeCalled()
+
+      //console.log('keys', Object.keys(sut))
       // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
    })
 
@@ -98,7 +100,7 @@ describe('Sublists', function () {
 
       expect(sut.length).toBe(0)
       expect(record.removeLine).not.toBeCalled()
-      // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
+      // uncomment to view calls to native removeLine() console.log(record.removeLine.mock.calls)
    }),
 
       test('getText() on field', () => {

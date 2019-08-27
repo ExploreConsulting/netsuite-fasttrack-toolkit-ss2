@@ -68,7 +68,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             var sut = new Sublist_1.Sublist(MyLine, fakeRec, 'fakesublist');
             expect(sut[0].myfield).toEqual('some text');
         });
-        test('remove all lines results in zero length sublist', function () {
+        test('remove a lines in the middle', function () {
             var fakeRec = record.create({ type: 'fake' });
             var lineCount = 10;
             record.getLineCount.mockImplementation(function () { return lineCount; });
@@ -76,10 +76,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             var sut = new Sublist_1.Sublist(FakeSublistLine, fakeRec, 'fakesublist');
             // initial linecount should be  10 from test setup
             expect(sut.length).toBe(10);
-            sut.removeAllLines();
-            expect(sut.length).toBe(0);
-            expect(record.removeLine.mock.calls.length).toBe(10);
-            expect(record.removeLine).lastCalledWith({ sublistId: 'fakesublist', ignoreRecalc: true, line: 0 });
+            sut.removeLine(3, true);
+            expect(sut.length).toBe(9);
+            expect(record.removeLine.mock.calls.length).toBe(1);
+            expect(record.removeLine).lastCalledWith({ sublistId: 'fakesublist', ignoreRecalc: true, line: 3 });
             // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
         });
         test('insert a line in the middle', function () {
@@ -109,6 +109,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             expect(newline).toHaveProperty("_line", 10);
             expect(sut.length).toBe(11);
             expect(record.insertLine).toBeCalled();
+            //console.log('keys', Object.keys(sut))
             // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
         });
         test('remove all lines on an already empty sublist', function () {
@@ -120,7 +121,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             sut.removeAllLines();
             expect(sut.length).toBe(0);
             expect(record.removeLine).not.toBeCalled();
-            // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
+            // uncomment to view calls to native removeLine() console.log(record.removeLine.mock.calls)
         }),
             test('getText() on field', function () {
                 var fakeRec = record.create({ type: 'fake' });

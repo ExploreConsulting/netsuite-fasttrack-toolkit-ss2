@@ -65,10 +65,15 @@ function demoSalesOrderLineItems () {
    // found.description
    // etc.
 
-   // add a line item
+   // add a line item to end of sublist
    let newLine = so.item.addLine()
    newLine.item = 123
    newLine.quantity = 1
+
+   // insert a line in the middle of the list
+   const inserted = so.item.addLine(true, 2)
+   newLine.item = 123
+   newLine.quantity = 2
 }
 
 export = {
