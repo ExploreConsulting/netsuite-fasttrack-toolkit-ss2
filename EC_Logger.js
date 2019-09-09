@@ -12,6 +12,13 @@
  *
  * @NApiVersion 2.x
  */
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
@@ -108,7 +115,7 @@
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, [aurelia_logging_1.logLevel.debug, logger].concat(rest));
+            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.debug, logger], rest));
         };
         /**
          * Info about info
@@ -120,21 +127,21 @@
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, [aurelia_logging_1.logLevel.info, logger].concat(rest));
+            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.info, logger], rest));
         };
         ExecutionLogAppender.prototype.warn = function (logger) {
             var rest = [];
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, [aurelia_logging_1.logLevel.warn, logger].concat(rest));
+            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.warn, logger], rest));
         };
         ExecutionLogAppender.prototype.error = function (logger) {
             var rest = [];
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, [aurelia_logging_1.logLevel.error, logger].concat(rest));
+            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.error, logger], rest));
         };
         return ExecutionLogAppender;
     }());

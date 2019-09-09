@@ -21,7 +21,7 @@ describe('nsSearchResult2obj', function () {
             name: colname,
             label: label
          }]
-      }
+      } as any
 
    }
 

@@ -16,7 +16,7 @@
     "experimentalDecorators": true,
     "downlevelIteration": false,
     "baseUrl": ".",
-    "lib":["es5","es2015.promise", "es2015.iterable"],
+    "lib":["es5","es2015.promise"],
     "paths": {
       "N/*": [
         "node_modules/@hitc/netsuite-types/N/*"
