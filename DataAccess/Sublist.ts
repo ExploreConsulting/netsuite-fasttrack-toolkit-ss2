@@ -227,7 +227,7 @@ export class Sublist<T extends SublistLine> {
       }
       log.info('line count after adding', this.length)
       this.rebuildArray()
-      return this[insertAt]
+      return (this.nsrecord.isDynamic) ? this[this.length-1] : this[insertAt]
    }
 
    /**

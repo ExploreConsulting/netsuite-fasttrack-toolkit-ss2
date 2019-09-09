@@ -74,12 +74,12 @@ var __assign = (this && this.__assign) || function () {
             };
             if (this.nsrecord.isDynamic) {
                 this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
-                isText ? this.nsrecord.setCurrentSublistText(__assign({}, options, { text: value }))
-                    : this.nsrecord.setCurrentSublistValue(__assign({}, options, { value: value }));
+                isText ? this.nsrecord.setCurrentSublistText(__assign(__assign({}, options), { text: value }))
+                    : this.nsrecord.setCurrentSublistValue(__assign(__assign({}, options), { value: value }));
             }
             else {
-                isText ? this.nsrecord.setSublistText(__assign({}, options, { line: this._line, text: value }))
-                    : this.nsrecord.setSublistValue(__assign({}, options, { line: this._line, value: value }));
+                isText ? this.nsrecord.setSublistText(__assign(__assign({}, options), { line: this._line, text: value }))
+                    : this.nsrecord.setSublistValue(__assign(__assign({}, options), { line: this._line, value: value }));
             }
         }
         else
@@ -97,8 +97,8 @@ var __assign = (this && this.__assign) || function () {
                 : this.nsrecord.getCurrentSublistValue(options);
         }
         else {
-            return isText ? this.nsrecord.getSublistText(__assign({}, options, { line: this._line }))
-                : this.nsrecord.getSublistValue(__assign({}, options, { line: this._line }));
+            return isText ? this.nsrecord.getSublistText(__assign(__assign({}, options), { line: this._line }))
+                : this.nsrecord.getSublistValue(__assign(__assign({}, options), { line: this._line }));
         }
     }
     /**
@@ -259,7 +259,7 @@ var __assign = (this && this.__assign) || function () {
             }
             log.info('line count after adding', this.length);
             this.rebuildArray();
-            return this[insertAt];
+            return (this.nsrecord.isDynamic) ? this[this.length - 1] : this[insertAt];
         };
         /**
          * Removes all existing lines of this sublist, leaving effectively an empty array
