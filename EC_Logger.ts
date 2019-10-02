@@ -16,7 +16,7 @@
 /**
  * dummy comment for TypeDoc
  */
-import {addAppender, Appender, clearAppenders, getLogger, Logger, logLevel} from './aurelia-logging'
+import { addAppender, Appender, clearAppenders, getLogger, Logger, logLevel } from './aurelia-logging'
 import * as nslog from 'N/log'
 import * as runtime from 'N/runtime'
 import * as aop from './aop'
@@ -143,6 +143,7 @@ function toNetSuiteLogLevel (level: number) {
 function getGovernanceMessage (governanceEnabled: boolean) {
    return governanceEnabled ? `governance: ${runtime.getCurrentScript().getRemainingUsage()}` : undefined
 }
+
 /**
  * (taken from lodash https://github.com/lodash/lodash/blob/a0a3a6af910e475d8dd14dabc452f957e436e28b/findKey.js)
  * This method is like `find` except that it returns the key of the first
@@ -166,7 +167,7 @@ function getGovernanceMessage (governanceEnabled: boolean) {
  * findKey(users, ({ age }) => age < 40)
  * // => 'barney' (iteration order is not guaranteed)
  */
-function findKey(object, predicate) {
+function findKey (object, predicate) {
    let result
    if (object == null) {
       // @ts-ignore
@@ -184,6 +185,7 @@ function findKey(object, predicate) {
    // noinspection JSUnusedAssignment
    return result
 }
+
 /**
  * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
  * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
@@ -215,9 +217,9 @@ function findKey(object, predicate) {
  *
  * |Log Title   | Detail |
  * |--------|--------|
-   |Enter onRequest()| args:[] |
-   |hello world |   |
-   |Exit onRequest() | returned: undefined |
+ |Enter onRequest()| args:[] |
+ |hello world |   |
+ |Exit onRequest() | returned: undefined |
  */
 export function autoLogMethodEntryExit (methodsToLogEntryExit: { target: Object, method: string | RegExp },
                                         config?: AutoLogConfig) {
@@ -248,7 +250,7 @@ export function autoLogMethodEntryExit (methodsToLogEntryExit: { target: Object,
       let elapsedMessage = ''
       if (withProfiling) {
          const elapsedMilliseconds = Date.now() - startTime
-         const elapsedMinutes = ((elapsedMilliseconds/1000)/60).toFixed(2)
+         const elapsedMinutes = ((elapsedMilliseconds / 1000) / 60).toFixed(2)
          elapsedMessage = `${elapsedMilliseconds}ms = ${elapsedMinutes} minutes`
       }
 
@@ -311,7 +313,6 @@ export interface AutoLogConfig {
  */
 export let DefaultLogger: Logger = defaultLogger
 
-
 /**
  * Use to set the correlation id to a value other than the default random number
  * @param value new correlation id, will be used on all subsequent log messages for the current script execution
@@ -339,13 +340,15 @@ declare function require (deps: string | string[], cb?: (...args: any[]) => void
 // if we're executing client side, default to using the browser console for logging to avoid
 // expensive network round trips to the NS execution log. aurelia-logging-console depends upon the
 // global 'console' variable and will fail to load if it's not defined.
-if (typeof console === 'object') {
+declare var window
 
-   const isNodeJS = typeof module === 'object'
-   // if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require()
-   if (isNodeJS) addConsoleAppender(require('aurelia-logging-console'))
-   else require(['./aurelia-logging-console'], addConsoleAppender)
-
-} else addAppender(new ExecutionLogAppender())
+// if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require(),
+// otherwise go ahead and log to the execution log (assume server-side suitescript)
+if ((typeof console === 'object') && (typeof window === 'object') && window.alert) /* browser */
+   require(['./aurelia-logging-console'], addConsoleAppender)
+else if (typeof module === 'object') /* nodejs */
+   addConsoleAppender(require('aurelia-logging-console'))
+else /* server-side SuiteScript */
+   addAppender(new ExecutionLogAppender())
 
 
