@@ -104,7 +104,7 @@
             });
         });
     });
-    describe('ImuutableJS behavior', function () {
+    describe('ImmutableJS behavior', function () {
         test('indirect toString() of Seq causes eager eval', function () {
             var alwaysTrue = jest.fn(function (val) {
                 console.log("alwaysTrue called with value " + val);

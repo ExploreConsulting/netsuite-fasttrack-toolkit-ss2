@@ -116,7 +116,7 @@ describe('nsSearchResult2obj', function () {
       })
    })
 })
-describe('ImuutableJS behavior', () => {
+describe('ImmutableJS behavior', () => {
 
    test('indirect toString() of Seq causes eager eval', function () {
 
