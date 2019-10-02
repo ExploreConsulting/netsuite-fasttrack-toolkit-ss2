@@ -318,10 +318,10 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     }
     // if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require(),
     // otherwise go ahead and log to the execution log (assume server-side suitescript)
-    if ((typeof console === 'object') && (typeof window === 'object') && window.alert) /* browser */
-        require(['./aurelia-logging-console'], addConsoleAppender);
-    else if (typeof module === 'object') /* nodejs */
+    if (typeof module === 'object') /* nodejs */
         addConsoleAppender(require('aurelia-logging-console'));
+    else if ((typeof console === 'object') && (typeof window === 'object') && window.alert) /* browser */
+        require(['./aurelia-logging-console'], addConsoleAppender);
     else /* server-side SuiteScript */
         aurelia_logging_1.addAppender(new ExecutionLogAppender());
 });
