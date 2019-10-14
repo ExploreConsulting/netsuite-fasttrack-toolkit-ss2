@@ -99,58 +99,58 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     /**
      * Deposit Record Header
      */
-    var DepositBaset = /** @class */ (function (_super) {
-        __extends(DepositBaset, _super);
-        function DepositBaset() {
+    var DepositBase = /** @class */ (function (_super) {
+        __extends(DepositBase, _super);
+        function DepositBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DepositBaset.recordType = record.Type.DEPOSIT;
+        DepositBase.recordType = record.Type.DEPOSIT;
         __decorate([
             Record_1.FieldType.select
-        ], DepositBaset.prototype, "account", void 0);
+        ], DepositBase.prototype, "account", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], DepositBaset.prototype, "class", void 0);
+        ], DepositBase.prototype, "class", void 0);
         __decorate([
             Record_1.FieldType.date
-        ], DepositBaset.prototype, "createddate", void 0);
+        ], DepositBase.prototype, "createddate", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], DepositBaset.prototype, "creditcardprocessor", void 0);
+        ], DepositBase.prototype, "creditcardprocessor", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], DepositBaset.prototype, "department", void 0);
+        ], DepositBase.prototype, "department", void 0);
         __decorate([
             Record_1.FieldType.currency
-        ], DepositBaset.prototype, "exchangerate", void 0);
+        ], DepositBase.prototype, "exchangerate", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], DepositBaset.prototype, "location", void 0);
+        ], DepositBase.prototype, "location", void 0);
         __decorate([
             Record_1.FieldType.longtext
-        ], DepositBaset.prototype, "memo", void 0);
+        ], DepositBase.prototype, "memo", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], DepositBaset.prototype, "postingperiod", void 0);
+        ], DepositBase.prototype, "postingperiod", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], DepositBaset.prototype, "subsidiary", void 0);
+        ], DepositBase.prototype, "subsidiary", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], DepositBaset.prototype, "tobeprinted", void 0);
+        ], DepositBase.prototype, "tobeprinted", void 0);
         __decorate([
             Record_1.FieldType.currency
-        ], DepositBaset.prototype, "total", void 0);
+        ], DepositBase.prototype, "total", void 0);
         __decorate([
             Record_1.FieldType.date
-        ], DepositBaset.prototype, "trandate", void 0);
+        ], DepositBase.prototype, "trandate", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], DepositBaset.prototype, "tranid", void 0);
+        ], DepositBase.prototype, "tranid", void 0);
         __decorate([
             Record_1.FieldType.sublist(PaymentsSublist)
-        ], DepositBaset.prototype, "payment", void 0);
-        return DepositBaset;
+        ], DepositBase.prototype, "payment", void 0);
+        return DepositBase;
     }(Record_1.NetsuiteRecord));
-    exports.DepositBaset = DepositBaset;
+    exports.DepositBase = DepositBase;
 });

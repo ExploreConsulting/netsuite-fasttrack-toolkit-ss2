@@ -70,7 +70,7 @@ export class PaymentsSublist extends SublistLine {
 /**
  * Deposit Record Header
  */
-export class DepositBaset extends NetsuiteRecord {
+export class DepositBase extends NetsuiteRecord {
 
    static recordType = record.Type.DEPOSIT
 
