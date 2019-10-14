@@ -104,10 +104,11 @@
 				<p>NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields.
 				Otherwise you derive your own class and add custom fields as shown in the code example that follows.</p>
 				<p><img src="media/images/NFT-NSDAL-Inheritance.png" alt="NSDAL Inheritance Diagram"></p>
-				<p><em><expermimental></em>
-					Subrecord support! Take a look at the <code>CustomerBase.addressbook</code> sublist.
+				<p>Subrecord support! Take a look at the <code>CustomerBase.addressbook</code> sublist.
 					<code>CustomerBase.addressbook[0].addressbookaddress</code> gets the strongly typed <code>AddressBase</code> SubRecord. It works mostly like any
 				other record you just don&#39;t explicitly <code>save()</code> it. </p>
+				<p><em><expermimental></em>
+				SuiteScript 2.1 support. </p>
 				<h3 id="overview-example">Overview Example</h3>
 				<pre><code class="language-typescript">
 
@@ -350,6 +351,9 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 						<a href="modules/_dataaccess_customerrefundbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Refund<wbr>Base"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_depositbase_.html">"<wbr>Data<wbr>Access/<wbr>Deposit<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_ec_nsdal_.html">"<wbr>Data<wbr>Access/EC_<wbr>nsdal"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -372,6 +376,9 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_inventorydetailbase_.html">"<wbr>Data<wbr>Access/<wbr>Inventory<wbr>Detail<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_dataaccess_inventorynumberbase_.html">"<wbr>Data<wbr>Access/<wbr>Inventory<wbr>Number<wbr>Base"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_dataaccess_invoicebase_.html">"<wbr>Data<wbr>Access/<wbr>Invoice<wbr>Base"</a>

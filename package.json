@@ -17,7 +17,7 @@
     "immutable": "^3.8.2",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "@hitc/netsuite-types": "2019.2.2",
+    "@hitc/netsuite-types": "2019.2.5",
     "@types/jest": "^24.0.11",
     "@types/lodash": "4.14.92",
     "@types/node": "^8.10.29",
@@ -34,7 +34,7 @@
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
     "typedoc": "^0.14.2",
-    "typescript": "^3.6.2"
+    "typescript": "^3.6.4"
   },
   "repository": {
     "type": "git",

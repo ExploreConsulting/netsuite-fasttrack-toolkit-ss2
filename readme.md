@@ -57,10 +57,12 @@ Otherwise you derive your own class and add custom fields as shown in the code e
 
 ![NSDAL Inheritance Diagram](media/images/NFT-NSDAL-Inheritance.png)
 
-_\<expermimental\>_
 Subrecord support! Take a look at the `CustomerBase.addressbook` sublist.
 `CustomerBase.addressbook[0].addressbookaddress` gets the strongly typed `AddressBase` SubRecord. It works mostly like any 
 other record you just don't explicitly `save()` it. 
+
+_\<expermimental\>_
+SuiteScript 2.1 support. 
 
 ###  Overview Example
 
