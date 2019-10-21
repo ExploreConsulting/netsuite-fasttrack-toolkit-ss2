@@ -200,7 +200,7 @@ type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, 
  */
 function sublistDescriptor<T extends SublistLine> (ctor: LineConstructor<T>) {
    return function (target: any, propertyKey: string): any {
-      const [_, nssublist] = parseSublistProp(propertyKey)
+      const [, nssublist] = parseSublistProp(propertyKey)
       const privateProp = `_${nssublist}`
       return {
          enumerable: true,
