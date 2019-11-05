@@ -3,7 +3,8 @@
 
 import * as record from 'N/record'
 import * as cust from './DataAccess/CustomerBase'
-import { FieldType, Sublist } from './DataAccess/EC_nsdal'
+import { FieldType} from './DataAccess/Record'
+import { Sublist } from './DataAccess/Sublist'
 import * as so from './DataAccess/SalesOrderBase'
 //region logging
 import * as nslog from 'N/log'

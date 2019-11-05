@@ -12,8 +12,9 @@ module (in the correct path of ./lodash assuming lodash is installed in the same
 import * as LogManager from './EC_Logger'
 import {CustomerBase} from "./DataAccess/CustomerBase"
 import {ItemSublist, SalesOrderBase} from "./DataAccess/SalesOrderBase";
+import { FieldType } from './DataAccess/Record'
+import { Sublist } from './DataAccess/Sublist'
 import * as _ from "lodash"
-import * as nsdal from "./DataAccess/EC_nsdal"
 
 
 let log = LogManager.DefaultLogger
@@ -21,7 +22,7 @@ let log = LogManager.DefaultLogger
 class Customer extends CustomerBase {
    // just add 'Text' to the property name to get/set text value. 'subsidiary' property still exists
    // as the internal id value
-   @nsdal.FieldType.select
+   @FieldType.select
    subsidiaryText: string
 
 }
@@ -30,8 +31,8 @@ class Customer extends CustomerBase {
 // you add fields that aren't already in SalesOrderBase here (e.g. custom fields, some less frequently used native fields)
 class SalesOrder extends SalesOrderBase {
 
-   @nsdal.FieldType.sublist(ItemSublist)
-   item: nsdal.Sublist<ItemSublist>
+   @FieldType.sublist(ItemSublist)
+   item: Sublist<ItemSublist>
 }
 
 
@@ -79,10 +80,8 @@ function demoSalesOrderLineItems () {
 export = {
 
    onRequest: (req, resp) => {
-      // bump nsdal logging to 'info' level from default of 'debug'
-      nsdal.log.setLevel(LogManager.logLevel.info)
 
-      let c = new Customer(227)
+      const c = new Customer(227)
 
       log.info('subsidiary value', c.subsidiary)
       log.info('subsidiary text', c.subsidiaryText)
@@ -91,7 +90,9 @@ export = {
       log.warn('warning', 'this is a warning')
       log.info('customer', c)
       let id = c.save()
-
+      log.debug(`saved record id: ${id}`)
 
    }
 }
+
+demoSalesOrderLineItems()

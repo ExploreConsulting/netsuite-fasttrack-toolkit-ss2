@@ -26,7 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./EC_nsdal", "N/record"], factory);
+        define(["require", "exports", "./Record", "./Sublist", "N/record"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -34,7 +34,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     /**
      * dummy comment for tsdoc
      */
-    var EC_nsdal_1 = require("./EC_nsdal");
+    var Record_1 = require("./Record");
+    var Sublist_1 = require("./Sublist");
     var record = require("N/record");
     var PlannedRevenueSublist = /** @class */ (function (_super) {
         __extends(PlannedRevenueSublist, _super);
@@ -42,34 +43,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return _super !== null && _super.apply(this, arguments) || this;
         }
         __decorate([
-            EC_nsdal_1.SublistFieldType.currency
+            Sublist_1.SublistFieldType.currency
         ], PlannedRevenueSublist.prototype, "amount", void 0);
         __decorate([
-            EC_nsdal_1.SublistFieldType.date
+            Sublist_1.SublistFieldType.date
         ], PlannedRevenueSublist.prototype, "dateexecuted", void 0);
         __decorate([
-            EC_nsdal_1.SublistFieldType.select
+            Sublist_1.SublistFieldType.select
         ], PlannedRevenueSublist.prototype, "deferredrevenueaccount", void 0);
         __decorate([
-            EC_nsdal_1.SublistFieldType.checkbox
+            Sublist_1.SublistFieldType.checkbox
         ], PlannedRevenueSublist.prototype, "isrecognized", void 0);
         __decorate([
-            EC_nsdal_1.SublistFieldType.freeformtext
+            Sublist_1.SublistFieldType.freeformtext
         ], PlannedRevenueSublist.prototype, "journal", void 0);
         __decorate([
-            EC_nsdal_1.SublistFieldType.percent
+            Sublist_1.SublistFieldType.percent
         ], PlannedRevenueSublist.prototype, "percentrecognizedinperiod", void 0);
         __decorate([
-            EC_nsdal_1.SublistFieldType.percent
+            Sublist_1.SublistFieldType.percent
         ], PlannedRevenueSublist.prototype, "percenttotalrecognized", void 0);
         __decorate([
-            EC_nsdal_1.SublistFieldType.select
+            Sublist_1.SublistFieldType.select
         ], PlannedRevenueSublist.prototype, "plannedperiod", void 0);
         __decorate([
-            EC_nsdal_1.SublistFieldType.select
+            Sublist_1.SublistFieldType.select
         ], PlannedRevenueSublist.prototype, "recognitionaccount", void 0);
         return PlannedRevenueSublist;
-    }(EC_nsdal_1.SublistLine));
+    }(Sublist_1.SublistLine));
     exports.PlannedRevenueSublist = PlannedRevenueSublist;
     /**
      * NetSuite Revenue Recognition Plan record. (revenueplan)
@@ -81,63 +82,63 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         }
         RevenueRecognitionPlanBase.recordType = record.Type.REVENUE_PLAN;
         __decorate([
-            EC_nsdal_1.FieldType.currency
+            Record_1.FieldType.currency
         ], RevenueRecognitionPlanBase.prototype, "amount", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.select
+            Record_1.FieldType.select
         ], RevenueRecognitionPlanBase.prototype, "catchupperiod", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.freeformtext
+            Record_1.FieldType.freeformtext
         ], RevenueRecognitionPlanBase.prototype, "comments", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.select
+            Record_1.FieldType.select
         ], RevenueRecognitionPlanBase.prototype, "createdfrom", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.currency
+            Record_1.FieldType.currency
         ], RevenueRecognitionPlanBase.prototype, "exchangerate", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.checkbox
+            Record_1.FieldType.checkbox
         ], RevenueRecognitionPlanBase.prototype, "holdrevenuerecognition", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.currency
+            Record_1.FieldType.currency
         ], RevenueRecognitionPlanBase.prototype, "initialamount", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.select
+            Record_1.FieldType.select
         ], RevenueRecognitionPlanBase.prototype, "item", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.integernumber
+            Record_1.FieldType.integernumber
         ], RevenueRecognitionPlanBase.prototype, "recognitionperiod", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.freeformtext
+            Record_1.FieldType.freeformtext
         ], RevenueRecognitionPlanBase.prototype, "recordnumber", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.currency
+            Record_1.FieldType.currency
         ], RevenueRecognitionPlanBase.prototype, "remainingdeferredbalance", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.select
+            Record_1.FieldType.select
         ], RevenueRecognitionPlanBase.prototype, "revenueplantype", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.select
+            Record_1.FieldType.select
         ], RevenueRecognitionPlanBase.prototype, "revenuerecognitionrule", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.date
+            Record_1.FieldType.date
         ], RevenueRecognitionPlanBase.prototype, "revrecenddate", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.date
+            Record_1.FieldType.date
         ], RevenueRecognitionPlanBase.prototype, "revrecstartdate", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.select
+            Record_1.FieldType.select
         ], RevenueRecognitionPlanBase.prototype, "status", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.integernumber
+            Record_1.FieldType.integernumber
         ], RevenueRecognitionPlanBase.prototype, "terminmonths", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.currency
+            Record_1.FieldType.currency
         ], RevenueRecognitionPlanBase.prototype, "totalrecognized", void 0);
         __decorate([
-            EC_nsdal_1.FieldType.sublist(PlannedRevenueSublist)
+            Record_1.FieldType.sublist(PlannedRevenueSublist)
         ], RevenueRecognitionPlanBase.prototype, "plannedrevenue", void 0);
         return RevenueRecognitionPlanBase;
-    }(EC_nsdal_1.NetsuiteRecord));
+    }(Record_1.NetsuiteRecord));
     exports.RevenueRecognitionPlanBase = RevenueRecognitionPlanBase;
 });

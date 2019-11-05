@@ -50,7 +50,7 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { recordType:string }
  *
  *  ```
  */
-export function nsSearchResult2obj <T>(useLabels = true): (r:search.Result)=> BaseSearchResult<T> {
+export function nsSearchResult2obj <T = {}>(useLabels = true): (r:search.Result)=> BaseSearchResult<T> {
    return function (result: search.Result) {
       let output : { id:string, recordType?:string | search.Type } = {id: result.id, recordType:result.recordType }
       // assigns each column VALUE from the search result to the output object, and if the column
