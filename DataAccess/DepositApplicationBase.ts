@@ -1,6 +1,7 @@
 import { FieldType } from './Record'
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 import { TransactionBase } from './Transaction'
+import * as record from 'N/record'
 
 class ApplySublist extends SublistLine {
    @SublistFieldType.freeformtext
@@ -44,7 +45,7 @@ class ApplySublist extends SublistLine {
  *
  */
 export class DepositApplicationBase extends TransactionBase {
-   static recordType = 'depositapplication'
+   static recordType = record.Type.DEPOSIT_APPLICATION
 
    @FieldType.select
    aracct: number
@@ -63,5 +64,4 @@ export class DepositApplicationBase extends TransactionBase {
 
    @FieldType.sublist(ApplySublist)
    apply: Sublist<ApplySublist>
-
 }
