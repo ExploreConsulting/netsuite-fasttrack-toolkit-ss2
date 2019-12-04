@@ -15,6 +15,18 @@ export abstract class TransactionBase extends NetsuiteRecord {
    @FieldType.select
    department: number
 
+   /**
+    * This field exists only if 'Use Deletion Reason' feature is enabled on the account
+    */
+   @FieldType.select
+   deletionreason: number
+
+   /**
+    * This field exists only if 'Use Deletion Reason' feature is enabled on the account
+    */
+   @FieldType.longtext
+   deletionreasonmemo: string
+
    @FieldType.freeformtext
    email: string
 
