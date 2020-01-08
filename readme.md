@@ -2,23 +2,22 @@
 
 NFT (NetSuite Fasttrack Toolkit)
 ==============================================
-_for SuiteScript 2.0_
+_for SuiteScript 2.x_
 
 This is a small but powerful framework for writing SuitScript that scales. A primary goal is to 
-enable authoring scripts that easy to write and easy to maintain.
+enable authoring scripts that easy to write and easy to maintain. 
 
 _Includes_
 * nsdal (Netsuite Data Access Layer) _ActiveRecord_-like approach using 
-predefined strong types for NetSuite record access including sublist support. 
+predefined and customizable strong types for NetSuite record access including sublist support. 
 * advanced logging facility
-* enhanced search handling
-* governance management
-* aop lib
+* advanced search handling (search results are an arbitrarily long stream of objects)
+* governance management (governance monitoring and automatic script rescheduling)
 
 _also included (only as a convenience, NFT does not depend on these):_
-* immutablejs (used for arbitrary length sequences and elegant search result processing)
-* lodash
-* momentjs
+* `immutablejs` - used for arbitrary length sequences and elegant search result processing)
+* `lodash` - NFT enables direct use of this amazing library on NS records and search result collections)
+* `momentjs` 
 
 See API [docs here](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2)
 
