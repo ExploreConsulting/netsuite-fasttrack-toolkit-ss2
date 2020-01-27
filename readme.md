@@ -310,8 +310,11 @@ to run the test suite:
     npm test
     
 
+# For Contributors
+The following are useful if you're contributing to the codebase and publishing to NPM
+Skip this section if you're just using NFT in your projects. 
 
-# Build and Publish
+## Build and Publish 
     
     node_modules/.bin/tsc
     node_modules/.bin/gulp
@@ -319,6 +322,6 @@ to run the test suite:
     npm publish
 
 
-# Build API docs (hosted on Github Pages)
+## Build API docs (hosted on Github Pages)
 
     node_modules/.bin/gulp docs

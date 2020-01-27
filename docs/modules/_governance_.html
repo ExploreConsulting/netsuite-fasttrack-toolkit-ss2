@@ -91,7 +91,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f3c84d5/governance.ts#L70">governance.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/03db69c/governance.ts#L70">governance.ts:70</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -142,7 +142,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f3c84d5/governance.ts#L17">governance.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/03db69c/governance.ts#L17">governance.ts:17</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -160,19 +160,19 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> startTime: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;Date.now()</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> startTime: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = Date.now()</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>when to start counting elapsed time for clock-time governance, ms since the epoch (e.g. Date.now())</p>
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> minutes: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;45</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> minutes: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 45</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>threshold for maximum number of minutes allowed to elapse</p>
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> units: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;200</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> units: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 200</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>threshold for minimum remaining governance units</p>
 									</div>
@@ -186,13 +186,13 @@
 					<a name="rescheduleifneeded" class="tsd-anchor"></a>
 					<h3>reschedule<wbr>IfNeeded</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">reschedule<wbr>IfNeeded<span class="tsd-signature-symbol">(</span>governancePredicate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+						<li class="tsd-signature tsd-kind-icon">reschedule<wbr>IfNeeded<span class="tsd-signature-symbol">(</span>governancePredicate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f3c84d5/governance.ts#L40">governance.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/03db69c/governance.ts#L40">governance.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -208,14 +208,14 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>governancePredicate: <span class="tsd-signature-type">function</span></h5>
+									<h5>governancePredicate: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>governance checker - if it returns false then script will reschedule.
 										typically this would be your invocation of <code>governanceRemains()</code></p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+											<ul class="tsd-signatures tsd-kind-type-literal">
 												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
@@ -248,7 +248,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_governance_.html">"governance"</a>
+						<a href="_governance_.html">&quot;governance&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -280,6 +280,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -328,7 +329,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
