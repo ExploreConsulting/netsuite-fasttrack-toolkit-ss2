@@ -84,6 +84,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], TransactionBase.prototype, "department", void 0);
         __decorate([
+            Record_1.FieldType.select
+        ], TransactionBase.prototype, "deletionreason", void 0);
+        __decorate([
+            Record_1.FieldType.longtext
+        ], TransactionBase.prototype, "deletionreasonmemo", void 0);
+        __decorate([
             Record_1.FieldType.freeformtext
         ], TransactionBase.prototype, "email", void 0);
         __decorate([

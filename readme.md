@@ -2,23 +2,22 @@
 
 NFT (NetSuite Fasttrack Toolkit)
 ==============================================
-_for SuiteScript 2.0_
+_for SuiteScript 2.x_
 
 This is a small but powerful framework for writing SuitScript that scales. A primary goal is to 
-enable authoring scripts that easy to write and easy to maintain.
+enable authoring scripts that easy to write and easy to maintain. 
 
 _Includes_
 * nsdal (Netsuite Data Access Layer) _ActiveRecord_-like approach using 
-predefined strong types for NetSuite record access including sublist support. 
+predefined and customizable strong types for NetSuite record access including sublist support. 
 * advanced logging facility
-* enhanced search handling
-* governance management
-* aop lib
+* advanced search handling (search results are an arbitrarily long stream of objects)
+* governance management (governance monitoring and automatic script rescheduling)
 
 _also included (only as a convenience, NFT does not depend on these):_
-* immutablejs (used for arbitrary length sequences and elegant search result processing)
-* lodash
-* momentjs
+* `immutablejs` - used for arbitrary length sequences and elegant search result processing)
+* `lodash` - NFT enables direct use of this amazing library on NS records and search result collections)
+* `momentjs` 
 
 See API [docs here](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2)
 
@@ -57,10 +56,12 @@ Otherwise you derive your own class and add custom fields as shown in the code e
 
 ![NSDAL Inheritance Diagram](media/images/NFT-NSDAL-Inheritance.png)
 
-_\<expermimental\>_
 Subrecord support! Take a look at the `CustomerBase.addressbook` sublist.
 `CustomerBase.addressbook[0].addressbookaddress` gets the strongly typed `AddressBase` SubRecord. It works mostly like any 
 other record you just don't explicitly `save()` it. 
+
+_\<expermimental\>_
+SuiteScript 2.1 support. 
 
 ###  Overview Example
 
@@ -309,8 +310,11 @@ to run the test suite:
     npm test
     
 
+# For Contributors
+The following are useful if you're contributing to the codebase and publishing to NPM
+Skip this section if you're just using NFT in your projects. 
 
-# Build and Publish
+## Build and Publish 
     
     node_modules/.bin/tsc
     node_modules/.bin/gulp
@@ -318,6 +322,6 @@ to run the test suite:
     npm publish
 
 
-# Build API docs (hosted on Github Pages)
+## Build API docs (hosted on Github Pages)
 
     node_modules/.bin/gulp docs

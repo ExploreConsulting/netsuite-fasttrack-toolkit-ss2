@@ -1,5 +1,5 @@
 /**
- * NetSuite generic Transaction record
+ * NetSuite Customer Payment (customerpayment) record
  */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -35,6 +35,53 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var record = require("N/record");
     var Transaction_1 = require("./Transaction");
     var Record_1 = require("./Record");
+    var ApplySublist = /** @class */ (function (_super) {
+        __extends(ApplySublist, _super);
+        function ApplySublist() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], ApplySublist.prototype, "amount", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.checkbox
+        ], ApplySublist.prototype, "apply", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.date
+        ], ApplySublist.prototype, "applydate", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ApplySublist.prototype, "createdfrom", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], ApplySublist.prototype, "disc", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ApplySublist.prototype, "doc", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], ApplySublist.prototype, "discamt", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ApplySublist.prototype, "internalid", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.integernumber
+        ], ApplySublist.prototype, "job", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.integernumber
+        ], ApplySublist.prototype, "line", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ApplySublist.prototype, "refnum", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.currency
+        ], ApplySublist.prototype, "total", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ApplySublist.prototype, "url", void 0);
+        return ApplySublist;
+    }(Sublist_1.SublistLine));
+    exports.ApplySublist = ApplySublist;
     /**
      * Customer Payment Record
      */
@@ -59,24 +106,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.checkbox
         ], CustomerPaymentBase.prototype, "autoapply", void 0);
+        __decorate([
+            Record_1.FieldType.sublist(ApplySublist)
+        ], CustomerPaymentBase.prototype, "apply", void 0);
         return CustomerPaymentBase;
     }(Transaction_1.TransactionBase));
     exports.CustomerPaymentBase = CustomerPaymentBase;
-    var ApplySublist = /** @class */ (function (_super) {
-        __extends(ApplySublist, _super);
-        function ApplySublist() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        __decorate([
-            Sublist_1.SublistFieldType.currency
-        ], ApplySublist.prototype, "amount", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.checkbox
-        ], ApplySublist.prototype, "apply", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.freeformtext
-        ], ApplySublist.prototype, "refnum", void 0);
-        return ApplySublist;
-    }(Sublist_1.SublistLine));
-    exports.ApplySublist = ApplySublist;
 });

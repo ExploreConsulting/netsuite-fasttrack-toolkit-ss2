@@ -1,8 +1,9 @@
 {
   "name": "netsuite-fasttrack-toolkit-ss2",
-  "version": "5.2.1",
+  "version": "5.5.0",
   "description": "Power library for NetSuite SuiteScript 2.x",
-  "main": "nft-codegen",
+  "homepage": "https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/",
+  "main": "none",
   "directories": {
     "test": "tests"
   },
@@ -13,14 +14,11 @@
   },
   "author": "Explore Consulting",
   "license": "MIT",
-  "bin": {
-    "nft-codegen" : "./CodeGeneration/generate.bash"
-  },
   "devDependencies": {
     "immutable": "^3.8.2",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "@hitc/netsuite-types": "2019.1.6",
+    "@hitc/netsuite-types": "2019.2.5",
     "@types/jest": "^24.0.11",
     "@types/lodash": "4.14.92",
     "@types/node": "^8.10.29",
@@ -32,19 +30,19 @@
     "gulp-rename": "^1.4.0",
     "gulp-size": "^3.0.0",
     "gulp-zip": "^5.0.0",
-    "jest": "^24.1.0",
+    "jest": "^25.1.0",
     "merge-stream": "^1.0.0",
-    "ts-jest": "^23.10.5",
-    "ts-node": "^7.0.1",
-    "typedoc": "^0.14.2",
-    "typescript": "^3.5.1"
+    "ts-jest": "^25.0.0",
+    "ts-node": "^8.6.2",
+    "typedoc": "^0.16.9",
+    "typescript": "^3.7.5"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2.git"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=6.0.0"
   },
   "dependencies": {
     "aurelia-logging": "1.5.2",

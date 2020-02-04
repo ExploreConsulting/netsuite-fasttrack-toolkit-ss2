@@ -70,10 +70,8 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>contains minimum requirements for a sublist line - 1. which sublist are we working with, 2. on which record</p>
-						<ol start="3">
-							<li>which line on the sublist does this instance represent</li>
-						</ol>
+						<p>contains minimum requirements for a sublist line - 1. which sublist are we working with, 2. on which record
+						3. which line on the sublist does this instance represent</p>
 					</div>
 					<p>You extend from this class (or a pre-existing subclass) to define the fields to surface on the NetSuite sublist.
 						Class property names should be the netsuite field internal id. By default these fields surface the <code>value</code> of the field
@@ -81,11 +79,12 @@
 					<dl class="tsd-comment-tags">
 						<dt>example</dt>
 						<dd><p>Surfaces the <code>price</code> field both as <em>value</em> (numeric internal id) and <em>text</em>
-								class SalesOrderItemSublist extends SublistLine {
-								@SublistFieldType.select
-							price:number</p>
-							<pre><code>    <span class="hljs-variable">@SublistFieldType</span>.freeformtext
-    <span class="hljs-attribute">priceText</span>:string
+							class SalesOrderItemSublist extends SublistLine {</p>
+						</dd>
+						<dt>sublistfieldtype.select</dt>
+						<dd><pre><code>    price:<span class="hljs-built_in">number</span></code></pre></dd>
+						<dt>sublistfieldtype.freeformtext</dt>
+						<dd><pre><code>    priceText:<span class="hljs-built_in">string</span>
   }</code></pre></dd>
 					</dl>
 				</div>
@@ -137,6 +136,15 @@
 							</li>
 							<li>
 								<a href="_dataaccess_customerrefundbase_.applysublist.html" class="tsd-signature-type">ApplySublist</a>
+							</li>
+							<li>
+								<a href="_dataaccess_depositapplicationbase_.applysublist.html" class="tsd-signature-type">ApplySublist</a>
+							</li>
+							<li>
+								<a href="_dataaccess_depositbase_.paymentssublist.html" class="tsd-signature-type">PaymentsSublist</a>
+							</li>
+							<li>
+								<a href="_dataaccess_entitygroupbase_.groupmemberssublist.html" class="tsd-signature-type">GroupMembersSublist</a>
 							</li>
 							<li>
 								<a href="_dataaccess_estimatebase_.itemsublist.html" class="tsd-signature-type">ItemSublist</a>
@@ -242,7 +250,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/7dbe9cf/DataAccess/Sublist.ts#L325">DataAccess/Sublist.ts:325</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/03db69c/DataAccess/Sublist.ts#L347">DataAccess/Sublist.ts:347</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -293,7 +301,7 @@
 					<div class="tsd-signature tsd-kind-icon">_line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/7dbe9cf/DataAccess/Sublist.ts#L336">DataAccess/Sublist.ts:336</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/03db69c/DataAccess/Sublist.ts#L358">DataAccess/Sublist.ts:358</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -309,7 +317,7 @@
 					<div class="tsd-signature tsd-kind-icon">nsrecord<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/7dbe9cf/DataAccess/Sublist.ts#L325">DataAccess/Sublist.ts:325</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/03db69c/DataAccess/Sublist.ts#L347">DataAccess/Sublist.ts:347</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -319,7 +327,7 @@
 					<div class="tsd-signature tsd-kind-icon">sublist<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/7dbe9cf/DataAccess/Sublist.ts#L336">DataAccess/Sublist.ts:336</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/03db69c/DataAccess/Sublist.ts#L358">DataAccess/Sublist.ts:358</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -341,7 +349,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/7dbe9cf/DataAccess/Sublist.ts#L346">DataAccess/Sublist.ts:346</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/03db69c/DataAccess/Sublist.ts#L368">DataAccess/Sublist.ts:368</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -372,7 +380,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/7dbe9cf/DataAccess/Sublist.ts#L354">DataAccess/Sublist.ts:354</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/03db69c/DataAccess/Sublist.ts#L376">DataAccess/Sublist.ts:376</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -388,7 +396,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_dataaccess_sublist_.html">"<wbr>Data<wbr>Access/<wbr>Sublist"</a>
+						<a href="../modules/_dataaccess_sublist_.html">&quot;<wbr>Data<wbr>Access/<wbr>Sublist&quot;</a>
 						<ul>
 							<li class=" tsd-kind-module tsd-parent-kind-external-module">
 								<a href="../modules/_dataaccess_sublist_.sublistfieldtype.html">Sublist<wbr>Field<wbr>Type</a>
@@ -467,6 +475,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -515,7 +524,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

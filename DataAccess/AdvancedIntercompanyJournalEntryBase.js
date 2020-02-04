@@ -145,6 +145,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.checkbox
         ], AdvancedIntercompanyJournalEntryBase.prototype, "approved", void 0);
         __decorate([
+            Record_1.FieldType.select
+        ], AdvancedIntercompanyJournalEntryBase.prototype, "approvalstatus", void 0);
+        __decorate([
             Record_1.FieldType.datetime
         ], AdvancedIntercompanyJournalEntryBase.prototype, "createddate", void 0);
         __decorate([

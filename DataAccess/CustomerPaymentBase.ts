@@ -1,11 +1,52 @@
 /**
- * NetSuite generic Transaction record
+ * NetSuite Customer Payment (customerpayment) record
  */
 
-import {SublistLine, SublistFieldType} from './Sublist'
+import { SublistLine, SublistFieldType, Sublist } from './Sublist'
 import * as record from 'N/record'
-import {TransactionBase} from "./Transaction";
-import {FieldType} from './Record'
+import { TransactionBase } from './Transaction'
+import { FieldType } from './Record'
+
+export class ApplySublist extends SublistLine {
+   @SublistFieldType.currency
+   amount: number
+
+   @SublistFieldType.checkbox
+   apply: boolean
+
+   @SublistFieldType.date
+   applydate: Date
+
+   @SublistFieldType.freeformtext
+   createdfrom: string
+
+   @SublistFieldType.currency
+   disc: number
+
+   @SublistFieldType.freeformtext
+   doc: string
+
+   @SublistFieldType.currency
+   discamt: number
+
+   @SublistFieldType.freeformtext
+   internalid: string
+
+   @SublistFieldType.integernumber
+   job: number
+
+   @SublistFieldType.integernumber
+   line: number
+
+   @SublistFieldType.freeformtext
+   refnum: string
+
+   @SublistFieldType.currency
+   total: number
+
+   @SublistFieldType.freeformtext
+   url: string
+}
 
 /**
  * Customer Payment Record
@@ -15,29 +56,22 @@ export class CustomerPaymentBase extends TransactionBase {
    static recordType = record.Type.CUSTOMER_PAYMENT
 
    @FieldType.select
-   customer:number
+   customer: number
 
    @FieldType.freeformtext
-   checknum:string
+   checknum: string
 
    @FieldType.currency
-   payment:number
+   payment: number
 
    @FieldType.select
-   paymentmethod:number
+   paymentmethod: number
 
    @FieldType.checkbox
-   autoapply:boolean
+   autoapply: boolean
+
+   @FieldType.sublist(ApplySublist)
+   apply: Sublist<ApplySublist>
 }
 
 
-export class ApplySublist extends SublistLine {
-   @SublistFieldType.currency
-   amount:number
-
-   @SublistFieldType.checkbox
-   apply:boolean
-
-   @SublistFieldType.freeformtext
-   refnum:string
-}

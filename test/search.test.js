@@ -84,8 +84,9 @@
                 id: '1',
                 fooLabel: 'value',
                 fooLabelText: 'value text',
-                bar: 5
+                bar: 5,
                 // note no 'barText' here
+                recordType: 'recordType'
             });
         });
         test('handles search result with NO columns', function () {
@@ -97,11 +98,13 @@
             var x = search_1.nsSearchResult2obj()(noColumnsResult);
             expect(x).toEqual({
                 // id always there,  note no additional columns defined
-                id: '1'
+                id: '1',
+                // recordType is always present on search results
+                recordType: "recordType"
             });
         });
     });
-    describe('ImuutableJS behavior', function () {
+    describe('ImmutableJS behavior', function () {
         test('indirect toString() of Seq causes eager eval', function () {
             var alwaysTrue = jest.fn(function (val) {
                 console.log("alwaysTrue called with value " + val);

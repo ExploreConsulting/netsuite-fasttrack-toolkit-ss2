@@ -54,7 +54,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> NetSuite FastTrack Toolkit (NFT)</h1>
+			<h1>NetSuite FastTrack Toolkit (NFT)</h1>
 		</div>
 	</div>
 </header>
@@ -63,31 +63,37 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<p><a href="https://gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img src="https://badges.gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2.svg" alt="Gitter"></a></p>
-				<h1 id="nft-netsuite-fasttrack-toolkit-">NFT (NetSuite Fasttrack Toolkit)</h1>
-				<p><em>for SuiteScript 2.0</em></p>
+				<a href="#nft-netsuite-fasttrack-toolkit" id="nft-netsuite-fasttrack-toolkit" style="color: inherit; text-decoration: none;">
+					<h1>NFT (NetSuite Fasttrack Toolkit)</h1>
+				</a>
+				<p><em>for SuiteScript 2.x</em></p>
 				<p>This is a small but powerful framework for writing SuitScript that scales. A primary goal is to
-				enable authoring scripts that easy to write and easy to maintain.</p>
+				enable authoring scripts that easy to write and easy to maintain. </p>
 				<p><em>Includes</em></p>
 				<ul>
 					<li>nsdal (Netsuite Data Access Layer) <em>ActiveRecord</em>-like approach using
-					predefined strong types for NetSuite record access including sublist support. </li>
+					predefined and customizable strong types for NetSuite record access including sublist support. </li>
 					<li>advanced logging facility</li>
-					<li>enhanced search handling</li>
-					<li>governance management</li>
-					<li>aop lib</li>
+					<li>advanced search handling (search results are an arbitrarily long stream of objects)</li>
+					<li>governance management (governance monitoring and automatic script rescheduling)</li>
 				</ul>
 				<p><em>also included (only as a convenience, NFT does not depend on these):</em></p>
 				<ul>
-					<li>immutablejs (used for arbitrary length sequences and elegant search result processing)</li>
-					<li>lodash</li>
-					<li>momentjs</li>
+					<li><code>immutablejs</code> - used for arbitrary length sequences and elegant search result processing)</li>
+					<li><code>lodash</code> - NFT enables direct use of this amazing library on NS records and search result collections)</li>
+					<li><code>momentjs</code> </li>
 				</ul>
 				<p>See API <a href="https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2">docs here</a></p>
 				<p><img src="media/images/NFT-Intro.svg" alt="NFT Intro Image"></p>
-				<h1 id="getting-started-typescript-">Getting Started (Typescript)</h1>
+				<a href="#getting-started-typescript" id="getting-started-typescript" style="color: inherit; text-decoration: none;">
+					<h1>Getting Started (Typescript)</h1>
+				</a>
 				<p>Install this package as a dependency and the SuiteScript 2.x (SS2) typings from @hitc </p>
 				<pre><code><span class="hljs-built_in">npm</span> install netsuite-fasttrack-toolkit-ss2
-<span class="hljs-built_in">npm</span> install @hitc/netsuite-types --save-dev </code></pre><h2 id="deploy-core-library-to-ns">Deploy core library to NS</h2>
+<span class="hljs-built_in">npm</span> install @hitc/netsuite-types --save-dev </code></pre>
+				<a href="#deploy-core-library-to-ns" id="deploy-core-library-to-ns" style="color: inherit; text-decoration: none;">
+					<h2>Deploy core library to NS</h2>
+				</a>
 				<p>Use the NetSuite file cabinet <em>advanced add</em> button to upload the <code>node_modules/netsuite-fasttrack-toolkit-ss2/dist/NFT-SS2-#.#.#.zip</code>
 				file to the same folder in which you place your SuiteScripts. It will extract to a subfolder named NFT-SS2-#.#.#.</p>
 				<p>If you typically just put your SuiteScripts under the <code>/SuiteScripts/</code> folder in the NS file cabinet then simply
@@ -97,18 +103,23 @@
 				<p>After install you should get a folder link at your project root named NFT-SS2-#.#.#
 					This creates a folder structure mirroring what you have in NetSuite so you can use relative paths when you
 				<code>import</code> from the library (e.g. <code>import {CustomerBase} from &quot;./NFT-SS2-1.2.3/DataAcess/CustomerBase</code>)</p>
-				<h2 id="netsuite-data-access-layer-nsdal-">NetSuite Data Access Layer (NSDAL)</h2>
+				<a href="#netsuite-data-access-layer-nsdal" id="netsuite-data-access-layer-nsdal" style="color: inherit; text-decoration: none;">
+					<h2>NetSuite Data Access Layer (NSDAL)</h2>
+				</a>
 				<p>NSDAL is a variation of the Active Record pattern for working with NetSuite records. </p>
 				<p>Native SuiteScript 2.0 requires method calls and passing ‘config’ objects to access data.
 				NSDAL uses regular javascript objects with properties, so you work with it the same way as any other javascript code.</p>
 				<p>NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields.
 				Otherwise you derive your own class and add custom fields as shown in the code example that follows.</p>
 				<p><img src="media/images/NFT-NSDAL-Inheritance.png" alt="NSDAL Inheritance Diagram"></p>
-				<p><em><expermimental></em>
-					Subrecord support! Take a look at the <code>CustomerBase.addressbook</code> sublist.
+				<p>Subrecord support! Take a look at the <code>CustomerBase.addressbook</code> sublist.
 					<code>CustomerBase.addressbook[0].addressbookaddress</code> gets the strongly typed <code>AddressBase</code> SubRecord. It works mostly like any
 				other record you just don&#39;t explicitly <code>save()</code> it. </p>
-				<h3 id="overview-example">Overview Example</h3>
+				<p><em>&lt;expermimental&gt;</em>
+				SuiteScript 2.1 support. </p>
+				<a href="#overview-example" id="overview-example" style="color: inherit; text-decoration: none;">
+					<h3>Overview Example</h3>
+				</a>
 				<pre><code class="language-typescript">
 
 /**
@@ -193,16 +204,21 @@ export = {
 }
 </code></pre>
 				<p><strong>see also <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/master/example.ts"><code>example.ts</code></a></strong></p>
-				<h3 id="sublists-and-subrecords">Sublists and Subrecords</h3>
-				<p>Use <a href="mailto:%60@FieldType.subrecord">`@FieldType.subrecord</a><code>and</code>@SublistFieldType.subrecord<code>to designate fields that
-point to NetSuite subrecords. Use them similarly to the</code>sublist` field type.</p>
+				<a href="#sublists-and-subrecords" id="sublists-and-subrecords" style="color: inherit; text-decoration: none;">
+					<h3>Sublists and Subrecords</h3>
+				</a>
+				<p>Use <code>@FieldType.subrecord</code> and <code>@SublistFieldType.subrecord</code> to designate fields that
+				point to NetSuite subrecords. Use them similarly to the <code>sublist</code> field type.</p>
 				<p>Initially we have <code>Address</code> and <code>InventoryDetail</code> subrecords defined.</p>
 				<p>This lets you work with subrecords as plain javascript objects just like the rest of
 				NSDAL. e.g.</p>
 				<pre><code>    const <span class="hljs-keyword">build </span>= new AssemblyBuild(<span class="hljs-number">123</span>)
 
     // reading the quantity <span class="hljs-meta">field</span> of the InventoryDetail <span class="hljs-keyword">body </span><span class="hljs-meta">field</span> on Assembly <span class="hljs-keyword">Build </span>record 
-    <span class="hljs-keyword">build.inventorydetail.quantity </span></code></pre><h2 id="search-helpers">Search Helpers</h2>
+    <span class="hljs-keyword">build.inventorydetail.quantity </span></code></pre>
+				<a href="#search-helpers" id="search-helpers" style="color: inherit; text-decoration: none;">
+					<h2>Search Helpers</h2>
+				</a>
 				<p><code>nsSearchResult2obj</code> turns a netsuite <code>search.Result</code> into a POJO, especially useful when chaining operations or returning
 				search results from an API. </p>
 				<pre><code class="language-typescript">
@@ -218,7 +234,9 @@ point to NetSuite subrecords. Use them similarly to the</code>sublist` field typ
 
 <span class="hljs-comment">// see inline help for more (e.g. support for column labels</span>
 </code></pre>
-				<h3 id="lazy-search">Lazy Search</h3>
+				<a href="#lazy-search" id="lazy-search" style="color: inherit; text-decoration: none;">
+					<h3>Lazy Search</h3>
+				</a>
 				<p>While <code>nsSearchResult2obj()</code> is useful on its own, we usually use it with <code>LazySearch</code>. This adds powerful and <em>lazy</em> processing of
 					search results. Here &#39;lazy&#39; means records are paged in from the search, as needed, never consuming more than 1 page
 					in memory at a time. Contrast this with <code>underscore</code> or <code>lodash</code> which create complete copies of the target collection
@@ -237,7 +255,9 @@ point to NetSuite subrecords. Use them similarly to the</code>sublist` field typ
 <span class="hljs-keyword">let</span> firstResultAsObj = Seq(LazySearch.load(<span class="hljs-string">"123"</span>)).map(nsSearchResult2obj()).first()</code></pre>
 				<p>Also see <a href="https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_search_.html">search</a> in the API documentation,
 				especially the <code>LazySearch</code> class.</p>
-				<h3 id="governance">Governance</h3>
+				<a href="#governance" id="governance" style="color: inherit; text-decoration: none;">
+					<h3>Governance</h3>
+				</a>
 				<p>The governance handler utilties can be used with any script, but most often are used with a saved search in
 				a scheduled script.</p>
 				<p>There are two functions, one for checking governance usage (<code>governanceRemains()</code>) and another which additionally
@@ -267,40 +287,66 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 })
 </code></pre>
 				<p>Also see <a href="https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_governance_.html">governance</a> API docs</p>
-				<h2 id="special-apply-sublist-support">Special &#39;apply&#39; sublist support</h2>
+				<a href="#special-39apply39-sublist-support" id="special-39apply39-sublist-support" style="color: inherit; text-decoration: none;">
+					<h2>Special &#39;apply&#39; sublist support</h2>
+				</a>
 				<p>See <code>CustomerRefundBase.findApplyLine()</code> and <code>Transaction.ts</code> for help.</p>
-				<h2 id="logging">Logging</h2>
+				<a href="#logging" id="logging" style="color: inherit; text-decoration: none;">
+					<h2>Logging</h2>
+				</a>
 				<p>NFT provides an advanced logging mechanism based on <a href="https://github.com/aurelia/logging">Aurelia&#39;s</a> logger. </p>
 				<p>It means you can have multiple loggers and control the logging verbosity of each. In other words, it&#39;s a lightweight
 				but much richer logging facility than the NetSuite provided logger.</p>
-				<h3 id="autologging">AutoLogging</h3>
+				<a href="#autologging" id="autologging" style="color: inherit; text-decoration: none;">
+					<h3>AutoLogging</h3>
+				</a>
 				<p>Automatically log entry and exit of methods with rich options by adding a line like this to the end of your script:</p>
 				<pre><code class="language-javascript">LogManager.autoLogMethodEntryExit({<span class="hljs-attr">target</span>:EC,<span class="hljs-attr">method</span>:<span class="hljs-regexp">/\w/</span>}, { <span class="hljs-attr">withProfiling</span>:<span class="hljs-literal">true</span> })</code></pre>
 				<p>The above line will automatically log all methods defined on the <em>EC</em> object/namespace</p>
 				<p>Other configuration options include automatic logging of execution time, governance usage, and other goodies.</p>
 				<p>See the jsdoc help for <code>autologMethodEntryExit()</code></p>
-				<h1 id="contributing">Contributing</h1>
+				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+					<h1>Contributing</h1>
+				</a>
 				<p>Please do.</p>
-				<h1 id="typescript">TypeScript</h1>
+				<a href="#typescript" id="typescript" style="color: inherit; text-decoration: none;">
+					<h1>TypeScript</h1>
+				</a>
 				<p>This is written with TS and is recommended. However, it can be used by javascript clients as well.</p>
 				<p>Configure tsconfig to include <code>paths</code> for NetSuite modules and NFT modules:</p>
 				<pre><code>    <span class="hljs-string">"paths"</span>: {
       <span class="hljs-string">"N/*"</span>: [
         <span class="hljs-string">"node_modules/@hitc/netsuite-types/N/*"</span>
       ]
-    }</code></pre><h2 id="netsuite-module-declarations">NetSuite Module Declarations</h2>
+    }</code></pre>
+				<a href="#netsuite-module-declarations" id="netsuite-module-declarations" style="color: inherit; text-decoration: none;">
+					<h2>NetSuite Module Declarations</h2>
+				</a>
 				<ul>
 					<li>Typescript definitions (<em>N/*.d.ts</em> files) are defined via the
 					<a href="https://www.npmjs.com/package/@hitc/netsuite-types">@hitc/netsuite-types</a> project</li>
 				</ul>
-				<h1 id="tests">Tests</h1>
+				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
+					<h1>Tests</h1>
+				</a>
 				<p>The <code>test/</code> folder is configured to use <code>ts-jest</code> to compile the sources.</p>
 				<p>to run the test suite:</p>
-				<pre><code>npm <span class="hljs-built_in">test</span></code></pre><h1 id="build-and-publish">Build and Publish</h1>
+				<pre><code>npm <span class="hljs-built_in">test</span></code></pre>
+				<a href="#for-contributors" id="for-contributors" style="color: inherit; text-decoration: none;">
+					<h1>For Contributors</h1>
+				</a>
+				<p>The following are useful if you&#39;re contributing to the codebase and publishing to NPM
+				Skip this section if you&#39;re just using NFT in your projects. </p>
+				<a href="#build-and-publish" id="build-and-publish" style="color: inherit; text-decoration: none;">
+					<h2>Build and Publish</h2>
+				</a>
 				<pre><code><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/tsc
 </span><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/gulp
 </span><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/gulp </span>declarations
-<span class="hljs-symbol">npm</span> publish</code></pre><h1 id="build-api-docs-hosted-on-github-pages-">Build API docs (hosted on Github Pages)</h1>
+<span class="hljs-symbol">npm</span> publish</code></pre>
+				<a href="#build-api-docs-hosted-on-github-pages" id="build-api-docs-hosted-on-github-pages" style="color: inherit; text-decoration: none;">
+					<h2>Build API docs (hosted on Github Pages)</h2>
+				</a>
 				<pre><code><span class="hljs-symbol">node_modules</span>/.<span class="hljs-keyword">bin/gulp </span>docs</code></pre>
 			</div>
 		</div>
@@ -311,142 +357,151 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_addressbase_.html">"<wbr>Data<wbr>Access/<wbr>Address<wbr>Base"</a>
+						<a href="modules/_dataaccess_addressbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Address<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_advancedintercompanyjournalentrybase_.html">"<wbr>Data<wbr>Access/<wbr>Advanced<wbr>Intercompany<wbr>Journal<wbr>Entry<wbr>Base"</a>
+						<a href="modules/_dataaccess_advancedintercompanyjournalentrybase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Advanced<wbr>Intercompany<wbr>Journal<wbr>Entry<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_assemblybuildbase_.html">"<wbr>Data<wbr>Access/<wbr>Assembly<wbr>Build<wbr>Base"</a>
+						<a href="modules/_dataaccess_assemblybuildbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Assembly<wbr>Build<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_assemblyitembase_.html">"<wbr>Data<wbr>Access/<wbr>Assembly<wbr>Item<wbr>Base"</a>
+						<a href="modules/_dataaccess_assemblyitembase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Assembly<wbr>Item<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_binbase_.html">"<wbr>Data<wbr>Access/<wbr>Bin<wbr>Base"</a>
+						<a href="modules/_dataaccess_binbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Bin<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_bintransferbase_.html">"<wbr>Data<wbr>Access/<wbr>Bin<wbr>Transfer<wbr>Base"</a>
+						<a href="modules/_dataaccess_bintransferbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Bin<wbr>Transfer<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_cashrefundbase_.html">"<wbr>Data<wbr>Access/<wbr>Cash<wbr>Refund<wbr>Base"</a>
+						<a href="modules/_dataaccess_cashrefundbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Cash<wbr>Refund<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_cashsalebase_.html">"<wbr>Data<wbr>Access/<wbr>Cash<wbr>Sale<wbr>Base"</a>
+						<a href="modules/_dataaccess_cashsalebase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Cash<wbr>Sale<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_creditmemobase_.html">"<wbr>Data<wbr>Access/<wbr>Credit<wbr>Memo<wbr>Base"</a>
+						<a href="modules/_dataaccess_creditmemobase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Credit<wbr>Memo<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_customerbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Base"</a>
+						<a href="modules/_dataaccess_customerbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Customer<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_customerdepositbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Deposit<wbr>Base"</a>
+						<a href="modules/_dataaccess_customerdepositbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Customer<wbr>Deposit<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_customerpaymentbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Payment<wbr>Base"</a>
+						<a href="modules/_dataaccess_customerpaymentbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Customer<wbr>Payment<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_customerrefundbase_.html">"<wbr>Data<wbr>Access/<wbr>Customer<wbr>Refund<wbr>Base"</a>
+						<a href="modules/_dataaccess_customerrefundbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Customer<wbr>Refund<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_ec_nsdal_.html">"<wbr>Data<wbr>Access/EC_<wbr>nsdal"</a>
+						<a href="modules/_dataaccess_depositapplicationbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Deposit<wbr>Application<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_emailtemplate_.html">"<wbr>Data<wbr>Access/<wbr>Email<wbr>Template"</a>
+						<a href="modules/_dataaccess_depositbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Deposit<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_entity_.html">"<wbr>Data<wbr>Access/<wbr>Entity"</a>
+						<a href="modules/_dataaccess_emailtemplate_.html">&quot;<wbr>Data<wbr>Access/<wbr>Email<wbr>Template&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_estimatebase_.html">"<wbr>Data<wbr>Access/<wbr>Estimate<wbr>Base"</a>
+						<a href="modules/_dataaccess_entity_.html">&quot;<wbr>Data<wbr>Access/<wbr>Entity&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_intercompanyjournalentrybase_.html">"<wbr>Data<wbr>Access/<wbr>Intercompany<wbr>Journal<wbr>Entry<wbr>Base"</a>
+						<a href="modules/_dataaccess_entitygroupbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Entity<wbr>Group<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_intercompanytransferorderbase_.html">"<wbr>Data<wbr>Access/<wbr>Intercompany<wbr>Transfer<wbr>Order<wbr>Base"</a>
+						<a href="modules/_dataaccess_estimatebase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Estimate<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_inventoryadjustmentbase_.html">"<wbr>Data<wbr>Access/<wbr>Inventory<wbr>Adjustment<wbr>Base"</a>
+						<a href="modules/_dataaccess_intercompanyjournalentrybase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Intercompany<wbr>Journal<wbr>Entry<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_inventorydetailbase_.html">"<wbr>Data<wbr>Access/<wbr>Inventory<wbr>Detail<wbr>Base"</a>
+						<a href="modules/_dataaccess_intercompanytransferorderbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Intercompany<wbr>Transfer<wbr>Order<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_invoicebase_.html">"<wbr>Data<wbr>Access/<wbr>Invoice<wbr>Base"</a>
+						<a href="modules/_dataaccess_inventoryadjustmentbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Inventory<wbr>Adjustment<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_itemfulfillmentbase_.html">"<wbr>Data<wbr>Access/<wbr>Item<wbr>Fulfillment<wbr>Base"</a>
+						<a href="modules/_dataaccess_inventorydetailbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Inventory<wbr>Detail<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_itemreceiptbase_.html">"<wbr>Data<wbr>Access/<wbr>Item<wbr>Receipt<wbr>Base"</a>
+						<a href="modules/_dataaccess_inventorynumberbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Inventory<wbr>Number<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_journalentrybase_.html">"<wbr>Data<wbr>Access/<wbr>Journal<wbr>Entry<wbr>Base"</a>
+						<a href="modules/_dataaccess_invoicebase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Invoice<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_opportunitybase_.html">"<wbr>Data<wbr>Access/<wbr>Opportunity<wbr>Base"</a>
+						<a href="modules/_dataaccess_itemfulfillmentbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Item<wbr>Fulfillment<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_projectbase_.html">"<wbr>Data<wbr>Access/<wbr>Project<wbr>Base"</a>
+						<a href="modules/_dataaccess_itemreceiptbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Item<wbr>Receipt<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_projecttaskbase_.html">"<wbr>Data<wbr>Access/<wbr>Project<wbr>Task<wbr>Base"</a>
+						<a href="modules/_dataaccess_journalentrybase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Journal<wbr>Entry<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_purchaseorderbase_.html">"<wbr>Data<wbr>Access/<wbr>Purchase<wbr>Order<wbr>Base"</a>
+						<a href="modules/_dataaccess_opportunitybase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Opportunity<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_record_.html">"<wbr>Data<wbr>Access/<wbr>Record"</a>
+						<a href="modules/_dataaccess_projectbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Project<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_returnauthorizationbase_.html">"<wbr>Data<wbr>Access/<wbr>Return<wbr>Authorization<wbr>Base"</a>
+						<a href="modules/_dataaccess_projecttaskbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Project<wbr>Task<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_revenuearrangementbase_.html">"<wbr>Data<wbr>Access/<wbr>Revenue<wbr>Arrangement<wbr>Base"</a>
+						<a href="modules/_dataaccess_purchaseorderbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Purchase<wbr>Order<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_revenuerecognitionplanbase_.html">"<wbr>Data<wbr>Access/<wbr>Revenue<wbr>Recognition<wbr>Plan<wbr>Base"</a>
+						<a href="modules/_dataaccess_record_.html">&quot;<wbr>Data<wbr>Access/<wbr>Record&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_salesorderbase_.html">"<wbr>Data<wbr>Access/<wbr>Sales<wbr>Order<wbr>Base"</a>
+						<a href="modules/_dataaccess_returnauthorizationbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Return<wbr>Authorization<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_sublist_.html">"<wbr>Data<wbr>Access/<wbr>Sublist"</a>
+						<a href="modules/_dataaccess_revenuearrangementbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Revenue<wbr>Arrangement<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_subsidiarybase_.html">"<wbr>Data<wbr>Access/<wbr>Subsidiary<wbr>Base"</a>
+						<a href="modules/_dataaccess_revenuerecognitionplanbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Revenue<wbr>Recognition<wbr>Plan<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_transaction_.html">"<wbr>Data<wbr>Access/<wbr>Transaction"</a>
+						<a href="modules/_dataaccess_salesorderbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Sales<wbr>Order<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_transferorderbase_.html">"<wbr>Data<wbr>Access/<wbr>Transfer<wbr>Order<wbr>Base"</a>
+						<a href="modules/_dataaccess_sublist_.html">&quot;<wbr>Data<wbr>Access/<wbr>Sublist&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_vendorbase_.html">"<wbr>Data<wbr>Access/<wbr>Vendor<wbr>Base"</a>
+						<a href="modules/_dataaccess_subsidiarybase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Subsidiary<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_vendorbillbase_.html">"<wbr>Data<wbr>Access/<wbr>Vendor<wbr>Bill<wbr>Base"</a>
+						<a href="modules/_dataaccess_transaction_.html">&quot;<wbr>Data<wbr>Access/<wbr>Transaction&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dataaccess_vendorpaymentbase_.html">"<wbr>Data<wbr>Access/<wbr>Vendor<wbr>Payment<wbr>Base"</a>
+						<a href="modules/_dataaccess_transferorderbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Transfer<wbr>Order<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_ec_logger_.html">"EC_<wbr><wbr>Logger"</a>
+						<a href="modules/_dataaccess_vendorbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Vendor<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_aop_.html">"aop"</a>
+						<a href="modules/_dataaccess_vendorbillbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Vendor<wbr>Bill<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_geography_.html">"geography"</a>
+						<a href="modules/_dataaccess_vendorpaymentbase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Vendor<wbr>Payment<wbr>Base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_governance_.html">"governance"</a>
+						<a href="modules/_ec_logger_.html">&quot;EC_<wbr><wbr>Logger&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_search_.html">"search"</a>
+						<a href="modules/_aop_.html">&quot;aop&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_geography_.html">&quot;geography&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_governance_.html">&quot;governance&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_search_.html">&quot;search&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -469,6 +524,7 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -517,7 +573,7 @@ Seq(LazySearch.load(<span class="hljs-string">"123"</span>))
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>

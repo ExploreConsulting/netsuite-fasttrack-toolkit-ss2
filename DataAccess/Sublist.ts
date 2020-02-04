@@ -10,7 +10,7 @@ import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
 import { NetsuiteCurrentRecord } from './Record'
 
-const log = LogManager.getLogger('nsdal')
+const log = LogManager.getLogger('nsdal-sublist')
 
 /*
  note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.
@@ -74,16 +74,15 @@ function getSublistValue (this: SublistLine, fieldId: string, isText: boolean) {
       sublistId: this.sublistId,
       fieldId: fieldId,
    }
-
+   log.debug(`getting sublist ${isText ? 'text' : 'value'}`, options)
    if (this.nsrecord.isDynamic) {
       this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line })
       return isText ? this.nsrecord.getCurrentSublistText(options)
          : this.nsrecord.getCurrentSublistValue(options)
    } else {
       return isText ? this.nsrecord.getSublistText({ ...options, line: this._line })
-         : this.nsrecord.getSublistValue({ ...options, line: this._line})
+         : this.nsrecord.getSublistValue({ ...options, line: this._line })
    }
-   log.debug(`getting sublist ${isText ? 'text' : 'value'}`, options)
 }
 
 /**
@@ -98,10 +97,10 @@ function defaultSublistDescriptor (target: any, propertyKey: string): any {
    const [isTextField, nsfield] = parseProp(propertyKey)
    return {
       get: function (this: SublistLine) {
-         return getSublistValue.call(this,nsfield, isTextField)
+         return getSublistValue.call(this, nsfield, isTextField)
       },
       set: function (this: SublistLine, value) {
-         setSublistValue.call(this,nsfield, value, isTextField)
+         setSublistValue.call(this, nsfield, value, isTextField)
       },
       enumerable: true //default is false
    }
@@ -120,7 +119,7 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
    return {
       get: function (this: SublistLine) {
          log.debug(`getting formatted field [${propertyKey}]`)
-         const value = getSublistValue.call(this,propertyKey, false) as string // to satisfy typing for format.parse(value) below.
+         const value = getSublistValue.call(this, propertyKey, false) as string // to satisfy typing for format.parse(value) below.
          log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`)
          // ensure we don't return moments for null, undefined, etc.
          // returns the 'raw' type which is a string or number for our purposes
@@ -152,8 +151,8 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
             }
             log.debug(`setting sublist field [${propertyKey}:${formatType}]`,
                `to formatted value [${formattedValue}] (unformatted vale: ${value})`)
-            if (value === null) setSublistValue.call(this,propertyKey, null)
-            else setSublistValue.call(this,propertyKey, formattedValue)
+            if (value === null) setSublistValue.call(this, propertyKey, null)
+            else setSublistValue.call(this, propertyKey, formattedValue)
          } else log.info(`not setting sublist ${propertyKey} field`, 'value was undefined')
       },
       enumerable: true //default is false
@@ -206,14 +205,18 @@ export class Sublist<T extends SublistLine> {
    }
 
    /**
-    * adds a new line to this sublist
-    * @param ignoreRecalc
+    * adds a new line to this sublist at the given line number.
+    * @param ignoreRecalc set true to avoid line recalc
+    * @param insertAt optionally set line # insertion point - defaults to insert at the end of the sublist. If
+    * in dynamic mode this parameter is ignored (dynamic mode uses selectNewLine()). The insertion point
+    * should be <= length of the list
     */
-   addLine (ignoreRecalc = true): T {
-      log.debug('inserting line', `sublist: ${this.sublistId} insert at line:${this.length}`)
-      let insertAt = this.length
+   addLine (ignoreRecalc = true, insertAt: number = this.length): T {
+      log.info('inserting line', `sublist: ${this.sublistId} insert at line:${insertAt}`)
+      if (insertAt > this.length) {
+         throw new Error(`insertion index (${insertAt}) cannot be greater than sublist length (${this.length})`)
+      }
       this[insertAt] = new this.sublistLineType(this.sublistId, this.nsrecord, insertAt)
-
       if (this.nsrecord.isDynamic) this.nsrecord.selectNewLine({ sublistId: this.sublistId })
       else {
          this.nsrecord.insertLine({
@@ -222,8 +225,9 @@ export class Sublist<T extends SublistLine> {
             ignoreRecalc: ignoreRecalc
          })
       }
-      log.debug('line count after adding', this.length)
-      return this[insertAt]
+      log.info('line count after adding', this.length)
+      this.rebuildArray()
+      return (this.nsrecord.isDynamic) ? this[this.length-1] : this[insertAt]
    }
 
    /**
@@ -232,14 +236,11 @@ export class Sublist<T extends SublistLine> {
     */
    removeAllLines (ignoreRecalc: boolean = true) {
       while (this.length > 0) {
-         let line = {
-            sublistId: this.sublistId,
-            ignoreRecalc: ignoreRecalc,
-            line: this.length - 1
-         }
-         this.nsrecord.removeLine(line)
-         log.debug('removed line', line)
+         const lineNum = this.length-1
+         this.removeLine(lineNum, ignoreRecalc)
+         log.debug('removed line', lineNum)
       }
+      this.rebuildArray()
       return this
    }
 
@@ -283,10 +284,31 @@ export class Sublist<T extends SublistLine> {
                 rec: record.Record, public sublistId: string) {
       this.sublistLineType = sublistLineType
       this.makeRecordProp(rec)
-      log.debug('creating sublist', `type:${sublistId}, linecount:${this.length}`)
+      this.rebuildArray()
+   }
+
+   /**
+    * removes a line at the given index. Note this causes the array to rebuild.
+    * @param line
+    * @param ignoreRecalc
+    */
+   removeLine (line: number, ignoreRecalc = false) {
+      this.nsrecord.removeLine({ line: line, sublistId: this.sublistId, ignoreRecalc: ignoreRecalc })
+      this.rebuildArray()
+   }
+
+   /**
+    * upserts the indexed props (array-like structure) This is called once at construction, but also
+    * as needed when a user dynamically inserts rows.
+    */
+   protected rebuildArray () {
+      log.info('deleting existing numeric properties')
+      Object.keys(this).filter(key => !isNaN(+key)).forEach(key => delete this[key], this)
+      log.debug('sublist after deleting properties', this)
+      log.info('building sublist', `type:${this.sublistId}, linecount:${this.length}`)
       // create a sublist line indexed property of type T for each member of the underlying sublist
       for (let i = 0; i < this.length; i++) {
-         this[i] = new sublistLineType(this.sublistId, this.nsrecord, i)
+         this[i] = new this.sublistLineType(this.sublistId, this.nsrecord, i)
       }
    }
 }

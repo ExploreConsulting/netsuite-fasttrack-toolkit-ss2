@@ -212,7 +212,7 @@ var __extends = (this && this.__extends) || (function () {
      */
     function sublistDescriptor(ctor) {
         return function (target, propertyKey) {
-            var _a = parseSublistProp(propertyKey), _ = _a[0], nssublist = _a[1];
+            var _a = parseSublistProp(propertyKey), nssublist = _a[1];
             var privateProp = "_" + nssublist;
             return {
                 enumerable: true,

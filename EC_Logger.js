@@ -12,6 +12,13 @@
  *
  * @NApiVersion 2.x
  */
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
@@ -108,7 +115,7 @@
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, [aurelia_logging_1.logLevel.debug, logger].concat(rest));
+            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.debug, logger], rest));
         };
         /**
          * Info about info
@@ -120,21 +127,21 @@
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, [aurelia_logging_1.logLevel.info, logger].concat(rest));
+            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.info, logger], rest));
         };
         ExecutionLogAppender.prototype.warn = function (logger) {
             var rest = [];
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, [aurelia_logging_1.logLevel.warn, logger].concat(rest));
+            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.warn, logger], rest));
         };
         ExecutionLogAppender.prototype.error = function (logger) {
             var rest = [];
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, [aurelia_logging_1.logLevel.error, logger].concat(rest));
+            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.error, logger], rest));
         };
         return ExecutionLogAppender;
     }());
@@ -235,9 +242,9 @@
      *
      * |Log Title   | Detail |
      * |--------|--------|
-       |Enter onRequest()| args:[] |
-       |hello world |   |
-       |Exit onRequest() | returned: undefined |
+     |Enter onRequest()| args:[] |
+     |hello world |   |
+     |Exit onRequest() | returned: undefined |
      */
     function autoLogMethodEntryExit(methodsToLogEntryExit, config) {
         if (!config)
@@ -309,17 +316,12 @@
         aurelia_logging_1.addAppender(new alc.ConsoleAppender());
         defaultLogger.debug('added console appender');
     }
-    // if we're executing client side, default to using the browser console for logging to avoid
-    // expensive network round trips to the NS execution log. aurelia-logging-console depends upon the
-    // global 'console' variable and will fail to load if it's not defined.
-    if (typeof console === 'object') {
-        var isNodeJS = typeof module === 'object';
-        // if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require()
-        if (isNodeJS)
-            addConsoleAppender(require('aurelia-logging-console'));
-        else
-            require(['./aurelia-logging-console'], addConsoleAppender);
-    }
-    else
+    // if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require(),
+    // otherwise go ahead and log to the execution log (assume server-side suitescript)
+    if (typeof module === 'object') /* nodejs */
+        addConsoleAppender(require('aurelia-logging-console'));
+    else if ((typeof console === 'object') && (typeof window === 'object') && window.alert) /* browser */
+        require(['./aurelia-logging-console'], addConsoleAppender);
+    else /* server-side SuiteScript */
         aurelia_logging_1.addAppender(new ExecutionLogAppender());
 });

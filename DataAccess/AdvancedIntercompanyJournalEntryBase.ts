@@ -111,6 +111,9 @@ export class AdvancedIntercompanyJournalEntryBase extends NetsuiteRecord {
    @FieldType.checkbox
    approved: boolean
 
+   @FieldType.select
+   approvalstatus: number
+
    @FieldType.datetime
    createddate: Date
 
