@@ -11,13 +11,14 @@
   "license": "ISC",
   "devDependencies": {
     "@types/command-exists": "^1.2.0",
-    "@types/lodash": "^4.14.136",
-    "typescript": "^3.5.3"
+    "@types/lodash": "^4.14.149",
+    "typescript": "^3.7.5"
   },
   "dependencies": {
+    "@types/node": "^13.7.0",
     "command-exists": "^1.2.8",
     "commander": "^2.20.0",
     "lodash": "^4.17.15",
-    "rxjs": "^6.5.2"
+    "rxjs": "^6.5.4"
   }
 }
