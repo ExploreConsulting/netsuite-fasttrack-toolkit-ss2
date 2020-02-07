@@ -8,11 +8,10 @@ import { bindNodeCallback, combineLatest, from, merge, Observable, of } from 'rx
 
 import { catchError, concatAll, first, map, reduce, sequenceEqual, zipAll } from 'rxjs/operators'
 import commandExists = require('command-exists')
-import { fromPromise } from 'rxjs/internal-compatibility'
-
-//import { fromPromise } from 'rxjs/internal-compatibility'
+import * as child_process from 'child_process'
 
 const stat = bindNodeCallback(fs.stat) as (arg1: PathLike) => Observable<Stats>
+const exec = bindNodeCallback(child_process.exec)
 
 async function javaExists (): Promise<boolean> {
    return await commandExists('java').then(() => true).catch(() => false)
@@ -28,51 +27,39 @@ program.option('--customrecord <sdf_file> ', 'generates a TypeScript class from 
 program.option('-o --outDir', 'directory in which to place output TypeScript files e.g. `./RecordTypes`')
 program.option('-d, --debug', 'output debug stuffs')
 
-async function f () {
-   function a (err: any, stat: any) {
-      return stat
-   }
-
-   fs.stat('FileCabinet', await a)
-}
-
 program.command('isproject')
-   .action(async (e, o) => {
 
-      console.log('java installed?', await javaExists())
-      console.log('isProject', await isProject())
-
+   .action((e, o) => {
       isSDFproject().subscribe(v => {
          console.log(`is SDF project? ${v}`)
+      }, error => {
+         console.debug('current directory is not a valid SDF project root folder')
+         console.error(error.toString())
       })
-      console.log('after isdf prject')
+   })
+
+program.command('customrecord <customRecordXmlFile>')
+   .description('create an NFT class for the given NetSuite custom record')
+   .action(customRecordXmlFile => {
+      exec(`java -jar saxon9he.jar -it -xsl:CustomRecord.xsl -s:${customRecordXmlFile} outputDir=.`)
+         .subscribe( ([error, stdout]) => {
+            console.log(stdout)
+         }, error => {
+            console.error('something went wrong')
+            console.log(error)
+
+         }, () => console.log('done.'))
    })
 
 program.parse(process.argv)
 if (program.debug) console.log(program.opts())
 
-// comparing checking if it is project directory using async/await + promise (wrap fs.stat)
-// vs
-// RxJs Observable wrapper around fs.stat
-
-// using async/await fnr promisifying fs.stat
-async function isProject () {
-   try {
-      return !!(await promisify(fs.stat)('FileCabinet')).ino
-   } catch (ex) {
-      console.log('error but continuing with empty stats', ex.toString())
-      return false
-   }
-}
-
+/**
+ * returns true IFF there is a folder named FileCabinet in the current working directory
+ */
 function isSDFproject () {
    return bindNodeCallback<PathLike, Stats>(fs.stat)('FileCabinet')
-      .pipe(
-         // // return an empty Stats rather than throwing an exception
-      //   catchError(() => of(new Stats())),
-         map(x => !!x.ino)
-      )
-
+      .pipe(map(x => !!x.ino))
 }
 
 //const result = execSync('echo \'hello world\'', { stdio: 'inherit' })
@@ -91,11 +78,11 @@ console.log('note: SDF must be configured for TBA')
 //TODO: feature - generate code for entity type record custom column fields
 //TODO: feature - generate code for other type record custom body fields
 
-const prereqsMet = merge(isProject(), isSDFproject(), fromPromise(javaExists())).pipe(
-   reduce((a, v) => a && v, true)
-)
-
-prereqsMet.subscribe(result => console.debug('were all prerequisites met?', result),
-   error => console.debug(`requirements not met due to error ${error}`))
+// const prereqsMet = merge(isProject(), isSDFproject(), fromPromise(javaExists())).pipe(
+//    reduce((a, v) => a && v, true)
+// )
+//
+// prereqsMet.subscribe(result => console.debug('were all prerequisites met?', result),
+//    error => console.debug(`requirements not met due to error ${error}`))
 
 
