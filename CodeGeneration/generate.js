@@ -24,7 +24,6 @@ function jexists() {
 }
 const program = new commander.Command();
 program.version(require('./package.json').version);
-program.option('--customrecord <sdf_file> ', 'generates a TypeScript class from a SDF custom record definition');
 program.option('-o --outDir', 'directory in which to place output TypeScript files e.g. `./RecordTypes`');
 program.option('-d, --debug', 'output debug stuffs');
 program.command('isproject')
@@ -58,7 +57,7 @@ function isSDFproject() {
         .pipe(operators_1.map(x => !!x.ino));
 }
 //const result = execSync('echo \'hello world\'', { stdio: 'inherit' })
-console.log('note: SDF must be configured for TBA');
+console.log('note: SDF must already be configured for TBA access to the desired netsuite account');
 //TODO: feature - bootstrap authentication? reuse existing SDF config? expect users to have TBA already setup? use existing .SDF?
 //TODO: feature - download all custom records
 //TODO: feature - download transaction body custom fields
