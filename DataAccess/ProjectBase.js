@@ -35,6 +35,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var record = require("N/record");
     var Sublist_1 = require("./Sublist");
     /**
+     * Rev Rec Percent Complete Override sublist
+     */
+    var PercentCompleteOverrideSublist = /** @class */ (function (_super) {
+        __extends(PercentCompleteOverrideSublist, _super);
+        function PercentCompleteOverrideSublist() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], PercentCompleteOverrideSublist.prototype, "comments", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.percent
+        ], PercentCompleteOverrideSublist.prototype, "percent", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], PercentCompleteOverrideSublist.prototype, "period", void 0);
+        return PercentCompleteOverrideSublist;
+    }(Sublist_1.SublistLine));
+    exports.PercentCompleteOverrideSublist = PercentCompleteOverrideSublist;
+    /**
      * Project resource sublist
      */
     var JobResourcesSublist = /** @class */ (function (_super) {
@@ -270,6 +290,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.sublist(JobResourcesSublist)
         ], ProjectBase.prototype, "jobresources", void 0);
+        __decorate([
+            Record_1.FieldType.sublist(PercentCompleteOverrideSublist)
+        ], ProjectBase.prototype, "percentcompleteoverride", void 0);
         return ProjectBase;
     }(Record_1.NetsuiteRecord));
     exports.ProjectBase = ProjectBase;
