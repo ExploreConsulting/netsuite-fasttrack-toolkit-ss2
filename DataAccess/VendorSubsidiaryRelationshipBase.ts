@@ -8,7 +8,7 @@ import * as record from 'N/record'
 /**
  * Vendor-Subsidiary Relationship Record Type
  */
-export class VendorSubsidiaryRelationship extends NetsuiteRecord {
+export class VendorSubsidiaryRelationshipBase extends NetsuiteRecord {
 
    static recordType = record.Type.VENDOR_SUBSIDIARY_RELATIONSHIP
    @FieldType.currency
