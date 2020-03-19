@@ -7,6 +7,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const commander = __importStar(require("commander"));
 const fs = __importStar(require("fs"));
@@ -14,8 +17,11 @@ const rxjs_1 = require("rxjs");
 const operators_1 = require("rxjs/operators");
 const commandExists = require("command-exists");
 const child_process = __importStar(require("child_process"));
+const path_1 = __importDefault(require("path"));
 const stat = rxjs_1.bindNodeCallback(fs.stat);
 const exec = rxjs_1.bindNodeCallback(child_process.exec);
+// the main saxon file shared by commands for any XSLT processing
+const jarFile = path_1.default.format({ dir: __dirname, base: 'saxon9he.jar' });
 async function javaExists() {
     return await commandExists('java').then(() => true).catch(() => false);
 }
@@ -38,7 +44,8 @@ program.command('isproject')
 program.command('customrecord <customRecordXmlFile>')
     .description('create an NFT class for the given NetSuite custom record')
     .action(customRecordXmlFile => {
-    exec(`java -jar saxon9he.jar -it -xsl:CustomRecord.xsl -s:${customRecordXmlFile} outputDir=.`)
+    const xslFile = path_1.default.format({ dir: __dirname, base: 'CustomRecord.xsl' });
+    exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${customRecordXmlFile} outputDir=.`)
         .subscribe(([error, stdout]) => {
         console.log(stdout);
     }, error => {

@@ -9,9 +9,12 @@ import { bindNodeCallback, combineLatest, from, merge, Observable, of } from 'rx
 import { catchError, concatAll, first, map, reduce, sequenceEqual, zipAll } from 'rxjs/operators'
 import commandExists = require('command-exists')
 import * as child_process from 'child_process'
+import path from 'path'
 
 const stat = bindNodeCallback(fs.stat) as (arg1: PathLike) => Observable<Stats>
 const exec = bindNodeCallback(child_process.exec)
+// the main saxon file shared by commands for any XSLT processing
+const jarFile = path.format({dir: __dirname, base:'saxon9he.jar'})
 
 async function javaExists (): Promise<boolean> {
    return await commandExists('java').then(() => true).catch(() => false)
@@ -40,7 +43,8 @@ program.command('isproject')
 program.command('customrecord <customRecordXmlFile>')
    .description('create an NFT class for the given NetSuite custom record')
    .action(customRecordXmlFile => {
-      exec(`java -jar saxon9he.jar -it -xsl:CustomRecord.xsl -s:${customRecordXmlFile} outputDir=.`)
+      const xslFile = path.format({dir: __dirname, base:'CustomRecord.xsl'})
+      exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${customRecordXmlFile} outputDir=.`)
          .subscribe( ([error, stdout]) => {
             console.log(stdout)
          }, error => {
