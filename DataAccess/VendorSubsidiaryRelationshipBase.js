@@ -36,49 +36,49 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     /**
      * Vendor-Subsidiary Relationship Record Type
      */
-    var VendorSubsidiaryRelationship = /** @class */ (function (_super) {
-        __extends(VendorSubsidiaryRelationship, _super);
-        function VendorSubsidiaryRelationship() {
+    var VendorSubsidiaryRelationshipBase = /** @class */ (function (_super) {
+        __extends(VendorSubsidiaryRelationshipBase, _super);
+        function VendorSubsidiaryRelationshipBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        VendorSubsidiaryRelationship.recordType = record.Type.VENDOR_SUBSIDIARY_RELATIONSHIP;
+        VendorSubsidiaryRelationshipBase.recordType = record.Type.VENDOR_SUBSIDIARY_RELATIONSHIP;
         __decorate([
             Record_1.FieldType.currency
-        ], VendorSubsidiaryRelationship.prototype, "balance", void 0);
+        ], VendorSubsidiaryRelationshipBase.prototype, "balance", void 0);
         __decorate([
             Record_1.FieldType.currency
-        ], VendorSubsidiaryRelationship.prototype, "balancebase", void 0);
+        ], VendorSubsidiaryRelationshipBase.prototype, "balancebase", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], VendorSubsidiaryRelationship.prototype, "basecurrency", void 0);
+        ], VendorSubsidiaryRelationshipBase.prototype, "basecurrency", void 0);
         __decorate([
             Record_1.FieldType.currency
-        ], VendorSubsidiaryRelationship.prototype, "creditlimit", void 0);
+        ], VendorSubsidiaryRelationshipBase.prototype, "creditlimit", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], VendorSubsidiaryRelationship.prototype, "entity", void 0);
+        ], VendorSubsidiaryRelationshipBase.prototype, "entity", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], VendorSubsidiaryRelationship.prototype, "externalid", void 0);
+        ], VendorSubsidiaryRelationshipBase.prototype, "externalid", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], VendorSubsidiaryRelationship.prototype, "isprimarysub", void 0);
+        ], VendorSubsidiaryRelationshipBase.prototype, "isprimarysub", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], VendorSubsidiaryRelationship.prototype, "primarycurrency", void 0);
+        ], VendorSubsidiaryRelationshipBase.prototype, "primarycurrency", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], VendorSubsidiaryRelationship.prototype, "subsidiary", void 0);
+        ], VendorSubsidiaryRelationshipBase.prototype, "subsidiary", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], VendorSubsidiaryRelationship.prototype, "taxitem", void 0);
+        ], VendorSubsidiaryRelationshipBase.prototype, "taxitem", void 0);
         __decorate([
             Record_1.FieldType.currency
-        ], VendorSubsidiaryRelationship.prototype, "unbilledorders", void 0);
+        ], VendorSubsidiaryRelationshipBase.prototype, "unbilledorders", void 0);
         __decorate([
             Record_1.FieldType.currency
-        ], VendorSubsidiaryRelationship.prototype, "unbilledordersbase", void 0);
-        return VendorSubsidiaryRelationship;
+        ], VendorSubsidiaryRelationshipBase.prototype, "unbilledordersbase", void 0);
+        return VendorSubsidiaryRelationshipBase;
     }(Record_1.NetsuiteRecord));
-    exports.VendorSubsidiaryRelationship = VendorSubsidiaryRelationship;
+    exports.VendorSubsidiaryRelationshipBase = VendorSubsidiaryRelationshipBase;
 });
