@@ -53,6 +53,18 @@ program.command('customrecord <customRecordXmlFile>')
         console.log(error);
     }, () => console.log('done.'));
 });
+program.command('custombodyfields <tranactionXmlFile>')
+    .description('create an NFT class for the given NetSuite custom record')
+    .action(customRecordXmlFile => {
+    const xslFile = path_1.default.format({ dir: __dirname, base: 'CustomRecord.xsl' });
+    exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${customRecordXmlFile} outputDir=.`)
+        .subscribe(([error, stdout]) => {
+        console.log(stdout);
+    }, error => {
+        console.error('something went wrong');
+        console.log(error);
+    }, () => console.log('done.'));
+});
 program.parse(process.argv);
 if (program.debug)
     console.log(program.opts());
