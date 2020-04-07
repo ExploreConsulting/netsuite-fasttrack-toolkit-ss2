@@ -165,9 +165,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], InvoiceBase.prototype, "handlingtaxcode", void 0);
         __decorate([
-            Record_1.FieldType.checkbox
-        ], InvoiceBase.prototype, "istaxable", void 0);
-        __decorate([
             Record_1.FieldType.select
         ], InvoiceBase.prototype, "leadsource", void 0);
         __decorate([

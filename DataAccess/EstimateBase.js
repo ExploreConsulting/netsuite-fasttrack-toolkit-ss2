@@ -129,9 +129,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], EstimateBase.prototype, "forecasttype", void 0);
         __decorate([
-            Record_1.FieldType.checkbox
-        ], EstimateBase.prototype, "istaxable", void 0);
-        __decorate([
             Record_1.FieldType.select
         ], EstimateBase.prototype, "job", void 0);
         __decorate([

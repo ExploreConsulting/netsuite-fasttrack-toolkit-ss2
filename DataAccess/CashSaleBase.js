@@ -154,9 +154,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         ], CashSaleBase.prototype, "handlingtaxcode", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], CashSaleBase.prototype, "istaxable", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
         ], CashSaleBase.prototype, "ismultishipto", void 0);
         __decorate([
             Record_1.FieldType.sublist(ItemSublist)

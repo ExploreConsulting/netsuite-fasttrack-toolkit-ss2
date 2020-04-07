@@ -89,9 +89,6 @@ export class EstimateBase extends TransactionBase {
    @FieldType.select
    forecasttype: number
 
-   @FieldType.checkbox
-   istaxable: boolean
-
    @FieldType.select
    job: number
 

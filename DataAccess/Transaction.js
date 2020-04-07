@@ -99,6 +99,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.freeformtext
         ], TransactionBase.prototype, "externalid", void 0);
         __decorate([
+            Record_1.FieldType.checkbox
+        ], TransactionBase.prototype, "istaxable", void 0);
+        __decorate([
             Record_1.FieldType.datetime
         ], TransactionBase.prototype, "lastmodifieddate", void 0);
         __decorate([

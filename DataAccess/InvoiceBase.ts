@@ -130,9 +130,6 @@ export class InvoiceBase extends TransactionBase {
    @FieldType.select
    handlingtaxcode:number
 
-   @FieldType.checkbox
-   istaxable:boolean
-
    @FieldType.select
    leadsource:number
 

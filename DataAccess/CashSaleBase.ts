@@ -123,9 +123,6 @@ export class CashSaleBase extends TransactionBase {
    handlingtaxcode:number
 
    @FieldType.checkbox
-   istaxable:boolean
-
-   @FieldType.checkbox
    ismultishipto: boolean
 
    @FieldType.sublist(ItemSublist)
