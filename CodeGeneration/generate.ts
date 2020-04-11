@@ -54,11 +54,14 @@ program.command('customrecord <customRecordXmlFile>')
          }, () => console.log('done.'))
    })
 
-program.command('custombodyfields <tranactionXmlFile>')
+program.command('custombodyfields <RecordType>')
    .description('create an NFT class for the given NetSuite custom record')
-   .action(customRecordXmlFile => {
-      const xslFile = path.format({dir: __dirname, base:'CustomRecord.xsl'})
-      exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${customRecordXmlFile} outputDir=.`)
+   .action(recordTypeName => {
+      const xslFile = path.format({dir: __dirname, base:'TransactionBodyField.xslt'})
+      const typeMappings = path.format({dir: __dirname, base:'TypeMapping.xml'})
+     // java -jar saxon9he.jar -xsl:TransactionBodyField.xslt -s:TypeMapping.xml -o:SalesOrder.ts type=SalesOrder
+
+      exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${typeMappings} -o:${recordTypeName}.ts type=${recordTypeName} outputDir=.`)
          .subscribe( ([error, stdout]) => {
             console.log(stdout)
          }, error => {
@@ -82,6 +85,8 @@ function isSDFproject () {
 
 //const result = execSync('echo \'hello world\'', { stdio: 'inherit' })
 console.log('note: SDF must already be configured for TBA access to the desired netsuite account')
+// Maybe we shouldn't do auth or downloads - the user should use either the plugin or cli to do that part
+// create a separate program to automate downloads?
 //TODO: feature - bootstrap authentication? reuse existing SDF config? expect users to have TBA already setup? use existing .SDF?
 
 //TODO: feature - download all custom records
