@@ -298,6 +298,20 @@ export class Sublist<T extends SublistLine> {
    }
 
    /**
+    * Gets the NetSuite metadata for the given sublist field. Useful when you want to do things like disable
+    * a sublist field or other operations on the field itself (rather than the field value/text)
+    * Note: this uses the first sublist line (0) when retrieving field data
+    * @param field name of the desired sublist field
+    */
+   getField(field: keyof T ) {
+      return this.nsrecord.getSublistField({
+         fieldId: field as string,
+         sublistId: this.sublistId,
+         line: 0
+      })
+   }
+
+   /**
     * upserts the indexed props (array-like structure) This is called once at construction, but also
     * as needed when a user dynamically inserts rows.
     */

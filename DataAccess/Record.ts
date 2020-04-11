@@ -78,6 +78,16 @@ export abstract class NetsuiteCurrentRecord {
       }
       return result
    }
+
+   /**
+    * Returns NetSuite field metadata. Useful for doing things like disabling a field on the form programmatically.
+    * @param field field name for which you want to retrieve the NetSuite field object
+    */
+   getField(field: keyof this) {
+      return this.nsrecord.getField({
+         fieldId: field as string
+      })
+   }
 }
 
 /**

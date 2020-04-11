@@ -27,7 +27,7 @@ describe('Sublists', function () {
       expect(sut[0].myfield).toEqual('some text')
    })
 
-   test('remove a lines in the middle', () => {
+   test('remove a line in the middle', () => {
 
       const fakeRec = record.create({ type: 'fake' })
       let lineCount = 10
@@ -176,6 +176,22 @@ describe('Sublists', function () {
                'fieldId': 'foo',
                'sublistId': 'fakesublist',
                'text': 'hello world'
+            }
+         )
+      })
+
+      test('getField()', () => {
+         const fakeRec = record.create({ type: 'fake', isDynamic:true })
+         record.getSublistField.mockReturnValue({})
+         record.getSublistText.mockReturnValue('some text')
+         record.getSublistValue.mockImplementation(() => { throw new Error() })
+
+         const sut = new Sublist<SublistWithTextField>(SublistWithTextField, fakeRec, 'fakesublist')
+         sut.getField('anotherfield')
+         expect(record.getSublistField).toBeCalledWith({
+               'fieldId': 'anotherfield',
+               'sublistId': 'fakesublist',
+               'line': 0
             }
          )
       })

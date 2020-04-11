@@ -68,7 +68,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             var sut = new Sublist_1.Sublist(MyLine, fakeRec, 'fakesublist');
             expect(sut[0].myfield).toEqual('some text');
         });
-        test('remove a lines in the middle', function () {
+        test('remove a line in the middle', function () {
             var fakeRec = record.create({ type: 'fake' });
             var lineCount = 10;
             record.getLineCount.mockImplementation(function () { return lineCount; });
@@ -177,6 +177,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 'fieldId': 'foo',
                 'sublistId': 'fakesublist',
                 'text': 'hello world'
+            });
+        });
+        test('getField()', function () {
+            var fakeRec = record.create({ type: 'fake', isDynamic: true });
+            record.getSublistField.mockReturnValue({});
+            record.getSublistText.mockReturnValue('some text');
+            record.getSublistValue.mockImplementation(function () { throw new Error(); });
+            var sut = new Sublist_1.Sublist(SublistWithTextField, fakeRec, 'fakesublist');
+            sut.getField('anotherfield');
+            expect(record.getSublistField).toBeCalledWith({
+                'fieldId': 'anotherfield',
+                'sublistId': 'fakesublist',
+                'line': 0
             });
         });
     });
