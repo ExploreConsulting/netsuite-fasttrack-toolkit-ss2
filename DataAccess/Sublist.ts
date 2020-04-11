@@ -12,6 +12,8 @@ import { NetsuiteCurrentRecord } from './Record'
 
 const log = LogManager.getLogger('nsdal-sublist')
 
+// from https://www.typescriptlang.org/v2/docs/handbook/advanced-types.html#distributive-conditional-types
+type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
 /*
  note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.
  this differs from body fields behavior - it seems body fields required the numericDescriptor (see numericDescriptor
@@ -303,7 +305,7 @@ export class Sublist<T extends SublistLine> {
     * Note: this uses the first sublist line (0) when retrieving field data
     * @param field name of the desired sublist field
     */
-   getField(field: keyof T ) {
+   getField(field: NonFunctionPropertyNames<T>) {
       return this.nsrecord.getSublistField({
          fieldId: field as string,
          sublistId: this.sublistId,
