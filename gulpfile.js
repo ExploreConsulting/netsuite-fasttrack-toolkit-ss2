@@ -79,7 +79,7 @@ gulp.task('docs', function (cb) {
    var exec = require('child_process').exec
    var options =
       exec('node_modules/.bin/typedoc --excludeExternals --exclude "*+(example.ts|IntroGuideExamples.ts)" --out docs --theme default  --excludeProtected ' +
-         '--excludePrivate --name \'NetSuite FastTrack Toolkit (NFT)\' --media media',
+         '--excludePrivate --includeVersion --name \'NetSuite FastTrack Toolkit (NFT)\' --media media',
          function (err, stdout, stderr) {
             console.log(stdout)
             console.log(stderr)
