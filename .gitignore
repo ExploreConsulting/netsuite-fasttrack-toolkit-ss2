@@ -4,3 +4,4 @@ dist
 declarations
 *.d.ts
 workspace.xml
+.idea/suiteapp
