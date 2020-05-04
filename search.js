@@ -162,7 +162,6 @@
          * the protocol says the value property is optional when 'done'
          *
          * You don't typically call this function yourself - libraries like ImmutableJS do.
-         * @returns {IteratorResult<Result | null>}
          */
         LazySearch.prototype.next = function () {
             var atEndOfPage = this.index === this.currentData.length;

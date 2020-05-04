@@ -180,7 +180,6 @@ export class LazySearch implements Iterator<search.Result | null> {
     * the protocol says the value property is optional when 'done'
     *
     * You don't typically call this function yourself - libraries like ImmutableJS do.
-    * @returns {IteratorResult<Result | null>}
     */
    next(): IteratorResult<search.Result | null> {
       const atEndOfPage = this.index === this.currentData.length
