@@ -12,6 +12,8 @@ export abstract class TransactionBase extends NetsuiteRecord {
    @FieldType.select
    customform: number
 
+
+
    @FieldType.select
    department: number
 
@@ -47,6 +49,9 @@ export abstract class TransactionBase extends NetsuiteRecord {
 
    @FieldType.freeformtext
    memo: string
+
+   @FieldType.select
+   orderstatus: number
 
    @FieldType.freeformtext
    otherrefnum: string
@@ -118,6 +123,3 @@ export abstract class TransactionBase extends NetsuiteRecord {
       } else return null
    }
 }
-
-
-
