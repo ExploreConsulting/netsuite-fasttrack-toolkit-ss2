@@ -333,7 +333,12 @@ export class Sublist<T extends SublistLine> {
       // This allows normal NSDAL object access to sublist properties even on the uncommitted line currently
       // being edited. This is most useful in client scripts e.g. on `fieldChanged()` of a fresh line.
       if (this.nsrecord.isDynamic) {
-         this[this.length] = new this.sublistLineType(this.sublistId, this.nsrecord, this.length)
+         Object.defineProperty(this, this.length, {
+            value: new this.sublistLineType(this.sublistId, this.nsrecord, this.length),
+            // mark this phantom line as non-enumerable so toJSON() doesn't try to render it and it's not really there
+            enumerable: false,
+            configurable:true // so prop can be deleted
+         })
       }
    }
 }

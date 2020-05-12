@@ -179,7 +179,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 'text': 'hello world'
             });
         });
-        test('getField()', function () {
+        test('getField() - dynamic mode', function () {
             var fakeRec = record.create({ type: 'fake', isDynamic: true });
             record.getSublistField.mockReturnValue({});
             record.getSublistText.mockReturnValue('some text');
@@ -191,6 +191,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 'sublistId': 'fakesublist',
                 'line': 0
             });
+        });
+        test('toJSON in dynamic mode', function () {
+            var fakeRec = record.create({ type: 'fake', isDynamic: true });
+            var lineCount = 1;
+            record.getLineCount.mockImplementation(function () { return lineCount; });
+            var sut = new Sublist_1.Sublist(FakeSublistLine, fakeRec, 'fakesublist');
+            // our sublist has zero _saved_ lines but since dynamic more a phantom line
+            // exists (default new line at end of sublist
+            var phantomLine = sut[1];
+            expect(phantomLine).toBeDefined();
+            // stringifying the sublist should not try to output the phantom line
+            var json = JSON.stringify(sut);
+            expect(json).not.toContainEqual("1"); // no key "1" in JSON since we only have line 0 saved
+            expect(Object.keys(sut)).not.toContainEqual("1");
         });
     });
 });
