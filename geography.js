@@ -21,6 +21,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.getCountryById = exports.countryMapping = exports.getStateById = exports.stateMapping = void 0;
     /**
      * Represents geographic states used in NetSuite. First one is blank to allow easy binding to a UI dropdown
      * Contains values for US States, Canadian Provinces, and similar for Australia, Japan, China,

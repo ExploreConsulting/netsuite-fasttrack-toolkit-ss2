@@ -218,7 +218,6 @@ export class Sublist<T extends SublistLine> {
       if (insertAt > this.length) {
          throw new Error(`insertion index (${insertAt}) cannot be greater than sublist length (${this.length})`)
       }
-      this[insertAt] = new this.sublistLineType(this.sublistId, this.nsrecord, insertAt)
       if (this.nsrecord.isDynamic) this.nsrecord.selectNewLine({ sublistId: this.sublistId })
       else {
          this.nsrecord.insertLine({
@@ -226,9 +225,9 @@ export class Sublist<T extends SublistLine> {
             line: insertAt,
             ignoreRecalc: ignoreRecalc
          })
+         this.rebuildArray()
       }
       log.info('line count after adding', this.length)
-      this.rebuildArray()
       return (this.nsrecord.isDynamic) ? this[this.length-1] : this[insertAt]
    }
 
@@ -247,11 +246,19 @@ export class Sublist<T extends SublistLine> {
    }
 
    /**
-    * commits the currently selected line on this sublist. When adding new lines you don't need to call this method
+    * commits the currently selected line on this sublist. When adding new lines in standard mode
+    * you don't need to call this method
     */
    commitLine () {
       log.debug('committing line', `sublist: ${this.sublistId}`)
       this.nsrecord.commitLine({ sublistId: this.sublistId })
+      if (this.nsrecord.isDynamic && this.nsrecord.getCurrentSublistIndex({sublistId: this.sublistId}) == this.length) {
+         const prop = Object.getOwnPropertyDescriptor(this,this.length.toString())
+            if (prop) {
+               log.debug('setting phantom line enumerable=true')
+               prop.enumerable = true
+            }
+      }
    }
 
    /**
@@ -337,6 +344,7 @@ export class Sublist<T extends SublistLine> {
             value: new this.sublistLineType(this.sublistId, this.nsrecord, this.length),
             // mark this phantom line as non-enumerable so toJSON() doesn't try to render it and it's not really there
             enumerable: false,
+            writable: true,
             configurable:true // so prop can be deleted
          })
       }

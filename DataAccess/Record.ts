@@ -64,7 +64,7 @@ export abstract class NetsuiteCurrentRecord {
             type: type,
             id: rec,
             isDynamic: isDynamic || false,
-            defaultValue: defaultValues,
+            defaultValues: defaultValues,
          }))
          this._id = this.nsrecord.id
       } else throw new Error(`invalid value for argument "rec": ${rec}. 

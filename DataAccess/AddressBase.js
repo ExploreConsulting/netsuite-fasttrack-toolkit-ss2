@@ -28,6 +28,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.AddressBase = void 0;
     var Record_1 = require("./Record");
     /**
      * The addressbook 'subrecord'. In SS2.0 this is mostly treated as a normal record object.

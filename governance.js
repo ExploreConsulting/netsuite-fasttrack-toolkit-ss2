@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.autoReschedule = exports.rescheduleIfNeeded = exports.governanceRemains = void 0;
     var runtime = require("N/runtime");
     var EC_Logger_1 = require("./EC_Logger");
     var task = require("N/task");

@@ -17,6 +17,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.LazySearch = exports.nsSearchResult2obj = void 0;
     /**
      * dummy comment for the import so TypeDoc renders the comment above this one
      */

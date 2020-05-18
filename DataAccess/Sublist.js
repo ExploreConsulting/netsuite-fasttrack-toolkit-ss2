@@ -26,6 +26,7 @@ var __assign = (this && this.__assign) || function () {
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.SublistLine = exports.Sublist = exports.subrecordDescriptor = exports.formattedSublistDescriptor = exports.SublistFieldType = void 0;
     var format = require("N/format");
     var LogManager = require("../EC_Logger");
     var log = LogManager.getLogger('nsdal-sublist');
@@ -230,7 +231,7 @@ var __assign = (this && this.__assign) || function () {
             get: function () {
                 return this.nsrecord.getLineCount({ sublistId: this.sublistId });
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**
@@ -247,7 +248,6 @@ var __assign = (this && this.__assign) || function () {
             if (insertAt > this.length) {
                 throw new Error("insertion index (" + insertAt + ") cannot be greater than sublist length (" + this.length + ")");
             }
-            this[insertAt] = new this.sublistLineType(this.sublistId, this.nsrecord, insertAt);
             if (this.nsrecord.isDynamic)
                 this.nsrecord.selectNewLine({ sublistId: this.sublistId });
             else {
@@ -256,9 +256,9 @@ var __assign = (this && this.__assign) || function () {
                     line: insertAt,
                     ignoreRecalc: ignoreRecalc
                 });
+                this.rebuildArray();
             }
             log.info('line count after adding', this.length);
-            this.rebuildArray();
             return (this.nsrecord.isDynamic) ? this[this.length - 1] : this[insertAt];
         };
         /**
@@ -276,11 +276,19 @@ var __assign = (this && this.__assign) || function () {
             return this;
         };
         /**
-         * commits the currently selected line on this sublist. When adding new lines you don't need to call this method
+         * commits the currently selected line on this sublist. When adding new lines in standard mode
+         * you don't need to call this method
          */
         Sublist.prototype.commitLine = function () {
             log.debug('committing line', "sublist: " + this.sublistId);
             this.nsrecord.commitLine({ sublistId: this.sublistId });
+            if (this.nsrecord.isDynamic && this.nsrecord.getCurrentSublistIndex({ sublistId: this.sublistId }) == this.length) {
+                var prop = Object.getOwnPropertyDescriptor(this, this.length.toString());
+                if (prop) {
+                    log.debug('setting phantom line enumerable=true');
+                    prop.enumerable = true;
+                }
+            }
         };
         /**
          * Selects the given line on this sublist
@@ -349,6 +357,7 @@ var __assign = (this && this.__assign) || function () {
                     value: new this.sublistLineType(this.sublistId, this.nsrecord, this.length),
                     // mark this phantom line as non-enumerable so toJSON() doesn't try to render it and it's not really there
                     enumerable: false,
+                    writable: true,
                     configurable: true // so prop can be deleted
                 });
             }

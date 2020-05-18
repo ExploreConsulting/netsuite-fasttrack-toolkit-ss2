@@ -28,6 +28,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Entity = void 0;
     /**
      dummy comment for TypeDoc
      */
