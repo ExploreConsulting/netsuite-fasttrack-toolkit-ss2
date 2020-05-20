@@ -121,7 +121,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             // initial linecount should be  10 from test setup
             expect(sut.length).toBe(10);
             // inserts line at the end by default
-            expect(function () { return sut.addLine(false, 22); }).toThrowError(/\(22\)/);
+            expect(function () { return sut.addLine(false, 22); }).toThrow();
         });
         test('remove all lines on an already empty sublist', function () {
             var fakeRec = record.create({ type: 'fake' });

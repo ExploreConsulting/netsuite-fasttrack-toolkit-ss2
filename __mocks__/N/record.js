@@ -9,6 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.isDynamic = exports.selectLine = exports.getSublistSubrecord = exports.getCurrentSublistSubrecord = exports.setCurrentSublistValue = exports.getCurrentSublistValue = exports.setCurrentSublistText = exports.getCurrentSublistText = exports.getSublistField = exports.getSublistFields = exports.setSublistValue = exports.setSublistText = exports.getSublistValue = exports.getSublistText = exports.findSublistLineWithValue = exports.removeLine = exports.insertLine = exports.getField = exports.getFields = exports.getLineCount = exports.load = exports.setText = exports.getText = exports.setValue = exports.getValue = exports.Type = exports.create = void 0;
     exports.create = jest.fn(function (config) {
         this.isDynamic = config.isDynamic;
         return this;

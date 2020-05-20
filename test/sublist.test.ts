@@ -99,7 +99,7 @@ describe('Sublists', function () {
       expect(sut.length).toBe(10)
 
       // inserts line at the end by default
-      expect(() => sut.addLine(false, 22)).toThrowError(/\(22\)/)
+      expect(() => sut.addLine(false, 22)).toThrow()
    })
 
    test('remove all lines on an already empty sublist', () => {
