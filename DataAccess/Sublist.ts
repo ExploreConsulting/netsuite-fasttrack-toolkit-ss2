@@ -8,6 +8,7 @@
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
+import * as error from "N/error"
 import { NetsuiteCurrentRecord } from './Record'
 
 const log = LogManager.getLogger('nsdal-sublist')
@@ -194,7 +195,6 @@ function parseProp (propertyKey: string): [boolean, string] {
  */
 export class Sublist<T extends SublistLine> {
    nsrecord: record.Record
-
    // enforce 'array like' interaction through indexers
    [i: number]: T
 
@@ -216,7 +216,10 @@ export class Sublist<T extends SublistLine> {
    addLine (ignoreRecalc = true, insertAt: number = this.length): T {
       log.info('inserting line', `sublist: ${this.sublistId} insert at line:${insertAt}`)
       if (insertAt > this.length) {
-         throw new Error(`insertion index (${insertAt}) cannot be greater than sublist length (${this.length})`)
+         throw error.create({
+            message:`insertion index (${insertAt}) cannot be greater than sublist length (${this.length})`,
+            name:'NFT_INSERT_LINE_OUT_OF_BOUNDS'
+         })
       }
       if (this.nsrecord.isDynamic) this.nsrecord.selectNewLine({ sublistId: this.sublistId })
       else {
@@ -228,7 +231,7 @@ export class Sublist<T extends SublistLine> {
          this.rebuildArray()
       }
       log.info('line count after adding', this.length)
-      return (this.nsrecord.isDynamic) ? this[this.length-1] : this[insertAt]
+      return (this.nsrecord.isDynamic) ? this[this.length] : this[insertAt]
    }
 
    /**
@@ -237,7 +240,7 @@ export class Sublist<T extends SublistLine> {
     */
    removeAllLines (ignoreRecalc: boolean = true) {
       while (this.length > 0) {
-         const lineNum = this.length-1
+         const lineNum = this.length - 1
          this.removeLine(lineNum, ignoreRecalc)
          log.debug('removed line', lineNum)
       }
@@ -250,15 +253,15 @@ export class Sublist<T extends SublistLine> {
     * you don't need to call this method
     */
    commitLine () {
-      log.debug('committing line', `sublist: ${this.sublistId}`)
-      this.nsrecord.commitLine({ sublistId: this.sublistId })
-      if (this.nsrecord.isDynamic && this.nsrecord.getCurrentSublistIndex({sublistId: this.sublistId}) == this.length) {
-         const prop = Object.getOwnPropertyDescriptor(this,this.length.toString())
-            if (prop) {
-               log.debug('setting phantom line enumerable=true')
-               prop.enumerable = true
-            }
+      if (!this.nsrecord.isDynamic) {
+         throw error.create({
+            message:'do not call commitLine() on records in standard mode, commitLine() is only needed in dynamic mode',
+            name:'NFT_COMMITLINE_BUT_NOT_DYNAMIC_MODE_RECORD'
+         })
       }
+      log.info('committing line', `sublist: ${this.sublistId}`)
+      this.nsrecord.commitLine({ sublistId: this.sublistId })
+      this.rebuildArray()
    }
 
    /**
@@ -312,7 +315,7 @@ export class Sublist<T extends SublistLine> {
     * Note: this uses the first sublist line (0) when retrieving field data
     * @param field name of the desired sublist field
     */
-   getField(field: NonFunctionPropertyNames<T>) {
+   getField (field: NonFunctionPropertyNames<T>) {
       return this.nsrecord.getSublistField({
          fieldId: field as string,
          sublistId: this.sublistId,
@@ -326,7 +329,7 @@ export class Sublist<T extends SublistLine> {
     */
    protected rebuildArray () {
       log.info('deleting existing numeric properties')
-      Object.keys(this).filter(key => !isNaN(+key)).forEach(key => delete this[key], this)
+      Object.getOwnPropertyNames(this).filter(key => !isNaN(+key)).forEach(key => delete this[key], this)
       log.debug('sublist after deleting properties', this)
       log.info('building sublist', `type:${this.sublistId}, linecount:${this.length}`)
       // create a sublist line indexed property of type T for each member of the underlying sublist
@@ -342,10 +345,10 @@ export class Sublist<T extends SublistLine> {
       if (this.nsrecord.isDynamic) {
          Object.defineProperty(this, this.length, {
             value: new this.sublistLineType(this.sublistId, this.nsrecord, this.length),
-            // mark this phantom line as non-enumerable so toJSON() doesn't try to render it and it's not really there
+            // mark this phantom line as non-enumerable so toJSON() doesn't try to render it as it's not really there
             enumerable: false,
             writable: true,
-            configurable:true // so prop can be deleted
+            configurable: true // so prop can be deleted
          })
       }
    }
