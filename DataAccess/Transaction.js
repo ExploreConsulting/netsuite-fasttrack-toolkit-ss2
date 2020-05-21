@@ -79,6 +79,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 return null;
         };
         __decorate([
+            Record_1.FieldType.datetime
+        ], TransactionBase.prototype, "createddate", void 0);
+        __decorate([
             Record_1.FieldType.select
         ], TransactionBase.prototype, "customform", void 0);
         __decorate([

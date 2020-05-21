@@ -55,9 +55,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], InventoryAdjustmentBase.prototype, "class", void 0);
         __decorate([
-            Record_1.FieldType.datetime
-        ], InventoryAdjustmentBase.prototype, "createddate", void 0);
-        __decorate([
             Record_1.FieldType.select
         ], InventoryAdjustmentBase.prototype, "customer", void 0);
         __decorate([

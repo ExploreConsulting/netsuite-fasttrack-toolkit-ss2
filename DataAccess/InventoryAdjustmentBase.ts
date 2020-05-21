@@ -22,9 +22,6 @@ export class InventoryAdjustmentBase extends TransactionBase {
    @FieldType.select
    "class":number
 
-   @FieldType.datetime
-   createddate:Date
-
    @FieldType.select
    customer:number
 

@@ -98,7 +98,7 @@ export class ExpCostSublist extends SublistLine {
    memo: string
 
    @SublistFieldType.currency
-   originalamount:number | string
+   originalamount: number | string
 
    @SublistFieldType.date
    revrecenddate: Date
@@ -188,7 +188,7 @@ export class ItemCostSublist extends SublistLine {
    revrecstartdate: Date
 
    @SublistFieldType.textarea
-   serialnumbers:string
+   serialnumbers: string
 
    @SublistFieldType.freeformtext
    taxable: string
@@ -208,7 +208,6 @@ export class ItemCostSublist extends SublistLine {
    @SublistFieldType.freeformtext
    url: string
 }
-
 
 /**
  * NetSuite Invoice Record
@@ -266,16 +265,55 @@ export class InvoiceBase extends TransactionBase {
    billzip: string
 
    @FieldType.select
+   billingaccount: number
+
+   @FieldType.checkbox
+   canhavestackable: boolean
+
+   @FieldType.select
+   class: number
+
+   @FieldType.select
+   couponcode: number
+
+   @FieldType.select
+   createdfrom: number
+
+   @FieldType.select
    currency: number
+
+   @FieldType.freeformtext
+   currencyname: string
+
+   @FieldType.freeformtext
+   currencysymbol: string
 
    @FieldType.currency
    discountamount: number
 
+   @FieldType.select
+   discountitem: number
+
    @FieldType.date
    discountdate: Date
 
+   @FieldType.freeformtext
+   discountrate: number | string
+
+   @FieldType.freeformtext
+   discounttotal: number | string
+
    @FieldType.date
    duedate: Date
+
+   @FieldType.date
+   enddate: Date
+
+   @FieldType.select
+   entitynexus: number
+
+   @FieldType.checkbox
+   excludecommission: boolean
 
    @FieldType.freeformtext
    fob: string
@@ -292,14 +330,53 @@ export class InvoiceBase extends TransactionBase {
    @FieldType.select
    leadsource: number
 
+   @FieldType.textarea
+   message: string
+
+   @FieldType.select
+   messagesel: number
+
    @FieldType.freeformtext
    linkedtrackingnumbers: string
 
    @FieldType.select
+   opportunity: number
+
+   @FieldType.select
+   partner: number
+
+   @FieldType.select
    promocode: number
+
+   @FieldType.checkbox
+   recurringbill: boolean
+
+   @FieldType.date
+   saleseffectivedate: Date
+
+   @FieldType.select
+   salesgroup: number
 
    @FieldType.subrecord(AddressBase)
    shippingaddress: AddressBase
+
+   @FieldType.date
+   shipdate: Date
+
+   @FieldType.select
+   shipmethod: number
+
+   @FieldType.freeformtext
+   shipoverride: string
+
+   @FieldType.select
+   taxitem: number
+
+   @FieldType.float
+   taxrate: number | string
+
+   @FieldType.checkbox
+   taxregoverride: boolean
 
    @FieldType.checkbox
    tobeemailed: boolean
@@ -316,11 +393,14 @@ export class InvoiceBase extends TransactionBase {
    @FieldType.currency
    subtotal: number
 
-   @FieldType.select
-   taxitem: number
-
    @FieldType.freeformtext
    trackingnumbers: string
+
+   @FieldType.checkbox
+   tranisvsoebundle: boolean
+
+   @FieldType.checkbox
+   vsoeautocalc: boolean
 
    @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>

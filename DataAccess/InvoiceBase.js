@@ -312,16 +312,55 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         ], InvoiceBase.prototype, "billzip", void 0);
         __decorate([
             Record_1.FieldType.select
+        ], InvoiceBase.prototype, "billingaccount", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], InvoiceBase.prototype, "canhavestackable", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], InvoiceBase.prototype, "class", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], InvoiceBase.prototype, "couponcode", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], InvoiceBase.prototype, "createdfrom", void 0);
+        __decorate([
+            Record_1.FieldType.select
         ], InvoiceBase.prototype, "currency", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], InvoiceBase.prototype, "currencyname", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], InvoiceBase.prototype, "currencysymbol", void 0);
         __decorate([
             Record_1.FieldType.currency
         ], InvoiceBase.prototype, "discountamount", void 0);
         __decorate([
+            Record_1.FieldType.select
+        ], InvoiceBase.prototype, "discountitem", void 0);
+        __decorate([
             Record_1.FieldType.date
         ], InvoiceBase.prototype, "discountdate", void 0);
         __decorate([
+            Record_1.FieldType.freeformtext
+        ], InvoiceBase.prototype, "discountrate", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], InvoiceBase.prototype, "discounttotal", void 0);
+        __decorate([
             Record_1.FieldType.date
         ], InvoiceBase.prototype, "duedate", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], InvoiceBase.prototype, "enddate", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], InvoiceBase.prototype, "entitynexus", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], InvoiceBase.prototype, "excludecommission", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
         ], InvoiceBase.prototype, "fob", void 0);
@@ -338,14 +377,53 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], InvoiceBase.prototype, "leadsource", void 0);
         __decorate([
+            Record_1.FieldType.textarea
+        ], InvoiceBase.prototype, "message", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], InvoiceBase.prototype, "messagesel", void 0);
+        __decorate([
             Record_1.FieldType.freeformtext
         ], InvoiceBase.prototype, "linkedtrackingnumbers", void 0);
         __decorate([
             Record_1.FieldType.select
+        ], InvoiceBase.prototype, "opportunity", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], InvoiceBase.prototype, "partner", void 0);
+        __decorate([
+            Record_1.FieldType.select
         ], InvoiceBase.prototype, "promocode", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], InvoiceBase.prototype, "recurringbill", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], InvoiceBase.prototype, "saleseffectivedate", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], InvoiceBase.prototype, "salesgroup", void 0);
         __decorate([
             Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
         ], InvoiceBase.prototype, "shippingaddress", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], InvoiceBase.prototype, "shipdate", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], InvoiceBase.prototype, "shipmethod", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], InvoiceBase.prototype, "shipoverride", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], InvoiceBase.prototype, "taxitem", void 0);
+        __decorate([
+            Record_1.FieldType.float
+        ], InvoiceBase.prototype, "taxrate", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], InvoiceBase.prototype, "taxregoverride", void 0);
         __decorate([
             Record_1.FieldType.checkbox
         ], InvoiceBase.prototype, "tobeemailed", void 0);
@@ -362,11 +440,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.currency
         ], InvoiceBase.prototype, "subtotal", void 0);
         __decorate([
-            Record_1.FieldType.select
-        ], InvoiceBase.prototype, "taxitem", void 0);
-        __decorate([
             Record_1.FieldType.freeformtext
         ], InvoiceBase.prototype, "trackingnumbers", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], InvoiceBase.prototype, "tranisvsoebundle", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], InvoiceBase.prototype, "vsoeautocalc", void 0);
         __decorate([
             Record_1.FieldType.sublist(ItemSublist)
         ], InvoiceBase.prototype, "item", void 0);

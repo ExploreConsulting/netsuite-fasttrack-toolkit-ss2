@@ -9,6 +9,9 @@ import { FieldType, NetsuiteRecord } from './Record'
  */
 export abstract class TransactionBase extends NetsuiteRecord {
 
+   @FieldType.datetime
+   createddate: Date
+
    @FieldType.select
    customform: number
 
