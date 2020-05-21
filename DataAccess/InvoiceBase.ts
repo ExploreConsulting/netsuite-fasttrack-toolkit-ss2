@@ -14,46 +14,199 @@ import { AddressBase } from './AddressBase'
 export class ItemSublist extends SublistLine {
 
    @SublistFieldType.freeformtext
-   account:string
+   account: string
 
    @SublistFieldType.currency
-   amount:number
+   amount: number
 
    @SublistFieldType.textarea
-   description:string
+   description: string
 
    @SublistFieldType.checkbox
-   istaxable:boolean
+   istaxable: boolean
 
    @SublistFieldType.select
-   item:number
+   item: number
 
    @SublistFieldType.integernumber
-   linenumber:number
+   linenumber: number
 
    @SublistFieldType.select
-   price:number
+   price: number
 
    @SublistFieldType.float
-   quantity:number
+   quantity: number
 
    @SublistFieldType.float
-   rate:number
+   rate: number
 
    @SublistFieldType.date
-   revrecstartdate:Date
+   revrecstartdate: Date
 
    @SublistFieldType.date
-   revrecenddate:Date
+   revrecenddate: Date
 
    @SublistFieldType.select
-   taxcode:number
+   taxcode: number
 
    @SublistFieldType.percent
-   taxrate1:number
+   taxrate1: number
 
    @SublistFieldType.select
-   units:number
+   units: number
+}
+
+/**
+ * The Billable Expenses (expcost) sublist fields
+ */
+export class ExpCostSublist extends SublistLine {
+
+   @SublistFieldType.freeformtext
+   amortizationperiod: string
+
+   @SublistFieldType.freeformtext
+   amortizationtype: string
+
+   @SublistFieldType.currency
+   amount: number | string
+
+   @SublistFieldType.checkbox
+   apply: boolean
+
+   @SublistFieldType.date
+   billeddate: Date
+
+   @SublistFieldType.freeformtext
+   category: string
+
+   @SublistFieldType.select
+   doc: number
+
+   @SublistFieldType.freeformtext
+   employee: string
+
+   @SublistFieldType.freeformtext
+   job: string
+
+   @SublistFieldType.integernumber
+   line: number
+
+   @SublistFieldType.select
+   location: number
+
+   @SublistFieldType.textarea
+   memo: string
+
+   @SublistFieldType.currency
+   originalamount:number | string
+
+   @SublistFieldType.date
+   revrecenddate: Date
+
+   @SublistFieldType.select
+   revrecschedule: number
+
+   @SublistFieldType.date
+   revrecstartdate: Date
+
+   @SublistFieldType.freeformtext
+   taxable: string
+
+   @SublistFieldType.select
+   taxcode: number
+
+   @SublistFieldType.percent
+   taxrate1: string | number
+
+   @SublistFieldType.checkbox
+   isbillable?: boolean
+
+   @SublistFieldType.freeformtext
+   url: string
+}
+
+/**
+ * The Billable Items (itemcost) sublist fields
+ */
+export class ItemCostSublist extends SublistLine {
+
+   @SublistFieldType.freeformtext
+   amortizationperiod: string
+
+   @SublistFieldType.freeformtext
+   amortizationtype: string
+
+   @SublistFieldType.currency
+   amount: number | string
+
+   @SublistFieldType.checkbox
+   apply: boolean
+
+   @SublistFieldType.date
+   billeddate: Date
+
+   @SublistFieldType.textarea
+   binnumbers: string
+
+   @SublistFieldType.currency
+   cost: number | string
+
+   @SublistFieldType.select
+   doc: number
+
+   @SublistFieldType.select
+   item: number
+
+   @SublistFieldType.freeformtext
+   itemcostcount: string
+
+   @SublistFieldType.freeformtext
+   job: string
+
+   @SublistFieldType.integernumber
+   line: number
+
+   @SublistFieldType.select
+   location: number
+
+   @SublistFieldType.freeformtext
+   memo: string
+
+   @SublistFieldType.freeformtext
+   options: string
+
+   @SublistFieldType.freeformtext
+   rateschedule: string
+
+   @SublistFieldType.date
+   revrecenddate: Date
+
+   @SublistFieldType.select
+   revrecschedule: number
+
+   @SublistFieldType.date
+   revrecstartdate: Date
+
+   @SublistFieldType.textarea
+   serialnumbers:string
+
+   @SublistFieldType.freeformtext
+   taxable: string
+
+   @SublistFieldType.select
+   taxcode: number
+
+   @SublistFieldType.percent
+   taxrate1: string | number
+
+   @SublistFieldType.freeformtext
+   unit: string
+
+   @SublistFieldType.checkbox
+   isbillable?: boolean
+
+   @SublistFieldType.freeformtext
+   url: string
 }
 
 
@@ -65,106 +218,118 @@ export class InvoiceBase extends TransactionBase {
    static recordType = record.Type.INVOICE
 
    @FieldType.select
-   account:number
+   account: number
 
    @FieldType.currency
-   amountpaid:number
+   althandlingcost: string | number
 
    @FieldType.currency
-   amountremaining:number
+   altshippingcost: string | number
+
+   @FieldType.currency
+   amountpaid: number
+
+   @FieldType.currency
+   amountremaining: number
 
    @FieldType.select
-   approvalstatus:number
+   approvalstatus: number
 
    @FieldType.currency
-   balance:number
+   balance: number
 
    @FieldType.subrecord(AddressBase)
    billingaddress: AddressBase
 
    @FieldType.freeformtext
-   billaddr1:string
-
-   @FieldType.freeformtext
-   billaddr2:string
-
-   @FieldType.freeformtext
-   billaddr3:string
-
-   @FieldType.freeformtext
-   billphone:string
-
-   @FieldType.freeformtext
-   billstate:string
-
-   @FieldType.freeformtext
-   billzip:string
-
-   @FieldType.freeformtext
-   billaddress:string
+   billaddress: string
 
    @FieldType.select
-   currency:number
+   billaddresslist: number
+
+   @FieldType.freeformtext
+   billaddr1: string
+
+   @FieldType.freeformtext
+   billaddr2: string
+
+   @FieldType.freeformtext
+   billaddr3: string
+
+   @FieldType.freeformtext
+   billphone: string
+
+   @FieldType.freeformtext
+   billstate: string
+
+   @FieldType.freeformtext
+   billzip: string
 
    @FieldType.select
-   customform:number
+   currency: number
 
    @FieldType.currency
-   discountamount:number
+   discountamount: number
 
    @FieldType.date
-   discountdate:Date
+   discountdate: Date
 
    @FieldType.date
-   duedate:Date
+   duedate: Date
 
    @FieldType.freeformtext
-   fob:string
+   fob: string
 
    @FieldType.currency
-   giftcertapplied:number
+   giftcertapplied: number
 
    @FieldType.currency
-   handlingcost:number
+   handlingcost: number
 
    @FieldType.select
-   handlingtaxcode:number
+   handlingtaxcode: number
 
    @FieldType.select
-   leadsource:number
+   leadsource: number
 
    @FieldType.freeformtext
-   linkedtrackingnumbers:string
+   linkedtrackingnumbers: string
 
    @FieldType.select
-   promocode:number
+   promocode: number
 
    @FieldType.subrecord(AddressBase)
    shippingaddress: AddressBase
 
    @FieldType.checkbox
-   tobeemailed:boolean
+   tobeemailed: boolean
 
    @FieldType.checkbox
-   tobeprinted:boolean
+   tobeprinted: boolean
 
    @FieldType.checkbox
-   tobefaxed:boolean
+   tobefaxed: boolean
 
    @FieldType.currency
-   total:number
+   total: number
 
    @FieldType.currency
-   subtotal:number
+   subtotal: number
 
    @FieldType.select
-   taxitem:number
+   taxitem: number
 
    @FieldType.freeformtext
-   trackingnumbers:string
+   trackingnumbers: string
 
    @FieldType.sublist(ItemSublist)
-   item : Sublist<ItemSublist>
+   item: Sublist<ItemSublist>
+
+   @FieldType.sublist(ExpCostSublist)
+   expcost: Sublist<ExpCostSublist>
+
+   @FieldType.sublist(ItemCostSublist)
+   itemcost: Sublist<ItemCostSublist>
 }
 
 

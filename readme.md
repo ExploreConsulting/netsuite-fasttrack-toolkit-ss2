@@ -1,4 +1,3 @@
-[![Gitter](https://badges.gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2.svg)](https://gitter.im/ExploreConsulting/netsuite-fasttrack-toolkit-ss2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 NFT (NetSuite Fasttrack Toolkit)
 ==============================================
@@ -46,10 +45,13 @@ This creates a folder structure mirroring what you have in NetSuite so you can u
 
 
 ## NetSuite Data Access Layer (NSDAL)
-NSDAL is a variation of the Active Record pattern for working with NetSuite records. 
+NSDAL is a variation of the Active Record pattern for working with NetSuite records. It removes boilerplate code and simplifies 
+access to NetSuite body fields, sublists, and even subrecords; all reduced to simple objects and properties familiar
+to all javascript developers. 
 
-Native SuiteScript 2.0 requires method calls and passing ‘config’ objects to access data.
-NSDAL uses regular javascript objects with properties, so you work with it the same way as any other javascript code.
+Behind the scenes, NSDAL is a thin wrapper eliminating boilerplate code (e.g. `getValue({fieldId:'foo'}`. 
+It still calls all the normal NetSuite APIs.
+
 
 NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields. 
 Otherwise you derive your own class and add custom fields as shown in the code example that follows.
