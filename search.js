@@ -17,6 +17,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.LazySearch = exports.nsSearchResult2obj = void 0;
     /**
      * dummy comment for the import so TypeDoc renders the comment above this one
      */
@@ -162,7 +163,6 @@
          * the protocol says the value property is optional when 'done'
          *
          * You don't typically call this function yourself - libraries like ImmutableJS do.
-         * @returns {IteratorResult<Result | null>}
          */
         LazySearch.prototype.next = function () {
             var atEndOfPage = this.index === this.currentData.length;

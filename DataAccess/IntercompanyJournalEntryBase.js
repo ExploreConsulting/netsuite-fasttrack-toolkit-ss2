@@ -31,6 +31,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.IntercompanyJournalEntryBase = exports.LineSublist = void 0;
     var record = require("N/record");
     var JournalEntryBase_1 = require("./JournalEntryBase");
     var Sublist_1 = require("./Sublist");

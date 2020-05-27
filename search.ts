@@ -24,7 +24,7 @@ export type ObjectWithId<T> = T & { id: string }
  * precedence over these values, so don't use `id` or `recordType` as your custom column label if you want the
  * native SearchResult property values to be used.
  */
-export type BaseSearchResult<T> = ObjectWithId<T> & { recordType:string }
+export type BaseSearchResult<T> = ObjectWithId<T> & { recordType:string | search.Type }
 
 /**
  * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to `map()`
@@ -180,7 +180,6 @@ export class LazySearch implements Iterator<search.Result | null> {
     * the protocol says the value property is optional when 'done'
     *
     * You don't typically call this function yourself - libraries like ImmutableJS do.
-    * @returns {IteratorResult<Result | null>}
     */
    next(): IteratorResult<search.Result | null> {
       const atEndOfPage = this.index === this.currentData.length

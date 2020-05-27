@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="TypeScriptCompiler">
+    <option name="enableServiceForProjectsWithoutConfig" value="false" />
     <option name="recompileOnChanges" value="true" />
-    <option name="showAllErrors" value="true" />
-    <option name="typeScriptCompilerParams" value="--build" />
-    <option name="typeScriptServiceDirectory" value="$PROJECT_DIR$/CodeGeneration/node_modules/typescript" />
-    <option name="versionType" value="SERVICE_DIRECTORY" />
   </component>
 </project>

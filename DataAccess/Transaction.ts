@@ -36,6 +36,9 @@ export abstract class TransactionBase extends NetsuiteRecord {
    @FieldType.freeformtext
    externalid: string
 
+   @FieldType.checkbox
+   istaxable: boolean
+
    @FieldType.datetime
    lastmodifieddate: Date
 

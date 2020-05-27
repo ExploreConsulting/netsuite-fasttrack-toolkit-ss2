@@ -28,13 +28,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.AddressBase = void 0;
     var Record_1 = require("./Record");
     /**
-     * The addressbook 'subrecord'. In SS2.0 this is mostly treated as a normal record object.
-     * However I caution against trying to create new instances of it, only passing an existing record
-     * to the constructor. For example, on the customer record you can get an address sublist record
-     * with Record.getSublistSubrecord() then pass the returned record to the Address constructor.
-     * Currently this has only been tested for read access to aqddress properties defined below.
+     * The addressbook 'subrecord'. In SS2.x this is mostly treated as a normal record object but you can't
+     * create or load one from scratch. Typically just reference this type on the appropriate address subrecord
+     * property. For example,
+     *
+     * @example - an NSDAL Customer instance can refer to the first address's subrecord simply as:
+     *
+     * customer.addressbook[0].addressbookaddress.addr1
+     *
+     *
+     * @example - defining custom addressbook subrecord fields.
+    
+     ```typescript
+    
+     // define custom fields on address subrecord (optional)
+      export class MyCustomAddressClass extends AddressBase {
+             // ... define custom address subrecord fields here
+        }
+    
+      // tell the customer address sublist to use our custom subrecord class
+      export class MyAddressSublist extends CustomerAddressSublist {
+           @SublistFieldType.subrecord(MyCustomAddressClass)
+          addressbookaddress: MyCustomAddressClass
+       }
+     ```
      */
     var AddressBase = /** @class */ (function (_super) {
         __extends(AddressBase, _super);

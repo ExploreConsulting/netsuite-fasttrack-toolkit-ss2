@@ -28,6 +28,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.DepositApplicationBase = void 0;
     var Record_1 = require("./Record");
     var Sublist_1 = require("./Sublist");
     var Transaction_1 = require("./Transaction");

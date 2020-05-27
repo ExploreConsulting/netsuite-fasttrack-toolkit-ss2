@@ -27,7 +27,7 @@ describe('Sublists', function () {
       expect(sut[0].myfield).toEqual('some text')
    })
 
-   test('remove a lines in the middle', () => {
+   test('remove a line in the middle', () => {
 
       const fakeRec = record.create({ type: 'fake' })
       let lineCount = 10
@@ -99,7 +99,7 @@ describe('Sublists', function () {
       expect(sut.length).toBe(10)
 
       // inserts line at the end by default
-      expect(() => sut.addLine(false, 22)).toThrowError(/\(22\)/)
+      expect(() => sut.addLine(false, 22)).toThrow()
    })
 
    test('remove all lines on an already empty sublist', () => {
@@ -178,5 +178,37 @@ describe('Sublists', function () {
                'text': 'hello world'
             }
          )
+      })
+
+      test('getField() - dynamic mode', () => {
+         const fakeRec = record.create({ type: 'fake', isDynamic:true })
+         record.getSublistField.mockReturnValue({})
+         record.getSublistText.mockReturnValue('some text')
+         record.getSublistValue.mockImplementation(() => { throw new Error() })
+
+         const sut = new Sublist<SublistWithTextField>(SublistWithTextField, fakeRec, 'fakesublist')
+         sut.getField('anotherfield')
+         expect(record.getSublistField).toBeCalledWith({
+               'fieldId': 'anotherfield',
+               'sublistId': 'fakesublist',
+               'line': 0
+            }
+         )
+      })
+
+      test('toJSON in dynamic mode', () =>{
+         const fakeRec = record.create({ type: 'fake', isDynamic:true })
+         let lineCount = 1
+         record.getLineCount.mockImplementation(() => lineCount)
+
+         const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
+         // our sublist has zero _saved_ lines but since dynamic more a phantom line
+         // exists (default new line at end of sublist
+         const phantomLine = sut[1]
+         expect(phantomLine).toBeDefined()
+         // stringifying the sublist should not try to output the phantom line
+         const json = JSON.stringify(sut)
+         expect(json).not.toContainEqual<string>("1") // no key "1" in JSON since we only have line 0 saved
+         expect(Object.keys(sut)).not.toContainEqual<string>("1")
       })
 })

@@ -31,6 +31,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.RevenueArrangementBase = exports.RevenueElementSublist = void 0;
     // dummy comment for tsdoc
     var Record_1 = require("./Record");
     var Sublist_1 = require("./Sublist");

@@ -21,13 +21,15 @@ var __assign = (this && this.__assign) || function () {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/format", "../EC_Logger"], factory);
+        define(["require", "exports", "N/format", "../EC_Logger", "N/error"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.SublistLine = exports.Sublist = exports.subrecordDescriptor = exports.formattedSublistDescriptor = exports.SublistFieldType = void 0;
     var format = require("N/format");
     var LogManager = require("../EC_Logger");
+    var error = require("N/error");
     var log = LogManager.getLogger('nsdal-sublist');
     /*
      note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.
@@ -230,7 +232,7 @@ var __assign = (this && this.__assign) || function () {
             get: function () {
                 return this.nsrecord.getLineCount({ sublistId: this.sublistId });
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**
@@ -245,9 +247,11 @@ var __assign = (this && this.__assign) || function () {
             if (insertAt === void 0) { insertAt = this.length; }
             log.info('inserting line', "sublist: " + this.sublistId + " insert at line:" + insertAt);
             if (insertAt > this.length) {
-                throw new Error("insertion index (" + insertAt + ") cannot be greater than sublist length (" + this.length + ")");
+                throw error.create({
+                    message: "insertion index (" + insertAt + ") cannot be greater than sublist length (" + this.length + ")",
+                    name: 'NFT_INSERT_LINE_OUT_OF_BOUNDS'
+                });
             }
-            this[insertAt] = new this.sublistLineType(this.sublistId, this.nsrecord, insertAt);
             if (this.nsrecord.isDynamic)
                 this.nsrecord.selectNewLine({ sublistId: this.sublistId });
             else {
@@ -256,10 +260,10 @@ var __assign = (this && this.__assign) || function () {
                     line: insertAt,
                     ignoreRecalc: ignoreRecalc
                 });
+                this.rebuildArray();
             }
             log.info('line count after adding', this.length);
-            this.rebuildArray();
-            return (this.nsrecord.isDynamic) ? this[this.length - 1] : this[insertAt];
+            return (this.nsrecord.isDynamic) ? this[this.length] : this[insertAt];
         };
         /**
          * Removes all existing lines of this sublist, leaving effectively an empty array
@@ -276,11 +280,19 @@ var __assign = (this && this.__assign) || function () {
             return this;
         };
         /**
-         * commits the currently selected line on this sublist. When adding new lines you don't need to call this method
+         * commits the currently selected line on this sublist. When adding new lines in standard mode
+         * you don't need to call this method
          */
         Sublist.prototype.commitLine = function () {
-            log.debug('committing line', "sublist: " + this.sublistId);
+            if (!this.nsrecord.isDynamic) {
+                throw error.create({
+                    message: 'do not call commitLine() on records in standard mode, commitLine() is only needed in dynamic mode',
+                    name: 'NFT_COMMITLINE_BUT_NOT_DYNAMIC_MODE_RECORD'
+                });
+            }
+            log.info('committing line', "sublist: " + this.sublistId);
             this.nsrecord.commitLine({ sublistId: this.sublistId });
+            this.rebuildArray();
         };
         /**
          * Selects the given line on this sublist
@@ -312,18 +324,46 @@ var __assign = (this && this.__assign) || function () {
             this.rebuildArray();
         };
         /**
+         * Gets the NetSuite metadata for the given sublist field. Useful when you want to do things like disable
+         * a sublist field or other operations on the field itself (rather than the field value/text)
+         * Note: this uses the first sublist line (0) when retrieving field data
+         * @param field name of the desired sublist field
+         */
+        Sublist.prototype.getField = function (field) {
+            return this.nsrecord.getSublistField({
+                fieldId: field,
+                sublistId: this.sublistId,
+                line: 0
+            });
+        };
+        /**
          * upserts the indexed props (array-like structure) This is called once at construction, but also
          * as needed when a user dynamically inserts rows.
          */
         Sublist.prototype.rebuildArray = function () {
             var _this = this;
             log.info('deleting existing numeric properties');
-            Object.keys(this).filter(function (key) { return !isNaN(+key); }).forEach(function (key) { return delete _this[key]; }, this);
+            Object.getOwnPropertyNames(this).filter(function (key) { return !isNaN(+key); }).forEach(function (key) { return delete _this[key]; }, this);
             log.debug('sublist after deleting properties', this);
             log.info('building sublist', "type:" + this.sublistId + ", linecount:" + this.length);
             // create a sublist line indexed property of type T for each member of the underlying sublist
             for (var i = 0; i < this.length; i++) {
                 this[i] = new this.sublistLineType(this.sublistId, this.nsrecord, i);
+            }
+            // if dynamic mode we always have an additional ready-to-fill out line at the end of the list,
+            // but note that `this.length` does not include this line because it's not committed. This mirrors the
+            // actual behavior NetSuite shows - e.g. in dynamic mode, native getLineCount() returns zero until the first
+            // line is actually committed.
+            // This allows normal NSDAL object access to sublist properties even on the uncommitted line currently
+            // being edited. This is most useful in client scripts e.g. on `fieldChanged()` of a fresh line.
+            if (this.nsrecord.isDynamic) {
+                Object.defineProperty(this, this.length, {
+                    value: new this.sublistLineType(this.sublistId, this.nsrecord, this.length),
+                    // mark this phantom line as non-enumerable so toJSON() doesn't try to render it as it's not really there
+                    enumerable: false,
+                    writable: true,
+                    configurable: true // so prop can be deleted
+                });
             }
         };
         return Sublist;

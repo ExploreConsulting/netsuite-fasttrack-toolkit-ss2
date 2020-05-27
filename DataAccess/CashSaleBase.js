@@ -31,6 +31,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.CashSaleBase = exports.ItemSublist = void 0;
     var Sublist_1 = require("./Sublist");
     var record = require("N/record");
     var Transaction_1 = require("./Transaction");
@@ -152,9 +153,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.select
         ], CashSaleBase.prototype, "handlingtaxcode", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], CashSaleBase.prototype, "istaxable", void 0);
         __decorate([
             Record_1.FieldType.checkbox
         ], CashSaleBase.prototype, "ismultishipto", void 0);

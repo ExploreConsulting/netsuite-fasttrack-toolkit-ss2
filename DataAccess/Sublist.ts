@@ -8,10 +8,13 @@
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
+import * as error from "N/error"
 import { NetsuiteCurrentRecord } from './Record'
 
 const log = LogManager.getLogger('nsdal-sublist')
 
+// from https://www.typescriptlang.org/v2/docs/handbook/advanced-types.html#distributive-conditional-types
+type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
 /*
  note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.
  this differs from body fields behavior - it seems body fields required the numericDescriptor (see numericDescriptor
@@ -192,7 +195,6 @@ function parseProp (propertyKey: string): [boolean, string] {
  */
 export class Sublist<T extends SublistLine> {
    nsrecord: record.Record
-
    // enforce 'array like' interaction through indexers
    [i: number]: T
 
@@ -214,9 +216,11 @@ export class Sublist<T extends SublistLine> {
    addLine (ignoreRecalc = true, insertAt: number = this.length): T {
       log.info('inserting line', `sublist: ${this.sublistId} insert at line:${insertAt}`)
       if (insertAt > this.length) {
-         throw new Error(`insertion index (${insertAt}) cannot be greater than sublist length (${this.length})`)
+         throw error.create({
+            message:`insertion index (${insertAt}) cannot be greater than sublist length (${this.length})`,
+            name:'NFT_INSERT_LINE_OUT_OF_BOUNDS'
+         })
       }
-      this[insertAt] = new this.sublistLineType(this.sublistId, this.nsrecord, insertAt)
       if (this.nsrecord.isDynamic) this.nsrecord.selectNewLine({ sublistId: this.sublistId })
       else {
          this.nsrecord.insertLine({
@@ -224,10 +228,10 @@ export class Sublist<T extends SublistLine> {
             line: insertAt,
             ignoreRecalc: ignoreRecalc
          })
+         this.rebuildArray()
       }
       log.info('line count after adding', this.length)
-      this.rebuildArray()
-      return (this.nsrecord.isDynamic) ? this[this.length-1] : this[insertAt]
+      return (this.nsrecord.isDynamic) ? this[this.length] : this[insertAt]
    }
 
    /**
@@ -236,7 +240,7 @@ export class Sublist<T extends SublistLine> {
     */
    removeAllLines (ignoreRecalc: boolean = true) {
       while (this.length > 0) {
-         const lineNum = this.length-1
+         const lineNum = this.length - 1
          this.removeLine(lineNum, ignoreRecalc)
          log.debug('removed line', lineNum)
       }
@@ -245,11 +249,19 @@ export class Sublist<T extends SublistLine> {
    }
 
    /**
-    * commits the currently selected line on this sublist. When adding new lines you don't need to call this method
+    * commits the currently selected line on this sublist. When adding new lines in standard mode
+    * you don't need to call this method
     */
    commitLine () {
-      log.debug('committing line', `sublist: ${this.sublistId}`)
+      if (!this.nsrecord.isDynamic) {
+         throw error.create({
+            message:'do not call commitLine() on records in standard mode, commitLine() is only needed in dynamic mode',
+            name:'NFT_COMMITLINE_BUT_NOT_DYNAMIC_MODE_RECORD'
+         })
+      }
+      log.info('committing line', `sublist: ${this.sublistId}`)
       this.nsrecord.commitLine({ sublistId: this.sublistId })
+      this.rebuildArray()
    }
 
    /**
@@ -298,17 +310,46 @@ export class Sublist<T extends SublistLine> {
    }
 
    /**
+    * Gets the NetSuite metadata for the given sublist field. Useful when you want to do things like disable
+    * a sublist field or other operations on the field itself (rather than the field value/text)
+    * Note: this uses the first sublist line (0) when retrieving field data
+    * @param field name of the desired sublist field
+    */
+   getField (field: NonFunctionPropertyNames<T>) {
+      return this.nsrecord.getSublistField({
+         fieldId: field as string,
+         sublistId: this.sublistId,
+         line: 0
+      })
+   }
+
+   /**
     * upserts the indexed props (array-like structure) This is called once at construction, but also
     * as needed when a user dynamically inserts rows.
     */
    protected rebuildArray () {
       log.info('deleting existing numeric properties')
-      Object.keys(this).filter(key => !isNaN(+key)).forEach(key => delete this[key], this)
+      Object.getOwnPropertyNames(this).filter(key => !isNaN(+key)).forEach(key => delete this[key], this)
       log.debug('sublist after deleting properties', this)
       log.info('building sublist', `type:${this.sublistId}, linecount:${this.length}`)
       // create a sublist line indexed property of type T for each member of the underlying sublist
       for (let i = 0; i < this.length; i++) {
          this[i] = new this.sublistLineType(this.sublistId, this.nsrecord, i)
+      }
+      // if dynamic mode we always have an additional ready-to-fill out line at the end of the list,
+      // but note that `this.length` does not include this line because it's not committed. This mirrors the
+      // actual behavior NetSuite shows - e.g. in dynamic mode, native getLineCount() returns zero until the first
+      // line is actually committed.
+      // This allows normal NSDAL object access to sublist properties even on the uncommitted line currently
+      // being edited. This is most useful in client scripts e.g. on `fieldChanged()` of a fresh line.
+      if (this.nsrecord.isDynamic) {
+         Object.defineProperty(this, this.length, {
+            value: new this.sublistLineType(this.sublistId, this.nsrecord, this.length),
+            // mark this phantom line as non-enumerable so toJSON() doesn't try to render it as it's not really there
+            enumerable: false,
+            writable: true,
+            configurable: true // so prop can be deleted
+         })
       }
    }
 }

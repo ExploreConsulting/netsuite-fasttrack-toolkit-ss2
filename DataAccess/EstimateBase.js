@@ -31,6 +31,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.EstimateBase = exports.ItemSublist = void 0;
     var Record_1 = require("./Record");
     var Transaction_1 = require("./Transaction");
     var record = require("N/record");
@@ -128,9 +129,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.select
         ], EstimateBase.prototype, "forecasttype", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], EstimateBase.prototype, "istaxable", void 0);
         __decorate([
             Record_1.FieldType.select
         ], EstimateBase.prototype, "job", void 0);

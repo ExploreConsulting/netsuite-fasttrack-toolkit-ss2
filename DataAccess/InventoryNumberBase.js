@@ -28,6 +28,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.InventoryNumber = void 0;
     /**
      * NetSuite Serial Number (Inventory Number) Record Type
      */

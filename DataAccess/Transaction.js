@@ -31,6 +31,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.TransactionBase = void 0;
     var Record_1 = require("./Record");
     /**
      * Fields common to all transactions in NS
@@ -98,6 +99,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.freeformtext
         ], TransactionBase.prototype, "externalid", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], TransactionBase.prototype, "istaxable", void 0);
         __decorate([
             Record_1.FieldType.datetime
         ], TransactionBase.prototype, "lastmodifieddate", void 0);

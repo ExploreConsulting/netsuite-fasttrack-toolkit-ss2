@@ -9,7 +9,8 @@ import * as LogManager from '../EC_Logger'
 import { Sublist, SublistLine } from './Sublist'
 
 const log = LogManager.getLogger('nsdal')
-
+// from https://www.typescriptlang.org/v2/docs/handbook/advanced-types.html#distributive-conditional-types
+type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
 /**
  * Since the netsuite defined 'CurrentRecord' type has almost all the same operations as the normal 'Record'
  * we use this as our base class
@@ -63,7 +64,7 @@ export abstract class NetsuiteCurrentRecord {
             type: type,
             id: rec,
             isDynamic: isDynamic || false,
-            defaultValue: defaultValues,
+            defaultValues: defaultValues,
          }))
          this._id = this.nsrecord.id
       } else throw new Error(`invalid value for argument "rec": ${rec}. 
@@ -77,6 +78,16 @@ export abstract class NetsuiteCurrentRecord {
          result[key] = this[key]
       }
       return result
+   }
+
+   /**
+    * Returns NetSuite field metadata. Useful for doing things like disabling a field on the form programmatically.
+    * @param field field name for which you want to retrieve the NetSuite field object
+    */
+   getField(field: NonFunctionPropertyNames<this>) {
+      return this.nsrecord.getField({
+         fieldId: field as string
+      })
    }
 }
 

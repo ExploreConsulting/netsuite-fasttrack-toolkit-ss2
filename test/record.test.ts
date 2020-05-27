@@ -32,6 +32,33 @@ describe('Record base tests', function () {
 
    })
 
+   test('getField() success', () => {
+      const fakeRec = record.create({type: 'fake'})
+      record.getField.mockReturnValue({})
+
+      // this was a bug - a field with any of the characters in 'Text' got ALL such characters trimmed
+      // hence a field named 'foot' would be retrieved as 'foo' which was wrong.
+      class A extends NetsuiteRecord {
+         @FieldType.select
+         foot:number
+
+         @FieldType.select
+         footText:string
+      }
+
+      const sut = new A(fakeRec)
+
+      // when you start typing a string here, you should get intellisense on field names
+      // in our class A, we should see 'foot' and 'footText' in intellisense completion
+      sut.getField('foot')
+
+      expect(record.getField).toBeCalledWith({
+         fieldId:'foot'
+      })
+      expect(record.getField).toBeCalledTimes(1)
+
+   })
+
    test('special *Sublist convention', function () {
 
       class FakeSublist extends SublistLine {
@@ -42,7 +69,7 @@ describe('Record base tests', function () {
       class A extends NetsuiteRecord {
          @FieldType.select
          foot:number
-
+         // in the event that a record body field has the same name as a sublist, you can append "Sublist"
          @FieldType.sublist(FakeSublist)
          footSublist:Sublist<FakeSublist>
       }

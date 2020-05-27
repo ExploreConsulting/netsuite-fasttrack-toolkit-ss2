@@ -26,6 +26,7 @@ var __extends = (this && this.__extends) || (function () {
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.FieldType = exports.numericDescriptor = exports.defaultDescriptor = exports.NetsuiteRecord = exports.NetsuiteCurrentRecord = void 0;
     var record = require("N/record");
     var format = require("N/format");
     var LogManager = require("../EC_Logger");
@@ -65,7 +66,7 @@ var __extends = (this && this.__extends) || (function () {
                     type: type,
                     id: rec,
                     isDynamic: isDynamic || false,
-                    defaultValue: defaultValues,
+                    defaultValues: defaultValues,
                 }));
                 this._id = this.nsrecord.id;
             }
@@ -76,7 +77,7 @@ var __extends = (this && this.__extends) || (function () {
             get: function () {
                 return this._id;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         NetsuiteCurrentRecord.prototype.toJSON = function () {
@@ -86,6 +87,15 @@ var __extends = (this && this.__extends) || (function () {
                 result[key] = this[key];
             }
             return result;
+        };
+        /**
+         * Returns NetSuite field metadata. Useful for doing things like disabling a field on the form programmatically.
+         * @param field field name for which you want to retrieve the NetSuite field object
+         */
+        NetsuiteCurrentRecord.prototype.getField = function (field) {
+            return this.nsrecord.getField({
+                fieldId: field
+            });
         };
         return NetsuiteCurrentRecord;
     }());

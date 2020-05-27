@@ -106,6 +106,12 @@
     });
     describe('ImmutableJS behavior', function () {
         test('indirect toString() of Seq causes eager eval', function () {
+            if (process.version > 'v10') {
+                // this behavior seems to be fixed in newer versions of node because they
+                // changed the default depth for object serialization on console
+                // e.g. https://github.com/nodejs/node/pull/24326
+                return;
+            }
             var alwaysTrue = jest.fn(function (val) {
                 console.log("alwaysTrue called with value " + val);
                 return true;

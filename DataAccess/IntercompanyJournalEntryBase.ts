@@ -16,7 +16,7 @@ export class LineSublist extends JeLineSublist {
      * the line-level subsidiary - this is a difference between normal journal entry and intercompany JE
      */
    @SublistFieldType.select
-   linesubsidiary:number
+   linesubsidiary?:number
 }
 
 /**

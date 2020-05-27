@@ -30,6 +30,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.setCorrelationId = exports.DefaultLogger = exports.autoLogMethodEntryExit = exports.ExecutionLogAppender = exports.setIncludeCorrelationId = exports.includeCorrelationId = exports.correlationId = void 0;
     /**
      * dummy comment for TypeDoc
      */
@@ -38,17 +39,17 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     var runtime = require("N/runtime");
     var aop = require("./aop");
     var aurelia_logging_2 = require("./aurelia-logging");
-    exports.logLevel = aurelia_logging_2.logLevel;
-    exports.Logger = aurelia_logging_2.Logger;
-    exports.getAppenders = aurelia_logging_2.getAppenders;
-    exports.clearAppenders = aurelia_logging_2.clearAppenders;
-    exports.addAppender = aurelia_logging_2.addAppender;
-    exports.getLogger = aurelia_logging_2.getLogger;
-    exports.removeAppender = aurelia_logging_2.removeAppender;
-    exports.addCustomLevel = aurelia_logging_2.addCustomLevel;
-    exports.getLevel = aurelia_logging_2.getLevel;
-    exports.setLevel = aurelia_logging_2.setLevel;
-    exports.removeCustomLevel = aurelia_logging_2.removeCustomLevel;
+    Object.defineProperty(exports, "logLevel", { enumerable: true, get: function () { return aurelia_logging_2.logLevel; } });
+    Object.defineProperty(exports, "Logger", { enumerable: true, get: function () { return aurelia_logging_2.Logger; } });
+    Object.defineProperty(exports, "getAppenders", { enumerable: true, get: function () { return aurelia_logging_2.getAppenders; } });
+    Object.defineProperty(exports, "clearAppenders", { enumerable: true, get: function () { return aurelia_logging_2.clearAppenders; } });
+    Object.defineProperty(exports, "addAppender", { enumerable: true, get: function () { return aurelia_logging_2.addAppender; } });
+    Object.defineProperty(exports, "getLogger", { enumerable: true, get: function () { return aurelia_logging_2.getLogger; } });
+    Object.defineProperty(exports, "removeAppender", { enumerable: true, get: function () { return aurelia_logging_2.removeAppender; } });
+    Object.defineProperty(exports, "addCustomLevel", { enumerable: true, get: function () { return aurelia_logging_2.addCustomLevel; } });
+    Object.defineProperty(exports, "getLevel", { enumerable: true, get: function () { return aurelia_logging_2.getLevel; } });
+    Object.defineProperty(exports, "setLevel", { enumerable: true, get: function () { return aurelia_logging_2.setLevel; } });
+    Object.defineProperty(exports, "removeCustomLevel", { enumerable: true, get: function () { return aurelia_logging_2.removeCustomLevel; } });
     /**
      * Value to be prepended to each log message title. Defaults to a random 4 digit integer
      */
