@@ -76,8 +76,8 @@ var __assign = (this && this.__assign) || function () {
             };
             if (this.nsrecord.isDynamic) {
                 this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
-                isText ? this.nsrecord.setCurrentSublistText(__assign(__assign({}, options), { text: value }))
-                    : this.nsrecord.setCurrentSublistValue(__assign(__assign({}, options), { value: value }));
+                isText ? this.nsrecord.setCurrentSublistText(__assign(__assign({}, options), { ignoreFieldChange: this.ignoreFieldChange, text: value }))
+                    : this.nsrecord.setCurrentSublistValue(__assign(__assign({}, options), { ignoreFieldChange: this.ignoreFieldChange, value: value }));
             }
             else {
                 isText ? this.nsrecord.setSublistText(__assign(__assign({}, options), { line: this._line, text: value }))
@@ -370,7 +370,7 @@ var __assign = (this && this.__assign) || function () {
     }());
     exports.Sublist = Sublist;
     /**
-     * contains minimum requirements for a sublist line - 1. which sublist are we working with, 2. on which record
+     * Base class for a sublist line. Encapsulates - 1. which sublist are we working with, 2. on which record
      * 3. which line on the sublist does this instance represent
      *
      * You extend from this class (or a pre-existing subclass) to define the fields to surface on the NetSuite sublist.
@@ -399,6 +399,7 @@ var __assign = (this && this.__assign) || function () {
         function SublistLine(sublistId, rec, _line) {
             this.sublistId = sublistId;
             this._line = _line;
+            this.ignoreFieldChange = false;
             this.makeRecordProp(rec);
             Object.defineProperty(this, 'sublistId', { enumerable: false });
             Object.defineProperty(this, '_line', { enumerable: false });
@@ -415,7 +416,15 @@ var __assign = (this && this.__assign) || function () {
             });
         };
         /**
-         * Gets the a subrecord, handling both dynamic/standard mode sublists
+         * Gets the subrecord for the given field name, handling both dynamic and standard mode.
+         *
+         * Normally you don't call this method directly. Instead, simply define a property
+         * on your sublist class matching the field name for the subrecord and decorate it as a subrecord.
+         * e.g.
+         * ```
+         * @FieldType.subrecord(AddressBase)
+         * billingaddress: AddressBase
+         * ```
          * @param fieldId the field that points to the subrecord
          */
         SublistLine.prototype.getSubRecord = function (fieldId) {
