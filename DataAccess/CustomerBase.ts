@@ -183,6 +183,9 @@ export class CustomerBase extends NetsuiteRecord {
    phone: string
 
    @FieldType.select
+   pricelevel: number
+   
+   @FieldType.select
    salesrep: number
 
    @FieldType.select

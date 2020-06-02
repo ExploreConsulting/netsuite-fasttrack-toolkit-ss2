@@ -14,10 +14,13 @@ import { AddressBase } from './AddressBase'
 export class ItemSublist extends SublistLine {
    @SublistFieldType.select
    item: number
+
    @SublistFieldType.integernumber
    quantity: number
+
    @SublistFieldType.currency
    amount: number
+
    @SublistFieldType.currency
    rate: number
 }
@@ -46,6 +49,13 @@ export class ExpenseSublist extends SublistLine {
 
    @SublistFieldType.select
    location: number
+
+   /**
+    * Memo
+    * Enter a memo that will appear on such reports as the 2-line Accounts Payable Register.
+    */
+   @SublistFieldType.freeformtext
+   memo: string
 }
 
 /**
@@ -63,6 +73,3 @@ export class VendorBillBase extends TransactionBase {
    @FieldType.sublist(ExpenseSublist)
    expense: Sublist<ExpenseSublist>
 }
-
-
-
