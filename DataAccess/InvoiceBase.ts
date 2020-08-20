@@ -106,9 +106,6 @@ export class InvoiceBase extends TransactionBase {
    @FieldType.select
    currency:number
 
-   @FieldType.select
-   customform:number
-
    @FieldType.currency
    discountamount:number
 

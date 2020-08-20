@@ -1,6 +1,3 @@
-/**
- * NetSuite generic Transaction record
- */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -159,14 +156,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
         ], SalesOrderBase.prototype, "billingaddress", void 0);
         __decorate([
-            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
-        ], SalesOrderBase.prototype, "shippingaddress", void 0);
-        __decorate([
             Record_1.FieldType.sublist(ItemSublist)
         ], SalesOrderBase.prototype, "item", void 0);
         __decorate([
+            Record_1.FieldType.select
+        ], SalesOrderBase.prototype, "paymentmethod", void 0);
+        __decorate([
             Record_1.FieldType.sublist(SalesTeamSublist)
         ], SalesOrderBase.prototype, "salesteam", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], SalesOrderBase.prototype, "shipmethod", void 0);
+        __decorate([
+            Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
+        ], SalesOrderBase.prototype, "shippingaddress", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], SalesOrderBase.prototype, "shippingcost", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], SalesOrderBase.prototype, "terms", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], SalesOrderBase.prototype, "total", void 0);
         return SalesOrderBase;
     }(Transaction_1.TransactionBase));
     exports.SalesOrderBase = SalesOrderBase;

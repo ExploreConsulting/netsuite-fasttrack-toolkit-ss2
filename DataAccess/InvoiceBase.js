@@ -142,9 +142,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], InvoiceBase.prototype, "currency", void 0);
         __decorate([
-            Record_1.FieldType.select
-        ], InvoiceBase.prototype, "customform", void 0);
-        __decorate([
             Record_1.FieldType.currency
         ], InvoiceBase.prototype, "discountamount", void 0);
         __decorate([

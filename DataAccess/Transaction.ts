@@ -9,10 +9,11 @@ import { FieldType, NetsuiteRecord } from './Record'
  */
 export abstract class TransactionBase extends NetsuiteRecord {
 
+   @FieldType.datetime
+   createddate: Date
+
    @FieldType.select
    customform: number
-
-
 
    @FieldType.select
    department: number
@@ -88,6 +89,7 @@ export abstract class TransactionBase extends NetsuiteRecord {
     * locates line on the 'apply' sublist that corresponds to the passed related record internal id
     * expose this method in derived classes that need dynamic access to the apply sublist
     * returns undefined
+    * @deprecated - dynamic access to the apply sublist should generally work using normal collection oriented means
     */
    protected findApplyLine (docId: number): { apply: boolean, amount: number, line: number } | null {
       let rec = this.nsrecord
