@@ -210,6 +210,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         ], CustomerBase.prototype, "phone", void 0);
         __decorate([
             Record_1.FieldType.select
+        ], CustomerBase.prototype, "pricelevel", void 0);
+        __decorate([
+            Record_1.FieldType.select
         ], CustomerBase.prototype, "salesrep", void 0);
         __decorate([
             Record_1.FieldType.select

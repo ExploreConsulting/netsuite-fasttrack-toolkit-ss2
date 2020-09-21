@@ -45,6 +45,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
          * locates line on the 'apply' sublist that corresponds to the passed related record internal id
          * expose this method in derived classes that need dynamic access to the apply sublist
          * returns undefined
+         * @deprecated - dynamic access to the apply sublist should generally work using normal collection oriented means
          */
         TransactionBase.prototype.findApplyLine = function (docId) {
             var rec = this.nsrecord;
@@ -114,6 +115,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.freeformtext
         ], TransactionBase.prototype, "memo", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], TransactionBase.prototype, "orderstatus", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
         ], TransactionBase.prototype, "otherrefnum", void 0);

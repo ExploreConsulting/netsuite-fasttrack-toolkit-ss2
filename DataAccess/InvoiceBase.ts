@@ -393,6 +393,9 @@ export class InvoiceBase extends TransactionBase {
    @FieldType.currency
    subtotal: number
 
+   @FieldType.select
+   taxitem:number
+
    @FieldType.freeformtext
    trackingnumbers: string
 
