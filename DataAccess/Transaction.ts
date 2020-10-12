@@ -5,9 +5,13 @@
 import { FieldType, NetsuiteRecord } from './Record'
 
 /**
- * Fields common to all transactions in NS
+ * Fields common to all transactions in NS, and is the share base class for bundled DataAccess transaction types.
+ * Note that when using this base class, pass an existing native NS record object to the constructor.
+ * Attempting to create a new instance of this class from scratch or load an existing transaction by internal id
+ * will fail (since the record type cannot be ambiguous in those cases).
+ *
  */
-export abstract class TransactionBase extends NetsuiteRecord {
+export class TransactionBase extends  NetsuiteRecord {
 
    @FieldType.datetime
    createddate: Date

@@ -7,14 +7,16 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "../__mocks__/N/record", "lodash", "../DataAccess/CustomerBase"], factory);
+        define(["require", "exports", "../__mocks__/N/record", "lodash", "../DataAccess/Transaction", "../DataAccess/CustomerBase", "../DataAccess/SalesOrderBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var mockrecord = require("../__mocks__/N/record");
     var _ = require("lodash");
+    var Transaction_1 = require("../DataAccess/Transaction");
     var cust = require("../DataAccess/CustomerBase");
+    var SalesOrderBase_1 = require("../DataAccess/SalesOrderBase");
     describe('instantiation', function () {
         test('new record from scratch', function () {
             var c = new cust.CustomerBase();
@@ -24,7 +26,7 @@
             expect(mockrecord.create.mock.calls.length).toBe(1);
             // should not have called load
             expect(mockrecord.load.mock.calls.length).toBe(0);
-            console.log(_.toPlainObject(c));
+            // console.log(_.toPlainObject(c))
         });
         test('with STRING internal id', function () {
             var c = new cust.CustomerBase('123');
@@ -52,6 +54,28 @@
         test('invalid STRING internal id', function () {
             expect(function () { return new cust.CustomerBase('hello world'); })
                 .toThrowError();
+        });
+        test('TransactionBase from existing record', function () {
+            var t = new Transaction_1.TransactionBase(mockrecord.create({ type: 'foo' }));
+            expect(t).toBeTruthy();
+            expect(t).toHaveProperty('otherrefnum');
+            // should not call load since we already have a record
+            expect(mockrecord.load.mock.calls.length).toBe(0);
+            // console.log(_.toPlainObject(t))
+            // console.log(t.nsrecord.type)
+        });
+        test('TransactionBase cannot instantiate from scratch', function () {
+            var t = new Transaction_1.TransactionBase();
+            // there is no record type on TransactionBase, so won't work
+            expect(Transaction_1.TransactionBase).not.toHaveProperty('recordType');
+            // to contrast above, all _concrete_ record types do (must) have a recordType defined.
+            // note that due to mocking N/record.Type enumeration the property will exist but be `undefined`
+            expect(SalesOrderBase_1.SalesOrderBase).toHaveProperty('recordType');
+        });
+        test('TransactionBase cannot instantiate from internalid', function () {
+            var t = new Transaction_1.TransactionBase(1234);
+            // there is no record type on TransactionBase, so won't work
+            expect(Transaction_1.TransactionBase).not.toHaveProperty('recordType');
         });
     });
     describe('body field access', function () {

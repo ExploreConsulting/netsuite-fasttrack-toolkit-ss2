@@ -4,8 +4,9 @@
 
 import * as mockrecord from '../__mocks__/N/record'
 import * as _ from 'lodash'
-
+import {TransactionBase} from '../DataAccess/Transaction'
 import * as cust from '../DataAccess/CustomerBase'
+import { SalesOrderBase } from '../DataAccess/SalesOrderBase'
 
 describe('instantiation', function () {
    test('new record from scratch', function () {
@@ -18,7 +19,7 @@ describe('instantiation', function () {
       // should not have called load
       expect(mockrecord.load.mock.calls.length).toBe(0)
 
-      console.log(_.toPlainObject(c))
+     // console.log(_.toPlainObject(c))
    })
 
    test('with STRING internal id', function () {
@@ -60,6 +61,32 @@ describe('instantiation', function () {
 
       expect(() => new cust.CustomerBase('hello world'))
          .toThrowError()
+   })
+
+   test('TransactionBase from existing record', function () {
+      const t = new TransactionBase(mockrecord.create({type: 'foo'}))
+      expect(t).toBeTruthy()
+      expect(t).toHaveProperty('otherrefnum')
+      // should not call load since we already have a record
+      expect(mockrecord.load.mock.calls.length).toBe(0)
+      // console.log(_.toPlainObject(t))
+      // console.log(t.nsrecord.type)
+   })
+
+   test('TransactionBase cannot instantiate from scratch', function () {
+      const t = new TransactionBase()
+      // there is no record type on TransactionBase, so won't work
+      expect(TransactionBase).not.toHaveProperty('recordType')
+
+      // to contrast above, all _concrete_ record types do (must) have a recordType defined.
+      // note that due to mocking N/record.Type enumeration the property will exist but be `undefined`
+      expect(SalesOrderBase).toHaveProperty('recordType')
+   })
+
+   test('TransactionBase cannot instantiate from internalid', function () {
+      const t = new TransactionBase(1234)
+      // there is no record type on TransactionBase, so won't work
+      expect(TransactionBase).not.toHaveProperty('recordType')
    })
 
 })
