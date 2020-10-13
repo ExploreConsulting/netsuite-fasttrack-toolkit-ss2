@@ -190,6 +190,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.sublist(ExpenseSublist)
         ], CheckBase.prototype, "expense", void 0);
+        __decorate([
+            Record_1.FieldType.sublist(ItemSublist)
+        ], CheckBase.prototype, "item", void 0);
         return CheckBase;
     }(Transaction_1.TransactionBase));
     exports.CheckBase = CheckBase;

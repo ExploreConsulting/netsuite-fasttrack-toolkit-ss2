@@ -148,4 +148,7 @@ export class CheckBase extends TransactionBase {
 
    @FieldType.sublist(ExpenseSublist)
    expense: Sublist<ExpenseSublist>
+
+   @FieldType.sublist(ItemSublist)
+   item: Sublist<ItemSublist>
 }
