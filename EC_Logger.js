@@ -30,7 +30,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.setCorrelationId = exports.DefaultLogger = exports.autoLogMethodEntryExit = exports.ExecutionLogAppender = exports.setIncludeCorrelationId = exports.includeCorrelationId = exports.correlationId = void 0;
+    exports.setCorrelationId = exports.DefaultLogger = exports.autoLogMethodEntryExit = exports.ExecutionLogAppender = exports.setIncludeCorrelationId = exports.includeCorrelationId = exports.correlationId = exports.removeCustomLevel = exports.setLevel = exports.getLevel = exports.addCustomLevel = exports.removeAppender = exports.getLogger = exports.addAppender = exports.clearAppenders = exports.getAppenders = exports.Logger = exports.logLevel = void 0;
     /**
      * dummy comment for TypeDoc
      */
@@ -76,7 +76,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
      * 1234> Another log title from the same run of the script
      * 5683> Log message from a subsequent execution of the script
      */
-    exports.setIncludeCorrelationId = function (enable) { return exports.includeCorrelationId = enable; };
+    var setIncludeCorrelationId = function (enable) { return exports.includeCorrelationId = enable; };
+    exports.setIncludeCorrelationId = setIncludeCorrelationId;
     // internal function to invoke the ns log function and handles adding a title tag
     function log(loglevel, logger) {
         var rest = [];
@@ -307,7 +308,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
      * Use to set the correlation id to a value other than the default random number
      * @param value new correlation id, will be used on all subsequent log messages for the current script execution
      */
-    exports.setCorrelationId = function (value) { return exports.correlationId = value; };
+    var setCorrelationId = function (value) { return exports.correlationId = value; };
+    exports.setCorrelationId = setCorrelationId;
     /**
      * Adds the passed aurelia logging console (browser/node) appender with diagnostic logging
      * @param alc the aurelia-logging-console module

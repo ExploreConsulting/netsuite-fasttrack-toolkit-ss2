@@ -340,13 +340,14 @@
      * Retrieves the state object for the given internal id else null
      * @param id internal id of the state you wish to find.
      */
-    exports.getStateById = function (id) {
+    var getStateById = function (id) {
         var s = exports.stateMapping.filter(function (x) { return x.id === id; });
         if (s.length)
             return s[0];
         else
             return undefined;
     };
+    exports.getStateById = getStateById;
     /**
      * Mappings of country abbreviation, name and NetSuite internal id.
      */
@@ -611,11 +612,12 @@
      * @see `countryMapping`
      * @param id country internal id
      */
-    exports.getCountryById = function (id) {
+    var getCountryById = function (id) {
         var countries = exports.countryMapping.filter(function (x) { return x.id === id; });
         if (countries.length)
             return countries[0];
         else
             return undefined;
     };
+    exports.getCountryById = getCountryById;
 });
