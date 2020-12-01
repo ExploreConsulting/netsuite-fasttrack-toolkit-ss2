@@ -10,6 +10,9 @@ describe('Sublists', function () {
       @SublistFieldType.freeformtext
       fooText: string
 
+      @SublistFieldType.select
+      foo: number
+
       @SublistFieldType.checkbox
       anotherfield: boolean
    }
@@ -18,9 +21,10 @@ describe('Sublists', function () {
       const fakeRec = record.create({ type: 'fake' })
       record.getSublistValue.mockReturnValue('some text')
       record.getLineCount.mockImplementation(() => 1)
+
       class MyLine extends FakeSublistLine {
          @SublistFieldType.freeformtext
-         myfield:string
+         myfield: string
       }
 
       const sut = new Sublist(MyLine, fakeRec, 'fakesublist')
@@ -52,7 +56,7 @@ describe('Sublists', function () {
       const fakeRec = record.create({ type: 'fake' })
       let lineCount = 10
       record.getLineCount.mockImplementation(() => lineCount)
-      record.insertLine.mockImplementation(()=> lineCount++)
+      record.insertLine.mockImplementation(() => lineCount++)
       const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
 
       // initial linecount should be  10 from test setup
@@ -70,7 +74,7 @@ describe('Sublists', function () {
       const fakeRec = record.create({ type: 'fake' })
       let lineCount = 10
       record.getLineCount.mockImplementation(() => lineCount)
-      record.insertLine.mockImplementation(()=> lineCount++)
+      record.insertLine.mockImplementation(() => lineCount++)
       const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
 
       // initial linecount should be  10 from test setup
@@ -79,7 +83,7 @@ describe('Sublists', function () {
       // inserts line at the end by default
       const newline = sut.addLine()
 
-      expect(newline).toHaveProperty("_line", 10)
+      expect(newline).toHaveProperty('_line', 10)
       expect(sut.length).toBe(11)
       expect(record.insertLine).toBeCalled()
 
@@ -92,7 +96,7 @@ describe('Sublists', function () {
       const fakeRec = record.create({ type: 'fake' })
       let lineCount = 10
       record.getLineCount.mockImplementation(() => lineCount)
-      record.insertLine.mockImplementation(()=> lineCount++)
+      record.insertLine.mockImplementation(() => lineCount++)
       const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
 
       // initial linecount should be  10 from test setup
@@ -165,50 +169,83 @@ describe('Sublists', function () {
 
       })
 
-      test('setText() on field - dynamic mode', () => {
-         const fakeRec = record.create({ type: 'fake', isDynamic:true })
-         record.getSublistText.mockReturnValue('some text')
-         record.getSublistValue.mockImplementation(() => { throw new Error() })
+   test('setText() on field - dynamic mode', () => {
+      const fakeRec = record.create({ type: 'fake', isDynamic: true })
+      record.getSublistText.mockReturnValue('some text')
+      record.getSublistValue.mockImplementation(() => { throw new Error() })
 
-         const sut = new SublistWithTextField('fakesublist', fakeRec, 0)
-         sut.fooText = 'hello world'
-         expect(record.setCurrentSublistText).toBeCalledWith({
-               'fieldId': 'foo',
-               'sublistId': 'fakesublist',
-               'text': 'hello world'
-            }
-         )
-      })
+      const sut = new SublistWithTextField('fakesublist', fakeRec, 0)
+      sut.fooText = 'hello world'
+      expect(record.setCurrentSublistText).toBeCalledWith({
+            'fieldId': 'foo',
+            'ignoreFieldChange': false,
+            'sublistId': 'fakesublist',
+            'text': 'hello world'
+         }
+      )
+   })
 
-      test('getField() - dynamic mode', () => {
-         const fakeRec = record.create({ type: 'fake', isDynamic:true })
-         record.getSublistField.mockReturnValue({})
-         record.getSublistText.mockReturnValue('some text')
-         record.getSublistValue.mockImplementation(() => { throw new Error() })
+   test('setText() on field - dynamic mode - ignore field changed', () => {
+      const fakeRec = record.create({ type: 'fake', isDynamic: true })
+      record.getSublistText.mockReturnValue('some text')
+      record.getSublistValue.mockImplementation(() => { throw new Error() })
 
-         const sut = new Sublist<SublistWithTextField>(SublistWithTextField, fakeRec, 'fakesublist')
-         sut.getField('anotherfield')
-         expect(record.getSublistField).toBeCalledWith({
-               'fieldId': 'anotherfield',
-               'sublistId': 'fakesublist',
-               'line': 0
-            }
-         )
-      })
+      const sut = new SublistWithTextField('fakesublist', fakeRec, 0)
+      sut.ignoreFieldChange = true
+      sut.fooText = 'hello world'
+      expect(record.setCurrentSublistText).toBeCalledWith({
+            'fieldId': 'foo',
+            'ignoreFieldChange': true,
+            'sublistId': 'fakesublist',
+            'text': 'hello world'
+         }
+      )
+   })
 
-      test('toJSON in dynamic mode', () =>{
-         const fakeRec = record.create({ type: 'fake', isDynamic:true })
-         let lineCount = 1
-         record.getLineCount.mockImplementation(() => lineCount)
+   test('setValue() on field - dynamic mode - ignore field changed', () => {
+      const fakeRec = record.create({ type: 'fake', isDynamic: true })
 
-         const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
-         // our sublist has zero _saved_ lines but since dynamic more a phantom line
-         // exists (default new line at end of sublist
-         const phantomLine = sut[1]
-         expect(phantomLine).toBeDefined()
-         // stringifying the sublist should not try to output the phantom line
-         const json = JSON.stringify(sut)
-         expect(json).not.toContainEqual<string>("1") // no key "1" in JSON since we only have line 0 saved
-         expect(Object.keys(sut)).not.toContainEqual<string>("1")
-      })
+      const sut = new SublistWithTextField('fakesublist', fakeRec, 0)
+      sut.ignoreFieldChange = true
+      sut.foo = 1
+      expect(record.setCurrentSublistValue).toBeCalledWith({
+            'fieldId': 'foo',
+            'ignoreFieldChange': true,
+            'sublistId': 'fakesublist',
+            'value': 1
+         }
+      )
+   })
+
+   test('getField() - dynamic mode', () => {
+      const fakeRec = record.create({ type: 'fake', isDynamic: true })
+      record.getSublistField.mockReturnValue({})
+      record.getSublistText.mockReturnValue('some text')
+      record.getSublistValue.mockImplementation(() => { throw new Error() })
+
+      const sut = new Sublist<SublistWithTextField>(SublistWithTextField, fakeRec, 'fakesublist')
+      sut.getField('anotherfield')
+      expect(record.getSublistField).toBeCalledWith({
+            'fieldId': 'anotherfield',
+            'sublistId': 'fakesublist',
+            'line': 0
+         }
+      )
+   })
+
+   test('toJSON in dynamic mode', () => {
+      const fakeRec = record.create({ type: 'fake', isDynamic: true })
+      let lineCount = 1
+      record.getLineCount.mockImplementation(() => lineCount)
+
+      const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
+      // our sublist has zero _saved_ lines but since dynamic more a phantom line
+      // exists (default new line at end of sublist
+      const phantomLine = sut[1]
+      expect(phantomLine).toBeDefined()
+      // stringifying the sublist should not try to output the phantom line
+      const json = JSON.stringify(sut)
+      expect(json).not.toContainEqual<string>('1') // no key "1" in JSON since we only have line 0 saved
+      expect(Object.keys(sut)).not.toContainEqual<string>('1')
+   })
 })

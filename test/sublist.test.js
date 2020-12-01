@@ -47,6 +47,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 Sublist_1.SublistFieldType.freeformtext
             ], SublistWithTextField.prototype, "fooText", void 0);
             __decorate([
+                Sublist_1.SublistFieldType.select
+            ], SublistWithTextField.prototype, "foo", void 0);
+            __decorate([
                 Sublist_1.SublistFieldType.checkbox
             ], SublistWithTextField.prototype, "anotherfield", void 0);
             return SublistWithTextField;
@@ -106,7 +109,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             expect(sut.length).toBe(10);
             // inserts line at the end by default
             var newline = sut.addLine();
-            expect(newline).toHaveProperty("_line", 10);
+            expect(newline).toHaveProperty('_line', 10);
             expect(sut.length).toBe(11);
             expect(record.insertLine).toBeCalled();
             //console.log('keys', Object.keys(sut))
@@ -175,8 +178,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             sut.fooText = 'hello world';
             expect(record.setCurrentSublistText).toBeCalledWith({
                 'fieldId': 'foo',
+                'ignoreFieldChange': false,
                 'sublistId': 'fakesublist',
                 'text': 'hello world'
+            });
+        });
+        test('setText() on field - dynamic mode - ignore field changed', function () {
+            var fakeRec = record.create({ type: 'fake', isDynamic: true });
+            record.getSublistText.mockReturnValue('some text');
+            record.getSublistValue.mockImplementation(function () { throw new Error(); });
+            var sut = new SublistWithTextField('fakesublist', fakeRec, 0);
+            sut.ignoreFieldChange = true;
+            sut.fooText = 'hello world';
+            expect(record.setCurrentSublistText).toBeCalledWith({
+                'fieldId': 'foo',
+                'ignoreFieldChange': true,
+                'sublistId': 'fakesublist',
+                'text': 'hello world'
+            });
+        });
+        test('setValue() on field - dynamic mode - ignore field changed', function () {
+            var fakeRec = record.create({ type: 'fake', isDynamic: true });
+            var sut = new SublistWithTextField('fakesublist', fakeRec, 0);
+            sut.ignoreFieldChange = true;
+            sut.foo = 1;
+            expect(record.setCurrentSublistValue).toBeCalledWith({
+                'fieldId': 'foo',
+                'ignoreFieldChange': true,
+                'sublistId': 'fakesublist',
+                'value': 1
             });
         });
         test('getField() - dynamic mode', function () {
@@ -203,8 +233,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             expect(phantomLine).toBeDefined();
             // stringifying the sublist should not try to output the phantom line
             var json = JSON.stringify(sut);
-            expect(json).not.toContainEqual("1"); // no key "1" in JSON since we only have line 0 saved
-            expect(Object.keys(sut)).not.toContainEqual("1");
+            expect(json).not.toContainEqual('1'); // no key "1" in JSON since we only have line 0 saved
+            expect(Object.keys(sut)).not.toContainEqual('1');
         });
     });
 });

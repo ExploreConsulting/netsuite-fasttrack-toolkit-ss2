@@ -5,3 +5,4 @@ declarations
 *.d.ts
 workspace.xml
 .idea/suiteapp
+.idea/dbnavigator.xml

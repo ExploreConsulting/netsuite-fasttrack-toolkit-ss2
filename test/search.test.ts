@@ -101,6 +101,7 @@ describe('nsSearchResult2obj', function () {
 
    test('handles search result with NO columns', () => {
       const noColumnsResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'value text')
+      // @ts-ignore Error:(104, 14) TS2790: The operand of a 'delete' operator must be optional.
       delete noColumnsResult.columns
 
       // mock the second call to getValue() to return 5 (for the 'bar' property)
