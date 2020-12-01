@@ -56,14 +56,11 @@ It still calls all the normal NetSuite APIs.
 NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields. 
 Otherwise you derive your own class and add custom fields as shown in the code example that follows.
 
-![NSDAL Inheritance Diagram](media/images/NFT-NSDAL-Inheritance.png)
-
 Subrecord support! Take a look at the `CustomerBase.addressbook` sublist.
 `CustomerBase.addressbook[0].addressbookaddress` gets the strongly typed `AddressBase` SubRecord. It works mostly like any 
 other record you just don't explicitly `save()` it. 
 
-_\<expermimental\>_
-SuiteScript 2.1 support. 
+Works with SuiteScript 2.0 and 2.1. 
 
 ###  Overview Example
 
@@ -154,6 +151,13 @@ export = {
 ```
 
 **see also [`example.ts`](https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/master/example.ts)**
+
+NetSuite record definitions are contained in a class hierarchy to simplify defining them. You generally only work with 
+the bundled base classes, or derive your own e.g. use `CustomerBase` directly or define `class Customer extends CustomerBase`
+as shown in the example above.
+
+![NSDAL Inheritance Diagram](media/images/NFT-NSDAL-Inheritance.png)
+
 
 ### Sublists and Subrecords
 
@@ -258,19 +262,11 @@ Seq(LazySearch.load("123"))
 ```
 Also see [governance](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_governance_.html) API docs
 
-
-## Special 'apply' sublist support
-
-See `CustomerRefundBase.findApplyLine()` and `Transaction.ts` for help.
-
-
 ## Logging
 NFT provides an advanced logging mechanism based on [Aurelia's](https://github.com/aurelia/logging) logger. 
 
 It means you can have multiple loggers and control the logging verbosity of each. In other words, it's a lightweight
 but much richer logging facility than the NetSuite provided logger.
-
-
 
 ### AutoLogging
 Automatically log entry and exit of methods with rich options by adding a line like this to the end of your script:
