@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ItemSublist | NetSuite FastTrack Toolkit (NFT) - v5.6.2</title>
-	<meta name="description" content="">
+	<title>ItemSublist | NetSuite FastTrack Toolkit (NFT) - v5.7.0</title>
+	<meta name="description" content="Documentation for NetSuite FastTrack Toolkit (NFT) - v5.7.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v5.6.2</a>
+					<a href="../index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v5.7.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -103,6 +103,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_dataaccess_cashsalebase_.itemsublist.html#_line" class="tsd-kind-icon">_line</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_dataaccess_cashsalebase_.itemsublist.html#amount" class="tsd-kind-icon">amount</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_dataaccess_cashsalebase_.itemsublist.html#description" class="tsd-kind-icon">description</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_dataaccess_cashsalebase_.itemsublist.html#ignorefieldchange" class="tsd-kind-icon">ignore<wbr>Field<wbr>Change</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_dataaccess_cashsalebase_.itemsublist.html#istaxable" class="tsd-kind-icon">istaxable</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_dataaccess_cashsalebase_.itemsublist.html#item" class="tsd-kind-icon">item</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_dataaccess_cashsalebase_.itemsublist.html#linenumber" class="tsd-kind-icon">linenumber</a></li>
@@ -142,7 +143,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_dataaccess_sublist_.sublistline.html">SublistLine</a>.<a href="_dataaccess_sublist_.sublistline.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/Sublist.ts#L388">DataAccess/Sublist.ts:388</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/Sublist.ts#L389">DataAccess/Sublist.ts:389</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -194,7 +195,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_dataaccess_sublist_.sublistline.html">SublistLine</a>.<a href="_dataaccess_sublist_.sublistline.html#_line">_line</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/Sublist.ts#L399">DataAccess/Sublist.ts:399</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/Sublist.ts#L399">DataAccess/Sublist.ts:399</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -210,7 +211,7 @@
 					<div class="tsd-signature tsd-kind-icon">amount<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L17">DataAccess/CashSaleBase.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L17">DataAccess/CashSaleBase.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -220,7 +221,18 @@
 					<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L20">DataAccess/CashSaleBase.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L20">DataAccess/CashSaleBase.ts:20</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="ignorefieldchange" class="tsd-anchor"></a>
+					<h3>ignore<wbr>Field<wbr>Change</h3>
+					<div class="tsd-signature tsd-kind-icon">ignore<wbr>Field<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_dataaccess_sublist_.sublistline.html">SublistLine</a>.<a href="_dataaccess_sublist_.sublistline.html#ignorefieldchange">ignoreFieldChange</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/Sublist.ts#L389">DataAccess/Sublist.ts:389</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -230,7 +242,7 @@
 					<div class="tsd-signature tsd-kind-icon">istaxable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L23">DataAccess/CashSaleBase.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L23">DataAccess/CashSaleBase.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -240,7 +252,7 @@
 					<div class="tsd-signature tsd-kind-icon">item<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L26">DataAccess/CashSaleBase.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L26">DataAccess/CashSaleBase.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -250,7 +262,7 @@
 					<div class="tsd-signature tsd-kind-icon">linenumber<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L29">DataAccess/CashSaleBase.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L29">DataAccess/CashSaleBase.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -261,7 +273,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_dataaccess_sublist_.sublistline.html">SublistLine</a>.<a href="_dataaccess_sublist_.sublistline.html#nsrecord">nsrecord</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/Sublist.ts#L388">DataAccess/Sublist.ts:388</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/Sublist.ts#L388">DataAccess/Sublist.ts:388</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -271,7 +283,7 @@
 					<div class="tsd-signature tsd-kind-icon">price<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L32">DataAccess/CashSaleBase.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L32">DataAccess/CashSaleBase.ts:32</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -281,7 +293,7 @@
 					<div class="tsd-signature tsd-kind-icon">quantity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L35">DataAccess/CashSaleBase.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L35">DataAccess/CashSaleBase.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -291,7 +303,7 @@
 					<div class="tsd-signature tsd-kind-icon">rate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L38">DataAccess/CashSaleBase.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L38">DataAccess/CashSaleBase.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -301,7 +313,7 @@
 					<div class="tsd-signature tsd-kind-icon">revrecenddate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L44">DataAccess/CashSaleBase.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L44">DataAccess/CashSaleBase.ts:44</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -311,7 +323,7 @@
 					<div class="tsd-signature tsd-kind-icon">revrecstartdate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L41">DataAccess/CashSaleBase.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L41">DataAccess/CashSaleBase.ts:41</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -321,7 +333,7 @@
 					<div class="tsd-signature tsd-kind-icon">shippingaddress<span class="tsd-signature-symbol">:</span> <a href="_dataaccess_addressbase_.addressbase.html" class="tsd-signature-type">AddressBase</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L51">DataAccess/CashSaleBase.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L51">DataAccess/CashSaleBase.ts:51</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -341,7 +353,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_dataaccess_sublist_.sublistline.html">SublistLine</a>.<a href="_dataaccess_sublist_.sublistline.html#sublistid">sublistId</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/Sublist.ts#L399">DataAccess/Sublist.ts:399</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/Sublist.ts#L399">DataAccess/Sublist.ts:399</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -356,7 +368,7 @@
 					<div class="tsd-signature tsd-kind-icon">taxcode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L54">DataAccess/CashSaleBase.ts:54</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L54">DataAccess/CashSaleBase.ts:54</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -366,7 +378,7 @@
 					<div class="tsd-signature tsd-kind-icon">taxrate1<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L57">DataAccess/CashSaleBase.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L57">DataAccess/CashSaleBase.ts:57</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -376,7 +388,7 @@
 					<div class="tsd-signature tsd-kind-icon">units<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/CashSaleBase.ts#L60">DataAccess/CashSaleBase.ts:60</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/CashSaleBase.ts#L60">DataAccess/CashSaleBase.ts:60</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -394,13 +406,18 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_dataaccess_sublist_.sublistline.html">SublistLine</a>.<a href="_dataaccess_sublist_.sublistline.html#getsubrecord">getSubRecord</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/Sublist.ts#L409">DataAccess/Sublist.ts:409</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/Sublist.ts#L417">DataAccess/Sublist.ts:417</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets the a subrecord, handling both dynamic/standard mode sublists</p>
+									<p>Gets the subrecord for the given field name, handling both dynamic and standard mode.</p>
 								</div>
+								<p>Normally you don&#39;t call this method directly. Instead, simply define a property
+									on your sublist class matching the field name for the subrecord and decorate it as a subrecord.
+								e.g.</p>
+								<pre><code><span class="hljs-keyword">@FieldType</span>.subrecord(AddressBase)
+<span class="hljs-attribute">billingaddress:</span> AddressBase</code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -426,7 +443,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_dataaccess_sublist_.sublistline.html">SublistLine</a>.<a href="_dataaccess_sublist_.sublistline.html#tojson">toJSON</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/5f0b22a/DataAccess/Sublist.ts#L417">DataAccess/Sublist.ts:417</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/16bae07/DataAccess/Sublist.ts#L425">DataAccess/Sublist.ts:425</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -441,19 +458,19 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/_dataaccess_cashsalebase_.html">&quot;<wbr>Data<wbr>Access/<wbr>Cash<wbr>Sale<wbr>Base&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="_dataaccess_cashsalebase_.cashsalebase.html" class="tsd-kind-icon">Cash<wbr>Sale<wbr>Base</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
 						<a href="_dataaccess_cashsalebase_.itemsublist.html" class="tsd-kind-icon">Item<wbr>Sublist</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
@@ -467,6 +484,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_dataaccess_cashsalebase_.itemsublist.html#description" class="tsd-kind-icon">description</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_dataaccess_cashsalebase_.itemsublist.html#ignorefieldchange" class="tsd-kind-icon">ignore<wbr>Field<wbr>Change</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_dataaccess_cashsalebase_.itemsublist.html#istaxable" class="tsd-kind-icon">istaxable</a>
@@ -530,57 +550,27 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 			</ul>
 		</div>
 	</div>
@@ -590,6 +580,5 @@
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
