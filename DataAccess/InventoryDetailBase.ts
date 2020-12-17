@@ -17,8 +17,19 @@ export class InventoryAssignmentSublist extends SublistLine {
    @SublistFieldType.integernumber
    internalid: number
 
+   /**
+    * Use this field for Sales Orders and Item Fulfillments.
+    */
    @SublistFieldType.select
    issueinventorynumber: number
+
+   /**
+    * set this field on Purchase Orders and Item Receipts
+    * Setting this field and saving the parent record results in an InventoryNumber
+    * record being created automatically behind the scenes.
+    */
+   @SublistFieldType.freeformtext
+   receiptinventorynumber: string
 
    @SublistFieldType.float
    quantity: number

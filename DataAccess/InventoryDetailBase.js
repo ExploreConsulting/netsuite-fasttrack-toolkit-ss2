@@ -53,6 +53,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Sublist_1.SublistFieldType.select
         ], InventoryAssignmentSublist.prototype, "issueinventorynumber", void 0);
         __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], InventoryAssignmentSublist.prototype, "receiptinventorynumber", void 0);
+        __decorate([
             Sublist_1.SublistFieldType.float
         ], InventoryAssignmentSublist.prototype, "quantity", void 0);
         __decorate([
