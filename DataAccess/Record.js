@@ -185,7 +185,7 @@ var __extends = (this && this.__extends) || (function () {
     }
     exports.defaultDescriptor = defaultDescriptor;
     /**
-     * Just like the default decriptor but calls Number() on the value. This exists for numeric types that
+     * Just like the default descriptor but calls Number() on the value. This exists for numeric types that
      * would blow up if you tried to assign number primitive values to a field. Don't know why - did various checks
      * with lodash and typeof to confirm the raw value was a number but only passing through Number() worked on sets.
      * Reads still seem to return a number.
@@ -262,6 +262,7 @@ var __extends = (this && this.__extends) || (function () {
      * Generic property descriptor with algorithm for values that need to go through the NS format module on field
      * write. Returns plain getValue() on reads
      * note: does not take into account timezone
+     * This decorator applies to record properties only (i.e. not for use on sublists).
      * @param {string} formatType the NS field type (e.g. 'date')
      * @param target
      * @param propertyKey

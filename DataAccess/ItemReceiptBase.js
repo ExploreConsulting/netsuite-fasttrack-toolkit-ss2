@@ -57,10 +57,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Sublist_1.SublistFieldType.checkbox
         ], ItemSublist.prototype, "itemreceive", void 0);
         __decorate([
-            Record_1.FieldType.integernumber
+            Sublist_1.SublistFieldType.integernumber
         ], ItemSublist.prototype, "line", void 0);
         __decorate([
-            Record_1.FieldType.freeformtext
+            Sublist_1.SublistFieldType.freeformtext
         ], ItemSublist.prototype, "lineuniquekey", void 0);
         __decorate([
             Sublist_1.SublistFieldType.select

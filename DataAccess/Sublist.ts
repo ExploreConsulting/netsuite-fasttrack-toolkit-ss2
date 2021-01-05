@@ -92,10 +92,11 @@ function getSublistValue (this: SublistLine, fieldId: string, isText: boolean) {
  * Generic property descriptor with basic default algorithm that exposes the field value directly with no
  * other processing. If the target field name ends with 'Text' it uses NetSuite `getText()/setText()` otherwise (default)
  * uses `getValue()/setValue()`
+ * Apply this decorator (or its aliases) to properties on SublistLine subtypes
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-function defaultSublistDescriptor (target: any, propertyKey: string): any {
+function defaultSublistDescriptor<T extends SublistLine>(target: T, propertyKey: string): any {
    log.debug('creating default descriptor', `field: ${propertyKey}`)
    const [isTextField, nsfield] = parseProp(propertyKey)
    return {

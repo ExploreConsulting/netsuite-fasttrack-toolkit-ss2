@@ -29,7 +29,7 @@ export class JobResourcesSublist extends SublistLine {
    @SublistFieldType.currency
    defaultcost: number
 
-   @FieldType.freeformtext
+   @SublistFieldType.freeformtext
    email: string
 
    @SublistFieldType.select

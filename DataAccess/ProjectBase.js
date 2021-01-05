@@ -67,7 +67,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Sublist_1.SublistFieldType.currency
         ], JobResourcesSublist.prototype, "defaultcost", void 0);
         __decorate([
-            Record_1.FieldType.freeformtext
+            Sublist_1.SublistFieldType.freeformtext
         ], JobResourcesSublist.prototype, "email", void 0);
         __decorate([
             Sublist_1.SublistFieldType.select

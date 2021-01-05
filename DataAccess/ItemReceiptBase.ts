@@ -24,10 +24,10 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.checkbox
    itemreceive:boolean
 
-   @FieldType.integernumber
+   @SublistFieldType.integernumber
    line:number
 
-   @FieldType.freeformtext
+   @SublistFieldType.freeformtext
    lineuniquekey:string
 
    @SublistFieldType.select

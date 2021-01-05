@@ -107,6 +107,7 @@ var __assign = (this && this.__assign) || function () {
      * Generic property descriptor with basic default algorithm that exposes the field value directly with no
      * other processing. If the target field name ends with 'Text' it uses NetSuite `getText()/setText()` otherwise (default)
      * uses `getValue()/setValue()`
+     * Apply this decorator (or its aliases) to properties on SublistLine subtypes
      * @returns an object property descriptor to be used
      * with Object.defineProperty
      */
