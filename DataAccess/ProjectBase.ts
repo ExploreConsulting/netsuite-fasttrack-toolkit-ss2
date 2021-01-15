@@ -1,5 +1,5 @@
 /**
- * Represents an Item Fulfillment (itemfulfillment) transaction type in NetSuite
+ * Represents an Project (job) record type in NetSuite
  */
 
 import { FieldType, NetsuiteRecord } from './Record'

@@ -1,5 +1,5 @@
 /**
- * Represents an Item Fulfillment (itemfulfillment) transaction type in NetSuite
+ * Represents an Project (job) record type in NetSuite
  */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
