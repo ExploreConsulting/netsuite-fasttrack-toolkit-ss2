@@ -42,10 +42,32 @@ export class ItemSublist extends SublistLine {
    countryofmanufacture:string
 
    @SublistFieldType.freeformtext
+   inventorydetailreq?: 'T' | 'F'
+
+   @SublistFieldType.freeformtext
+   isnumbered?:string
+
+   @SublistFieldType.freeformtext
    item:string
 
    @SublistFieldType.checkbox
    itemreceive:boolean
+
+   @SublistFieldType.freeformtext
+   itemtype: string
+
+   /**
+    * field only applies to kit items
+    */
+   @SublistFieldType.freeformtext
+   kitlineid?:string
+
+   /**
+    * field only applies to kit items
+    */
+   @SublistFieldType.freeformtext
+   kitlevel?:string
+
 
    @SublistFieldType.select
    location:number
@@ -58,7 +80,6 @@ export class ItemSublist extends SublistLine {
 
    @SublistFieldType.float
    quantityremaining:number
-
    /**
     * lookup to the units of measure type (SuiteQL table name unitstypeuom)
     */
@@ -80,10 +101,11 @@ export class ItemFulfillmentBase extends TransactionBase {
    @FieldType.select
    createdfrom:number
 
+   @FieldType.freeformtext
+   shipstatus: string
 
    @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>
-
    /**
     * The sublist for shipping info used by default (if not using more advanced shipping integration options).
     */

@@ -79,10 +79,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         ], ItemSublist.prototype, "countryofmanufacture", void 0);
         __decorate([
             Sublist_1.SublistFieldType.freeformtext
+        ], ItemSublist.prototype, "inventorydetailreq", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ItemSublist.prototype, "isnumbered", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
         ], ItemSublist.prototype, "item", void 0);
         __decorate([
             Sublist_1.SublistFieldType.checkbox
         ], ItemSublist.prototype, "itemreceive", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ItemSublist.prototype, "itemtype", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ItemSublist.prototype, "kitlineid", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ItemSublist.prototype, "kitlevel", void 0);
         __decorate([
             Sublist_1.SublistFieldType.select
         ], ItemSublist.prototype, "location", void 0);
@@ -113,6 +128,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.select
         ], ItemFulfillmentBase.prototype, "createdfrom", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], ItemFulfillmentBase.prototype, "shipstatus", void 0);
         __decorate([
             Record_1.FieldType.sublist(ItemSublist)
         ], ItemFulfillmentBase.prototype, "item", void 0);
