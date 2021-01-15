@@ -31,11 +31,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.ItemFulfillmentBase = exports.ItemSublist = void 0;
+    exports.ItemFulfillmentBase = exports.ItemSublist = exports.PackageSublist = void 0;
     var Record_1 = require("./Record");
     var record = require("N/record");
     var Transaction_1 = require("./Transaction");
     var Sublist_1 = require("./Sublist");
+    /**
+     * This is the undocumented but standard package sublist. This sublist has shown to be stable and scriptable for some time so
+     * including here even though not documented.
+     */
+    var PackageSublist = /** @class */ (function (_super) {
+        __extends(PackageSublist, _super);
+        function PackageSublist() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], PackageSublist.prototype, "packagetrackingnumber", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.decimalnumber
+        ], PackageSublist.prototype, "packageweight", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.integernumber
+        ], PackageSublist.prototype, "pkgTrackingNumberKey", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], PackageSublist.prototype, "pkgTrackingNumberUrl", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.integernumber
+        ], PackageSublist.prototype, "trackingnumberkey", void 0);
+        return PackageSublist;
+    }(Sublist_1.SublistLine));
+    exports.PackageSublist = PackageSublist;
     /**
      * Item Fulfillment Items (item) sublist
      */
@@ -69,7 +96,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Sublist_1.SublistFieldType.float
         ], ItemSublist.prototype, "quantityremaining", void 0);
         __decorate([
-            Sublist_1.SublistFieldType.freeformtext
+            Sublist_1.SublistFieldType.select
         ], ItemSublist.prototype, "units", void 0);
         return ItemSublist;
     }(Sublist_1.SublistLine));
@@ -89,6 +116,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.sublist(ItemSublist)
         ], ItemFulfillmentBase.prototype, "item", void 0);
+        __decorate([
+            Record_1.FieldType.sublist(PackageSublist)
+        ], ItemFulfillmentBase.prototype, "package", void 0);
         return ItemFulfillmentBase;
     }(Transaction_1.TransactionBase));
     exports.ItemFulfillmentBase = ItemFulfillmentBase;
