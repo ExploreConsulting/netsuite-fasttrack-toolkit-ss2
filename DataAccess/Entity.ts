@@ -66,8 +66,8 @@ export abstract class Entity extends NetsuiteRecord {
    @FieldType.checkbox
    isinactive: boolean
 
-   @FieldType.checkbox
-   isperson: boolean
+   @FieldType.freeformtext
+   isperson: 'T' | 'F' | null
 
    @FieldType.datetime
    lastmodifieddate: Date
