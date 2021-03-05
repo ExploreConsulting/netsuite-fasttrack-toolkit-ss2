@@ -6,6 +6,7 @@ import { FieldType } from './Record'
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
+import { AddressBase } from './AddressBase'
 
 /**
  * This is the undocumented but standard package sublist. This sublist has shown to be stable and scriptable for some time so
@@ -87,7 +88,6 @@ export class ItemSublist extends SublistLine {
    units: number
 }
 
-
 /**
  * Item Fulfillment Base Type
  */
@@ -103,6 +103,11 @@ export class ItemFulfillmentBase extends TransactionBase {
 
    @FieldType.currency
    handlingcost: number | string
+
+   @FieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase & unknown
+   /* trying unknown above in an attempt to allow subclasses of IF Base to use subclassed AddressBase
+   to define additional props without making them optional (?) */
 
    @FieldType.freeformtext
    shipstatus: string
@@ -127,4 +132,3 @@ export class ItemFulfillmentBase extends TransactionBase {
    @FieldType.sublist(PackageSublist)
    package: Sublist<PackageSublist>
 }
-
