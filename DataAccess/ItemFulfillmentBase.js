@@ -129,8 +129,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], ItemFulfillmentBase.prototype, "createdfrom", void 0);
         __decorate([
+            Record_1.FieldType.currency
+        ], ItemFulfillmentBase.prototype, "handlingcost", void 0);
+        __decorate([
             Record_1.FieldType.freeformtext
         ], ItemFulfillmentBase.prototype, "shipstatus", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], ItemFulfillmentBase.prototype, "shippeddate", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], ItemFulfillmentBase.prototype, "shipmethod", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], ItemFulfillmentBase.prototype, "shippingcost", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], ItemFulfillmentBase.prototype, "termsofsalefedex", void 0);
         __decorate([
             Record_1.FieldType.sublist(ItemSublist)
         ], ItemFulfillmentBase.prototype, "item", void 0);

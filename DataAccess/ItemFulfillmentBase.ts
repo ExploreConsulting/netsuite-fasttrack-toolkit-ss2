@@ -101,8 +101,23 @@ export class ItemFulfillmentBase extends TransactionBase {
    @FieldType.select
    createdfrom:number
 
+   @FieldType.currency
+   handlingcost: number | string
+
    @FieldType.freeformtext
    shipstatus: string
+
+   @FieldType.date
+   shippeddate: Date
+
+   @FieldType.select
+   shipmethod: number
+
+   @FieldType.currency
+   shippingcost: number | string
+
+   @FieldType.select
+   termsofsalefedex: number
 
    @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>
