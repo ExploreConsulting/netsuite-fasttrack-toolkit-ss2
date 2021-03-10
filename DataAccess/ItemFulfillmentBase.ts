@@ -105,9 +105,7 @@ export class ItemFulfillmentBase extends TransactionBase {
    handlingcost: number | string
 
    @FieldType.subrecord(AddressBase)
-   shippingaddress: AddressBase & unknown
-   /* trying unknown above in an attempt to allow subclasses of IF Base to use subclassed AddressBase
-   to define additional props without making them optional (?) */
+   shippingaddress: AddressBase
 
    @FieldType.freeformtext
    shipstatus: string

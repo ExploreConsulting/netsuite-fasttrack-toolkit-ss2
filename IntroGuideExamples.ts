@@ -12,6 +12,7 @@ import * as LogManager from './EC_Logger'
 import { DefaultLogger as log, logLevel } from './EC_Logger'
 import { LazySearch, nsSearchResult2obj } from './search'
 import { Seq } from 'immutable'
+import * as search from 'N/search'
 
 var customer = record.load({
    type: record.Type.CUSTOMER,
@@ -148,10 +149,10 @@ namespace X {
          case "GET":
             log.debug('GET request')
 
-            Seq(LazySearch.load('730'))
+            Seq<search.Result>(LazySearch.load('730'))
                .skip(123)
                .take(1)
-               .map(nsSearchResult2obj())
+               .map<{}>(nsSearchResult2obj<{}>())
                .forEach(i=> log.debug('result',i))
 
             break
