@@ -12,12 +12,10 @@
  *
  * @NApiVersion 2.x
  */
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 };
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
@@ -76,7 +74,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
      * 1234> Another log title from the same run of the script
      * 5683> Log message from a subsequent execution of the script
      */
-    exports.setIncludeCorrelationId = function (enable) { return exports.includeCorrelationId = enable; };
+    var setIncludeCorrelationId = function (enable) { return exports.includeCorrelationId = enable; };
+    exports.setIncludeCorrelationId = setIncludeCorrelationId;
     // internal function to invoke the ns log function and handles adding a title tag
     function log(loglevel, logger) {
         var rest = [];
@@ -116,7 +115,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.debug, logger], rest));
+            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.debug, logger], rest));
         };
         /**
          * Info about info
@@ -128,21 +127,21 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.info, logger], rest));
+            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.info, logger], rest));
         };
         ExecutionLogAppender.prototype.warn = function (logger) {
             var rest = [];
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.warn, logger], rest));
+            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.warn, logger], rest));
         };
         ExecutionLogAppender.prototype.error = function (logger) {
             var rest = [];
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, __spreadArrays([aurelia_logging_1.logLevel.error, logger], rest));
+            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.error, logger], rest));
         };
         return ExecutionLogAppender;
     }());
@@ -307,7 +306,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
      * Use to set the correlation id to a value other than the default random number
      * @param value new correlation id, will be used on all subsequent log messages for the current script execution
      */
-    exports.setCorrelationId = function (value) { return exports.correlationId = value; };
+    var setCorrelationId = function (value) { return exports.correlationId = value; };
+    exports.setCorrelationId = setCorrelationId;
     /**
      * Adds the passed aurelia logging console (browser/node) appender with diagnostic logging
      * @param alc the aurelia-logging-console module

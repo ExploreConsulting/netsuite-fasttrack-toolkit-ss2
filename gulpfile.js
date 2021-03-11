@@ -77,9 +77,7 @@ gulp.task('default', gulp.series('copyfiles', function () {
 
 gulp.task('docs', function (cb) {
    var exec = require('child_process').exec
-   var options =
-      exec('node_modules/.bin/typedoc --excludeExternals --exclude "*+(example.ts|IntroGuideExamples.ts)" --out docs --theme default  --excludeProtected ' +
-         '--excludePrivate --includeVersion --name \'NetSuite FastTrack Toolkit (NFT)\' --media media',
+      exec('node_modules/.bin/typedoc', // typedoc config is in typedoc.json
          function (err, stdout, stderr) {
             console.log(stdout)
             console.log(stderr)
