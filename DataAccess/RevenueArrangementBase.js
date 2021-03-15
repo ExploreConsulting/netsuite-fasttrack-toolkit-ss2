@@ -127,7 +127,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function RevenueArrangementBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        RevenueArrangementBase.recordType = record.Type.REVENUE_ARRANGEMENT;
+        RevenueArrangementBase.recordType = function () { return record.Type.REVENUE_ARRANGEMENT; };
         __decorate([
             Record_1.FieldType.select
         ], RevenueArrangementBase.prototype, "accountingbook", void 0);

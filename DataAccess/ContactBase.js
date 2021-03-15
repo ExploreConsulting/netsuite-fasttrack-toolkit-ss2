@@ -106,7 +106,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function ContactBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        ContactBase.recordType = record.Type.CONTACT;
+        ContactBase.recordType = function () { return record.Type.CONTACT; };
         __decorate([
             Record_1.FieldType.email
         ], ContactBase.prototype, "altemail", void 0);

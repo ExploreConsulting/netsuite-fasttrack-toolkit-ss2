@@ -80,7 +80,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function AssemblyItemBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        AssemblyItemBase.recordType = record.Type.ASSEMBLY_ITEM;
+        AssemblyItemBase.recordType = function () { return record.Type.ASSEMBLY_ITEM; };
         __decorate([
             Record_1.FieldType.select
         ], AssemblyItemBase.prototype, "assetaccount", void 0);

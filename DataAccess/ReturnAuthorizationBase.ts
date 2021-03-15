@@ -60,7 +60,7 @@ export class ItemSublist extends SublistLine {
  */
 export class ReturnAuthorizationBase extends TransactionBase {
 
-   static recordType = record.Type.RETURN_AUTHORIZATION
+   static recordType() { return record.Type.RETURN_AUTHORIZATION }
 
    @FieldType.select
    class:number

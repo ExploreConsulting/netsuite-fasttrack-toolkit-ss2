@@ -96,7 +96,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function ItemReceiptBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        ItemReceiptBase.recordType = record.Type.ITEM_RECEIPT;
+        ItemReceiptBase.recordType = function () { return record.Type.ITEM_RECEIPT; };
         __decorate([
             Record_1.FieldType.select
         ], ItemReceiptBase.prototype, "class", void 0);

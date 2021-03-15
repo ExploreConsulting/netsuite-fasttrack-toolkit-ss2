@@ -91,7 +91,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function ProjectBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        ProjectBase.recordType = record.Type.JOB;
+        ProjectBase.recordType = function () { return record.Type.JOB; };
         __decorate([
             Record_1.FieldType.checkbox
         ], ProjectBase.prototype, "allowtime", void 0);

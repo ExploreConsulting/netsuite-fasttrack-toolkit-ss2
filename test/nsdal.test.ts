@@ -76,17 +76,18 @@ describe('instantiation', function () {
    test('TransactionBase cannot instantiate from scratch', function () {
       const t = new TransactionBase()
       // there is no record type on TransactionBase, so won't work
-      expect(TransactionBase).not.toHaveProperty('recordType')
+      expect(t.hasOwnProperty('recordType')).toBeFalsy()
 
       // to contrast above, all _concrete_ record types do (must) have a recordType defined.
       // note that due to mocking N/record.Type enumeration the property will exist but be `undefined`
       expect(SalesOrderBase).toHaveProperty('recordType')
+      expect(SalesOrderBase.hasOwnProperty('recordType')).toBeTruthy()
    })
 
    test('TransactionBase cannot instantiate from internalid', function () {
       const t = new TransactionBase(1234)
       // there is no record type on TransactionBase, so won't work
-      expect(TransactionBase).not.toHaveProperty('recordType')
+      expect(t.hasOwnProperty('recordType')).toBeFalsy()
    })
 
 })

@@ -44,7 +44,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function BinBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        BinBase.recordType = record.Type.BIN;
+        BinBase.recordType = function () { return record.Type.BIN; };
         __decorate([
             Record_1.FieldType.freeformtext
         ], BinBase.prototype, "binnumber", void 0);

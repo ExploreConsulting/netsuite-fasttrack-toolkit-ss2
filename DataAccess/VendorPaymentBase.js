@@ -102,7 +102,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function VendorPaymentBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        VendorPaymentBase.recordType = record.Type.VENDOR_PAYMENT;
+        VendorPaymentBase.recordType = function () { return record.Type.VENDOR_PAYMENT; };
         __decorate([
             Record_1.FieldType.select
         ], VendorPaymentBase.prototype, "account", void 0);

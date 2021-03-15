@@ -10,7 +10,7 @@ import * as record from 'N/record'
  */
 export class VendorBase extends Entity {
 
-   static recordType = record.Type.VENDOR
+   static recordType() { return record.Type.VENDOR }
 
    @FieldType.freeformtext
    bcn: string

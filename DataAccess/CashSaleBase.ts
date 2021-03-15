@@ -66,7 +66,7 @@ export class ItemSublist extends SublistLine {
  */
 export class CashSaleBase extends TransactionBase {
 
-   static recordType = record.Type.CASH_SALE
+   static recordType() { return record.Type.CASH_SALE }
 
    @FieldType.select
    account:number

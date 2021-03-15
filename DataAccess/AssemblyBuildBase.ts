@@ -36,7 +36,7 @@ export class ComponentSublist extends SublistLine {
  */
 export class AssemblyBuildBase extends NetsuiteRecord {
 
-   static recordType: record.Type = record.Type.ASSEMBLY_BUILD
+   static recordType() { return record.Type.ASSEMBLY_BUILD }
 
    @FieldType.select
    billofmaterials: number

@@ -70,7 +70,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function EstimateBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        EstimateBase.recordType = record.Type.ESTIMATE;
+        EstimateBase.recordType = function () { return record.Type.ESTIMATE; };
         __decorate([
             Record_1.FieldType.currency
         ], EstimateBase.prototype, "althandlingcost", void 0);

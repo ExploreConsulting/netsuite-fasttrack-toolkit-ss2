@@ -120,7 +120,7 @@ export class CurrencySublist extends SublistLine {
 }
 
 export class CustomerBase extends NetsuiteRecord {
-   static recordType = record.Type.CUSTOMER
+   static recordType() { return record.Type.CUSTOMER }
 
    @FieldType.freeformtext
    accountnumber: string

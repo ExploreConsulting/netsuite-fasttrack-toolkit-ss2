@@ -46,7 +46,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function InventoryAdjustmentBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        InventoryAdjustmentBase.recordType = record.Type.INVENTORY_ADJUSTMENT;
+        InventoryAdjustmentBase.recordType = function () { return record.Type.INVENTORY_ADJUSTMENT; };
         __decorate([
             Record_1.FieldType.select
         ], InventoryAdjustmentBase.prototype, "account", void 0);

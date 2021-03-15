@@ -44,7 +44,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function CustomerMessageBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        CustomerMessageBase.recordType = record.Type.CUSTOMER_MESSAGE;
+        CustomerMessageBase.recordType = function () { return record.Type.CUSTOMER_MESSAGE; };
         __decorate([
             Record_1.FieldType.textarea
         ], CustomerMessageBase.prototype, "description", void 0);

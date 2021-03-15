@@ -110,7 +110,7 @@ export class SalesTeamSublist extends SublistLine {
  */
 export class SalesOrderBase extends TransactionBase {
 
-   static recordType = record.Type.SALES_ORDER
+   static recordType() { return record.Type.SALES_ORDER }
 
    @FieldType.subrecord(AddressBase)
    billingaddress: AddressBase

@@ -48,7 +48,7 @@ export class JobResourcesSublist extends SublistLine {
  */
 export class ProjectBase extends NetsuiteRecord {
 
-   static recordType = record.Type.JOB
+   static recordType() { return record.Type.JOB }
 
    @FieldType.checkbox
    allowtime: boolean

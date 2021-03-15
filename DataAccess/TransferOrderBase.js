@@ -47,7 +47,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function TransferOrderBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        TransferOrderBase.recordType = record.Type.TRANSFER_ORDER;
+        TransferOrderBase.recordType = function () { return record.Type.TRANSFER_ORDER; };
         __decorate([
             Record_1.FieldType.select
         ], TransferOrderBase.prototype, "class", void 0);

@@ -83,7 +83,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function ProjectTaskBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        ProjectTaskBase.recordType = record.Type.PROJECT_TASK;
+        ProjectTaskBase.recordType = function () { return record.Type.PROJECT_TASK; };
         __decorate([
             Record_1.FieldType.float
         ], ProjectTaskBase.prototype, "actualwork", void 0);

@@ -71,7 +71,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function InventoryNumberBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        InventoryNumberBase.recordType = record.Type.INVENTORY_NUMBER;
+        InventoryNumberBase.recordType = function () { return record.Type.INVENTORY_NUMBER; };
         __decorate([
             Record_1.FieldType.date
         ], InventoryNumberBase.prototype, "expirationdate", void 0);

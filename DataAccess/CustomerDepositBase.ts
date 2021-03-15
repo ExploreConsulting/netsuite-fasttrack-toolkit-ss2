@@ -11,7 +11,7 @@ import * as record from 'N/record'
  */
 export class CustomerDepositBase extends TransactionBase {
 
-   static recordType = record.Type.CUSTOMER_DEPOSIT
+   static recordType() { return record.Type.CUSTOMER_DEPOSIT }
 
    @FieldType.select
    account: number

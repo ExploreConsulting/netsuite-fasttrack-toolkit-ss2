@@ -45,7 +45,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function VendorBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        VendorBase.recordType = record.Type.VENDOR;
+        VendorBase.recordType = function () { return record.Type.VENDOR; };
         __decorate([
             Record_1.FieldType.freeformtext
         ], VendorBase.prototype, "bcn", void 0);

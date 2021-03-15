@@ -51,7 +51,7 @@ var __extends = (this && this.__extends) || (function () {
             // since the context of this.constructor is the derived class we're instantiating, using the line below we can
             // pull the 'static' recordType from the derived class and remove the need for derived classes to
             // define a constructor to pass the record type to super()
-            var type = Object.getPrototypeOf(this).constructor.recordType;
+            var type = Object.getPrototypeOf(this).constructor.recordType();
             if (!rec) {
                 log.debug('creating new record', "type:" + type + "  isDyanamic:" + isDynamic + " defaultValues:" + defaultValues);
                 this.makeRecordProp(record.create({ type: type, isDynamic: isDynamic, defaultValues: defaultValues }));
@@ -82,6 +82,13 @@ var __extends = (this && this.__extends) || (function () {
             enumerable: false,
             configurable: true
         });
+        /**
+         * The netsuite record type (constant string) - this is declared here and overridden in derived classes
+         */
+        NetsuiteCurrentRecord.recordType = function () {
+            // the base class version of this method should never be invoked.
+            return 'NetSuiteCurrentRecord:recordType not implemented. Did you forget to define a static recordType() method on your derived class?';
+        };
         NetsuiteCurrentRecord.prototype.toJSON = function () {
             // surface inherited properties on a new object so JSON.stringify() sees them all
             var result = {};

@@ -82,7 +82,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function InventoryDetailBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        InventoryDetailBase.recordType = record.Type.INVENTORY_DETAIL;
+        InventoryDetailBase.recordType = function () { return record.Type.INVENTORY_DETAIL; };
         __decorate([
             Record_1.FieldType.select
         ], InventoryDetailBase.prototype, "item", void 0);

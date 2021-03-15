@@ -149,7 +149,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function CustomerBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        CustomerBase.recordType = record.Type.CUSTOMER;
+        CustomerBase.recordType = function () { return record.Type.CUSTOMER; };
         __decorate([
             Record_1.FieldType.freeformtext
         ], CustomerBase.prototype, "accountnumber", void 0);

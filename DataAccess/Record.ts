@@ -27,10 +27,12 @@ export abstract class NetsuiteCurrentRecord {
    }
 
    /**
-    * The netsuite record type (constant string) - this is declared here and overriden in derived classes
+    * The netsuite record type (constant string) - this is declared here and overridden in derived classes
     */
-   public static recordType: record.Type | string
-
+    static recordType() : string | record.Type {
+       // the base class version of this method should never be invoked.
+       return 'NetSuiteCurrentRecord:recordType not implemented. Did you forget to define a static recordType() method on your derived class?'
+    }
    /**
     * The underlying netsuite 'record' object. For client scripts, this is the slightly less feature rich
     * 'ClientCurrentRecord' when accessing the 'current' record the script is associated to.
@@ -48,7 +50,7 @@ export abstract class NetsuiteCurrentRecord {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
-      let type = Object.getPrototypeOf(this).constructor.recordType
+      let type = Object.getPrototypeOf(this).constructor.recordType()
       if (!rec) {
          log.debug('creating new record', `type:${type}  isDyanamic:${isDynamic} defaultValues:${defaultValues}`)
          this.makeRecordProp(record.create({ type: type, isDynamic: isDynamic, defaultValues: defaultValues }))

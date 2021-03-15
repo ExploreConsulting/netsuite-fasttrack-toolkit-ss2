@@ -85,7 +85,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function Base() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        Base.recordType = 'entitygroup';
+        Base.recordType = function () { return 'entitygroup'; };
         __decorate([
             Record_1.FieldType.textarea
         ], Base.prototype, "comments", void 0);

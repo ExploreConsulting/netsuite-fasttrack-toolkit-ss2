@@ -12,7 +12,7 @@ import { AddressBase } from './AddressBase'
  * NetSuite Transfer Order Record
  */
 export class TransferOrderBase extends TransactionBase {
-   static recordType = record.Type.TRANSFER_ORDER
+   static recordType() { return record.Type.TRANSFER_ORDER }
 
    @FieldType.select
    "class": number

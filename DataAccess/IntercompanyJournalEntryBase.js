@@ -60,7 +60,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function IntercompanyJournalEntryBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        IntercompanyJournalEntryBase.recordType = record.Type.INTER_COMPANY_JOURNAL_ENTRY;
+        IntercompanyJournalEntryBase.recordType = function () { return record.Type.INTER_COMPANY_JOURNAL_ENTRY; };
         __decorate([
             Record_1.FieldType.sublist(LineSublist)
         ], IntercompanyJournalEntryBase.prototype, "line", void 0);

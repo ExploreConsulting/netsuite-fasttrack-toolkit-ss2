@@ -44,7 +44,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function CreditMemoBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        CreditMemoBase.recordType = record.Type.CREDIT_MEMO;
+        CreditMemoBase.recordType = function () { return record.Type.CREDIT_MEMO; };
         __decorate([
             Record_1.FieldType.select
         ], CreditMemoBase.prototype, "account", void 0);

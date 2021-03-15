@@ -99,7 +99,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function ReturnAuthorizationBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        ReturnAuthorizationBase.recordType = record.Type.RETURN_AUTHORIZATION;
+        ReturnAuthorizationBase.recordType = function () { return record.Type.RETURN_AUTHORIZATION; };
         __decorate([
             Record_1.FieldType.select
         ], ReturnAuthorizationBase.prototype, "class", void 0);

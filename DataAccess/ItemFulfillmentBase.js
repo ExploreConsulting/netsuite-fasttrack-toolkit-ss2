@@ -127,7 +127,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function ItemFulfillmentBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        ItemFulfillmentBase.recordType = record.Type.ITEM_FULFILLMENT;
+        ItemFulfillmentBase.recordType = function () { return record.Type.ITEM_FULFILLMENT; };
         __decorate([
             Record_1.FieldType.select
         ], ItemFulfillmentBase.prototype, "createdfrom", void 0);

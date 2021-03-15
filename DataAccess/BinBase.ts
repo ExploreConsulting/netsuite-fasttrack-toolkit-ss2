@@ -11,7 +11,7 @@ import * as record from 'N/record'
  */
 export class BinBase extends NetsuiteRecord {
 
-   static recordType = record.Type.BIN
+   static recordType() { return record.Type.BIN }
 
    @FieldType.freeformtext
    binnumber: string

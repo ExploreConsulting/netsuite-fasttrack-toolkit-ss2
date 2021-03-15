@@ -46,7 +46,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function IntercompanyTransferOrderBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        IntercompanyTransferOrderBase.recordType = record.Type.INTER_COMPANY_TRANSFER_ORDER;
+        IntercompanyTransferOrderBase.recordType = function () { return record.Type.INTER_COMPANY_TRANSFER_ORDER; };
         __decorate([
             Record_1.FieldType.select
         ], IntercompanyTransferOrderBase.prototype, "tosubsidiary", void 0);

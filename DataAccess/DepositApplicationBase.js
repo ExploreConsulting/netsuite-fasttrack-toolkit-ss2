@@ -86,7 +86,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function DepositApplicationBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DepositApplicationBase.recordType = record.Type.DEPOSIT_APPLICATION;
+        DepositApplicationBase.recordType = function () { return record.Type.DEPOSIT_APPLICATION; };
         __decorate([
             Record_1.FieldType.select
         ], DepositApplicationBase.prototype, "aracct", void 0);

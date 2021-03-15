@@ -74,7 +74,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function AssemblyBuildBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        AssemblyBuildBase.recordType = record.Type.ASSEMBLY_BUILD;
+        AssemblyBuildBase.recordType = function () { return record.Type.ASSEMBLY_BUILD; };
         __decorate([
             Record_1.FieldType.select
         ], AssemblyBuildBase.prototype, "billofmaterials", void 0);

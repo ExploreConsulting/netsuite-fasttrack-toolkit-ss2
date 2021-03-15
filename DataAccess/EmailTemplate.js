@@ -43,7 +43,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function EmailTemplate() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        EmailTemplate.recordType = 'emailtemplate';
+        EmailTemplate.recordType = function () { return 'emailtemplate'; };
         __decorate([
             Record_1.FieldType.checkbox
         ], EmailTemplate.prototype, "addcompanyaddress", void 0);

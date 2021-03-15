@@ -83,7 +83,7 @@ export class AddressSublist extends SublistLine {
  */
 export class ContactBase extends NetsuiteRecord {
 
-   static recordType = record.Type.CONTACT
+   static recordType() { return record.Type.CONTACT }
 
    @FieldType.email
    altemail: string

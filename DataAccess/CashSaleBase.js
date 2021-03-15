@@ -100,7 +100,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function CashSaleBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        CashSaleBase.recordType = record.Type.CASH_SALE;
+        CashSaleBase.recordType = function () { return record.Type.CASH_SALE; };
         __decorate([
             Record_1.FieldType.select
         ], CashSaleBase.prototype, "account", void 0);

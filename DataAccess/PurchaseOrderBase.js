@@ -88,7 +88,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function PurchaseOrderBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        PurchaseOrderBase.recordType = record.Type.PURCHASE_ORDER;
+        PurchaseOrderBase.recordType = function () { return record.Type.PURCHASE_ORDER; };
         __decorate([
             Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
         ], PurchaseOrderBase.prototype, "billingaddress", void 0);

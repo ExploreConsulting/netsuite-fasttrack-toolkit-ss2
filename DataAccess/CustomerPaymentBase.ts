@@ -53,7 +53,7 @@ export class ApplySublist extends SublistLine {
  */
 export class CustomerPaymentBase extends TransactionBase {
 
-   static recordType = record.Type.CUSTOMER_PAYMENT
+   static recordType() { return record.Type.CUSTOMER_PAYMENT }
 
    @FieldType.select
    customer: number

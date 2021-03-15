@@ -38,7 +38,7 @@ export class AssigneeSublist extends SublistLine {
  */
 export class ProjectTaskBase extends NetsuiteRecord {
 
-  static recordType = record.Type.PROJECT_TASK
+  static recordType() { return record.Type.PROJECT_TASK }
 
   @FieldType.float
   actualwork: number

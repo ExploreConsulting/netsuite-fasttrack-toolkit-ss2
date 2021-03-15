@@ -153,7 +153,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function SalesOrderBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        SalesOrderBase.recordType = record.Type.SALES_ORDER;
+        SalesOrderBase.recordType = function () { return record.Type.SALES_ORDER; };
         __decorate([
             Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
         ], SalesOrderBase.prototype, "billingaddress", void 0);

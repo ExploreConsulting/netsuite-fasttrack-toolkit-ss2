@@ -143,7 +143,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function JournalEntryBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        JournalEntryBase.recordType = record.Type.JOURNAL_ENTRY;
+        JournalEntryBase.recordType = function () { return record.Type.JOURNAL_ENTRY; };
         __decorate([
             Record_1.FieldType.select
         ], JournalEntryBase.prototype, "accountingbook", void 0);

@@ -43,7 +43,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function CashRefundBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        CashRefundBase.recordType = record.Type.CASH_REFUND;
+        CashRefundBase.recordType = function () { return record.Type.CASH_REFUND; };
         __decorate([
             Record_1.FieldType.select
         ], CashRefundBase.prototype, "account", void 0);

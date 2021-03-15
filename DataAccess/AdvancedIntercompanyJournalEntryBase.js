@@ -143,7 +143,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function AdvancedIntercompanyJournalEntryBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        AdvancedIntercompanyJournalEntryBase.recordType = record.Type.ADV_INTER_COMPANY_JOURNAL_ENTRY;
+        AdvancedIntercompanyJournalEntryBase.recordType = function () { return record.Type.ADV_INTER_COMPANY_JOURNAL_ENTRY; };
         __decorate([
             Record_1.FieldType.checkbox
         ], AdvancedIntercompanyJournalEntryBase.prototype, "approved", void 0);

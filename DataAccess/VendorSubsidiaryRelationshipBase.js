@@ -44,7 +44,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function VendorSubsidiaryRelationshipBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        VendorSubsidiaryRelationshipBase.recordType = record.Type.VENDOR_SUBSIDIARY_RELATIONSHIP;
+        VendorSubsidiaryRelationshipBase.recordType = function () { return record.Type.VENDOR_SUBSIDIARY_RELATIONSHIP; };
         __decorate([
             Record_1.FieldType.currency
         ], VendorSubsidiaryRelationshipBase.prototype, "balance", void 0);

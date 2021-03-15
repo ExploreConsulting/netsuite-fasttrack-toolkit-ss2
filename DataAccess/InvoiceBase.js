@@ -263,7 +263,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function InvoiceBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        InvoiceBase.recordType = record.Type.INVOICE;
+        InvoiceBase.recordType = function () { return record.Type.INVOICE; };
         __decorate([
             Record_1.FieldType.select
         ], InvoiceBase.prototype, "account", void 0);

@@ -214,7 +214,7 @@ export class ItemCostSublist extends SublistLine {
  */
 export class InvoiceBase extends TransactionBase {
 
-   static recordType = record.Type.INVOICE
+   static recordType() { return record.Type.INVOICE }
 
    @FieldType.select
    account: number

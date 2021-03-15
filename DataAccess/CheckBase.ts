@@ -99,7 +99,7 @@ export class ItemSublist extends SublistLine {
  *  NetSuite Check Record definition
  */
 export class CheckBase extends TransactionBase {
-   static recordType = record.Type.CHECK
+   static recordType() { return record.Type.CHECK }
 
    @FieldType.select
    account: number

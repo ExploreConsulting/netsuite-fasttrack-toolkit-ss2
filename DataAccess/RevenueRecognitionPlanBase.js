@@ -83,7 +83,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function RevenueRecognitionPlanBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        RevenueRecognitionPlanBase.recordType = record.Type.REVENUE_PLAN;
+        RevenueRecognitionPlanBase.recordType = function () { return record.Type.REVENUE_PLAN; };
         __decorate([
             Record_1.FieldType.currency
         ], RevenueRecognitionPlanBase.prototype, "amount", void 0);

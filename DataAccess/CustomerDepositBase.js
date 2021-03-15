@@ -45,7 +45,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function CustomerDepositBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        CustomerDepositBase.recordType = record.Type.CUSTOMER_DEPOSIT;
+        CustomerDepositBase.recordType = function () { return record.Type.CUSTOMER_DEPOSIT; };
         __decorate([
             Record_1.FieldType.select
         ], CustomerDepositBase.prototype, "account", void 0);

@@ -42,7 +42,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function SubsidiaryBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        SubsidiaryBase.recordType = record.Type.SUBSIDIARY;
+        SubsidiaryBase.recordType = function () { return record.Type.SUBSIDIARY; };
         __decorate([
             Record_1.FieldType.freeformtext
         ], SubsidiaryBase.prototype, "addr1", void 0);

@@ -143,7 +143,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function CheckBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        CheckBase.recordType = record.Type.CHECK;
+        CheckBase.recordType = function () { return record.Type.CHECK; };
         __decorate([
             Record_1.FieldType.select
         ], CheckBase.prototype, "account", void 0);

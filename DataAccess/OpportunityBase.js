@@ -91,7 +91,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function OpportunityBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        OpportunityBase.recordType = record.Type.OPPORTUNITY;
+        OpportunityBase.recordType = function () { return record.Type.OPPORTUNITY; };
         __decorate([
             Record_1.FieldType.currency
         ], OpportunityBase.prototype, "balance", void 0);

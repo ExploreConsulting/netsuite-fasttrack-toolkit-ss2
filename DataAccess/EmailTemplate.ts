@@ -7,7 +7,7 @@ import {FieldType, NetsuiteRecord} from './Record'
  * NetSuite Email Template Record Type (emailtemplate)
  */
 export class EmailTemplate extends NetsuiteRecord {
-   static recordType = 'emailtemplate'
+   static recordType() { return 'emailtemplate' }
 
    @FieldType.checkbox
    addcompanyaddress: boolean

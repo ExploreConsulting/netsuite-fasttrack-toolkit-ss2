@@ -74,7 +74,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function BinTransferBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        BinTransferBase.recordType = record.Type.BIN_TRANSFER;
+        BinTransferBase.recordType = function () { return record.Type.BIN_TRANSFER; };
         __decorate([
             Record_1.FieldType.datetime
         ], BinTransferBase.prototype, "createddate", void 0);

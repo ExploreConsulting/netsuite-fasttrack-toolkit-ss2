@@ -62,7 +62,7 @@ export class ExpenseSublist extends SublistLine {
  * NetSuite Vendor Bill Record
  */
 export class VendorBillBase extends TransactionBase {
-   static recordType = record.Type.VENDOR_BILL
+   static recordType() { return record.Type.VENDOR_BILL }
 
    @FieldType.select
    account: number
