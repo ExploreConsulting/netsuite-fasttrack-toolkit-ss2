@@ -5,9 +5,10 @@
 
  ```typescript
 
- getStateById(3) // returns { name: 'Arkansas', id: 3, abbrev: 'AR' }
+ getStateById(3) // returns { 'country': 'US','fullname': 'Arkansas','id': 3,'shortname': 'AR' }
  getStateById(-123) // returns undefined
-
+ stateMapping.filter( state => state.country === 'US') // array of states in USA
+ getCountryById('US') // {'uniquekey': 230,'name': 'United States', 'edition': 'US','id': 'US' }
  ```
  */
 
@@ -15,17 +16,38 @@
  * dummy comment for typedoc
  */
 
-interface State {
+export interface State {
+   /**
+    * primary key
+    */
    id: number,
+   /**
+    * foreign key linking to Country.id
+    */
    country: string,
+   /**
+    * State abbreviation, if any.
+    */
    shortname: string,
    fullname: string
 }
 
-interface Country {
+export interface Country {
+   /**
+    * country numeric primary key
+    */
    uniquekey: number,
+   /**
+    * Country code (abbreviation) - used as unique key for addresses
+    */
    id: string,
+   /**
+    * Country full name
+    */
    name: string,
+   /**
+    * which edition of NetSuite this country belongs to?
+    */
    edition: string
 }
 

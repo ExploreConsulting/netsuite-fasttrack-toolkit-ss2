@@ -5,9 +5,10 @@
 
  ```typescript
 
- getStateById(3) // returns { name: 'Arkansas', id: 3, abbrev: 'AR' }
+ getStateById(3) // returns { 'country': 'US','fullname': 'Arkansas','id': 3,'shortname': 'AR' }
  getStateById(-123) // returns undefined
-
+ stateMapping.filter( state => state.country === 'US') // array of states in USA
+ getCountryById('US') // {'uniquekey': 230,'name': 'United States', 'edition': 'US','id': 'US' }
  ```
  */
 (function (factory) {
