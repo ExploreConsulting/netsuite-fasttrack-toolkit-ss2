@@ -3,22 +3,23 @@ NFT (NetSuite Fasttrack Toolkit)
 ==============================================
 _for SuiteScript 2.x_
 
-This is a small but powerful framework for writing SuitScript that scales. A primary goal is to 
-enable authoring scripts that easy to write and easy to maintain. 
+A small but powerful framework for writing SuitScript that scales. 
+Primary goal is to make scripts easier to write with fewer defects and easier to maintain. 
 
 _Includes_
-* nsdal (Netsuite Data Access Layer) _ActiveRecord_-like approach using 
-predefined and customizable strong types for NetSuite record access including sublist support. 
+* NSDAL (Netsuite Data Access Layer) 
 * advanced logging facility
 * advanced search handling (search results are an arbitrarily long stream of objects)
 * governance management (governance monitoring and automatic script rescheduling)
 
-_also included (only as a convenience, NFT does not depend on these):_
+_also packaged (only as a convenience, NFT does not depend on these):_
 * `immutablejs` - used for arbitrary length sequences and elegant search result processing)
 * `lodash` - NFT enables direct use of this amazing library on NS records and search result collections)
 * `momentjs` 
 
 See API [docs here](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2)
+
+Source [code here](https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2)
 
 ![NFT Intro Image](media/images/NFT-Intro.svg)
 
@@ -39,9 +40,9 @@ extract the zip there.
 A recommended practice is to put your SuiteScript 2.0 files under a subfolder, such as `SuiteScripts/SS2/`. This 
 creates a convenient _'root'_ folder for your SS2 projects.
 
-After install you should get a folder link at your project root named NFT-SS2-#.#.#
-This creates a folder structure mirroring what you have in NetSuite so you can use relative paths when you 
-`import` from the library (e.g. `import {CustomerBase} from "./NFT-SS2-1.2.3/DataAcess/CustomerBase`)
+After `npm install` you should see a folder at your project root named NFT-SS2-#.#.#. 
+This contains the type definitions to make relative path imports work as expected: 
+e.g. `import` from the library (e.g. `import {CustomerBase} from "./NFT-SS2-1.2.3/DataAcess/CustomerBase`)
 
 
 ## NetSuite Data Access Layer (NSDAL)
@@ -50,7 +51,7 @@ access to NetSuite body fields, sublists, and even subrecords; all reduced to si
 to all javascript developers. 
 
 Behind the scenes, NSDAL is a thin wrapper eliminating boilerplate code (e.g. `getValue({fieldId:'foo'}`. 
-It still calls all the normal NetSuite APIs.
+It still calls all the normal NetSuite APIs - no magic.
 
 
 NSDAL defines NetSuite record types in a class hierarchy. You can use the xxxBase classes directly if you don’t need custom fields. 
@@ -75,7 +76,7 @@ Works with SuiteScript 2.0 and 2.1.
  */
 
 import * as LogManager from 'NFT/EC_Logger'
-import {CustomerBase} from  'NFT/DataAccess/CustomerBase"
+import {CustomerBase} from  'NFT/DataAccess/CustomerBase'
 import {FieldType} from "NFT/DataAccess/Record"
 import {SublistFieldType,Sublist,SublistLine} from "NFT/DataAccess/Sublist"
 import * as _ from "NFT/lodash"
