@@ -16,7 +16,10 @@ predefined and customizable strong types for NetSuite record access including su
 _also included (only as a convenience, NFT does not depend on these):_
 * `immutablejs` - used for arbitrary length sequences and elegant search result processing)
 * `lodash` - NFT enables direct use of this amazing library on NS records and search result collections)
-* `momentjs` 
+* `momentjs` - popular date manipulation library
+* `bignumber.js` - better decimal math
+
+see `package-lock.json` for exactly which versions of the above libraries are included.
 
 See API [docs here](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2)
 
