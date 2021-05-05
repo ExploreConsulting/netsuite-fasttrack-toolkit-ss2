@@ -25,7 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Record", "N/record"], factory);
+        define(["require", "exports", "./Record", "N/record", "./ItemBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -34,6 +34,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     // the inventory item record in NetSuite
     var Record_1 = require("./Record");
     var record = require("N/record");
+    var ItemBase_1 = require("./ItemBase");
     /**
      * Netsuite Inventory Item record type
      */
@@ -44,48 +45,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         }
         InventoryItem.recordType = function () { return record.Type.INVENTORY_ITEM; };
         __decorate([
-            Record_1.FieldType.select
-        ], InventoryItem.prototype, "assetaccount", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], InventoryItem.prototype, "cogsaccount", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], InventoryItem.prototype, "costcategory", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], InventoryItem.prototype, "externalid", void 0);
-        __decorate([
             Record_1.FieldType.checkbox
-        ], InventoryItem.prototype, "includechildren", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], InventoryItem.prototype, "incomeaccount", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], InventoryItem.prototype, "itemid", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], InventoryItem.prototype, "purchasedescription", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], InventoryItem.prototype, "subsidiary", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], InventoryItem.prototype, "taxschedule", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], InventoryItem.prototype, "tracklandedcost", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], InventoryItem.prototype, "upccode", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], InventoryItem.prototype, "unitstype", void 0);
+        ], InventoryItem.prototype, "contingentrevenuehandling", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
         ], InventoryItem.prototype, "vendorname", void 0);
         return InventoryItem;
-    }(Record_1.NetsuiteRecord));
+    }(ItemBase_1.ItemBase));
     exports.InventoryItem = InventoryItem;
 });
