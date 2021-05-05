@@ -78,8 +78,12 @@ export class AssemblyItemBase extends NetsuiteRecord {
    @FieldType.select
    costingmethod:number
 
+   /**
+    * This is a 'select' field according to records browser but actually requires the two character country code
+    * for values.
+    */
    @FieldType.select
-   countryofmanufacture:number
+   countryofmanufacture: string
 
 
    @FieldType.datetime

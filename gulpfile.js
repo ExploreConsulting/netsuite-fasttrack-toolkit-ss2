@@ -27,10 +27,15 @@ var declarations = ['*.d.ts', 'DataAccess/*.d.ts', '!example.d.ts']
 // npm libraries we choose to bundle (e.g. moment) or we actually depend on (e.g. logging)
 var includedNPMlibs = ['node_modules/lodash/lodash.js', 'node_modules/immutable/dist/immutable.js',
    'node_modules/moment/moment.js', 'node_modules/aurelia-logging/dist/amd/aurelia-logging.js',
-   'node_modules/aurelia-logging-console/dist/amd/aurelia-logging-console.js']
+   'node_modules/aurelia-logging-console/dist/amd/aurelia-logging-console.js',
+   'node_modules/bignumber.js/bignumber.js'
+]
 
-var otherTypings = ['node_modules/moment/moment.d.ts', 'aurelia-logging.d.ts']
+// other .d.ts files to include in declarations/ that are correct without any renaming
+var otherTypings = ['node_modules/moment/moment.d.ts', 'aurelia-logging.d.ts', 'node_modules/bignumber.js/bignumber.d.ts']
 
+// output folder includes version number e.g. NFT-SS2-#.#.# so that we can easily support multiple versions of
+// NFT in the file cabinet
 var buildFolderName = '/NFT-SS2-' + version
 
 var versionedDistPath = path.join(outdir, buildFolderName)
@@ -40,7 +45,7 @@ gulp.task('cleandeclarations', function () {
    return del(decldir)
 })
 
-// uses plain node del module to delete previous build
+// uses plain node del module to delete previous build artifacts
 gulp.task('clean', function () {
    return del(outdir)
 })
@@ -75,6 +80,7 @@ gulp.task('default', gulp.series('copyfiles', function () {
       .pipe(size()) // outputs a blurb about how many bytes the final result is
 }))
 
+// generate APOI docs served at https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/
 gulp.task('docs', function (cb) {
    var exec = require('child_process').exec
       exec('node_modules/.bin/typedoc', // typedoc config is in typedoc.json
