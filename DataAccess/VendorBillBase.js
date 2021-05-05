@@ -5,10 +5,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -89,6 +91,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Sublist_1.SublistFieldType.select
         ], ExpenseSublist.prototype, "location", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ExpenseSublist.prototype, "memo", void 0);
         return ExpenseSublist;
     }(Sublist_1.SublistLine));
     exports.ExpenseSublist = ExpenseSublist;
@@ -100,7 +105,85 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function VendorBillBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        VendorBillBase.recordType = record.Type.VENDOR_BILL;
+        VendorBillBase.recordType = function () { return record.Type.VENDOR_BILL; };
+        __decorate([
+            Record_1.FieldType.select
+        ], VendorBillBase.prototype, "account", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], VendorBillBase.prototype, "approvalstatus", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], VendorBillBase.prototype, "availablevendorcredit", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], VendorBillBase.prototype, "balance", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], VendorBillBase.prototype, "class", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], VendorBillBase.prototype, "creditlimit", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], VendorBillBase.prototype, "currency", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], VendorBillBase.prototype, "currencyname", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], VendorBillBase.prototype, "currencysymbol", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], VendorBillBase.prototype, "discountamount", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], VendorBillBase.prototype, "discountdate", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], VendorBillBase.prototype, "documentstatus", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], VendorBillBase.prototype, "duedate", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], VendorBillBase.prototype, "entitynexus", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], VendorBillBase.prototype, "entitytaxregnum", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], VendorBillBase.prototype, "exchangerate", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], VendorBillBase.prototype, "landedcostperline", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], VendorBillBase.prototype, "nextapprover", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], VendorBillBase.prototype, "nexus", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], VendorBillBase.prototype, "overrideinstallments", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], VendorBillBase.prototype, "paymenthold", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], VendorBillBase.prototype, "taxpointdate", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], VendorBillBase.prototype, "taxpointdateoverride", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], VendorBillBase.prototype, "taxregoverride", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], VendorBillBase.prototype, "terms", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], VendorBillBase.prototype, "usertotal", void 0);
         __decorate([
             Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
         ], VendorBillBase.prototype, "billingaddress", void 0);

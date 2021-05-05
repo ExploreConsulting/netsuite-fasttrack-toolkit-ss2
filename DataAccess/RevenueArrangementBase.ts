@@ -94,7 +94,7 @@ export class RevenueElementSublist extends SublistLine {
  */
 export class RevenueArrangementBase extends NetsuiteRecord {
 
-   static recordType = record.Type.REVENUE_ARRANGEMENT
+   static recordType() { return record.Type.REVENUE_ARRANGEMENT }
 
    @FieldType.select
    accountingbook: number

@@ -5,10 +5,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -53,6 +55,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Sublist_1.SublistFieldType.select
         ], InventoryAssignmentSublist.prototype, "issueinventorynumber", void 0);
         __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], InventoryAssignmentSublist.prototype, "receiptinventorynumber", void 0);
+        __decorate([
             Sublist_1.SublistFieldType.float
         ], InventoryAssignmentSublist.prototype, "quantity", void 0);
         __decorate([
@@ -77,7 +82,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function InventoryDetailBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        InventoryDetailBase.recordType = record.Type.INVENTORY_DETAIL;
+        InventoryDetailBase.recordType = function () { return record.Type.INVENTORY_DETAIL; };
         __decorate([
             Record_1.FieldType.select
         ], InventoryDetailBase.prototype, "item", void 0);

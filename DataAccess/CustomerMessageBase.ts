@@ -10,7 +10,7 @@ import * as record from 'N/record'
  */
 export class CustomerMessageBase extends NetsuiteRecord {
 
-   static recordType = record.Type.CUSTOMER_MESSAGE
+   static recordType() { return record.Type.CUSTOMER_MESSAGE }
 
    @FieldType.textarea
    description: string

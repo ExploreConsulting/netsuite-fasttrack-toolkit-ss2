@@ -43,7 +43,7 @@ export class PlannedRevenueSublist extends SublistLine {
  */
 export class RevenueRecognitionPlanBase extends NetsuiteRecord {
 
-   static recordType = record.Type.REVENUE_PLAN
+   static recordType() { return record.Type.REVENUE_PLAN }
 
    @FieldType.currency
    amount: number

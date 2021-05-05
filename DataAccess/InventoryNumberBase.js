@@ -2,10 +2,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -23,45 +25,75 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Record", "N/record"], factory);
+        define(["require", "exports", "./Record", "N/record", "./Sublist"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.InventoryNumber = void 0;
+    exports.InventoryNumberBase = exports.LocationsSublist = void 0;
     /**
      * NetSuite Serial Number (Inventory Number) Record Type
      */
     var Record_1 = require("./Record");
     var record = require("N/record");
+    var Sublist_1 = require("./Sublist");
+    /**
+     * The 'locations' sublist on Inventory Number records
+     */
+    var LocationsSublist = /** @class */ (function (_super) {
+        __extends(LocationsSublist, _super);
+        function LocationsSublist() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], LocationsSublist.prototype, "location", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.float
+        ], LocationsSublist.prototype, "quantityavailable", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.float
+        ], LocationsSublist.prototype, "quantityintransit", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.float
+        ], LocationsSublist.prototype, "quantityonhand", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.float
+        ], LocationsSublist.prototype, "quantityonorder", void 0);
+        return LocationsSublist;
+    }(Sublist_1.SublistLine));
+    exports.LocationsSublist = LocationsSublist;
     /**
      * NetSuite Inventory Number Record Type (inventorynumber)
      */
-    var InventoryNumber = /** @class */ (function (_super) {
-        __extends(InventoryNumber, _super);
-        function InventoryNumber() {
+    var InventoryNumberBase = /** @class */ (function (_super) {
+        __extends(InventoryNumberBase, _super);
+        function InventoryNumberBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        InventoryNumber.recordType = record.Type.INVENTORY_NUMBER;
+        InventoryNumberBase.recordType = function () { return record.Type.INVENTORY_NUMBER; };
         __decorate([
             Record_1.FieldType.date
-        ], InventoryNumber.prototype, "expirationdate", void 0);
+        ], InventoryNumberBase.prototype, "expirationdate", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], InventoryNumber.prototype, "externalid", void 0);
+        ], InventoryNumberBase.prototype, "externalid", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], InventoryNumber.prototype, "inventorynumber", void 0);
+        ], InventoryNumberBase.prototype, "inventorynumber", void 0);
         __decorate([
             Record_1.FieldType.textarea
-        ], InventoryNumber.prototype, "memo", void 0);
+        ], InventoryNumberBase.prototype, "memo", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], InventoryNumber.prototype, "status", void 0);
+        ], InventoryNumberBase.prototype, "status", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], InventoryNumber.prototype, "units", void 0);
-        return InventoryNumber;
+        ], InventoryNumberBase.prototype, "units", void 0);
+        __decorate([
+            Record_1.FieldType.sublist(LocationsSublist)
+        ], InventoryNumberBase.prototype, "locations", void 0);
+        return InventoryNumberBase;
     }(Record_1.NetsuiteRecord));
-    exports.InventoryNumber = InventoryNumber;
+    exports.InventoryNumberBase = InventoryNumberBase;
 });

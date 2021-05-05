@@ -27,10 +27,12 @@ export abstract class NetsuiteCurrentRecord {
    }
 
    /**
-    * The netsuite record type (constant string) - this is declared here and overriden in derived classes
+    * The netsuite record type (constant string) - this is declared here and overridden in derived classes
     */
-   public static recordType: record.Type | string
-
+    static recordType() : string | record.Type {
+       // the base class version of this method should never be invoked.
+       return 'NetSuiteCurrentRecord:recordType not implemented. Did you forget to define a static recordType() method on your derived class?'
+    }
    /**
     * The underlying netsuite 'record' object. For client scripts, this is the slightly less feature rich
     * 'ClientCurrentRecord' when accessing the 'current' record the script is associated to.
@@ -48,7 +50,7 @@ export abstract class NetsuiteCurrentRecord {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
-      let type = Object.getPrototypeOf(this).constructor.recordType
+      let type = Object.getPrototypeOf(this).constructor.recordType()
       if (!rec) {
          log.debug('creating new record', `type:${type}  isDyanamic:${isDynamic} defaultValues:${defaultValues}`)
          this.makeRecordProp(record.create({ type: type, isDynamic: isDynamic, defaultValues: defaultValues }))
@@ -155,7 +157,7 @@ const parseSublistProp = suffixParser('Sublist')
  * @returns a decorator that returns a property descriptor to be used
  * with Object.defineProperty
  */
-export function defaultDescriptor (target: any, propertyKey: string): any {
+export function defaultDescriptor<T extends NetsuiteCurrentRecord>(target: T, propertyKey: string): any {
    const [isTextField, nsfield] = parseProp(propertyKey)
    return {
       get: function () {
@@ -175,14 +177,14 @@ export function defaultDescriptor (target: any, propertyKey: string): any {
 }
 
 /**
- * Just like the default decriptor but calls Number() on the value. This exists for numeric types that
+ * Just like the default descriptor but calls Number() on the value. This exists for numeric types that
  * would blow up if you tried to assign number primitive values to a field. Don't know why - did various checks
  * with lodash and typeof to confirm the raw value was a number but only passing through Number() worked on sets.
  * Reads still seem to return a number.
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-export function numericDescriptor (target: any, propertyKey: string): any {
+export function numericDescriptor<T extends NetsuiteCurrentRecord>(target: T, propertyKey: string): any {
    const [isTextField, nsfield] = parseProp(propertyKey)
    return {
       get: function () {
@@ -254,13 +256,14 @@ function subrecordDescriptor<T extends NetsuiteCurrentRecord> (ctor: new (rec: r
  * Generic property descriptor with algorithm for values that need to go through the NS format module on field
  * write. Returns plain getValue() on reads
  * note: does not take into account timezone
+ * This decorator applies to record properties only (i.e. not for use on sublists).
  * @param {string} formatType the NS field type (e.g. 'date')
  * @param target
  * @param propertyKey
  * @returns  an object property descriptor to be used
  * with decorators
  */
-function formattedDescriptor (formatType: format.Type, target: any, propertyKey: string): any {
+function formattedDescriptor<T extends NetsuiteCurrentRecord>(formatType: format.Type, target: T, propertyKey: string): any {
    return {
       get: function () {
          return this.nsrecord.getValue({ fieldId: propertyKey })

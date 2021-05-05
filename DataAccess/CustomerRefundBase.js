@@ -5,10 +5,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -91,6 +93,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         function CustomerRefundBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        CustomerRefundBase.recordType = function () { return record.Type.CUSTOMER_REFUND; };
         /**
          * Locates first matching line on the 'apply' sublist that corresponds to the passed related recordid.
          * Returns an object that can be used to manipulate the found line in 'current' (dynamic) mode. The returned
@@ -102,7 +105,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
          * calls to nsrecord.setCurrentSublistValue()
          */
         CustomerRefundBase.prototype.findApplyLine = function (docId) { return _super.prototype.findApplyLine.call(this, docId); };
-        CustomerRefundBase.recordType = record.Type.CUSTOMER_REFUND;
         __decorate([
             Record_1.FieldType.select
         ], CustomerRefundBase.prototype, "account", void 0);

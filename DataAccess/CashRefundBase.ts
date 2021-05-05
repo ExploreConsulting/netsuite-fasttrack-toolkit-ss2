@@ -9,7 +9,7 @@ import { SublistFieldType, SublistLine } from './Sublist'
 
 export class CashRefundBase extends TransactionBase {
 
-   static recordType = record.Type.CASH_REFUND
+   static recordType() { return record.Type.CASH_REFUND }
 
    @FieldType.select
    account:number

@@ -12,7 +12,7 @@ module (in the correct path of ./lodash assuming lodash is installed in the same
 import * as LogManager from './EC_Logger'
 import {CustomerBase} from "./DataAccess/CustomerBase"
 import {ItemSublist, SalesOrderBase} from "./DataAccess/SalesOrderBase";
-import { FieldType } from './DataAccess/Record'
+import { FieldType, NetsuiteRecord } from './DataAccess/Record'
 import { Sublist } from './DataAccess/Sublist'
 import * as _ from "lodash"
 
@@ -35,6 +35,21 @@ class SalesOrder extends SalesOrderBase {
    item: Sublist<ItemSublist>
 }
 
+// Example Custom Record definition
+// see the CodeGeneration/ folder for ways to autogenerate classes for your custom records.
+class MyCustomRecord extends NetsuiteRecord {
+   static recordType() { return 'customrecord_myrecordid' }
+
+   @FieldType.freeformtext
+   custrecord_some_text: string
+}
+
+function demoCustomRecord () {
+   // custom records work just like native records with NSDAL.
+   const customRec = new MyCustomRecord(123)
+   customRec.custrecord_some_text = 'hello world'
+   customRec.save()
+}
 
 function demoSalesOrderLineItems () {
 
@@ -57,7 +72,7 @@ function demoSalesOrderLineItems () {
    _.map(so.item, i => i.quantity += 1 )
 
    // find first line item with specific item
-   const found = _.find(so.item, i => i.item = 123 )
+   const found = _.find(so.item, i => i.item == 123 )
 
    // ... can then access fields on the found line...
    // found.quantity
@@ -91,8 +106,9 @@ export = {
       log.info('customer', c)
       let id = c.save()
       log.debug(`saved record id: ${id}`)
-
+      demoSalesOrderLineItems()
+      demoCustomRecord()
    }
 }
 
-demoSalesOrderLineItems()
+

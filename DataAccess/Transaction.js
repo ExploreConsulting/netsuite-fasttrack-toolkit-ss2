@@ -5,10 +5,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -34,7 +36,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     exports.TransactionBase = void 0;
     var Record_1 = require("./Record");
     /**
-     * Fields common to all transactions in NS
+     * Fields common to all transactions in NS, and is the share base class for bundled DataAccess transaction types.
+     * Note that when using this base class, pass an existing native NS record object to the constructor.
+     * Attempting to create a new instance of this class from scratch or load an existing transaction by internal id
+     * will fail (since the record type cannot be ambiguous in those cases).
+     *
      */
     var TransactionBase = /** @class */ (function (_super) {
         __extends(TransactionBase, _super);
@@ -45,6 +51,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
          * locates line on the 'apply' sublist that corresponds to the passed related record internal id
          * expose this method in derived classes that need dynamic access to the apply sublist
          * returns undefined
+         * @deprecated - dynamic access to the apply sublist should generally work using normal collection oriented means
          */
         TransactionBase.prototype.findApplyLine = function (docId) {
             var rec = this.nsrecord;
@@ -79,6 +86,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 return null;
         };
         __decorate([
+            Record_1.FieldType.datetime
+        ], TransactionBase.prototype, "createddate", void 0);
+        __decorate([
             Record_1.FieldType.select
         ], TransactionBase.prototype, "customform", void 0);
         __decorate([
@@ -111,6 +121,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.freeformtext
         ], TransactionBase.prototype, "memo", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], TransactionBase.prototype, "orderstatus", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
         ], TransactionBase.prototype, "otherrefnum", void 0);

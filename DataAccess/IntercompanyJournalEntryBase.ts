@@ -23,7 +23,7 @@ export class LineSublist extends JeLineSublist {
  * defines an Inter-company journal entry (basically identical to a normal journal entry?)
  */
 export class IntercompanyJournalEntryBase extends JournalEntryBase {
-   static recordType = record.Type.INTER_COMPANY_JOURNAL_ENTRY
+   static recordType() { return record.Type.INTER_COMPANY_JOURNAL_ENTRY }
 
 
    @FieldType.sublist(LineSublist)

@@ -35,7 +35,7 @@ export class AdjustmentsSublistLine extends SublistLine {
  */
 export class BinTransferBase extends NetsuiteRecord {
 
-   static recordType = record.Type.BIN_TRANSFER
+   static recordType() { return record.Type.BIN_TRANSFER }
 
    @FieldType.datetime
    createddate:Date

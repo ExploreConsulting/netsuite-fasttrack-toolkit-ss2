@@ -10,7 +10,7 @@ import * as record from 'N/record'
  */
 export class VendorSubsidiaryRelationshipBase extends NetsuiteRecord {
 
-   static recordType = record.Type.VENDOR_SUBSIDIARY_RELATIONSHIP
+   static recordType() { return record.Type.VENDOR_SUBSIDIARY_RELATIONSHIP }
    @FieldType.currency
    balance: string
 

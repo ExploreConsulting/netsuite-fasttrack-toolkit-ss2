@@ -5,9 +5,16 @@
 import { FieldType, NetsuiteRecord } from './Record'
 
 /**
- * Fields common to all transactions in NS
+ * Fields common to all transactions in NS, and is the share base class for bundled DataAccess transaction types.
+ * Note that when using this base class, pass an existing native NS record object to the constructor.
+ * Attempting to create a new instance of this class from scratch or load an existing transaction by internal id
+ * will fail (since the record type cannot be ambiguous in those cases).
+ *
  */
-export abstract class TransactionBase extends NetsuiteRecord {
+export class TransactionBase extends  NetsuiteRecord {
+
+   @FieldType.datetime
+   createddate: Date
 
    @FieldType.select
    customform: number
@@ -48,6 +55,9 @@ export abstract class TransactionBase extends NetsuiteRecord {
    @FieldType.freeformtext
    memo: string
 
+   @FieldType.select
+   orderstatus: number
+
    @FieldType.freeformtext
    otherrefnum: string
 
@@ -83,6 +93,7 @@ export abstract class TransactionBase extends NetsuiteRecord {
     * locates line on the 'apply' sublist that corresponds to the passed related record internal id
     * expose this method in derived classes that need dynamic access to the apply sublist
     * returns undefined
+    * @deprecated - dynamic access to the apply sublist should generally work using normal collection oriented means
     */
    protected findApplyLine (docId: number): { apply: boolean, amount: number, line: number } | null {
       let rec = this.nsrecord
@@ -118,6 +129,3 @@ export abstract class TransactionBase extends NetsuiteRecord {
       } else return null
    }
 }
-
-
-

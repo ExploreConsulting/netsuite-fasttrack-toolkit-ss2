@@ -24,10 +24,10 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.checkbox
    itemreceive:boolean
 
-   @FieldType.integernumber
+   @SublistFieldType.integernumber
    line:number
 
-   @FieldType.freeformtext
+   @SublistFieldType.freeformtext
    lineuniquekey:string
 
    @SublistFieldType.select
@@ -57,7 +57,7 @@ export class ItemSublist extends SublistLine {
  */
 export class ItemReceiptBase extends TransactionBase {
 
-   static recordType = record.Type.ITEM_RECEIPT
+   static recordType() { return record.Type.ITEM_RECEIPT }
 
    @FieldType.select
    class:number

@@ -54,7 +54,7 @@ export class ItemSublist extends SublistLine {
  */
 export class OpportunityBase extends TransactionBase {
 
-   static recordType = record.Type.OPPORTUNITY
+   static recordType() { return record.Type.OPPORTUNITY }
 
    @FieldType.currency
    balance:number

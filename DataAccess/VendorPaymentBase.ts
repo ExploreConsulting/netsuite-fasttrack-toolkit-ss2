@@ -47,7 +47,7 @@ export class ApplySublist extends SublistLine {
  * NetSuite Vendor Payment Record
  */
 export class VendorPaymentBase extends TransactionBase {
-   static recordType = record.Type.VENDOR_PAYMENT
+   static recordType() { return record.Type.VENDOR_PAYMENT }
 
    @FieldType.select
    account: number

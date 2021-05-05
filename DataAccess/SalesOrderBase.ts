@@ -1,6 +1,3 @@
-/**
- * NetSuite generic Transaction record
- */
 
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
@@ -113,18 +110,32 @@ export class SalesTeamSublist extends SublistLine {
  */
 export class SalesOrderBase extends TransactionBase {
 
-   static recordType = record.Type.SALES_ORDER
+   static recordType() { return record.Type.SALES_ORDER }
 
    @FieldType.subrecord(AddressBase)
    billingaddress: AddressBase
 
-   @FieldType.subrecord(AddressBase)
-   shippingaddress: AddressBase
-
    @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>
 
+   @FieldType.select
+   paymentmethod: number
+
    @FieldType.sublist(SalesTeamSublist)
    salesteam: Sublist<SalesTeamSublist>
-}
 
+   @FieldType.select
+   shipmethod: number
+
+   @FieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase
+
+   @FieldType.currency
+   shippingcost: number
+
+   @FieldType.select
+   terms: number
+
+   @FieldType.currency
+   total: number
+}

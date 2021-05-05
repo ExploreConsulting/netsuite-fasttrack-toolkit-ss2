@@ -40,7 +40,7 @@ export class MemberSublist extends SublistLine {
  */
 export class AssemblyItemBase extends NetsuiteRecord {
 
-   static recordType: record.Type = record.Type.ASSEMBLY_ITEM
+   static recordType() { return record.Type.ASSEMBLY_ITEM }
 
    @FieldType.select
    assetaccount: number
@@ -78,8 +78,12 @@ export class AssemblyItemBase extends NetsuiteRecord {
    @FieldType.select
    costingmethod:number
 
+   /**
+    * This is a 'select' field according to records browser but actually requires the two character country code
+    * for values.
+    */
    @FieldType.select
-   countryofmanufacture:number
+   countryofmanufacture: string
 
 
    @FieldType.datetime

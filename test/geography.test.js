@@ -16,20 +16,28 @@
     describe('get states info', function () {
         test('get WA by id', function () {
             var foundstate = geography_1.getStateById(48);
-            expect(foundstate).toHaveProperty('abbrev', 'WA');
+            expect(foundstate).toHaveProperty('shortname', 'WA');
         });
         test('get unknown state by id', function () {
-            var foundState = geography_1.getCountryById(-22);
+            var foundState = geography_1.getStateById('');
             expect(foundState).toBeUndefined();
         });
     });
     describe('get country info', function () {
         test('get USA by id', function () {
-            var foundCountry = geography_1.getCountryById(230);
-            expect(foundCountry).toHaveProperty('abbrev', 'US');
+            var foundCountry = geography_1.getCountryById('US');
+            expect(foundCountry).toHaveProperty('name', 'United States');
         });
         test('get unknown country by id', function () {
-            var foundCountry = geography_1.getCountryById(-22);
+            var foundCountry = geography_1.getCountryById('no such country code exists');
+            expect(foundCountry).toBeUndefined();
+        });
+        test('get country by uniquekey', function () {
+            var foundCountry = geography_1.getCountryByUniqueKey(3);
+            expect(foundCountry).toHaveProperty('id', 'AF');
+        });
+        test('get unknown country by uniquekey', function () {
+            var foundCountry = geography_1.getCountryByUniqueKey(-1);
             expect(foundCountry).toBeUndefined();
         });
     });

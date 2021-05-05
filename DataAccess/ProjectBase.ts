@@ -1,5 +1,5 @@
 /**
- * Represents an Item Fulfillment (itemfulfillment) transaction type in NetSuite
+ * Represents an Project (job) record type in NetSuite
  */
 
 import { FieldType, NetsuiteRecord } from './Record'
@@ -29,7 +29,7 @@ export class JobResourcesSublist extends SublistLine {
    @SublistFieldType.currency
    defaultcost: number
 
-   @FieldType.freeformtext
+   @SublistFieldType.freeformtext
    email: string
 
    @SublistFieldType.select
@@ -48,7 +48,7 @@ export class JobResourcesSublist extends SublistLine {
  */
 export class ProjectBase extends NetsuiteRecord {
 
-   static recordType = record.Type.JOB
+   static recordType() { return record.Type.JOB }
 
    @FieldType.checkbox
    allowtime: boolean

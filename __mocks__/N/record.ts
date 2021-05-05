@@ -1,5 +1,6 @@
 export const create = jest.fn( function ( config ) {
    this.isDynamic = config.isDynamic
+   this.type = config.type
    return this
 }).mockName('create')
 export const Type = jest.fn()

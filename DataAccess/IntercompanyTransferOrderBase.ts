@@ -12,7 +12,7 @@ import {FieldType} from "./Record";
  * Primary difference between this an a regular Transfer order is a TO destination subsidiary.
  */
 export class IntercompanyTransferOrderBase extends to.TransferOrderBase {
-   static recordType = record.Type.INTER_COMPANY_TRANSFER_ORDER
+   static recordType() { return record.Type.INTER_COMPANY_TRANSFER_ORDER }
 
    @FieldType.select
    tosubsidiary:number

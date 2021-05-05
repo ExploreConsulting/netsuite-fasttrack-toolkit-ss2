@@ -55,8 +55,11 @@ export class AddressBase extends NetsuiteRecord {
    @FieldType.freeformtext
    city: string
 
+   /**
+    * Unlike other `select` fields which take a numeric internal id value, this one requires the country abbreviation as the key (e.g. 'US')
+    */
    @FieldType.select
-   country: number
+   country: string
 
    @FieldType.freeformtext
    state: string

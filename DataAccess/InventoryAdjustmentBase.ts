@@ -11,7 +11,7 @@ import { FieldType } from './Record'
  * NetSuite Inventory Adjustment Record
  */
 export class InventoryAdjustmentBase extends TransactionBase {
-   static recordType = record.Type.INVENTORY_ADJUSTMENT
+   static recordType() { return record.Type.INVENTORY_ADJUSTMENT }
 
    @FieldType.select
    account:number
@@ -21,9 +21,6 @@ export class InventoryAdjustmentBase extends TransactionBase {
 
    @FieldType.select
    "class":number
-
-   @FieldType.datetime
-   createddate:Date
 
    @FieldType.select
    customer:number

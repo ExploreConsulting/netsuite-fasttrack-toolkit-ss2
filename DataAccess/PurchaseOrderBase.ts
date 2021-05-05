@@ -49,7 +49,7 @@ export class ItemSublist extends SublistLine {
  * NetSuite Purchase Order Record
  */
 export class PurchaseOrderBase extends TransactionBase {
-   static recordType = record.Type.PURCHASE_ORDER
+   static recordType() { return record.Type.PURCHASE_ORDER }
 
    @FieldType.subrecord(AddressBase)
    billingaddress: AddressBase
