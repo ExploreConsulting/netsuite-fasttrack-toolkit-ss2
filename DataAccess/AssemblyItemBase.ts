@@ -1,7 +1,7 @@
 import * as record from 'N/record'
 import { FieldType } from './Record'
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
-import { ItemBase } from './ItemBase'
+import { Item } from './Item'
 
 /**
  * the Members (member) sublist on AssemblyItem (assemblyitem) records
@@ -39,7 +39,7 @@ export class MemberSublist extends SublistLine {
 /**
  * NetSuite Build/Assembly Item (assemblyitem) item type.
  */
-export class AssemblyItemBase extends ItemBase {
+export class AssemblyItemBase extends Item {
 
    static recordType() { return record.Type.ASSEMBLY_ITEM }
 

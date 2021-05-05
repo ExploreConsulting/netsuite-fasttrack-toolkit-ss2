@@ -25,7 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/record", "./Record", "./Sublist", "./ItemBase"], factory);
+        define(["require", "exports", "N/record", "./Record", "./Sublist", "./Item"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -34,7 +34,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var record = require("N/record");
     var Record_1 = require("./Record");
     var Sublist_1 = require("./Sublist");
-    var ItemBase_1 = require("./ItemBase");
+    var Item_1 = require("./Item");
     /**
      * the Members (member) sublist on AssemblyItem (assemblyitem) records
      */
@@ -98,6 +98,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.sublist(MemberSublist)
         ], AssemblyItemBase.prototype, "member", void 0);
         return AssemblyItemBase;
-    }(ItemBase_1.ItemBase));
+    }(Item_1.Item));
     exports.AssemblyItemBase = AssemblyItemBase;
 });

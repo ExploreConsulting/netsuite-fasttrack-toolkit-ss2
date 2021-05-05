@@ -30,173 +30,173 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.ItemBase = void 0;
+    exports.Item = void 0;
     var Record_1 = require("./Record");
     /**
      * Base class with fields common to all item types
      */
-    var ItemBase = /** @class */ (function (_super) {
-        __extends(ItemBase, _super);
-        function ItemBase() {
+    var Item = /** @class */ (function (_super) {
+        __extends(Item, _super);
+        function Item() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "autoleadtime", void 0);
+        ], Item.prototype, "autoleadtime", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "autopreferredstocklevel", void 0);
+        ], Item.prototype, "autopreferredstocklevel", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "availabletopartners", void 0);
+        ], Item.prototype, "availabletopartners", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "assetaccount", void 0);
+        ], Item.prototype, "assetaccount", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "atpmethod", void 0);
+        ], Item.prototype, "atpmethod", void 0);
         __decorate([
             Record_1.FieldType.currency
-        ], ItemBase.prototype, "averagecost", void 0);
+        ], Item.prototype, "averagecost", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "billingschedule", void 0);
+        ], Item.prototype, "billingschedule", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "billpricevariantacct", void 0);
+        ], Item.prototype, "billpricevariantacct", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "class", void 0);
+        ], Item.prototype, "class", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "cogsaccount", void 0);
+        ], Item.prototype, "cogsaccount", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "consumptionunit", void 0);
+        ], Item.prototype, "consumptionunit", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "copydescription", void 0);
+        ], Item.prototype, "copydescription", void 0);
         __decorate([
             Record_1.FieldType.currency
-        ], ItemBase.prototype, "cost", void 0);
+        ], Item.prototype, "cost", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "costcategory", void 0);
+        ], Item.prototype, "costcategory", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "costingmethod", void 0);
+        ], Item.prototype, "costingmethod", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "countryofmanufacture", void 0);
+        ], Item.prototype, "countryofmanufacture", void 0);
         __decorate([
             Record_1.FieldType.datetime
-        ], ItemBase.prototype, "createddate", void 0);
+        ], Item.prototype, "createddate", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "customform", void 0);
+        ], Item.prototype, "customform", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "deferredrevenueaccount", void 0);
+        ], Item.prototype, "deferredrevenueaccount", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "deferrevrec", void 0);
+        ], Item.prototype, "deferrevrec", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "department", void 0);
+        ], Item.prototype, "department", void 0);
         __decorate([
             Record_1.FieldType.textarea
-        ], ItemBase.prototype, "description", void 0);
+        ], Item.prototype, "description", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], ItemBase.prototype, "displayname", void 0);
+        ], Item.prototype, "displayname", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], ItemBase.prototype, "externalid", void 0);
+        ], Item.prototype, "externalid", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "includechildren", void 0);
+        ], Item.prototype, "includechildren", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "incomeaccount", void 0);
+        ], Item.prototype, "incomeaccount", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "isdonationitem", void 0);
+        ], Item.prototype, "isdonationitem", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "isdropshipitem", void 0);
+        ], Item.prototype, "isdropshipitem", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "isgcocompliant", void 0);
+        ], Item.prototype, "isgcocompliant", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "isinactive", void 0);
+        ], Item.prototype, "isinactive", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "isonline", void 0);
+        ], Item.prototype, "isonline", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "isspecialorderitem", void 0);
+        ], Item.prototype, "isspecialorderitem", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "isstorepickupallowed", void 0);
+        ], Item.prototype, "isstorepickupallowed", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "itemcondition", void 0);
+        ], Item.prototype, "itemcondition", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], ItemBase.prototype, "itemid", void 0);
+        ], Item.prototype, "itemid", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "itemoptions", void 0);
+        ], Item.prototype, "itemoptions", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], ItemBase.prototype, "itemtype", void 0);
+        ], Item.prototype, "itemtype", void 0);
         __decorate([
             Record_1.FieldType.datetime
-        ], ItemBase.prototype, "lastmodifieddate", void 0);
+        ], Item.prototype, "lastmodifieddate", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "location", void 0);
+        ], Item.prototype, "location", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "parent", void 0);
+        ], Item.prototype, "parent", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], ItemBase.prototype, "purchasedescription", void 0);
+        ], Item.prototype, "purchasedescription", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "revrecschedule", void 0);
+        ], Item.prototype, "revrecschedule", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "subsidiary", void 0);
+        ], Item.prototype, "subsidiary", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], ItemBase.prototype, "upccode", void 0);
+        ], Item.prototype, "upccode", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "taxschedule", void 0);
+        ], Item.prototype, "taxschedule", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "tracklandedcost", void 0);
+        ], Item.prototype, "tracklandedcost", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], ItemBase.prototype, "tranid", void 0);
+        ], Item.prototype, "tranid", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "units", void 0);
+        ], Item.prototype, "units", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "unitstype", void 0);
+        ], Item.prototype, "unitstype", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], ItemBase.prototype, "usebins", void 0);
+        ], Item.prototype, "usebins", void 0);
         __decorate([
             Record_1.FieldType.float
-        ], ItemBase.prototype, "weight", void 0);
+        ], Item.prototype, "weight", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ItemBase.prototype, "weightunit", void 0);
-        return ItemBase;
+        ], Item.prototype, "weightunit", void 0);
+        return Item;
     }(Record_1.NetsuiteRecord));
-    exports.ItemBase = ItemBase;
+    exports.Item = Item;
 });

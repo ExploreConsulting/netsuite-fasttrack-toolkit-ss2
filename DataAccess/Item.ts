@@ -3,7 +3,7 @@ import { FieldType, NetsuiteRecord } from './Record'
 /**
  * Base class with fields common to all item types
  */
-export class ItemBase extends NetsuiteRecord {
+export class Item extends NetsuiteRecord {
 
    @FieldType.checkbox
    autoleadtime: boolean

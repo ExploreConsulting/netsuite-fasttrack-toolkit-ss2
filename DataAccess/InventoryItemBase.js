@@ -25,7 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Record", "N/record", "./ItemBase"], factory);
+        define(["require", "exports", "./Record", "N/record", "./Item"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -34,7 +34,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     // the inventory item record in NetSuite
     var Record_1 = require("./Record");
     var record = require("N/record");
-    var ItemBase_1 = require("./ItemBase");
+    var Item_1 = require("./Item");
     /**
      * Netsuite Inventory Item record type
      */
@@ -51,6 +51,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.freeformtext
         ], InventoryItem.prototype, "vendorname", void 0);
         return InventoryItem;
-    }(ItemBase_1.ItemBase));
+    }(Item_1.Item));
     exports.InventoryItem = InventoryItem;
 });
