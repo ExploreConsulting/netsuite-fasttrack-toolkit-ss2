@@ -6,7 +6,7 @@ import { Item } from './Item'
 /**
  * Netsuite Inventory Item record type
  */
-export class InventoryItem extends Item {
+export class InventoryItemBase extends Item {
 
    static recordType () { return record.Type.INVENTORY_ITEM }
 

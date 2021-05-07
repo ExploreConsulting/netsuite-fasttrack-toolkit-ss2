@@ -30,7 +30,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.InventoryItem = void 0;
+    exports.InventoryItemBase = void 0;
     // the inventory item record in NetSuite
     var Record_1 = require("./Record");
     var record = require("N/record");
@@ -38,19 +38,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     /**
      * Netsuite Inventory Item record type
      */
-    var InventoryItem = /** @class */ (function (_super) {
-        __extends(InventoryItem, _super);
-        function InventoryItem() {
+    var InventoryItemBase = /** @class */ (function (_super) {
+        __extends(InventoryItemBase, _super);
+        function InventoryItemBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        InventoryItem.recordType = function () { return record.Type.INVENTORY_ITEM; };
+        InventoryItemBase.recordType = function () { return record.Type.INVENTORY_ITEM; };
         __decorate([
             Record_1.FieldType.checkbox
-        ], InventoryItem.prototype, "contingentrevenuehandling", void 0);
+        ], InventoryItemBase.prototype, "contingentrevenuehandling", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], InventoryItem.prototype, "vendorname", void 0);
-        return InventoryItem;
+        ], InventoryItemBase.prototype, "vendorname", void 0);
+        return InventoryItemBase;
     }(Item_1.Item));
-    exports.InventoryItem = InventoryItem;
+    exports.InventoryItemBase = InventoryItemBase;
 });
