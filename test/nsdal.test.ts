@@ -121,7 +121,6 @@ describe('body field access', function () {
 
 describe('serialization', () => {
    test('serializes to json including inherited props', function () {
-
       const c = new cust.CustomerBase('123')
       mockrecord.getValue.mockImplementation((obj) => {
          const v = {
@@ -132,13 +131,15 @@ describe('serialization', () => {
          }
          return v[obj.fieldId]
       })
-
+      console.log('customerbase', c)
       const serializedjson = JSON.stringify(c)
 
       console.debug(serializedjson)
       expect(serializedjson).toContain('companyname')
       expect(serializedjson).toContain('accountnumber')
       expect(serializedjson).toContain('email')
+      // id should always be there.
+      expect(serializedjson).toContain('id')
       // JSON.stringify does not serialize undefined fields
       expect(serializedjson).not.toContain('externalid')
    })

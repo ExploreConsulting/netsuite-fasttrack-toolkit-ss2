@@ -75,7 +75,7 @@ export abstract class NetsuiteCurrentRecord {
 
    toJSON () {
       // surface inherited properties on a new object so JSON.stringify() sees them all
-      const result: any = {}
+      const result: any = { id: this._id }
       for (const key in this) { // noinspection JSUnfilteredForInLoop
          result[key] = this[key]
       }

@@ -108,11 +108,14 @@
                 };
                 return v[obj.fieldId];
             });
+            console.log('customerbase', c);
             var serializedjson = JSON.stringify(c);
             console.debug(serializedjson);
             expect(serializedjson).toContain('companyname');
             expect(serializedjson).toContain('accountnumber');
             expect(serializedjson).toContain('email');
+            // id should always be there.
+            expect(serializedjson).toContain('id');
             // JSON.stringify does not serialize undefined fields
             expect(serializedjson).not.toContain('externalid');
         });
