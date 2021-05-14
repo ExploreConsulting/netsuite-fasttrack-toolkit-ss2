@@ -139,7 +139,7 @@ describe('serialization', () => {
       expect(serializedjson).toContain('accountnumber')
       expect(serializedjson).toContain('email')
       // id should always be there.
-      expect(serializedjson).toContain('id')
+      expect(serializedjson).toMatch(/"id".?:.?"123"/)
       // JSON.stringify does not serialize undefined fields
       expect(serializedjson).not.toContain('externalid')
    })
