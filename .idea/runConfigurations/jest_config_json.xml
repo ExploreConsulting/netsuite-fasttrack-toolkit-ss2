@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="jest.config.json" type="JavaScriptTestRunnerJest" nameIsGenerated="true">
     <config-file value="$PROJECT_DIR$/test/jest.config.json" />
-    <node-interpreter value="project" />
-    <node-options value="" />
+    <node-interpreter value="wsl://Ubuntu-18.04@/usr/local/bin/node" />
+    <node-options value="--inspect=localhost:59879" />
     <jest-package value="$PROJECT_DIR$/node_modules/jest" />
     <working-dir value="$PROJECT_DIR$" />
     <envs />

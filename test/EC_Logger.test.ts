@@ -80,5 +80,22 @@ describe('basic logger tests', () => {
          expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy(): 0ms = 0.00 minutes undefined','returned: 4')
       })
 
+      it('should autolog for class methods', () => {
+         expect(fakedebug).not.toBeCalled()
+         class A {
+            dummy (arg:number) { return arg }
+         }
+         // it should log for method calls on an instance of that class.
+         const a = new A()
+         // if you pass a class
+         LogManager.autoLogMethodEntryExit({target:A, method: /\w+/})
+
+         // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
+         a.dummy(4)
+
+         expect(fakedebug).toBeCalledTimes(2)
+         expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', 'args: [4]')
+         expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined','returned: 4')
+      })
    })
 })

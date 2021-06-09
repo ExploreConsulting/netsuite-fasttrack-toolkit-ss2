@@ -9,8 +9,8 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var search_1 = require("../search");
-    var immutable_1 = require("immutable");
+    const search_1 = require("../search");
+    const immutable_1 = require("immutable");
     describe('nsSearchResult2obj', function () {
         /**
          *
@@ -31,53 +31,53 @@
                     }]
             };
         }
-        test('defaults to column name if label is undefined', function () {
-            var noLabelResult = getFakeSearchResult('foo', undefined);
+        test('defaults to column name if label is undefined', () => {
+            const noLabelResult = getFakeSearchResult('foo', undefined);
             // default useLabels
-            var x = search_1.nsSearchResult2obj()(noLabelResult);
+            const x = search_1.nsSearchResult2obj()(noLabelResult);
             expect(x).toHaveProperty('foo');
         });
-        test('uses column label by default', function () {
-            var labeledResult = getFakeSearchResult('foo', 'fooLabel');
+        test('uses column label by default', () => {
+            const labeledResult = getFakeSearchResult('foo', 'fooLabel');
             // default useLabels
-            var x = search_1.nsSearchResult2obj()(labeledResult);
+            const x = search_1.nsSearchResult2obj()(labeledResult);
             expect(x).toHaveProperty('fooLabel');
         });
-        test('uses column label if useLabels is true', function () {
-            var labeledResult = getFakeSearchResult('foo', 'fooLabel');
+        test('uses column label if useLabels is true', () => {
+            const labeledResult = getFakeSearchResult('foo', 'fooLabel');
             // explicitly set useLabels = true
-            var x = search_1.nsSearchResult2obj(true)(labeledResult);
+            const x = search_1.nsSearchResult2obj(true)(labeledResult);
             expect(x).toHaveProperty('fooLabel');
         });
-        test('uses column name if useLabels is false', function () {
-            var labeledResult = getFakeSearchResult('foo', 'fooLabel');
+        test('uses column name if useLabels is false', () => {
+            const labeledResult = getFakeSearchResult('foo', 'fooLabel');
             // default useLabels
-            var x = search_1.nsSearchResult2obj(false)(labeledResult);
+            const x = search_1.nsSearchResult2obj(false)(labeledResult);
             expect(x).toHaveProperty('foo');
             expect(x).not.toHaveProperty('fooLabel');
         });
-        test('does not generate xxxText field if text value is falsey', function () {
-            var labeledResult = getFakeSearchResult('foo', 'fooLabel', 'value', undefined);
+        test('does not generate xxxText field if text value is falsey', () => {
+            const labeledResult = getFakeSearchResult('foo', 'fooLabel', 'value', undefined);
             // default useLabels
-            var x = search_1.nsSearchResult2obj()(labeledResult);
+            const x = search_1.nsSearchResult2obj()(labeledResult);
             expect(x).toHaveProperty('fooLabel');
             expect(x).not.toHaveProperty('fooLabelText');
         });
-        test('generates xxxText field if text value truthy', function () {
-            var labeledResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'value text');
+        test('generates xxxText field if text value truthy', () => {
+            const labeledResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'value text');
             // default useLabels
-            var x = search_1.nsSearchResult2obj()(labeledResult);
+            const x = search_1.nsSearchResult2obj()(labeledResult);
             expect(x).toHaveProperty('fooLabel', 'value');
             expect(x).toHaveProperty('fooLabelText', 'value text');
         });
-        test('two column result generates xxxText field only if text value truthy', function () {
-            var labeledResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'value text');
+        test('two column result generates xxxText field only if text value truthy', () => {
+            const labeledResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'value text');
             labeledResult.columns.push({ name: 'bar', label: undefined });
             // mock the second call to getValue() to return 5 (for the 'bar' property)
-            var mockGetValue = labeledResult.getValue;
+            const mockGetValue = labeledResult.getValue;
             mockGetValue.mockReturnValueOnce(5);
             // default useLabels = true
-            var x = search_1.nsSearchResult2obj()(labeledResult);
+            const x = search_1.nsSearchResult2obj()(labeledResult);
             expect(x).toHaveProperty('fooLabel', 'value');
             expect(x).toHaveProperty('fooLabelText', 'value text');
             expect(x).toEqual({
@@ -89,14 +89,14 @@
                 recordType: 'recordType'
             });
         });
-        test('handles search result with NO columns', function () {
-            var noColumnsResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'value text');
+        test('handles search result with NO columns', () => {
+            const noColumnsResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'value text');
             // @ts-ignore Error:(104, 14) TS2790: The operand of a 'delete' operator must be optional.
             delete noColumnsResult.columns;
             // mock the second call to getValue() to return 5 (for the 'bar' property)
-            var mockGetValue = noColumnsResult.getValue;
+            const mockGetValue = noColumnsResult.getValue;
             mockGetValue.mockReturnValueOnce(5);
-            var x = search_1.nsSearchResult2obj()(noColumnsResult);
+            const x = search_1.nsSearchResult2obj()(noColumnsResult);
             expect(x).toEqual({
                 // id always there,  note no additional columns defined
                 id: '1',
@@ -105,7 +105,7 @@
             });
         });
     });
-    describe('ImmutableJS behavior', function () {
+    describe('ImmutableJS behavior', () => {
         test('indirect toString() of Seq causes eager eval', function () {
             if (process.version > 'v10') {
                 // this behavior seems to be fixed in newer versions of node because they
@@ -113,8 +113,8 @@
                 // e.g. https://github.com/nodejs/node/pull/24326
                 return;
             }
-            var alwaysTrue = jest.fn(function (val) {
-                console.log("alwaysTrue called with value " + val);
+            const alwaysTrue = jest.fn((val) => {
+                console.log(`alwaysTrue called with value ${val}`);
                 return true;
             });
             immutable_1.Seq.of(1, 2, 3, 4, 5)
@@ -133,32 +133,32 @@
             expect(alwaysTrue).toBeCalledTimes(5 * 6);
         });
         test('how to avoid eager eval of Seq', function () {
-            var alwaysTrue = jest.fn(function (val) {
-                console.log("alwaysTrue called with value " + val);
+            const alwaysTrue = jest.fn((val) => {
+                console.log(`alwaysTrue called with value ${val}`);
                 return true;
             });
             immutable_1.Seq.of(1, 2, 3, 4, 5)
                 .takeWhile(alwaysTrue)
                 // arity-1 function will NOT cause repeated eager evaluation of the sequence 1..5
                 // because console.log only proceses the value, not also receiving the key and iterable
-                .forEach(function (x) { return console.log(x); });
+                .forEach(x => console.log(x));
             // above forEach() passes just value to console.log
             expect(alwaysTrue).toBeCalledTimes(5);
         });
         test('behavior of groupBy', function () {
-            var taker = jest.fn(function (val) {
-                console.log("taker called with value " + val + ", length " + val.size);
+            const taker = jest.fn((val) => {
+                console.log(`taker called with value ${val}, length ${val.size}`);
                 return val.size === 1;
             });
-            var sideEffect = jest.fn(function (val) {
-                console.log("side effect called with value " + val);
+            const sideEffect = jest.fn((val) => {
+                console.log(`side effect called with value ${val}`);
             });
             immutable_1.Seq.of(1, 2, 3, 4, 4, 5, 5)
                 // groupBy returns a keyed sequence (<key, value>) that for some reason I don't understand
                 // invokes the .map() *eagerly* (though we do know groupBy() itself must be eager)
-                .groupBy(function (x) { return x; })
+                .groupBy(x => x)
                 .takeWhile(taker)
-                .forEach(function (x) { return sideEffect(x); });
+                .forEach(x => sideEffect(x));
             // see the console log here - all calls to take() happen before any calls to sideEffect()
             expect(taker).toBeCalledTimes(4);
             // expect our side effect to only be called 3 times due to .takeWhile()
@@ -167,10 +167,10 @@
             immutable_1.Seq.of(1, 2, 3, 4, 4, 5, 5)
                 // groupBy returns a keyed sequence (<key, value>) that for some reason I don't understand
                 // invokes the .map() *eagerly* (though we do know groupBy() itself must be eager)
-                .groupBy(function (x) { return x; })
+                .groupBy(x => x)
                 .valueSeq() // converting to a valueSeq Here gets us back into lazy eval
                 .takeWhile(taker)
-                .forEach(function (x) { return sideEffect(x); });
+                .forEach(x => sideEffect(x));
             // see console output from above - now take is called then sideEffect as expected,
             // once per each passing value.
         });
