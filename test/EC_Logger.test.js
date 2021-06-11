@@ -58,8 +58,8 @@
                 // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
                 X.dummy(4);
                 expect(fakedebug).toBeCalledTimes(2);
-                expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', 'args: [4]');
-                expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined', 'returned: 4');
+                expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', [4]);
+                expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined', 4);
             });
             it('should autolog method timing', () => {
                 const X = getTarget();
@@ -68,8 +68,8 @@
                 // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
                 X.dummy(4);
                 expect(fakedebug).toBeCalledTimes(2);
-                expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', 'args: [4]');
-                expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy(): 0ms = 0.00 minutes undefined', 'returned: 4');
+                expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', [4]);
+                expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy(): 0ms = 0.00 minutes undefined', 4);
             });
             it('should autolog for class methods', () => {
                 expect(fakedebug).not.toBeCalled();
@@ -83,8 +83,8 @@
                 // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
                 a.dummy(4);
                 expect(fakedebug).toBeCalledTimes(2);
-                expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', 'args: [4]');
-                expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined', 'returned: 4');
+                expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', [4]);
+                expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined', 4);
             });
         });
     });
