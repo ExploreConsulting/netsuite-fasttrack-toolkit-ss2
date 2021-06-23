@@ -11,9 +11,6 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.select
    item: number
 
-   @SublistFieldType.freeformtext
-   item_display: string
-
    @SublistFieldType.decimalnumber
    price: number
 
@@ -56,8 +53,6 @@ export class WorkOrderBase extends TransactionBase {
    quantity: number
    @FieldType.select
    units: number
-   @FieldType.freeformtext
-   unitsText: string
    @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>
 

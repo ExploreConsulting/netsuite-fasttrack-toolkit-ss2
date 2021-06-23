@@ -48,9 +48,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Sublist_1.SublistFieldType.select
         ], ItemSublist.prototype, "item", void 0);
         __decorate([
-            Sublist_1.SublistFieldType.freeformtext
-        ], ItemSublist.prototype, "item_display", void 0);
-        __decorate([
             Sublist_1.SublistFieldType.decimalnumber
         ], ItemSublist.prototype, "price", void 0);
         __decorate([
@@ -104,9 +101,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.select
         ], WorkOrderBase.prototype, "units", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], WorkOrderBase.prototype, "unitsText", void 0);
         __decorate([
             Record_1.FieldType.sublist(ItemSublist)
         ], WorkOrderBase.prototype, "item", void 0);
