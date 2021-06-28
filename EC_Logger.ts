@@ -241,7 +241,7 @@ export function autoLogMethodEntryExit (methodsToLogEntryExit: { target: Object,
    return aop.around(methodsToLogEntryExit, function (invocation) {
       // record function entry with details for every method on our explore object
       const entryTitle = `Enter ${invocation.method}() ${getGovernanceMessage(withGovernance)}`
-      const entryDetail = withArgs ? `args: ${JSON.stringify(arguments[0].arguments)}` : null
+      const entryDetail = withArgs ? arguments[0].arguments : null
 
       logger[level](entryTitle, entryDetail)
 
@@ -255,7 +255,7 @@ export function autoLogMethodEntryExit (methodsToLogEntryExit: { target: Object,
       }
 
       const exitTitle = `Exit ${invocation.method}(): ${elapsedMessage} ${getGovernanceMessage(withGovernance)}`
-      const exitDetail = withReturnValue ? `returned: ${JSON.stringify(retval)}` : null
+      const exitDetail = withReturnValue ? retval : null
       logger[level](exitTitle, exitDetail)
       return retval
    })

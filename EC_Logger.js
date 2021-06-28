@@ -264,7 +264,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
         return aop.around(methodsToLogEntryExit, function (invocation) {
             // record function entry with details for every method on our explore object
             var entryTitle = "Enter " + invocation.method + "() " + getGovernanceMessage(withGovernance);
-            var entryDetail = withArgs ? "args: " + JSON.stringify(arguments[0].arguments) : null;
+            var entryDetail = withArgs ? arguments[0].arguments : null;
             logger[level](entryTitle, entryDetail);
             var startTime = Date.now();
             var retval = invocation.proceed();
@@ -275,7 +275,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
                 elapsedMessage = elapsedMilliseconds + "ms = " + elapsedMinutes + " minutes";
             }
             var exitTitle = "Exit " + invocation.method + "(): " + elapsedMessage + " " + getGovernanceMessage(withGovernance);
-            var exitDetail = withReturnValue ? "returned: " + JSON.stringify(retval) : null;
+            var exitDetail = withReturnValue ? retval : null;
             logger[level](exitTitle, exitDetail);
             return retval;
         });
