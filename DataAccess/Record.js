@@ -91,7 +91,7 @@ var __extends = (this && this.__extends) || (function () {
         };
         NetsuiteCurrentRecord.prototype.toJSON = function () {
             // surface inherited properties on a new object so JSON.stringify() sees them all
-            var result = {};
+            var result = { id: this._id };
             for (var key in this) { // noinspection JSUnfilteredForInLoop
                 result[key] = this[key];
             }
