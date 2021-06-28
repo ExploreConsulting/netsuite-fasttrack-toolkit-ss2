@@ -20,8 +20,7 @@
     exports.setValue = jest.fn().mockName('setValue');
     exports.getText = jest.fn().mockName('getText');
     exports.setText = jest.fn().mockName('setText');
-    exports.load = jest.fn(function (_a) {
-        var id = _a.id, type = _a.type, isDynamic = _a.isDynamic;
+    exports.load = jest.fn(function ({ id, type, isDynamic }) {
         this.id = id;
         this.type = type;
         this.isDynamic = isDynamic;
