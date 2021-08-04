@@ -86,7 +86,7 @@ function getSublistValue (this: SublistLine, fieldId: string, isText: boolean) {
       fieldId: fieldId,
    }
    log.debug(`getting sublist ${isText ? 'text' : 'value'}`, options)
-   if (this.nsrecord.isDynamic) {
+   if (this.useDynamicModeAPI && this.nsrecord.isDynamic) {
       this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line })
       return isText ? this.nsrecord.getCurrentSublistText(options)
          : this.nsrecord.getCurrentSublistValue(options)
