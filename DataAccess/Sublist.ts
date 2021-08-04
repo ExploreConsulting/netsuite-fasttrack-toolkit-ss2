@@ -8,7 +8,7 @@
 import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
-import * as error from "N/error"
+import * as error from 'N/error'
 import { NetsuiteCurrentRecord } from './Record'
 
 const log = LogManager.getLogger('nsdal-sublist')
@@ -61,10 +61,18 @@ function setSublistValue (this: SublistLine, fieldId: string, value: any, isText
          fieldId: fieldId
       }
 
-      if (this.nsrecord.isDynamic) {
+      if (this.useDynamicModeAPI && this.nsrecord.isDynamic) {
          this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line })
-         isText ? this.nsrecord.setCurrentSublistText({ ...options, ignoreFieldChange: this.ignoreFieldChange, text: value })
-            : this.nsrecord.setCurrentSublistValue({ ...options, ignoreFieldChange: this.ignoreFieldChange, value: value })
+         isText ? this.nsrecord.setCurrentSublistText({
+               ...options,
+               ignoreFieldChange: this.ignoreFieldChange,
+               text: value
+            })
+            : this.nsrecord.setCurrentSublistValue({
+               ...options,
+               ignoreFieldChange: this.ignoreFieldChange,
+               value: value
+            })
       } else {
          isText ? this.nsrecord.setSublistText({ ...options, line: this._line, text: value })
             : this.nsrecord.setSublistValue({ ...options, line: this._line, value: value })
@@ -96,7 +104,7 @@ function getSublistValue (this: SublistLine, fieldId: string, isText: boolean) {
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-function defaultSublistDescriptor<T extends SublistLine>(target: T, propertyKey: string): any {
+function defaultSublistDescriptor<T extends SublistLine> (target: T, propertyKey: string): any {
    log.debug('creating default descriptor', `field: ${propertyKey}`)
    const [isTextField, nsfield] = parseProp(propertyKey)
    return {
@@ -196,8 +204,35 @@ function parseProp (propertyKey: string): [boolean, string] {
  */
 export class Sublist<T extends SublistLine> {
    nsrecord: record.Record
+
    // enforce 'array like' interaction through indexers
    [i: number]: T
+
+   /**
+    * If true **and** the underlying netsuite record is in dynamic mode, uses the dynamic APIs to manipulate the sublist (e.g. `getCurrentSublistValue()`)
+    * If false uses 'standard mode' (e.g. `getSublistValue()`)
+    * Defaults to true if the record is in dynamic mode. Set this to false prior to manipulating the sublist in order
+    * to force standard mode API usage even if the record is in 'dynamic mode'
+    */
+   useDynamicModeAPI: boolean
+
+   /**
+    * Constructs a new array-like representation of a NS sublist.
+    * @param sublistLineType the type (should be a class extending `SublistLine`) to represent individual rows
+    * of this sublist
+    * @param rec the NS native`record.Record` instance to manipulate
+    * @param sublistId name of the sublist we're representing
+    */
+   constructor (readonly sublistLineType: { new (sublistId: string, nsrec: record.Record, line: number): T },
+      rec: record.Record, public sublistId: string) {
+      this.sublistLineType = sublistLineType
+      this.makeRecordProp(rec)
+      // usually if we have a record in 'dynamic mode' we want to use the dynamic mode API, but there are exceptions
+      // where standard mode APIs work better even on a dynamic record instance
+      // (e.g. `VendorPayment.apply` in a client script)
+      this.useDynamicModeAPI = this.nsrecord.isDynamic
+      this.rebuildArray()
+   }
 
    /**
     * array-like length property (linecount)
@@ -218,11 +253,11 @@ export class Sublist<T extends SublistLine> {
       log.info('inserting line', `sublist: ${this.sublistId} insert at line:${insertAt}`)
       if (insertAt > this.length) {
          throw error.create({
-            message:`insertion index (${insertAt}) cannot be greater than sublist length (${this.length})`,
-            name:'NFT_INSERT_LINE_OUT_OF_BOUNDS'
+            message: `insertion index (${insertAt}) cannot be greater than sublist length (${this.length})`,
+            name: 'NFT_INSERT_LINE_OUT_OF_BOUNDS'
          })
       }
-      if (this.nsrecord.isDynamic) this.nsrecord.selectNewLine({ sublistId: this.sublistId })
+      if (this.useDynamicModeAPI && this.nsrecord.isDynamic) this.nsrecord.selectNewLine({ sublistId: this.sublistId })
       else {
          this.nsrecord.insertLine({
             sublistId: this.sublistId,
@@ -232,7 +267,7 @@ export class Sublist<T extends SublistLine> {
          this.rebuildArray()
       }
       log.info('line count after adding', this.length)
-      return (this.nsrecord.isDynamic) ? this[this.length] : this[insertAt]
+      return (this.useDynamicModeAPI && this.nsrecord.isDynamic) ? this[this.length] : this[insertAt]
    }
 
    /**
@@ -256,8 +291,8 @@ export class Sublist<T extends SublistLine> {
    commitLine () {
       if (!this.nsrecord.isDynamic) {
          throw error.create({
-            message:'do not call commitLine() on records in standard mode, commitLine() is only needed in dynamic mode',
-            name:'NFT_COMMITLINE_BUT_NOT_DYNAMIC_MODE_RECORD'
+            message: 'do not call commitLine() on records in standard mode, commitLine() is only needed in dynamic mode',
+            name: 'NFT_COMMITLINE_BUT_NOT_DYNAMIC_MODE_RECORD'
          })
       }
       log.info('committing line', `sublist: ${this.sublistId}`)
@@ -272,32 +307,6 @@ export class Sublist<T extends SublistLine> {
    selectLine (line: number) {
       log.debug('selecting line', line)
       this.nsrecord.selectLine({ sublistId: this.sublistId, line: line })
-   }
-
-   /**
-    * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
-    * field properties defined on derived classes should be seen when enumerating
-    * @param value
-    */
-   private makeRecordProp (value) {
-      Object.defineProperty(this, 'nsrecord', {
-         value: value,
-         enumerable: false
-      })
-   }
-
-   /**
-    * Constructs a new array-like representation of a NS sublist.
-    * @param sublistLineType the type (should be a class extending `SublistLine`) to represent individual rows
-    * of this sublist
-    * @param rec the NS native`record.Record` instance to manipulate
-    * @param sublistId name of the sublist we're representing
-    */
-   constructor (readonly sublistLineType: { new (sublistId: string, nsrec: record.Record, line: number): T },
-                rec: record.Record, public sublistId: string) {
-      this.sublistLineType = sublistLineType
-      this.makeRecordProp(rec)
-      this.rebuildArray()
    }
 
    /**
@@ -353,6 +362,18 @@ export class Sublist<T extends SublistLine> {
          })
       }
    }
+
+   /**
+    * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
+    * field properties defined on derived classes should be seen when enumerating
+    * @param value
+    */
+   private makeRecordProp (value) {
+      Object.defineProperty(this, 'nsrecord', {
+         value: value,
+         enumerable: false
+      })
+   }
 }
 
 /**
@@ -374,20 +395,18 @@ export class Sublist<T extends SublistLine> {
  */
 export abstract class SublistLine {
 
-   /**
-    * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
-    * field properties defined on derived classes should be seen when enumerating
-    * @param value
-    */
-   protected makeRecordProp (value) {
-      Object.defineProperty(this, 'nsrecord', {
-         value: value,
-         enumerable: false
-      })
-   }
-
    nsrecord: record.Record
    ignoreFieldChange = false
+
+   /**
+    * If true, uses dynamic mode API calls to access sublist line field values.
+    * If false, uses standard mode
+    * The default behavior is to use dynamic mode if the record is in dynamic mode. You can override this
+    * (force using 'standard mode' APIs even with a dynamic record) by setting this value `false` prior to
+    * your code that manipulates the sublist line.
+    */
+   useDynamicModeAPI: boolean
+
    /**
     * Note that the sublistId and _line are used by the Sublist decorators to actually implement functionality, even
     * though they are not referenced directly in this class. We mark them as not-enumerable because they are an implementation
@@ -401,6 +420,7 @@ export abstract class SublistLine {
       this.makeRecordProp(rec)
       Object.defineProperty(this, 'sublistId', { enumerable: false })
       Object.defineProperty(this, '_line', { enumerable: false })
+      this.useDynamicModeAPI = rec.isDynamic
    }
 
    /**
@@ -415,11 +435,13 @@ export abstract class SublistLine {
     * ```
     * @param fieldId the field that points to the subrecord
     */
-   getSubRecord (fieldId) {
-      if (this.nsrecord.isDynamic) {
+   getSubRecord (fieldId: string) {
+      if (this.useDynamicModeAPI) {
          this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line })
          return this.nsrecord.getCurrentSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId })
-      } else return this.nsrecord.getSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId, line: this._line })
+      } else {
+         return this.nsrecord.getSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId, line: this._line })
+      }
    }
 
    // serialize lines to an array with properties shown
@@ -429,6 +451,18 @@ export abstract class SublistLine {
          result[key] = this[key]
       }
       return result
+   }
+
+   /**
+    * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
+    * field properties defined on derived classes should be seen when enumerating
+    * @param value
+    */
+   protected makeRecordProp (value) {
+      Object.defineProperty(this, 'nsrecord', {
+         value: value,
+         enumerable: false
+      })
    }
 }
 
