@@ -203,10 +203,6 @@ function parseProp (propertyKey: string): [boolean, string] {
  * creates a sublist whose lines are of type T
  */
 export class Sublist<T extends SublistLine> {
-   nsrecord: record.Record
-
-   // enforce 'array like' interaction through indexers
-   [i: number]: T
 
    /**
     * If true **and** the underlying netsuite record is in dynamic mode, uses the dynamic APIs to manipulate the sublist (e.g. `getCurrentSublistValue()`)
@@ -214,7 +210,22 @@ export class Sublist<T extends SublistLine> {
     * Defaults to true if the record is in dynamic mode. Set this to false prior to manipulating the sublist in order
     * to force standard mode API usage even if the record is in 'dynamic mode'
     */
-   useDynamicModeAPI: boolean
+   get useDynamicModeAPI (): boolean {
+      return this._useDynamicModeAPI
+   }
+
+   set useDynamicModeAPI (value: boolean) {
+      this._useDynamicModeAPI = value
+      // rebuild the array of line objects so the dynamicmode api setting gets applied to all lines.
+      this.rebuildArray()
+   }
+   nsrecord: record.Record
+
+   // enforce 'array like' interaction through indexers
+   [i: number]: T
+
+
+   private _useDynamicModeAPI: boolean
 
    /**
     * Constructs a new array-like representation of a NS sublist.
@@ -230,7 +241,7 @@ export class Sublist<T extends SublistLine> {
       // usually if we have a record in 'dynamic mode' we want to use the dynamic mode API, but there are exceptions
       // where standard mode APIs work better even on a dynamic record instance
       // (e.g. `VendorPayment.apply` in a client script)
-      this.useDynamicModeAPI = this.nsrecord.isDynamic
+      this._useDynamicModeAPI = this.nsrecord.isDynamic
       this.rebuildArray()
    }
 
@@ -257,7 +268,7 @@ export class Sublist<T extends SublistLine> {
             name: 'NFT_INSERT_LINE_OUT_OF_BOUNDS'
          })
       }
-      if (this.useDynamicModeAPI && this.nsrecord.isDynamic) this.nsrecord.selectNewLine({ sublistId: this.sublistId })
+      if (this._useDynamicModeAPI && this.nsrecord.isDynamic) this.nsrecord.selectNewLine({ sublistId: this.sublistId })
       else {
          this.nsrecord.insertLine({
             sublistId: this.sublistId,
@@ -267,7 +278,7 @@ export class Sublist<T extends SublistLine> {
          this.rebuildArray()
       }
       log.info('line count after adding', this.length)
-      return (this.useDynamicModeAPI && this.nsrecord.isDynamic) ? this[this.length] : this[insertAt]
+      return (this._useDynamicModeAPI && this.nsrecord.isDynamic) ? this[this.length] : this[insertAt]
    }
 
    /**
@@ -335,7 +346,7 @@ export class Sublist<T extends SublistLine> {
 
    /**
     * upserts the indexed props (array-like structure) This is called once at construction, but also
-    * as needed when a user dynamically inserts rows.
+    * as needed when a user dynamically works with sublist rows.
     */
    protected rebuildArray () {
       log.info('deleting existing numeric properties')
@@ -344,7 +355,9 @@ export class Sublist<T extends SublistLine> {
       log.info('building sublist', `type:${this.sublistId}, linecount:${this.length}`)
       // create a sublist line indexed property of type T for each member of the underlying sublist
       for (let i = 0; i < this.length; i++) {
-         this[i] = new this.sublistLineType(this.sublistId, this.nsrecord, i)
+         const line = new this.sublistLineType(this.sublistId, this.nsrecord, i)
+         line.useDynamicModeAPI = this._useDynamicModeAPI
+         this[i] = line
       }
       // if dynamic mode we always have an additional ready-to-fill out line at the end of the list,
       // but note that `this.length` does not include this line because it's not committed. This mirrors the
