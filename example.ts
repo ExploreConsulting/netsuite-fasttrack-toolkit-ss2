@@ -67,12 +67,20 @@ function demoSalesOrderLineItems () {
 
    // get all line items over $50 amount
    const overFifty = _.filter(so.item, item=> item.amount > 50.00 )
+   if (_.isEmpty(overFifty)) {
+      // do something if no lines over 50.00
+   }
 
    // increase quantity by 1 for all lines
    _.map(so.item, i => i.quantity += 1 )
 
    // find first line item with specific item
    const found = _.find(so.item, i => i.item == 123 )
+
+   if (found) {
+      // do something with found line
+      found.quantity += 1
+   }
 
    // ... can then access fields on the found line...
    // found.quantity
@@ -88,13 +96,31 @@ function demoSalesOrderLineItems () {
 
    // insert a line in the middle of the list
    const inserted = so.item.addLine(true, 2)
-   newLine.item = 123
-   newLine.quantity = 2
+   inserted.item = 123
+   inserted.quantity = 2
 }
+
+function sublistExamples () {
+
+   // load sales order internal id 123 _in dynamic mode_
+   const so = new SalesOrder(123,true)
+
+   // access first line item - this will use `setCurrentSublistValue()` since we're in dynamic mode.
+   // NOTE: records not `isDynamic = true` will use _standard mode_ APIs
+   so.item[0].quantity = 1
+
+   // disable the default dynamic mode API usage - fall back to standard mode instead, even though our underlying
+   // NetSuite record is in dynamic mode.
+   so.item.useDynamicModeAPI = false
+   so.item[0].quantity = 1 // uses standard mode api `setSublistValue()`
+   so.item.useDynamicModeAPI = true // restore allowing dynamic mode API use.
+}
+
+
 
 export = {
 
-   onRequest: (req, resp) => {
+   onRequest: (/*req,  resp */) => {
 
       const c = new Customer(227)
 
@@ -108,6 +134,7 @@ export = {
       log.debug(`saved record id: ${id}`)
       demoSalesOrderLineItems()
       demoCustomRecord()
+      sublistExamples()
    }
 }
 
