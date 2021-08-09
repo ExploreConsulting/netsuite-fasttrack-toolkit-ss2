@@ -78,10 +78,10 @@ Works with SuiteScript 2.0 and 2.1.
  */
 
 import * as LogManager from 'NFT/EC_Logger'
-import {CustomerBase} from  'NFT/DataAccess/CustomerBase"
-import {FieldType} from "NFT/DataAccess/Record"
-import {SublistFieldType,Sublist,SublistLine} from "NFT/DataAccess/Sublist"
-import * as _ from "NFT/lodash"
+import {CustomerBase} from  'NFT/DataAccess/CustomerBase'
+import {FieldType} from 'NFT/DataAccess/Record'
+import {SublistFieldType,Sublist,SublistLine} from 'NFT/DataAccess/Sublist'
+import * as _ from 'NFT/lodash'
 
 // each script should request the DefaultLogger
 var log = LogManager.DefaultLogger
@@ -178,7 +178,24 @@ NSDAL. e.g.
         build.inventorydetail.quantity 
        
  
+#### Sublist Dynamic Mode vs Standard Mode
+By default, dynamic mode APIs (e.g. `set**Current**SublistValue()`)) are used if the record itself is in dynamic mode.
+This is _usually_ what you want. In some cases it's beneficial to use _standard mode_ API even if the record itself
+is in _dynamic mode_ (e.g. reading the `apply` sublist on a `VendorPayment`). To temporarily turn off dynamic mode APIs
+for sublist access set `useDynamicModeAPI = false` on the sublist property.
 
+```typescript
+import { VendorPaymentBase } from './VendorPaymentBase'
+
+// assume this is in a dynamic record context, like a client script.
+// the NetSuite record is in dynamic mode, so by default NFT uses dynamic mode API calls.
+const vp = new VendorPaymentBase(ctx.newRecord) 
+// temporarily turn off dynamic mode - hence uses standard mode APIs 
+vp.apply.useDynamicModeAPI = false
+// do something with lines of the `apply` sublist 
+log.debug('first apply line', vp.apply[0])
+vp.apply.useDynamicModeAPI = true // reset back to dynamic mode API calls
+```
 
 ## Search Helpers
 
