@@ -460,8 +460,9 @@ export abstract class SublistLine {
    // serialize lines to an array with properties shown
    toJSON () { // surface inherited properties on a new object so JSON.stringify() sees them all
       const result: any = {}
-      for (const key in this) { // noinspection JSUnfilteredForInLoop
-         result[key] = this[key]
+      for (const key in this) {
+         // don't include internal properties
+         if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI') result[key] = this[key]
       }
       return result
    }

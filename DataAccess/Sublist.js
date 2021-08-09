@@ -454,8 +454,10 @@ var __assign = (this && this.__assign) || function () {
         // serialize lines to an array with properties shown
         SublistLine.prototype.toJSON = function () {
             var result = {};
-            for (var key in this) { // noinspection JSUnfilteredForInLoop
-                result[key] = this[key];
+            for (var key in this) {
+                // don't include internal properties
+                if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI')
+                    result[key] = this[key];
             }
             return result;
         };
