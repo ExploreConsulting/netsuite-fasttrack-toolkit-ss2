@@ -40,6 +40,9 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.select
    item: number
 
+   @SublistFieldType.select
+   location: Nullable<number>
+
    @SublistFieldType.integernumber
    leadtime: Nullable<number>
 

@@ -75,6 +75,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Sublist_1.SublistFieldType.select
         ], ItemSublist.prototype, "item", void 0);
         __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "location", void 0);
+        __decorate([
             Sublist_1.SublistFieldType.integernumber
         ], ItemSublist.prototype, "leadtime", void 0);
         __decorate([
