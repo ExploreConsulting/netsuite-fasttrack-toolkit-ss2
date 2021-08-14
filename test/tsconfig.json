@@ -1,6 +1,7 @@
 {
   "extends":"../tsconfig.json",
   "compilerOptions": {
+    "target": "ES2019",
     "declaration" :false,
     "baseUrl": ".",
     "paths": {

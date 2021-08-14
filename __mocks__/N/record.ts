@@ -4,11 +4,17 @@ export const create = jest.fn( function ( config ) {
    return this
 }).mockName('create')
 export const Type = jest.fn()
+
 export const getValue = jest.fn().mockName('getValue')
 export const setValue = jest.fn().mockName('setValue')
 export const getText = jest.fn().mockName('getText')
 export const setText = jest.fn().mockName('setText')
-export const load = jest.fn().mockReturnThis().mockName('load')
+export const load = jest.fn(function({id, type, isDynamic}) {
+   this.id = id
+   this.type = type
+   this.isDynamic = isDynamic
+   return this
+})
 export const getLineCount = jest.fn().mockName('getLineCount')
 export const getFields = jest.fn()
 export const getField = jest.fn()

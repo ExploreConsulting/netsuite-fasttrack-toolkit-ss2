@@ -6,7 +6,7 @@ describe('Sublists', function () {
 
    class FakeSublistLine extends SublistLine {}
 
-   class SublistWithTextField extends SublistLine {
+   class SublistLineWithTextField extends SublistLine {
       @SublistFieldType.freeformtext
       fooText: string
 
@@ -127,7 +127,7 @@ describe('Sublists', function () {
          record.getSublistText.mockReturnValue('some text')
          record.getSublistValue.mockImplementation(() => { throw new Error() })
 
-         const sut = new SublistWithTextField('fakesublist', fakeRec, 0)
+         const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0)
          sut.fooText
 
          expect(record.getSublistText).toBeCalledTimes(1)
@@ -142,7 +142,7 @@ describe('Sublists', function () {
          record.getSublistText.mockReturnValue('some text')
          record.getSublistValue.mockImplementation(() => { throw new Error() })
 
-         const sut = new SublistWithTextField('fakesublist', fakeRec, 0)
+         const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0)
          sut.fooText
 
          expect(record.getCurrentSublistText).toBeCalledTimes(1)
@@ -155,7 +155,7 @@ describe('Sublists', function () {
          record.getSublistText.mockReturnValue('some text')
          record.getSublistValue.mockImplementation(() => { throw new Error() })
 
-         const sut = new SublistWithTextField('fakesublist', fakeRec, 0)
+         const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0)
          sut.fooText = 'hello world'
 
          expect(record.setSublistText).toBeCalledWith({
@@ -174,7 +174,7 @@ describe('Sublists', function () {
       record.getSublistText.mockReturnValue('some text')
       record.getSublistValue.mockImplementation(() => { throw new Error() })
 
-      const sut = new SublistWithTextField('fakesublist', fakeRec, 0)
+      const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0)
       sut.fooText = 'hello world'
       expect(record.setCurrentSublistText).toBeCalledWith({
             'fieldId': 'foo',
@@ -190,7 +190,7 @@ describe('Sublists', function () {
       record.getSublistText.mockReturnValue('some text')
       record.getSublistValue.mockImplementation(() => { throw new Error() })
 
-      const sut = new SublistWithTextField('fakesublist', fakeRec, 0)
+      const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0)
       sut.ignoreFieldChange = true
       sut.fooText = 'hello world'
       expect(record.setCurrentSublistText).toBeCalledWith({
@@ -205,7 +205,7 @@ describe('Sublists', function () {
    test('setValue() on field - dynamic mode - ignore field changed', () => {
       const fakeRec = record.create({ type: 'fake', isDynamic: true })
 
-      const sut = new SublistWithTextField('fakesublist', fakeRec, 0)
+      const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0)
       sut.ignoreFieldChange = true
       sut.foo = 1
       expect(record.setCurrentSublistValue).toBeCalledWith({
@@ -223,7 +223,7 @@ describe('Sublists', function () {
       record.getSublistText.mockReturnValue('some text')
       record.getSublistValue.mockImplementation(() => { throw new Error() })
 
-      const sut = new Sublist<SublistWithTextField>(SublistWithTextField, fakeRec, 'fakesublist')
+      const sut = new Sublist<SublistLineWithTextField>(SublistLineWithTextField, fakeRec, 'fakesublist')
       sut.getField('anotherfield')
       expect(record.getSublistField).toBeCalledWith({
             'fieldId': 'anotherfield',
@@ -247,5 +247,28 @@ describe('Sublists', function () {
       const json = JSON.stringify(sut)
       expect(json).not.toContainEqual<string>('1') // no key "1" in JSON since we only have line 0 saved
       expect(Object.keys(sut)).not.toContainEqual<string>('1')
+   })
+
+   describe('toggling dynamic mode/standard mode api', function () {
+
+      test('set standard mode on dynamic record', function () {
+         const fakeRec = record.create({ type: 'fake', isDynamic: true })
+         const sut = new Sublist(SublistLineWithTextField, fakeRec, 'fakesublist')
+         // temporarily turn on standard more
+         sut.useDynamicModeAPI = false
+         sut[0].foo = 1
+         expect(record.setSublistValue).toBeCalledWith({
+               'fieldId': 'foo',
+               'sublistId': 'fakesublist',
+               'line': 0,
+               'value': 1
+            }
+         )
+         expect(record.setCurrentSublistValue).not.toHaveBeenCalled()
+         // back to dynamic mode apis
+         sut.useDynamicModeAPI = true
+         sut[0].foo = 1
+         expect(record.setCurrentSublistValue).toHaveBeenCalled()
+      })
    })
 })

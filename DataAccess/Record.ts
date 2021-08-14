@@ -11,6 +11,8 @@ import { Sublist, SublistLine } from './Sublist'
 const log = LogManager.getLogger('nsdal')
 // from https://www.typescriptlang.org/v2/docs/handbook/advanced-types.html#distributive-conditional-types
 type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
+// adds `null` as a union to type T. Use this to mark record properties as explicitly nullable
+export type Nullable<T> = T | null
 /**
  * Since the netsuite defined 'CurrentRecord' type has almost all the same operations as the normal 'Record'
  * we use this as our base class
@@ -46,12 +48,12 @@ export abstract class NetsuiteCurrentRecord {
     */
    private makeRecordProp = (value) => Object.defineProperty(this, 'nsrecord', { value: value })
 
-   constructor (rec?: number | string | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, protected defaultValues?: object) {
+   constructor (rec?: null | number | string | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, protected defaultValues?: object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
       // pull the 'static' recordType from the derived class and remove the need for derived classes to
       // define a constructor to pass the record type to super()
       let type = Object.getPrototypeOf(this).constructor.recordType()
-      if (!rec) {
+      if (!rec) { // falsey values (e.g. invalid id 0, null, undefined, etc.) implies creating a new record
          log.debug('creating new record', `type:${type}  isDyanamic:${isDynamic} defaultValues:${defaultValues}`)
          this.makeRecordProp(record.create({ type: type, isDynamic: isDynamic, defaultValues: defaultValues }))
       } else if (typeof rec === 'object') {
@@ -75,7 +77,7 @@ export abstract class NetsuiteCurrentRecord {
 
    toJSON () {
       // surface inherited properties on a new object so JSON.stringify() sees them all
-      const result: any = {}
+      const result: any = { id: this._id }
       for (const key in this) { // noinspection JSUnfilteredForInLoop
          result[key] = this[key]
       }

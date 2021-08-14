@@ -25,7 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/record", "./Record", "./Sublist"], factory);
+        define(["require", "exports", "N/record", "./Record", "./Sublist", "./Item"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -34,6 +34,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var record = require("N/record");
     var Record_1 = require("./Record");
     var Sublist_1 = require("./Sublist");
+    var Item_1 = require("./Item");
     /**
      * the Members (member) sublist on AssemblyItem (assemblyitem) records
      */
@@ -82,150 +83,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         }
         AssemblyItemBase.recordType = function () { return record.Type.ASSEMBLY_ITEM; };
         __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "assetaccount", void 0);
-        __decorate([
-            Record_1.FieldType.currency
-        ], AssemblyItemBase.prototype, "averagecost", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "billingschedule", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "billpricevariantacct", void 0);
-        __decorate([
             Record_1.FieldType.checkbox
         ], AssemblyItemBase.prototype, "buildentireassembly", void 0);
         __decorate([
             Record_1.FieldType.float
         ], AssemblyItemBase.prototype, "buildtime", void 0);
         __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "class", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "cogsaccount", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AssemblyItemBase.prototype, "copydescription", void 0);
-        __decorate([
-            Record_1.FieldType.currency
-        ], AssemblyItemBase.prototype, "cost", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "costcategory", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "costingmethod", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "countryofmanufacture", void 0);
-        __decorate([
-            Record_1.FieldType.datetime
-        ], AssemblyItemBase.prototype, "createddate", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "customform", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "deferredrevenueaccount", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AssemblyItemBase.prototype, "deferrevrec", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "department", void 0);
-        __decorate([
-            Record_1.FieldType.textarea
-        ], AssemblyItemBase.prototype, "description", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AssemblyItemBase.prototype, "displayname", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AssemblyItemBase.prototype, "externalid", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AssemblyItemBase.prototype, "includechildren", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "incomeaccount", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AssemblyItemBase.prototype, "isdonationitem", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AssemblyItemBase.prototype, "isdropshipitem", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AssemblyItemBase.prototype, "isgcocompliant", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AssemblyItemBase.prototype, "isinactive", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AssemblyItemBase.prototype, "isonline", void 0);
-        __decorate([
             Record_1.FieldType.checkbox
         ], AssemblyItemBase.prototype, "isphantom", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], AssemblyItemBase.prototype, "isspecialorderitem", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
         ], AssemblyItemBase.prototype, "isspecialworkorderitem", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AssemblyItemBase.prototype, "isstorepickupallowed", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "itemcondition", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AssemblyItemBase.prototype, "itemid", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "itemoptions", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AssemblyItemBase.prototype, "itemtype", void 0);
-        __decorate([
-            Record_1.FieldType.datetime
-        ], AssemblyItemBase.prototype, "lastmodifieddate", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "location", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "parent", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "revrecschedule", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "subsidiary", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AssemblyItemBase.prototype, "upccode", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AssemblyItemBase.prototype, "tranid", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "units", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AssemblyItemBase.prototype, "usebins", void 0);
-        __decorate([
-            Record_1.FieldType.float
-        ], AssemblyItemBase.prototype, "weight", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AssemblyItemBase.prototype, "weightunit", void 0);
         __decorate([
             Record_1.FieldType.sublist(MemberSublist)
         ], AssemblyItemBase.prototype, "member", void 0);
         return AssemblyItemBase;
-    }(Record_1.NetsuiteRecord));
+    }(Item_1.Item));
     exports.AssemblyItemBase = AssemblyItemBase;
 });

@@ -20,7 +20,12 @@
     exports.setValue = jest.fn().mockName('setValue');
     exports.getText = jest.fn().mockName('getText');
     exports.setText = jest.fn().mockName('setText');
-    exports.load = jest.fn().mockReturnThis().mockName('load');
+    exports.load = jest.fn(function ({ id, type, isDynamic }) {
+        this.id = id;
+        this.type = type;
+        this.isDynamic = isDynamic;
+        return this;
+    });
     exports.getLineCount = jest.fn().mockName('getLineCount');
     exports.getFields = jest.fn();
     exports.getField = jest.fn();

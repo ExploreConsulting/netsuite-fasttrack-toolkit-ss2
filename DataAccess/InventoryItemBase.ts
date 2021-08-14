@@ -1,54 +1,19 @@
 // the inventory item record in NetSuite
-import { FieldType, NetsuiteRecord } from './Record'
+import { FieldType } from './Record'
 import * as record from 'N/record'
+import { Item } from './Item'
 
 /**
  * Netsuite Inventory Item record type
  */
-export class InventoryItem extends NetsuiteRecord {
+export class InventoryItemBase extends Item {
 
    static recordType () { return record.Type.INVENTORY_ITEM }
 
-   @FieldType.select
-   assetaccount: number
-
-   @FieldType.select
-   cogsaccount: number
-
-   @FieldType.select
-   costcategory: number
-
-   @FieldType.freeformtext
-   externalid: string
-
    @FieldType.checkbox
-   includechildren: boolean
+   contingentrevenuehandling: boolean
 
-   @FieldType.select
-   incomeaccount: number
-
-   @FieldType.freeformtext
-   itemid: string
-
-   @FieldType.freeformtext
-   purchasedescription: string
-
-   @FieldType.select
-   subsidiary: number
-
-   @FieldType.select
-   taxschedule: number
-
-   @FieldType.checkbox
-   tracklandedcost: boolean
-
-   @FieldType.freeformtext
-   upccode: string
-
-   @FieldType.select
-   unitstype: number
 
    @FieldType.freeformtext
    vendorname: string
-
 }

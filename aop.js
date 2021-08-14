@@ -99,7 +99,10 @@
          */
         var search = function (source, pointcut, advice) {
             var methods = [];
-            for (var method in source) {
+            // using getOWnPropertyNames because in modern JS, class methods are not enumerable.
+            // the previous 'for...in' statement wouldn't see methods on class.prototype which is passed by caller of this function
+            for (var _i = 0, _a = Object.getOwnPropertyNames(source); _i < _a.length; _i++) {
+                var method = _a[_i];
                 var item = null;
                 // Ignore exceptions during method retrival
                 try {

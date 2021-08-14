@@ -66,17 +66,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Sublist_1.SublistFieldType.textarea
         ], ItemSublist.prototype, "description", void 0);
         __decorate([
+            Sublist_1.SublistFieldType.date
+        ], ItemSublist.prototype, "expectedreceiptdate", void 0);
+        __decorate([
             Sublist_1.SublistFieldType.checkbox
         ], ItemSublist.prototype, "isclosed", void 0);
         __decorate([
             Sublist_1.SublistFieldType.select
         ], ItemSublist.prototype, "item", void 0);
         __decorate([
-            Sublist_1.SublistFieldType.decimalnumber
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "location", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.integernumber
+        ], ItemSublist.prototype, "leadtime", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.float
         ], ItemSublist.prototype, "quantity", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.float
+        ], ItemSublist.prototype, "quantityreceived", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.float
+        ], ItemSublist.prototype, "quantitybilled", void 0);
         __decorate([
             Sublist_1.SublistFieldType.decimalnumber
         ], ItemSublist.prototype, "rate", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.select
+        ], ItemSublist.prototype, "units", void 0);
+        __decorate([
+            Sublist_1.SublistFieldType.freeformtext
+        ], ItemSublist.prototype, "vendorname", void 0);
         return ItemSublist;
     }(Sublist_1.SublistLine));
     exports.ItemSublist = ItemSublist;
@@ -90,6 +111,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         }
         PurchaseOrderBase.recordType = function () { return record.Type.PURCHASE_ORDER; };
         __decorate([
+            Record_1.FieldType.select
+        ], PurchaseOrderBase.prototype, "approvalstatus", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], PurchaseOrderBase.prototype, "balance", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], PurchaseOrderBase.prototype, "class", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], PurchaseOrderBase.prototype, "createdfrom", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], PurchaseOrderBase.prototype, "currency", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], PurchaseOrderBase.prototype, "employee", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], PurchaseOrderBase.prototype, "incoterm", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], PurchaseOrderBase.prototype, "intercotransaction", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], PurchaseOrderBase.prototype, "isbasecurrency", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], PurchaseOrderBase.prototype, "shipdate", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], PurchaseOrderBase.prototype, "shipmethod", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], PurchaseOrderBase.prototype, "shipto", void 0);
+        __decorate([
             Record_1.FieldType.subrecord(AddressBase_1.AddressBase)
         ], PurchaseOrderBase.prototype, "billingaddress", void 0);
         __decorate([
@@ -97,7 +154,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         ], PurchaseOrderBase.prototype, "shippingaddress", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], PurchaseOrderBase.prototype, "approvalstatus", void 0);
+        ], PurchaseOrderBase.prototype, "terms", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], PurchaseOrderBase.prototype, "tobeemailed", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], PurchaseOrderBase.prototype, "tobefaxed", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], PurchaseOrderBase.prototype, "tobeprinted", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], PurchaseOrderBase.prototype, "total", void 0);
+        __decorate([
+            Record_1.FieldType.currency
+        ], PurchaseOrderBase.prototype, "unbilledorders", void 0);
         __decorate([
             Record_1.FieldType.sublist(ItemSublist)
         ], PurchaseOrderBase.prototype, "item", void 0);

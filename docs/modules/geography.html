@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>geography | NetSuite FastTrack Toolkit (NFT) - v6.0.0</title>
-	<meta name="description" content="Documentation for NetSuite FastTrack Toolkit (NFT) - v6.0.0">
+	<title>geography | NetSuite FastTrack Toolkit (NFT) - v6.2.0</title>
+	<meta name="description" content="Documentation for NetSuite FastTrack Toolkit (NFT) - v6.2.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v6.0.0</a>
+					<a href="../index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v6.2.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -50,7 +50,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">NetSuite FastTrack Toolkit (NFT) - v6.0.0</a>
+					<a href="../modules.html">NetSuite FastTrack Toolkit (NFT) - v6.2.0</a>
 				</li>
 				<li>
 					<a href="geography.html">geography</a>
@@ -71,9 +71,10 @@
 					<dl class="tsd-comment-tags">
 						<dt>example</dt>
 						<dd><pre><code class="language-typescript">
-<span style="color: #795E26">getStateById</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">) </span><span style="color: #008000">// returns { name: &#039;Arkansas&#039;, id: 3, abbrev: &#039;AR&#039; }</span>
+<span style="color: #795E26">getStateById</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">) </span><span style="color: #008000">// returns { &#039;country&#039;: &#039;US&#039;,&#039;fullname&#039;: &#039;Arkansas&#039;,&#039;id&#039;: 3,&#039;shortname&#039;: &#039;AR&#039; }</span>
 <span style="color: #795E26">getStateById</span><span style="color: #000000">(-</span><span style="color: #098658">123</span><span style="color: #000000">) </span><span style="color: #008000">// returns undefined</span>
-
+<span style="color: #001080">stateMapping</span><span style="color: #000000">.</span><span style="color: #795E26">filter</span><span style="color: #000000">( </span><span style="color: #001080">state</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">country</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;US&#039;</span><span style="color: #000000">) </span><span style="color: #008000">// array of states in USA</span>
+<span style="color: #795E26">getCountryById</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;US&#039;</span><span style="color: #000000">) </span><span style="color: #008000">// {&#039;uniquekey&#039;: 230,&#039;name&#039;: &#039;United States&#039;, &#039;edition&#039;: &#039;US&#039;,&#039;id&#039;: &#039;US&#039; }</span>
 </code></pre>
 						</dd>
 					</dl>
@@ -83,6 +84,13 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/geography.country.html" class="tsd-kind-icon">Country</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/geography.state.html" class="tsd-kind-icon">State</a></li>
+							</ul>
+						</section>
 						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
@@ -106,10 +114,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
 					<a name="countrymapping" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> country<wbr>Mapping</h3>
-					<div class="tsd-signature tsd-kind-icon">country<wbr>Mapping<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Country</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<div class="tsd-signature tsd-kind-icon">country<wbr>Mapping<span class="tsd-signature-symbol">:</span> <a href="../interfaces/geography.country.html" class="tsd-signature-type" data-tsd-kind="Interface">Country</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/1992e2f/geography.ts#L1864">geography.ts:1864</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/25bd787/geography.ts#L1886">geography.ts:1886</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -122,10 +130,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
 					<a name="statemapping" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> state<wbr>Mapping</h3>
-					<div class="tsd-signature tsd-kind-icon">state<wbr>Mapping<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<div class="tsd-signature tsd-kind-icon">state<wbr>Mapping<span class="tsd-signature-symbol">:</span> <a href="../interfaces/geography.state.html" class="tsd-signature-type" data-tsd-kind="Interface">State</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/1992e2f/geography.ts#L36">geography.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/25bd787/geography.ts#L58">geography.ts:58</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -142,13 +150,13 @@
 					<a name="getcountrybyid" class="tsd-anchor"></a>
 					<h3>get<wbr>Country<wbr>ById</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Country<wbr>ById<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Country</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Country<wbr>ById<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/geography.country.html" class="tsd-signature-type" data-tsd-kind="Interface">Country</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/1992e2f/geography.ts#L3404">geography.ts:3404</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/25bd787/geography.ts#L3426">geography.ts:3426</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -172,7 +180,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Country</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/geography.country.html" class="tsd-signature-type" data-tsd-kind="Interface">Country</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -180,13 +188,13 @@
 					<a name="getcountrybyuniquekey" class="tsd-anchor"></a>
 					<h3>get<wbr>Country<wbr>ByUnique<wbr>Key</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Country<wbr>ByUnique<wbr>Key<span class="tsd-signature-symbol">(</span>uniquekey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Country</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Country<wbr>ByUnique<wbr>Key<span class="tsd-signature-symbol">(</span>uniquekey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/geography.country.html" class="tsd-signature-type" data-tsd-kind="Interface">Country</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/1992e2f/geography.ts#L3415">geography.ts:3415</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/25bd787/geography.ts#L3437">geography.ts:3437</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -208,7 +216,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Country</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/geography.country.html" class="tsd-signature-type" data-tsd-kind="Interface">Country</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -216,13 +224,13 @@
 					<a name="getstatebyid" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>State<wbr>ById</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>State<wbr>ById<span class="tsd-signature-symbol">(</span>number<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">State</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>State<wbr>ById<span class="tsd-signature-symbol">(</span>number<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/geography.state.html" class="tsd-signature-type" data-tsd-kind="Interface">State</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/1992e2f/geography.ts#L1854">geography.ts:1854</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/25bd787/geography.ts#L1876">geography.ts:1876</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -236,7 +244,7 @@
 									<h5>number: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">State</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/geography.state.html" class="tsd-signature-type" data-tsd-kind="Interface">State</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -255,6 +263,12 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/geography.country.html" class="tsd-kind-icon">Country</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/geography.state.html" class="tsd-kind-icon">State</a>
+					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
 						<a href="geography.html#countrymapping" class="tsd-kind-icon">country<wbr>Mapping</a>
 					</li>

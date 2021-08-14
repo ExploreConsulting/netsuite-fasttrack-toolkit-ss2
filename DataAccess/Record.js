@@ -52,7 +52,7 @@ var __extends = (this && this.__extends) || (function () {
             // pull the 'static' recordType from the derived class and remove the need for derived classes to
             // define a constructor to pass the record type to super()
             var type = Object.getPrototypeOf(this).constructor.recordType();
-            if (!rec) {
+            if (!rec) { // falsey values (e.g. invalid id 0, null, undefined, etc.) implies creating a new record
                 log.debug('creating new record', "type:" + type + "  isDyanamic:" + isDynamic + " defaultValues:" + defaultValues);
                 this.makeRecordProp(record.create({ type: type, isDynamic: isDynamic, defaultValues: defaultValues }));
             }
@@ -91,7 +91,7 @@ var __extends = (this && this.__extends) || (function () {
         };
         NetsuiteCurrentRecord.prototype.toJSON = function () {
             // surface inherited properties on a new object so JSON.stringify() sees them all
-            var result = {};
+            var result = { id: this._id };
             for (var key in this) { // noinspection JSUnfilteredForInLoop
                 result[key] = this[key];
             }
