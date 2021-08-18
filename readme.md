@@ -337,8 +337,11 @@ Skip this section if you're just using NFT in your projects.
     node_modules/.bin/tsc
     node_modules/.bin/gulp
     node_modules/.bin/gulp declarations
+    node_modules/.bin/gulp docs
     npm publish
 
+Don't forget to assign an appropriate version number in `package.json` then git tag the 
+release with that version number and push.
 
 ## Build API docs (hosted on Github Pages)
 
