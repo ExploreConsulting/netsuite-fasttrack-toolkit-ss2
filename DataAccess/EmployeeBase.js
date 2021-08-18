@@ -59,10 +59,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         };
         __decorate([
             Record_1.FieldType.select
+        ], EmployeeBase.prototype, "approver", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], EmployeeBase.prototype, "birthdate", void 0);
+        __decorate([
+            Record_1.FieldType.select
         ], EmployeeBase.prototype, "class", void 0);
         __decorate([
             Record_1.FieldType.select
         ], EmployeeBase.prototype, "department", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], EmployeeBase.prototype, "directdeposit", void 0);
         __decorate([
             Record_1.FieldType.select
         ], EmployeeBase.prototype, "employeestatus", void 0);
@@ -70,17 +79,47 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], EmployeeBase.prototype, "employeetype", void 0);
         __decorate([
+            Record_1.FieldType.select
+        ], EmployeeBase.prototype, "gender", void 0);
+        __decorate([
             Record_1.FieldType.checkbox
         ], EmployeeBase.prototype, "giveaccess", void 0);
         __decorate([
             Record_1.FieldType.date
         ], EmployeeBase.prototype, "hiredate", void 0);
         __decorate([
+            Record_1.FieldType.freeformtext
+        ], EmployeeBase.prototype, "homephone", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], EmployeeBase.prototype, "image", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], EmployeeBase.prototype, "isjobresource", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], EmployeeBase.prototype, "isjobmanager", void 0);
+        __decorate([
             Record_1.FieldType.textarea
         ], EmployeeBase.prototype, "jobdescription", void 0);
         __decorate([
+            Record_1.FieldType.date
+        ], EmployeeBase.prototype, "lastreviewdate", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], EmployeeBase.prototype, "location", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], EmployeeBase.prototype, "maritalstatus", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], EmployeeBase.prototype, "mobilephone", void 0);
+        __decorate([
             Record_1.FieldType.freeformtext
         ], EmployeeBase.prototype, "officephone", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], EmployeeBase.prototype, "releasedate", void 0);
         __decorate([
             Record_1.FieldType.checkbox
         ], EmployeeBase.prototype, "sendemail", void 0);
@@ -90,6 +129,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         __decorate([
             Record_1.FieldType.select
         ], EmployeeBase.prototype, "timeapprover", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], EmployeeBase.prototype, "title", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], EmployeeBase.prototype, "workcalendar", void 0);
         return EmployeeBase;
     }(Entity_1.Entity));
     exports.EmployeeBase = EmployeeBase;

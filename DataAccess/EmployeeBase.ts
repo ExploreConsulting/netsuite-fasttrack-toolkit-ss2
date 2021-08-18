@@ -2,51 +2,96 @@
  * NetSuite Employee Base Record
  */
 
-import { FieldType } from "./Record";
-import { Entity } from "./Entity";
-import * as record from "N/record";
-import { SublistFieldType, SublistLine } from "./Sublist";
+import { FieldType } from './Record'
+import { Entity } from './Entity'
+import * as record from 'N/record'
+import { SublistFieldType, SublistLine } from './Sublist'
 
 export class RolesSublist extends SublistLine {
    @SublistFieldType.select
-   selectedrole: number;
+   selectedrole: number
 }
 
 export class EmployeeBase extends Entity {
-   static recordType() {
-      return record.Type.EMPLOYEE;
-   }
-
    @FieldType.select
-   class: number;
-
-   @FieldType.select
-   department: number;
-
-   @FieldType.select
-   employeestatus: number;
-
-   @FieldType.select
-   employeetype: number;
-
-   @FieldType.checkbox
-   giveaccess: boolean;
+   approver: number
 
    @FieldType.date
-   hiredate: Date;
+   birthdate: Date
 
-   @FieldType.textarea
-   jobdescription: string;
+   @FieldType.select
+   class: number
 
-   @FieldType.freeformtext
-   officephone: string;
+   @FieldType.select
+   department: number
 
    @FieldType.checkbox
-   sendemail: boolean;
+   directdeposit: boolean
 
    @FieldType.select
-   supervisor: number;
+   employeestatus: number
 
    @FieldType.select
-   timeapprover: number;
+   employeetype: number
+
+   @FieldType.select
+   gender: string
+
+   @FieldType.checkbox
+   giveaccess: boolean
+
+   @FieldType.date
+   hiredate: Date
+
+   @FieldType.freeformtext
+   homephone: string
+
+   @FieldType.select
+   image: number
+
+   @FieldType.checkbox
+   isjobresource: boolean
+
+   @FieldType.checkbox
+   isjobmanager: boolean
+
+   @FieldType.textarea
+   jobdescription: string
+
+   @FieldType.date
+   lastreviewdate: Date
+
+   @FieldType.select
+   location: number
+
+   @FieldType.select
+   maritalstatus: number
+
+   @FieldType.freeformtext
+   mobilephone: string
+
+   @FieldType.freeformtext
+   officephone: string
+
+   @FieldType.date
+   releasedate: Date
+
+   @FieldType.checkbox
+   sendemail: boolean
+
+   @FieldType.select
+   supervisor: number
+
+   @FieldType.select
+   timeapprover: number
+
+   @FieldType.freeformtext
+   title: string
+
+   @FieldType.select
+   workcalendar: number
+
+   static recordType () {
+      return record.Type.EMPLOYEE
+   }
 }
