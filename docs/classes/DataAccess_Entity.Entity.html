@@ -1,0 +1,809 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Entity | NetSuite FastTrack Toolkit (NFT) - v6.3.0</title>
+	<meta name="description" content="Documentation for NetSuite FastTrack Toolkit (NFT) - v6.3.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v6.3.0</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">NetSuite FastTrack Toolkit (NFT) - v6.3.0</a>
+				</li>
+				<li>
+					<a href="../modules/DataAccess_Entity.html">DataAccess/Entity</a>
+				</li>
+				<li>
+					<a href="DataAccess_Entity.Entity.html">Entity</a>
+				</li>
+			</ul>
+			<h1>Class Entity</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>NetSuite generic Entity used as a common base class for &#39;entity-like&#39; records,
+							This is meant to be inherited by concrete record types to avoid duplicating effort on fields.
+						Note that this inheritance hierarchy emerged empirically - it&#39;s not documented by NetSuite.</p>
+					</div>
+					<p>It contains fields common to all &#39;entity&#39; records in NS</p>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<a href="DataAccess_Record.NetsuiteRecord.html" class="tsd-signature-type" data-tsd-kind="Class">NetsuiteRecord</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">Entity</span>
+								<ul class="tsd-hierarchy">
+									<li>
+										<a href="DataAccess_EmployeeBase.EmployeeBase.html" class="tsd-signature-type" data-tsd-kind="Class">EmployeeBase</a>
+									</li>
+									<li>
+										<a href="DataAccess_VendorBase.VendorBase.html" class="tsd-signature-type" data-tsd-kind="Class">VendorBase</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-inherited">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="DataAccess_Entity.Entity.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="DataAccess_Entity.Entity.html#_id" class="tsd-kind-icon">_id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#accountnumber" class="tsd-kind-icon">accountnumber</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#altemail" class="tsd-kind-icon">altemail</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#altphone" class="tsd-kind-icon">altphone</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#balance" class="tsd-kind-icon">balance</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#billpay" class="tsd-kind-icon">billpay</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#category" class="tsd-kind-icon">category</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#comments" class="tsd-kind-icon">comments</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#companyname" class="tsd-kind-icon">companyname</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#currency" class="tsd-kind-icon">currency</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#customform" class="tsd-kind-icon">customform</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#datecreated" class="tsd-kind-icon">datecreated</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="DataAccess_Entity.Entity.html#defaultValues" class="tsd-kind-icon">default<wbr>Values</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#email" class="tsd-kind-icon">email</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#entityid" class="tsd-kind-icon">entityid</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#entitystatus" class="tsd-kind-icon">entitystatus</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#externalid" class="tsd-kind-icon">externalid</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#fax" class="tsd-kind-icon">fax</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#firstname" class="tsd-kind-icon">firstname</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#isinactive" class="tsd-kind-icon">isinactive</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#isperson" class="tsd-kind-icon">isperson</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#language" class="tsd-kind-icon">language</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#lastmodifieddate" class="tsd-kind-icon">lastmodifieddate</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#lastname" class="tsd-kind-icon">lastname</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="DataAccess_Entity.Entity.html#nsrecord" class="tsd-kind-icon">nsrecord</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#parent" class="tsd-kind-icon">parent</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#phone" class="tsd-kind-icon">phone</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#subsidiary" class="tsd-kind-icon">subsidiary</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#taxitem" class="tsd-kind-icon">taxitem</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="DataAccess_Entity.Entity.html#terms" class="tsd-kind-icon">terms</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="DataAccess_Entity.Entity.html#id" class="tsd-kind-icon">id</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-inherited">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="DataAccess_Entity.Entity.html#getField" class="tsd-kind-icon">get<wbr>Field</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="DataAccess_Entity.Entity.html#save" class="tsd-kind-icon">save</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="DataAccess_Entity.Entity.html#toJSON" class="tsd-kind-icon">toJSON</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="DataAccess_Entity.Entity.html#recordType" class="tsd-kind-icon">record<wbr>Type</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Entity<span class="tsd-signature-symbol">(</span>rec<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ClientCurrentRecord</span>, isDynamic<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, defaultValues<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Record.ts#L51">DataAccess/Record.ts:51</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> rec: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ClientCurrentRecord</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> isDynamic: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultValues: <span class="tsd-signature-type">object</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="_id" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _id</h3>
+					<div class="tsd-signature tsd-kind-icon">_id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#_id">_id</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Record.ts#L26">DataAccess/Record.ts:26</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Netsuite internal id of this record</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="accountnumber" class="tsd-anchor"></a>
+					<h3>accountnumber</h3>
+					<div class="tsd-signature tsd-kind-icon">accountnumber<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L16">DataAccess/Entity.ts:16</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="altemail" class="tsd-anchor"></a>
+					<h3>altemail</h3>
+					<div class="tsd-signature tsd-kind-icon">altemail<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L19">DataAccess/Entity.ts:19</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="altphone" class="tsd-anchor"></a>
+					<h3>altphone</h3>
+					<div class="tsd-signature tsd-kind-icon">altphone<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L22">DataAccess/Entity.ts:22</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="balance" class="tsd-anchor"></a>
+					<h3>balance</h3>
+					<div class="tsd-signature tsd-kind-icon">balance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L25">DataAccess/Entity.ts:25</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="billpay" class="tsd-anchor"></a>
+					<h3>billpay</h3>
+					<div class="tsd-signature tsd-kind-icon">billpay<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L28">DataAccess/Entity.ts:28</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="category" class="tsd-anchor"></a>
+					<h3>category</h3>
+					<div class="tsd-signature tsd-kind-icon">category<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L31">DataAccess/Entity.ts:31</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="comments" class="tsd-anchor"></a>
+					<h3>comments</h3>
+					<div class="tsd-signature tsd-kind-icon">comments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L34">DataAccess/Entity.ts:34</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="companyname" class="tsd-anchor"></a>
+					<h3>companyname</h3>
+					<div class="tsd-signature tsd-kind-icon">companyname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L37">DataAccess/Entity.ts:37</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="currency" class="tsd-anchor"></a>
+					<h3>currency</h3>
+					<div class="tsd-signature tsd-kind-icon">currency<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L40">DataAccess/Entity.ts:40</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="customform" class="tsd-anchor"></a>
+					<h3>customform</h3>
+					<div class="tsd-signature tsd-kind-icon">customform<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L43">DataAccess/Entity.ts:43</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="datecreated" class="tsd-anchor"></a>
+					<h3>datecreated</h3>
+					<div class="tsd-signature tsd-kind-icon">datecreated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L46">DataAccess/Entity.ts:46</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="defaultValues" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Values</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#defaultValues">defaultValues</a></p>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="email" class="tsd-anchor"></a>
+					<h3>email</h3>
+					<div class="tsd-signature tsd-kind-icon">email<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L49">DataAccess/Entity.ts:49</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="entityid" class="tsd-anchor"></a>
+					<h3>entityid</h3>
+					<div class="tsd-signature tsd-kind-icon">entityid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L52">DataAccess/Entity.ts:52</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="entitystatus" class="tsd-anchor"></a>
+					<h3>entitystatus</h3>
+					<div class="tsd-signature tsd-kind-icon">entitystatus<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L55">DataAccess/Entity.ts:55</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="externalid" class="tsd-anchor"></a>
+					<h3>externalid</h3>
+					<div class="tsd-signature tsd-kind-icon">externalid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L58">DataAccess/Entity.ts:58</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="fax" class="tsd-anchor"></a>
+					<h3>fax</h3>
+					<div class="tsd-signature tsd-kind-icon">fax<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L61">DataAccess/Entity.ts:61</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="firstname" class="tsd-anchor"></a>
+					<h3>firstname</h3>
+					<div class="tsd-signature tsd-kind-icon">firstname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L64">DataAccess/Entity.ts:64</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="isinactive" class="tsd-anchor"></a>
+					<h3>isinactive</h3>
+					<div class="tsd-signature tsd-kind-icon">isinactive<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L67">DataAccess/Entity.ts:67</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="isperson" class="tsd-anchor"></a>
+					<h3>isperson</h3>
+					<div class="tsd-signature tsd-kind-icon">isperson<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;T&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;F&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L70">DataAccess/Entity.ts:70</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="language" class="tsd-anchor"></a>
+					<h3>language</h3>
+					<div class="tsd-signature tsd-kind-icon">language<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L76">DataAccess/Entity.ts:76</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="lastmodifieddate" class="tsd-anchor"></a>
+					<h3>lastmodifieddate</h3>
+					<div class="tsd-signature tsd-kind-icon">lastmodifieddate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L73">DataAccess/Entity.ts:73</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="lastname" class="tsd-anchor"></a>
+					<h3>lastname</h3>
+					<div class="tsd-signature tsd-kind-icon">lastname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L79">DataAccess/Entity.ts:79</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="nsrecord" class="tsd-anchor"></a>
+					<h3>nsrecord</h3>
+					<div class="tsd-signature tsd-kind-icon">nsrecord<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#nsrecord">nsrecord</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Record.ts#L105">DataAccess/Record.ts:105</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>underlying netsuite record</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="parent" class="tsd-anchor"></a>
+					<h3>parent</h3>
+					<div class="tsd-signature tsd-kind-icon">parent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L82">DataAccess/Entity.ts:82</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="phone" class="tsd-anchor"></a>
+					<h3>phone</h3>
+					<div class="tsd-signature tsd-kind-icon">phone<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L85">DataAccess/Entity.ts:85</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="subsidiary" class="tsd-anchor"></a>
+					<h3>subsidiary</h3>
+					<div class="tsd-signature tsd-kind-icon">subsidiary<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L88">DataAccess/Entity.ts:88</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="taxitem" class="tsd-anchor"></a>
+					<h3>taxitem</h3>
+					<div class="tsd-signature tsd-kind-icon">taxitem<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L91">DataAccess/Entity.ts:91</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="terms" class="tsd-anchor"></a>
+					<h3>terms</h3>
+					<div class="tsd-signature tsd-kind-icon">terms<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Entity.ts#L94">DataAccess/Entity.ts:94</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="id" class="tsd-anchor"></a>
+					<h3>id</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> id<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Record.ts#L27">DataAccess/Record.ts:27</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="getField" class="tsd-anchor"></a>
+					<h3>get<wbr>Field</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Field<span class="tsd-signature-symbol">(</span>field<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NonFunctionPropertyNames</span><span class="tsd-signature-symbol">&lt;</span><a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Field</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#getField">getField</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Record.ts#L91">DataAccess/Record.ts:91</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns NetSuite field metadata. Useful for doing things like disabling a field on the form programmatically.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>field: <span class="tsd-signature-type">NonFunctionPropertyNames</span><span class="tsd-signature-symbol">&lt;</span><a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>field name for which you want to retrieve the NetSuite field object</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Field</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="save" class="tsd-anchor"></a>
+					<h3>save</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">save<span class="tsd-signature-symbol">(</span>enableSourcing<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, ignoreMandatoryFields<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#save">save</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Record.ts#L113">DataAccess/Record.ts:113</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Persists this record to the NS database</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> enableSourcing: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> ignoreMandatoryFields: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="toJSON" class="tsd-anchor"></a>
+					<h3>toJSON</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">toJSON<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#toJSON">toJSON</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Record.ts#L78">DataAccess/Record.ts:78</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="recordType" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> record<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">record<wbr>Type<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Type</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#recordType">recordType</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/DataAccess/Record.ts#L34">DataAccess/Record.ts:34</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The netsuite record type (constant string) - this is declared here and overridden in derived classes</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Type</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Modules</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/DataAccess_Entity.html">Data<wbr>Access/<wbr>Entity</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="DataAccess_Entity.Entity.html" class="tsd-kind-icon">Entity</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+								<a href="DataAccess_Entity.Entity.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="DataAccess_Entity.Entity.html#_id" class="tsd-kind-icon">_id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#accountnumber" class="tsd-kind-icon">accountnumber</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#altemail" class="tsd-kind-icon">altemail</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#altphone" class="tsd-kind-icon">altphone</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#balance" class="tsd-kind-icon">balance</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#billpay" class="tsd-kind-icon">billpay</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#category" class="tsd-kind-icon">category</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#comments" class="tsd-kind-icon">comments</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#companyname" class="tsd-kind-icon">companyname</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#currency" class="tsd-kind-icon">currency</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#customform" class="tsd-kind-icon">customform</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#datecreated" class="tsd-kind-icon">datecreated</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="DataAccess_Entity.Entity.html#defaultValues" class="tsd-kind-icon">default<wbr>Values</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#email" class="tsd-kind-icon">email</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#entityid" class="tsd-kind-icon">entityid</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#entitystatus" class="tsd-kind-icon">entitystatus</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#externalid" class="tsd-kind-icon">externalid</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#fax" class="tsd-kind-icon">fax</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#firstname" class="tsd-kind-icon">firstname</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#isinactive" class="tsd-kind-icon">isinactive</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#isperson" class="tsd-kind-icon">isperson</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#language" class="tsd-kind-icon">language</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#lastmodifieddate" class="tsd-kind-icon">lastmodifieddate</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#lastname" class="tsd-kind-icon">lastname</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="DataAccess_Entity.Entity.html#nsrecord" class="tsd-kind-icon">nsrecord</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#parent" class="tsd-kind-icon">parent</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#phone" class="tsd-kind-icon">phone</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#subsidiary" class="tsd-kind-icon">subsidiary</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#taxitem" class="tsd-kind-icon">taxitem</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="DataAccess_Entity.Entity.html#terms" class="tsd-kind-icon">terms</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="DataAccess_Entity.Entity.html#id" class="tsd-kind-icon">id</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="DataAccess_Entity.Entity.html#getField" class="tsd-kind-icon">get<wbr>Field</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="DataAccess_Entity.Entity.html#save" class="tsd-kind-icon">save</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="DataAccess_Entity.Entity.html#toJSON" class="tsd-kind-icon">toJSON</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="DataAccess_Entity.Entity.html#recordType" class="tsd-kind-icon">record<wbr>Type</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -10,6 +10,8 @@
  stateMapping.filter( state => state.country === 'US') // array of states in USA
  getCountryById('US') // {'uniquekey': 230,'name': 'United States', 'edition': 'US','id': 'US' }
  ```
+
+ @module
  */
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {

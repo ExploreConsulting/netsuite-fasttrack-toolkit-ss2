@@ -10,12 +10,13 @@
  stateMapping.filter( state => state.country === 'US') // array of states in USA
  getCountryById('US') // {'uniquekey': 230,'name': 'United States', 'edition': 'US','id': 'US' }
  ```
+
+ @module
  */
 
 /**
- * dummy comment for typedoc
+ * Geographic state information
  */
-
 export interface State {
    /**
     * primary key
@@ -29,6 +30,9 @@ export interface State {
     * State abbreviation, if any.
     */
    shortname: string,
+   /**
+    * long name of the state
+    */
    fullname: string
 }
 

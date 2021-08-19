@@ -5,6 +5,7 @@
  * Use `LazySearch.from()` and `LazySearch.load()` to get started.
  * Turn search results into plain objects using `nsSearchResult2obj()` and leverage
  * the methods of [ImmutableJS](https://facebook.github.io/immutable-js/) to process search results.
+ * @module
  */
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
@@ -18,9 +19,6 @@
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.LazySearch = exports.nsSearchResult2obj = void 0;
-    /**
-     * dummy comment for the import so TypeDoc renders the comment above this one
-     */
     var search = require("N/search");
     var LogManager = require("./EC_Logger");
     /**

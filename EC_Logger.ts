@@ -1,5 +1,7 @@
 /**
+ *
  * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
+ *
  *
  * Utilizes the [Aurelia logger](https://aurelia.io/docs/api/logging) under the hood.
  * This logger library adopts the common pattern of separating _how_ you log
@@ -8,13 +10,10 @@
  * By default, log messages are sent to the NetSuite Execution Log - *except* for client scripts which log to the
  * *browser console* by default.
  *
- * You can create as many named loggers as you like, but most often you'll work with the [Default Logger](#defaultlogger)
+ * You can create as many named loggers as you like, but most often you'll work with the [[Default Logger]]
  *
  * @NApiVersion 2.x
- */
-
-/**
- * dummy comment for TypeDoc
+ * @module
  */
 import { addAppender, Appender, clearAppenders, getLogger, Logger, logLevel } from './aurelia-logging'
 import * as nslog from 'N/log'

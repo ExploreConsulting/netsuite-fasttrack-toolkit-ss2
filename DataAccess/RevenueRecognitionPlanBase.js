@@ -1,5 +1,6 @@
 /**
  * NetSuite Revenue Recognition Plan record. (revenueplan)
+ * @module
  */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -34,9 +35,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.RevenueRecognitionPlanBase = exports.PlannedRevenueSublist = void 0;
-    /**
-     * dummy comment for tsdoc
-     */
     var Record_1 = require("./Record");
     var Sublist_1 = require("./Sublist");
     var record = require("N/record");

@@ -1,0 +1,425 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>EC_Logger | NetSuite FastTrack Toolkit (NFT) - v6.3.0</title>
+	<meta name="description" content="Documentation for NetSuite FastTrack Toolkit (NFT) - v6.3.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v6.3.0</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">NetSuite FastTrack Toolkit (NFT) - v6.3.0</a>
+				</li>
+				<li>
+					<a href="EC_Logger.html">EC_Logger</a>
+				</li>
+			</ul>
+			<h1>Module EC_Logger</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Provides a rich logging facility with more control and flexibility than the native NetSuite logger.</p>
+					</div>
+					<p>Utilizes the <a href="https://aurelia.io/docs/api/logging">Aurelia logger</a> under the hood.
+						This logger library adopts the common pattern of separating <em>how</em> you log
+					(e.g. <code>log.debug()</code>) from <em>where</em> the log messages are sent.</p>
+					<p>By default, log messages are sent to the NetSuite Execution Log - <em>except</em> for client scripts which log to the
+					<em>browser console</em> by default.</p>
+					<p>You can create as many named loggers as you like, but most often you&#39;ll work with the [[Default Logger]]</p>
+					<dl class="tsd-comment-tags">
+						<dt>napiversion</dt>
+						<dd><p>2.x</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/EC_Logger.ExecutionLogAppender.html" class="tsd-kind-icon">Execution<wbr>Log<wbr>Appender</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/EC_Logger.AutoLogConfig.html" class="tsd-kind-icon">Auto<wbr>Log<wbr>Config</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="EC_Logger.html#DefaultLogger" class="tsd-kind-icon">Default<wbr>Logger</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="EC_Logger.html#correlationId" class="tsd-kind-icon">correlation<wbr>Id</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="EC_Logger.html#includeCorrelationId" class="tsd-kind-icon">include<wbr>Correlation<wbr>Id</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="EC_Logger.html#autoLogMethodEntryExit" class="tsd-kind-icon">auto<wbr>Log<wbr>Method<wbr>Entry<wbr>Exit</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="EC_Logger.html#setCorrelationId" class="tsd-kind-icon">set<wbr>Correlation<wbr>Id</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="EC_Logger.html#setIncludeCorrelationId" class="tsd-kind-icon">set<wbr>Include<wbr>Correlation<wbr>Id</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="DefaultLogger" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagLet">Let</span> Default<wbr>Logger</h3>
+					<div class="tsd-signature tsd-kind-icon">Default<wbr>Logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/EC_Logger.ts#L313">EC_Logger.ts:313</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The default logger - this should be the main top level logger used in scripts</p>
+						</div>
+						<p>This logger defaults to log level &#39;debug&#39; and is named &#39;default&#39;.
+							For client scripts, it logs to the <em>browser console</em> (not NS execution log because it incurs significant
+						overhead). For server-side scripts it logs to the NS Exectuion Log.</p>
+						<dl class="tsd-comment-tags">
+							<dt>example</dt>
+							<dd><p>To make a client script log to both the local browser console and the NS script execution log</p>
+								<pre><code><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #0000FF">*</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">LogManager</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;./NFT/EC_Logger&quot;</span>
+
+<span style="color: #001080">LogManager</span><span style="color: #000000">.</span><span style="color: #795E26">addAppender</span><span style="color: #000000">(</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">LogManager</span><span style="color: #000000">.</span><span style="color: #795E26">ExecutionLogAppender</span><span style="color: #000000">())</span>
+</code></pre>
+							</dd>
+							<dt>example</dt>
+							<dd><pre><code><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #0000FF">*</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">LogManager</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;./NFT/EC_Logger&quot;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">log</span><span style="color: #000000"> = </span><span style="color: #001080">LogManager</span><span style="color: #000000">.</span><span style="color: #001080">DefaultLogger</span>
+<span style="color: #001080">log</span><span style="color: #000000">.</span><span style="color: #795E26">debug</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;hello world&#039;</span><span style="color: #000000">)</span>
+</code></pre>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="correlationId" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagLet">Let</span> correlation<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">correlation<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/EC_Logger.ts#L41">EC_Logger.ts:41</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Value to be prepended to each log message title. Defaults to a random 4 digit integer</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="includeCorrelationId" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagLet">Let</span> include<wbr>Correlation<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">include<wbr>Correlation<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/EC_Logger.ts#L54">EC_Logger.ts:54</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>if true then log message includes a random integer (or your custom) prefix to each log entry title.
+								which is fixed for the duration of this script run. This can be used to correlate between different runs
+								of the same script (e.g. multiple runs of a scheduled script or discerning between multiple simultaneous calls
+							to a RESTlet or Suitelet)</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>example</dt>
+							<dd><p>output
+									1234&gt; My log title
+									1234&gt; Another log title from the same run of the script
+								5683&gt; Log message from a subsequent execution of the script</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="autoLogMethodEntryExit" class="tsd-anchor"></a>
+					<h3>auto<wbr>Log<wbr>Method<wbr>Entry<wbr>Exit</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">auto<wbr>Log<wbr>Method<wbr>Entry<wbr>Exit<span class="tsd-signature-symbol">(</span>methodsToLogEntryExit<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol">; </span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> }</span>, config<span class="tsd-signature-symbol">?: </span><a href="../interfaces/EC_Logger.AutoLogConfig.html" class="tsd-signature-type" data-tsd-kind="Interface">AutoLogConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/EC_Logger.ts#L223">EC_Logger.ts:223</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
+										Call this method at the end of your script. Log entries are &#39;DEBUG&#39; level by default but may be overridden
+									as described below.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>log all methods on the object <code>X</code></p>
+										<pre><code><span style="color: #0000FF">namespace</span><span style="color: #000000"> </span><span style="color: #267F99">X</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">export</span><span style="color: #000000"> </span><span style="color: #795E26">onRequest</span><span style="color: #000000">() {</span>
+<span style="color: #000000">    </span><span style="color: #001080">log</span><span style="color: #000000">.</span><span style="color: #795E26">debug</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;hello world&#039;</span><span style="color: #000000">)</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+<span style="color: #001080">LogManager</span><span style="color: #000000">.</span><span style="color: #795E26">autoLogMethodEntryExit</span><span style="color: #000000">({ </span><span style="color: #001080">target:</span><span style="color: #0070C1">X</span><span style="color: #000000">, </span><span style="color: #001080">method:</span><span style="color: #811F3F">/\w</span><span style="color: #000000">+</span><span style="color: #811F3F">/</span><span style="color: #000000">})</span>
+
+</code></pre>
+										<p>The above results in automatic log entries similar to:</p>
+										<table>
+											<thead>
+												<tr>
+													<th>Log Title</th>
+													<th>Detail</th>
+												</tr>
+											</thead>
+											<tbody><tr>
+													<td>Enter onRequest()</td>
+													<td>args:[]</td>
+												</tr>
+												<tr>
+													<td>hello world</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>Exit onRequest()</td>
+													<td>returned: undefined</td>
+												</tr>
+										</tbody></table>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>methodsToLogEntryExit: <span class="tsd-signature-symbol">{ </span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol">; </span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> }</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>array of pointcuts</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RegExp</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span></h5>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> config: <a href="../interfaces/EC_Logger.AutoLogConfig.html" class="tsd-signature-type" data-tsd-kind="Interface">AutoLogConfig</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>configuration settings</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>an array of jquery aop advices</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="setCorrelationId" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> set<wbr>Correlation<wbr>Id</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Correlation<wbr>Id<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/EC_Logger.ts#L319">EC_Logger.ts:319</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Use to set the correlation id to a value other than the default random number</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>new correlation id, will be used on all subsequent log messages for the current script execution</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="setIncludeCorrelationId" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> set<wbr>Include<wbr>Correlation<wbr>Id</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Include<wbr>Correlation<wbr>Id<span class="tsd-signature-symbol">(</span>enable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/f4f550a/EC_Logger.ts#L66">EC_Logger.ts:66</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Controls whether the correlation id prefixes should be included in log messages or not.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>for <code>setIncludeCorrelationId(true)</code>
+											1234&gt; My log title
+											1234&gt; Another log title from the same run of the script
+										5683&gt; Log message from a subsequent execution of the script</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>enable: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>if true, adds correlationid to the log messages, otherwise no correlation id prefix is added
+										returns the newly set value</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Modules</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="EC_Logger.html">EC_<wbr><wbr>Logger</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/EC_Logger.ExecutionLogAppender.html" class="tsd-kind-icon">Execution<wbr>Log<wbr>Appender</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/EC_Logger.AutoLogConfig.html" class="tsd-kind-icon">Auto<wbr>Log<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="EC_Logger.html#DefaultLogger" class="tsd-kind-icon">Default<wbr>Logger</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="EC_Logger.html#correlationId" class="tsd-kind-icon">correlation<wbr>Id</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="EC_Logger.html#includeCorrelationId" class="tsd-kind-icon">include<wbr>Correlation<wbr>Id</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="EC_Logger.html#autoLogMethodEntryExit" class="tsd-kind-icon">auto<wbr>Log<wbr>Method<wbr>Entry<wbr>Exit</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="EC_Logger.html#setCorrelationId" class="tsd-kind-icon">set<wbr>Correlation<wbr>Id</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="EC_Logger.html#setIncludeCorrelationId" class="tsd-kind-icon">set<wbr>Include<wbr>Correlation<wbr>Id</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,17 +1,3 @@
-/**
- * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
- *
- * Utilizes the [Aurelia logger](https://aurelia.io/docs/api/logging) under the hood.
- * This logger library adopts the common pattern of separating _how_ you log
- * (e.g. `log.debug()`) from _where_ the log messages are sent.
- *
- * By default, log messages are sent to the NetSuite Execution Log - *except* for client scripts which log to the
- * *browser console* by default.
- *
- * You can create as many named loggers as you like, but most often you'll work with the [Default Logger](#defaultlogger)
- *
- * @NApiVersion 2.x
- */
 var __spreadArray = (this && this.__spreadArray) || function (to, from) {
     for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
         to[j] = from[i];
@@ -30,7 +16,21 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.setCorrelationId = exports.DefaultLogger = exports.autoLogMethodEntryExit = exports.ExecutionLogAppender = exports.setIncludeCorrelationId = exports.includeCorrelationId = exports.correlationId = exports.removeCustomLevel = exports.setLevel = exports.getLevel = exports.addCustomLevel = exports.removeAppender = exports.getLogger = exports.addAppender = exports.clearAppenders = exports.getAppenders = exports.Logger = exports.logLevel = void 0;
     /**
-     * dummy comment for TypeDoc
+     *
+     * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
+     *
+     *
+     * Utilizes the [Aurelia logger](https://aurelia.io/docs/api/logging) under the hood.
+     * This logger library adopts the common pattern of separating _how_ you log
+     * (e.g. `log.debug()`) from _where_ the log messages are sent.
+     *
+     * By default, log messages are sent to the NetSuite Execution Log - *except* for client scripts which log to the
+     * *browser console* by default.
+     *
+     * You can create as many named loggers as you like, but most often you'll work with the [[Default Logger]]
+     *
+     * @NApiVersion 2.x
+     * @module
      */
     var aurelia_logging_1 = require("./aurelia-logging");
     var nslog = require("N/log");
