@@ -43,5 +43,5 @@ export class UnitsType extends NetsuiteRecord {
    @FieldType.sublist(UOMSublist)
    uom: Sublist<UOMSublist>
 
-   static recordType = function () { return record.Type.UNITS_TYPE }
+   static recordType() { return record.Type.UNITS_TYPE }
 }
