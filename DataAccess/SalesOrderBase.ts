@@ -138,4 +138,7 @@ export class SalesOrderBase extends TransactionBase {
 
    @FieldType.currency
    total: number
+
+   @FieldType.select
+   class: number
 }
