@@ -10,8 +10,26 @@ import { AddressBase } from './AddressBase'
  */
 export class ItemSublist extends SublistLine {
 
+   @FieldType.currency
+   altsalesamt: number
+
+   @FieldType.text
+   amortizationperiod: string
+
+   @FieldType.text
+   amortizationtype: string
+
    @SublistFieldType.decimalnumber
    amount:number
+
+   @FieldType.text
+   billvariancestatus: string
+
+   @FieldType.select
+   catchupperiod: number
+
+   @FieldType.text
+   chargetype: string
 
    @SublistFieldType.select
    commitinventory:number
@@ -22,14 +40,50 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.currency
    costestimaterate:number
 
-   @SublistFieldType.checkbox
-   deferrevrec:boolean
+   @FieldType.select
+   costestimatetype: number
+
+   @FieldType.select
+   createdpo: number
+
+   @FieldType.select
+   createpo: number
+
+   @FieldType.checkbox
+   createwo: boolean
+
+   @FieldType.text
+   daysbeforeexpiration: string
 
    @SublistFieldType.textarea
    description:string
 
+   @SublistFieldType.checkbox
+   deferrevrec:boolean
+
+   @FieldType.checkbox
+   excludefromraterequest: boolean
+
    @SublistFieldType.date
    expectedshipdate:Date
+
+   @FieldType.checkbox
+   fromjob: boolean
+
+   @FieldType.text
+   giftcertfrom: string
+
+   @FieldType.textarea
+   giftcertmessage: string
+
+   @FieldType.email
+   giftcertrecipientemail: string
+
+   @FieldType.text
+   giftcertrecipientname: string
+
+   @FieldType.text
+   id: string
 
    @SublistFieldType.checkbox
    isclosed:boolean
@@ -40,11 +94,26 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.checkbox
    istaxable:boolean
 
+   @FieldType.text
+   isvsoebundle: string
+
    @SublistFieldType.select
    item: number
 
+   @FieldType.text
+   itemfulfillmentchoice: string
+
+   @FieldType.text
+   itemsubtype: string
+
    @SublistFieldType.freeformtext
    itemtype:string
+
+   @FieldType.textarea
+   licensecode: string
+
+   @FieldType.text
+   line: string
 
    @SublistFieldType.freeformtext
    lineuniquekey:string
@@ -55,35 +124,114 @@ export class ItemSublist extends SublistLine {
    @SublistFieldType.select
    location:number
 
+   @FieldType.checkbox
+   locationautoassigned: boolean
+
+   @FieldType.text
+   matrixtype: string
+
+   @FieldType.checkbox
+   noautoassignlocation: boolean
+
+   @FieldType.namevaluelist
+   options: string
+
+   @FieldType.decimalnumber
+   orderpriority: number
+
    @SublistFieldType.currency
    porate:number
+
+   @FieldType.text
+   povendor: string
 
    @SublistFieldType.select
    price:number
 
-   @SublistFieldType.float
+   @FieldType.text
+   printitems: string
+
+   @SublistFieldType.decimalnumber
    quantity:number
+
+   @FieldType.decimalnumber
+   quantityavailable: number
+
+   @FieldType.decimalnumber
+   quantitybackordered: number
+
+   @FieldType.decimalnumber
+   quantitybilled: number
+
+   @FieldType.decimalnumber
+   quantitycommitted: number
+
+   @FieldType.decimalnumber
+   quantityfulfilled: number
+
+   @FieldType.decimalnumber
+   quantityrevcommitted: number
 
    @SublistFieldType.decimalnumber
    rate:number
 
-   @SublistFieldType.select
-   taxcode:number
+   @FieldType.text
+   rateschedule: string
 
-   @SublistFieldType.select
-   department:number
+   @FieldType.select
+   revrecschedule: number
 
    @SublistFieldType.date
-   revrecstartdate:Date
+   revrecstartdate: Date
 
    @SublistFieldType.date
    revrecenddate:Date
+
+   @FieldType.select
+   shipaddress: number
+
+   @FieldType.select
+   shipcarrier: number
+
+   @FieldType.select
+   shipmethod: number
+
+   @FieldType.select
+   subscription: number
+
+   @SublistFieldType.select
+   taxcode:number
 
    @SublistFieldType.decimalnumber
    taxrate1:number
 
    @SublistFieldType.select
    units:number
+
+   @FieldType.currency
+   vsoeallocation: number
+
+   @FieldType.currency
+   vsoeamount: number
+
+   @FieldType.select
+   vsoedeferral: number
+
+   @FieldType.checkbox
+   vsoedelivered: boolean
+
+   @FieldType.checkbox
+   vsoeisestimate: boolean
+
+   @FieldType.select
+   vsoepermitdiscount: number
+
+   @FieldType.currency
+   vsoeprice: number
+
+   @FieldType.select
+   vsoesopgroup: number
+
 }
 
 /**
@@ -250,7 +398,7 @@ export class SalesOrderBase extends TransactionBase {
    @FieldType.percent
    estgrossprofitpercent: string
 
-   @FieldType.currency2
+   @FieldType.currency
    exchangerate: number
 
    @FieldType.checkbox
@@ -331,7 +479,7 @@ export class SalesOrderBase extends TransactionBase {
    @FieldType.select
    nexus: number
 
-   @FieldType.currency2
+   @FieldType.currency
    onetime: number
 
    @FieldType.select
@@ -343,7 +491,7 @@ export class SalesOrderBase extends TransactionBase {
    @FieldType.checkbox
    overrideholdchecked: boolean
 
-   @FieldType.float
+   @FieldType.decimalnumber
    overrideshippingcost: number
 
    @FieldType.select
@@ -394,16 +542,16 @@ export class SalesOrderBase extends TransactionBase {
    @FieldType.currency
    recognizedrevenue: number
 
-   @FieldType.currency2
+   @FieldType.currency
    recurannually: number
 
-   @FieldType.currency2
+   @FieldType.currency
    recurmonthly: number
 
-   @FieldType.currency2
+   @FieldType.currency
    recurquarterly: number
 
-   @FieldType.currency2
+   @FieldType.currency
    recurweekly: number
 
    @FieldType.text
@@ -487,7 +635,7 @@ export class SalesOrderBase extends TransactionBase {
    @FieldType.select
    taxitem: number
 
-   @FieldType.float
+   @FieldType.decimalnumber
    taxrate: number
 
    @FieldType.checkbox
