@@ -92,12 +92,12 @@ var log = LogManager.DefaultLogger
 class ContactRolesSublist extends SublistLine {
    // the country internal id
    @SublistFieldType.select
-   role: number
+   role?: number
 
    // adding `Text` suffix to field name surfaces the text value
    // instead of internalid
    @SublistFieldType.select
-   roleText: string
+   roleText?: string
 }
 
 /**
@@ -161,6 +161,25 @@ as shown in the example above.
 
 ![NSDAL Inheritance Diagram](media/images/NFT-NSDAL-Inheritance.png)
 
+## Custom Records
+Defining custom records is similar to standard records but you inherit from `NetSuiteRecord` and
+define the `recordType()` method.
+
+```typescript
+export class MyCustomRecord extends NetsuiteRecord {
+ static recordType () { return 'customrecord_myrecord' }
+
+ /**
+  * Custom Name
+  */
+ @FieldType.freeformtext
+ custrecord__name: string
+}
+
+
+```
+
+See the `CodeGeneration/` folder for information on generating these custom record classes automatically. 
 
 ### Sublists and Subrecords
 
