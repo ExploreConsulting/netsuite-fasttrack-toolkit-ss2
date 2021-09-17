@@ -43,12 +43,8 @@ export class WorkOrderBase extends TransactionBase {
 
    @FieldType.select
    assemblyitem: number
-   @FieldType.freeformtext
-   assemblyitemText: string
    @FieldType.select
    billofmaterialsrevision: number
-   @FieldType.freeformtext
-   billofmaterialsrevisionText: string
    @FieldType.integernumber
    quantity: number
    @FieldType.select
