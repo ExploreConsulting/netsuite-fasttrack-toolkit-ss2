@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>NetSuite FastTrack Toolkit (NFT) - v6.3.0</title>
-	<meta name="description" content="Documentation for NetSuite FastTrack Toolkit (NFT) - v6.3.0">
+	<title>NetSuite FastTrack Toolkit (NFT) - v6.3.1</title>
+	<meta name="description" content="Documentation for NetSuite FastTrack Toolkit (NFT) - v6.3.1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 	<script async src="assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v6.3.0</a>
+					<a href="index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v6.3.1</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -48,7 +48,7 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<h1>NetSuite FastTrack Toolkit (NFT) - v6.3.0</h1>
+			<h1>NetSuite FastTrack Toolkit (NFT) - v6.3.1</h1>
 		</div>
 	</div>
 </header>
@@ -140,12 +140,12 @@
 <span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">ContactRolesSublist</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">SublistLine</span><span style="color: #000000"> {</span>
 <span style="color: #000000">   </span><span style="color: #008000">// the country internal id</span>
 <span style="color: #000000">   @</span><span style="color: #001080">SublistFieldType</span><span style="color: #000000">.</span><span style="color: #001080">select</span>
-<span style="color: #000000">   </span><span style="color: #001080">role</span><span style="color: #000000">: </span><span style="color: #267F99">number</span>
+<span style="color: #000000">   </span><span style="color: #001080">role</span><span style="color: #000000">?: </span><span style="color: #267F99">number</span>
 
 <span style="color: #000000">   </span><span style="color: #008000">// adding `Text` suffix to field name surfaces the text value</span>
 <span style="color: #000000">   </span><span style="color: #008000">// instead of internalid</span>
 <span style="color: #000000">   @</span><span style="color: #001080">SublistFieldType</span><span style="color: #000000">.</span><span style="color: #001080">select</span>
-<span style="color: #000000">   </span><span style="color: #001080">roleText</span><span style="color: #000000">: </span><span style="color: #267F99">string</span>
+<span style="color: #000000">   </span><span style="color: #001080">roleText</span><span style="color: #000000">?: </span><span style="color: #267F99">string</span>
 <span style="color: #000000">}</span>
 
 <span style="color: #008000">/**</span>
@@ -205,6 +205,24 @@
 					the bundled base classes, or derive your own e.g. use <code>CustomerBase</code> directly or define <code>class Customer extends CustomerBase</code>
 				as shown in the example above.</p>
 				<p><img src="media/images/NFT-NSDAL-Inheritance.png" alt="NSDAL Inheritance Diagram"></p>
+				<a href="#custom-records" id="custom-records" style="color: inherit; text-decoration: none;">
+					<h2>Custom Records</h2>
+				</a>
+				<p>Defining custom records is similar to standard records but you inherit from <code>NetSuiteRecord</code> and
+				define the <code>recordType()</code> method.</p>
+				<pre><code class="language-typescript"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">MyCustomRecord</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">NetsuiteRecord</span><span style="color: #000000"> {</span>
+<span style="color: #000000"> </span><span style="color: #0000FF">static</span><span style="color: #000000"> </span><span style="color: #795E26">recordType</span><span style="color: #000000"> () { </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;customrecord_myrecord&#039;</span><span style="color: #000000"> }</span>
+
+<span style="color: #000000"> </span><span style="color: #008000">/**</span>
+<span style="color: #008000">  * Custom Name</span>
+<span style="color: #008000">  */</span>
+<span style="color: #000000"> @</span><span style="color: #001080">FieldType</span><span style="color: #000000">.</span><span style="color: #001080">freeformtext</span>
+<span style="color: #000000"> </span><span style="color: #001080">custrecord__name</span><span style="color: #000000">: </span><span style="color: #267F99">string</span>
+<span style="color: #000000">}</span>
+
+
+</code></pre>
+				<p>See the <code>CodeGeneration/</code> folder for information on generating these custom record classes automatically. </p>
 				<a href="#sublists-and-subrecords" id="sublists-and-subrecords" style="color: inherit; text-decoration: none;">
 					<h3>Sublists and Subrecords</h3>
 				</a>
@@ -385,6 +403,9 @@
 						<a href="modules.html">Modules</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="modules/DataAccess_AccountBase.html">Data<wbr>Access/<wbr>Account<wbr>Base</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="modules/DataAccess_AddressBase.html">Data<wbr>Access/<wbr>Address<wbr>Base</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -493,6 +514,9 @@
 						<a href="modules/DataAccess_JournalEntryBase.html">Data<wbr>Access/<wbr>Journal<wbr>Entry<wbr>Base</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="modules/DataAccess_LocationBase.html">Data<wbr>Access/<wbr>Location<wbr>Base</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="modules/DataAccess_OpportunityBase.html">Data<wbr>Access/<wbr>Opportunity<wbr>Base</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -533,6 +557,9 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/DataAccess_TransferOrderBase.html">Data<wbr>Access/<wbr>Transfer<wbr>Order<wbr>Base</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/DataAccess_UnitsTypeBase.html">Data<wbr>Access/<wbr>Units<wbr>Type<wbr>Base</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/DataAccess_VendorBase.html">Data<wbr>Access/<wbr>Vendor<wbr>Base</a>
