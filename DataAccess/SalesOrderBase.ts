@@ -1,4 +1,3 @@
-
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
@@ -10,227 +9,227 @@ import { AddressBase } from './AddressBase'
  */
 export class ItemSublist extends SublistLine {
 
-   @FieldType.currency
-   altsalesamt:number
+   @SublistFieldType.currency
+   altsalesamt: number
 
-   @FieldType.text
-   amortizationperiod:string
+   @SublistFieldType.freeformtext
+   amortizationperiod: string
 
-   @FieldType.text
-   amortizationtype:string
+   @SublistFieldType.freeformtext
+   amortizationtype: string
 
    @SublistFieldType.decimalnumber
-   amount:number
+   amount: number
 
-   @FieldType.text
-   billvariancestatus:string
-
-   @FieldType.select
-   catchupperiod:number
-
-   @FieldType.text
-   chargetype:string
+   @SublistFieldType.freeformtext
+   billvariancestatus: string
 
    @SublistFieldType.select
-   commitinventory:number
+   catchupperiod: number
+
+   @SublistFieldType.freeformtext
+   chargetype: string
+
+   @SublistFieldType.select
+   commitinventory: number
 
    @SublistFieldType.currency
-   costestimate:number
+   costestimate: number
 
    @SublistFieldType.currency
-   costestimaterate:number
+   costestimaterate: number
 
-   @FieldType.select
-   costestimatetype:number
+   @SublistFieldType.select
+   costestimatetype: number
 
-   @FieldType.select
-   createdpo:number
+   @SublistFieldType.select
+   createdpo: number
 
-   @FieldType.select
-   createpo:number
+   @SublistFieldType.select
+   createpo: number
 
-   @FieldType.checkbox
-   createwo:boolean
+   @SublistFieldType.checkbox
+   createwo: boolean
 
-   @FieldType.text
-   daysbeforeexpiration:string
+   @SublistFieldType.freeformtext
+   daysbeforeexpiration: string
 
    @SublistFieldType.textarea
-   description:string
+   description: string
 
    @SublistFieldType.checkbox
-   deferrevrec:boolean
+   deferrevrec: boolean
 
-   @FieldType.checkbox
-   excludefromraterequest:boolean
+   @SublistFieldType.checkbox
+   excludefromraterequest: boolean
 
    @SublistFieldType.date
-   expectedshipdate:Date
-
-   @FieldType.checkbox
-   fromjob:boolean
-
-   @FieldType.text
-   giftcertfrom:string
-
-   @FieldType.textarea
-   giftcertmessage:string
-
-   @FieldType.email
-   giftcertrecipientemail:string
-
-   @FieldType.text
-   giftcertrecipientname:string
-
-   @FieldType.text
-   id:string
+   expectedshipdate: Date
 
    @SublistFieldType.checkbox
-   isclosed:boolean
+   fromjob: boolean
+
+   @SublistFieldType.freeformtext
+   giftcertfrom: string
+
+   @SublistFieldType.textarea
+   giftcertmessage: string
+
+   @SublistFieldType.email
+   giftcertrecipientemail: string
+
+   @SublistFieldType.freeformtext
+   giftcertrecipientname: string
+
+   @SublistFieldType.freeformtext
+   id: string
 
    @SublistFieldType.checkbox
-   isestimate:boolean
+   isclosed: boolean
 
    @SublistFieldType.checkbox
-   istaxable:boolean
+   isestimate: boolean
 
-   @FieldType.text
-   isvsoebundle:string
+   @SublistFieldType.checkbox
+   istaxable: boolean
+
+   @SublistFieldType.freeformtext
+   isvsoebundle: string
 
    @SublistFieldType.select
-   item:number
-
-   @FieldType.text
-   itemfulfillmentchoice:string
-
-   @FieldType.text
-   itemsubtype:string
+   item: number
 
    @SublistFieldType.freeformtext
-   itemtype:string
-
-   @FieldType.textarea
-   licensecode:string
-
-   @FieldType.text
-   line:string
+   itemfulfillmentchoice: string
 
    @SublistFieldType.freeformtext
-   lineuniquekey:string
+   itemsubtype: string
+
+   @SublistFieldType.freeformtext
+   itemtype: string
+
+   @SublistFieldType.textarea
+   licensecode: string
+
+   @SublistFieldType.freeformtext
+   line: string
+
+   @SublistFieldType.freeformtext
+   lineuniquekey: string
 
    @SublistFieldType.integernumber
-   linenumber:number
+   linenumber: number
 
    @SublistFieldType.select
-   location:number
+   location: number
 
-   @FieldType.checkbox
-   locationautoassigned:boolean
+   @SublistFieldType.checkbox
+   locationautoassigned: boolean
 
-   @FieldType.text
-   matrixtype:string
+   @SublistFieldType.freeformtext
+   matrixtype: string
 
-   @FieldType.checkbox
-   noautoassignlocation:boolean
+   @SublistFieldType.checkbox
+   noautoassignlocation: boolean
 
-   @FieldType.namevaluelist
-   options:string
+   @SublistFieldType.freeformtext
+   options: string
 
-   @FieldType.decimalnumber
-   orderpriority:number
+   @SublistFieldType.decimalnumber
+   orderpriority: number
 
    @SublistFieldType.currency
-   porate:number
+   porate: number
 
-   @FieldType.text
-   povendor:string
+   @SublistFieldType.freeformtext
+   povendor: string
 
    @SublistFieldType.select
-   price:number
+   price: number
 
-   @FieldType.text
-   printitems:string
-
-   @SublistFieldType.decimalnumber
-   quantity:number
-
-   @FieldType.decimalnumber
-   quantityavailable:number
-
-   @FieldType.decimalnumber
-   quantitybackordered:number
-
-   @FieldType.decimalnumber
-   quantitybilled:number
-
-   @FieldType.decimalnumber
-   quantitycommitted:number
-
-   @FieldType.decimalnumber
-   quantityfulfilled:number
-
-   @FieldType.decimalnumber
-   quantityrevcommitted:number
+   @SublistFieldType.freeformtext
+   printitems: string
 
    @SublistFieldType.decimalnumber
-   rate:number
+   quantity: number
 
-   @FieldType.text
-   rateschedule:string
+   @SublistFieldType.decimalnumber
+   quantityavailable: number
 
-   @FieldType.select
-   revrecschedule:number
+   @SublistFieldType.decimalnumber
+   quantitybackordered: number
+
+   @SublistFieldType.decimalnumber
+   quantitybilled: number
+
+   @SublistFieldType.decimalnumber
+   quantitycommitted: number
+
+   @SublistFieldType.decimalnumber
+   quantityfulfilled: number
+
+   @SublistFieldType.decimalnumber
+   quantityrevcommitted: number
+
+   @SublistFieldType.decimalnumber
+   rate: number
+
+   @SublistFieldType.freeformtext
+   rateschedule: string
+
+   @SublistFieldType.select
+   revrecschedule: number
 
    @SublistFieldType.date
-   revrecstartdate:Date
+   revrecstartdate: Date
 
    @SublistFieldType.date
-   revrecenddate:Date
-
-   @FieldType.select
-   shipaddress:number
-
-   @FieldType.select
-   shipcarrier:number
-
-   @FieldType.select
-   shipmethod:number
-
-   @FieldType.select
-   subscription:number
+   revrecenddate: Date
 
    @SublistFieldType.select
-   taxcode:number
+   shipaddress: number
+
+   @SublistFieldType.select
+   shipcarrier: number
+
+   @SublistFieldType.select
+   shipmethod: number
+
+   @SublistFieldType.select
+   subscription: number
+
+   @SublistFieldType.select
+   taxcode: number
 
    @SublistFieldType.decimalnumber
-   taxrate1:number
+   taxrate1: number
 
    @SublistFieldType.select
-   units:number
+   units: number
 
-   @FieldType.currency
-   vsoeallocation:number
+   @SublistFieldType.currency
+   vsoeallocation: number
 
-   @FieldType.currency
-   vsoeamount:number
+   @SublistFieldType.currency
+   vsoeamount: number
 
-   @FieldType.select
-   vsoedeferral:number
+   @SublistFieldType.select
+   vsoedeferral: number
 
-   @FieldType.checkbox
-   vsoedelivered:boolean
+   @SublistFieldType.checkbox
+   vsoedelivered: boolean
 
-   @FieldType.checkbox
-   vsoeisestimate:boolean
+   @SublistFieldType.checkbox
+   vsoeisestimate: boolean
 
-   @FieldType.select
-   vsoepermitdiscount:number
+   @SublistFieldType.select
+   vsoepermitdiscount: number
 
-   @FieldType.currency
-   vsoeprice:number
+   @SublistFieldType.currency
+   vsoeprice: number
 
-   @FieldType.select
-   vsoesopgroup:number
+   @SublistFieldType.select
+   vsoesopgroup: number
 
 }
 
@@ -240,442 +239,441 @@ export class ItemSublist extends SublistLine {
 export class SalesTeamSublist extends SublistLine {
 
    @SublistFieldType.decimalnumber
-   contribution:number
+   contribution: number
 
    @SublistFieldType.select
-   employee:number
+   employee: number
 
    @SublistFieldType.checkbox
-   isprimary:boolean
+   isprimary: boolean
 
    @SublistFieldType.select
-   salesrole:number
+   salesrole: number
 }
-
 
 /**
  * NetSuite Sales Order Record
  */
 export class SalesOrderBase extends TransactionBase {
 
-   static recordType() { return record.Type.SALES_ORDER }
-
    @FieldType.checkbox
-   allowemptycards:boolean
+   allowemptycards: boolean
 
    @FieldType.currency
-   althandlingcost:number
+   althandlingcost: number
 
    @FieldType.currency
-   altsalestotal:number
+   altsalestotal: number
 
    @FieldType.currency
-   altshippingcost:number
+   altshippingcost: number
 
-   @FieldType.text
-   authcode:string
+   @FieldType.freeformtext
+   authcode: string
 
    @FieldType.currency
-   balance:number
+   balance: number
 
    @FieldType.select
-   billaddresslist:number
+   billaddresslist: number
 
    @FieldType.subrecord(AddressBase)
-   billingaddress:AddressBase
+   billingaddress: AddressBase
 
    @FieldType.select
-   billingschedule:number
-
-   @FieldType.text
-   billisresidential:string
-
-   @FieldType.checkbox
-   canhavestackable:boolean
-
-   @FieldType.checkbox
-   ccapproved:boolean
-
-   @FieldType.select
-   ccavsstreetmatch:number
-
-   @FieldType.select
-   ccavszipmatch:number
+   billingschedule: number
 
    @FieldType.freeformtext
-   ccexpiredate:string
+   billisresidential: string
 
-   @FieldType.text
-   cchold:string
+   @FieldType.checkbox
+   canhavestackable: boolean
+
+   @FieldType.checkbox
+   ccapproved: boolean
+
+   @FieldType.select
+   ccavsstreetmatch: number
+
+   @FieldType.select
+   ccavszipmatch: number
+
+   @FieldType.freeformtext
+   ccexpiredate: string
+
+   @FieldType.freeformtext
+   cchold: string
 
    @FieldType.textarea
-   ccholdetails:string
+   ccholdetails: string
 
    @FieldType.select
-   cciavsmatch:number
-
-   @FieldType.text
-   ccname:string
+   cciavsmatch: number
 
    @FieldType.freeformtext
-   ccnumber:string
+   ccname: string
 
-   @FieldType.text
-   ccprocessoraccount:string
+   @FieldType.freeformtext
+   ccnumber: string
 
-   @FieldType.text
-   ccsecuritycode:string
+   @FieldType.freeformtext
+   ccprocessoraccount: string
 
-   @FieldType.select
-   ccsecuritycodematch:number
-
-   @FieldType.text
-   ccstreet:string
-
-   @FieldType.text
-   cczipcode:string
+   @FieldType.freeformtext
+   ccsecuritycode: string
 
    @FieldType.select
-   class:number
+   ccsecuritycodematch: number
+
+   @FieldType.freeformtext
+   ccstreet: string
+
+   @FieldType.freeformtext
+   cczipcode: string
+
+   @FieldType.select
+   class: number
 
    @FieldType.currency
-   consolidatebalance:number
+   consolidatebalance: number
 
    @FieldType.select
-   couponcode:number
+   couponcode: number
 
    @FieldType.select
-   createdfrom:number
+   createdfrom: number
 
    @FieldType.select
-   creditcard:number
+   creditcard: number
 
    @FieldType.select
-   creditcardprocessor:number
+   creditcardprocessor: number
 
    @FieldType.select
-   currency:number
+   currency: number
 
-   @FieldType.text
-   currencyname:string
+   @FieldType.freeformtext
+   currencyname: string
 
-   @FieldType.text
-   currencysymbol:string
+   @FieldType.freeformtext
+   currencysymbol: string
 
-   @FieldType.text
-   customercode:string
+   @FieldType.freeformtext
+   customercode: string
 
-   @FieldType.text
-   debitcardissueno:string
+   @FieldType.freeformtext
+   debitcardissueno: string
 
    @FieldType.currency
-   deferredrevenue:number
+   deferredrevenue: number
 
    @FieldType.select
-   discountitem:number
+   discountitem: number
 
-   @FieldType.rate
-   discountrate:number
+   @FieldType.decimalnumber
+   discountrate: number
 
    @FieldType.currency
-   discounttotal:number
+   discounttotal: number
 
    @FieldType.select
-   draccount:number
+   draccount: number
 
    @FieldType.date
-   enddate:Date | null
+   enddate: Date | null
 
    @FieldType.select
-   entitynexus:number
+   entitynexus: number
 
    @FieldType.select
-   entitytaxregnum:number
+   entitytaxregnum: number
 
    @FieldType.currency
-   estgrossprofit:number
+   estgrossprofit: number
 
    @FieldType.percent
-   estgrossprofitpercent:string
+   estgrossprofitpercent: string
 
    @FieldType.currency
-   exchangerate:number
+   exchangerate: number
 
    @FieldType.checkbox
-   excludecommission:boolean
-
-   @FieldType.text
-   fob:string
-
-   @FieldType.select
-   fxaccount:number
-
-   @FieldType.checkbox
-   getauth:boolean
-
-   @FieldType.currency
-   giftcertapplied:number
-
-   @FieldType.currency
-   handlingcost:number
-
-   @FieldType.text
-   handlingtax1rate:string
-
-   @FieldType.select
-   handlingtaxcode:number
-
-   @FieldType.checkbox
-   ignoreavs:boolean
-
-   @FieldType.checkbox
-   ignorecsc:boolean
-
-   @FieldType.text
-   inputpnrefnum:string
-
-   @FieldType.select
-   intercostatus:number
-
-   @FieldType.select
-   intercotransaction:number
-
-   @FieldType.checkbox
-   isbasecurrency:boolean
-
-   @FieldType.text
-   isdefaultshippingrequest:string
-
-   @FieldType.checkbox
-   ismultishipto:boolean
-
-   @FieldType.text
-   ispurchasecard:string
-
-   @FieldType.checkbox
-   isrecurringpayment:boolean
-
-   @FieldType.sublist(ItemSublist)
-   item:Sublist<ItemSublist>
-
-   @FieldType.select
-   leadsource:number
-
-   @FieldType.text
-   linkedtrackingnumbers:string
-
-   @FieldType.textarea
-   message:string
-
-   @FieldType.select
-   messagesel:number
-
-   @FieldType.text
-   muccpromocodeinstance:string
-
-   @FieldType.date
-   nextbill:Date | null
-
-   @FieldType.select
-   nexus:number
-
-   @FieldType.currency
-   onetime:number
-
-   @FieldType.select
-   opportunity:number
-
-   @FieldType.checkbox
-   overridehold:boolean
-
-   @FieldType.checkbox
-   overrideholdchecked:boolean
-
-   @FieldType.decimalnumber
-   overrideshippingcost:number
-
-   @FieldType.select
-   partner:number
-
-   @FieldType.datetime
-   paymenteventdate:Date | null
-
-   @FieldType.select
-   paymenteventholdreason:number
-
-   @FieldType.text
-   paymenteventpurchasedatasent:string
-
-   @FieldType.select
-   paymenteventresult:number
-
-   @FieldType.text
-   paymenteventtype:string
-
-   @FieldType.text
-   paymenteventupdatedby:string
-
-   @FieldType.select
-   paymentmethod:number
-
-   @FieldType.text
-   paypalauthid:string
-
-   @FieldType.checkbox
-   paypalprocess:boolean
-
-   @FieldType.text
-   paypalstatus:string
-
-   @FieldType.text
-   paypaltranid:string
-
-   @FieldType.text
-   pnrefnum:string
-
-   @FieldType.select
-   promocode:number
-
-   @FieldType.text
-   promocodepluginimpl:string
-
-   @FieldType.currency
-   recognizedrevenue:number
-
-   @FieldType.currency
-   recurannually:number
-
-   @FieldType.currency
-   recurmonthly:number
-
-   @FieldType.currency
-   recurquarterly:number
-
-   @FieldType.currency
-   recurweekly:number
-
-   @FieldType.text
-   returntrackingnumbers:string
-
-   @FieldType.text
-   revcommitstatus:string
-
-   @FieldType.text
-   revenuestatus:string
-
-   @FieldType.checkbox
-   revreconrevcommitment:boolean
-
-   @FieldType.date
-   saleseffectivedate:Date | null
-
-   @FieldType.select
-   salesgroup:number
-
-   @FieldType.sublist(SalesTeamSublist)
-   salesteam:Sublist<SalesTeamSublist>
-
-   @FieldType.select
-   shipaddresslist:number
-
-   @FieldType.checkbox
-   shipcomplete:boolean
-
-   @FieldType.date
-   shipdate:Date | null
-
-   @FieldType.text
-   shipisresidential:string
-
-   @FieldType.select
-   shipmethod:number
-
-   @FieldType.text
-   shipoverride:string
-
-   @FieldType.subrecord(AddressBase)
-   shippingaddress:AddressBase
-
-   @FieldType.currency
-   shippingcost:number
-
-   @FieldType.text
-   shippingcostoverridden:string
-
-   @FieldType.text
-   shippingtax1rate:string
-
-   @FieldType.select
-   shippingtaxcode:number
-
-   @FieldType.text
-   softdescriptor:string
-
-   @FieldType.text
-   source:string
-
-   @FieldType.date
-   startdate:Date | null
-
-   @FieldType.select
-   subsidiarytaxregnum:number
-
-   @FieldType.currency
-   subtotal:number
-
-   @FieldType.checkbox
-   syncpartnerteams:boolean
-
-   @FieldType.checkbox
-   syncsalesteams:boolean
-
-   @FieldType.checkbox
-   taxdetailsoverride:boolean
-
-   @FieldType.select
-   taxitem:number
-
-   @FieldType.decimalnumber
-   taxrate:number
-
-   @FieldType.checkbox
-   taxregoverride:boolean
-
-   @FieldType.currency
-   taxtotal:number
-
-   @FieldType.select
-   terms:number
-
-   @FieldType.text
-   threedstatuscode:string
-
-   @FieldType.checkbox
-   tobeemailed:boolean
-
-   @FieldType.checkbox
-   tobefaxed:boolean
-
-   @FieldType.checkbox
-   tobeprinted:boolean
-
-   @FieldType.currency
-   total:number
-
-   @FieldType.currency
-   totalcostestimate:number
-
-   @FieldType.checkbox
-   tranisvsoebundle:boolean
-
-   @FieldType.currency
-   unbilledorders:number
+   excludecommission: boolean
 
    @FieldType.freeformtext
-   validfrom:string
+   fob: string
+
+   @FieldType.select
+   fxaccount: number
 
    @FieldType.checkbox
-   vsoeautocalc:boolean
+   getauth: boolean
+
+   @FieldType.currency
+   giftcertapplied: number
+
+   @FieldType.currency
+   handlingcost: number
+
+   @FieldType.freeformtext
+   handlingtax1rate: string
+
+   @FieldType.select
+   handlingtaxcode: number
+
+   @FieldType.checkbox
+   ignoreavs: boolean
+
+   @FieldType.checkbox
+   ignorecsc: boolean
+
+   @FieldType.freeformtext
+   inputpnrefnum: string
+
+   @FieldType.select
+   intercostatus: number
+
+   @FieldType.select
+   intercotransaction: number
+
+   @FieldType.checkbox
+   isbasecurrency: boolean
+
+   @FieldType.freeformtext
+   isdefaultshippingrequest: string
+
+   @FieldType.checkbox
+   ismultishipto: boolean
+
+   @FieldType.freeformtext
+   ispurchasecard: string
+
+   @FieldType.checkbox
+   isrecurringpayment: boolean
+
+   @FieldType.sublist(ItemSublist)
+   item: Sublist<ItemSublist>
+
+   @FieldType.select
+   leadsource: number
+
+   @FieldType.freeformtext
+   linkedtrackingnumbers: string
+
+   @FieldType.textarea
+   message: string
+
+   @FieldType.select
+   messagesel: number
+
+   @FieldType.freeformtext
+   muccpromocodeinstance: string
+
+   @FieldType.date
+   nextbill: Date | null
+
+   @FieldType.select
+   nexus: number
+
+   @FieldType.currency
+   onetime: number
+
+   @FieldType.select
+   opportunity: number
+
+   @FieldType.checkbox
+   overridehold: boolean
+
+   @FieldType.checkbox
+   overrideholdchecked: boolean
+
+   @FieldType.decimalnumber
+   overrideshippingcost: number
+
+   @FieldType.select
+   partner: number
+
+   @FieldType.datetime
+   paymenteventdate: Date | null
+
+   @FieldType.select
+   paymenteventholdreason: number
+
+   @FieldType.freeformtext
+   paymenteventpurchasedatasent: string
+
+   @FieldType.select
+   paymenteventresult: number
+
+   @FieldType.freeformtext
+   paymenteventtype: string
+
+   @FieldType.freeformtext
+   paymenteventupdatedby: string
+
+   @FieldType.select
+   paymentmethod: number
+
+   @FieldType.freeformtext
+   paypalauthid: string
+
+   @FieldType.checkbox
+   paypalprocess: boolean
+
+   @FieldType.freeformtext
+   paypalstatus: string
+
+   @FieldType.freeformtext
+   paypaltranid: string
+
+   @FieldType.freeformtext
+   pnrefnum: string
+
+   @FieldType.select
+   promocode: number
+
+   @FieldType.freeformtext
+   promocodepluginimpl: string
+
+   @FieldType.currency
+   recognizedrevenue: number
+
+   @FieldType.currency
+   recurannually: number
+
+   @FieldType.currency
+   recurmonthly: number
+
+   @FieldType.currency
+   recurquarterly: number
+
+   @FieldType.currency
+   recurweekly: number
+
+   @FieldType.freeformtext
+   returntrackingnumbers: string
+
+   @FieldType.freeformtext
+   revcommitstatus: string
+
+   @FieldType.freeformtext
+   revenuestatus: string
+
+   @FieldType.checkbox
+   revreconrevcommitment: boolean
+
+   @FieldType.date
+   saleseffectivedate: Date | null
+
+   @FieldType.select
+   salesgroup: number
+
+   @FieldType.sublist(SalesTeamSublist)
+   salesteam: Sublist<SalesTeamSublist>
+
+   @FieldType.select
+   shipaddresslist: number
+
+   @FieldType.checkbox
+   shipcomplete: boolean
+
+   @FieldType.date
+   shipdate: Date | null
+
+   @FieldType.freeformtext
+   shipisresidential: string
+
+   @FieldType.select
+   shipmethod: number
+
+   @FieldType.freeformtext
+   shipoverride: string
+
+   @FieldType.subrecord(AddressBase)
+   shippingaddress: AddressBase
+
+   @FieldType.currency
+   shippingcost: number
+
+   @FieldType.freeformtext
+   shippingcostoverridden: string
+
+   @FieldType.freeformtext
+   shippingtax1rate: string
+
+   @FieldType.select
+   shippingtaxcode: number
+
+   @FieldType.freeformtext
+   softdescriptor: string
+
+   @FieldType.freeformtext
+   source: string
+
+   @FieldType.date
+   startdate: Date | null
+
+   @FieldType.select
+   subsidiarytaxregnum: number
+
+   @FieldType.currency
+   subtotal: number
+
+   @FieldType.checkbox
+   syncpartnerteams: boolean
+
+   @FieldType.checkbox
+   syncsalesteams: boolean
+
+   @FieldType.checkbox
+   taxdetailsoverride: boolean
+
+   @FieldType.select
+   taxitem: number
+
+   @FieldType.decimalnumber
+   taxrate: number
+
+   @FieldType.checkbox
+   taxregoverride: boolean
+
+   @FieldType.currency
+   taxtotal: number
+
+   @FieldType.select
+   terms: number
+
+   @FieldType.freeformtext
+   threedstatuscode: string
+
+   @FieldType.checkbox
+   tobeemailed: boolean
+
+   @FieldType.checkbox
+   tobefaxed: boolean
+
+   @FieldType.checkbox
+   tobeprinted: boolean
+
+   @FieldType.currency
+   total: number
+
+   @FieldType.currency
+   totalcostestimate: number
+
+   @FieldType.checkbox
+   tranisvsoebundle: boolean
+
+   @FieldType.currency
+   unbilledorders: number
+
+   @FieldType.freeformtext
+   validfrom: string
+
+   @FieldType.checkbox
+   vsoeautocalc: boolean
+
+   static recordType () { return record.Type.SALES_ORDER }
 
 }
 

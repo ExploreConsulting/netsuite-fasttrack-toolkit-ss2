@@ -87,14 +87,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             Record_1.FieldType.select
         ], WorkOrderBase.prototype, "assemblyitem", void 0);
         __decorate([
-            Record_1.FieldType.freeformtext
-        ], WorkOrderBase.prototype, "assemblyitemText", void 0);
-        __decorate([
             Record_1.FieldType.select
         ], WorkOrderBase.prototype, "billofmaterialsrevision", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], WorkOrderBase.prototype, "billofmaterialsrevisionText", void 0);
         __decorate([
             Record_1.FieldType.integernumber
         ], WorkOrderBase.prototype, "quantity", void 0);
