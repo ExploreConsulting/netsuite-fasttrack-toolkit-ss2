@@ -13,6 +13,7 @@ const log = LogManager.getLogger('nsdal')
 type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
 // adds `null` as a union to type T. Use this to mark record properties as explicitly nullable
 export type Nullable<T> = T | null
+
 /**
  * Since the netsuite defined 'CurrentRecord' type has almost all the same operations as the normal 'Record'
  * we use this as our base class
@@ -20,33 +21,48 @@ export type Nullable<T> = T | null
 export abstract class NetsuiteCurrentRecord {
 
    /**
-    * Netsuite internal id of this record
-    * @type {number}
-    */
-   protected _id: number
-   get id () {
-      return this._id
-   }
-
-   /**
-    * The netsuite record type (constant string) - this is declared here and overridden in derived classes
-    */
-    static recordType() : string | record.Type {
-       // the base class version of this method should never be invoked.
-       return 'NetSuiteCurrentRecord:recordType not implemented. Did you forget to define a static recordType() method on your derived class?'
-    }
-   /**
     * The underlying netsuite 'record' object. For client scripts, this is the slightly less feature rich
     * 'ClientCurrentRecord' when accessing the 'current' record the script is associated to.
     */
    nsrecord: record.Record | record.ClientCurrentRecord
 
    /**
-    * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
-    * field properties defined on derived classes should be seen when enumerating
-    * @param value
+    * Creates an NSDAL instance for the given existing NetSuite record object.
+    * This does NOT reload the record - it just wraps the supplied `rec`
+    * @param rec an existing netsuite record
+    *
+    * @example
+    * // assume `ctx` is the _context_ object passed to a `beforeSubmit()` entrypoint.
+    * // results in an NFT representation of the 'new record'
+    * const customer = new Customer(ctx.newRecord)
     */
-   private makeRecordProp = (value) => Object.defineProperty(this, 'nsrecord', { value: value })
+   constructor (rec: record.Record | record.ClientCurrentRecord)
+   /**
+    * creates a new record
+    * @param unused either `null` or leave this parameter out entirely
+    * @param isDynamic true if you want to create the record in dynamic mode, otherwise uses standard mode.
+    * @param defaultvalues optional `defaultvalues` object - specific to certain records that allow initializing a
+    * new record.
+    *
+    * @example
+    * // start a new customer record
+    * const c = new Customer()
+    *
+    * // start a new customer record in dynamic mode
+    * const c = new Customer(null, true)
+    */
+   constructor (unused?: null, isDynamic?: boolean, defaultvalues?: object)
+
+   /**
+    * Loads an existing record with the given internal id
+    * @param id record internal id to load
+    * @param isDynamic set `true` if you want to load the record in _dynamic_ mode
+    *
+    * @example
+    * // load customer with internal id 123
+    * const c = new Customer(123)
+    */
+   constructor (id: number | string, isDynamic?: boolean)
 
    constructor (rec?: null | number | string | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, protected defaultValues?: object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
@@ -75,6 +91,24 @@ export abstract class NetsuiteCurrentRecord {
       Must be one of: null/undefined, an internal id, or an existing record`)
    }
 
+   /**
+    * Netsuite internal id of this record
+    * @type {number}
+    */
+   protected _id: number
+
+   get id () {
+      return this._id
+   }
+
+   /**
+    * The netsuite record type (constant string) - this is declared here and overridden in derived classes
+    */
+   static recordType (): string | record.Type {
+      // the base class version of this method should never be invoked.
+      return 'NetSuiteCurrentRecord:recordType not implemented. Did you forget to define a static recordType() method on your derived class?'
+   }
+
    toJSON () {
       // surface inherited properties on a new object so JSON.stringify() sees them all
       const result: any = { id: this._id }
@@ -88,11 +122,18 @@ export abstract class NetsuiteCurrentRecord {
     * Returns NetSuite field metadata. Useful for doing things like disabling a field on the form programmatically.
     * @param field field name for which you want to retrieve the NetSuite field object
     */
-   getField(field: NonFunctionPropertyNames<this>) {
+   getField (field: NonFunctionPropertyNames<this>) {
       return this.nsrecord.getField({
          fieldId: field as string
       })
    }
+
+   /**
+    * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
+    * field properties defined on derived classes should be seen when enumerating
+    * @param value
+    */
+   private makeRecordProp = (value) => Object.defineProperty(this, 'nsrecord', { value: value })
 }
 
 /**
@@ -136,7 +177,7 @@ const parseProp = suffixParser('Text')
  * @returns function that takes a property name and returns a pair [flag indicating this field matched the suffix,
  * the stripped property name (with suffix removed)]
  */
-function suffixParser (suffixToSearch: string) : (propertyKey: string) => [boolean, string] {
+function suffixParser (suffixToSearch: string): (propertyKey: string) => [boolean, string] {
    const suffixLength = suffixToSearch.length
    return function (propertyKey: string) {
       const endsWithSuffix = propertyKey.slice(-suffixLength) === suffixToSearch
@@ -159,7 +200,7 @@ const parseSublistProp = suffixParser('Sublist')
  * @returns a decorator that returns a property descriptor to be used
  * with Object.defineProperty
  */
-export function defaultDescriptor<T extends NetsuiteCurrentRecord>(target: T, propertyKey: string): any {
+export function defaultDescriptor<T extends NetsuiteCurrentRecord> (target: T, propertyKey: string): any {
    const [isTextField, nsfield] = parseProp(propertyKey)
    return {
       get: function () {
@@ -186,7 +227,7 @@ export function defaultDescriptor<T extends NetsuiteCurrentRecord>(target: T, pr
  * @returns an object property descriptor to be used
  * with Object.defineProperty
  */
-export function numericDescriptor<T extends NetsuiteCurrentRecord>(target: T, propertyKey: string): any {
+export function numericDescriptor<T extends NetsuiteCurrentRecord> (target: T, propertyKey: string): any {
    const [isTextField, nsfield] = parseProp(propertyKey)
    return {
       get: function () {
@@ -265,7 +306,7 @@ function subrecordDescriptor<T extends NetsuiteCurrentRecord> (ctor: new (rec: r
  * @returns  an object property descriptor to be used
  * with decorators
  */
-function formattedDescriptor<T extends NetsuiteCurrentRecord>(formatType: format.Type, target: T, propertyKey: string): any {
+function formattedDescriptor<T extends NetsuiteCurrentRecord> (formatType: format.Type, target: T, propertyKey: string): any {
    return {
       get: function () {
          return this.nsrecord.getValue({ fieldId: propertyKey })
