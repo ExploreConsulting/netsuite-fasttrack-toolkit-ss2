@@ -25,7 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Record"], factory);
+        define(["require", "exports", "./Record", "N/record"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -35,6 +35,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      * Base class for Note record
      */
     var Record_1 = require("./Record");
+    var record = require("N/record");
     /**
      * Note record base class
      */
@@ -47,7 +48,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
          * Record type
          */
         NoteBase.recordType = function () {
-            return 'note';
+            return record.Type.NOTE;
         };
         __decorate([
             Record_1.FieldType.select

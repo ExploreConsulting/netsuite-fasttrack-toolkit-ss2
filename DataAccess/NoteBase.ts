@@ -2,6 +2,7 @@
  * Base class for Note record
  */
 import { FieldType, NetsuiteRecord } from './Record'
+import * as record from 'N/record'
 
 /**
  * Note record base class
@@ -11,7 +12,7 @@ export class NoteBase extends NetsuiteRecord {
     * Record type
     */
    static recordType() {
-      return 'note'
+      return record.Type.NOTE
    }
 
    /**
