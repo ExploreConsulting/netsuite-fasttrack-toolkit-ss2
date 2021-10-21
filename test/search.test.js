@@ -34,39 +34,39 @@
         test('defaults to column name if label is undefined', () => {
             const noLabelResult = getFakeSearchResult('foo', undefined);
             // default useLabels
-            const x = search_1.nsSearchResult2obj()(noLabelResult);
+            const x = (0, search_1.nsSearchResult2obj)()(noLabelResult);
             expect(x).toHaveProperty('foo');
         });
         test('uses column label by default', () => {
             const labeledResult = getFakeSearchResult('foo', 'fooLabel');
             // default useLabels
-            const x = search_1.nsSearchResult2obj()(labeledResult);
+            const x = (0, search_1.nsSearchResult2obj)()(labeledResult);
             expect(x).toHaveProperty('fooLabel');
         });
         test('uses column label if useLabels is true', () => {
             const labeledResult = getFakeSearchResult('foo', 'fooLabel');
             // explicitly set useLabels = true
-            const x = search_1.nsSearchResult2obj(true)(labeledResult);
+            const x = (0, search_1.nsSearchResult2obj)(true)(labeledResult);
             expect(x).toHaveProperty('fooLabel');
         });
         test('uses column name if useLabels is false', () => {
             const labeledResult = getFakeSearchResult('foo', 'fooLabel');
             // default useLabels
-            const x = search_1.nsSearchResult2obj(false)(labeledResult);
+            const x = (0, search_1.nsSearchResult2obj)(false)(labeledResult);
             expect(x).toHaveProperty('foo');
             expect(x).not.toHaveProperty('fooLabel');
         });
         test('does not generate xxxText field if text value is falsey', () => {
             const labeledResult = getFakeSearchResult('foo', 'fooLabel', 'value', undefined);
             // default useLabels
-            const x = search_1.nsSearchResult2obj()(labeledResult);
+            const x = (0, search_1.nsSearchResult2obj)()(labeledResult);
             expect(x).toHaveProperty('fooLabel');
             expect(x).not.toHaveProperty('fooLabelText');
         });
         test('generates xxxText field if text value truthy', () => {
             const labeledResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'value text');
             // default useLabels
-            const x = search_1.nsSearchResult2obj()(labeledResult);
+            const x = (0, search_1.nsSearchResult2obj)()(labeledResult);
             expect(x).toHaveProperty('fooLabel', 'value');
             expect(x).toHaveProperty('fooLabelText', 'value text');
         });
@@ -77,7 +77,7 @@
             const mockGetValue = labeledResult.getValue;
             mockGetValue.mockReturnValueOnce(5);
             // default useLabels = true
-            const x = search_1.nsSearchResult2obj()(labeledResult);
+            const x = (0, search_1.nsSearchResult2obj)()(labeledResult);
             expect(x).toHaveProperty('fooLabel', 'value');
             expect(x).toHaveProperty('fooLabelText', 'value text');
             expect(x).toEqual({
@@ -96,7 +96,7 @@
             // mock the second call to getValue() to return 5 (for the 'bar' property)
             const mockGetValue = noColumnsResult.getValue;
             mockGetValue.mockReturnValueOnce(5);
-            const x = search_1.nsSearchResult2obj()(noColumnsResult);
+            const x = (0, search_1.nsSearchResult2obj)()(noColumnsResult);
             expect(x).toEqual({
                 // id always there,  note no additional columns defined
                 id: '1',

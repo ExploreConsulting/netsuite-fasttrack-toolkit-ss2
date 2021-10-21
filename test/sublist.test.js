@@ -20,17 +20,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     describe('Sublists', function () {
         class FakeSublistLine extends Sublist_1.SublistLine {
         }
-        class SublistWithTextField extends Sublist_1.SublistLine {
+        class SublistLineWithTextField extends Sublist_1.SublistLine {
         }
         __decorate([
             Sublist_1.SublistFieldType.freeformtext
-        ], SublistWithTextField.prototype, "fooText", void 0);
+        ], SublistLineWithTextField.prototype, "fooText", void 0);
         __decorate([
             Sublist_1.SublistFieldType.select
-        ], SublistWithTextField.prototype, "foo", void 0);
+        ], SublistLineWithTextField.prototype, "foo", void 0);
         __decorate([
             Sublist_1.SublistFieldType.checkbox
-        ], SublistWithTextField.prototype, "anotherfield", void 0);
+        ], SublistLineWithTextField.prototype, "anotherfield", void 0);
         test('read value from sublist property', () => {
             const fakeRec = record.create({ type: 'fake' });
             record.getSublistValue.mockReturnValue('some text');
@@ -43,7 +43,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             const sut = new Sublist_1.Sublist(MyLine, fakeRec, 'fakesublist');
             expect(sut[0].myfield).toEqual('some text');
         });
-        test('remove a line in the middle', () => {
+        test('remove a line in the middle using index', () => {
             const fakeRec = record.create({ type: 'fake' });
             let lineCount = 10;
             record.getLineCount.mockImplementation(() => lineCount);
@@ -55,6 +55,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             expect(sut.length).toBe(9);
             expect(record.removeLine.mock.calls.length).toBe(1);
             expect(record.removeLine).lastCalledWith({ sublistId: 'fakesublist', ignoreRecalc: true, line: 3 });
+            // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
+        });
+        test('remove a line in the middle using object ref', () => {
+            const fakeRec = record.create({ type: 'fake' });
+            let lineCount = 10;
+            record.getLineCount.mockImplementation(() => lineCount);
+            record.removeLine.mockImplementation(() => lineCount--);
+            const sut = new Sublist_1.Sublist(FakeSublistLine, fakeRec, 'fakesublist');
+            // initial linecount should be  10 from test setup
+            expect(sut.length).toBe(10);
+            // pass a line _object_
+            sut.removeLine(sut[4], true);
+            expect(sut.length).toBe(9);
+            expect(record.removeLine.mock.calls.length).toBe(1);
+            expect(record.removeLine).lastCalledWith({ sublistId: 'fakesublist', ignoreRecalc: true, line: 4 });
             // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
         });
         test('insert a line in the middle', () => {
@@ -113,7 +128,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 const fakeRec = record.create({ type: 'fake' });
                 record.getSublistText.mockReturnValue('some text');
                 record.getSublistValue.mockImplementation(() => { throw new Error(); });
-                const sut = new SublistWithTextField('fakesublist', fakeRec, 0);
+                const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0);
                 sut.fooText;
                 expect(record.getSublistText).toBeCalledTimes(1);
                 expect(record.getValue).not.toHaveBeenCalled();
@@ -123,7 +138,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 fakeRec.isDynamic = true;
                 record.getSublistText.mockReturnValue('some text');
                 record.getSublistValue.mockImplementation(() => { throw new Error(); });
-                const sut = new SublistWithTextField('fakesublist', fakeRec, 0);
+                const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0);
                 sut.fooText;
                 expect(record.getCurrentSublistText).toBeCalledTimes(1);
                 expect(record.getSublistText).not.toHaveBeenCalled();
@@ -132,7 +147,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 const fakeRec = record.create({ type: 'fake' });
                 record.getSublistText.mockReturnValue('some text');
                 record.getSublistValue.mockImplementation(() => { throw new Error(); });
-                const sut = new SublistWithTextField('fakesublist', fakeRec, 0);
+                const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0);
                 sut.fooText = 'hello world';
                 expect(record.setSublistText).toBeCalledWith({
                     'fieldId': 'foo',
@@ -146,7 +161,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             const fakeRec = record.create({ type: 'fake', isDynamic: true });
             record.getSublistText.mockReturnValue('some text');
             record.getSublistValue.mockImplementation(() => { throw new Error(); });
-            const sut = new SublistWithTextField('fakesublist', fakeRec, 0);
+            const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0);
             sut.fooText = 'hello world';
             expect(record.setCurrentSublistText).toBeCalledWith({
                 'fieldId': 'foo',
@@ -159,7 +174,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             const fakeRec = record.create({ type: 'fake', isDynamic: true });
             record.getSublistText.mockReturnValue('some text');
             record.getSublistValue.mockImplementation(() => { throw new Error(); });
-            const sut = new SublistWithTextField('fakesublist', fakeRec, 0);
+            const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0);
             sut.ignoreFieldChange = true;
             sut.fooText = 'hello world';
             expect(record.setCurrentSublistText).toBeCalledWith({
@@ -171,7 +186,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         });
         test('setValue() on field - dynamic mode - ignore field changed', () => {
             const fakeRec = record.create({ type: 'fake', isDynamic: true });
-            const sut = new SublistWithTextField('fakesublist', fakeRec, 0);
+            const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0);
             sut.ignoreFieldChange = true;
             sut.foo = 1;
             expect(record.setCurrentSublistValue).toBeCalledWith({
@@ -186,7 +201,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             record.getSublistField.mockReturnValue({});
             record.getSublistText.mockReturnValue('some text');
             record.getSublistValue.mockImplementation(() => { throw new Error(); });
-            const sut = new Sublist_1.Sublist(SublistWithTextField, fakeRec, 'fakesublist');
+            const sut = new Sublist_1.Sublist(SublistLineWithTextField, fakeRec, 'fakesublist');
             sut.getField('anotherfield');
             expect(record.getSublistField).toBeCalledWith({
                 'fieldId': 'anotherfield',
@@ -207,6 +222,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             const json = JSON.stringify(sut);
             expect(json).not.toContainEqual('1'); // no key "1" in JSON since we only have line 0 saved
             expect(Object.keys(sut)).not.toContainEqual('1');
+        });
+        describe('toggling dynamic mode/standard mode api', function () {
+            test('set standard mode on dynamic record', function () {
+                const fakeRec = record.create({ type: 'fake', isDynamic: true });
+                const sut = new Sublist_1.Sublist(SublistLineWithTextField, fakeRec, 'fakesublist');
+                // temporarily turn on standard more
+                sut.useDynamicModeAPI = false;
+                sut[0].foo = 1;
+                expect(record.setSublistValue).toBeCalledWith({
+                    'fieldId': 'foo',
+                    'sublistId': 'fakesublist',
+                    'line': 0,
+                    'value': 1
+                });
+                expect(record.setCurrentSublistValue).not.toHaveBeenCalled();
+                // back to dynamic mode apis
+                sut.useDynamicModeAPI = true;
+                sut[0].foo = 1;
+                expect(record.setCurrentSublistValue).toHaveBeenCalled();
+            });
         });
     });
 });

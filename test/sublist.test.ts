@@ -31,7 +31,7 @@ describe('Sublists', function () {
       expect(sut[0].myfield).toEqual('some text')
    })
 
-   test('remove a line in the middle', () => {
+   test('remove a line in the middle using index', () => {
 
       const fakeRec = record.create({ type: 'fake' })
       let lineCount = 10
@@ -48,6 +48,26 @@ describe('Sublists', function () {
       expect(sut.length).toBe(9)
       expect(record.removeLine.mock.calls.length).toBe(1)
       expect(record.removeLine).lastCalledWith({ sublistId: 'fakesublist', ignoreRecalc: true, line: 3 })
+      // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
+   })
+
+   test('remove a line in the middle using object ref', () => {
+
+      const fakeRec = record.create({ type: 'fake' })
+      let lineCount = 10
+      record.getLineCount.mockImplementation(() => lineCount)
+      record.removeLine.mockImplementation(() => lineCount--)
+
+      const sut = new Sublist(FakeSublistLine, fakeRec, 'fakesublist')
+
+      // initial linecount should be  10 from test setup
+      expect(sut.length).toBe(10)
+      // pass a line _object_
+      sut.removeLine(sut[4], true)
+
+      expect(sut.length).toBe(9)
+      expect(record.removeLine.mock.calls.length).toBe(1)
+      expect(record.removeLine).lastCalledWith({ sublistId: 'fakesublist', ignoreRecalc: true, line: 4 })
       // uncomment to view calls to removeLine() console.log(record.removeLine.mock.calls)
    })
 

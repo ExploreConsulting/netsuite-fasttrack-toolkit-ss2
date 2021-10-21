@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+// a little script to help automate generation of NSDAL class files - converting SDF XML definitions to TypeScript
 import { promisify } from 'util'
 import * as commander from 'commander'
 import * as fs from 'fs'
@@ -35,7 +36,7 @@ program.command('isproject')
       isSDFproject().subscribe(v => {
          console.log(`is SDF project? ${v}`)
       }, error => {
-         console.debug('current directory is not a valid SDF project root folder')
+         console.debug('current directory is not a valid SDF project root folder. Run this command from your SDF project root')
          console.error(error.toString())
       })
    })
@@ -43,6 +44,8 @@ program.command('isproject')
 program.command('customrecord <customRecordXmlFile>')
    .description('create an NFT class for the given NetSuite custom record')
    .action(customRecordXmlFile => {
+      const outputDir = '.' // await findOutputFolder()
+      console.log(`output location: ${outputDir}`)
       const xslFile = path.format({dir: __dirname, base:'CustomRecord.xsl'})
       exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${customRecordXmlFile} outputDir=.`)
          .subscribe( ([error, stdout]) => {
@@ -81,6 +84,16 @@ if (program.debug) console.log(program.opts())
 function isSDFproject () {
    return bindNodeCallback<PathLike, Stats>(fs.stat)('FileCabinet')
       .pipe(map(x => !!x.ino))
+}
+
+/**
+ * Looks for the standard SS2/RecordTypes folder into which class output is typically placed
+ */
+async function findOutputFolder () {
+   const searchTarget = 'FileCabinet/RSM/SS2/RecordTypes'
+   return bindNodeCallback<PathLike, Stats>(fs.stat)(searchTarget)
+      .pipe(map(x => x.isDirectory() ? searchTarget : '.'))
+
 }
 
 //const result = execSync('echo \'hello world\'', { stdio: 'inherit' })

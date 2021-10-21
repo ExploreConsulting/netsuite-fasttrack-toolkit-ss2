@@ -1,10 +1,22 @@
 #!/usr/bin/env node
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
@@ -18,15 +30,15 @@ const operators_1 = require("rxjs/operators");
 const commandExists = require("command-exists");
 const child_process = __importStar(require("child_process"));
 const path_1 = __importDefault(require("path"));
-const stat = rxjs_1.bindNodeCallback(fs.stat);
-const exec = rxjs_1.bindNodeCallback(child_process.exec);
+const stat = (0, rxjs_1.bindNodeCallback)(fs.stat);
+const exec = (0, rxjs_1.bindNodeCallback)(child_process.exec);
 // the main saxon file shared by commands for any XSLT processing
 const jarFile = path_1.default.format({ dir: __dirname, base: 'saxon9he.jar' });
 async function javaExists() {
     return await commandExists('java').then(() => true).catch(() => false);
 }
 function jexists() {
-    rxjs_1.from(commandExists('java')).subscribe();
+    (0, rxjs_1.from)(commandExists('java')).subscribe();
 }
 const program = new commander.Command();
 program.version(require('./package.json').version);
@@ -37,13 +49,15 @@ program.command('isproject')
     isSDFproject().subscribe(v => {
         console.log(`is SDF project? ${v}`);
     }, error => {
-        console.debug('current directory is not a valid SDF project root folder');
+        console.debug('current directory is not a valid SDF project root folder. Run this command from your SDF project root');
         console.error(error.toString());
     });
 });
 program.command('customrecord <customRecordXmlFile>')
     .description('create an NFT class for the given NetSuite custom record')
     .action(customRecordXmlFile => {
+    const outputDir = '.'; // await findOutputFolder()
+    console.log(`output location: ${outputDir}`);
     const xslFile = path_1.default.format({ dir: __dirname, base: 'CustomRecord.xsl' });
     exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${customRecordXmlFile} outputDir=.`)
         .subscribe(([error, stdout]) => {
@@ -74,8 +88,16 @@ if (program.debug)
  * returns true IFF there is a folder named FileCabinet in the current working directory
  */
 function isSDFproject() {
-    return rxjs_1.bindNodeCallback(fs.stat)('FileCabinet')
-        .pipe(operators_1.map(x => !!x.ino));
+    return (0, rxjs_1.bindNodeCallback)(fs.stat)('FileCabinet')
+        .pipe((0, operators_1.map)(x => !!x.ino));
+}
+/**
+ * Looks for the standard SS2/RecordTypes folder into which class output is typically placed
+ */
+async function findOutputFolder() {
+    const searchTarget = 'FileCabinet/RSM/SS2/RecordTypes';
+    return (0, rxjs_1.bindNodeCallback)(fs.stat)(searchTarget)
+        .pipe((0, operators_1.map)(x => x.isDirectory() ? searchTarget : '.'));
 }
 //const result = execSync('echo \'hello world\'', { stdio: 'inherit' })
 console.log('note: SDF must already be configured for TBA access to the desired netsuite account');

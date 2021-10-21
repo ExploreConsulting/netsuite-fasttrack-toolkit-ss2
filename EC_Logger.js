@@ -12,10 +12,14 @@
  *
  * @NApiVersion 2.x
  */
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
@@ -115,7 +119,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.debug, logger], rest));
+            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.debug, logger], rest, false));
         };
         /**
          * Info about info
@@ -127,28 +131,28 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.info, logger], rest));
+            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.info, logger], rest, false));
         };
         ExecutionLogAppender.prototype.warn = function (logger) {
             var rest = [];
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.warn, logger], rest));
+            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.warn, logger], rest, false));
         };
         ExecutionLogAppender.prototype.error = function (logger) {
             var rest = [];
             for (var _i = 1; _i < arguments.length; _i++) {
                 rest[_i - 1] = arguments[_i];
             }
-            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.error, logger], rest));
+            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.error, logger], rest, false));
         };
         return ExecutionLogAppender;
     }());
     exports.ExecutionLogAppender = ExecutionLogAppender;
     // instantiate the default logger and set it's logging level to the most verbose - this is used as
     // the 'main' logger by consumers
-    var defaultLogger = aurelia_logging_1.getLogger('default');
+    var defaultLogger = (0, aurelia_logging_1.getLogger)('default');
     defaultLogger.setLevel(aurelia_logging_1.logLevel.debug);
     // maps aurelia numeric levels to NS string level names
     function toNetSuiteLogLevel(level) {
@@ -314,7 +318,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
      */
     function addConsoleAppender(alc) {
         console.debug('** adding console appender **');
-        aurelia_logging_1.addAppender(new alc.ConsoleAppender());
+        (0, aurelia_logging_1.addAppender)(new alc.ConsoleAppender());
         defaultLogger.debug('added console appender');
     }
     // if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require(),
@@ -324,5 +328,5 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
     else if ((typeof console === 'object') && (typeof window === 'object') && window.alert) /* browser */
         require(['./aurelia-logging-console'], addConsoleAppender);
     else /* server-side SuiteScript */
-        aurelia_logging_1.addAppender(new ExecutionLogAppender());
+        (0, aurelia_logging_1.addAppender)(new ExecutionLogAppender());
 });

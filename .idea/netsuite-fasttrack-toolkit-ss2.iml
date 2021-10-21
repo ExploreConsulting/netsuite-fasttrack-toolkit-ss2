@@ -8,5 +8,23 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="tsconfig$roots" level="project" />
     <orderEntry type="library" name="tsconfig$roots" level="project" />
+    <orderEntry type="module-library">
+      <library name="SuiteScript 1.0">
+        <CLASSES>
+          <root url="jar://$APPLICATION_PLUGINS_DIR$/com.netsuite.ide.webstorm.app/lib/com.netsuite.ide.webstorm.app-2021.2.1.jar!/library/SuiteScript_1_0" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="SuiteScript 2.0">
+        <CLASSES>
+          <root url="jar://$APPLICATION_PLUGINS_DIR$/com.netsuite.ide.webstorm.app/lib/com.netsuite.ide.webstorm.app-2021.2.1.jar!/library/SuiteScript_2_0" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
