@@ -92,8 +92,18 @@ var __extends = (this && this.__extends) || (function () {
         NetsuiteCurrentRecord.prototype.toJSON = function () {
             // surface inherited properties on a new object so JSON.stringify() sees them all
             var result = { id: this._id };
-            for (var key in this) { // noinspection JSUnfilteredForInLoop
-                result[key] = this[key];
+            for (var key in this) {
+                // NetSuite will error if you try to serialize 'Text' fields on record *create*.
+                // i.e. "Invalid API usage. You must use getSublistValue to return the value set with setSublistValue."
+                // As a workaround, consider this record to be in 'create' mode if there is no _id_ assigned yet
+                // then skip any 'xxxxText' fields.
+                if (!this._id && (key.substring(key.length - 4) === 'Text')) {
+                    // yes, this is a side effecting function inside a toJSON but this is a painful enough 'netsuiteism'
+                    // to justify
+                    log.debug("toJSON skipping field " + key, "workaround to avoid NS erroring on the getText() on a new record");
+                }
+                else
+                    result[key] = this[key];
             }
             return result;
         };

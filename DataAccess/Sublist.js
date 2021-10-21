@@ -455,9 +455,18 @@ var __assign = (this && this.__assign) || function () {
         SublistLine.prototype.toJSON = function () {
             var result = {};
             for (var key in this) {
-                // don't include internal properties
-                if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI')
+                // NetSuite will error if you try to serialize 'Text' fields on record *create*.
+                // i.e. "Invalid API usage. You must use getSublistValue to return the value set with setSublistValue."
+                // As a workaround, consider this record to be in 'create' mode if there is no _id_ assigned yet
+                // then skip any 'xxxxText' fields.
+                if (!this.nsrecord.id && (key.substring(key.length - 4) === 'Text')) {
+                    // yes, this is a side effecting function inside a toJSON but this is a painful enough 'netsuiteism'
+                    // to justify
+                    log.debug("toJSON skipping field " + key, "workaround to avoid NS erroring on the getText() on a new record");
+                }
+                else if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI') {
                     result[key] = this[key];
+                }
             }
             return result;
         };
