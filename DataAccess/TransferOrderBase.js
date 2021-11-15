@@ -91,7 +91,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     }(Transaction_1.TransactionBase));
     exports.TransferOrderBase = TransferOrderBase;
     /**
-     * Sublist 'item' on the Tranfer Order record
+     * Sublist 'item' on the Transfer Order record
      */
     var ItemSublist = /** @class */ (function (_super) {
         __extends(ItemSublist, _super);
