@@ -40,11 +40,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     var AddressBase_1 = require("./AddressBase");
     var Entity_1 = require("./Entity");
     /**
-     * NetSuite generic Lead used as a common base class for 'lead-like' records,
-     * This is meant to be inherited by concrete record types to avoid duplicating effort on fields.
-     * Note that this inheritance hierarchy emerged empirically - it's not documented by NetSuite.
-     *
-     * It contains fields common to all 'lead' records in NS
+     * Address sublist
      */
     var AddressSublist = /** @class */ (function (_super) {
         __extends(AddressSublist, _super);
@@ -102,6 +98,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         return AddressSublist;
     }(Sublist_1.SublistLine));
     exports.AddressSublist = AddressSublist;
+    /**
+     * Contacts sublist
+     */
     var ContactsSublist = /** @class */ (function (_super) {
         __extends(ContactsSublist, _super);
         function ContactsSublist() {
@@ -287,6 +286,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         return SalesTeamSublist;
     }(Sublist_1.SublistLine));
     exports.SalesTeamSublist = SalesTeamSublist;
+    /**
+     * Lead record in NetSuite
+     */
     var LeadBase = /** @class */ (function (_super) {
         __extends(LeadBase, _super);
         function LeadBase() {

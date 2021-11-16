@@ -9,13 +9,8 @@ import { AddressBase } from './AddressBase'
 import { Entity } from './Entity'
 
 /**
- * NetSuite generic Lead used as a common base class for 'lead-like' records,
- * This is meant to be inherited by concrete record types to avoid duplicating effort on fields.
- * Note that this inheritance hierarchy emerged empirically - it's not documented by NetSuite.
- *
- * It contains fields common to all 'lead' records in NS
+ * Address sublist
  */
-
 export class AddressSublist extends SublistLine {
    @SublistFieldType.subrecord(AddressBase)
    addressbookaddress: AddressBase
@@ -66,6 +61,9 @@ export class AddressSublist extends SublistLine {
    zip: string
 }
 
+/**
+ * Contacts sublist
+ */
 export class ContactsSublist extends SublistLine {
    @SublistFieldType.select
    contact: number
@@ -209,6 +207,9 @@ export class SalesTeamSublist extends SublistLine {
    salesrole: number
 }
 
+/**
+ * Lead record in NetSuite
+ */
 export class LeadBase extends Entity {
    @FieldType.select
    accessrole: number
