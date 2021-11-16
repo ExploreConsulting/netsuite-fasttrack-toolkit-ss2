@@ -28,22 +28,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Record", "./Sublist", "N/record"], factory);
+        define(["require", "exports", "./Record", "./Sublist", "N/record", "./Item"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.ServiceBase = exports.ItemTranslationSublist = exports.WebSiteListSublist = exports.HierarchyVersionsSublist = exports.AccountingBooksSublist = void 0;
+    exports.ServiceItemBase = exports.ItemTranslationSublist = exports.WebSiteListSublist = exports.HierarchyVersionsSublist = exports.AccountingBooksSublist = void 0;
     var Record_1 = require("./Record");
     var Sublist_1 = require("./Sublist");
     var record = require("N/record");
-    /**
-     * NetSuite generic Service used as a common base class for 'service-item-like' records,
-     * This is meant to be inherited by concrete record types to avoid duplicating effort on fields.
-     * Note that this inheritance hierarchy emerged empirically - it's not documented by NetSuite.
-     *
-     * It contains fields common to all 'service item' records in NS
-     */
+    var Item_1 = require("./Item");
     var AccountingBooksSublist = /** @class */ (function (_super) {
         __extends(AccountingBooksSublist, _super);
         function AccountingBooksSublist() {
@@ -136,187 +130,124 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         return ItemTranslationSublist;
     }(Sublist_1.SublistLine));
     exports.ItemTranslationSublist = ItemTranslationSublist;
-    var ServiceBase = /** @class */ (function (_super) {
-        __extends(ServiceBase, _super);
-        function ServiceBase() {
+    /**
+     * NetSuite Service Item
+     */
+    var ServiceItemBase = /** @class */ (function (_super) {
+        __extends(ServiceItemBase, _super);
+        function ServiceItemBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        ServiceBase.recordType = function () { return record.Type.SERVICE_ITEM; };
+        ServiceItemBase.recordType = function () { return record.Type.SERVICE_ITEM; };
         __decorate([
             Record_1.FieldType.integernumber
-        ], ServiceBase.prototype, "amortizationperiod", void 0);
+        ], ServiceItemBase.prototype, "amortizationperiod", void 0);
         __decorate([
             Record_1.FieldType.integernumber
-        ], ServiceBase.prototype, "auctionquantity", void 0);
+        ], ServiceItemBase.prototype, "auctionquantity", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ServiceBase.prototype, "auctiontype", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "billingschedule", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "class", void 0);
+        ], ServiceItemBase.prototype, "auctiontype", void 0);
         __decorate([
             Record_1.FieldType.currency
-        ], ServiceBase.prototype, "cost", void 0);
+        ], ServiceItemBase.prototype, "costestimate", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ServiceBase.prototype, "costcategory", void 0);
+        ], ServiceItemBase.prototype, "costestimatetype", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], ServiceItemBase.prototype, "costunits", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], ServiceItemBase.prototype, "createjob", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], ServiceItemBase.prototype, "currency", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], ServiceItemBase.prototype, "dontshowprice", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], ServiceItemBase.prototype, "expenseaccount", void 0);
+        __decorate([
+            Record_1.FieldType.textarea
+        ], ServiceItemBase.prototype, "featureddescription", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], ServiceItemBase.prototype, "gallery", void 0);
+        __decorate([
+            Record_1.FieldType.integernumber
+        ], ServiceItemBase.prototype, "internalid", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], ServiceItemBase.prototype, "issueproduct", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], ServiceItemBase.prototype, "matrixtype", void 0);
+        __decorate([
+            Record_1.FieldType.integernumber
+        ], ServiceItemBase.prototype, "maximumquantity", void 0);
+        __decorate([
+            Record_1.FieldType.integernumber
+        ], ServiceItemBase.prototype, "minimumquantity", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], ServiceItemBase.prototype, "mossapplies", void 0);
+        __decorate([
+            Record_1.FieldType.freeformtext
+        ], ServiceItemBase.prototype, "nopricemessage", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], ServiceItemBase.prototype, "offersupport", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], ServiceItemBase.prototype, "outofstockbehvaior", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], ServiceItemBase.prototype, "overheadtype", void 0);
+        __decorate([
+            Record_1.FieldType.textarea
+        ], ServiceItemBase.prototype, "pagetitle", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], ServiceItemBase.prototype, "pricinggroup", void 0);
+        __decorate([
+            Record_1.FieldType.integernumber
+        ], ServiceItemBase.prototype, "primarycategory", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], ServiceItemBase.prototype, "purchaseunit", void 0);
         __decorate([
             Record_1.FieldType.currency
-        ], ServiceBase.prototype, "costestimate", void 0);
+        ], ServiceItemBase.prototype, "reserveprice", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ServiceBase.prototype, "costestimatetype", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], ServiceBase.prototype, "costunits", void 0);
-        __decorate([
-            Record_1.FieldType.datetime
-        ], ServiceBase.prototype, "createddate", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], ServiceBase.prototype, "createjob", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], ServiceBase.prototype, "currency", void 0);
+        ], ServiceItemBase.prototype, "revrecforecastrule", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], ServiceBase.prototype, "customform", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "department", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], ServiceBase.prototype, "displayname", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], ServiceBase.prototype, "dontshowprice", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "expenseaccount", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], ServiceBase.prototype, "externalid", void 0);
+        ], ServiceItemBase.prototype, "salesunit", void 0);
         __decorate([
             Record_1.FieldType.textarea
-        ], ServiceBase.prototype, "featureddescription", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], ServiceBase.prototype, "gallery", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], ServiceBase.prototype, "includechildren", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "incomeaccount", void 0);
-        __decorate([
-            Record_1.FieldType.integernumber
-        ], ServiceBase.prototype, "internalid", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], ServiceBase.prototype, "isinactive", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], ServiceBase.prototype, "isonline", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "issueproduct", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "itemcondition", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], ServiceBase.prototype, "itemid", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "itemoptions", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], ServiceBase.prototype, "itemtype", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "location", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "matrixtype", void 0);
-        __decorate([
-            Record_1.FieldType.integernumber
-        ], ServiceBase.prototype, "maximumquantity", void 0);
-        __decorate([
-            Record_1.FieldType.integernumber
-        ], ServiceBase.prototype, "minimumquantity", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], ServiceBase.prototype, "mossapplies", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], ServiceBase.prototype, "nopricemessage", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], ServiceBase.prototype, "offersupport", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "outofstockbehvaior", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "overheadtype", void 0);
+        ], ServiceItemBase.prototype, "urlcomponent", void 0);
         __decorate([
             Record_1.FieldType.textarea
-        ], ServiceBase.prototype, "pagetitle", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "parent", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "pricinggroup", void 0);
-        __decorate([
-            Record_1.FieldType.integernumber
-        ], ServiceBase.prototype, "primarycategory", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "purchaseunit", void 0);
-        __decorate([
-            Record_1.FieldType.currency
-        ], ServiceBase.prototype, "reserveprice", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "revrecforecastrule", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "salesunit", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "subsidiary", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], ServiceBase.prototype, "taxschedule", void 0);
+        ], ServiceItemBase.prototype, "vendorname", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], ServiceBase.prototype, "upccode", void 0);
-        __decorate([
-            Record_1.FieldType.textarea
-        ], ServiceBase.prototype, "urlcomponent", void 0);
-        __decorate([
-            Record_1.FieldType.textarea
-        ], ServiceBase.prototype, "vendorname", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], ServiceBase.prototype, "willship", void 0);
+        ], ServiceItemBase.prototype, "willship", void 0);
         __decorate([
             Record_1.FieldType.sublist(AccountingBooksSublist)
-        ], ServiceBase.prototype, "accountingbookdetail", void 0);
+        ], ServiceItemBase.prototype, "accountingbookdetail", void 0);
         __decorate([
             Record_1.FieldType.sublist(HierarchyVersionsSublist)
-        ], ServiceBase.prototype, "hierarchyversions", void 0);
+        ], ServiceItemBase.prototype, "hierarchyversions", void 0);
         __decorate([
             Record_1.FieldType.sublist(WebSiteListSublist)
-        ], ServiceBase.prototype, "sitecategory", void 0);
+        ], ServiceItemBase.prototype, "sitecategory", void 0);
         __decorate([
             Record_1.FieldType.sublist(ItemTranslationSublist)
-        ], ServiceBase.prototype, "translations", void 0);
-        return ServiceBase;
-    }(Record_1.NetsuiteRecord));
-    exports.ServiceBase = ServiceBase;
+        ], ServiceItemBase.prototype, "translations", void 0);
+        return ServiceItemBase;
+    }(Item_1.Item));
+    exports.ServiceItemBase = ServiceItemBase;
 });

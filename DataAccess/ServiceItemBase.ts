@@ -2,19 +2,12 @@
  * NS Base service item record - contains definitions for most of the built in fields
  */
 
-import { FieldType, NetsuiteRecord } from './Record'
+import { FieldType } from './Record'
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
-import * as record from "N/record";
+import * as record from 'N/record'
+import { Item } from './Item'
 
-/**
- * NetSuite generic Service used as a common base class for 'service-item-like' records,
- * This is meant to be inherited by concrete record types to avoid duplicating effort on fields.
- * Note that this inheritance hierarchy emerged empirically - it's not documented by NetSuite.
- *
- * It contains fields common to all 'service item' records in NS
- */
-
-export class AccountingBooksSublist extends SublistLine{
+export class AccountingBooksSublist extends SublistLine {
    @SublistFieldType.select
    acocuntingbook: number
 
@@ -40,7 +33,7 @@ export class AccountingBooksSublist extends SublistLine{
    sameasprimaryrevrec: boolean
 }
 
-export class HierarchyVersionsSublist extends SublistLine{
+export class HierarchyVersionsSublist extends SublistLine {
    @SublistFieldType.select
    hierarchynode: number
 
@@ -48,7 +41,7 @@ export class HierarchyVersionsSublist extends SublistLine{
    isincluded: boolean
 }
 
-export class WebSiteListSublist extends SublistLine{
+export class WebSiteListSublist extends SublistLine {
    @SublistFieldType.select
    category: number
 
@@ -62,7 +55,7 @@ export class WebSiteListSublist extends SublistLine{
    website: number
 }
 
-export class ItemTranslationSublist extends SublistLine{
+export class ItemTranslationSublist extends SublistLine {
    @SublistFieldType.freeformtext
    displayname: string
 
@@ -82,9 +75,10 @@ export class ItemTranslationSublist extends SublistLine{
    storedisplayname: string
 }
 
-export class ServiceBase extends NetsuiteRecord{
-   static recordType() { return record.Type.SERVICE_ITEM }
-
+/**
+ * NetSuite Service Item
+ */
+export class ServiceItemBase extends Item {
    @FieldType.integernumber
    amortizationperiod: number
 
@@ -93,18 +87,6 @@ export class ServiceBase extends NetsuiteRecord{
 
    @FieldType.select
    auctiontype: number
-
-   @FieldType.select
-   billingschedule: number
-
-   @FieldType.select
-   class: number
-
-   @FieldType.currency
-   cost: number
-
-   @FieldType.select
-   costcategory: number
 
    @FieldType.currency
    costestimate: number
@@ -115,23 +97,11 @@ export class ServiceBase extends NetsuiteRecord{
    @FieldType.freeformtext
    costunits: string
 
-   @FieldType.datetime
-   createddate: string
-
    @FieldType.checkbox
    createjob: boolean
 
    @FieldType.freeformtext
    currency: string
-
-   @FieldType.select
-   customform: number
-
-   @FieldType.select
-   department: number
-
-   @FieldType.freeformtext
-   displayname: string
 
    @FieldType.checkbox
    dontshowprice: boolean
@@ -139,47 +109,17 @@ export class ServiceBase extends NetsuiteRecord{
    @FieldType.select
    expenseaccount: number
 
-   @FieldType.freeformtext
-   externalid: string
-
    @FieldType.textarea
    featureddescription: string
 
    @FieldType.checkbox
    gallery: boolean
 
-   @FieldType.checkbox
-   includechildren: boolean
-
-   @FieldType.select
-   incomeaccount: boolean
-
    @FieldType.integernumber
    internalid: number
 
-   @FieldType.checkbox
-   isinactive: boolean
-
-   @FieldType.checkbox
-   isonline: boolean
-
    @FieldType.select
    issueproduct: number
-
-   @FieldType.select
-   itemcondition: number
-
-   @FieldType.freeformtext
-   itemid: string
-
-   @FieldType.select
-   itemoptions: number
-
-   @FieldType.freeformtext
-   itemtype: string
-
-   @FieldType.select
-   location: number
 
    @FieldType.select
    matrixtype: number
@@ -209,9 +149,6 @@ export class ServiceBase extends NetsuiteRecord{
    pagetitle: string
 
    @FieldType.select
-   parent: number
-
-   @FieldType.select
    pricinggroup: number
 
    @FieldType.integernumber
@@ -228,15 +165,6 @@ export class ServiceBase extends NetsuiteRecord{
 
    @FieldType.select
    salesunit: number
-
-   @FieldType.select
-   subsidiary: number
-
-   @FieldType.select
-   taxschedule: number
-
-   @FieldType.freeformtext
-   upccode: string
 
    @FieldType.textarea
    urlcomponent: string
@@ -258,4 +186,6 @@ export class ServiceBase extends NetsuiteRecord{
 
    @FieldType.sublist(ItemTranslationSublist)
    translations: Sublist<ItemTranslationSublist>
+
+   static recordType () { return record.Type.SERVICE_ITEM }
 }
