@@ -27,6 +27,16 @@ export abstract class NetsuiteCurrentRecord {
    nsrecord: record.Record | record.ClientCurrentRecord
 
    /**
+    * Loads an existing record with the given internal id
+    * @param id record internal id to load
+    * @param isDynamic set `true` if you want to load the record in _dynamic_ mode
+    *
+    * @example
+    * // load customer with internal id 123
+    * const c = new Customer(123)
+    */
+   constructor (id: NonNullable<number | string>, isDynamic?: boolean)
+   /**
     * Creates an NSDAL instance for the given existing NetSuite record object.
     * This does NOT reload the record - it just wraps the supplied `rec`
     * @param rec an existing netsuite record
@@ -36,7 +46,7 @@ export abstract class NetsuiteCurrentRecord {
     * // results in an NFT representation of the 'new record'
     * const customer = new Customer(ctx.newRecord)
     */
-   constructor (rec: record.Record | record.ClientCurrentRecord)
+   constructor (rec: NonNullable<record.Record |record.ClientCurrentRecord>)
    /**
     * creates a new record
     * @param unused either `null` or leave this parameter out entirely
@@ -51,18 +61,7 @@ export abstract class NetsuiteCurrentRecord {
     * // start a new customer record in dynamic mode
     * const c = new Customer(null, true)
     */
-   constructor (unused?: null, isDynamic?: boolean, defaultvalues?: object)
-
-   /**
-    * Loads an existing record with the given internal id
-    * @param id record internal id to load
-    * @param isDynamic set `true` if you want to load the record in _dynamic_ mode
-    *
-    * @example
-    * // load customer with internal id 123
-    * const c = new Customer(123)
-    */
-   constructor (id: number | string, isDynamic?: boolean)
+   constructor (unused?: Nullable<string| number>, isDynamic?: boolean, defaultvalues?: object)
 
    constructor (rec?: null | number | string | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, protected defaultValues?: object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
