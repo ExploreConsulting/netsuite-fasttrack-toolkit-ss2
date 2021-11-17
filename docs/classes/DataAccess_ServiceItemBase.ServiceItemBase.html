@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ServiceItemBase | NetSuite FastTrack Toolkit (NFT) - v6.5.0</title>
-	<meta name="description" content="Documentation for NetSuite FastTrack Toolkit (NFT) - v6.5.0">
+	<title>ServiceItemBase | NetSuite FastTrack Toolkit (NFT) - v6.5.1</title>
+	<meta name="description" content="Documentation for NetSuite FastTrack Toolkit (NFT) - v6.5.1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v6.5.0</a>
+					<a href="../index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v6.5.1</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -50,7 +50,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">NetSuite FastTrack Toolkit (NFT) - v6.5.0</a>
+					<a href="../modules.html">NetSuite FastTrack Toolkit (NFT) - v6.5.1</a>
 				</li>
 				<li>
 					<a href="../modules/DataAccess_ServiceItemBase.html">DataAccess/ServiceItemBase</a>
@@ -216,91 +216,16 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Service<wbr>Item<wbr>Base<span class="tsd-signature-symbol">(</span>rec<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ClientCurrentRecord</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DataAccess_ServiceItemBase.ServiceItemBase.html" class="tsd-signature-type" data-tsd-kind="Class">ServiceItemBase</a></li>
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Service<wbr>Item<wbr>Base<span class="tsd-signature-symbol">(</span>unused<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span>, isDynamic<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, defaultvalues<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DataAccess_ServiceItemBase.ServiceItemBase.html" class="tsd-signature-type" data-tsd-kind="Class">ServiceItemBase</a></li>
 						<li class="tsd-signature tsd-kind-icon">new <wbr>Service<wbr>Item<wbr>Base<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, isDynamic<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DataAccess_ServiceItemBase.ServiceItemBase.html" class="tsd-signature-type" data-tsd-kind="Class">ServiceItemBase</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Service<wbr>Item<wbr>Base<span class="tsd-signature-symbol">(</span>rec<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ClientCurrentRecord</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DataAccess_ServiceItemBase.ServiceItemBase.html" class="tsd-signature-type" data-tsd-kind="Class">ServiceItemBase</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Service<wbr>Item<wbr>Base<span class="tsd-signature-symbol">(</span>unused<span class="tsd-signature-symbol">?: </span><a href="../modules/DataAccess_Record.html#Nullable" class="tsd-signature-type" data-tsd-kind="Type alias">Nullable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span>, isDynamic<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, defaultvalues<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DataAccess_ServiceItemBase.ServiceItemBase.html" class="tsd-signature-type" data-tsd-kind="Class">ServiceItemBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L39">DataAccess/Record.ts:39</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates an NSDAL instance for the given existing NetSuite record object.
-									This does NOT reload the record - it just wraps the supplied <code>rec</code></p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>example</dt>
-									<dd><p>// assume <code>ctx</code> is the <em>context</em> object passed to a <code>beforeSubmit()</code> entrypoint.
-											// results in an NFT representation of the &#39;new record&#39;
-										const customer = new Customer(ctx.newRecord)</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>rec: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ClientCurrentRecord</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>an existing netsuite record</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="DataAccess_ServiceItemBase.ServiceItemBase.html" class="tsd-signature-type" data-tsd-kind="Class">ServiceItemBase</a></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#constructor">constructor</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L54">DataAccess/Record.ts:54</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>creates a new record</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>example</dt>
-									<dd><p>// start a new customer record
-										const c = new Customer()</p>
-										<p>// start a new customer record in dynamic mode
-										const c = new Customer(null, true)</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> unused: <span class="tsd-signature-type">null</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>either <code>null</code> or leave this parameter out entirely</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> isDynamic: <span class="tsd-signature-type">boolean</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>true if you want to create the record in dynamic mode, otherwise uses standard mode.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultvalues: <span class="tsd-signature-type">object</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>optional <code>defaultvalues</code> object - specific to certain records that allow initializing a
-										new record.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="DataAccess_ServiceItemBase.ServiceItemBase.html" class="tsd-signature-type" data-tsd-kind="Class">ServiceItemBase</a></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#constructor">constructor</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L65">DataAccess/Record.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L38">DataAccess/Record.ts:38</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -331,6 +256,81 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="DataAccess_ServiceItemBase.ServiceItemBase.html" class="tsd-signature-type" data-tsd-kind="Class">ServiceItemBase</a></h4>
 						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L49">DataAccess/Record.ts:49</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates an NSDAL instance for the given existing NetSuite record object.
+									This does NOT reload the record - it just wraps the supplied <code>rec</code></p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>// assume <code>ctx</code> is the <em>context</em> object passed to a <code>beforeSubmit()</code> entrypoint.
+											// results in an NFT representation of the &#39;new record&#39;
+										const customer = new Customer(ctx.newRecord)</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>rec: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ClientCurrentRecord</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>an existing netsuite record</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DataAccess_ServiceItemBase.ServiceItemBase.html" class="tsd-signature-type" data-tsd-kind="Class">ServiceItemBase</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L64">DataAccess/Record.ts:64</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>creates a new record</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>// start a new customer record
+										const c = new Customer()</p>
+										<p>// start a new customer record in dynamic mode
+										const c = new Customer(null, true)</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> unused: <a href="../modules/DataAccess_Record.html#Nullable" class="tsd-signature-type" data-tsd-kind="Type alias">Nullable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>either <code>null</code> or leave this parameter out entirely</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> isDynamic: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>true if you want to create the record in dynamic mode, otherwise uses standard mode.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultvalues: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>optional <code>defaultvalues</code> object - specific to certain records that allow initializing a
+										new record.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DataAccess_ServiceItemBase.ServiceItemBase.html" class="tsd-signature-type" data-tsd-kind="Class">ServiceItemBase</a></h4>
+						</li>
 					</ul>
 				</section>
 			</section>
@@ -343,7 +343,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#_id">_id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L98">DataAccess/Record.ts:98</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L97">DataAccess/Record.ts:97</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -358,7 +358,7 @@
 					<div class="tsd-signature tsd-kind-icon">accountingbookdetail<span class="tsd-signature-symbol">:</span> <a href="DataAccess_Sublist.Sublist.html" class="tsd-signature-type" data-tsd-kind="Class">Sublist</a><span class="tsd-signature-symbol">&lt;</span><a href="DataAccess_ServiceItemBase.AccountingBooksSublist.html" class="tsd-signature-type" data-tsd-kind="Class">AccountingBooksSublist</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L179">DataAccess/ServiceItemBase.ts:179</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L179">DataAccess/ServiceItemBase.ts:179</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -368,7 +368,7 @@
 					<div class="tsd-signature tsd-kind-icon">amortizationperiod<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L83">DataAccess/ServiceItemBase.ts:83</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L83">DataAccess/ServiceItemBase.ts:83</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -379,7 +379,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#assetaccount">assetaccount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L18">DataAccess/Item.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L18">DataAccess/Item.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -390,7 +390,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#atpmethod">atpmethod</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L21">DataAccess/Item.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L21">DataAccess/Item.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -400,7 +400,7 @@
 					<div class="tsd-signature tsd-kind-icon">auctionquantity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L86">DataAccess/ServiceItemBase.ts:86</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L86">DataAccess/ServiceItemBase.ts:86</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -410,7 +410,7 @@
 					<div class="tsd-signature tsd-kind-icon">auctiontype<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L89">DataAccess/ServiceItemBase.ts:89</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L89">DataAccess/ServiceItemBase.ts:89</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -421,7 +421,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#autoleadtime">autoleadtime</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L9">DataAccess/Item.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L9">DataAccess/Item.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -432,7 +432,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#autopreferredstocklevel">autopreferredstocklevel</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L12">DataAccess/Item.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L12">DataAccess/Item.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -443,7 +443,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#availabletopartners">availabletopartners</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L15">DataAccess/Item.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L15">DataAccess/Item.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -454,7 +454,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#averagecost">averagecost</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L24">DataAccess/Item.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L24">DataAccess/Item.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -465,7 +465,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#billingschedule">billingschedule</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L27">DataAccess/Item.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L27">DataAccess/Item.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -476,7 +476,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#billpricevariantacct">billpricevariantacct</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L30">DataAccess/Item.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L30">DataAccess/Item.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -487,7 +487,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#class">class</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L33">DataAccess/Item.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L33">DataAccess/Item.ts:33</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -498,7 +498,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#cogsaccount">cogsaccount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L36">DataAccess/Item.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L36">DataAccess/Item.ts:36</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -509,7 +509,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#consumptionunit">consumptionunit</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L39">DataAccess/Item.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L39">DataAccess/Item.ts:39</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -520,7 +520,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#copydescription">copydescription</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L42">DataAccess/Item.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L42">DataAccess/Item.ts:42</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -531,7 +531,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#cost">cost</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L45">DataAccess/Item.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L45">DataAccess/Item.ts:45</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -542,7 +542,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#costcategory">costcategory</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L48">DataAccess/Item.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L48">DataAccess/Item.ts:48</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -552,7 +552,7 @@
 					<div class="tsd-signature tsd-kind-icon">costestimate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L92">DataAccess/ServiceItemBase.ts:92</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L92">DataAccess/ServiceItemBase.ts:92</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -562,7 +562,7 @@
 					<div class="tsd-signature tsd-kind-icon">costestimatetype<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L95">DataAccess/ServiceItemBase.ts:95</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L95">DataAccess/ServiceItemBase.ts:95</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -573,7 +573,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#costingmethod">costingmethod</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L51">DataAccess/Item.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L51">DataAccess/Item.ts:51</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -583,7 +583,7 @@
 					<div class="tsd-signature tsd-kind-icon">costunits<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L98">DataAccess/ServiceItemBase.ts:98</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L98">DataAccess/ServiceItemBase.ts:98</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -594,7 +594,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#countryofmanufacture">countryofmanufacture</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L58">DataAccess/Item.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L58">DataAccess/Item.ts:58</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -611,7 +611,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#createddate">createddate</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L61">DataAccess/Item.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L61">DataAccess/Item.ts:61</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -621,7 +621,7 @@
 					<div class="tsd-signature tsd-kind-icon">createjob<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L101">DataAccess/ServiceItemBase.ts:101</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L101">DataAccess/ServiceItemBase.ts:101</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -631,7 +631,7 @@
 					<div class="tsd-signature tsd-kind-icon">currency<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L104">DataAccess/ServiceItemBase.ts:104</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L104">DataAccess/ServiceItemBase.ts:104</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -642,7 +642,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#customform">customform</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L64">DataAccess/Item.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L64">DataAccess/Item.ts:64</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -661,7 +661,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#deferredrevenueaccount">deferredrevenueaccount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L67">DataAccess/Item.ts:67</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L67">DataAccess/Item.ts:67</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -672,7 +672,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#deferrevrec">deferrevrec</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L70">DataAccess/Item.ts:70</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L70">DataAccess/Item.ts:70</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -683,7 +683,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#department">department</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L73">DataAccess/Item.ts:73</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L73">DataAccess/Item.ts:73</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -694,7 +694,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#description">description</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L76">DataAccess/Item.ts:76</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L76">DataAccess/Item.ts:76</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -705,7 +705,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#displayname">displayname</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L79">DataAccess/Item.ts:79</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L79">DataAccess/Item.ts:79</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -715,7 +715,7 @@
 					<div class="tsd-signature tsd-kind-icon">dontshowprice<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L107">DataAccess/ServiceItemBase.ts:107</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L107">DataAccess/ServiceItemBase.ts:107</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -725,7 +725,7 @@
 					<div class="tsd-signature tsd-kind-icon">expenseaccount<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L110">DataAccess/ServiceItemBase.ts:110</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L110">DataAccess/ServiceItemBase.ts:110</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -736,7 +736,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#externalid">externalid</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L82">DataAccess/Item.ts:82</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L82">DataAccess/Item.ts:82</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -746,7 +746,7 @@
 					<div class="tsd-signature tsd-kind-icon">featureddescription<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L113">DataAccess/ServiceItemBase.ts:113</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L113">DataAccess/ServiceItemBase.ts:113</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -756,7 +756,7 @@
 					<div class="tsd-signature tsd-kind-icon">gallery<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L116">DataAccess/ServiceItemBase.ts:116</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L116">DataAccess/ServiceItemBase.ts:116</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -766,7 +766,7 @@
 					<div class="tsd-signature tsd-kind-icon">hierarchyversions<span class="tsd-signature-symbol">:</span> <a href="DataAccess_Sublist.Sublist.html" class="tsd-signature-type" data-tsd-kind="Class">Sublist</a><span class="tsd-signature-symbol">&lt;</span><a href="DataAccess_ServiceItemBase.HierarchyVersionsSublist.html" class="tsd-signature-type" data-tsd-kind="Class">HierarchyVersionsSublist</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L182">DataAccess/ServiceItemBase.ts:182</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L182">DataAccess/ServiceItemBase.ts:182</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -777,7 +777,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#includechildren">includechildren</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L85">DataAccess/Item.ts:85</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L85">DataAccess/Item.ts:85</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -788,7 +788,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#incomeaccount">incomeaccount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L88">DataAccess/Item.ts:88</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L88">DataAccess/Item.ts:88</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -798,7 +798,7 @@
 					<div class="tsd-signature tsd-kind-icon">internalid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L119">DataAccess/ServiceItemBase.ts:119</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L119">DataAccess/ServiceItemBase.ts:119</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -809,7 +809,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#isdonationitem">isdonationitem</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L91">DataAccess/Item.ts:91</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L91">DataAccess/Item.ts:91</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -820,7 +820,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#isdropshipitem">isdropshipitem</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L94">DataAccess/Item.ts:94</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L94">DataAccess/Item.ts:94</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -831,7 +831,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#isgcocompliant">isgcocompliant</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L97">DataAccess/Item.ts:97</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L97">DataAccess/Item.ts:97</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -842,7 +842,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#isinactive">isinactive</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L100">DataAccess/Item.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L100">DataAccess/Item.ts:100</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -853,7 +853,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#isonline">isonline</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L103">DataAccess/Item.ts:103</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L103">DataAccess/Item.ts:103</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -864,7 +864,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#isspecialorderitem">isspecialorderitem</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L106">DataAccess/Item.ts:106</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L106">DataAccess/Item.ts:106</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -875,7 +875,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#isstorepickupallowed">isstorepickupallowed</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L109">DataAccess/Item.ts:109</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L109">DataAccess/Item.ts:109</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -885,7 +885,7 @@
 					<div class="tsd-signature tsd-kind-icon">issueproduct<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L122">DataAccess/ServiceItemBase.ts:122</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L122">DataAccess/ServiceItemBase.ts:122</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -896,7 +896,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#itemcondition">itemcondition</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L112">DataAccess/Item.ts:112</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L112">DataAccess/Item.ts:112</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -907,7 +907,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#itemid">itemid</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L115">DataAccess/Item.ts:115</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L115">DataAccess/Item.ts:115</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -918,7 +918,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#itemoptions">itemoptions</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L118">DataAccess/Item.ts:118</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L118">DataAccess/Item.ts:118</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -929,7 +929,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#itemtype">itemtype</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L121">DataAccess/Item.ts:121</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L121">DataAccess/Item.ts:121</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -940,7 +940,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#lastmodifieddate">lastmodifieddate</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L124">DataAccess/Item.ts:124</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L124">DataAccess/Item.ts:124</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -951,7 +951,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#location">location</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L127">DataAccess/Item.ts:127</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L127">DataAccess/Item.ts:127</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -961,7 +961,7 @@
 					<div class="tsd-signature tsd-kind-icon">matrixtype<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L125">DataAccess/ServiceItemBase.ts:125</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L125">DataAccess/ServiceItemBase.ts:125</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -971,7 +971,7 @@
 					<div class="tsd-signature tsd-kind-icon">maximumquantity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L128">DataAccess/ServiceItemBase.ts:128</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L128">DataAccess/ServiceItemBase.ts:128</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -981,7 +981,7 @@
 					<div class="tsd-signature tsd-kind-icon">minimumquantity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L131">DataAccess/ServiceItemBase.ts:131</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L131">DataAccess/ServiceItemBase.ts:131</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -991,7 +991,7 @@
 					<div class="tsd-signature tsd-kind-icon">mossapplies<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L134">DataAccess/ServiceItemBase.ts:134</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L134">DataAccess/ServiceItemBase.ts:134</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1001,7 +1001,7 @@
 					<div class="tsd-signature tsd-kind-icon">nopricemessage<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L137">DataAccess/ServiceItemBase.ts:137</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L137">DataAccess/ServiceItemBase.ts:137</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1012,7 +1012,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#nsrecord">nsrecord</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L154">DataAccess/Record.ts:154</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L153">DataAccess/Record.ts:153</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1027,7 +1027,7 @@
 					<div class="tsd-signature tsd-kind-icon">offersupport<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L140">DataAccess/ServiceItemBase.ts:140</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L140">DataAccess/ServiceItemBase.ts:140</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1037,7 +1037,7 @@
 					<div class="tsd-signature tsd-kind-icon">outofstockbehvaior<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L143">DataAccess/ServiceItemBase.ts:143</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L143">DataAccess/ServiceItemBase.ts:143</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1047,7 +1047,7 @@
 					<div class="tsd-signature tsd-kind-icon">overheadtype<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L146">DataAccess/ServiceItemBase.ts:146</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L146">DataAccess/ServiceItemBase.ts:146</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1057,7 +1057,7 @@
 					<div class="tsd-signature tsd-kind-icon">pagetitle<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L149">DataAccess/ServiceItemBase.ts:149</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L149">DataAccess/ServiceItemBase.ts:149</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1068,7 +1068,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#parent">parent</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L130">DataAccess/Item.ts:130</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L130">DataAccess/Item.ts:130</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1078,7 +1078,7 @@
 					<div class="tsd-signature tsd-kind-icon">pricinggroup<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L152">DataAccess/ServiceItemBase.ts:152</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L152">DataAccess/ServiceItemBase.ts:152</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1088,7 +1088,7 @@
 					<div class="tsd-signature tsd-kind-icon">primarycategory<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L155">DataAccess/ServiceItemBase.ts:155</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L155">DataAccess/ServiceItemBase.ts:155</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1099,7 +1099,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#purchasedescription">purchasedescription</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L133">DataAccess/Item.ts:133</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L133">DataAccess/Item.ts:133</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1109,7 +1109,7 @@
 					<div class="tsd-signature tsd-kind-icon">purchaseunit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L158">DataAccess/ServiceItemBase.ts:158</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L158">DataAccess/ServiceItemBase.ts:158</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1119,7 +1119,7 @@
 					<div class="tsd-signature tsd-kind-icon">reserveprice<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L161">DataAccess/ServiceItemBase.ts:161</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L161">DataAccess/ServiceItemBase.ts:161</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1129,7 +1129,7 @@
 					<div class="tsd-signature tsd-kind-icon">revrecforecastrule<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L164">DataAccess/ServiceItemBase.ts:164</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L164">DataAccess/ServiceItemBase.ts:164</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1140,7 +1140,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#revrecschedule">revrecschedule</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L136">DataAccess/Item.ts:136</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L136">DataAccess/Item.ts:136</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1150,7 +1150,7 @@
 					<div class="tsd-signature tsd-kind-icon">salesunit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L167">DataAccess/ServiceItemBase.ts:167</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L167">DataAccess/ServiceItemBase.ts:167</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1160,7 +1160,7 @@
 					<div class="tsd-signature tsd-kind-icon">sitecategory<span class="tsd-signature-symbol">:</span> <a href="DataAccess_Sublist.Sublist.html" class="tsd-signature-type" data-tsd-kind="Class">Sublist</a><span class="tsd-signature-symbol">&lt;</span><a href="DataAccess_ServiceItemBase.WebSiteListSublist.html" class="tsd-signature-type" data-tsd-kind="Class">WebSiteListSublist</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L185">DataAccess/ServiceItemBase.ts:185</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L185">DataAccess/ServiceItemBase.ts:185</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1171,7 +1171,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#subsidiary">subsidiary</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L139">DataAccess/Item.ts:139</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L139">DataAccess/Item.ts:139</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1182,7 +1182,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#taxschedule">taxschedule</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L145">DataAccess/Item.ts:145</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L145">DataAccess/Item.ts:145</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1193,7 +1193,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#tracklandedcost">tracklandedcost</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L148">DataAccess/Item.ts:148</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L148">DataAccess/Item.ts:148</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1204,7 +1204,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#tranid">tranid</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L151">DataAccess/Item.ts:151</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L151">DataAccess/Item.ts:151</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1214,7 +1214,7 @@
 					<div class="tsd-signature tsd-kind-icon">translations<span class="tsd-signature-symbol">:</span> <a href="DataAccess_Sublist.Sublist.html" class="tsd-signature-type" data-tsd-kind="Class">Sublist</a><span class="tsd-signature-symbol">&lt;</span><a href="DataAccess_ServiceItemBase.ItemTranslationSublist.html" class="tsd-signature-type" data-tsd-kind="Class">ItemTranslationSublist</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L188">DataAccess/ServiceItemBase.ts:188</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L188">DataAccess/ServiceItemBase.ts:188</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1225,7 +1225,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#units">units</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L154">DataAccess/Item.ts:154</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L154">DataAccess/Item.ts:154</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1236,7 +1236,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#unitstype">unitstype</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L157">DataAccess/Item.ts:157</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L157">DataAccess/Item.ts:157</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1247,7 +1247,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#upccode">upccode</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L142">DataAccess/Item.ts:142</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L142">DataAccess/Item.ts:142</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1257,7 +1257,7 @@
 					<div class="tsd-signature tsd-kind-icon">urlcomponent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L170">DataAccess/ServiceItemBase.ts:170</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L170">DataAccess/ServiceItemBase.ts:170</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1268,7 +1268,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#usebins">usebins</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L160">DataAccess/Item.ts:160</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L160">DataAccess/Item.ts:160</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1278,7 +1278,7 @@
 					<div class="tsd-signature tsd-kind-icon">vendorname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L173">DataAccess/ServiceItemBase.ts:173</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L173">DataAccess/ServiceItemBase.ts:173</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1289,7 +1289,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#weight">weight</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L163">DataAccess/Item.ts:163</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L163">DataAccess/Item.ts:163</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1300,7 +1300,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#weightunit">weightunit</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Item.ts#L166">DataAccess/Item.ts:166</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Item.ts#L166">DataAccess/Item.ts:166</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1310,7 +1310,7 @@
 					<div class="tsd-signature tsd-kind-icon">willship<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;T&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;F&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L176">DataAccess/ServiceItemBase.ts:176</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L176">DataAccess/ServiceItemBase.ts:176</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1327,7 +1327,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L100">DataAccess/Record.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L99">DataAccess/Record.ts:99</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -1348,7 +1348,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#getField">getField</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L133">DataAccess/Record.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L132">DataAccess/Record.ts:132</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1380,7 +1380,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#save">save</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L162">DataAccess/Record.ts:162</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L161">DataAccess/Record.ts:161</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1412,7 +1412,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#toJSON">toJSON</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L112">DataAccess/Record.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L111">DataAccess/Record.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -1430,7 +1430,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="DataAccess_Item.Item.html">Item</a>.<a href="DataAccess_Item.Item.html#recordType">recordType</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/ServiceItemBase.ts#L190">DataAccess/ServiceItemBase.ts:190</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/ServiceItemBase.ts#L190">DataAccess/ServiceItemBase.ts:190</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

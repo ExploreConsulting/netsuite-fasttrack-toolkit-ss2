@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Entity | NetSuite FastTrack Toolkit (NFT) - v6.5.0</title>
-	<meta name="description" content="Documentation for NetSuite FastTrack Toolkit (NFT) - v6.5.0">
+	<title>Entity | NetSuite FastTrack Toolkit (NFT) - v6.5.1</title>
+	<meta name="description" content="Documentation for NetSuite FastTrack Toolkit (NFT) - v6.5.1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v6.5.0</a>
+					<a href="../index.html" class="title">NetSuite FastTrack Toolkit (NFT) - v6.5.1</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -50,7 +50,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">NetSuite FastTrack Toolkit (NFT) - v6.5.0</a>
+					<a href="../modules.html">NetSuite FastTrack Toolkit (NFT) - v6.5.1</a>
 				</li>
 				<li>
 					<a href="../modules/DataAccess_Entity.html">DataAccess/Entity</a>
@@ -169,91 +169,16 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Entity<span class="tsd-signature-symbol">(</span>rec<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ClientCurrentRecord</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></li>
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Entity<span class="tsd-signature-symbol">(</span>unused<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span>, isDynamic<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, defaultvalues<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></li>
 						<li class="tsd-signature tsd-kind-icon">new <wbr>Entity<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, isDynamic<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Entity<span class="tsd-signature-symbol">(</span>rec<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ClientCurrentRecord</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Entity<span class="tsd-signature-symbol">(</span>unused<span class="tsd-signature-symbol">?: </span><a href="../modules/DataAccess_Record.html#Nullable" class="tsd-signature-type" data-tsd-kind="Type alias">Nullable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span>, isDynamic<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, defaultvalues<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L39">DataAccess/Record.ts:39</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates an NSDAL instance for the given existing NetSuite record object.
-									This does NOT reload the record - it just wraps the supplied <code>rec</code></p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>example</dt>
-									<dd><p>// assume <code>ctx</code> is the <em>context</em> object passed to a <code>beforeSubmit()</code> entrypoint.
-											// results in an NFT representation of the &#39;new record&#39;
-										const customer = new Customer(ctx.newRecord)</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>rec: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ClientCurrentRecord</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>an existing netsuite record</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#constructor">constructor</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L54">DataAccess/Record.ts:54</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>creates a new record</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>example</dt>
-									<dd><p>// start a new customer record
-										const c = new Customer()</p>
-										<p>// start a new customer record in dynamic mode
-										const c = new Customer(null, true)</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> unused: <span class="tsd-signature-type">null</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>either <code>null</code> or leave this parameter out entirely</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> isDynamic: <span class="tsd-signature-type">boolean</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>true if you want to create the record in dynamic mode, otherwise uses standard mode.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultvalues: <span class="tsd-signature-type">object</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>optional <code>defaultvalues</code> object - specific to certain records that allow initializing a
-										new record.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#constructor">constructor</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L65">DataAccess/Record.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L38">DataAccess/Record.ts:38</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -284,6 +209,81 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></h4>
 						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L49">DataAccess/Record.ts:49</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates an NSDAL instance for the given existing NetSuite record object.
+									This does NOT reload the record - it just wraps the supplied <code>rec</code></p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>// assume <code>ctx</code> is the <em>context</em> object passed to a <code>beforeSubmit()</code> entrypoint.
+											// results in an NFT representation of the &#39;new record&#39;
+										const customer = new Customer(ctx.newRecord)</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>rec: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ClientCurrentRecord</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>an existing netsuite record</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L64">DataAccess/Record.ts:64</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>creates a new record</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>// start a new customer record
+										const c = new Customer()</p>
+										<p>// start a new customer record in dynamic mode
+										const c = new Customer(null, true)</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> unused: <a href="../modules/DataAccess_Record.html#Nullable" class="tsd-signature-type" data-tsd-kind="Type alias">Nullable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>either <code>null</code> or leave this parameter out entirely</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> isDynamic: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>true if you want to create the record in dynamic mode, otherwise uses standard mode.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultvalues: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>optional <code>defaultvalues</code> object - specific to certain records that allow initializing a
+										new record.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DataAccess_Entity.Entity.html" class="tsd-signature-type" data-tsd-kind="Class">Entity</a></h4>
+						</li>
 					</ul>
 				</section>
 			</section>
@@ -296,7 +296,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#_id">_id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L98">DataAccess/Record.ts:98</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L97">DataAccess/Record.ts:97</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -311,7 +311,7 @@
 					<div class="tsd-signature tsd-kind-icon">accountnumber<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L16">DataAccess/Entity.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L16">DataAccess/Entity.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -321,7 +321,7 @@
 					<div class="tsd-signature tsd-kind-icon">altemail<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L19">DataAccess/Entity.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L19">DataAccess/Entity.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -331,7 +331,7 @@
 					<div class="tsd-signature tsd-kind-icon">altphone<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L22">DataAccess/Entity.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L22">DataAccess/Entity.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -341,7 +341,7 @@
 					<div class="tsd-signature tsd-kind-icon">balance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L25">DataAccess/Entity.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L25">DataAccess/Entity.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -351,7 +351,7 @@
 					<div class="tsd-signature tsd-kind-icon">billpay<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L28">DataAccess/Entity.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L28">DataAccess/Entity.ts:28</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -361,7 +361,7 @@
 					<div class="tsd-signature tsd-kind-icon">category<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L31">DataAccess/Entity.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L31">DataAccess/Entity.ts:31</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -371,7 +371,7 @@
 					<div class="tsd-signature tsd-kind-icon">comments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L34">DataAccess/Entity.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L34">DataAccess/Entity.ts:34</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -381,7 +381,7 @@
 					<div class="tsd-signature tsd-kind-icon">companyname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L37">DataAccess/Entity.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L37">DataAccess/Entity.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -391,7 +391,7 @@
 					<div class="tsd-signature tsd-kind-icon">currency<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L40">DataAccess/Entity.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L40">DataAccess/Entity.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -401,7 +401,7 @@
 					<div class="tsd-signature tsd-kind-icon">customform<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L43">DataAccess/Entity.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L43">DataAccess/Entity.ts:43</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -411,7 +411,7 @@
 					<div class="tsd-signature tsd-kind-icon">datecreated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L46">DataAccess/Entity.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L46">DataAccess/Entity.ts:46</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -429,7 +429,7 @@
 					<div class="tsd-signature tsd-kind-icon">email<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L49">DataAccess/Entity.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L49">DataAccess/Entity.ts:49</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -439,7 +439,7 @@
 					<div class="tsd-signature tsd-kind-icon">entityid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L52">DataAccess/Entity.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L52">DataAccess/Entity.ts:52</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -449,7 +449,7 @@
 					<div class="tsd-signature tsd-kind-icon">entitystatus<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L55">DataAccess/Entity.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L55">DataAccess/Entity.ts:55</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -459,7 +459,7 @@
 					<div class="tsd-signature tsd-kind-icon">externalid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L58">DataAccess/Entity.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L58">DataAccess/Entity.ts:58</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -469,7 +469,7 @@
 					<div class="tsd-signature tsd-kind-icon">fax<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L61">DataAccess/Entity.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L61">DataAccess/Entity.ts:61</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -479,7 +479,7 @@
 					<div class="tsd-signature tsd-kind-icon">firstname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L64">DataAccess/Entity.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L64">DataAccess/Entity.ts:64</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -489,7 +489,7 @@
 					<div class="tsd-signature tsd-kind-icon">isinactive<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L67">DataAccess/Entity.ts:67</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L67">DataAccess/Entity.ts:67</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -499,7 +499,7 @@
 					<div class="tsd-signature tsd-kind-icon">isperson<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;T&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;F&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L70">DataAccess/Entity.ts:70</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L70">DataAccess/Entity.ts:70</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -509,7 +509,7 @@
 					<div class="tsd-signature tsd-kind-icon">language<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L76">DataAccess/Entity.ts:76</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L76">DataAccess/Entity.ts:76</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -519,7 +519,7 @@
 					<div class="tsd-signature tsd-kind-icon">lastmodifieddate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L73">DataAccess/Entity.ts:73</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L73">DataAccess/Entity.ts:73</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -529,7 +529,7 @@
 					<div class="tsd-signature tsd-kind-icon">lastname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L79">DataAccess/Entity.ts:79</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L79">DataAccess/Entity.ts:79</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -540,7 +540,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#nsrecord">nsrecord</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L154">DataAccess/Record.ts:154</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L153">DataAccess/Record.ts:153</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -555,7 +555,7 @@
 					<div class="tsd-signature tsd-kind-icon">parent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L82">DataAccess/Entity.ts:82</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L82">DataAccess/Entity.ts:82</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -565,7 +565,7 @@
 					<div class="tsd-signature tsd-kind-icon">phone<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L85">DataAccess/Entity.ts:85</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L85">DataAccess/Entity.ts:85</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -575,7 +575,7 @@
 					<div class="tsd-signature tsd-kind-icon">subsidiary<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L88">DataAccess/Entity.ts:88</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L88">DataAccess/Entity.ts:88</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -585,7 +585,7 @@
 					<div class="tsd-signature tsd-kind-icon">taxitem<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L91">DataAccess/Entity.ts:91</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L91">DataAccess/Entity.ts:91</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -595,7 +595,7 @@
 					<div class="tsd-signature tsd-kind-icon">terms<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Entity.ts#L94">DataAccess/Entity.ts:94</a></li>
+							<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Entity.ts#L94">DataAccess/Entity.ts:94</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -612,7 +612,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L100">DataAccess/Record.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L99">DataAccess/Record.ts:99</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -633,7 +633,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#getField">getField</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L133">DataAccess/Record.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L132">DataAccess/Record.ts:132</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -665,7 +665,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#save">save</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L162">DataAccess/Record.ts:162</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L161">DataAccess/Record.ts:161</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -697,7 +697,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#toJSON">toJSON</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L112">DataAccess/Record.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L111">DataAccess/Record.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -715,7 +715,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="DataAccess_Record.NetsuiteRecord.html">NetsuiteRecord</a>.<a href="DataAccess_Record.NetsuiteRecord.html#recordType">recordType</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/d7ce720/DataAccess/Record.ts#L107">DataAccess/Record.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/ExploreConsulting/netsuite-fasttrack-toolkit-ss2/blob/2478784/DataAccess/Record.ts#L106">DataAccess/Record.ts:106</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
