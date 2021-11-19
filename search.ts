@@ -35,7 +35,8 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { recordType:string | search
  *
  * @typeparam T declares the shape of the plain objects returned. e.g. `nsSearchResult2obj<{ companyname, memo }>` for a search result
  * that has columns _companyname_ and _memo_. Including an optional type here ensures strong typing on followup chained
- * method calls.
+ * method calls. The use of `Record` here enforces the fact that search result column values are
+ * always `string`s even for values you might expect to be `number`
  *
  * @example  (using Immutable JS Sequence)
  *
@@ -48,7 +49,7 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { recordType:string | search
  *
  *  ```
  */
-export function nsSearchResult2obj <T = {}>(useLabels = true): (r:search.Result)=> BaseSearchResult<T> {
+export function nsSearchResult2obj <T extends Record<keyof T,string> = {}>(useLabels = true): (r:search.Result)=> BaseSearchResult<Record<keyof T,string>> {
    return function (result: search.Result) {
       let output : { id:string, recordType?:string | search.Type } = {id: result.id, recordType:result.recordType }
       // assigns each column VALUE from the search result to the output object, and if the column
@@ -60,7 +61,7 @@ export function nsSearchResult2obj <T = {}>(useLabels = true): (r:search.Result)
          const text = result.getText(col)
          if (text) output[`${propName}Text`] = text
       })
-      return output as BaseSearchResult<T>
+      return output as BaseSearchResult<Record<keyof T,string>>
    }
 }
 
