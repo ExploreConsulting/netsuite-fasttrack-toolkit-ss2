@@ -152,7 +152,7 @@ namespace X {
             Seq<search.Result>(LazySearch.load('730'))
                .skip(123)
                .take(1)
-               .map<{}>(nsSearchResult2obj<{}>())
+               .map(nsSearchResult2obj<{foo,bar,baz}>())
                .forEach(i=> log.debug('result',i))
 
             break
