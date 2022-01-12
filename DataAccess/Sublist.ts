@@ -387,6 +387,12 @@ export class Sublist<T extends SublistLine> {
          enumerable: false
       })
    }
+
+   // serialize only the numeric properties of this object into a real array
+   toJSON () {
+      return Object.keys(this).filter(k => !isNaN(+k)).map(key => this[key])
+   }
+
 }
 
 /**

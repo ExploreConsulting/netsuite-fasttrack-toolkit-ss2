@@ -391,6 +391,11 @@ var __assign = (this && this.__assign) || function () {
                 enumerable: false
             });
         };
+        // serialize only the numeric properties of this object into a real array
+        Sublist.prototype.toJSON = function () {
+            var _this = this;
+            return Object.keys(this).filter(function (k) { return !isNaN(+k); }).map(function (key) { return _this[key]; });
+        };
         return Sublist;
     }());
     exports.Sublist = Sublist;
