@@ -362,8 +362,7 @@ export namespace FieldType {
    export const integernumber = numericDescriptor
    export const longtext = defaultDescriptor
    export const multiselect = defaultDescriptor
-   //@see formattedDescriptor
-   export const percent = (target, propertyKey) => formattedDescriptor(format.Type.PERCENT, target, propertyKey)
+   export const percent = defaultDescriptor
    /**
     * NetSuite 'Select' field type.
     */

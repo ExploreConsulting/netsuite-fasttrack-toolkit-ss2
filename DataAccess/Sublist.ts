@@ -40,7 +40,7 @@ export namespace SublistFieldType {
    export var integernumber = defaultSublistDescriptor
    export var longtext = defaultSublistDescriptor
    export var multiselect = defaultSublistDescriptor
-   export var percent = (target, propertyKey) => formattedSublistDescriptor(format.Type.PERCENT, target, propertyKey)
+   export var percent = defaultSublistDescriptor
    export var select = defaultSublistDescriptor
    export var textarea = defaultSublistDescriptor
    export const subrecord = subrecordDescriptor
