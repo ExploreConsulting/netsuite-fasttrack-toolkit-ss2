@@ -339,8 +339,7 @@ var __extends = (this && this.__extends) || (function () {
         FieldType.integernumber = numericDescriptor;
         FieldType.longtext = defaultDescriptor;
         FieldType.multiselect = defaultDescriptor;
-        //@see formattedDescriptor
-        FieldType.percent = function (target, propertyKey) { return formattedDescriptor(format.Type.PERCENT, target, propertyKey); };
+        FieldType.percent = defaultDescriptor;
         /**
          * NetSuite 'Select' field type.
          */
