@@ -89,13 +89,13 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
         var title = rest[0], details = rest[1];
         var prefix = '';
         if (exports.includeCorrelationId) {
-            prefix += exports.correlationId + ">";
+            prefix += "".concat(exports.correlationId, ">");
         }
         // prefix all loggers except the 'default' one used by top level code
         if (logger.id !== 'default') {
-            prefix += "[" + logger.id + "]";
+            prefix += "[".concat(logger.id, "]");
         }
-        nslog[toNetSuiteLogLevel(loglevel)]({ title: prefix + " " + title, details: details });
+        nslog[toNetSuiteLogLevel(loglevel)]({ title: "".concat(prefix, " ").concat(title), details: details });
     }
     /**
      * Log appender targeting the NS execution log. This is the default appender for everything except Client scripts
@@ -170,7 +170,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
         }
     }
     function getGovernanceMessage(governanceEnabled) {
-        return governanceEnabled ? "governance: " + runtime.getCurrentScript().getRemainingUsage() : undefined;
+        return governanceEnabled ? "governance: ".concat(runtime.getCurrentScript().getRemainingUsage()) : undefined;
     }
     /**
      * (taken from lodash https://github.com/lodash/lodash/blob/a0a3a6af910e475d8dd14dabc452f957e436e28b/findKey.js)
@@ -267,7 +267,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
         var level = findKey(aurelia_logging_1.logLevel, function (o) { return o === (config.logLevel || aurelia_logging_1.logLevel.debug); });
         return aop.around(methodsToLogEntryExit, function (invocation) {
             // record function entry with details for every method on our explore object
-            var entryTitle = "Enter " + invocation.method + "() " + getGovernanceMessage(withGovernance);
+            var entryTitle = "Enter ".concat(invocation.method, "() ").concat(getGovernanceMessage(withGovernance));
             var entryDetail = withArgs ? arguments[0].arguments : null;
             logger[level](entryTitle, entryDetail);
             var startTime = Date.now();
@@ -276,9 +276,9 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
             if (withProfiling) {
                 var elapsedMilliseconds = Date.now() - startTime;
                 var elapsedMinutes = ((elapsedMilliseconds / 1000) / 60).toFixed(2);
-                elapsedMessage = elapsedMilliseconds + "ms = " + elapsedMinutes + " minutes";
+                elapsedMessage = "".concat(elapsedMilliseconds, "ms = ").concat(elapsedMinutes, " minutes");
             }
-            var exitTitle = "Exit " + invocation.method + "(): " + elapsedMessage + " " + getGovernanceMessage(withGovernance);
+            var exitTitle = "Exit ".concat(invocation.method, "(): ").concat(elapsedMessage, " ").concat(getGovernanceMessage(withGovernance));
             var exitDetail = withReturnValue ? retval : null;
             logger[level](exitTitle, exitDetail);
             return retval;

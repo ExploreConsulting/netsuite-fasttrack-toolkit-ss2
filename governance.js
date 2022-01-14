@@ -36,7 +36,7 @@
             var elapsedMinutes = elapsedSeconds / 60;
             var outOfTime = elapsedMinutes > minutes; // enforced max is 60, use 45 to be safe
             var ok = !outOfUnits && !outOfTime;
-            EC_Logger_1.DefaultLogger.debug("governance remains? " + ok, "elapsed time (m) " + elapsedMinutes.toFixed(3) + ", units remaining " + remainingUnits);
+            EC_Logger_1.DefaultLogger.debug("governance remains? ".concat(ok), "elapsed time (m) ".concat(elapsedMinutes.toFixed(3), ", units remaining ").concat(remainingUnits));
             return ok;
         };
     }
