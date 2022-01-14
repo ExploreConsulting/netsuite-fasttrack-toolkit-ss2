@@ -257,7 +257,7 @@ import {nsSearchResult2obj, LazySearch} from "./search"
 import {Seq} from "immutable"
 
 // get the first result as a POJO 
-let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj()).first()
+let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj<{foo,bar}>()).first()
 ```
 
 
@@ -292,11 +292,11 @@ Seq(LazySearch.load("123")).takeWhile(governanceRemains()).map(nsSearchResult2ob
 
 // same as above, but with automatic graceful exit AND rescheduling
 Seq(LazySearch.load("123"))
-   .takeWhile( rescheduleIfNeeded(governanceRemains()))
-   .map(nsSearchResult2obj())
-   .forEach( result => {
+   .takeWhile( rescheduleIfNeeded(governanceRemains()) )
+   .map(nsSearchResult2obj<{foo,bar,baz}>())
+   .forEach( result => { 
    // .. do something with search result. 
-})
+   })
 
 ```
 Also see [governance](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_governance_.html) API docs
