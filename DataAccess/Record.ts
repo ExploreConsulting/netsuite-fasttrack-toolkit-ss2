@@ -10,7 +10,7 @@ import { Sublist, SublistLine } from './Sublist'
 
 const log = LogManager.getLogger('nsdal')
 // from https://www.typescriptlang.org/v2/docs/handbook/advanced-types.html#distributive-conditional-types
-type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
+export type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
 // adds `null` as a union to type T. Use this to mark record properties as explicitly nullable
 export type Nullable<T> = T | null
 
@@ -253,7 +253,7 @@ export function numericDescriptor<T extends NetsuiteCurrentRecord> (target: T, p
 }
 
 // this is the shape of SublistLine class constructor
-type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, n: number) => T
+export type LineConstructor<T extends SublistLine> = new (s: string, r: record.Record, n: number) => T
 
 /**
  * Decorator for adding sublists with each line of the sublist represented by a type T which
