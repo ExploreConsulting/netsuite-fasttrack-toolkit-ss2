@@ -3,7 +3,7 @@ import {Sublist, SublistFieldType, SublistLine} from "./Sublist"
 import * as record from 'N/record'
 
 /**
- * newsubline - New Lines (sublist)
+ * New Lines (newsubline) sublist
  */
 export class NewSublineSublist extends SublistLine {
     /**
@@ -20,7 +20,7 @@ export class NewSublineSublist extends SublistLine {
 }
 
 /**
- * renewalsteps - Renewal Steps (sublist)
+ * Renewal Steps (renewalsteps) sublist
  */
 export class RenewalStepsSublist extends SublistLine {
     /**
@@ -37,7 +37,7 @@ export class RenewalStepsSublist extends SublistLine {
 }
 
 /**
- * subline - Items (sublist)
+ * Items (subline) sublist
  */
 export class SublineSublist extends SublistLine {
     /**
@@ -89,7 +89,7 @@ export class SubscriptionChangeOrderBase extends NetsuiteRecord {
     approvaldate: Date
 
     /**
-     * Approval Status |
+     * Approval Status
      * NetSuite lists this as a select field, but it is a string value (e.g. APPROVED).
      */
     @FieldType.select
@@ -120,7 +120,7 @@ export class SubscriptionChangeOrderBase extends NetsuiteRecord {
     datecreated: Date
 
     /**
-     * Effective Date |
+     * Effective Date
      * This date needs to match any other Change Order effective dates or else NetSuite will throw an error.
      */
     @FieldType.date
@@ -241,19 +241,19 @@ export class SubscriptionChangeOrderBase extends NetsuiteRecord {
     subsidiary: number
 
     /**
-     * newsubline - New Lines (Sublist)
+     * New Lines (newsubline) Sublist
      */
     @FieldType.sublist(NewSublineSublist)
     newsubline: Sublist<NewSublineSublist>
 
     /**
-     * renewalsteps - Renewal Steps (Sublist)
+     * Renewal Steps (renewalsteps) Sublist
      */
     @FieldType.sublist(RenewalStepsSublist)
     renewalsteps : Sublist<RenewalStepsSublist>
 
     /**
-     * subline - Items (Sublist)
+     * Items (subline) Sublist
      */
     @FieldType.sublist(SublineSublist)
     subline  : Sublist<SublineSublist>
