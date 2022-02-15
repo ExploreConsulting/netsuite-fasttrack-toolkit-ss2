@@ -51,7 +51,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         ], ItemSublist.prototype, "class", void 0);
         __decorate([
             Sublist_1.SublistFieldType.freeformtext
-        ], ItemSublist.prototype, "creatatepo", void 0);
+        ], ItemSublist.prototype, "createpo", void 0);
         __decorate([
             Sublist_1.SublistFieldType.select
         ], ItemSublist.prototype, "customer", void 0);

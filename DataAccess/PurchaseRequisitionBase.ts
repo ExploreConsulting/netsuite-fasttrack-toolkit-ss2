@@ -15,7 +15,7 @@ export class ItemSublist extends SublistLine {
    class: number
 
    @SublistFieldType.freeformtext
-   creatatepo: string
+   createpo: string
 
    @SublistFieldType.select
    customer: number
