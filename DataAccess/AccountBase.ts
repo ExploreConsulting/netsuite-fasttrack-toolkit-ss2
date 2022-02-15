@@ -106,8 +106,8 @@ export class AccountBase extends NetsuiteRecord {
    @FieldType.checkbox
    revalue: boolean
 
-   @FieldType.select
-   subsidiary: number
+   @FieldType.multiselect
+   subsidiary: number[]
 
    @FieldType.date
    trandate: Date
