@@ -40,15 +40,42 @@ export class ItemSublist extends SublistLine {
  * NetSuite Work Order record type
  */
 export class WorkOrderBase extends TransactionBase {
+   @FieldType.date
+   actualproductionenddate: Date
+
+   @FieldType.date
+   actualproductionstartdate: Date
 
    @FieldType.select
    assemblyitem: number
+
+   @FieldType.select
+   billofmaterials: number
+
    @FieldType.select
    billofmaterialsrevision: number
+
+   @FieldType.select
+   createdfrom: number
+
+   @FieldType.date
+   enddate: Date
+
+   @FieldType.checkbox
+   firmed: boolean
+
+   @FieldType.select
+   job: number
+
    @FieldType.integernumber
    quantity: number
+
+   @FieldType.date
+   startdate: Date
+
    @FieldType.select
    units: number
+
    @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>
 

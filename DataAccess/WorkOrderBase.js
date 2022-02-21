@@ -84,14 +84,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         }
         WorkOrderBase.recordType = function () { return record.Type.WORK_ORDER; };
         __decorate([
+            Record_1.FieldType.date
+        ], WorkOrderBase.prototype, "actualproductionenddate", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], WorkOrderBase.prototype, "actualproductionstartdate", void 0);
+        __decorate([
             Record_1.FieldType.select
         ], WorkOrderBase.prototype, "assemblyitem", void 0);
         __decorate([
             Record_1.FieldType.select
+        ], WorkOrderBase.prototype, "billofmaterials", void 0);
+        __decorate([
+            Record_1.FieldType.select
         ], WorkOrderBase.prototype, "billofmaterialsrevision", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], WorkOrderBase.prototype, "createdfrom", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], WorkOrderBase.prototype, "enddate", void 0);
+        __decorate([
+            Record_1.FieldType.checkbox
+        ], WorkOrderBase.prototype, "firmed", void 0);
+        __decorate([
+            Record_1.FieldType.select
+        ], WorkOrderBase.prototype, "job", void 0);
         __decorate([
             Record_1.FieldType.integernumber
         ], WorkOrderBase.prototype, "quantity", void 0);
+        __decorate([
+            Record_1.FieldType.date
+        ], WorkOrderBase.prototype, "startdate", void 0);
         __decorate([
             Record_1.FieldType.select
         ], WorkOrderBase.prototype, "units", void 0);
