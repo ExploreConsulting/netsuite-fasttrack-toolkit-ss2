@@ -261,7 +261,7 @@ let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj<{foo,b
 ```
 
 
-Also see [search](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_search_.html) in the API documentation,
+Also see [search](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/search.html) in the API documentation,
 especially the `LazySearch` class.
 
 ### Governance ###
