@@ -32,8 +32,7 @@
      *
      * @typeparam T declares the shape of the plain objects returned. e.g. `nsSearchResult2obj<{ companyname, memo }>` for a search result
      * that has columns _companyname_ and _memo_. Including an optional type here ensures strong typing on followup chained
-     * method calls. The use of `Record` here enforces the fact that search result column values are
-     * always `string`s even for values you might expect to be `number`
+     * method calls.
      *
      * @example  (using Immutable JS Sequence)
      *
