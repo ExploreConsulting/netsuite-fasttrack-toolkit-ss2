@@ -22,6 +22,14 @@
             let foundState = (0, geography_1.getStateById)('');
             expect(foundState).toBeUndefined();
         });
+        test('get WA by valid short name', function () {
+            let foundstate = (0, geography_1.getStateByShortName)('WA');
+            expect(foundstate).toHaveProperty('shortname', 'WA');
+        });
+        test('get unknown state by invalid short name', function () {
+            let foundstate = (0, geography_1.getStateByShortName)('washington');
+            expect(foundstate).toBeUndefined();
+        });
     });
     describe('get country info', function () {
         test('get USA by id', function () {

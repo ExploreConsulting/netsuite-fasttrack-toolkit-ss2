@@ -7,6 +7,7 @@
 
  getStateById(3) // returns { 'country': 'US','fullname': 'Arkansas','id': 3,'shortname': 'AR' }
  getStateById(-123) // returns undefined
+ getStateByShortName('CA') //  returns 4
  stateMapping.filter( state => state.country === 'US') // array of states in USA
  getCountryById('US') // {'uniquekey': 230,'name': 'United States', 'edition': 'US','id': 'US' }
  ```
@@ -24,7 +25,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.getCountryByUniqueKey = exports.getCountryById = exports.countryMapping = exports.getStateById = exports.stateMapping = void 0;
+    exports.getCountryByUniqueKey = exports.getCountryById = exports.countryMapping = exports.getStateByShortName = exports.getStateById = exports.stateMapping = void 0;
     /**
      * Represents geographic states used in NetSuite. First one is blank to allow easy binding to a UI dropdown
      * The list was generated via SuiteQL `select * from state`
@@ -1844,17 +1845,30 @@
         }
     ];
     /**
-     * Retrieves the state object for the given internal id else null
+     * Retrieves the state object for the given internal id else undefined
      * @param id internal id of the state you wish to find.
      */
-    var getStateById = function (id) {
-        var s = exports.stateMapping.filter(function (x) { return x.id === id; });
+    const getStateById = (id) => {
+        const s = exports.stateMapping.filter(x => x.id === id);
         if (s.length)
             return s[0];
         else
             return undefined;
     };
     exports.getStateById = getStateById;
+    /**
+     * Retrieves the state object for the given State short name (e.g., 'CA') else undefined
+     * @example const stateIID = getStateByShortName('CA').id  //  The internal ID (iid) of the California State record
+     * @param code The two character state short name
+     */
+    const getStateByShortName = (code) => {
+        const s = exports.stateMapping.filter(x => x.shortname === code);
+        if (s.length)
+            return s[0];
+        else
+            return undefined;
+    };
+    exports.getStateByShortName = getStateByShortName;
     /**
      * Mappings of country abbreviation, name and NetSuite internal id.
      * This list was generated via SuiteQL `select uniquekey, name, edition, id from country`
@@ -3399,7 +3413,7 @@
      * Address records.
      */
     function getCountryById(id) {
-        var countries = exports.countryMapping.filter(function (x) { return x.id === id; });
+        const countries = exports.countryMapping.filter(x => x.id === id);
         if (countries.length)
             return countries[0];
         else
@@ -3412,7 +3426,7 @@
      * @param uniquekey the unique _numeric_ key assigned by NS to the country record.
      */
     function getCountryByUniqueKey(uniquekey) {
-        var countries = exports.countryMapping.filter(function (x) { return x.uniquekey === uniquekey; });
+        const countries = exports.countryMapping.filter(x => x.uniquekey === uniquekey);
         if (countries.length > 0)
             return countries[0];
         else
