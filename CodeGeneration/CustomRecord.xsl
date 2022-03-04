@@ -12,13 +12,25 @@
             <!-- this variable tries to create a valid TS class name out of the <recordname>
             by limiting the name to only word characters. This still won't catch a record that starts with a number
             -->
-            <xsl:variable name="className"  select="replace(/customrecordtype/recordname,'\W','')"/>
+            <xsl:variable name="fileName" select="replace(/customrecordtype/recordname,'\W','')" />
+            <xsl:variable name="className">
+                <xsl:choose>
+                    <!-- prepend an underscore if the record name starts with a number (e.g., "3PL Configuration") -->
+                    <xsl:when test="matches(/customrecordtype/recordname, '^\d+')">
+                        <xsl:value-of select="string-join(('_', replace(/customrecordtype/recordname,'\W','')))"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="replace(/customrecordtype/recordname,'\W','')" />
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
 
-           <xsl:message expand-text="yes">Generating Custom Record class: {$className}</xsl:message>
+
+           <xsl:message expand-text="yes">Generating Custom Record class: {$className}, filename: {$fileName}</xsl:message>
            <xsl:message expand-text="yes">Using NFT path {$nftPath}</xsl:message>
 
             <!--This generates a separate document (.ts file) for each input .xml file -->
-            <xsl:result-document method="text" href="src/{string-join(($className,'.ts'))}">
+            <xsl:result-document method="text" href="src/{string-join(($fileName,'.ts'))}">
 
                 <xsl:apply-templates>
                     <xsl:with-param name="className" select="$className"/>
@@ -55,20 +67,87 @@ import {FieldType} from "</xsl:text>
     <xsl:text>/DataAccess/Record"</xsl:text>
 <xsl:value-of select="$imports"/>
 <xsl:where-populated expand-text="yes">
+    <!-- TODO: The below replace code is ugly, should probably look into splitting the description and building each line in a loop -->
+
 /**
- *   {description}
+ *  <xsl:value-of select="recordname" />
+ *  <xsl:value-of select="replace(description,'&#xd;','&#xd; *  ')" />
  */
 </xsl:where-populated>
 <xsl:text expand-text="yes">
 export class {$className} extends {$parentClass} {{
 </xsl:text>
-<!--only include a recordType if it's actually specified. For custom records it will always be. For
- custom fields on built-in records it will not be because recordType is inherited -->
-<xsl:if test="@scriptid != ''" expand-text="yes">static recordType = '{@scriptid}'</xsl:if>
-<xsl:apply-templates select = "customrecordcustomfields"/>
+
+    static recordType = '<xsl:value-of select="@scriptid" />'
+    <!-- Add standard common fields that exist on all Custom Records -->
+    /**
+     * Created
+     * The timestamp when this record instance was created
+     */
+    @FieldType.datetime
+    created: Date
+
+    /**
+     * Custom Form
+     * Select the entry form to use for creating this record.
+     */
+    @FieldType.select
+    customform: number
+
+    /**
+     * ExternalId
+     *
+     */
+    @FieldType.freeformtext
+    externalid: string
+
+    /**
+     * Inactive
+     */
+    @FieldType.checkbox
+    isinactive: boolean
+
+    /**
+     * Last Modified
+     * The timestamp when this record instance was last modified
+     */
+    @FieldType.datetime
+    lastmodified: Date
+
+    /**
+     * By
+     * The user that last modified this record instance
+     */
+    @FieldType.select
+    lastmodifiedby: number
+
+    /**
+     * Name
+     * The name for the custom record instance.
+     */
+    @FieldType.freeformtext
+    name: string
+
+    /**
+     * Owner
+     * The user that created this record instance
+     */
+    @FieldType.select
+    owner: number
+
+    <!-- TODO: Determine what this field does and if it's needed -->
+    /**
+     * ID
+     * This may be the same as the internal ID that is already in the base class - or this could be something else
+     */
+    @FieldType.integernumber
+    recordid: number
+
+
+    //  The following fields are custom and and specific to the __insert record name__ record.
+<xsl:apply-templates select="customrecordcustomfields"/>
 }
 </xsl:template>
-
     <xsl:template name="props" match="customrecordcustomfield" expand-text="yes">
     /**
      * {label}<xsl:where-populated xml:space="preserve">
@@ -76,7 +155,7 @@ export class {$className} extends {$parentClass} {{
      */
     <xsl:call-template name="set-prop-data-type"/>
     <!--<xsl:value-of select="@scriptid"/> : string-->
-    </xsl:template>
+    </xsl:template> <!-- /props -->
 
     <xsl:template name="set-prop-data-type">
 
@@ -134,67 +213,67 @@ export class {$className} extends {$parentClass} {{
     <xsl:when test="fieldtype='SELECT'">
     <xsl:text>select
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : number
+        <xsl:value-of select="@scriptid"/>: number
     </xsl:when>
     <xsl:when test="fieldtype='CHECKBOX'">
     <xsl:text>checkbox
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : boolean
+        <xsl:value-of select="@scriptid"/>: boolean
     </xsl:when>
     <xsl:when test="fieldtype='CURRENCY'">
     <xsl:text>currency
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : number
+        <xsl:value-of select="@scriptid"/>: number
     </xsl:when>
     <xsl:when test="fieldtype='FLOAT'">
     <xsl:text>float
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : number
+        <xsl:value-of select="@scriptid"/>: number
     </xsl:when>
     <xsl:when test="fieldtype='DATE'">
     <xsl:text>date
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : Date
+        <xsl:value-of select="@scriptid"/>: Date
     </xsl:when>
     <xsl:when test="fieldtype='DATETIMETZ'">
     <xsl:text>datetime
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : Date
+        <xsl:value-of select="@scriptid"/>: Date
     </xsl:when>
     <xsl:when test="fieldtype='EMAIL'">
     <xsl:text>email
     </xsl:text>
-    <xsl:value-of select="@scriptid"/> : string
+    <xsl:value-of select="@scriptid"/>: string
     </xsl:when>
     <xsl:when test="fieldtype='HELP' or fieldtype='TEXT'">
     <xsl:text>freeformtext
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : string
+        <xsl:value-of select="@scriptid"/>: string
     </xsl:when>
     <xsl:when test="fieldtype='MULTISELECT'">
     <xsl:text>multiselect
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : number[]
+        <xsl:value-of select="@scriptid"/>: number[]
     </xsl:when>
     <xsl:when test="fieldtype='PERCENT'">
     <xsl:text>percent
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : string
+        <xsl:value-of select="@scriptid"/>: string
     </xsl:when>
     <xsl:when test="fieldtype='TEXTAREA'">
     <xsl:text>textarea
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : string
+        <xsl:value-of select="@scriptid"/>: string
     </xsl:when>
     <xsl:when test="fieldtype='INTEGER'">
     <xsl:text>integernumber
     </xsl:text>
-        <xsl:value-of select="@scriptid"/> : number
+        <xsl:value-of select="@scriptid"/>: number
     </xsl:when>
     <xsl:otherwise>
         <xsl:text>freeformtext
         </xsl:text>
-        <xsl:value-of select="@scriptid"/> : string
+        <xsl:value-of select="@scriptid"/>: string
     </xsl:otherwise>
     </xsl:choose>
 
