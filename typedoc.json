@@ -1,6 +1,7 @@
 {
   "name": "NetSuite FastTrack Toolkit (NFT)",
   "entryPoints": ["EC_Logger.ts", "geography.ts", "governance.ts", "search.ts", "DataAccess"],
+  "entryPointStrategy": "Expand",
   "out": "docs",
   "media": "media",
   "includeVersion": true,

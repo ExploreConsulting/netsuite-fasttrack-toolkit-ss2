@@ -1,17 +1,3 @@
-/**
- * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
- *
- * Utilizes the [Aurelia logger](https://aurelia.io/docs/api/logging) under the hood.
- * This logger library adopts the common pattern of separating _how_ you log
- * (e.g. `log.debug()`) from _where_ the log messages are sent.
- *
- * By default, log messages are sent to the NetSuite Execution Log - *except* for client scripts which log to the
- * *browser console* by default.
- *
- * You can create as many named loggers as you like, but most often you'll work with the [Default Logger](#defaultlogger)
- *
- * @NApiVersion 2.x
- */
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
         if (ar || !(i in from)) {
@@ -34,7 +20,21 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.setCorrelationId = exports.DefaultLogger = exports.autoLogMethodEntryExit = exports.ExecutionLogAppender = exports.setIncludeCorrelationId = exports.includeCorrelationId = exports.correlationId = exports.removeCustomLevel = exports.setLevel = exports.getLevel = exports.addCustomLevel = exports.removeAppender = exports.getLogger = exports.addAppender = exports.clearAppenders = exports.getAppenders = exports.Logger = exports.logLevel = void 0;
     /**
-     * dummy comment for TypeDoc
+     *
+     * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
+     *
+     *
+     * Utilizes the [Aurelia logger](https://aurelia.io/docs/api/logging) under the hood.
+     * This logger library adopts the common pattern of separating _how_ you log
+     * (e.g. `log.debug()`) from _where_ the log messages are sent.
+     *
+     * By default, log messages are sent to the NetSuite Execution Log - *except* for client scripts which log to the
+     * *browser console* by default.
+     *
+     * You can create as many named loggers as you like, but most often you'll work with the [[Default Logger]]
+     *
+     * @NApiVersion 2.x
+     * @module
      */
     var aurelia_logging_1 = require("./aurelia-logging");
     var nslog = require("N/log");
@@ -89,13 +89,13 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
         var title = rest[0], details = rest[1];
         var prefix = '';
         if (exports.includeCorrelationId) {
-            prefix += exports.correlationId + ">";
+            prefix += "".concat(exports.correlationId, ">");
         }
         // prefix all loggers except the 'default' one used by top level code
         if (logger.id !== 'default') {
-            prefix += "[" + logger.id + "]";
+            prefix += "[".concat(logger.id, "]");
         }
-        nslog[toNetSuiteLogLevel(loglevel)](prefix + " " + title, details);
+        nslog[toNetSuiteLogLevel(loglevel)]({ title: "".concat(prefix, " ").concat(title), details: details });
     }
     /**
      * Log appender targeting the NS execution log. This is the default appender for everything except Client scripts
@@ -170,7 +170,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
         }
     }
     function getGovernanceMessage(governanceEnabled) {
-        return governanceEnabled ? "governance: " + runtime.getCurrentScript().getRemainingUsage() : undefined;
+        return governanceEnabled ? "governance: ".concat(runtime.getCurrentScript().getRemainingUsage()) : undefined;
     }
     /**
      * (taken from lodash https://github.com/lodash/lodash/blob/a0a3a6af910e475d8dd14dabc452f957e436e28b/findKey.js)
@@ -267,7 +267,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
         var level = findKey(aurelia_logging_1.logLevel, function (o) { return o === (config.logLevel || aurelia_logging_1.logLevel.debug); });
         return aop.around(methodsToLogEntryExit, function (invocation) {
             // record function entry with details for every method on our explore object
-            var entryTitle = "Enter " + invocation.method + "() " + getGovernanceMessage(withGovernance);
+            var entryTitle = "Enter ".concat(invocation.method, "() ").concat(getGovernanceMessage(withGovernance));
             var entryDetail = withArgs ? arguments[0].arguments : null;
             logger[level](entryTitle, entryDetail);
             var startTime = Date.now();
@@ -276,9 +276,9 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
             if (withProfiling) {
                 var elapsedMilliseconds = Date.now() - startTime;
                 var elapsedMinutes = ((elapsedMilliseconds / 1000) / 60).toFixed(2);
-                elapsedMessage = elapsedMilliseconds + "ms = " + elapsedMinutes + " minutes";
+                elapsedMessage = "".concat(elapsedMilliseconds, "ms = ").concat(elapsedMinutes, " minutes");
             }
-            var exitTitle = "Exit " + invocation.method + "(): " + elapsedMessage + " " + getGovernanceMessage(withGovernance);
+            var exitTitle = "Exit ".concat(invocation.method, "(): ").concat(elapsedMessage, " ").concat(getGovernanceMessage(withGovernance));
             var exitDetail = withReturnValue ? retval : null;
             logger[level](exitTitle, exitDetail);
             return retval;
@@ -321,12 +321,13 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
         (0, aurelia_logging_1.addAppender)(new alc.ConsoleAppender());
         defaultLogger.debug('added console appender');
     }
-    // if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require(),
-    // otherwise go ahead and log to the execution log (assume server-side suitescript)
-    if (typeof module === 'object') /* nodejs */
+    // if we're running in nodejs (i.e. unit tests) load the console appender using node require()
+    if (typeof module === 'object')
         addConsoleAppender(require('aurelia-logging-console'));
-    else if ((typeof console === 'object') && (typeof window === 'object') && window.alert) /* browser */
+    // Else detect NS client script and use NS's async require() to avoid blocking
+    else if ((typeof console === 'object') && (typeof window === 'object') && window.alert)
         require(['./aurelia-logging-console'], addConsoleAppender);
-    else /* server-side SuiteScript */
+    // otherwise go ahead and log to the execution log (assume server-side suitescript)
+    else
         (0, aurelia_logging_1.addAppender)(new ExecutionLogAppender());
 });

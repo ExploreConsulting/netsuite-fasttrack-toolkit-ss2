@@ -55,7 +55,7 @@ export class TransferOrderBase extends TransactionBase {
 }
 
 /**
- * Sublist 'item' on the Tranfer Order record
+ * Sublist 'item' on the Transfer Order record
  */
 export class ItemSublist extends SublistLine {
 
@@ -75,10 +75,10 @@ export class ItemSublist extends SublistLine {
    description: string
 
    @SublistFieldType.date
-   expectedreceiptdate: string
+   expectedreceiptdate: Date
 
    @SublistFieldType.date
-   expectedshipdate: string
+   expectedshipdate: Date
 
    @SublistFieldType.checkbox
    isclosed: boolean

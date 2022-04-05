@@ -56,7 +56,7 @@ var __assign = (this && this.__assign) || function () {
         SublistFieldType.integernumber = defaultSublistDescriptor;
         SublistFieldType.longtext = defaultSublistDescriptor;
         SublistFieldType.multiselect = defaultSublistDescriptor;
-        SublistFieldType.percent = function (target, propertyKey) { return formattedSublistDescriptor(format.Type.PERCENT, target, propertyKey); };
+        SublistFieldType.percent = defaultSublistDescriptor;
         SublistFieldType.select = defaultSublistDescriptor;
         SublistFieldType.textarea = defaultSublistDescriptor;
         SublistFieldType.subrecord = subrecordDescriptor;
@@ -85,14 +85,14 @@ var __assign = (this && this.__assign) || function () {
             }
         }
         else
-            log.debug("ignoring field [" + fieldId + "]", 'field value is undefined');
+            log.debug("ignoring field [".concat(fieldId, "]"), 'field value is undefined');
     }
     function getSublistValue(fieldId, isText) {
         var options = {
             sublistId: this.sublistId,
             fieldId: fieldId,
         };
-        log.debug("getting sublist " + (isText ? 'text' : 'value'), options);
+        log.debug("getting sublist ".concat(isText ? 'text' : 'value'), options);
         if (this.useDynamicModeAPI && this.nsrecord.isDynamic) {
             this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
             return isText ? this.nsrecord.getCurrentSublistText(options)
@@ -112,7 +112,7 @@ var __assign = (this && this.__assign) || function () {
      * with Object.defineProperty
      */
     function defaultSublistDescriptor(target, propertyKey) {
-        log.debug('creating default descriptor', "field: " + propertyKey);
+        log.debug('creating default descriptor', "field: ".concat(propertyKey));
         var _a = parseProp(propertyKey), isTextField = _a[0], nsfield = _a[1];
         return {
             get: function () {
@@ -136,9 +136,9 @@ var __assign = (this && this.__assign) || function () {
     function formattedSublistDescriptor(formatType, target, propertyKey) {
         return {
             get: function () {
-                log.debug("getting formatted field [" + propertyKey + "]");
+                log.debug("getting formatted field [".concat(propertyKey, "]"));
                 var value = getSublistValue.call(this, propertyKey, false); // to satisfy typing for format.parse(value) below.
-                log.debug("transforming field [" + propertyKey + "] of type [" + formatType + "]", "with value " + value);
+                log.debug("transforming field [".concat(propertyKey, "] of type [").concat(formatType, "]"), "with value ".concat(value));
                 // ensure we don't return moments for null, undefined, etc.
                 // returns the 'raw' type which is a string or number for our purposes
                 return value ? format.parse({ type: formatType, value: value }) : value;
@@ -167,14 +167,14 @@ var __assign = (this && this.__assign) || function () {
                         default:
                             formattedValue = format.format({ type: formatType, value: value });
                     }
-                    log.debug("setting sublist field [" + propertyKey + ":" + formatType + "]", "to formatted value [" + formattedValue + "] (unformatted vale: " + value + ")");
+                    log.debug("setting sublist field [".concat(propertyKey, ":").concat(formatType, "]"), "to formatted value [".concat(formattedValue, "] (unformatted vale: ").concat(value, ")"));
                     if (value === null)
                         setSublistValue.call(this, propertyKey, null);
                     else
                         setSublistValue.call(this, propertyKey, formattedValue);
                 }
                 else
-                    log.info("not setting sublist " + propertyKey + " field", 'value was undefined');
+                    log.info("not setting sublist ".concat(propertyKey, " field"), 'value was undefined');
             },
             enumerable: true //default is false
         };
@@ -268,10 +268,10 @@ var __assign = (this && this.__assign) || function () {
         Sublist.prototype.addLine = function (ignoreRecalc, insertAt) {
             if (ignoreRecalc === void 0) { ignoreRecalc = true; }
             if (insertAt === void 0) { insertAt = this.length; }
-            log.info('inserting line', "sublist: " + this.sublistId + " insert at line:" + insertAt);
+            log.info('inserting line', "sublist: ".concat(this.sublistId, " insert at line:").concat(insertAt));
             if (insertAt > this.length) {
                 throw error.create({
-                    message: "insertion index (" + insertAt + ") cannot be greater than sublist length (" + this.length + ")",
+                    message: "insertion index (".concat(insertAt, ") cannot be greater than sublist length (").concat(this.length, ")"),
                     name: 'NFT_INSERT_LINE_OUT_OF_BOUNDS'
                 });
             }
@@ -313,7 +313,7 @@ var __assign = (this && this.__assign) || function () {
                     name: 'NFT_COMMITLINE_BUT_NOT_DYNAMIC_MODE_RECORD'
                 });
             }
-            log.info('committing line', "sublist: " + this.sublistId);
+            log.info('committing line', "sublist: ".concat(this.sublistId));
             this.nsrecord.commitLine({ sublistId: this.sublistId });
             this.rebuildArray();
         };
@@ -357,7 +357,7 @@ var __assign = (this && this.__assign) || function () {
             log.info('deleting existing numeric properties');
             Object.getOwnPropertyNames(this).filter(function (key) { return !isNaN(+key); }).forEach(function (key) { return delete _this[key]; }, this);
             log.debug('sublist after deleting properties', this);
-            log.info('building sublist', "type:" + this.sublistId + ", linecount:" + this.length);
+            log.info('building sublist', "type:".concat(this.sublistId, ", linecount:").concat(this.length));
             // create a sublist line indexed property of type T for each member of the underlying sublist
             for (var i = 0; i < this.length; i++) {
                 var line = new this.sublistLineType(this.sublistId, this.nsrecord, i);
@@ -390,6 +390,11 @@ var __assign = (this && this.__assign) || function () {
                 value: value,
                 enumerable: false
             });
+        };
+        // serialize only the numeric properties of this object into a real array
+        Sublist.prototype.toJSON = function () {
+            var _this = this;
+            return Object.keys(this).filter(function (k) { return !isNaN(+k); }).map(function (key) { return _this[key]; });
         };
         return Sublist;
     }());
@@ -455,9 +460,18 @@ var __assign = (this && this.__assign) || function () {
         SublistLine.prototype.toJSON = function () {
             var result = {};
             for (var key in this) {
-                // don't include internal properties
-                if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI')
+                // NetSuite will error if you try to serialize 'Text' fields on record *create*.
+                // i.e. "Invalid API usage. You must use getSublistValue to return the value set with setSublistValue."
+                // As a workaround, consider this record to be in 'create' mode if there is no _id_ assigned yet
+                // then skip any 'xxxxText' fields.
+                if (!this.nsrecord.id && (key.substring(key.length - 4) === 'Text')) {
+                    // yes, this is a side effecting function inside a toJSON but this is a painful enough 'netsuiteism'
+                    // to justify
+                    log.debug("toJSON skipping field ".concat(key), "workaround to avoid NS erroring on the getText() on a new record");
+                }
+                else if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI') {
                     result[key] = this[key];
+                }
             }
             return result;
         };

@@ -53,17 +53,17 @@ var __extends = (this && this.__extends) || (function () {
             // define a constructor to pass the record type to super()
             var type = Object.getPrototypeOf(this).constructor.recordType();
             if (!rec) { // falsey values (e.g. invalid id 0, null, undefined, etc.) implies creating a new record
-                log.debug('creating new record', "type:" + type + "  isDyanamic:" + isDynamic + " defaultValues:" + defaultValues);
+                log.debug('creating new record', "type:".concat(type, "  isDyanamic:").concat(isDynamic, " defaultValues:").concat(defaultValues));
                 this.makeRecordProp(record.create({ type: type, isDynamic: isDynamic, defaultValues: defaultValues }));
             }
             else if (typeof rec === 'object') {
-                log.debug('using existing record', "type:" + rec.type + ", id:" + rec.id);
+                log.debug('using existing record', "type:".concat(rec.type, ", id:").concat(rec.id));
                 this.makeRecordProp(rec);
                 this._id = rec.id;
             }
             // allow
             else if (typeof rec === 'number' || +rec) {
-                log.debug('loading existing record', "type:" + type + ", id:" + rec);
+                log.debug('loading existing record', "type:".concat(type, ", id:").concat(rec));
                 this.makeRecordProp(record.load({
                     type: type,
                     id: rec,
@@ -73,7 +73,7 @@ var __extends = (this && this.__extends) || (function () {
                 this._id = this.nsrecord.id;
             }
             else
-                throw new Error("invalid value for argument \"rec\": " + rec + ". \n      Must be one of: null/undefined, an internal id, or an existing record");
+                throw new Error("invalid value for argument \"rec\": ".concat(rec, ". \n      Must be one of: null/undefined, an internal id, or an existing record"));
         }
         Object.defineProperty(NetsuiteCurrentRecord.prototype, "id", {
             get: function () {
@@ -92,8 +92,18 @@ var __extends = (this && this.__extends) || (function () {
         NetsuiteCurrentRecord.prototype.toJSON = function () {
             // surface inherited properties on a new object so JSON.stringify() sees them all
             var result = { id: this._id };
-            for (var key in this) { // noinspection JSUnfilteredForInLoop
-                result[key] = this[key];
+            for (var key in this) {
+                // NetSuite will error if you try to serialize 'Text' fields on record *create*.
+                // i.e. "Invalid API usage. You must use getSublistValue to return the value set with setSublistValue."
+                // As a workaround, consider this record to be in 'create' mode if there is no _id_ assigned yet
+                // then skip any 'xxxxText' fields.
+                if (!this._id && (key.substring(key.length - 4) === 'Text')) {
+                    // yes, this is a side effecting function inside a toJSON but this is a painful enough 'netsuiteism'
+                    // to justify
+                    log.debug("toJSON skipping field ".concat(key), "workaround to avoid NS erroring on the getText() on a new record");
+                }
+                else
+                    result[key] = this[key];
             }
             return result;
         };
@@ -174,7 +184,7 @@ var __extends = (this && this.__extends) || (function () {
         var _a = parseProp(propertyKey), isTextField = _a[0], nsfield = _a[1];
         return {
             get: function () {
-                log.debug('field GET', nsfield + ", as text:" + isTextField);
+                log.debug('field GET', "".concat(nsfield, ", as text:").concat(isTextField));
                 return isTextField ? this.nsrecord.getText({ fieldId: nsfield })
                     : this.nsrecord.getValue({ fieldId: nsfield });
             },
@@ -187,7 +197,7 @@ var __extends = (this && this.__extends) || (function () {
                         this.nsrecord.setValue({ fieldId: nsfield, value: value });
                 }
                 else
-                    log.info("ignoring field [" + propertyKey + "]", 'field value is undefined');
+                    log.info("ignoring field [".concat(propertyKey, "]"), 'field value is undefined');
             },
             enumerable: true //default is false
         };
@@ -217,7 +227,7 @@ var __extends = (this && this.__extends) || (function () {
                         this.nsrecord.setValue({ fieldId: nsfield, value: Number(value) });
                 }
                 else
-                    log.info("ignoring field [" + propertyKey + "]", 'field value is undefined');
+                    log.info("ignoring field [".concat(propertyKey, "]"), 'field value is undefined');
             },
             enumerable: true //default is false
         };
@@ -232,13 +242,13 @@ var __extends = (this && this.__extends) || (function () {
     function sublistDescriptor(ctor) {
         return function (target, propertyKey) {
             var _a = parseSublistProp(propertyKey), nssublist = _a[1];
-            var privateProp = "_" + nssublist;
+            var privateProp = "_".concat(nssublist);
             return {
                 enumerable: true,
                 // sublist is read only for now - if we have a use case where this should be assigned then tackle it
                 get: function () {
                     if (!this[privateProp]) {
-                        log.debug('initializing sublist', "sublist property named " + propertyKey + ", sublist id " + nssublist);
+                        log.debug('initializing sublist', "sublist property named ".concat(propertyKey, ", sublist id ").concat(nssublist));
                         // using defineProperty() here defaults to making the property non-enumerable which is what we want
                         // for this 'private' property so it doesn't appear on serialization (e.g. JSON.stringify())
                         Object.defineProperty(this, privateProp, { value: new Sublist_1.Sublist(ctor, this.nsrecord, nssublist) });
@@ -287,14 +297,14 @@ var __extends = (this && this.__extends) || (function () {
                 // allow null to flow through, but ignore undefined's
                 if (value !== undefined) {
                     var formattedValue = format.format({ type: formatType, value: value });
-                    log.debug("setting field [" + propertyKey + ":" + formatType + "]", "to formatted value [" + formattedValue + "] javascript type:" + typeof formattedValue);
+                    log.debug("setting field [".concat(propertyKey, ":").concat(formatType, "]"), "to formatted value [".concat(formattedValue, "] javascript type:").concat(typeof formattedValue));
                     if (value === null)
                         this.nsrecord.setValue({ fieldId: propertyKey, value: null });
                     else
                         this.nsrecord.setValue({ fieldId: propertyKey, value: formattedValue });
                 }
                 else
-                    log.info("not setting " + propertyKey + " field", 'value was undefined');
+                    log.info("not setting ".concat(propertyKey, " field"), 'value was undefined');
             },
             enumerable: true //default is false
         };
@@ -329,8 +339,7 @@ var __extends = (this && this.__extends) || (function () {
         FieldType.integernumber = numericDescriptor;
         FieldType.longtext = defaultDescriptor;
         FieldType.multiselect = defaultDescriptor;
-        //@see formattedDescriptor
-        FieldType.percent = function (target, propertyKey) { return formattedDescriptor(format.Type.PERCENT, target, propertyKey); };
+        FieldType.percent = defaultDescriptor;
         /**
          * NetSuite 'Select' field type.
          */

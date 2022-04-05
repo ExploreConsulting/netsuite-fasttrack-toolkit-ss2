@@ -92,12 +92,12 @@ var log = LogManager.DefaultLogger
 class ContactRolesSublist extends SublistLine {
    // the country internal id
    @SublistFieldType.select
-   role: number
+   role?: number
 
    // adding `Text` suffix to field name surfaces the text value
    // instead of internalid
    @SublistFieldType.select
-   roleText: string
+   roleText?: string
 }
 
 /**
@@ -161,6 +161,25 @@ as shown in the example above.
 
 ![NSDAL Inheritance Diagram](media/images/NFT-NSDAL-Inheritance.png)
 
+## Custom Records
+Defining custom records is similar to standard records but you inherit from `NetSuiteRecord` and
+define the `recordType()` method.
+
+```typescript
+export class MyCustomRecord extends NetsuiteRecord {
+ static recordType () { return 'customrecord_myrecord' }
+
+ /**
+  * Custom Name
+  */
+ @FieldType.freeformtext
+ custrecord__name: string
+}
+
+
+```
+
+See the `CodeGeneration/` folder for information on generating these custom record classes automatically. 
 
 ### Sublists and Subrecords
 
@@ -238,11 +257,11 @@ import {nsSearchResult2obj, LazySearch} from "./search"
 import {Seq} from "immutable"
 
 // get the first result as a POJO 
-let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj()).first()
+let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj<{foo,bar}>()).first()
 ```
 
 
-Also see [search](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_search_.html) in the API documentation,
+Also see [search](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/search.html) in the API documentation,
 especially the `LazySearch` class.
 
 ### Governance ###
@@ -273,11 +292,11 @@ Seq(LazySearch.load("123")).takeWhile(governanceRemains()).map(nsSearchResult2ob
 
 // same as above, but with automatic graceful exit AND rescheduling
 Seq(LazySearch.load("123"))
-   .takeWhile( rescheduleIfNeeded(governanceRemains()))
-   .map(nsSearchResult2obj())
-   .forEach( result => {
+   .takeWhile( rescheduleIfNeeded(governanceRemains()) )
+   .map(nsSearchResult2obj<{foo,bar,baz}>())
+   .forEach( result => { 
    // .. do something with search result. 
-})
+   })
 
 ```
 Also see [governance](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/_governance_.html) API docs
@@ -337,8 +356,11 @@ Skip this section if you're just using NFT in your projects.
     node_modules/.bin/tsc
     node_modules/.bin/gulp
     node_modules/.bin/gulp declarations
+    node_modules/.bin/gulp docs
     npm publish
 
+Don't forget to assign an appropriate version number in `package.json` then git tag the 
+release with that version number and push.
 
 ## Build API docs (hosted on Github Pages)
 

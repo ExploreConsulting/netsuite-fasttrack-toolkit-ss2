@@ -2,7 +2,7 @@
 <project version="4">
   <component name="TypeScriptCompiler">
     <option name="enableServiceForProjectsWithoutConfig" value="false" />
-    <option name="nodeInterpreterTextField" value="wsl://Ubuntu-18.04@/usr/local/bin/node" />
+    <option name="nodeInterpreterTextField" value="wsl://Ubuntu@/usr/local/bin/node" />
     <option name="recompileOnChanges" value="true" />
   </component>
 </project>

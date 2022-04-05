@@ -3,7 +3,7 @@ import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 import { TransactionBase } from './Transaction'
 import * as record from 'N/record'
 
-class ApplySublist extends SublistLine {
+export class ApplySublist extends SublistLine {
    @SublistFieldType.freeformtext
    amount: string
 

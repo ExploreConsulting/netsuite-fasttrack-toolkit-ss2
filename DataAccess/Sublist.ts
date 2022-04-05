@@ -14,7 +14,7 @@ import { NetsuiteCurrentRecord } from './Record'
 const log = LogManager.getLogger('nsdal-sublist')
 
 // from https://www.typescriptlang.org/v2/docs/handbook/advanced-types.html#distributive-conditional-types
-type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
+export type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
 /*
  note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.
  this differs from body fields behavior - it seems body fields required the numericDescriptor (see numericDescriptor
@@ -40,7 +40,7 @@ export namespace SublistFieldType {
    export var integernumber = defaultSublistDescriptor
    export var longtext = defaultSublistDescriptor
    export var multiselect = defaultSublistDescriptor
-   export var percent = (target, propertyKey) => formattedSublistDescriptor(format.Type.PERCENT, target, propertyKey)
+   export var percent = defaultSublistDescriptor
    export var select = defaultSublistDescriptor
    export var textarea = defaultSublistDescriptor
    export const subrecord = subrecordDescriptor
@@ -204,28 +204,7 @@ function parseProp (propertyKey: string): [boolean, string] {
  */
 export class Sublist<T extends SublistLine> {
 
-   /**
-    * If true **and** the underlying netsuite record is in dynamic mode, uses the dynamic APIs to manipulate the sublist (e.g. `getCurrentSublistValue()`)
-    * If false uses 'standard mode' (e.g. `getSublistValue()`)
-    * Defaults to true if the record is in dynamic mode. Set this to false prior to manipulating the sublist in order
-    * to force standard mode API usage even if the record is in 'dynamic mode'
-    */
-   get useDynamicModeAPI (): boolean {
-      return this._useDynamicModeAPI
-   }
-
-   set useDynamicModeAPI (value: boolean) {
-      this._useDynamicModeAPI = value
-      // rebuild the array of line objects so the dynamicmode api setting gets applied to all lines.
-      this.rebuildArray()
-   }
    nsrecord: record.Record
-
-   // enforce 'array like' interaction through indexers
-   [i: number]: T
-
-
-   private _useDynamicModeAPI: boolean
 
    /**
     * Constructs a new array-like representation of a NS sublist.
@@ -242,6 +221,27 @@ export class Sublist<T extends SublistLine> {
       // where standard mode APIs work better even on a dynamic record instance
       // (e.g. `VendorPayment.apply` in a client script)
       this._useDynamicModeAPI = this.nsrecord.isDynamic
+      this.rebuildArray()
+   }
+
+   private _useDynamicModeAPI: boolean
+
+   // enforce 'array like' interaction through indexers
+   [i: number]: T
+
+   /**
+    * If true **and** the underlying netsuite record is in dynamic mode, uses the dynamic APIs to manipulate the sublist (e.g. `getCurrentSublistValue()`)
+    * If false uses 'standard mode' (e.g. `getSublistValue()`)
+    * Defaults to true if the record is in dynamic mode. Set this to false prior to manipulating the sublist in order
+    * to force standard mode API usage even if the record is in 'dynamic mode'
+    */
+   get useDynamicModeAPI (): boolean {
+      return this._useDynamicModeAPI
+   }
+
+   set useDynamicModeAPI (value: boolean) {
+      this._useDynamicModeAPI = value
+      // rebuild the array of line objects so the dynamicmode api setting gets applied to all lines.
       this.rebuildArray()
    }
 
@@ -387,6 +387,12 @@ export class Sublist<T extends SublistLine> {
          enumerable: false
       })
    }
+
+   // serialize only the numeric properties of this object into a real array
+   toJSON () {
+      return Object.keys(this).filter(k => !isNaN(+k)).map(key => this[key])
+   }
+
 }
 
 /**
@@ -419,7 +425,6 @@ export abstract class SublistLine {
     * your code that manipulates the sublist line.
     */
    useDynamicModeAPI: boolean
-
    /**
     * Note that the sublistId and _line are used by the Sublist decorators to actually implement functionality, even
     * though they are not referenced directly in this class. We mark them as not-enumerable because they are an implementation
@@ -461,8 +466,18 @@ export abstract class SublistLine {
    toJSON () { // surface inherited properties on a new object so JSON.stringify() sees them all
       const result: any = {}
       for (const key in this) {
-         // don't include internal properties
-         if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI') result[key] = this[key]
+         // NetSuite will error if you try to serialize 'Text' fields on record *create*.
+         // i.e. "Invalid API usage. You must use getSublistValue to return the value set with setSublistValue."
+         // As a workaround, consider this record to be in 'create' mode if there is no _id_ assigned yet
+         // then skip any 'xxxxText' fields.
+         if (!this.nsrecord.id && (key.substring(key.length - 4) === 'Text')) {
+            // yes, this is a side effecting function inside a toJSON but this is a painful enough 'netsuiteism'
+            // to justify
+            log.debug(`toJSON skipping field ${key}`, `workaround to avoid NS erroring on the getText() on a new record`)
+         }
+         else if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI') {
+            result[key] = this[key]
+         }
       }
       return result
    }
@@ -479,4 +494,5 @@ export abstract class SublistLine {
       })
    }
 }
+
 

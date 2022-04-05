@@ -1,9 +1,9 @@
 import * as record from '../__mocks__/N/record'
 import {FieldType, NetsuiteRecord} from "../DataAccess/Record"
 import {Sublist, SublistLine, SublistFieldType} from "../DataAccess/Sublist"
+import * as nsRecord from 'N/record'
 
 describe('Record base tests', function () {
-
 
    test('getText() on field', () => {
       const fakeRec = record.create({type: 'fake'})
@@ -80,7 +80,9 @@ describe('Record base tests', function () {
 
       expect(sut).toBeTruthy()
 
+      // noinspection BadExpressionStatementJS
       sut.foot
+      // noinspection BadExpressionStatementJS
       sut.footSublist[0].bar
 
       expect(record.getValue).toHaveBeenCalledTimes(1)
@@ -89,5 +91,46 @@ describe('Record base tests', function () {
          fieldId: 'bar',
          line: 0,
       })
+   })
+
+   /**
+    * Visually inspect the IDE quick documentation panel for each of the `new A(...)` calls.
+    * in this test.
+    */
+   test('constructors', () => {
+      // a strongly typed NS record
+      const fakeRec:nsRecord.Record  = record.create({type: 'fake'})
+
+      // an NSDAL record type
+      class A extends NetsuiteRecord {}
+
+      // various ways to instantiate, should have no compile time errors
+      // and refer to the jsdocs (e.g. CTRL+Q in webstorm) to see what construcor is being
+      // selected by the type system
+      new A(fakeRec)
+
+      // pass a string, should select the 'load record' constructor
+      const y = '456'
+      new A(y)
+
+      // pass a numeric id, should select the 'load record' constructor
+      new A(123)
+
+      // should select the 'create record' constructor
+      new A(null)
+
+      interface I { z?: string | number }
+      const obj : I = {}
+      new A(obj.z)
+
+      // define variable where `foo` may be null or missing - simulating use case where external input
+      // may have a value or not such as received JSON to an API
+      const x:{foo?:string | null} = { foo: null}
+      // should select the 'load record' constructor
+      new A(x.foo)
+
+      delete x.foo
+      new A(x.foo)
+
    })
 });

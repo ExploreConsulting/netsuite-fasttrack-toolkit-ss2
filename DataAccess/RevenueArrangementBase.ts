@@ -1,8 +1,8 @@
 /**
  * Represents the Revenue Arrangement NetSuite record (used with ARM)
+ * @module
  */
 
-// dummy comment for tsdoc
 import {FieldType, NetsuiteRecord} from "./Record"
 import {Sublist, SublistFieldType, SublistLine} from "./Sublist"
 import * as record from "N/record"

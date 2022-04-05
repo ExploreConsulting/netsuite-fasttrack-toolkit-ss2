@@ -5,11 +5,9 @@
  * Use `LazySearch.from()` and `LazySearch.load()` to get started.
  * Turn search results into plain objects using `nsSearchResult2obj()` and leverage
  * the methods of [ImmutableJS](https://facebook.github.io/immutable-js/) to process search results.
+ * @module
  */
 
-/**
- * dummy comment for the import so TypeDoc renders the comment above this one
- */
 import * as search from 'N/search'
 import * as LogManager from './EC_Logger'
 

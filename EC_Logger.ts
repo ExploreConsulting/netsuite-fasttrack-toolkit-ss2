@@ -1,5 +1,7 @@
 /**
+ *
  * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
+ *
  *
  * Utilizes the [Aurelia logger](https://aurelia.io/docs/api/logging) under the hood.
  * This logger library adopts the common pattern of separating _how_ you log
@@ -8,13 +10,10 @@
  * By default, log messages are sent to the NetSuite Execution Log - *except* for client scripts which log to the
  * *browser console* by default.
  *
- * You can create as many named loggers as you like, but most often you'll work with the [Default Logger](#defaultlogger)
+ * You can create as many named loggers as you like, but most often you'll work with the [[Default Logger]]
  *
  * @NApiVersion 2.x
- */
-
-/**
- * dummy comment for TypeDoc
+ * @module
  */
 import { addAppender, Appender, clearAppenders, getLogger, Logger, logLevel } from './aurelia-logging'
 import * as nslog from 'N/log'
@@ -78,7 +77,7 @@ function log (loglevel: number, logger: Logger, ...rest: any[]) {
    if (logger.id !== 'default') {
       prefix += `[${logger.id}]`
    }
-   nslog[toNetSuiteLogLevel(loglevel)](`${prefix} ${title}`, details)
+   nslog[toNetSuiteLogLevel(loglevel)]({title:`${prefix} ${title}`, details: details })
 }
 
 /**
@@ -342,13 +341,14 @@ declare function require (deps: string | string[], cb?: (...args: any[]) => void
 // global 'console' variable and will fail to load if it's not defined.
 declare var window
 
-// if we're running in nodejs (i.e. unit tests) load the console appender as usual, else use NS's async require(),
-// otherwise go ahead and log to the execution log (assume server-side suitescript)
-if (typeof module === 'object') /* nodejs */
+// if we're running in nodejs (i.e. unit tests) load the console appender using node require()
+if (typeof module === 'object')
    addConsoleAppender(require('aurelia-logging-console'))
-else if ((typeof console === 'object') && (typeof window === 'object') && window.alert) /* browser */
+// Else detect NS client script and use NS's async require() to avoid blocking
+else if ((typeof console === 'object') && (typeof window === 'object') && window.alert)
    require(['./aurelia-logging-console'], addConsoleAppender)
-else /* server-side SuiteScript */
+// otherwise go ahead and log to the execution log (assume server-side suitescript)
+else
    addAppender(new ExecutionLogAppender())
 
 
