@@ -4,7 +4,7 @@ import * as record from 'N/record'
 /**
  * Project Task Base class
  */
-export class Task extends NetsuiteRecord {
+export class TaskBase extends NetsuiteRecord {
    /**
     * Private task
     */

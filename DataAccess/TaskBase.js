@@ -30,120 +30,120 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Task = void 0;
+    exports.TaskBase = void 0;
     var Record_1 = require("./Record");
     var record = require("N/record");
     /**
      * Project Task Base class
      */
-    var Task = /** @class */ (function (_super) {
-        __extends(Task, _super);
-        function Task() {
+    var TaskBase = /** @class */ (function (_super) {
+        __extends(TaskBase, _super);
+        function TaskBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * Record type
          */
-        Task.recordType = function () {
+        TaskBase.recordType = function () {
             return record.Type.TASK;
         };
         __decorate([
             Record_1.FieldType.checkbox
-        ], Task.prototype, "accesslevel", void 0);
+        ], TaskBase.prototype, "accesslevel", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], Task.prototype, "actualtime", void 0);
+        ], TaskBase.prototype, "actualtime", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "assigned", void 0);
+        ], TaskBase.prototype, "assigned", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "company", void 0);
+        ], TaskBase.prototype, "company", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "contact", void 0);
+        ], TaskBase.prototype, "contact", void 0);
         __decorate([
             Record_1.FieldType.date
-        ], Task.prototype, "duedate", void 0);
+        ], TaskBase.prototype, "duedate", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], Task.prototype, "enddate", void 0);
+        ], TaskBase.prototype, "enddate", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], Task.prototype, "endtime", void 0);
+        ], TaskBase.prototype, "endtime", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "endtimepicker", void 0);
+        ], TaskBase.prototype, "endtimepicker", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], Task.prototype, "estimatedtime", void 0);
+        ], TaskBase.prototype, "estimatedtime", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], Task.prototype, "estimatedtimeoverride", void 0);
+        ], TaskBase.prototype, "estimatedtimeoverride", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], Task.prototype, "group", void 0);
+        ], TaskBase.prototype, "group", void 0);
         __decorate([
             Record_1.FieldType.textarea
-        ], Task.prototype, "message", void 0);
+        ], TaskBase.prototype, "message", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "milestone", void 0);
+        ], TaskBase.prototype, "milestone", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], Task.prototype, "owner", void 0);
+        ], TaskBase.prototype, "owner", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "parent", void 0);
+        ], TaskBase.prototype, "parent", void 0);
         __decorate([
             Record_1.FieldType.percent
-        ], Task.prototype, "percentcomplete", void 0);
+        ], TaskBase.prototype, "percentcomplete", void 0);
         __decorate([
             Record_1.FieldType.percent
-        ], Task.prototype, "percenttimecomplete", void 0);
+        ], TaskBase.prototype, "percenttimecomplete", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "priority", void 0);
+        ], TaskBase.prototype, "priority", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "reminderminutes", void 0);
+        ], TaskBase.prototype, "reminderminutes", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "remindertype", void 0);
+        ], TaskBase.prototype, "remindertype", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], Task.prototype, "sendemail", void 0);
+        ], TaskBase.prototype, "sendemail", void 0);
         __decorate([
             Record_1.FieldType.date
-        ], Task.prototype, "startdate", void 0);
+        ], TaskBase.prototype, "startdate", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], Task.prototype, "starttime", void 0);
+        ], TaskBase.prototype, "starttime", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "starttimepicker", void 0);
+        ], TaskBase.prototype, "starttimepicker", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "status", void 0);
+        ], TaskBase.prototype, "status", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "supportcase", void 0);
+        ], TaskBase.prototype, "supportcase", void 0);
         __decorate([
             Record_1.FieldType.checkbox
-        ], Task.prototype, "timedevent", void 0);
+        ], TaskBase.prototype, "timedevent", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], Task.prototype, "timeremaining", void 0);
+        ], TaskBase.prototype, "timeremaining", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], Task.prototype, "timezone", void 0);
+        ], TaskBase.prototype, "timezone", void 0);
         __decorate([
             Record_1.FieldType.freeformtext
-        ], Task.prototype, "title", void 0);
+        ], TaskBase.prototype, "title", void 0);
         __decorate([
             Record_1.FieldType.select
-        ], Task.prototype, "transaction", void 0);
-        return Task;
+        ], TaskBase.prototype, "transaction", void 0);
+        return TaskBase;
     }(Record_1.NetsuiteRecord));
-    exports.Task = Task;
+    exports.TaskBase = TaskBase;
 });
