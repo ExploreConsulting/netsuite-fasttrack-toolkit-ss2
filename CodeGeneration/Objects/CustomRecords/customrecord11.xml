@@ -9,7 +9,7 @@
   <allowquickadd>F</allowquickadd>
   <allowquicksearch>F</allowquicksearch>
   <allowuiaccess>T</allowuiaccess>
-  <description></description>
+  <description>This is a description of the custom record.&#xd;And this is the second line of the description</description>
   <enabledle>T</enabledle>
   <enablekeywords>T</enablekeywords>
   <enablemailmerge>F</enablemailmerge>
@@ -48,7 +48,7 @@
       <defaultchecked>F</defaultchecked>
       <defaultselection></defaultselection>
       <defaultvalue></defaultvalue>
-      <description></description>
+      <description>This is a field description that should be present on the NFT NSDAL object.</description>
       <displayheight></displayheight>
       <displaytype>STATICTEXT</displaytype>
       <displaywidth></displaywidth>
