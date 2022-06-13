@@ -78,7 +78,7 @@ import {FieldType} from "</xsl:text>
 export class {$className} extends {$parentClass} {{
 </xsl:text>
 
-    static recordType = '<xsl:value-of select="@scriptid" />'
+    static recordType() { return '<xsl:value-of select="@scriptid" />' }
     <!-- Add standard common fields that exist on all Custom Records -->
     /**
      * Created
