@@ -64,8 +64,8 @@ gulp.task('declarations', gulp.series('cleandeclarations', function () {
       .pipe(debug({ title: 'copying typescript declaration files:' }))
       .pipe(gulp.dest(decldir))
    // include lodash but we need to rename it to 'lodash' so we can import it with the proper name
-   gulp.src('node_modules/@types/lodash/index.d.ts')
-      .pipe(rename('lodash.d.ts')).pipe(gulp.dest(decldir))// include lodash but we need to rename it to 'lodash' so we can import it with the proper name
+   gulp.src('node_modules/@types/lodash/**')
+      .pipe(gulp.dest(`${decldir}/lodash`))// include lodash but we need to rename it to 'lodash' so we can import it with the proper name
    // similar to above
    return gulp.src('node_modules/immutable/dist/immutable-nonambient.d.ts')
       .pipe(rename('immutable.d.ts')).pipe(gulp.dest(decldir))
