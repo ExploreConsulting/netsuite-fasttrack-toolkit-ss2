@@ -1,18 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -31,7 +16,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.AddressBase = void 0;
-    var Record_1 = require("./Record");
+    const Record_1 = require("./Record");
     /**
      * The addressbook 'subrecord'. In SS2.x this is mostly treated as a normal record object but you can't
      * create or load one from scratch. Typically just reference this type on the appropriate address subrecord
@@ -58,48 +43,43 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
        }
      ```
      */
-    var AddressBase = /** @class */ (function (_super) {
-        __extends(AddressBase, _super);
-        function AddressBase() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addr1", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addr2", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addr3", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addressee", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addrphone", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "addrtext", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "attention", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "city", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], AddressBase.prototype, "country", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "state", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], AddressBase.prototype, "zip", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], AddressBase.prototype, "override", void 0);
-        return AddressBase;
-    }(Record_1.NetsuiteRecord));
+    class AddressBase extends Record_1.NetsuiteRecord {
+    }
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], AddressBase.prototype, "addr1", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], AddressBase.prototype, "addr2", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], AddressBase.prototype, "addr3", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], AddressBase.prototype, "addressee", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], AddressBase.prototype, "addrphone", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], AddressBase.prototype, "addrtext", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], AddressBase.prototype, "attention", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], AddressBase.prototype, "city", void 0);
+    __decorate([
+        Record_1.FieldType.select
+    ], AddressBase.prototype, "country", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], AddressBase.prototype, "state", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], AddressBase.prototype, "zip", void 0);
+    __decorate([
+        Record_1.FieldType.checkbox
+    ], AddressBase.prototype, "override", void 0);
     exports.AddressBase = AddressBase;
 });

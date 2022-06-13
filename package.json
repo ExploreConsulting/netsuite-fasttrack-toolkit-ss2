@@ -1,6 +1,6 @@
 {
   "name": "netsuite-fasttrack-toolkit-ss2",
-  "version": "6.8.0",
+  "version": "7.0.0",
   "description": "Power library for NetSuite SuiteScript 2.x",
   "homepage": "https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/",
   "main": "none",

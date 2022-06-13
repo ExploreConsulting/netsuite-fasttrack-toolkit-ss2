@@ -1,21 +1,6 @@
 /**
  * NS Base intercompany journal entry record (intercompanyjournalentry) - contains definitions for fields and sublists
  */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -34,37 +19,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.IntercompanyJournalEntryBase = exports.LineSublist = void 0;
-    var record = require("N/record");
-    var JournalEntryBase_1 = require("./JournalEntryBase");
-    var Sublist_1 = require("./Sublist");
-    var Record_1 = require("./Record");
+    const record = require("N/record");
+    const JournalEntryBase_1 = require("./JournalEntryBase");
+    const Sublist_1 = require("./Sublist");
+    const Record_1 = require("./Record");
     /**
      * Intercompany Journal Entry Line (line) sublist
      */
-    var LineSublist = /** @class */ (function (_super) {
-        __extends(LineSublist, _super);
-        function LineSublist() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], LineSublist.prototype, "linesubsidiary", void 0);
-        return LineSublist;
-    }(JournalEntryBase_1.LineSublist));
+    class LineSublist extends JournalEntryBase_1.LineSublist {
+    }
+    __decorate([
+        Sublist_1.SublistFieldType.select
+    ], LineSublist.prototype, "linesubsidiary", void 0);
     exports.LineSublist = LineSublist;
     /**
      * defines an Inter-company journal entry (basically identical to a normal journal entry?)
      */
-    var IntercompanyJournalEntryBase = /** @class */ (function (_super) {
-        __extends(IntercompanyJournalEntryBase, _super);
-        function IntercompanyJournalEntryBase() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        IntercompanyJournalEntryBase.recordType = function () { return record.Type.INTER_COMPANY_JOURNAL_ENTRY; };
-        __decorate([
-            Record_1.FieldType.sublist(LineSublist)
-        ], IntercompanyJournalEntryBase.prototype, "line", void 0);
-        return IntercompanyJournalEntryBase;
-    }(JournalEntryBase_1.JournalEntryBase));
+    class IntercompanyJournalEntryBase extends JournalEntryBase_1.JournalEntryBase {
+        static recordType() { return record.Type.INTER_COMPANY_JOURNAL_ENTRY; }
+    }
+    __decorate([
+        Record_1.FieldType.sublist(LineSublist)
+    ], IntercompanyJournalEntryBase.prototype, "line", void 0);
     exports.IntercompanyJournalEntryBase = IntercompanyJournalEntryBase;
 });

@@ -1,21 +1,6 @@
 /**
  * Represents a Cash Refund (cashrefund) transaction type in NetSuite
  */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -34,73 +19,63 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ItemSublist = exports.CashRefundBase = void 0;
-    var Record_1 = require("./Record");
-    var record = require("N/record");
-    var Transaction_1 = require("./Transaction");
-    var Sublist_1 = require("./Sublist");
-    var CashRefundBase = /** @class */ (function (_super) {
-        __extends(CashRefundBase, _super);
-        function CashRefundBase() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        CashRefundBase.recordType = function () { return record.Type.CASH_REFUND; };
-        __decorate([
-            Record_1.FieldType.select
-        ], CashRefundBase.prototype, "account", void 0);
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], CashRefundBase.prototype, "ccapproved", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], CashRefundBase.prototype, "ccexpiredate", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], CashRefundBase.prototype, "ccname", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], CashRefundBase.prototype, "ccnumber", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], CashRefundBase.prototype, "paymentmethod", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], CashRefundBase.prototype, "pnrefnum", void 0);
-        __decorate([
-            Record_1.FieldType.currency
-        ], CashRefundBase.prototype, "total", void 0);
-        return CashRefundBase;
-    }(Transaction_1.TransactionBase));
+    const Record_1 = require("./Record");
+    const record = require("N/record");
+    const Transaction_1 = require("./Transaction");
+    const Sublist_1 = require("./Sublist");
+    class CashRefundBase extends Transaction_1.TransactionBase {
+        static recordType() { return record.Type.CASH_REFUND; }
+    }
+    __decorate([
+        Record_1.FieldType.select
+    ], CashRefundBase.prototype, "account", void 0);
+    __decorate([
+        Record_1.FieldType.checkbox
+    ], CashRefundBase.prototype, "ccapproved", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], CashRefundBase.prototype, "ccexpiredate", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], CashRefundBase.prototype, "ccname", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], CashRefundBase.prototype, "ccnumber", void 0);
+    __decorate([
+        Record_1.FieldType.select
+    ], CashRefundBase.prototype, "paymentmethod", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], CashRefundBase.prototype, "pnrefnum", void 0);
+    __decorate([
+        Record_1.FieldType.currency
+    ], CashRefundBase.prototype, "total", void 0);
     exports.CashRefundBase = CashRefundBase;
-    var ItemSublist = /** @class */ (function (_super) {
-        __extends(ItemSublist, _super);
-        function ItemSublist() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        __decorate([
-            Sublist_1.SublistFieldType.currency
-        ], ItemSublist.prototype, "amount", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], ItemSublist.prototype, "item", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.decimalnumber
-        ], ItemSublist.prototype, "quantity", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.date
-        ], ItemSublist.prototype, "revrecstartdate", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.date
-        ], ItemSublist.prototype, "revrecenddate", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.decimalnumber
-        ], ItemSublist.prototype, "rate", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.select
-        ], ItemSublist.prototype, "taxcode", void 0);
-        __decorate([
-            Sublist_1.SublistFieldType.decimalnumber
-        ], ItemSublist.prototype, "taxrate1", void 0);
-        return ItemSublist;
-    }(Sublist_1.SublistLine));
+    class ItemSublist extends Sublist_1.SublistLine {
+    }
+    __decorate([
+        Sublist_1.SublistFieldType.currency
+    ], ItemSublist.prototype, "amount", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.select
+    ], ItemSublist.prototype, "item", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.decimalnumber
+    ], ItemSublist.prototype, "quantity", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.date
+    ], ItemSublist.prototype, "revrecstartdate", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.date
+    ], ItemSublist.prototype, "revrecenddate", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.decimalnumber
+    ], ItemSublist.prototype, "rate", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.select
+    ], ItemSublist.prototype, "taxcode", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.decimalnumber
+    ], ItemSublist.prototype, "taxrate1", void 0);
     exports.ItemSublist = ItemSublist;
 });

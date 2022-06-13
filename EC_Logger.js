@@ -1,12 +1,3 @@
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
@@ -36,10 +27,10 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
      * @NApiVersion 2.x
      * @module
      */
-    var aurelia_logging_1 = require("./aurelia-logging");
-    var nslog = require("N/log");
-    var runtime = require("N/runtime");
-    var aop = require("./aop");
+    const aurelia_logging_1 = require("./aurelia-logging");
+    const nslog = require("N/log");
+    const runtime = require("N/runtime");
+    const aop = require("./aop");
     var aurelia_logging_2 = require("./aurelia-logging");
     Object.defineProperty(exports, "logLevel", { enumerable: true, get: function () { return aurelia_logging_2.logLevel; } });
     Object.defineProperty(exports, "Logger", { enumerable: true, get: function () { return aurelia_logging_2.Logger; } });
@@ -78,24 +69,20 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
      * 1234> Another log title from the same run of the script
      * 5683> Log message from a subsequent execution of the script
      */
-    var setIncludeCorrelationId = function (enable) { return exports.includeCorrelationId = enable; };
+    const setIncludeCorrelationId = (enable) => exports.includeCorrelationId = enable;
     exports.setIncludeCorrelationId = setIncludeCorrelationId;
     // internal function to invoke the ns log function and handles adding a title tag
-    function log(loglevel, logger) {
-        var rest = [];
-        for (var _i = 2; _i < arguments.length; _i++) {
-            rest[_i - 2] = arguments[_i];
-        }
-        var title = rest[0], details = rest[1];
-        var prefix = '';
+    function log(loglevel, logger, ...rest) {
+        let [title, details] = rest;
+        let prefix = '';
         if (exports.includeCorrelationId) {
-            prefix += "".concat(exports.correlationId, ">");
+            prefix += `${exports.correlationId}>`;
         }
         // prefix all loggers except the 'default' one used by top level code
         if (logger.id !== 'default') {
-            prefix += "[".concat(logger.id, "]");
+            prefix += `[${logger.id}]`;
         }
-        nslog[toNetSuiteLogLevel(loglevel)]({ title: "".concat(prefix, " ").concat(title), details: details });
+        nslog[toNetSuiteLogLevel(loglevel)]({ title: `${prefix} ${title}`, details: details });
     }
     /**
      * Log appender targeting the NS execution log. This is the default appender for everything except Client scripts
@@ -111,48 +98,29 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
      *
      * error -> NS 'EMERGENCY'
      */
-    var ExecutionLogAppender = /** @class */ (function () {
-        function ExecutionLogAppender() {
+    class ExecutionLogAppender {
+        debug(logger, ...rest) {
+            log(aurelia_logging_1.logLevel.debug, logger, ...rest);
         }
-        ExecutionLogAppender.prototype.debug = function (logger) {
-            var rest = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                rest[_i - 1] = arguments[_i];
-            }
-            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.debug, logger], rest, false));
-        };
         /**
          * Info about info
          * @param logger
          * @param rest
          */
-        ExecutionLogAppender.prototype.info = function (logger) {
-            var rest = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                rest[_i - 1] = arguments[_i];
-            }
-            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.info, logger], rest, false));
-        };
-        ExecutionLogAppender.prototype.warn = function (logger) {
-            var rest = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                rest[_i - 1] = arguments[_i];
-            }
-            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.warn, logger], rest, false));
-        };
-        ExecutionLogAppender.prototype.error = function (logger) {
-            var rest = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                rest[_i - 1] = arguments[_i];
-            }
-            log.apply(void 0, __spreadArray([aurelia_logging_1.logLevel.error, logger], rest, false));
-        };
-        return ExecutionLogAppender;
-    }());
+        info(logger, ...rest) {
+            log(aurelia_logging_1.logLevel.info, logger, ...rest);
+        }
+        warn(logger, ...rest) {
+            log(aurelia_logging_1.logLevel.warn, logger, ...rest);
+        }
+        error(logger, ...rest) {
+            log(aurelia_logging_1.logLevel.error, logger, ...rest);
+        }
+    }
     exports.ExecutionLogAppender = ExecutionLogAppender;
     // instantiate the default logger and set it's logging level to the most verbose - this is used as
     // the 'main' logger by consumers
-    var defaultLogger = (0, aurelia_logging_1.getLogger)('default');
+    let defaultLogger = (0, aurelia_logging_1.getLogger)('default');
     defaultLogger.setLevel(aurelia_logging_1.logLevel.debug);
     // maps aurelia numeric levels to NS string level names
     function toNetSuiteLogLevel(level) {
@@ -170,7 +138,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
         }
     }
     function getGovernanceMessage(governanceEnabled) {
-        return governanceEnabled ? "governance: ".concat(runtime.getCurrentScript().getRemainingUsage()) : undefined;
+        return governanceEnabled ? `governance: ${runtime.getCurrentScript().getRemainingUsage()}` : undefined;
     }
     /**
      * (taken from lodash https://github.com/lodash/lodash/blob/a0a3a6af910e475d8dd14dabc452f957e436e28b/findKey.js)
@@ -196,14 +164,14 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
      * // => 'barney' (iteration order is not guaranteed)
      */
     function findKey(object, predicate) {
-        var result;
+        let result;
         if (object == null) {
             // @ts-ignore
             // noinspection JSUnusedAssignment
             return result;
         }
-        Object.keys(object).some(function (key) {
-            var value = object[key];
+        Object.keys(object).some((key) => {
+            const value = object[key];
             if (predicate(value, key, object)) {
                 result = key;
                 return true;
@@ -254,32 +222,32 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
         if (!config)
             config = {};
         // include method parameters by default
-        var withArgs = config.withArgs !== false;
+        const withArgs = config.withArgs !== false;
         // include return values by default
-        var withReturnValue = config.withReturnValue !== false;
+        const withReturnValue = config.withReturnValue !== false;
         // default to not show profiling info
-        var withProfiling = config.withProfiling === true;
+        const withProfiling = config.withProfiling === true;
         // default to not show governance info
-        var withGovernance = config.withGovernance === true;
+        const withGovernance = config.withGovernance === true;
         // logger name on which to autolog, default to the top level 'Default' logger used by scripts
-        var logger = config.logger || exports.DefaultLogger;
+        const logger = config.logger || exports.DefaultLogger;
         // logging level specified in config else default to debug. need to translate from number loglevels back to names
-        var level = findKey(aurelia_logging_1.logLevel, function (o) { return o === (config.logLevel || aurelia_logging_1.logLevel.debug); });
+        const level = findKey(aurelia_logging_1.logLevel, o => o === (config.logLevel || aurelia_logging_1.logLevel.debug));
         return aop.around(methodsToLogEntryExit, function (invocation) {
             // record function entry with details for every method on our explore object
-            var entryTitle = "Enter ".concat(invocation.method, "() ").concat(getGovernanceMessage(withGovernance));
-            var entryDetail = withArgs ? arguments[0].arguments : null;
+            const entryTitle = `Enter ${invocation.method}() ${getGovernanceMessage(withGovernance)}`;
+            const entryDetail = withArgs ? arguments[0].arguments : null;
             logger[level](entryTitle, entryDetail);
-            var startTime = Date.now();
-            var retval = invocation.proceed();
-            var elapsedMessage = '';
+            const startTime = Date.now();
+            const retval = invocation.proceed();
+            let elapsedMessage = '';
             if (withProfiling) {
-                var elapsedMilliseconds = Date.now() - startTime;
-                var elapsedMinutes = ((elapsedMilliseconds / 1000) / 60).toFixed(2);
-                elapsedMessage = "".concat(elapsedMilliseconds, "ms = ").concat(elapsedMinutes, " minutes");
+                const elapsedMilliseconds = Date.now() - startTime;
+                const elapsedMinutes = ((elapsedMilliseconds / 1000) / 60).toFixed(2);
+                elapsedMessage = `${elapsedMilliseconds}ms = ${elapsedMinutes} minutes`;
             }
-            var exitTitle = "Exit ".concat(invocation.method, "(): ").concat(elapsedMessage, " ").concat(getGovernanceMessage(withGovernance));
-            var exitDetail = withReturnValue ? retval : null;
+            const exitTitle = `Exit ${invocation.method}(): ${elapsedMessage} ${getGovernanceMessage(withGovernance)}`;
+            const exitDetail = withReturnValue ? retval : null;
             logger[level](exitTitle, exitDetail);
             return retval;
         });
@@ -310,7 +278,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
      * Use to set the correlation id to a value other than the default random number
      * @param value new correlation id, will be used on all subsequent log messages for the current script execution
      */
-    var setCorrelationId = function (value) { return exports.correlationId = value; };
+    const setCorrelationId = (value) => exports.correlationId = value;
     exports.setCorrelationId = setCorrelationId;
     /**
      * Adds the passed aurelia logging console (browser/node) appender with diagnostic logging

@@ -1,21 +1,6 @@
 /**
  * Base Customer Deposit (customerdeposit) definition
  */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -34,37 +19,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.CustomerDepositBase = void 0;
-    var Record_1 = require("./Record");
-    var Transaction_1 = require("./Transaction");
-    var record = require("N/record");
+    const Record_1 = require("./Record");
+    const Transaction_1 = require("./Transaction");
+    const record = require("N/record");
     /**
      * NetSuite Customer Deposit Record 'customerdeposit'
      */
-    var CustomerDepositBase = /** @class */ (function (_super) {
-        __extends(CustomerDepositBase, _super);
-        function CustomerDepositBase() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        CustomerDepositBase.recordType = function () { return record.Type.CUSTOMER_DEPOSIT; };
-        __decorate([
-            Record_1.FieldType.select
-        ], CustomerDepositBase.prototype, "account", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], CustomerDepositBase.prototype, "currency", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], CustomerDepositBase.prototype, "customer", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], CustomerDepositBase.prototype, "paymentmethod", void 0);
-        __decorate([
-            Record_1.FieldType.select
-        ], CustomerDepositBase.prototype, "salesorder", void 0);
-        __decorate([
-            Record_1.FieldType.currency
-        ], CustomerDepositBase.prototype, "payment", void 0);
-        return CustomerDepositBase;
-    }(Transaction_1.TransactionBase));
+    class CustomerDepositBase extends Transaction_1.TransactionBase {
+        static recordType() { return record.Type.CUSTOMER_DEPOSIT; }
+    }
+    __decorate([
+        Record_1.FieldType.select
+    ], CustomerDepositBase.prototype, "account", void 0);
+    __decorate([
+        Record_1.FieldType.select
+    ], CustomerDepositBase.prototype, "currency", void 0);
+    __decorate([
+        Record_1.FieldType.select
+    ], CustomerDepositBase.prototype, "customer", void 0);
+    __decorate([
+        Record_1.FieldType.select
+    ], CustomerDepositBase.prototype, "paymentmethod", void 0);
+    __decorate([
+        Record_1.FieldType.select
+    ], CustomerDepositBase.prototype, "salesorder", void 0);
+    __decorate([
+        Record_1.FieldType.currency
+    ], CustomerDepositBase.prototype, "payment", void 0);
     exports.CustomerDepositBase = CustomerDepositBase;
 });

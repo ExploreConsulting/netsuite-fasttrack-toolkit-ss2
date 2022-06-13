@@ -4,17 +4,6 @@
  * that here (yet) in interest of code clarity. Also the fact that it's only two copies (usually use the rule of
  * three's for DRY).
  */
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
@@ -27,10 +16,10 @@ var __assign = (this && this.__assign) || function () {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.SublistLine = exports.Sublist = exports.subrecordDescriptor = exports.formattedSublistDescriptor = exports.SublistFieldType = void 0;
-    var format = require("N/format");
-    var LogManager = require("../EC_Logger");
-    var error = require("N/error");
-    var log = LogManager.getLogger('nsdal-sublist');
+    const format = require("N/format");
+    const LogManager = require("../EC_Logger");
+    const error = require("N/error");
+    const log = LogManager.getLogger('nsdal-sublist');
     /*
      note that numeric sublist fields seem to do ok with the defaultdescriptor with the exception of percent fields.
      this differs from body fields behavior - it seems body fields required the numericDescriptor (see numericDescriptor
@@ -70,37 +59,45 @@ var __assign = (this && this.__assign) || function () {
     function setSublistValue(fieldId, value, isText) {
         // ignore undefined's
         if (value !== undefined) {
-            var options = {
+            const options = {
                 sublistId: this.sublistId,
                 fieldId: fieldId
             };
             if (this.useDynamicModeAPI && this.nsrecord.isDynamic) {
                 this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
-                isText ? this.nsrecord.setCurrentSublistText(__assign(__assign({}, options), { ignoreFieldChange: this.ignoreFieldChange, text: value }))
-                    : this.nsrecord.setCurrentSublistValue(__assign(__assign({}, options), { ignoreFieldChange: this.ignoreFieldChange, value: value }));
+                isText ? this.nsrecord.setCurrentSublistText({
+                    ...options,
+                    ignoreFieldChange: this.ignoreFieldChange,
+                    text: value
+                })
+                    : this.nsrecord.setCurrentSublistValue({
+                        ...options,
+                        ignoreFieldChange: this.ignoreFieldChange,
+                        value: value
+                    });
             }
             else {
-                isText ? this.nsrecord.setSublistText(__assign(__assign({}, options), { line: this._line, text: value }))
-                    : this.nsrecord.setSublistValue(__assign(__assign({}, options), { line: this._line, value: value }));
+                isText ? this.nsrecord.setSublistText({ ...options, line: this._line, text: value })
+                    : this.nsrecord.setSublistValue({ ...options, line: this._line, value: value });
             }
         }
         else
-            log.debug("ignoring field [".concat(fieldId, "]"), 'field value is undefined');
+            log.debug(`ignoring field [${fieldId}]`, 'field value is undefined');
     }
     function getSublistValue(fieldId, isText) {
-        var options = {
+        const options = {
             sublistId: this.sublistId,
             fieldId: fieldId,
         };
-        log.debug("getting sublist ".concat(isText ? 'text' : 'value'), options);
+        log.debug(`getting sublist ${isText ? 'text' : 'value'}`, options);
         if (this.useDynamicModeAPI && this.nsrecord.isDynamic) {
             this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
             return isText ? this.nsrecord.getCurrentSublistText(options)
                 : this.nsrecord.getCurrentSublistValue(options);
         }
         else {
-            return isText ? this.nsrecord.getSublistText(__assign(__assign({}, options), { line: this._line }))
-                : this.nsrecord.getSublistValue(__assign(__assign({}, options), { line: this._line }));
+            return isText ? this.nsrecord.getSublistText({ ...options, line: this._line })
+                : this.nsrecord.getSublistValue({ ...options, line: this._line });
         }
     }
     /**
@@ -112,8 +109,8 @@ var __assign = (this && this.__assign) || function () {
      * with Object.defineProperty
      */
     function defaultSublistDescriptor(target, propertyKey) {
-        log.debug('creating default descriptor', "field: ".concat(propertyKey));
-        var _a = parseProp(propertyKey), isTextField = _a[0], nsfield = _a[1];
+        log.debug('creating default descriptor', `field: ${propertyKey}`);
+        const [isTextField, nsfield] = parseProp(propertyKey);
         return {
             get: function () {
                 return getSublistValue.call(this, nsfield, isTextField);
@@ -136,15 +133,15 @@ var __assign = (this && this.__assign) || function () {
     function formattedSublistDescriptor(formatType, target, propertyKey) {
         return {
             get: function () {
-                log.debug("getting formatted field [".concat(propertyKey, "]"));
-                var value = getSublistValue.call(this, propertyKey, false); // to satisfy typing for format.parse(value) below.
-                log.debug("transforming field [".concat(propertyKey, "] of type [").concat(formatType, "]"), "with value ".concat(value));
+                log.debug(`getting formatted field [${propertyKey}]`);
+                const value = getSublistValue.call(this, propertyKey, false); // to satisfy typing for format.parse(value) below.
+                log.debug(`transforming field [${propertyKey}] of type [${formatType}]`, `with value ${value}`);
                 // ensure we don't return moments for null, undefined, etc.
                 // returns the 'raw' type which is a string or number for our purposes
                 return value ? format.parse({ type: formatType, value: value }) : value;
             },
             set: function (value) {
-                var formattedValue;
+                let formattedValue;
                 // allow null to flow through, but ignore undefined's
                 if (value !== undefined) {
                     switch (formatType) {
@@ -167,14 +164,14 @@ var __assign = (this && this.__assign) || function () {
                         default:
                             formattedValue = format.format({ type: formatType, value: value });
                     }
-                    log.debug("setting sublist field [".concat(propertyKey, ":").concat(formatType, "]"), "to formatted value [".concat(formattedValue, "] (unformatted vale: ").concat(value, ")"));
+                    log.debug(`setting sublist field [${propertyKey}:${formatType}]`, `to formatted value [${formattedValue}] (unformatted vale: ${value})`);
                     if (value === null)
                         setSublistValue.call(this, propertyKey, null);
                     else
                         setSublistValue.call(this, propertyKey, formattedValue);
                 }
                 else
-                    log.info("not setting sublist ".concat(propertyKey, " field"), 'value was undefined');
+                    log.info(`not setting sublist ${propertyKey} field`, 'value was undefined');
             },
             enumerable: true //default is false
         };
@@ -204,13 +201,13 @@ var __assign = (this && this.__assign) || function () {
      * Text suffix removed)
      */
     function parseProp(propertyKey) {
-        var endsWithText = propertyKey.slice(-4) === 'Text';
+        let endsWithText = propertyKey.slice(-4) === 'Text';
         return [endsWithText, endsWithText ? propertyKey.replace('Text', '') : propertyKey];
     }
     /**
      * creates a sublist whose lines are of type T
      */
-    var Sublist = /** @class */ (function () {
+    class Sublist {
         /**
          * Constructs a new array-like representation of a NS sublist.
          * @param sublistLineType the type (should be a class extending `SublistLine`) to represent individual rows
@@ -218,7 +215,7 @@ var __assign = (this && this.__assign) || function () {
          * @param rec the NS native`record.Record` instance to manipulate
          * @param sublistId name of the sublist we're representing
          */
-        function Sublist(sublistLineType, rec, sublistId) {
+        constructor(sublistLineType, rec, sublistId) {
             this.sublistLineType = sublistLineType;
             this.sublistId = sublistId;
             this.sublistLineType = sublistLineType;
@@ -229,35 +226,27 @@ var __assign = (this && this.__assign) || function () {
             this._useDynamicModeAPI = this.nsrecord.isDynamic;
             this.rebuildArray();
         }
-        Object.defineProperty(Sublist.prototype, "useDynamicModeAPI", {
-            /**
-             * If true **and** the underlying netsuite record is in dynamic mode, uses the dynamic APIs to manipulate the sublist (e.g. `getCurrentSublistValue()`)
-             * If false uses 'standard mode' (e.g. `getSublistValue()`)
-             * Defaults to true if the record is in dynamic mode. Set this to false prior to manipulating the sublist in order
-             * to force standard mode API usage even if the record is in 'dynamic mode'
-             */
-            get: function () {
-                return this._useDynamicModeAPI;
-            },
-            set: function (value) {
-                this._useDynamicModeAPI = value;
-                // rebuild the array of line objects so the dynamicmode api setting gets applied to all lines.
-                this.rebuildArray();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(Sublist.prototype, "length", {
-            /**
-             * array-like length property (linecount)
-             * @returns {number} number of lines in this list
-             */
-            get: function () {
-                return this.nsrecord.getLineCount({ sublistId: this.sublistId });
-            },
-            enumerable: false,
-            configurable: true
-        });
+        /**
+         * If true **and** the underlying netsuite record is in dynamic mode, uses the dynamic APIs to manipulate the sublist (e.g. `getCurrentSublistValue()`)
+         * If false uses 'standard mode' (e.g. `getSublistValue()`)
+         * Defaults to true if the record is in dynamic mode. Set this to false prior to manipulating the sublist in order
+         * to force standard mode API usage even if the record is in 'dynamic mode'
+         */
+        get useDynamicModeAPI() {
+            return this._useDynamicModeAPI;
+        }
+        set useDynamicModeAPI(value) {
+            this._useDynamicModeAPI = value;
+            // rebuild the array of line objects so the dynamicmode api setting gets applied to all lines.
+            this.rebuildArray();
+        }
+        /**
+         * array-like length property (linecount)
+         * @returns {number} number of lines in this list
+         */
+        get length() {
+            return this.nsrecord.getLineCount({ sublistId: this.sublistId });
+        }
         /**
          * adds a new line to this sublist at the given line number.
          * @param ignoreRecalc set true to avoid line recalc
@@ -265,13 +254,11 @@ var __assign = (this && this.__assign) || function () {
          * in dynamic mode this parameter is ignored (dynamic mode uses selectNewLine()). The insertion point
          * should be <= length of the list
          */
-        Sublist.prototype.addLine = function (ignoreRecalc, insertAt) {
-            if (ignoreRecalc === void 0) { ignoreRecalc = true; }
-            if (insertAt === void 0) { insertAt = this.length; }
-            log.info('inserting line', "sublist: ".concat(this.sublistId, " insert at line:").concat(insertAt));
+        addLine(ignoreRecalc = true, insertAt = this.length) {
+            log.info('inserting line', `sublist: ${this.sublistId} insert at line:${insertAt}`);
             if (insertAt > this.length) {
                 throw error.create({
-                    message: "insertion index (".concat(insertAt, ") cannot be greater than sublist length (").concat(this.length, ")"),
+                    message: `insertion index (${insertAt}) cannot be greater than sublist length (${this.length})`,
                     name: 'NFT_INSERT_LINE_OUT_OF_BOUNDS'
                 });
             }
@@ -287,80 +274,77 @@ var __assign = (this && this.__assign) || function () {
             }
             log.info('line count after adding', this.length);
             return (this._useDynamicModeAPI && this.nsrecord.isDynamic) ? this[this.length] : this[insertAt];
-        };
+        }
         /**
          * Removes all existing lines of this sublist, leaving effectively an empty array
          * @param ignoreRecalc passed through to nsrecord.removeLine (ignores firing recalc event as each line is removed )
          */
-        Sublist.prototype.removeAllLines = function (ignoreRecalc) {
-            if (ignoreRecalc === void 0) { ignoreRecalc = true; }
+        removeAllLines(ignoreRecalc = true) {
             while (this.length > 0) {
-                var lineNum = this.length - 1;
+                const lineNum = this.length - 1;
                 this.removeLine(lineNum, ignoreRecalc);
                 log.debug('removed line', lineNum);
             }
             this.rebuildArray();
             return this;
-        };
+        }
         /**
          * commits the currently selected line on this sublist. When adding new lines in standard mode
          * you don't need to call this method
          */
-        Sublist.prototype.commitLine = function () {
+        commitLine() {
             if (!this.nsrecord.isDynamic) {
                 throw error.create({
                     message: 'do not call commitLine() on records in standard mode, commitLine() is only needed in dynamic mode',
                     name: 'NFT_COMMITLINE_BUT_NOT_DYNAMIC_MODE_RECORD'
                 });
             }
-            log.info('committing line', "sublist: ".concat(this.sublistId));
+            log.info('committing line', `sublist: ${this.sublistId}`);
             this.nsrecord.commitLine({ sublistId: this.sublistId });
             this.rebuildArray();
-        };
+        }
         /**
          * Selects the given line on this sublist
          * @param line line number
          */
-        Sublist.prototype.selectLine = function (line) {
+        selectLine(line) {
             log.debug('selecting line', line);
             this.nsrecord.selectLine({ sublistId: this.sublistId, line: line });
-        };
+        }
         /**
          * removes a line at the given index. Note this causes the array to rebuild.
          * @param line
          * @param ignoreRecalc
          */
-        Sublist.prototype.removeLine = function (line, ignoreRecalc) {
-            if (ignoreRecalc === void 0) { ignoreRecalc = false; }
+        removeLine(line, ignoreRecalc = false) {
             this.nsrecord.removeLine({ line: line, sublistId: this.sublistId, ignoreRecalc: ignoreRecalc });
             this.rebuildArray();
-        };
+        }
         /**
          * Gets the NetSuite metadata for the given sublist field. Useful when you want to do things like disable
          * a sublist field or other operations on the field itself (rather than the field value/text)
          * Note: this uses the first sublist line (0) when retrieving field data
          * @param field name of the desired sublist field
          */
-        Sublist.prototype.getField = function (field) {
+        getField(field) {
             return this.nsrecord.getSublistField({
                 fieldId: field,
                 sublistId: this.sublistId,
                 line: 0
             });
-        };
+        }
         /**
          * upserts the indexed props (array-like structure) This is called once at construction, but also
          * as needed when a user dynamically works with sublist rows.
          */
-        Sublist.prototype.rebuildArray = function () {
-            var _this = this;
+        rebuildArray() {
             log.info('deleting existing numeric properties');
-            Object.getOwnPropertyNames(this).filter(function (key) { return !isNaN(+key); }).forEach(function (key) { return delete _this[key]; }, this);
+            Object.getOwnPropertyNames(this).filter(key => !isNaN(+key)).forEach(key => delete this[key], this);
             log.debug('sublist after deleting properties', this);
-            log.info('building sublist', "type:".concat(this.sublistId, ", linecount:").concat(this.length));
+            log.info('building sublist', `type:${this.sublistId}, linecount:${this.length}`);
             // create a sublist line indexed property of type T for each member of the underlying sublist
-            for (var i = 0; i < this.length; i++) {
-                var line = new this.sublistLineType(this.sublistId, this.nsrecord, i);
+            for (let i = 0; i < this.length; i++) {
+                const line = new this.sublistLineType(this.sublistId, this.nsrecord, i);
                 line.useDynamicModeAPI = this._useDynamicModeAPI;
                 this[i] = line;
             }
@@ -379,25 +363,23 @@ var __assign = (this && this.__assign) || function () {
                     configurable: true // so prop can be deleted
                 });
             }
-        };
+        }
         /**
          * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
          * field properties defined on derived classes should be seen when enumerating
          * @param value
          */
-        Sublist.prototype.makeRecordProp = function (value) {
+        makeRecordProp(value) {
             Object.defineProperty(this, 'nsrecord', {
                 value: value,
                 enumerable: false
             });
-        };
+        }
         // serialize only the numeric properties of this object into a real array
-        Sublist.prototype.toJSON = function () {
-            var _this = this;
-            return Object.keys(this).filter(function (k) { return !isNaN(+k); }).map(function (key) { return _this[key]; });
-        };
-        return Sublist;
-    }());
+        toJSON() {
+            return Object.keys(this).filter(k => !isNaN(+k)).map(key => this[key]);
+        }
+    }
     exports.Sublist = Sublist;
     /**
      * Base class for a sublist line. Encapsulates - 1. which sublist are we working with, 2. on which record
@@ -416,7 +398,7 @@ var __assign = (this && this.__assign) || function () {
      *         priceText:string
      *       }
      */
-    var SublistLine = /** @class */ (function () {
+    class SublistLine {
         /**
          * Note that the sublistId and _line are used by the Sublist decorators to actually implement functionality, even
          * though they are not referenced directly in this class. We mark them as not-enumerable because they are an implementation
@@ -426,7 +408,7 @@ var __assign = (this && this.__assign) || function () {
          * @param {number} _line the line number needed in decorator calls to underlying sublist. That's also why this is
          * public - so that the decorators have access to it.
          */
-        function SublistLine(sublistId, rec, _line) {
+        constructor(sublistId, rec, _line) {
             this.sublistId = sublistId;
             this._line = _line;
             this.ignoreFieldChange = false;
@@ -447,7 +429,7 @@ var __assign = (this && this.__assign) || function () {
          * ```
          * @param fieldId the field that points to the subrecord
          */
-        SublistLine.prototype.getSubRecord = function (fieldId) {
+        getSubRecord(fieldId) {
             if (this.useDynamicModeAPI) {
                 this.nsrecord.selectLine({ sublistId: this.sublistId, line: this._line });
                 return this.nsrecord.getCurrentSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId });
@@ -455,11 +437,11 @@ var __assign = (this && this.__assign) || function () {
             else {
                 return this.nsrecord.getSublistSubrecord({ fieldId: fieldId, sublistId: this.sublistId, line: this._line });
             }
-        };
+        }
         // serialize lines to an array with properties shown
-        SublistLine.prototype.toJSON = function () {
-            var result = {};
-            for (var key in this) {
+        toJSON() {
+            const result = {};
+            for (const key in this) {
                 // NetSuite will error if you try to serialize 'Text' fields on record *create*.
                 // i.e. "Invalid API usage. You must use getSublistValue to return the value set with setSublistValue."
                 // As a workaround, consider this record to be in 'create' mode if there is no _id_ assigned yet
@@ -467,26 +449,25 @@ var __assign = (this && this.__assign) || function () {
                 if (!this.nsrecord.id && (key.substring(key.length - 4) === 'Text')) {
                     // yes, this is a side effecting function inside a toJSON but this is a painful enough 'netsuiteism'
                     // to justify
-                    log.debug("toJSON skipping field ".concat(key), "workaround to avoid NS erroring on the getText() on a new record");
+                    log.debug(`toJSON skipping field ${key}`, `workaround to avoid NS erroring on the getText() on a new record`);
                 }
                 else if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI') {
                     result[key] = this[key];
                 }
             }
             return result;
-        };
+        }
         /**
          * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
          * field properties defined on derived classes should be seen when enumerating
          * @param value
          */
-        SublistLine.prototype.makeRecordProp = function (value) {
+        makeRecordProp(value) {
             Object.defineProperty(this, 'nsrecord', {
                 value: value,
                 enumerable: false
             });
-        };
-        return SublistLine;
-    }());
+        }
+    }
     exports.SublistLine = SublistLine;
 });
