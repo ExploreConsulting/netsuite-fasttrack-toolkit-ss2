@@ -83,12 +83,26 @@ export function nsSearchResult2obj <T = {}>(useLabels = true): (r:search.Result)
  * const oneResult = Seq(LazySearch.load('1234')).map(nsSearchResult2obj()).take(1)
  * ```
  */
-export class LazySearch implements Iterator<search.Result | null> {
+export class LazySearch implements IterableIterator<search.Result> {
+
+   /**
+    * LazySearch is both an iterable and an iterator for search results.
+    */
+   [Symbol.iterator] (): IterableIterator<search.Result> {
+      return this
+   }
 
    /**
     * the name of the custom logger for this component for independent logging control
     */
    static LOGNAME = 'lazy'
+
+   // /**
+   //  * A LazySearch is iterable per the iterable protocol, which also plays nicely with immutablejs
+   //  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
+   //  */
+
+
 
    /**
     * Loads an existing NS search by id and prepares it for lazy evaluation
@@ -179,7 +193,7 @@ export class LazySearch implements Iterator<search.Result | null> {
     *
     * You don't typically call this function yourself - libraries like ImmutableJS do.
     */
-   next(): IteratorResult<search.Result | null> {
+   next(): IteratorResult<search.Result> {
       const atEndOfPage = this.index === this.currentData.length
       const done = !this.currentPage || (this.currentPage.isLast && atEndOfPage)
 

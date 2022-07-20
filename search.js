@@ -107,6 +107,16 @@
             this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`, `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`);
         }
         /**
+         * LazySearch is both an iterable and an iterator for search results.
+         */
+        [Symbol.iterator]() {
+            return this;
+        }
+        // /**
+        //  * A LazySearch is iterable per the iterable protocol, which also plays nicely with immutablejs
+        //  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
+        //  */
+        /**
          * Loads an existing NS search by id and prepares it for lazy evaluation
          * @param id internal id of the search to load
          * @param pageSize how many records to retrieve per page (paging is automatic) Maximum value: 1000
