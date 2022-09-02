@@ -2,21 +2,6 @@
  * Defines the nsdal handling for record body fields.
  *
  */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
@@ -29,41 +14,40 @@ var __extends = (this && this.__extends) || (function () {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.FieldType = exports.numericDescriptor = exports.defaultDescriptor = exports.NetsuiteRecord = exports.NetsuiteCurrentRecord = void 0;
-    var record = require("N/record");
-    var format = require("N/format");
-    var LogManager = require("../EC_Logger");
-    var Sublist_1 = require("./Sublist");
-    var log = LogManager.getLogger('nsdal');
+    const record = require("N/record");
+    const format = require("N/format");
+    const LogManager = require("../EC_Logger");
+    const Sublist_1 = require("./Sublist");
+    const log = LogManager.getLogger('nsdal');
     /**
      * Since the netsuite defined 'CurrentRecord' type has almost all the same operations as the normal 'Record'
      * we use this as our base class
      */
-    var NetsuiteCurrentRecord = /** @class */ (function () {
-        function NetsuiteCurrentRecord(rec, isDynamic, defaultValues) {
-            var _this = this;
+    class NetsuiteCurrentRecord {
+        constructor(rec, isDynamic, defaultValues) {
             this.defaultValues = defaultValues;
             /**
              * Defines a descriptor for nsrecord so as to prevent it from being enumerable. Conceptually only the
              * field properties defined on derived classes should be seen when enumerating
              * @param value
              */
-            this.makeRecordProp = function (value) { return Object.defineProperty(_this, 'nsrecord', { value: value }); };
+            this.makeRecordProp = (value) => Object.defineProperty(this, 'nsrecord', { value: value });
             // since the context of this.constructor is the derived class we're instantiating, using the line below we can
             // pull the 'static' recordType from the derived class and remove the need for derived classes to
             // define a constructor to pass the record type to super()
-            var type = Object.getPrototypeOf(this).constructor.recordType();
+            let type = Object.getPrototypeOf(this).constructor.recordType();
             if (!rec) { // falsey values (e.g. invalid id 0, null, undefined, etc.) implies creating a new record
-                log.debug('creating new record', "type:".concat(type, "  isDyanamic:").concat(isDynamic, " defaultValues:").concat(defaultValues));
+                log.debug('creating new record', `type:${type}  isDyanamic:${isDynamic} defaultValues:${defaultValues}`);
                 this.makeRecordProp(record.create({ type: type, isDynamic: isDynamic, defaultValues: defaultValues }));
             }
             else if (typeof rec === 'object') {
-                log.debug('using existing record', "type:".concat(rec.type, ", id:").concat(rec.id));
+                log.debug('using existing record', `type:${rec.type}, id:${rec.id}`);
                 this.makeRecordProp(rec);
                 this._id = rec.id;
             }
             // allow
             else if (typeof rec === 'number' || +rec) {
-                log.debug('loading existing record', "type:".concat(type, ", id:").concat(rec));
+                log.debug('loading existing record', `type:${type}, id:${rec}`);
                 this.makeRecordProp(record.load({
                     type: type,
                     id: rec,
@@ -73,26 +57,23 @@ var __extends = (this && this.__extends) || (function () {
                 this._id = this.nsrecord.id;
             }
             else
-                throw new Error("invalid value for argument \"rec\": ".concat(rec, ". \n      Must be one of: null/undefined, an internal id, or an existing record"));
+                throw new Error(`invalid value for argument "rec": ${rec}. 
+      Must be one of: null/undefined, an internal id, or an existing record`);
         }
-        Object.defineProperty(NetsuiteCurrentRecord.prototype, "id", {
-            get: function () {
-                return this._id;
-            },
-            enumerable: false,
-            configurable: true
-        });
+        get id() {
+            return this._id;
+        }
         /**
          * The netsuite record type (constant string) - this is declared here and overridden in derived classes
          */
-        NetsuiteCurrentRecord.recordType = function () {
+        static recordType() {
             // the base class version of this method should never be invoked.
             return 'NetSuiteCurrentRecord:recordType not implemented. Did you forget to define a static recordType() method on your derived class?';
-        };
-        NetsuiteCurrentRecord.prototype.toJSON = function () {
+        }
+        toJSON() {
             // surface inherited properties on a new object so JSON.stringify() sees them all
-            var result = { id: this._id };
-            for (var key in this) {
+            const result = { id: this._id };
+            for (const key in this) {
                 // NetSuite will error if you try to serialize 'Text' fields on record *create*.
                 // i.e. "Invalid API usage. You must use getSublistValue to return the value set with setSublistValue."
                 // As a workaround, consider this record to be in 'create' mode if there is no _id_ assigned yet
@@ -100,49 +81,43 @@ var __extends = (this && this.__extends) || (function () {
                 if (!this._id && (key.substring(key.length - 4) === 'Text')) {
                     // yes, this is a side effecting function inside a toJSON but this is a painful enough 'netsuiteism'
                     // to justify
-                    log.debug("toJSON skipping field ".concat(key), "workaround to avoid NS erroring on the getText() on a new record");
+                    log.debug(`toJSON skipping field ${key}`, `workaround to avoid NS erroring on the getText() on a new record`);
                 }
                 else
                     result[key] = this[key];
             }
             return result;
-        };
+        }
         /**
          * Returns NetSuite field metadata. Useful for doing things like disabling a field on the form programmatically.
          * @param field field name for which you want to retrieve the NetSuite field object
          */
-        NetsuiteCurrentRecord.prototype.getField = function (field) {
+        getField(field) {
             return this.nsrecord.getField({
                 fieldId: field
             });
-        };
-        return NetsuiteCurrentRecord;
-    }());
+        }
+    }
     exports.NetsuiteCurrentRecord = NetsuiteCurrentRecord;
     /**
      * A regular netsuite record.
      */
-    var NetsuiteRecord = /** @class */ (function (_super) {
-        __extends(NetsuiteRecord, _super);
-        function NetsuiteRecord() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
+    class NetsuiteRecord extends NetsuiteCurrentRecord {
         /**
          * Persists this record to the NS database
          * @param enableSourcing
          * @param ignoreMandatoryFields
          * @returns {number}
          */
-        NetsuiteRecord.prototype.save = function (enableSourcing, ignoreMandatoryFields) {
-            var id = this.nsrecord.save({
+        save(enableSourcing, ignoreMandatoryFields) {
+            const id = this.nsrecord.save({
                 enableSourcing: enableSourcing,
                 ignoreMandatoryFields: ignoreMandatoryFields,
             });
             this._id = id;
             return id;
-        };
-        return NetsuiteRecord;
-    }(NetsuiteCurrentRecord));
+        }
+    }
     exports.NetsuiteRecord = NetsuiteRecord;
     /**
      * parses a property name from a declaration (supporting 'Text' suffix per our convention)
@@ -150,7 +125,7 @@ var __extends = (this && this.__extends) || (function () {
      * @returns pair consisting of a flag indicating this field wants 'text' behavior and the actual ns field name (with
      * Text suffix removed)
      */
-    var parseProp = suffixParser('Text');
+    const parseProp = suffixParser('Text');
     /**
      * returns a function for parsing property names from a declaration (e.g.
      * properties that end with 'Text' or 'Sublist' suffix per convention)
@@ -160,9 +135,9 @@ var __extends = (this && this.__extends) || (function () {
      * the stripped property name (with suffix removed)]
      */
     function suffixParser(suffixToSearch) {
-        var suffixLength = suffixToSearch.length;
+        const suffixLength = suffixToSearch.length;
         return function (propertyKey) {
-            var endsWithSuffix = propertyKey.slice(-suffixLength) === suffixToSearch;
+            const endsWithSuffix = propertyKey.slice(-suffixLength) === suffixToSearch;
             return [endsWithSuffix, endsWithSuffix ? propertyKey.slice(0, -suffixLength) : propertyKey];
         };
     }
@@ -172,7 +147,7 @@ var __extends = (this && this.__extends) || (function () {
      * @returns pair consisting of a flag indicating this is actually a sublist and the actual ns sublist name (with
      * Sublist suffix removed)
      */
-    var parseSublistProp = suffixParser('Sublist');
+    const parseSublistProp = suffixParser('Sublist');
     /**
      * Generic decorator factory with basic default algorithm that exposes the field value directly with no
      * other processing. If the property name ends with "Text" then the property will use getText()/setText()
@@ -181,10 +156,10 @@ var __extends = (this && this.__extends) || (function () {
      * with Object.defineProperty
      */
     function defaultDescriptor(target, propertyKey) {
-        var _a = parseProp(propertyKey), isTextField = _a[0], nsfield = _a[1];
+        const [isTextField, nsfield] = parseProp(propertyKey);
         return {
             get: function () {
-                log.debug('field GET', "".concat(nsfield, ", as text:").concat(isTextField));
+                log.debug('field GET', `${nsfield}, as text:${isTextField}`);
                 return isTextField ? this.nsrecord.getText({ fieldId: nsfield })
                     : this.nsrecord.getValue({ fieldId: nsfield });
             },
@@ -197,7 +172,7 @@ var __extends = (this && this.__extends) || (function () {
                         this.nsrecord.setValue({ fieldId: nsfield, value: value });
                 }
                 else
-                    log.info("ignoring field [".concat(propertyKey, "]"), 'field value is undefined');
+                    log.info(`ignoring field [${propertyKey}]`, 'field value is undefined');
             },
             enumerable: true //default is false
         };
@@ -212,7 +187,7 @@ var __extends = (this && this.__extends) || (function () {
      * with Object.defineProperty
      */
     function numericDescriptor(target, propertyKey) {
-        var _a = parseProp(propertyKey), isTextField = _a[0], nsfield = _a[1];
+        const [isTextField, nsfield] = parseProp(propertyKey);
         return {
             get: function () {
                 return isTextField ? this.nsrecord.getText({ fieldId: nsfield })
@@ -227,7 +202,7 @@ var __extends = (this && this.__extends) || (function () {
                         this.nsrecord.setValue({ fieldId: nsfield, value: Number(value) });
                 }
                 else
-                    log.info("ignoring field [".concat(propertyKey, "]"), 'field value is undefined');
+                    log.info(`ignoring field [${propertyKey}]`, 'field value is undefined');
             },
             enumerable: true //default is false
         };
@@ -241,14 +216,14 @@ var __extends = (this && this.__extends) || (function () {
      */
     function sublistDescriptor(ctor) {
         return function (target, propertyKey) {
-            var _a = parseSublistProp(propertyKey), nssublist = _a[1];
-            var privateProp = "_".concat(nssublist);
+            const [, nssublist] = parseSublistProp(propertyKey);
+            const privateProp = `_${nssublist}`;
             return {
                 enumerable: true,
                 // sublist is read only for now - if we have a use case where this should be assigned then tackle it
                 get: function () {
                     if (!this[privateProp]) {
-                        log.debug('initializing sublist', "sublist property named ".concat(propertyKey, ", sublist id ").concat(nssublist));
+                        log.debug('initializing sublist', `sublist property named ${propertyKey}, sublist id ${nssublist}`);
                         // using defineProperty() here defaults to making the property non-enumerable which is what we want
                         // for this 'private' property so it doesn't appear on serialization (e.g. JSON.stringify())
                         Object.defineProperty(this, privateProp, { value: new Sublist_1.Sublist(ctor, this.nsrecord, nssublist) });
@@ -296,15 +271,15 @@ var __extends = (this && this.__extends) || (function () {
             set: function (value) {
                 // allow null to flow through, but ignore undefined's
                 if (value !== undefined) {
-                    var formattedValue = format.format({ type: formatType, value: value });
-                    log.debug("setting field [".concat(propertyKey, ":").concat(formatType, "]"), "to formatted value [".concat(formattedValue, "] javascript type:").concat(typeof formattedValue));
+                    let formattedValue = format.format({ type: formatType, value: value });
+                    log.debug(`setting field [${propertyKey}:${formatType}]`, `to formatted value [${formattedValue}] javascript type:${typeof formattedValue}`);
                     if (value === null)
                         this.nsrecord.setValue({ fieldId: propertyKey, value: null });
                     else
                         this.nsrecord.setValue({ fieldId: propertyKey, value: formattedValue });
                 }
                 else
-                    log.info("not setting ".concat(propertyKey, " field"), 'value was undefined');
+                    log.info(`not setting ${propertyKey} field`, 'value was undefined');
             },
             enumerable: true //default is false
         };

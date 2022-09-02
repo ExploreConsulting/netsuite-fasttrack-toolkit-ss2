@@ -131,7 +131,7 @@ describe('ImmutableJS behavior', () => {
          return true
       })
 
-      Seq.of(1, 2, 3, 4, 5)
+      Seq([1, 2, 3, 4, 5])
          .takeWhile(alwaysTrue)
          // subtle issue - this causes repeated eager evaluation due to serializing the 3rd argument passed
          .forEach(console.log)
@@ -155,7 +155,7 @@ describe('ImmutableJS behavior', () => {
          return true
       })
 
-      Seq.of(1, 2, 3, 4, 5)
+      Seq([1, 2, 3, 4, 5])
          .takeWhile(alwaysTrue)
          // arity-1 function will NOT cause repeated eager evaluation of the sequence 1..5
          // because console.log only proceses the value, not also receiving the key and iterable
@@ -177,7 +177,7 @@ describe('ImmutableJS behavior', () => {
       })
 
 
-      Seq.of(1, 2, 3, 4, 4, 5, 5)
+      Seq([1, 2, 3, 4, 4, 5, 5])
       // groupBy returns a keyed sequence (<key, value>) that for some reason I don't understand
       // invokes the .map() *eagerly* (though we do know groupBy() itself must be eager)
          .groupBy(x => x)
@@ -191,7 +191,7 @@ describe('ImmutableJS behavior', () => {
       expect(sideEffect).toBeCalledTimes(3)
 
       console.log('---- BETTER/EXPECTED BEHAVIOR ---')
-      Seq.of(1, 2, 3, 4, 4, 5, 5)
+      Seq([1, 2, 3, 4, 4, 5, 5])
       // groupBy returns a keyed sequence (<key, value>) that for some reason I don't understand
       // invokes the .map() *eagerly* (though we do know groupBy() itself must be eager)
          .groupBy(x => x)

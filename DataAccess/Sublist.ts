@@ -202,7 +202,7 @@ function parseProp (propertyKey: string): [boolean, string] {
 /**
  * creates a sublist whose lines are of type T
  */
-export class Sublist<T extends SublistLine> {
+export class Sublist<out T extends SublistLine> {
 
    nsrecord: record.Record
 
@@ -336,7 +336,7 @@ export class Sublist<T extends SublistLine> {
     * Note: this uses the first sublist line (0) when retrieving field data
     * @param field name of the desired sublist field
     */
-   getField (field: NonFunctionPropertyNames<T>) {
+   getField (field: keyof T) {
       return this.nsrecord.getSublistField({
          fieldId: field as string,
          sublistId: this.sublistId,

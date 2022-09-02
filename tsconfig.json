@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "umd",
-    "target": "es5",
+    "target": "ES2019",
     "noImplicitAny": false,
     "strictNullChecks" :true,
     // using this lets us have rootDirs resolve stuff like moment with "./moment"
@@ -16,7 +16,7 @@
     "experimentalDecorators": true,
     "downlevelIteration": false,
     "baseUrl": ".",
-    "lib":["es5","es2015.promise"],
+    "lib":["ES2019"],
     "paths": {
       "N/*": [
         "node_modules/@hitc/netsuite-types/N/*"

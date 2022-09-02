@@ -7,6 +7,7 @@
 
  getStateById(3) // returns { 'country': 'US','fullname': 'Arkansas','id': 3,'shortname': 'AR' }
  getStateById(-123) // returns undefined
+ getStateByShortName('CA') //  returns 4
  stateMapping.filter( state => state.country === 'US') // array of states in USA
  getCountryById('US') // {'uniquekey': 230,'name': 'United States', 'edition': 'US','id': 'US' }
  ```
@@ -1873,12 +1874,24 @@ export const stateMapping: State[] = [{ shortname: '', fullname: '', country: ''
       'shortname': '福建省'
    }
 ]
+
 /**
- * Retrieves the state object for the given internal id else null
+ * Retrieves the state object for the given internal id else undefined
  * @param id internal id of the state you wish to find.
  */
 export const getStateById: (number) => State | undefined = (id: number) => {
    const s = stateMapping.filter(x => x.id === id)
+   if (s.length) return s[0]
+   else return undefined
+}
+
+/**
+ * Retrieves the state object for the given State short name (e.g., 'CA') else undefined
+ * @example const stateIID = getStateByShortName('CA').id  //  The internal ID (iid) of the California State record
+ * @param code The two character state short name
+ */
+export const getStateByShortName: (string) => State | undefined = (code: string) => {
+   const s = stateMapping.filter(x => x.shortname === code)
    if (s.length) return s[0]
    else return undefined
 }
@@ -3443,4 +3456,3 @@ export function getCountryByUniqueKey (uniquekey: number) {
    if (countries.length > 0) return countries[0]
    else return undefined
 }
-

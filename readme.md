@@ -92,12 +92,12 @@ var log = LogManager.DefaultLogger
 class ContactRolesSublist extends SublistLine {
    // the country internal id
    @SublistFieldType.select
-   role?: number
+   role: number
 
    // adding `Text` suffix to field name surfaces the text value
    // instead of internalid
    @SublistFieldType.select
-   roleText?: string
+   roleText: string
 }
 
 /**

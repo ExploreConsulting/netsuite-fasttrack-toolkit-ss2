@@ -1,18 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -32,25 +17,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.InventoryItemBase = void 0;
     // the inventory item record in NetSuite
-    var Record_1 = require("./Record");
-    var record = require("N/record");
-    var Item_1 = require("./Item");
+    const Record_1 = require("./Record");
+    const record = require("N/record");
+    const Item_1 = require("./Item");
     /**
      * Netsuite Inventory Item record type
      */
-    var InventoryItemBase = /** @class */ (function (_super) {
-        __extends(InventoryItemBase, _super);
-        function InventoryItemBase() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        InventoryItemBase.recordType = function () { return record.Type.INVENTORY_ITEM; };
-        __decorate([
-            Record_1.FieldType.checkbox
-        ], InventoryItemBase.prototype, "contingentrevenuehandling", void 0);
-        __decorate([
-            Record_1.FieldType.freeformtext
-        ], InventoryItemBase.prototype, "vendorname", void 0);
-        return InventoryItemBase;
-    }(Item_1.Item));
+    class InventoryItemBase extends Item_1.Item {
+        static recordType() { return record.Type.INVENTORY_ITEM; }
+    }
+    __decorate([
+        Record_1.FieldType.checkbox
+    ], InventoryItemBase.prototype, "contingentrevenuehandling", void 0);
+    __decorate([
+        Record_1.FieldType.freeformtext
+    ], InventoryItemBase.prototype, "vendorname", void 0);
     exports.InventoryItemBase = InventoryItemBase;
 });

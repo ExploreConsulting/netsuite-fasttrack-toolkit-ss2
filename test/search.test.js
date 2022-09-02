@@ -117,7 +117,7 @@
                 console.log(`alwaysTrue called with value ${val}`);
                 return true;
             });
-            immutable_1.Seq.of(1, 2, 3, 4, 5)
+            (0, immutable_1.Seq)([1, 2, 3, 4, 5])
                 .takeWhile(alwaysTrue)
                 // subtle issue - this causes repeated eager evaluation due to serializing the 3rd argument passed
                 .forEach(console.log);
@@ -137,7 +137,7 @@
                 console.log(`alwaysTrue called with value ${val}`);
                 return true;
             });
-            immutable_1.Seq.of(1, 2, 3, 4, 5)
+            (0, immutable_1.Seq)([1, 2, 3, 4, 5])
                 .takeWhile(alwaysTrue)
                 // arity-1 function will NOT cause repeated eager evaluation of the sequence 1..5
                 // because console.log only proceses the value, not also receiving the key and iterable
@@ -153,7 +153,7 @@
             const sideEffect = jest.fn((val) => {
                 console.log(`side effect called with value ${val}`);
             });
-            immutable_1.Seq.of(1, 2, 3, 4, 4, 5, 5)
+            (0, immutable_1.Seq)([1, 2, 3, 4, 4, 5, 5])
                 // groupBy returns a keyed sequence (<key, value>) that for some reason I don't understand
                 // invokes the .map() *eagerly* (though we do know groupBy() itself must be eager)
                 .groupBy(x => x)
@@ -164,7 +164,7 @@
             // expect our side effect to only be called 3 times due to .takeWhile()
             expect(sideEffect).toBeCalledTimes(3);
             console.log('---- BETTER/EXPECTED BEHAVIOR ---');
-            immutable_1.Seq.of(1, 2, 3, 4, 4, 5, 5)
+            (0, immutable_1.Seq)([1, 2, 3, 4, 4, 5, 5])
                 // groupBy returns a keyed sequence (<key, value>) that for some reason I don't understand
                 // invokes the .map() *eagerly* (though we do know groupBy() itself must be eager)
                 .groupBy(x => x)
