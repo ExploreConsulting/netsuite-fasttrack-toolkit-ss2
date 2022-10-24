@@ -27,6 +27,7 @@
      * Defaults to true which means the property names on the returned object will match the column label names if set.
      * If useLabels = true and no label exists, falls back to using column name. Note that label strings should be valid
      * characters for property names (e.g. contain no ':', '-', '>' etc.)
+     * @param addGetTextProps if true, for each column which has a _truthy_ getText() value, include that as a 'propnameText' field similar to how nsdal behaves
      * @returns a mapping function taking a NetSuite search result and returns a POJO representation of that search result.
      * The return type will always have an 'id' property merged with type T if provided.
      *
@@ -45,18 +46,20 @@
      *
      *  ```
      */
-    function nsSearchResult2obj(useLabels = true) {
+    function nsSearchResult2obj(useLabels = true, addGetTextProps = true) {
         return function (result) {
             let output = { id: result.id, recordType: result.recordType };
-            // assigns each column VALUE from the search result to the output object, and if the column
-            // has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
+            // assigns each column VALUE from the search result to the output object
             if (result.columns && result.columns.length > 0)
                 result.columns.forEach((col) => {
                     const propName = (useLabels && col.label) ? col.label : col.name;
                     output[propName] = result.getValue(col);
-                    const text = result.getText(col);
-                    if (text)
-                        output[`${propName}Text`] = text;
+                    // if the column has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
+                    if (addGetTextProps) {
+                        const text = result.getText(col);
+                        if (text)
+                            output[`${propName}Text`] = text;
+                    }
                 });
             return output;
         };

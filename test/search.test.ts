@@ -67,6 +67,14 @@ describe('nsSearchResult2obj', function () {
       expect(x).not.toHaveProperty('fooLabelText')
    })
 
+   test('does not generate xxxText field if caller says not to', () => {
+      const labeledResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'foo text')
+      // default useLabels, explicitly disable the xxxText property addition.
+      const x = nsSearchResult2obj(true, false)(labeledResult)
+      expect(x).toHaveProperty('fooLabel')
+      expect(x).not.toHaveProperty('fooLabelText')
+   })
+
    test('generates xxxText field if text value truthy', () => {
 
       const labeledResult = getFakeSearchResult('foo', 'fooLabel', 'value', 'value text')
