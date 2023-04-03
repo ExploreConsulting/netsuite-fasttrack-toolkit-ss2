@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^3.2.2"
+    "typescript": "^5.0.3"
   },
   "dependencies": {
     "@hitc/netsuite-types": "^2018.2.14",
