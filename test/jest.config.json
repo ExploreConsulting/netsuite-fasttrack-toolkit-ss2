@@ -3,7 +3,7 @@
   "clearMocks": true,
   "moduleDirectories": [
     "node_modules",
-    "."
+    "netsuite-fasttrack-toolkit-ss2"
   ],
   "transform": {
   },
