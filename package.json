@@ -1,6 +1,6 @@
 {
   "name": "netsuite-fasttrack-toolkit-ss2",
-  "version": "7.1.1",
+  "version": "7.2.0",
   "description": "Power library for NetSuite SuiteScript 2.x",
   "homepage": "https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/",
   "main": "none",
@@ -14,6 +14,9 @@
   },
   "author": "Explore Consulting",
   "license": "MIT",
+  "peerDependencies": {
+    "typescript": ">= 4.7"
+  },
   "devDependencies": {
     "@hitc/netsuite-types": "2022.1.8",
     "@types/jest": "^29.5.0",
