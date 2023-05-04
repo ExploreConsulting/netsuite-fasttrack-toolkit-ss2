@@ -66,11 +66,13 @@ function setSublistValue (this: SublistLine, fieldId: string, value: any, isText
          isText ? this.nsrecord.setCurrentSublistText({
                ...options,
                ignoreFieldChange: this.ignoreFieldChange,
+               forceSyncSourcing: this.forceSyncSourcing,
                text: value
             })
             : this.nsrecord.setCurrentSublistValue({
                ...options,
                ignoreFieldChange: this.ignoreFieldChange,
+               forceSyncSourcing: this.forceSyncSourcing,
                value: value
             })
       } else {
@@ -415,7 +417,17 @@ export class Sublist<out T extends SublistLine> {
 export abstract class SublistLine {
 
    nsrecord: record.Record
+   /**
+    * If set to true, the field change and the secondary event is ignored.
+    */
    ignoreFieldChange = false
+   /**
+    * If true, *and* in dynamic mode, this parameter can be used to alleviate a timing situation that may occur in some
+    * browsers when fields are sourced. For some browsers, some APIs are triggered without waiting for the field
+    * sourcing to complete. For example, if forceSyncSourcing is set to false when adding sublist lines, the lines
+    * aren't committed as expected. Setting the parameter to true, forces synchronous sourcing.
+    */
+   forceSyncSourcing = false
 
    /**
     * If true, uses dynamic mode API calls to access sublist line field values.
