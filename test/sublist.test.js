@@ -156,7 +156,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 'forceSyncSourcing': false
             });
         });
-        test('setText() on field - dynamic mode - forceSyncSourcing', () => {
+        test('setText() on field - dynamic mode - force sync sourcing on then off', () => {
             const fakeRec = record.create({ type: 'fake', isDynamic: true });
             record.getSublistText.mockReturnValue('some text');
             record.getSublistValue.mockImplementation(() => { throw new Error(); });
@@ -169,6 +169,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 'sublistId': 'fakesublist',
                 'text': 'hello world',
                 'forceSyncSourcing': true
+            });
+            sut.forceSyncSourcing = false;
+            sut.fooText = 'goodbye world';
+            expect(record.setCurrentSublistText).toBeCalledWith({
+                'fieldId': 'foo',
+                'ignoreFieldChange': false,
+                'sublistId': 'fakesublist',
+                'text': 'goodbye world',
+                'forceSyncSourcing': false
             });
         });
         test('setText() on field - dynamic mode - ignore field changed', () => {
@@ -196,6 +205,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 'ignoreFieldChange': true,
                 'sublistId': 'fakesublist',
                 'value': 1,
+                'forceSyncSourcing': false
+            });
+        });
+        test('setValue() on field - dynamic mode - force sync sourcing on then off', () => {
+            const fakeRec = record.create({ type: 'fake', isDynamic: true });
+            const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0);
+            sut.forceSyncSourcing = true;
+            sut.foo = 1;
+            expect(record.setCurrentSublistValue).toBeCalledWith({
+                'fieldId': 'foo',
+                'ignoreFieldChange': false,
+                'sublistId': 'fakesublist',
+                'value': 1,
+                'forceSyncSourcing': true
+            });
+            sut.forceSyncSourcing = false;
+            sut.foo = 999;
+            expect(record.setCurrentSublistValue).toBeCalledWith({
+                'fieldId': 'foo',
+                'ignoreFieldChange': false,
+                'sublistId': 'fakesublist',
+                'value': 999,
                 'forceSyncSourcing': false
             });
         });
