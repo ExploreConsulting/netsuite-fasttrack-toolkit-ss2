@@ -152,7 +152,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 'fieldId': 'foo',
                 'ignoreFieldChange': false,
                 'sublistId': 'fakesublist',
-                'text': 'hello world'
+                'text': 'hello world',
+                'forceSyncSourcing': false
+            });
+        });
+        test('setText() on field - dynamic mode - forceSyncSourcing', () => {
+            const fakeRec = record.create({ type: 'fake', isDynamic: true });
+            record.getSublistText.mockReturnValue('some text');
+            record.getSublistValue.mockImplementation(() => { throw new Error(); });
+            const sut = new SublistLineWithTextField('fakesublist', fakeRec, 0);
+            sut.forceSyncSourcing = true;
+            sut.fooText = 'hello world';
+            expect(record.setCurrentSublistText).toBeCalledWith({
+                'fieldId': 'foo',
+                'ignoreFieldChange': false,
+                'sublistId': 'fakesublist',
+                'text': 'hello world',
+                'forceSyncSourcing': true
             });
         });
         test('setText() on field - dynamic mode - ignore field changed', () => {
@@ -166,7 +182,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 'fieldId': 'foo',
                 'ignoreFieldChange': true,
                 'sublistId': 'fakesublist',
-                'text': 'hello world'
+                'text': 'hello world',
+                'forceSyncSourcing': false
             });
         });
         test('setValue() on field - dynamic mode - ignore field changed', () => {
@@ -178,7 +195,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 'fieldId': 'foo',
                 'ignoreFieldChange': true,
                 'sublistId': 'fakesublist',
-                'value': 1
+                'value': 1,
+                'forceSyncSourcing': false
             });
         });
         test('getField() - dynamic mode', () => {
