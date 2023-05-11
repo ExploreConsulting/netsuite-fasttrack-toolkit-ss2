@@ -27,7 +27,7 @@ See API [docs here](https://exploreconsulting.github.io/netsuite-fasttrack-toolk
 
 # Getting Started (Typescript)
 
-Install this package as a dependency and the SuiteScript 2.x (SS2) typings from @hitc 
+Install this package as a dependency and the SuiteScript 2.x (SS2) typings from `@hitc` 
 
     npm install netsuite-fasttrack-toolkit-ss2 
     npm install @hitc/netsuite-types --save-dev 
@@ -348,11 +348,15 @@ This is written with TS and is recommended. However, it can be used by javascrip
 
 Configure tsconfig to include `paths` for NetSuite modules and NFT modules:
 
-        "paths": {
-          "N/*": [
-            "node_modules/@hitc/netsuite-types/N/*"
-          ]
-        }
+```json 
+{
+  "paths": {
+    "N/*": [
+      "node_modules/@hitc/netsuite-types/N/*"
+    ]
+  }
+}
+```
 
 
 ## NetSuite Module Declarations

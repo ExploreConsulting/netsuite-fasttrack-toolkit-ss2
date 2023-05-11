@@ -6,7 +6,7 @@ import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
 /**
- * Localization sublist {localizations}
+ * Localization sublist (localizations)
  */
 export class LocalizationSublist extends SublistLine {
 
@@ -27,7 +27,7 @@ export class LocalizationSublist extends SublistLine {
 }
 
 /**
- * NetSuite Account {account}
+ * NetSuite Account (account)
  */
 export class AccountBase extends NetsuiteRecord {
    static recordType() {

@@ -1,5 +1,5 @@
 /**
- * Represents an Deposit record {deposit} in NetSuite
+ * Represents an Deposit record (deposit) in NetSuite
  */
 
 import { FieldType, NetsuiteRecord } from './Record'
