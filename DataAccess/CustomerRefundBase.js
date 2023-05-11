@@ -74,7 +74,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
          * Locates first matching line on the 'apply' sublist that corresponds to the passed related recordid.
          * Returns an object that can be used to manipulate the found line in 'current' (dynamic) mode. The returned
          * value is a subset of the full apply sublist for brevity (exposing the most commonly used properties)
-         * Note the customer refund instance must be constructed in dynamic mode and include the { entity: <customer>} default
+         * Note the customer refund instance must be constructed in dynamic mode and include the `{ entity: <customer>}` default
          * values initializer at construction.
          * @param  docId the internal id of the related document that makes a line appear on the apply sublist
          * e.g. a credit memo on the customer refund

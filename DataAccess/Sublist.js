@@ -463,7 +463,8 @@
                     // to justify
                     log.debug(`toJSON skipping field ${key}`, `workaround to avoid NS erroring on the getText() on a new record`);
                 }
-                else if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI') {
+                // these fields aren't part of the NS data, they only effect behavior, so don't serialize them
+                else if (key != 'ignoreFieldChange' && key != 'useDynamicModeAPI' && key != 'forceSyncSourcing') {
                     result[key] = this[key];
                 }
             }

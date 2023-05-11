@@ -23,7 +23,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const record = require("N/record");
     const Sublist_1 = require("./Sublist");
     /**
-     * Localization sublist {localizations}
+     * Localization sublist (localizations)
      */
     class LocalizationSublist extends Sublist_1.SublistLine {
     }
@@ -44,7 +44,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     ], LocalizationSublist.prototype, "locale", void 0);
     exports.LocalizationSublist = LocalizationSublist;
     /**
-     * NetSuite Account {account}
+     * NetSuite Account (account)
      */
     class AccountBase extends Record_1.NetsuiteRecord {
         static recordType() {
