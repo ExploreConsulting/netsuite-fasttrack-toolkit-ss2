@@ -8,7 +8,7 @@
 
 
     <xsl:template name="xsl:initial-template">
-        <xsl:for-each select="collection('./Objects/CustomRecords?select=customrecord*.xml')">
+<!--        <xsl:for-each select="collection('./Objects/CustomRecords?select=customrecord*.xml')">-->
             <!-- this variable tries to create a valid TS class name out of the <recordname>
             by limiting the name to only word characters. This still won't catch a record that starts with a number
             -->
@@ -37,11 +37,10 @@
                     <!-- add imports used to define the TS class and properties -->
                     <xsl:with-param name="imports">
 <xsl:text>
-import {NetsuiteRecord} from "</xsl:text><xsl:value-of select="$nftPath"/><xsl:text>/DataAccess/Record"</xsl:text>
                     </xsl:with-param>
                 </xsl:apply-templates>
             </xsl:result-document>
-        </xsl:for-each>
+<!--        </xsl:for-each>-->
 
     </xsl:template>
 
@@ -62,9 +61,9 @@ import {NetsuiteRecord} from "</xsl:text><xsl:value-of select="$nftPath"/><xsl:t
 <!-- Always include these imports plus whatever the caller provided, to keep it DRY -->
     <xsl:text>
 // Auto-Generated NFT NSDAL Class
-import {FieldType} from "</xsl:text>
+import { FieldType, NetsuiteRecord } from '</xsl:text>
         <xsl:value-of select="$nftPath"/>
-    <xsl:text>/DataAccess/Record"</xsl:text>
+    <xsl:text>/DataAccess/Record'</xsl:text>
 <xsl:value-of select="$imports"/>
 <xsl:where-populated expand-text="yes">
     <!-- TODO: The below replace code is ugly, should probably look into splitting the description and building each line in a loop -->

@@ -2,7 +2,7 @@
 
 // a little script to help automate generation of NSDAL class files - converting SDF XML definitions to TypeScript
 import { promisify } from 'util'
-import * as commander from 'commander'
+import {Command } from 'commander'
 import * as fs from 'fs'
 import { PathLike, Stats } from 'fs'
 import { bindNodeCallback, combineLatest, from, merge, Observable, of } from 'rxjs'
@@ -17,18 +17,16 @@ const exec = bindNodeCallback(child_process.exec)
 // the main saxon file shared by commands for any XSLT processing
 const jarFile = path.format({dir: __dirname, base:'saxon9he.jar'})
 
+
 async function javaExists (): Promise<boolean> {
    return await commandExists('java').then(() => true).catch(() => false)
 }
 
-function jexists () {
-   from(commandExists('java')).subscribe()
-}
-
-const program = new commander.Command()
+const program = new Command()
 program.version(require('./package.json').version)
 program.option('-o --outDir', 'directory in which to place output TypeScript files e.g. `./RecordTypes`')
 program.option('-d, --debug', 'output debug stuffs')
+
 
 program.command('isproject')
 
@@ -44,10 +42,10 @@ program.command('isproject')
 program.command('customrecord <customRecordXmlFile>')
    .description('create an NFT class for the given NetSuite custom record')
    .action(customRecordXmlFile => {
-      const outputDir = '.' // await findOutputFolder()
+      const outputDir = process.cwd()
       console.log(`output location: ${outputDir}`)
       const xslFile = path.format({dir: __dirname, base:'CustomRecord.xsl'})
-      exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${customRecordXmlFile} outputDir=.`)
+      exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${customRecordXmlFile} outputDir=${outputDir}`,{cwd: process.cwd()})
          .subscribe( ([error, stdout]) => {
             console.log(stdout)
          }, error => {
@@ -64,7 +62,7 @@ program.command('custombodyfields <RecordType>')
       const typeMappings = path.format({dir: __dirname, base:'TypeMapping.xml'})
      // java -jar saxon9he.jar -xsl:TransactionBodyField.xslt -s:TypeMapping.xml -o:SalesOrder.ts type=SalesOrder
 
-      exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${typeMappings} -o:${recordTypeName}.ts type=${recordTypeName} outputDir=.`)
+      exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${typeMappings} -o:${recordTypeName}.ts type=${recordTypeName} outputDir=.`,{cwd:'.'})
          .subscribe( ([error, stdout]) => {
             console.log(stdout)
          }, error => {
@@ -76,13 +74,14 @@ program.command('custombodyfields <RecordType>')
 
 
 program.parse(process.argv)
-if (program.debug) console.log(program.opts())
+if (program.opts().debug) console.log(program.opts())
+
 
 /**
  * returns true IFF there is a folder named FileCabinet in the current working directory
  */
 function isSDFproject () {
-   return bindNodeCallback<PathLike, Stats>(fs.stat)('FileCabinet')
+   return bindNodeCallback(fs.stat)('FileCabinet', {bigint:false})
       .pipe(map(x => !!x.ino))
 }
 
@@ -91,7 +90,7 @@ function isSDFproject () {
  */
 async function findOutputFolder () {
    const searchTarget = 'FileCabinet/RSM/SS2/RecordTypes'
-   return bindNodeCallback<PathLike, Stats>(fs.stat)(searchTarget)
+   return bindNodeCallback(fs.stat)(searchTarget,{bigint:false})
       .pipe(map(x => x.isDirectory() ? searchTarget : '.'))
 
 }

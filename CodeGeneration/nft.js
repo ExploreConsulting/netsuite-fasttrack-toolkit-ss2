@@ -27,7 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const commander = __importStar(require("commander"));
+const commander_1 = require("commander");
 const fs = __importStar(require("fs"));
 const rxjs_1 = require("rxjs");
 const operators_1 = require("rxjs/operators");
@@ -41,10 +41,7 @@ const jarFile = path_1.default.format({ dir: __dirname, base: 'saxon9he.jar' });
 async function javaExists() {
     return await commandExists('java').then(() => true).catch(() => false);
 }
-function jexists() {
-    (0, rxjs_1.from)(commandExists('java')).subscribe();
-}
-const program = new commander.Command();
+const program = new commander_1.Command();
 program.version(require('./package.json').version);
 program.option('-o --outDir', 'directory in which to place output TypeScript files e.g. `./RecordTypes`');
 program.option('-d, --debug', 'output debug stuffs');
@@ -60,10 +57,10 @@ program.command('isproject')
 program.command('customrecord <customRecordXmlFile>')
     .description('create an NFT class for the given NetSuite custom record')
     .action(customRecordXmlFile => {
-    const outputDir = '.'; // await findOutputFolder()
+    const outputDir = process.cwd();
     console.log(`output location: ${outputDir}`);
     const xslFile = path_1.default.format({ dir: __dirname, base: 'CustomRecord.xsl' });
-    exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${customRecordXmlFile} outputDir=.`)
+    exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${customRecordXmlFile} outputDir=${outputDir}`, { cwd: process.cwd() })
         .subscribe(([error, stdout]) => {
         console.log(stdout);
     }, error => {
@@ -77,7 +74,7 @@ program.command('custombodyfields <RecordType>')
     const xslFile = path_1.default.format({ dir: __dirname, base: 'TransactionBodyField.xslt' });
     const typeMappings = path_1.default.format({ dir: __dirname, base: 'TypeMapping.xml' });
     // java -jar saxon9he.jar -xsl:TransactionBodyField.xslt -s:TypeMapping.xml -o:SalesOrder.ts type=SalesOrder
-    exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${typeMappings} -o:${recordTypeName}.ts type=${recordTypeName} outputDir=.`)
+    exec(`java -jar ${jarFile} -it -xsl:${xslFile} -s:${typeMappings} -o:${recordTypeName}.ts type=${recordTypeName} outputDir=.`, { cwd: '.' })
         .subscribe(([error, stdout]) => {
         console.log(stdout);
     }, error => {
@@ -86,13 +83,13 @@ program.command('custombodyfields <RecordType>')
     }, () => console.log('done.'));
 });
 program.parse(process.argv);
-if (program.debug)
+if (program.opts().debug)
     console.log(program.opts());
 /**
  * returns true IFF there is a folder named FileCabinet in the current working directory
  */
 function isSDFproject() {
-    return (0, rxjs_1.bindNodeCallback)(fs.stat)('FileCabinet')
+    return (0, rxjs_1.bindNodeCallback)(fs.stat)('FileCabinet', { bigint: false })
         .pipe((0, operators_1.map)(x => !!x.ino));
 }
 /**
@@ -100,7 +97,7 @@ function isSDFproject() {
  */
 async function findOutputFolder() {
     const searchTarget = 'FileCabinet/RSM/SS2/RecordTypes';
-    return (0, rxjs_1.bindNodeCallback)(fs.stat)(searchTarget)
+    return (0, rxjs_1.bindNodeCallback)(fs.stat)(searchTarget, { bigint: false })
         .pipe((0, operators_1.map)(x => x.isDirectory() ? searchTarget : '.'));
 }
 //const result = execSync('echo \'hello world\'', { stdio: 'inherit' })

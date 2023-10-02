@@ -2,7 +2,7 @@
   "name": "shawn",
   "version": "1.0.0",
   "description": "",
-  "main": "generate.js",
+  "main": "nft.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,13 +12,13 @@
   "devDependencies": {
     "@types/command-exists": "^1.2.0",
     "@types/lodash": "^4.14.149",
-    "typescript": "^3.8.3"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@types/node": "^13.7.0",
-    "command-exists": "^1.2.8",
-    "commander": "^2.20.0",
-    "lodash": "^4.17.15",
-    "rxjs": "^6.5.4"
+    "@types/node": "^18.18.1",
+    "command-exists": "^1.2.9",
+    "commander": "^11.0.0",
+    "lodash": "^4.17.21",
+    "rxjs": "^7.8.1"
   }
 }

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="TypeScriptCompiler">
     <option name="enableServiceForProjectsWithoutConfig" value="false" />
-    <option name="nodeInterpreterTextField" value="wsl://Ubuntu@/usr/local/bin/node" />
     <option name="recompileOnChanges" value="true" />
+    <option name="typeScriptServiceDirectory" value="$PROJECT_DIR$/CodeGeneration/node_modules/typescript" />
+    <option name="versionType" value="SERVICE_DIRECTORY" />
   </component>
 </project>
