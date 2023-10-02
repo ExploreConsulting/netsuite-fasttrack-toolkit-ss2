@@ -36,7 +36,6 @@
                     <xsl:with-param name="className" select="$className"/>
                     <!-- add imports used to define the TS class and properties -->
                     <xsl:with-param name="imports">
-<xsl:text>
                     </xsl:with-param>
                 </xsl:apply-templates>
             </xsl:result-document>
