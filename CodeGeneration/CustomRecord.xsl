@@ -76,7 +76,7 @@ import { FieldType, NetsuiteRecord } from '</xsl:text>
 export class {$className} extends {$parentClass} {{
 </xsl:text>
 
-    static recordType() { return '<xsl:value-of select="@scriptid" />' }
+    static recordType() { return '<xsl:value-of select="@scriptid" />' as const }
     <!-- Add standard common fields that exist on all Custom Records -->
     /**
      * Created
