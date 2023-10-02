@@ -27,6 +27,7 @@
      * Defaults to true which means the property names on the returned object will match the column label names if set.
      * If useLabels = true and no label exists, falls back to using column name. Note that label strings should be valid
      * characters for property names (e.g. contain no ':', '-', '>' etc.)
+     * @param addGetTextProps if true, for each column which has a _truthy_ getText() value, include that as a 'propnameText' field similar to how nsdal behaves
      * @returns a mapping function taking a NetSuite search result and returns a POJO representation of that search result.
      * The return type will always have an 'id' property merged with type T if provided.
      *
@@ -45,18 +46,20 @@
      *
      *  ```
      */
-    function nsSearchResult2obj(useLabels = true) {
+    function nsSearchResult2obj(useLabels = true, addGetTextProps = true) {
         return function (result) {
             let output = { id: result.id, recordType: result.recordType };
-            // assigns each column VALUE from the search result to the output object, and if the column
-            // has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
+            // assigns each column VALUE from the search result to the output object
             if (result.columns && result.columns.length > 0)
                 result.columns.forEach((col) => {
                     const propName = (useLabels && col.label) ? col.label : col.name;
                     output[propName] = result.getValue(col);
-                    const text = result.getText(col);
-                    if (text)
-                        output[`${propName}Text`] = text;
+                    // if the column has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
+                    if (addGetTextProps) {
+                        const text = result.getText(col);
+                        if (text)
+                            output[`${propName}Text`] = text;
+                    }
                 });
             return output;
         };
@@ -82,30 +85,6 @@
      * ```
      */
     class LazySearch {
-        /**
-         * Not meant to be used directly, use factory methods such as `load` or `from`
-         * @param search the netsuite search object to wrap
-         * @param pageSize optional pagesize, can be up to 1000
-         */
-        constructor(search, pageSize = 500) {
-            this.search = search;
-            this.pageSize = pageSize;
-            if (pageSize > 1000)
-                throw new Error('page size must be <= 1000');
-            this.log = LogManager.getLogger(LazySearch.LOGNAME);
-            this.pagedData = this.search.runPaged({ pageSize: pageSize });
-            // only load a page if we have records
-            if (this.pagedData.count > 0) {
-                this.currentPage = this.pagedData.fetch({ index: 0 });
-                this.currentData = this.currentPage.data;
-            }
-            else {
-                this.currentData = [];
-                this.log.debug('runPaged() search return zero results');
-            }
-            this.index = 0;
-            this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`, `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`);
-        }
         /**
          * LazySearch is both an iterable and an iterator for search results.
          */
@@ -165,6 +144,30 @@
             return new LazySearch(search, pageSize);
         }
         /**
+         * Not meant to be used directly, use factory methods such as `load` or `from`
+         * @param search the netsuite search object to wrap
+         * @param pageSize optional pagesize, can be up to 1000
+         */
+        constructor(search, pageSize = 500) {
+            this.search = search;
+            this.pageSize = pageSize;
+            if (pageSize > 1000)
+                throw new Error('page size must be <= 1000');
+            this.log = LogManager.getLogger(LazySearch.LOGNAME);
+            this.pagedData = this.search.runPaged({ pageSize: pageSize });
+            // only load a page if we have records
+            if (this.pagedData.count > 0) {
+                this.currentPage = this.pagedData.fetch({ index: 0 });
+                this.currentData = this.currentPage.data;
+            }
+            else {
+                this.currentData = [];
+                this.log.debug('runPaged() search return zero results');
+            }
+            this.index = 0;
+            this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`, `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`);
+        }
+        /**
          * per the iterator protocol, retrieves the next element. Also returns `null` if done as the specification for
          * the protocol says the value property is optional when 'done'
          *
@@ -192,9 +195,9 @@
             };
         }
     }
-    exports.LazySearch = LazySearch;
     /**
      * the name of the custom logger for this component for independent logging control
      */
     LazySearch.LOGNAME = 'lazy';
+    exports.LazySearch = LazySearch;
 });

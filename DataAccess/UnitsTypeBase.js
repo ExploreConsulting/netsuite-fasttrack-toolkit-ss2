@@ -50,7 +50,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     ], UOMSublist.prototype, "unitname", void 0);
     exports.UOMSublist = UOMSublist;
     /**
-     * NetSuite Units Type record {unitstype}
+     * NetSuite Units Type record (unitstype)
      */
     class UnitsType extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.UNITS_TYPE; }

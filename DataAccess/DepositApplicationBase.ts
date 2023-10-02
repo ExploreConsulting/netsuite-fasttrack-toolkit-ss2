@@ -31,8 +31,8 @@ export class ApplySublist extends SublistLine {
    @SublistFieldType.integernumber
    line: number
 
-   @SublistFieldType.select
-   refnum: number
+   @SublistFieldType.freeformtext
+   refnum: string
 
    @SublistFieldType.freeformtext
    total: string

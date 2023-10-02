@@ -1,5 +1,5 @@
 /**
- * Represents an Deposit record {deposit} in NetSuite
+ * Represents an Deposit record (deposit) in NetSuite
  */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;

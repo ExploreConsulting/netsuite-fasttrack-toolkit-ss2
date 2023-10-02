@@ -31,7 +31,7 @@ export class UOMSublist extends SublistLine {
 }
 
 /**
- * NetSuite Units Type record {unitstype}
+ * NetSuite Units Type record (unitstype)
  */
 export class UnitsType extends NetsuiteRecord {
    @FieldType.freeformtext

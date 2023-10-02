@@ -27,7 +27,7 @@ See API [docs here](https://exploreconsulting.github.io/netsuite-fasttrack-toolk
 
 # Getting Started (Typescript)
 
-Install this package as a dependency and the SuiteScript 2.x (SS2) typings from @hitc 
+Install this package as a dependency and the SuiteScript 2.x (SS2) typings from `@hitc` 
 
     npm install netsuite-fasttrack-toolkit-ss2 
     npm install @hitc/netsuite-types --save-dev 
@@ -181,7 +181,7 @@ export class MyCustomRecord extends NetsuiteRecord {
 
 See the `CodeGeneration/` folder for information on generating these custom record classes automatically. 
 
-### Sublists and Subrecords
+## Sublists and Subrecords
 
 Use `@FieldType.subrecord` and `@SublistFieldType.subrecord` to designate fields that
 point to NetSuite subrecords. Use them similarly to the `sublist` field type.
@@ -196,7 +196,28 @@ NSDAL. e.g.
         // reading the quantity field of the InventoryDetail body field on Assembly Build record 
         build.inventorydetail.quantity 
        
- 
+### Body/Sublist Field Name Conflicts
+A _body_ field name can conflict with a sublist name (e.g. "currency" can be both a body level field name and a sublist 
+name on some record types). 
+
+To work around this, add a `Sublist` suffix to your sublist field name in the class definition. For example:
+
+```typescript
+import { SublistFieldType } from './Sublist'
+import { CurrencySublist } from './CustomerBase'
+import { FieldType } from './Record'
+
+class Customer {
+
+  @Sublist(CurrencySublist)
+  currencySublist: Sublist<CurrencySublist>
+
+  @FieldType.select
+  currency: number
+}
+
+```
+
 #### Sublist Dynamic Mode vs Standard Mode
 By default, dynamic mode APIs (e.g. `set**Current**SublistValue()`)) are used if the record itself is in dynamic mode.
 This is _usually_ what you want. In some cases it's beneficial to use _standard mode_ API even if the record itself
@@ -327,11 +348,15 @@ This is written with TS and is recommended. However, it can be used by javascrip
 
 Configure tsconfig to include `paths` for NetSuite modules and NFT modules:
 
-        "paths": {
-          "N/*": [
-            "node_modules/@hitc/netsuite-types/N/*"
-          ]
-        }
+```json 
+{
+  "paths": {
+    "N/*": [
+      "node_modules/@hitc/netsuite-types/N/*"
+    ]
+  }
+}
+```
 
 
 ## NetSuite Module Declarations

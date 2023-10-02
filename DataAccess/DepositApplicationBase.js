@@ -50,7 +50,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         Sublist_1.SublistFieldType.integernumber
     ], ApplySublist.prototype, "line", void 0);
     __decorate([
-        Sublist_1.SublistFieldType.select
+        Sublist_1.SublistFieldType.freeformtext
     ], ApplySublist.prototype, "refnum", void 0);
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
