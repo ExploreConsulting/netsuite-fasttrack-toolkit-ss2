@@ -28,17 +28,6 @@ program.option('-o --outDir', 'directory in which to place output TypeScript fil
 program.option('-d, --debug', 'output debug stuffs')
 
 
-program.command('isproject')
-
-   .action((e, o) => {
-      isSDFproject().subscribe(v => {
-         console.log(`is SDF project? ${v}`)
-      }, error => {
-         console.debug('current directory is not a valid SDF project root folder. Run this command from your SDF project root')
-         console.error(error.toString())
-      })
-   })
-
 program.command('customrecord <customRecordXmlFile>')
    .description('create an NFT class for the given NetSuite custom record')
    .action(customRecordXmlFile => {
@@ -56,7 +45,7 @@ program.command('customrecord <customRecordXmlFile>')
    })
 
 program.command('custombodyfields <RecordType>')
-   .description('create an NFT class for the given NetSuite custom record')
+   .description('create/update an NFT class for the given NetSuite custom body fields')
    .action(recordTypeName => {
       const xslFile = path.format({dir: __dirname, base:'TransactionBodyField.xslt'})
       const typeMappings = path.format({dir: __dirname, base:'TypeMapping.xml'})
@@ -95,8 +84,7 @@ async function findOutputFolder () {
 
 }
 
-//const result = execSync('echo \'hello world\'', { stdio: 'inherit' })
-console.log('note: SDF must already be configured for TBA access to the desired netsuite account')
+
 // Maybe we shouldn't do auth or downloads - the user should use either the plugin or cli to do that part
 // create a separate program to automate downloads?
 //TODO: feature - bootstrap authentication? reuse existing SDF config? expect users to have TBA already setup? use existing .SDF?

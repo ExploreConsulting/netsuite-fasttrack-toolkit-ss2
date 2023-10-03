@@ -66,17 +66,14 @@ import { FieldType, NetsuiteRecord } from '</xsl:text>
 <xsl:value-of select="$imports"/>
 <xsl:where-populated expand-text="yes">
     <!-- TODO: The below replace code is ugly, should probably look into splitting the description and building each line in a loop -->
-
 /**
  *  <xsl:value-of select="recordname" />
  *  <xsl:value-of select="replace(description,'&#xd;','&#xd; *  ')" />
- */
-</xsl:where-populated>
+ */</xsl:where-populated>
 <xsl:text expand-text="yes">
-export class {$className} extends {$parentClass} {{
-</xsl:text>
+export class {$className} extends {$parentClass} {{</xsl:text>
 
-    static recordType() { return '<xsl:value-of select="@scriptid" />' as const }
+    static recordType () { return '<xsl:value-of select="@scriptid" />' as const }
     <!-- Add standard common fields that exist on all Custom Records -->
     /**
      * Created
@@ -132,8 +129,7 @@ export class {$className} extends {$parentClass} {{
      */
     @FieldType.select
     owner: number
-
-    <!-- TODO: Determine what this field does and if it's needed -->
+<!-- TODO: Determine what this field does and if it's needed -->
     /**
      * ID
      * This may be the same as the internal ID that is already in the base class - or this could be something else
@@ -141,25 +137,20 @@ export class {$className} extends {$parentClass} {{
     @FieldType.integernumber
     recordid: number
 
-
-    //  The following fields are custom and and specific to the __insert record name__ record.
 <xsl:apply-templates select="customrecordcustomfields"/>
 }
 </xsl:template>
-    <xsl:template name="props" match="customrecordcustomfield" expand-text="yes">
+<xsl:template name="props" match="customrecordcustomfield" expand-text="yes">
     /**
-     * {label}<xsl:where-populated xml:space="preserve">
+     * {label}<xsl:where-populated>
      * {description}</xsl:where-populated>
      */
     <xsl:call-template name="set-prop-data-type"/>
     <!--<xsl:value-of select="@scriptid"/> : string-->
     </xsl:template> <!-- /props -->
-
     <xsl:template name="set-prop-data-type">
-
     <xsl:text>@FieldType.</xsl:text>
     <xsl:choose>
-
         <!-- These are the field types defined in NS help
         CHECKBOX
 
@@ -205,76 +196,59 @@ export class {$className} extends {$parentClass} {{
 
         URL
 -->
-
-
     <!-- SELECT LIST/RECORD Field Type -->
     <xsl:when test="fieldtype='SELECT'">
     <xsl:text>select
     </xsl:text>
-        <xsl:value-of select="@scriptid"/>: number
-    </xsl:when>
+        <xsl:value-of select="@scriptid"/>: number</xsl:when>
     <xsl:when test="fieldtype='CHECKBOX'">
     <xsl:text>checkbox
     </xsl:text>
-        <xsl:value-of select="@scriptid"/>: boolean
-    </xsl:when>
+        <xsl:value-of select="@scriptid"/>: boolean</xsl:when>
     <xsl:when test="fieldtype='CURRENCY'">
     <xsl:text>currency
     </xsl:text>
-        <xsl:value-of select="@scriptid"/>: number
-    </xsl:when>
+        <xsl:value-of select="@scriptid"/>: number</xsl:when>
     <xsl:when test="fieldtype='FLOAT'">
     <xsl:text>float
     </xsl:text>
-        <xsl:value-of select="@scriptid"/>: number
-    </xsl:when>
+        <xsl:value-of select="@scriptid"/>: number</xsl:when>
     <xsl:when test="fieldtype='DATE'">
     <xsl:text>date
     </xsl:text>
-        <xsl:value-of select="@scriptid"/>: Date
-    </xsl:when>
+        <xsl:value-of select="@scriptid"/>: Date</xsl:when>
     <xsl:when test="fieldtype='DATETIMETZ'">
     <xsl:text>datetime
     </xsl:text>
-        <xsl:value-of select="@scriptid"/>: Date
-    </xsl:when>
+        <xsl:value-of select="@scriptid"/>: Date</xsl:when>
     <xsl:when test="fieldtype='EMAIL'">
     <xsl:text>email
     </xsl:text>
-    <xsl:value-of select="@scriptid"/>: string
-    </xsl:when>
+    <xsl:value-of select="@scriptid"/>: string</xsl:when>
     <xsl:when test="fieldtype='HELP' or fieldtype='TEXT'">
     <xsl:text>freeformtext
     </xsl:text>
-        <xsl:value-of select="@scriptid"/>: string
-    </xsl:when>
+        <xsl:value-of select="@scriptid"/>: string</xsl:when>
     <xsl:when test="fieldtype='MULTISELECT'">
     <xsl:text>multiselect
     </xsl:text>
-        <xsl:value-of select="@scriptid"/>: number[]
-    </xsl:when>
+        <xsl:value-of select="@scriptid"/>: number[]</xsl:when>
     <xsl:when test="fieldtype='PERCENT'">
     <xsl:text>percent
     </xsl:text>
-        <xsl:value-of select="@scriptid"/>: string
-    </xsl:when>
+        <xsl:value-of select="@scriptid"/>: string</xsl:when>
     <xsl:when test="fieldtype='TEXTAREA'">
     <xsl:text>textarea
     </xsl:text>
-        <xsl:value-of select="@scriptid"/>: string
-    </xsl:when>
+        <xsl:value-of select="@scriptid"/>: string</xsl:when>
     <xsl:when test="fieldtype='INTEGER'">
     <xsl:text>integernumber
     </xsl:text>
-        <xsl:value-of select="@scriptid"/>: number
-    </xsl:when>
+        <xsl:value-of select="@scriptid"/>: number</xsl:when>
     <xsl:otherwise>
         <xsl:text>freeformtext
         </xsl:text>
-        <xsl:value-of select="@scriptid"/>: string
-    </xsl:otherwise>
+        <xsl:value-of select="@scriptid"/>: string</xsl:otherwise>
     </xsl:choose>
-
     </xsl:template>
-
 </xsl:stylesheet>
