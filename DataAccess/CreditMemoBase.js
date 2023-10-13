@@ -27,6 +27,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class CreditMemoBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.CREDIT_MEMO; }
     }
+    exports.CreditMemoBase = CreditMemoBase;
     __decorate([
         Record_1.FieldType.select
     ], CreditMemoBase.prototype, "account", void 0);
@@ -66,9 +67,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.currency
     ], CreditMemoBase.prototype, "unapplied", void 0);
-    exports.CreditMemoBase = CreditMemoBase;
     class ItemSublist extends Sublist_1.SublistLine {
     }
+    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.date
     ], ItemSublist.prototype, "revrecstartdate", void 0);
@@ -96,9 +97,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.checkbox
     ], ItemSublist.prototype, "autoapply", void 0);
-    exports.ItemSublist = ItemSublist;
     class ApplySublist extends Sublist_1.SublistLine {
     }
+    exports.ApplySublist = ApplySublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ApplySublist.prototype, "amount", void 0);
@@ -111,5 +112,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ApplySublist.prototype, "refnum", void 0);
-    exports.ApplySublist = ApplySublist;
 });

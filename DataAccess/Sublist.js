@@ -49,7 +49,7 @@
         SublistFieldType.select = defaultSublistDescriptor;
         SublistFieldType.textarea = defaultSublistDescriptor;
         SublistFieldType.subrecord = subrecordDescriptor;
-    })(SublistFieldType = exports.SublistFieldType || (exports.SublistFieldType = {}));
+    })(SublistFieldType || (exports.SublistFieldType = SublistFieldType = {}));
     /**
      * handles setting sublist fields for any combination of setValue/setText and standard/dynamic record
      * @param fieldId

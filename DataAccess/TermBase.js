@@ -26,6 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return record.Type.TERM;
         }
     }
+    exports.TermBase = TermBase;
     __decorate([
         Record_1.FieldType.select
     ], TermBase.prototype, "datedriven", void 0);
@@ -77,5 +78,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.checkbox
     ], TermBase.prototype, "splitevenly", void 0);
-    exports.TermBase = TermBase;
 });

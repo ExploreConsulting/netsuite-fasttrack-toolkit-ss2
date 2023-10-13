@@ -27,6 +27,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class PaymentsSublist extends Sublist_1.SublistLine {
     }
+    exports.PaymentsSublist = PaymentsSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], PaymentsSublist.prototype, "class", void 0);
@@ -78,13 +79,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], PaymentsSublist.prototype, "type", void 0);
-    exports.PaymentsSublist = PaymentsSublist;
     /**
      * Deposit Record Header
      */
     class DepositBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.DEPOSIT; }
     }
+    exports.DepositBase = DepositBase;
     __decorate([
         Record_1.FieldType.select
     ], DepositBase.prototype, "account", void 0);
@@ -130,5 +131,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(PaymentsSublist)
     ], DepositBase.prototype, "payment", void 0);
-    exports.DepositBase = DepositBase;
 });

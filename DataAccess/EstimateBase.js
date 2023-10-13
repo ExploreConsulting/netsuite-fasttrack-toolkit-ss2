@@ -29,6 +29,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
+    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ItemSublist.prototype, "item", void 0);
@@ -41,13 +42,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ItemSublist.prototype, "rate", void 0);
-    exports.ItemSublist = ItemSublist;
     /**
      * Estimate (Quote)
      */
     class EstimateBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.ESTIMATE; }
     }
+    exports.EstimateBase = EstimateBase;
     __decorate([
         Record_1.FieldType.currency
     ], EstimateBase.prototype, "althandlingcost", void 0);
@@ -171,5 +172,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ItemSublist)
     ], EstimateBase.prototype, "item", void 0);
-    exports.EstimateBase = EstimateBase;
 });
