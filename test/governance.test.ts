@@ -98,4 +98,16 @@ describe('rescheduling', function () {
       expect(mocktask.create.mock.calls[0][0]).toEqual( expect.objectContaining({params: scriptParams }) )
    })
 
+   test('passes callback script params when rescheduling (supersedes params:object parameter)', function () {
+
+      const alwaysFalse = () => false
+
+      let scriptParams = { foo: 'bar' }
+      const makeScriptParams = () =>  scriptParams
+      const sut = rescheduleIfNeeded( alwaysFalse, undefined, () => makeScriptParams() )
+
+      expect(sut()).toEqual(false)
+      // task.create() is called with our script params
+      expect(mocktask.create.mock.calls[0][0]).toEqual( expect.objectContaining({params: scriptParams }) )
+   })
 });
