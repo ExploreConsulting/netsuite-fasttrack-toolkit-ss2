@@ -107,7 +107,7 @@ export class LazySearch implements IterableIterator<query> {
    // the current page of data. This is replaced as we cross from one page to the next
    protected currentPage: query.Page
    // the current set of search results. This is replaced as we cross from one page to the next to keep a constant memory footprint
-   protected currentData: query.Result[]
+   protected currentData: query.ResultSet
    // index into currentData[] pointing to the 'current' search result
    protected index: number
 
@@ -126,36 +126,13 @@ export class LazySearch implements IterableIterator<query> {
          this.currentPage = this.pagedData.fetch(0)
          this.currentData = this.currentPage.data
       } else {
-         this.currentData = []
+         // this.currentData =
          this.log.debug('runPaged() search return zero results')
       }
       this.index = 0
-      this.log.info(`lazy search id ${search?.searchId || 'ad-hoc'}`,
+      this.log.info(`lazy query `,
          `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`)
    }
-
-   /**
-    * Loads an existing NS search by id and prepares it for lazy evaluation
-    * @param id internal id of the search to load
-    * @param pageSize how many records to retrieve per page (paging is automatic) Maximum value: 1000
-    * @returns {LazySearch}
-    *
-    * @example do something for each search result, automatically exiting if out of governance.
-    *
-    * ```typescript
-    *
-    * import {Seq} from './NFT-X.Y.Z/immutable'
-    * import {governanceRemains, LazySearch, nsSearchResult2obj} from './NFT-X.Y.Z/search'
-    *
-    * Seq(LazySearch.load('1234'))
-    *   .takeWhile(governanceRemains()) // process until we drop below default governance threshold
-    *   .map(nsSearchResult2obj()) // convert search results to plain objects with properties
-    *   .forEach( r => log.debug(r))
-    * ```
-    */
-   // static load (id: string, pageSize?: number) {
-   //    return new LazySearch(search.load({ id: id }), pageSize)
-   // }
 
    /**
     * Creates a lazy search from an existing NS search.
@@ -180,9 +157,6 @@ export class LazySearch implements IterableIterator<query> {
     *   .forEach( r => log.debug(r))
     * ```
     */
-   static from (search: string, params?: Array<string | number | boolean>, pageSize?: number) {
-      return new LazySearch(search, params ,pageSize)
-   }
 
    static from (sql: string, params?: any[], pageSize?: number) {
       query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize})
