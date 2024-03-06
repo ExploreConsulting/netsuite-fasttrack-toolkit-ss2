@@ -28,7 +28,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class VendorBase extends Entity_1.Entity {
         static recordType() { return record.Type.VENDOR; }
     }
-    exports.VendorBase = VendorBase;
     __decorate([
         Record_1.FieldType.freeformtext
     ], VendorBase.prototype, "bcn", void 0);
@@ -107,4 +106,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.select
     ], VendorBase.prototype, "workcalendar", void 0);
+    exports.VendorBase = VendorBase;
 });

@@ -28,7 +28,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ExpenseSublist extends Sublist_1.SublistLine {
     }
-    exports.ExpenseSublist = ExpenseSublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ExpenseSublist.prototype, "amount", void 0);
@@ -71,6 +70,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ExpenseSublist.prototype, "refnumber", void 0);
+    exports.ExpenseSublist = ExpenseSublist;
     /**
      * NetSuite Expense Report Record Type
      */
@@ -79,7 +79,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return record.Type.EXPENSE_REPORT;
         }
     }
-    exports.ExpenseReportBase = ExpenseReportBase;
     __decorate([
         Record_1.FieldType.select
     ], ExpenseReportBase.prototype, "account", void 0);
@@ -101,4 +100,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ExpenseSublist)
     ], ExpenseReportBase.prototype, "items", void 0);
+    exports.ExpenseReportBase = ExpenseReportBase;
 });

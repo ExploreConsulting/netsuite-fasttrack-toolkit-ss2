@@ -26,7 +26,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
-    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ItemSublist.prototype, "item", void 0);
@@ -54,13 +53,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.subrecord(InventoryDetailBase_1.InventoryDetailBase)
     ], ItemSublist.prototype, "inventorydetail", void 0);
+    exports.ItemSublist = ItemSublist;
     /**
      * NetSuite Work Order record type
      */
     class WorkOrderBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.WORK_ORDER; }
     }
-    exports.WorkOrderBase = WorkOrderBase;
     __decorate([
         Record_1.FieldType.date
     ], WorkOrderBase.prototype, "actualproductionenddate", void 0);
@@ -100,4 +99,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ItemSublist)
     ], WorkOrderBase.prototype, "item", void 0);
+    exports.WorkOrderBase = WorkOrderBase;
 });

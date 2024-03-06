@@ -29,7 +29,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class AddressSublist extends Sublist_1.SublistLine {
     }
-    exports.AddressSublist = AddressSublist;
     __decorate([
         Sublist_1.SublistFieldType.subrecord(AddressBase_1.AddressBase)
     ], AddressSublist.prototype, "addressbookaddress", void 0);
@@ -72,14 +71,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], AddressSublist.prototype, "zip", void 0);
+    exports.AddressSublist = AddressSublist;
     var CurrencySymbolPlacement;
     (function (CurrencySymbolPlacement) {
         CurrencySymbolPlacement[CurrencySymbolPlacement["BeforeNumber"] = 1] = "BeforeNumber";
         CurrencySymbolPlacement[CurrencySymbolPlacement["AfterNumber"] = 2] = "AfterNumber";
-    })(CurrencySymbolPlacement || (exports.CurrencySymbolPlacement = CurrencySymbolPlacement = {}));
+    })(CurrencySymbolPlacement = exports.CurrencySymbolPlacement || (exports.CurrencySymbolPlacement = {}));
     class CurrencySublist extends Sublist_1.SublistLine {
     }
-    exports.CurrencySublist = CurrencySublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], CurrencySublist.prototype, "balance", void 0);
@@ -119,10 +118,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], CurrencySublist.prototype, "unbilledorders", void 0);
+    exports.CurrencySublist = CurrencySublist;
     class CustomerBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.CUSTOMER; }
     }
-    exports.CustomerBase = CustomerBase;
     __decorate([
         Record_1.FieldType.freeformtext
     ], CustomerBase.prototype, "accountnumber", void 0);
@@ -207,9 +206,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(CurrencySublist)
     ], CustomerBase.prototype, "currencySublist", void 0);
+    exports.CustomerBase = CustomerBase;
     class ContactsSublist extends Sublist_1.SublistLine {
     }
-    exports.ContactsSublist = ContactsSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ContactsSublist.prototype, "contact", void 0);
@@ -231,4 +230,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ContactsSublist.prototype, "strength", void 0);
+    exports.ContactsSublist = ContactsSublist;
 });

@@ -24,7 +24,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class BillingAccountBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.BILLING_ACCOUNT; }
     }
-    exports.BillingAccountBase = BillingAccountBase;
     __decorate([
         Record_1.FieldType.select
     ], BillingAccountBase.prototype, "billingschedule", void 0);
@@ -94,4 +93,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.select
     ], BillingAccountBase.prototype, "subsidiary", void 0);
+    exports.BillingAccountBase = BillingAccountBase;
 });

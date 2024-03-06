@@ -25,7 +25,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const Item_1 = require("./Item");
     class AccountingBooksSublist extends Sublist_1.SublistLine {
     }
-    exports.AccountingBooksSublist = AccountingBooksSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], AccountingBooksSublist.prototype, "acocuntingbook", void 0);
@@ -50,18 +49,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.checkbox
     ], AccountingBooksSublist.prototype, "sameasprimaryrevrec", void 0);
+    exports.AccountingBooksSublist = AccountingBooksSublist;
     class HierarchyVersionsSublist extends Sublist_1.SublistLine {
     }
-    exports.HierarchyVersionsSublist = HierarchyVersionsSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], HierarchyVersionsSublist.prototype, "hierarchynode", void 0);
     __decorate([
         Sublist_1.SublistFieldType.checkbox
     ], HierarchyVersionsSublist.prototype, "isincluded", void 0);
+    exports.HierarchyVersionsSublist = HierarchyVersionsSublist;
     class WebSiteListSublist extends Sublist_1.SublistLine {
     }
-    exports.WebSiteListSublist = WebSiteListSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], WebSiteListSublist.prototype, "category", void 0);
@@ -74,9 +73,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], WebSiteListSublist.prototype, "website", void 0);
+    exports.WebSiteListSublist = WebSiteListSublist;
     class ItemTranslationSublist extends Sublist_1.SublistLine {
     }
-    exports.ItemTranslationSublist = ItemTranslationSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemTranslationSublist.prototype, "displayname", void 0);
@@ -95,13 +94,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemTranslationSublist.prototype, "storedisplayname", void 0);
+    exports.ItemTranslationSublist = ItemTranslationSublist;
     /**
      * NetSuite Service Item
      */
     class ServiceItemBase extends Item_1.Item {
         static recordType() { return record.Type.SERVICE_ITEM; }
     }
-    exports.ServiceItemBase = ServiceItemBase;
     __decorate([
         Record_1.FieldType.integernumber
     ], ServiceItemBase.prototype, "amortizationperiod", void 0);
@@ -210,4 +209,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ItemTranslationSublist)
     ], ServiceItemBase.prototype, "translations", void 0);
+    exports.ServiceItemBase = ServiceItemBase;
 });

@@ -31,7 +31,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class BusinessHoursSublist extends Sublist_1.SublistLine {
     }
-    exports.BusinessHoursSublist = BusinessHoursSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], BusinessHoursSublist.prototype, "endtime", void 0);
@@ -62,9 +61,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], BusinessHoursSublist.prototype, "starttime", void 0);
+    exports.BusinessHoursSublist = BusinessHoursSublist;
     class ExcludeTheseRegionsSublist extends Sublist_1.SublistLine {
     }
-    exports.ExcludeTheseRegionsSublist = ExcludeTheseRegionsSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ExcludeTheseRegionsSublist.prototype, "name", void 0);
@@ -74,9 +73,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ExcludeTheseRegionsSublist.prototype, "region", void 0);
+    exports.ExcludeTheseRegionsSublist = ExcludeTheseRegionsSublist;
     class IncludeTheseRegionsSublist extends Sublist_1.SublistLine {
     }
-    exports.IncludeTheseRegionsSublist = IncludeTheseRegionsSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], IncludeTheseRegionsSublist.prototype, "name", void 0);
@@ -86,13 +85,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], IncludeTheseRegionsSublist.prototype, "region", void 0);
+    exports.IncludeTheseRegionsSublist = IncludeTheseRegionsSublist;
     /**
      * NetSuite Location base record type
      */
     class LocationBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.LOCATION; }
     }
-    exports.LocationBase = LocationBase;
     __decorate([
         Record_1.FieldType.freeformtext
     ], LocationBase.prototype, "addrphone", void 0);
@@ -222,4 +221,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(IncludeTheseRegionsSublist)
     ], LocationBase.prototype, "includelocationregions", void 0);
+    exports.LocationBase = LocationBase;
 });

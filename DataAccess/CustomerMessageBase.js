@@ -27,7 +27,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class CustomerMessageBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.CUSTOMER_MESSAGE; }
     }
-    exports.CustomerMessageBase = CustomerMessageBase;
     __decorate([
         Record_1.FieldType.textarea
     ], CustomerMessageBase.prototype, "description", void 0);
@@ -43,4 +42,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.checkbox
     ], CustomerMessageBase.prototype, "preferred", void 0);
+    exports.CustomerMessageBase = CustomerMessageBase;
 });

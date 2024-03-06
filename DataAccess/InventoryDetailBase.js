@@ -24,7 +24,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const Sublist_1 = require("./Sublist");
     class InventoryAssignmentSublist extends Sublist_1.SublistLine {
     }
-    exports.InventoryAssignmentSublist = InventoryAssignmentSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], InventoryAssignmentSublist.prototype, "binnumber", void 0);
@@ -52,6 +51,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], InventoryAssignmentSublist.prototype, "toinventorystatus", void 0);
+    exports.InventoryAssignmentSublist = InventoryAssignmentSublist;
     /**
      * The inventory detail 'subrecord'. In SS2.0 this is mostly treated as a normal record object.
      * However I caution against trying to create new instances of it, only passing an existing record
@@ -60,7 +60,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class InventoryDetailBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.INVENTORY_DETAIL; }
     }
-    exports.InventoryDetailBase = InventoryDetailBase;
     __decorate([
         Record_1.FieldType.select
     ], InventoryDetailBase.prototype, "item", void 0);
@@ -82,4 +81,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(InventoryAssignmentSublist)
     ], InventoryDetailBase.prototype, "inventoryassignment", void 0);
+    exports.InventoryDetailBase = InventoryDetailBase;
 });

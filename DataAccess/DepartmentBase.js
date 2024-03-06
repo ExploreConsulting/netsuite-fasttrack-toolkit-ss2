@@ -26,7 +26,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return record.Type.DEPARTMENT;
         }
     }
-    exports.DepartmentBase = DepartmentBase;
     __decorate([
         Record_1.FieldType.freeformtext
     ], DepartmentBase.prototype, "externalid", void 0);
@@ -48,4 +47,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.multiselect
     ], DepartmentBase.prototype, "subsidiary", void 0);
+    exports.DepartmentBase = DepartmentBase;
 });

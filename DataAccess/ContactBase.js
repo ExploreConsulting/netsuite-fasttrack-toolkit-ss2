@@ -29,7 +29,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class AddressSublist extends Sublist_1.SublistLine {
     }
-    exports.AddressSublist = AddressSublist;
     __decorate([
         Sublist_1.SublistFieldType.subrecord(AddressBase_1.AddressBase)
     ], AddressSublist.prototype, "addressbookaddress", void 0);
@@ -78,13 +77,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], AddressSublist.prototype, "zip", void 0);
+    exports.AddressSublist = AddressSublist;
     /**
      * Contact Base Type
      */
     class ContactBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.CONTACT; }
     }
-    exports.ContactBase = ContactBase;
     __decorate([
         Record_1.FieldType.email
     ], ContactBase.prototype, "altemail", void 0);
@@ -196,4 +195,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(AddressSublist)
     ], ContactBase.prototype, "addressbook", void 0);
+    exports.ContactBase = ContactBase;
 });

@@ -27,7 +27,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class VendorSubsidiaryRelationshipBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.VENDOR_SUBSIDIARY_RELATIONSHIP; }
     }
-    exports.VendorSubsidiaryRelationshipBase = VendorSubsidiaryRelationshipBase;
     __decorate([
         Record_1.FieldType.currency
     ], VendorSubsidiaryRelationshipBase.prototype, "balance", void 0);
@@ -64,4 +63,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.currency
     ], VendorSubsidiaryRelationshipBase.prototype, "unbilledordersbase", void 0);
+    exports.VendorSubsidiaryRelationshipBase = VendorSubsidiaryRelationshipBase;
 });

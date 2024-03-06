@@ -28,7 +28,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
-    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemSublist.prototype, "class", void 0);
@@ -68,13 +67,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemSublist.prototype, "units", void 0);
+    exports.ItemSublist = ItemSublist;
     /**
      * NetSuite ItemReceipt record class
      */
     class ItemReceiptBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.ITEM_RECEIPT; }
     }
-    exports.ItemReceiptBase = ItemReceiptBase;
     __decorate([
         Record_1.FieldType.select
     ], ItemReceiptBase.prototype, "class", void 0);
@@ -108,4 +107,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ItemSublist)
     ], ItemReceiptBase.prototype, "item", void 0);
+    exports.ItemReceiptBase = ItemReceiptBase;
 });

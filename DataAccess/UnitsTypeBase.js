@@ -27,7 +27,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class UOMSublist extends Sublist_1.SublistLine {
     }
-    exports.UOMSublist = UOMSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], UOMSublist.prototype, "internalid", void 0);
@@ -49,13 +48,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], UOMSublist.prototype, "unitname", void 0);
+    exports.UOMSublist = UOMSublist;
     /**
      * NetSuite Units Type record (unitstype)
      */
     class UnitsType extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.UNITS_TYPE; }
     }
-    exports.UnitsType = UnitsType;
     __decorate([
         Record_1.FieldType.freeformtext
     ], UnitsType.prototype, "name", void 0);
@@ -68,4 +67,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(UOMSublist)
     ], UnitsType.prototype, "uom", void 0);
+    exports.UnitsType = UnitsType;
 });

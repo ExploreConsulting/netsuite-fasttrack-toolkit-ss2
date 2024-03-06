@@ -9,10 +9,7 @@
  */
 
 import * as search from 'N/search'
-import * as query from 'N/query'
 import * as LogManager from './EC_Logger'
-import { Nullable } from './DataAccess/Record'
-import { isString } from 'N/util'
 
 /**
  *  Any object that includes an 'id' property, which NS search results always have
@@ -25,7 +22,7 @@ export type ObjectWithId<T> = T & { id: string }
  * precedence over these values, so don't use `id` or `recordType` as your custom column label if you want the
  * native SearchResult property values to be used.
  */
-export type BaseSearchResult<T> = ObjectWithId<T> & { recordType: string | search.Type }
+export type BaseSearchResult<T> = ObjectWithId<T> & { recordType:string | search.Type }
 
 /**
  * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to `map()`
@@ -52,20 +49,20 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { recordType: string | searc
  *
  *  ```
  */
-export function nsSearchResult2obj<T = {}> (useLabels = true, addGetTextProps = true): (r: search.Result) => BaseSearchResult<T> {
+export function nsSearchResult2obj <T = {}>(useLabels = true, addGetTextProps = true): (r:search.Result)=> BaseSearchResult<T> {
    return function (result: search.Result) {
-      let output: { id: string, recordType?: string | search.Type } = { id: result.id, recordType: result.recordType }
+      let output : { id:string, recordType?:string | search.Type } = {id: result.id, recordType:result.recordType }
       // assigns each column VALUE from the search result to the output object
       if (result.columns && result.columns.length > 0)
-         result.columns.forEach((col) => {
-            const propName = (useLabels && col.label) ? col.label : col.name
-            output[propName] = result.getValue(col)
-            // if the column has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
-            if (addGetTextProps) {
-               const text = result.getText(col)
-               if (text) output[`${propName}Text`] = text
-            }
-         })
+      result.columns.forEach((col) => {
+         const propName = (useLabels && col.label) ? col.label : col.name
+         output[propName] = result.getValue(col)
+         // if the column has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
+         if (addGetTextProps) {
+            const text = result.getText(col)
+            if (text) output[`${propName}Text`] = text
+         }
+      })
       return output as BaseSearchResult<T>
    }
 }
@@ -92,51 +89,23 @@ export function nsSearchResult2obj<T = {}> (useLabels = true, addGetTextProps = 
 export class LazySearch implements IterableIterator<search.Result> {
 
    /**
+    * LazySearch is both an iterable and an iterator for search results.
+    */
+   [Symbol.iterator] (): IterableIterator<search.Result> {
+      return this
+   }
+
+   /**
     * the name of the custom logger for this component for independent logging control
     */
    static LOGNAME = 'lazy'
-   // logger for this module
-   protected log: LogManager.Logger
 
    // /**
    //  * A LazySearch is iterable per the iterable protocol, which also plays nicely with immutablejs
    //  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
    //  */
-   // outer paged data object from NS search. This is only set once when search is initially runPaged()
-   protected pagedData: search.PagedData | query.PagedData
-   // the current page of data. This is replaced as we cross from one page to the next
-   protected currentPage: search.Page | query.Page
-   // the current set of search results. This is replaced as we cross from one page to the next to keep a constant memory footprint
-   protected currentData: search.Result[] | query.Result[]
-   // index into currentData[] pointing to the 'current' search result
-   protected index: number
 
-   /**
-    * Not meant to be used directly, use factory methods such as `load` or `from`
-    * @param search the netsuite search object to wrap
-    * @param pageSize optional pagesize, can be up to 1000
-    */
-   private constructor (private search: search.Search | string, params?: Array<string | number | boolean>, private pageSize = 500) {
-      if (pageSize > 1000) throw new Error('page size must be <= 1000')
-      this.log = LogManager.getLogger(LazySearch.LOGNAME)
-      if (typeof search === 'string') {
-         this.pagedData = query.runSuiteQLPaged({ query: search, pageSize, params })
-      } else {
-         this.pagedData = search.runPaged({ pageSize: pageSize })
-      }
 
-      // only load a page if we have records
-      if (this.pagedData.count > 0) {
-         this.currentPage = this.pagedData.fetch({ index: 0 })
-         this.currentData = this.currentPage.data
-      } else {
-         this.currentData = []
-         this.log.debug('runPaged() search return zero results')
-      }
-      this.index = 0
-      this.log.info(`lazy search id ${search?.searchId || 'ad-hoc'}`,
-         `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`)
-   }
 
    /**
     * Loads an existing NS search by id and prepares it for lazy evaluation
@@ -157,8 +126,8 @@ export class LazySearch implements IterableIterator<search.Result> {
     *   .forEach( r => log.debug(r))
     * ```
     */
-   static load (id: string, pageSize?: number) {
-      return new LazySearch(search.load({ id: id }), pageSize)
+   static load(id: string, pageSize?: number) {
+      return new LazySearch(search.load({id: id}), pageSize)
    }
 
    /**
@@ -184,20 +153,41 @@ export class LazySearch implements IterableIterator<search.Result> {
     *   .forEach( r => log.debug(r))
     * ```
     */
-   static from (search: search.Search, pageSize?: number) {
+   static from(search: search.Search, pageSize?: number) {
       return new LazySearch(search, pageSize)
    }
 
-   static from (sql: string, params?: any[], pageSize?: number) {
-      //query.runSuiteQLPaged({ query: })
-
-   }
+   // logger for this module
+   protected log: LogManager.Logger
+   // outer paged data object from NS search. This is only set once when search is initially runPaged()
+   protected pagedData: search.PagedData
+   // the current page of data. This is replaced as we cross from one page to the next
+   protected currentPage: search.Page
+   // the current set of search results. This is replaced as we cross from one page to the next to keep a constant memory footprint
+   protected currentData: search.Result[]
+   // index into currentData[] pointing to the 'current' search result
+   protected index: number
 
    /**
-    * LazySearch is both an iterable and an iterator for search results.
+    * Not meant to be used directly, use factory methods such as `load` or `from`
+    * @param search the netsuite search object to wrap
+    * @param pageSize optional pagesize, can be up to 1000
     */
-   [Symbol.iterator] (): IterableIterator<search.Result> {
-      return this
+   private constructor(private search: search.Search, private pageSize = 500) {
+      if (pageSize > 1000) throw new Error('page size must be <= 1000')
+      this.log = LogManager.getLogger(LazySearch.LOGNAME)
+      this.pagedData = this.search.runPaged({pageSize: pageSize})
+      // only load a page if we have records
+      if (this.pagedData.count > 0) {
+         this.currentPage = this.pagedData.fetch({index: 0})
+         this.currentData = this.currentPage.data
+      } else {
+         this.currentData = []
+         this.log.debug('runPaged() search return zero results')
+      }
+      this.index = 0
+      this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`,
+         `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`)
    }
 
    /**
@@ -206,7 +196,7 @@ export class LazySearch implements IterableIterator<search.Result> {
     *
     * You don't typically call this function yourself - libraries like ImmutableJS do.
     */
-   next (): IteratorResult<search.Result> {
+   next(): IteratorResult<search.Result> {
       const atEndOfPage = this.index === this.currentData.length
       const done = !this.currentPage || (this.currentPage.isLast && atEndOfPage)
 

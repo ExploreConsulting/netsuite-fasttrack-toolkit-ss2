@@ -28,7 +28,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
-    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ItemSublist.prototype, "amount", void 0);
@@ -71,13 +70,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ItemSublist.prototype, "units", void 0);
+    exports.ItemSublist = ItemSublist;
     /**
      * Return Authorization Base Type
      */
     class ReturnAuthorizationBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.RETURN_AUTHORIZATION; }
     }
-    exports.ReturnAuthorizationBase = ReturnAuthorizationBase;
     __decorate([
         Record_1.FieldType.select
     ], ReturnAuthorizationBase.prototype, "class", void 0);
@@ -108,4 +107,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ItemSublist)
     ], ReturnAuthorizationBase.prototype, "item", void 0);
+    exports.ReturnAuthorizationBase = ReturnAuthorizationBase;
 });
