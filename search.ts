@@ -167,6 +167,14 @@ export class LazySearch implements IterableIterator<search.Result> {
    protected currentData: search.Result[]
    // index into currentData[] pointing to the 'current' search result
    protected index: number
+   // Total length of the search result set
+   protected totalSearchResultLength: number
+   // Current search result count, used to know if we have hit the end of the current "page"
+   protected currentSearchResultRange: number
+   // Current range of the search result
+   protected currentRange: search.Result[]
+   // Fully executed search (simply, a search.run())
+   protected executedSearch: search.ResultSet
 
    /**
     * Not meant to be used directly, use factory methods such as `load` or `from`
@@ -176,18 +184,41 @@ export class LazySearch implements IterableIterator<search.Result> {
    private constructor(private search: search.Search, private pageSize = 500) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
       this.log = LogManager.getLogger(LazySearch.LOGNAME)
-      this.pagedData = this.search.runPaged({pageSize: pageSize})
-      // only load a page if we have records
-      if (this.pagedData.count > 0) {
-         this.currentPage = this.pagedData.fetch({index: 0})
-         this.currentData = this.currentPage.data
-      } else {
-         this.currentData = []
-         this.log.debug('runPaged() search return zero results')
+
+      this.currentData = []
+      this.executedSearch = search.run()
+
+      this.currentRange = this.executedSearch.getRange({
+         start: 0,
+         end: pageSize
+      })
+
+      while (this.currentSearchResultRange < this.currentRange.length) {
+         this.currentData.push(this.currentRange[this.currentSearchResultRange])
+         this.currentSearchResultRange++
+         this.totalSearchResultLength++
+         if (this.currentSearchResultRange === this.pageSize) {
+            this.currentSearchResultRange = 0
+            this.currentRange = this.executedSearch.getRange({
+               start: this.totalSearchResultLength,
+               end: this.totalSearchResultLength + this.pageSize
+            })
+         }
       }
+
+
+      // this.pagedData = this.search.runPaged({pageSize: pageSize})
+      // // only load a page if we have records
+      // if (this.pagedData.count > 0) {
+      //    this.currentPage = this.pagedData.fetch({index: 0})
+      //    this.currentData = this.currentPage.data
+      // } else {
+      //    this.currentData = []
+      //    this.log.debug('runPaged() search return zero results')
+      // }
       this.index = 0
       this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`,
-         `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`)
+         `using "page" size ${this.pageSize}, record count ${this.totalSearchResultLength}`)
    }
 
    /**
