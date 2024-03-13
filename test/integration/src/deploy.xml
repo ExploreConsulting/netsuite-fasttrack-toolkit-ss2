@@ -3,7 +3,6 @@
 <!--        <path>~/AccountConfiguration/*</path>-->
 <!--    </configuration>-->
     <files>
-        <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/NFTAmdConfig.json</path>
         <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/Customer.ts</path>
         <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/Customer.js</path>
         <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/VendorPayment.ts</path>

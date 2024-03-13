@@ -3,7 +3,6 @@
  * Description       A script for smoke-testing NFT.
  * @NApiVersion 2.1
  * @NScriptType Suitelet
- * @NAmdConfig ./NFTAmdConfig.json
  **/
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -17,21 +16,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "NFT/EC_Logger", "NFT/DataAccess/ItemFulfillmentBase", "NFT/DataAccess/Record", "NFT/DataAccess/AddressBase", "./RecordTypes/Customer", "NFT/search", "N/search", "NFT/immutable", "NFT/DataAccess/AssemblyItemBase", "./RecordTypes/VendorPayment", "NFT/lodash"], factory);
+        define(["require", "exports", "./NFT-SS2-7.2.1/EC_Logger", "./NFT-SS2-7.2.1/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.2.1/DataAccess/Record", "./NFT-SS2-7.2.1/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.2.1/search", "N/search", "./NFT-SS2-7.2.1/immutable", "./NFT-SS2-7.2.1/DataAccess/AssemblyItemBase", "./RecordTypes/VendorPayment", "./NFT-SS2-7.2.1/lodash"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    const LogManager = require("NFT/EC_Logger");
-    const ItemFulfillmentBase_1 = require("NFT/DataAccess/ItemFulfillmentBase");
-    const Record_1 = require("NFT/DataAccess/Record");
-    const AddressBase_1 = require("NFT/DataAccess/AddressBase");
+    const LogManager = require("./NFT-SS2-7.2.1/EC_Logger");
+    const ItemFulfillmentBase_1 = require("./NFT-SS2-7.2.1/DataAccess/ItemFulfillmentBase");
+    const Record_1 = require("./NFT-SS2-7.2.1/DataAccess/Record");
+    const AddressBase_1 = require("./NFT-SS2-7.2.1/DataAccess/AddressBase");
     const Customer_1 = require("./RecordTypes/Customer");
-    const search_1 = require("NFT/search");
+    const search_1 = require("./NFT-SS2-7.2.1/search");
     const search = require("N/search");
-    const immutable_1 = require("NFT/immutable");
-    const AssemblyItemBase_1 = require("NFT/DataAccess/AssemblyItemBase");
+    const immutable_1 = require("./NFT-SS2-7.2.1/immutable");
+    const AssemblyItemBase_1 = require("./NFT-SS2-7.2.1/DataAccess/AssemblyItemBase");
     const VendorPayment_1 = require("./RecordTypes/VendorPayment");
-    const _ = require("NFT/lodash");
+    const _ = require("./NFT-SS2-7.2.1/lodash");
     const log = LogManager.DefaultLogger;
     class ItemFulfillment extends ItemFulfillmentBase_1.ItemFulfillmentBase {
     }

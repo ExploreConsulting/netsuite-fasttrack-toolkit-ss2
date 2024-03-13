@@ -10,14 +10,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "NFT/DataAccess/CustomerBase", "NFT/DataAccess/Record"], factory);
+        define(["require", "exports", "../NFT-SS2-7.2.1/DataAccess/CustomerBase", "../NFT-SS2-7.2.1/DataAccess/Record"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Customer = void 0;
-    const CustomerBase_1 = require("NFT/DataAccess/CustomerBase");
-    const Record_1 = require("NFT/DataAccess/Record");
+    const CustomerBase_1 = require("../NFT-SS2-7.2.1/DataAccess/CustomerBase");
+    const Record_1 = require("../NFT-SS2-7.2.1/DataAccess/Record");
     /**
      * NetSuite Customer record type
      */

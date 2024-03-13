@@ -3,21 +3,20 @@
  * Description       A script for smoke-testing NFT.
  * @NApiVersion 2.1
  * @NScriptType Suitelet
- * @NAmdConfig ./NFTAmdConfig.json
  **/
 
 import { EntryPoints } from 'N/types'
-import * as LogManager from 'NFT/EC_Logger'
-import { ItemFulfillmentBase } from 'NFT/DataAccess/ItemFulfillmentBase'
-import { FieldType } from 'NFT/DataAccess/Record'
-import { AddressBase } from 'NFT/DataAccess/AddressBase'
+import * as LogManager from './NFT-SS2-7.2.1/EC_Logger'
+import { ItemFulfillmentBase } from './NFT-SS2-7.2.1/DataAccess/ItemFulfillmentBase'
+import { FieldType } from './NFT-SS2-7.2.1/DataAccess/Record'
+import { AddressBase } from './NFT-SS2-7.2.1/DataAccess/AddressBase'
 import { Customer } from './RecordTypes/Customer'
-import { LazySearch, nsSearchResult2obj } from 'NFT/search'
+import { LazySearch, nsSearchResult2obj } from './NFT-SS2-7.2.1/search'
 import * as search from 'N/search'
-import { Seq } from 'NFT/immutable'
-import { AssemblyItemBase } from 'NFT/DataAccess/AssemblyItemBase'
+import { Seq } from './NFT-SS2-7.2.1/immutable'
+import { AssemblyItemBase } from './NFT-SS2-7.2.1/DataAccess/AssemblyItemBase'
 import { VendorPayment } from './RecordTypes/VendorPayment'
-import * as _ from 'NFT/lodash'
+import * as _ from './NFT-SS2-7.2.1/lodash'
 
 const log = LogManager.DefaultLogger
 
