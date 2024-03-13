@@ -25,6 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ComponentSublist extends Sublist_1.SublistLine {
     }
+    exports.ComponentSublist = ComponentSublist;
     __decorate([
         Sublist_1.SublistFieldType.subrecord(InventoryDetailBase_1.InventoryDetailBase)
     ], ComponentSublist.prototype, "componentinventorydetail", void 0);
@@ -43,7 +44,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.float
     ], ComponentSublist.prototype, "unitcost", void 0);
-    exports.ComponentSublist = ComponentSublist;
     /**
      * NetSuite Assembly Build (assemblybuild) transaction type.
      * Note it does not inherit from our transaction base because it has a differing subset of fields documented in the
@@ -52,6 +52,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class AssemblyBuildBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.ASSEMBLY_BUILD; }
     }
+    exports.AssemblyBuildBase = AssemblyBuildBase;
     __decorate([
         Record_1.FieldType.select
     ], AssemblyBuildBase.prototype, "billofmaterials", void 0);
@@ -118,5 +119,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ComponentSublist)
     ], AssemblyBuildBase.prototype, "component", void 0);
-    exports.AssemblyBuildBase = AssemblyBuildBase;
 });

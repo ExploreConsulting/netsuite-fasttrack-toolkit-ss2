@@ -154,18 +154,35 @@
             if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazySearch.LOGNAME);
-            this.pagedData = this.search.runPaged({ pageSize: pageSize });
-            // only load a page if we have records
-            if (this.pagedData.count > 0) {
-                this.currentPage = this.pagedData.fetch({ index: 0 });
-                this.currentData = this.currentPage.data;
+            this.currentData = [];
+            this.executedSearch = search.run();
+            this.currentRange = this.executedSearch.getRange({
+                start: 0,
+                end: pageSize
+            });
+            while (this.currentSearchResultRange < this.currentRange.length) {
+                this.currentData.push(this.currentRange[this.currentSearchResultRange]);
+                this.currentSearchResultRange++;
+                this.totalSearchResultLength++;
+                if (this.currentSearchResultRange === this.pageSize) {
+                    this.currentSearchResultRange = 0;
+                    this.currentRange = this.executedSearch.getRange({
+                        start: this.totalSearchResultLength,
+                        end: this.totalSearchResultLength + this.pageSize
+                    });
+                }
             }
-            else {
-                this.currentData = [];
-                this.log.debug('runPaged() search return zero results');
-            }
+            // this.pagedData = this.search.runPaged({pageSize: pageSize})
+            // // only load a page if we have records
+            // if (this.pagedData.count > 0) {
+            //    this.currentPage = this.pagedData.fetch({index: 0})
+            //    this.currentData = this.currentPage.data
+            // } else {
+            //    this.currentData = []
+            //    this.log.debug('runPaged() search return zero results')
+            // }
             this.index = 0;
-            this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`, `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`);
+            this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`, `using "page" size ${this.pageSize}, record count ${this.totalSearchResultLength}`);
         }
         /**
          * per the iterator protocol, retrieves the next element. Also returns `null` if done as the specification for
@@ -195,9 +212,9 @@
             };
         }
     }
+    exports.LazySearch = LazySearch;
     /**
      * the name of the custom logger for this component for independent logging control
      */
     LazySearch.LOGNAME = 'lazy';
-    exports.LazySearch = LazySearch;
 });

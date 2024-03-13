@@ -26,6 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class CashRefundBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.CASH_REFUND; }
     }
+    exports.CashRefundBase = CashRefundBase;
     __decorate([
         Record_1.FieldType.select
     ], CashRefundBase.prototype, "account", void 0);
@@ -50,9 +51,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.currency
     ], CashRefundBase.prototype, "total", void 0);
-    exports.CashRefundBase = CashRefundBase;
     class ItemSublist extends Sublist_1.SublistLine {
     }
+    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ItemSublist.prototype, "amount", void 0);
@@ -77,5 +78,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.decimalnumber
     ], ItemSublist.prototype, "taxrate1", void 0);
-    exports.ItemSublist = ItemSublist;
 });

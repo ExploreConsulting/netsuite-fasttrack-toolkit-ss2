@@ -29,6 +29,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class InventoryAdjustmentBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.INVENTORY_ADJUSTMENT; }
     }
+    exports.InventoryAdjustmentBase = InventoryAdjustmentBase;
     __decorate([
         Record_1.FieldType.select
     ], InventoryAdjustmentBase.prototype, "account", void 0);
@@ -44,12 +45,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.currency
     ], InventoryAdjustmentBase.prototype, "estimatedtotalvalue", void 0);
-    exports.InventoryAdjustmentBase = InventoryAdjustmentBase;
     /**
      * Sublist 'inventory' on the Inventory Adjustment record.
      */
     class InventorySublist extends Sublist_1.SublistLine {
     }
+    exports.InventorySublist = InventorySublist;
     __decorate([
         Sublist_1.SublistFieldType.float
     ], InventorySublist.prototype, "adjustqtyby", void 0);
@@ -89,5 +90,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], InventorySublist.prototype, "units", void 0);
-    exports.InventorySublist = InventorySublist;
 });

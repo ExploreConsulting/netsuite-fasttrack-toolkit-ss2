@@ -29,6 +29,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
+    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.decimalnumber
     ], ItemSublist.prototype, "amount", void 0);
@@ -80,13 +81,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemSublist.prototype, "vendorname", void 0);
-    exports.ItemSublist = ItemSublist;
     /**
      * NetSuite Purchase Order Record
      */
     class PurchaseOrderBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.PURCHASE_ORDER; }
     }
+    exports.PurchaseOrderBase = PurchaseOrderBase;
     __decorate([
         Record_1.FieldType.select
     ], PurchaseOrderBase.prototype, "approvalstatus", void 0);
@@ -150,5 +151,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ItemSublist)
     ], PurchaseOrderBase.prototype, "item", void 0);
-    exports.PurchaseOrderBase = PurchaseOrderBase;
 });
