@@ -151,6 +151,10 @@
         constructor(search, pageSize = 500) {
             this.search = search;
             this.pageSize = pageSize;
+            // Total length of the search result set
+            this.totalSearchResultLength = 0;
+            // Current search result count, used to know if we have hit the end of the current "page"
+            this.currentSearchResultRange = 0;
             if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazySearch.LOGNAME);
@@ -160,7 +164,9 @@
                 start: 0,
                 end: pageSize
             });
+            this.log.info(`this.currentSearchResultRange = ${this.currentSearchResultRange} | this.currentRange.length = ${this.currentRange.length}`, this.executedSearch);
             while (this.currentSearchResultRange < this.currentRange.length) {
+                this.log.info(`in while`, this.currentRange);
                 this.currentData.push(this.currentRange[this.currentSearchResultRange]);
                 this.currentSearchResultRange++;
                 this.totalSearchResultLength++;
@@ -181,6 +187,7 @@
             //    this.currentData = []
             //    this.log.debug('runPaged() search return zero results')
             // }
+            this.log.info(`this.currentData`, this.currentData);
             this.index = 0;
             this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`, `using "page" size ${this.pageSize}, record count ${this.totalSearchResultLength}`);
         }

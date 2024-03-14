@@ -16,7 +16,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./NFT-SS2-7.2.1/EC_Logger", "./NFT-SS2-7.2.1/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.2.1/DataAccess/Record", "./NFT-SS2-7.2.1/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.2.1/search", "N/search", "./NFT-SS2-7.2.1/immutable", "./NFT-SS2-7.2.1/DataAccess/AssemblyItemBase", "./RecordTypes/VendorPayment", "./NFT-SS2-7.2.1/lodash"], factory);
+        define(["require", "exports", "./NFT-SS2-7.2.1/EC_Logger", "./NFT-SS2-7.2.1/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.2.1/DataAccess/Record", "./NFT-SS2-7.2.1/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.2.1/search", "N/search", "./NFT-SS2-7.2.1/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-7.2.1/lodash", "./NFT-SS2-7.2.1/DataAccess/InventoryItemBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -28,9 +28,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const search_1 = require("./NFT-SS2-7.2.1/search");
     const search = require("N/search");
     const immutable_1 = require("./NFT-SS2-7.2.1/immutable");
-    const AssemblyItemBase_1 = require("./NFT-SS2-7.2.1/DataAccess/AssemblyItemBase");
     const VendorPayment_1 = require("./RecordTypes/VendorPayment");
     const _ = require("./NFT-SS2-7.2.1/lodash");
+    const InventoryItemBase_1 = require("./NFT-SS2-7.2.1/DataAccess/InventoryItemBase");
     const log = LogManager.DefaultLogger;
     class ItemFulfillment extends ItemFulfillmentBase_1.ItemFulfillmentBase {
     }
@@ -43,6 +43,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
          * main script entrypoint
          */
         function onRequest(ctx) {
+            LogManager.getLogger(search_1.LazySearch.LOGNAME).setLevel(LogManager.logLevel.debug);
             switch (ctx.request.method) {
                 case 'GET':
                     ctx.response.writeLine({ output: `<H1>NFT Integration Tests</H1>` });
@@ -61,25 +62,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
          * ensure we can load an assembly item  now that it uses the shared `Item` base class
          */
         function loadAssemblyItem() {
-            return new AssemblyItemBase_1.AssemblyItemBase(950);
+            return new InventoryItemBase_1.InventoryItemBase(111);
         }
         X.loadAssemblyItem = loadAssemblyItem;
         /**
          * Tests that NFT can load a specific transaction
          */
         function loadTransaction() {
-            return new ItemFulfillment(19);
+            return new ItemFulfillment(7955);
         }
         X.loadTransaction = loadTransaction;
         function loadEntity() {
-            return new Customer_1.Customer(1049);
+            return new Customer_1.Customer(283);
         }
         X.loadEntity = loadEntity;
         function doSearch() {
             return (0, immutable_1.Seq)(search_1.LazySearch.from(search.create({
                 type: search.Type.CUSTOMER,
                 filters: [
-                    ['companyname', search.Operator.CONTAINS, 'Smith Inc']
+                    ['companyname', search.Operator.CONTAINS, 'Cadvery']
                 ],
                 columns: ['companyname', 'phone', 'firstname', 'lastname']
                 // as any below because two physically separate declarations of N/search (one referenced by LazySearch.from() expected parameters,
@@ -91,13 +92,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         }
         X.doSearch = doSearch;
         function sublists() {
-            const v = new VendorPayment_1.VendorPayment(1291);
+            const v = new VendorPayment_1.VendorPayment(7985);
             v.apply.useDynamicModeAPI = false;
             const applySublist = _.toPlainObject(v.apply);
             v.apply.useDynamicModeAPI = true;
             // should be the same becaue the record was in standard mode all along
             const applySublist2 = _.toPlainObject(v.apply);
-            const customerAddress = new Customer_1.Customer(1049).addressbook;
+            const customerAddress = new Customer_1.Customer(283).addressbook;
             return { standardModeResult: applySublist, standardModeResult2: applySublist2, customerAddress };
         }
         X.sublists = sublists;
@@ -130,7 +131,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         X.bar = bar;
         const testMap = {
             'NSDAL load Transaction': X.loadTransaction,
-            'NSDAL load Assembly Item': X.loadAssemblyItem,
+            'NSDAL load Inventory Item': X.loadAssemblyItem,
             'NSDAL load Customer': X.loadEntity,
             'NSDAL sublists': X.sublists,
             'LazySearch': X.doSearch,

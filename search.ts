@@ -168,9 +168,9 @@ export class LazySearch implements IterableIterator<search.Result> {
    // index into currentData[] pointing to the 'current' search result
    protected index: number
    // Total length of the search result set
-   protected totalSearchResultLength: number
+   protected totalSearchResultLength: number = 0
    // Current search result count, used to know if we have hit the end of the current "page"
-   protected currentSearchResultRange: number
+   protected currentSearchResultRange: number = 0
    // Current range of the search result
    protected currentRange: search.Result[]
    // Fully executed search (simply, a search.run())
@@ -193,7 +193,11 @@ export class LazySearch implements IterableIterator<search.Result> {
          end: pageSize
       })
 
+      this.log.info(`this.currentSearchResultRange = ${this.currentSearchResultRange} | this.currentRange.length = ${this.currentRange.length}`,
+         this.executedSearch)
+
       while (this.currentSearchResultRange < this.currentRange.length) {
+         this.log.info(`in while`, this.currentRange)
          this.currentData.push(this.currentRange[this.currentSearchResultRange])
          this.currentSearchResultRange++
          this.totalSearchResultLength++
@@ -205,8 +209,6 @@ export class LazySearch implements IterableIterator<search.Result> {
             })
          }
       }
-
-
       // this.pagedData = this.search.runPaged({pageSize: pageSize})
       // // only load a page if we have records
       // if (this.pagedData.count > 0) {
@@ -216,6 +218,7 @@ export class LazySearch implements IterableIterator<search.Result> {
       //    this.currentData = []
       //    this.log.debug('runPaged() search return zero results')
       // }
+      this.log.info(`this.currentData`, this.currentData)
       this.index = 0
       this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`,
          `using "page" size ${this.pageSize}, record count ${this.totalSearchResultLength}`)

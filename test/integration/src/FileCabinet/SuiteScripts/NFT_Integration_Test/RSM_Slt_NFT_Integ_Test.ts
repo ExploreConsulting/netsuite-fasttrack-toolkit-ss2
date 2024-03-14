@@ -17,6 +17,7 @@ import { Seq } from './NFT-SS2-7.2.1/immutable'
 import { AssemblyItemBase } from './NFT-SS2-7.2.1/DataAccess/AssemblyItemBase'
 import { VendorPayment } from './RecordTypes/VendorPayment'
 import * as _ from './NFT-SS2-7.2.1/lodash'
+import {InventoryItemBase} from "./NFT-SS2-7.2.1/DataAccess/InventoryItemBase";
 
 const log = LogManager.DefaultLogger
 
@@ -30,6 +31,8 @@ namespace X {
    * main script entrypoint
    */
   export function onRequest(ctx: EntryPoints.Suitelet.onRequestContext) {
+
+     LogManager.getLogger(LazySearch.LOGNAME).setLevel(LogManager.logLevel.debug)
 
     switch (ctx.request.method) {
       case 'GET':
@@ -49,25 +52,25 @@ namespace X {
    * ensure we can load an assembly item  now that it uses the shared `Item` base class
    */
   export function loadAssemblyItem() {
-    return new AssemblyItemBase(950)
+    return new InventoryItemBase(111)
   }
 
   /**
    * Tests that NFT can load a specific transaction
    */
   export function loadTransaction() {
-    return new ItemFulfillment(19)
+    return new ItemFulfillment(7955)
   }
 
   export function loadEntity() {
-    return new Customer(1049)
+    return new Customer(283)
   }
 
   export function doSearch() {
     return Seq(LazySearch.from(search.create({
       type: search.Type.CUSTOMER,
       filters: [
-        ['companyname', search.Operator.CONTAINS, 'Smith Inc']
+        ['companyname', search.Operator.CONTAINS, 'Cadvery']
       ],
       columns: ['companyname', 'phone', 'firstname', 'lastname']
        // as any below because two physically separate declarations of N/search (one referenced by LazySearch.from() expected parameters,
@@ -79,7 +82,7 @@ namespace X {
   }
 
   export function sublists() {
-    const v = new VendorPayment(1291)
+    const v = new VendorPayment(7985)
 
     v.apply.useDynamicModeAPI = false
     const applySublist = _.toPlainObject(v.apply)
@@ -88,7 +91,7 @@ namespace X {
     // should be the same becaue the record was in standard mode all along
     const applySublist2 = _.toPlainObject(v.apply)
 
-    const customerAddress = new Customer(1049).addressbook
+    const customerAddress = new Customer(283).addressbook
 
     return { standardModeResult: applySublist, standardModeResult2: applySublist2, customerAddress }
 
@@ -128,7 +131,7 @@ namespace X {
 
   const testMap: { [label: string]: Function } = {
     'NSDAL load Transaction': X.loadTransaction,
-    'NSDAL load Assembly Item': X.loadAssemblyItem,
+    'NSDAL load Inventory Item': X.loadAssemblyItem,
     'NSDAL load Customer': X.loadEntity,
     'NSDAL sublists': X.sublists,
     'LazySearch': X.doSearch,
