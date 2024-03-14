@@ -33,7 +33,7 @@ namespace X {
 
     switch (ctx.request.method) {
       case 'GET':
-        ctx.response.writeLine({ output: `<H1>NFT-SS2-7.2.0 Integration Tests</H1>` })
+        ctx.response.writeLine({ output: `<H1>NFT Integration Tests</H1>` })
         for (const test in testMap) {
           ctx.response.writeLine({ output: `<H2>${test}</H2>` })
           ctx.response.write(`<pre>${JSON.stringify(testMap[test](), null, 2)}</pre>`)
