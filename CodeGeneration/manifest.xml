@@ -6,6 +6,7 @@
             <feature required="true">CUSTOMRECORDS</feature>
             <feature required="true">SERVERSIDESCRIPTING</feature>
             <feature required="false">CREATESUITEBUNDLES</feature>
+            <feature required="false">CRM</feature>
         </features>
     </dependencies>
 </manifest>
