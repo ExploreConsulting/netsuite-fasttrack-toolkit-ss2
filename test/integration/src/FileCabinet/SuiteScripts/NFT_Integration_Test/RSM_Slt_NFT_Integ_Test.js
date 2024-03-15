@@ -80,7 +80,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return (0, immutable_1.Seq)(search_1.LazySearch.from(search.create({
                 type: search.Type.CUSTOMER,
                 filters: [
-                    ['companyname', search.Operator.CONTAINS, 'Cadvery']
+                    ['companyname', search.Operator.CONTAINS, 'e']
                 ],
                 columns: ['companyname', 'phone', 'firstname', 'lastname']
                 // as any below because two physically separate declarations of N/search (one referenced by LazySearch.from() expected parameters,
