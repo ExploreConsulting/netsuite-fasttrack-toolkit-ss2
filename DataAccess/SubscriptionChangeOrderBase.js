@@ -24,30 +24,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class NewSublineSublist extends Sublist_1.SublistLine {
     }
+    exports.NewSublineSublist = NewSublineSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], NewSublineSublist.prototype, "item", void 0);
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], NewSublineSublist.prototype, "subscriptionline", void 0);
-    exports.NewSublineSublist = NewSublineSublist;
     /**
      * Renewal Steps (renewalsteps) sublist
      */
     class RenewalStepsSublist extends Sublist_1.SublistLine {
     }
+    exports.RenewalStepsSublist = RenewalStepsSublist;
     __decorate([
         Sublist_1.SublistFieldType.decimalnumber
     ], RenewalStepsSublist.prototype, "subscription", void 0);
     __decorate([
         Sublist_1.SublistFieldType.decimalnumber
     ], RenewalStepsSublist.prototype, "transaction", void 0);
-    exports.RenewalStepsSublist = RenewalStepsSublist;
     /**
      * Items (subline) sublist
      */
     class SublineSublist extends Sublist_1.SublistLine {
     }
+    exports.SublineSublist = SublineSublist;
     __decorate([
         Sublist_1.SublistFieldType.checkbox
     ], SublineSublist.prototype, "apply", void 0);
@@ -66,7 +67,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], SublineSublist.prototype, "includeinrenewal", void 0);
-    exports.SublineSublist = SublineSublist;
     /**
      * Subscription Change Order NetSuite record |
      * On creation, the following default values are required: action and subscription.
@@ -74,6 +74,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class SubscriptionChangeOrderBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.SUBSCRIPTION_CHANGE_ORDER; }
     }
+    exports.SubscriptionChangeOrderBase = SubscriptionChangeOrderBase;
     __decorate([
         Record_1.FieldType.datetime
     ], SubscriptionChangeOrderBase.prototype, "approvaldate", void 0);
@@ -161,5 +162,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(SublineSublist)
     ], SubscriptionChangeOrderBase.prototype, "subline", void 0);
-    exports.SubscriptionChangeOrderBase = SubscriptionChangeOrderBase;
 });

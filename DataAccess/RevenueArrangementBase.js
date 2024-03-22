@@ -28,6 +28,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class RevenueElementSublist extends Sublist_1.SublistLine {
     }
+    exports.RevenueElementSublist = RevenueElementSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], RevenueElementSublist.prototype, "allocationtype", void 0);
@@ -97,7 +98,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.date
     ], RevenueElementSublist.prototype, "revrecstartdate", void 0);
-    exports.RevenueElementSublist = RevenueElementSublist;
     /**
      * The Revenue Arrangement record type in NetSuite.
      * The records browser (2018.1) does not mention the `revenueelement` sublist but the NS help does.
@@ -105,6 +105,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class RevenueArrangementBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.REVENUE_ARRANGEMENT; }
     }
+    exports.RevenueArrangementBase = RevenueArrangementBase;
     __decorate([
         Record_1.FieldType.select
     ], RevenueArrangementBase.prototype, "accountingbook", void 0);
@@ -132,5 +133,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(RevenueElementSublist)
     ], RevenueArrangementBase.prototype, "revenueelement", void 0);
-    exports.RevenueArrangementBase = RevenueArrangementBase;
 });

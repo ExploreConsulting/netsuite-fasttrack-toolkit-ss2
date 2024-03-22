@@ -1,0 +1,25 @@
+<suitelet scriptid="customscript_rsm_slt_nft_integ">
+  <description>Suitelet for smoke testing NFT before releases. Does basic operations with NFT.</description>
+  <isinactive>F</isinactive>
+  <name>RSM_Slt_NFT_Integ_Test</name>
+  <notifyadmins>F</notifyadmins>
+  <notifyemails></notifyemails>
+  <notifyowner>F</notifyowner>
+  <notifyuser>F</notifyuser>
+  <scriptfile>[/SuiteScripts/NFT_Integration_Test/RSM_Slt_NFT_Integ_Test.js]</scriptfile>
+  <scriptdeployments>
+    <scriptdeployment scriptid="customdeploy_rsm_slt_nft">
+      <allemployees>F</allemployees>
+      <allpartners>F</allpartners>
+      <allroles>T</allroles>
+      <audslctrole></audslctrole>
+      <eventtype></eventtype>
+      <isdeployed>T</isdeployed>
+      <isonline>F</isonline>
+      <loglevel>DEBUG</loglevel>
+      <runasrole></runasrole>
+      <status>TESTING</status>
+      <title>RSM_Slt_NFT_Integ_Test</title>
+    </scriptdeployment>
+  </scriptdeployments>
+</suitelet>

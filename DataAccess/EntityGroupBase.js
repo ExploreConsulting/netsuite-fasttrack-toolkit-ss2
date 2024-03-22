@@ -26,6 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class GroupMembersSublist extends Sublist_1.SublistLine {
     }
+    exports.GroupMembersSublist = GroupMembersSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], GroupMembersSublist.prototype, "accesslevel", void 0);
@@ -56,13 +57,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], GroupMembersSublist.prototype, "phone", void 0);
-    exports.GroupMembersSublist = GroupMembersSublist;
     /**
      * EntityGroup (entitygroup) netsuite type
      */
     class Base extends Record_1.NetsuiteRecord {
         static recordType() { return 'entitygroup'; }
     }
+    exports.Base = Base;
     __decorate([
         Record_1.FieldType.textarea
     ], Base.prototype, "comments", void 0);
@@ -126,5 +127,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(GroupMembersSublist)
     ], Base.prototype, "groupmembers", void 0);
-    exports.Base = Base;
 });

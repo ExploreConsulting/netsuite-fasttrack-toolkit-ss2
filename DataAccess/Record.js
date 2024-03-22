@@ -347,5 +347,5 @@
          * ```
          */
         FieldType.subrecord = subrecordDescriptor;
-    })(FieldType = exports.FieldType || (exports.FieldType = {}));
+    })(FieldType || (exports.FieldType = FieldType = {}));
 });

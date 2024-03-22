@@ -27,6 +27,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class LineSublist extends Sublist_1.SublistLine {
     }
+    exports.LineSublist = LineSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], LineSublist.prototype, "account", void 0);
@@ -114,13 +115,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.percent
     ], LineSublist.prototype, "taxrate1", void 0);
-    exports.LineSublist = LineSublist;
     /**
      * Base class for Advanced Intercompany Journal Entry Record
      */
     class AdvancedIntercompanyJournalEntryBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.ADV_INTER_COMPANY_JOURNAL_ENTRY; }
     }
+    exports.AdvancedIntercompanyJournalEntryBase = AdvancedIntercompanyJournalEntryBase;
     __decorate([
         Record_1.FieldType.checkbox
     ], AdvancedIntercompanyJournalEntryBase.prototype, "approved", void 0);
@@ -202,5 +203,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(LineSublist)
     ], AdvancedIntercompanyJournalEntryBase.prototype, "line", void 0);
-    exports.AdvancedIntercompanyJournalEntryBase = AdvancedIntercompanyJournalEntryBase;
 });

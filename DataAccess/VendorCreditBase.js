@@ -25,6 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ExpenseSublist extends Sublist_1.SublistLine {
     }
+    exports.ExpenseSublist = ExpenseSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ExpenseSublist.prototype, "account", void 0);
@@ -43,12 +44,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ExpenseSublist.prototype, "expense", void 0);
-    exports.ExpenseSublist = ExpenseSublist;
     /**
      * Vendor Credit Item Sublist
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
+    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ItemSublist.prototype, "account", void 0);
@@ -61,12 +62,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ItemSublist.prototype, "item", void 0);
-    exports.ItemSublist = ItemSublist;
     /**
      * Vendor Credit Apply Sublist
      */
     class ApplySublist extends Sublist_1.SublistLine {
     }
+    exports.ApplySublist = ApplySublist;
     __decorate([
         Sublist_1.SublistFieldType.checkbox
     ], ApplySublist.prototype, "apply", void 0);
@@ -79,13 +80,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ApplySublist.prototype, "doc", void 0);
-    exports.ApplySublist = ApplySublist;
     /**
      * Vendor Credit record Type
      */
     class VendorCreditBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.VENDOR_CREDIT; }
     }
+    exports.VendorCreditBase = VendorCreditBase;
     __decorate([
         Record_1.FieldType.checkbox
     ], VendorCreditBase.prototype, "autoapply", void 0);
@@ -101,5 +102,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ApplySublist)
     ], VendorCreditBase.prototype, "apply", void 0);
-    exports.VendorCreditBase = VendorCreditBase;
 });
