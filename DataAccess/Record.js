@@ -315,6 +315,7 @@
         FieldType.longtext = defaultDescriptor;
         FieldType.multiselect = defaultDescriptor;
         FieldType.percent = defaultDescriptor;
+        FieldType.radio = defaultDescriptor;
         /**
          * NetSuite 'Select' field type.
          */

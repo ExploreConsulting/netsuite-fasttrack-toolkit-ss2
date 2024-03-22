@@ -363,6 +363,8 @@ export namespace FieldType {
    export const longtext = defaultDescriptor
    export const multiselect = defaultDescriptor
    export const percent = defaultDescriptor
+   export const radio = defaultDescriptor
+
    /**
     * NetSuite 'Select' field type.
     */

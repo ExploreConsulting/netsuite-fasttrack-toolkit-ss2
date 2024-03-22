@@ -45,7 +45,9 @@
         SublistFieldType.integernumber = defaultSublistDescriptor;
         SublistFieldType.longtext = defaultSublistDescriptor;
         SublistFieldType.multiselect = defaultSublistDescriptor;
+        SublistFieldType.namevaluelist = defaultSublistDescriptor;
         SublistFieldType.percent = defaultSublistDescriptor;
+        SublistFieldType.rate = defaultSublistDescriptor;
         SublistFieldType.select = defaultSublistDescriptor;
         SublistFieldType.textarea = defaultSublistDescriptor;
         SublistFieldType.subrecord = subrecordDescriptor;
