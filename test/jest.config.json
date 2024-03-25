@@ -14,6 +14,7 @@
     "./lodash": "lodash"
   },
   "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.(tsx?)$",
+  "testPathIgnorePatterns": ["/integration/"],
   "globals": {
     "ts-jest": {
       "diagnostics": {
