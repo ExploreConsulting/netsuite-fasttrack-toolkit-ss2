@@ -44,33 +44,17 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { recordType: string | searc
  * @example  (using Immutable JS Sequence)
  *
  * ```typescript
- *  // default (uses column labels if present)
- *  Seq(LazySearch.load(1234)).map(nsSearchResult2obj()).forEach(...)
  *
- *  // force ignoring search column labels
- *  Seq(LazySearch.load(1234)).map(nsSearchResult2obj(false)).forEach(...)
+ *  Seq(LazyQuery.from('string').map(nsSearchResult2obj()).forEach(...)
  *
  *  ```
  */
-// export function nsSearchResult2obj<T = {}> (useLabels = true, addGetTextProps = true): (r: search.Result) => BaseSearchResult<T> {
-//    return function (result: search.Result) {
-//       let output: { id: string, recordType?: string | search.Type } = { id: result.id, recordType: result.recordType }
-//       // assigns each column VALUE from the search result to the output object
-//       if (result.columns && result.columns.length > 0)
-//          result.columns.forEach((col) => {
-//             const propName = (useLabels && col.label) ? col.label : col.name
-//             output[propName] = result.getValue(col)
-//             // if the column has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
-//             if (addGetTextProps) {
-//                const text = result.getText(col)
-//                if (text) output[`${propName}Text`] = text
-//             }
-//          })
-//       return output as BaseSearchResult<T>
-//    }
-// }
+export function nsSearchResult2obj<T = {}> (r: query.Result){
+   return r.asMap() as T
+}
 
 /**
+ *
  * Makes a NetSuite search an ES2015 style Iterator. That is, it follows the Iterator Protocol for iterating
  * over search results in a forward-only fashion. The result can be passed to any library
  * that accepts Iterators (such as ImmutableJS)
@@ -89,7 +73,7 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { recordType: string | searc
  * const oneResult = Seq(LazySearch.load('1234')).map(nsSearchResult2obj()).take(1)
  * ```
  */
-export class LazySearch implements IterableIterator<query> {
+export class LazyQuery implements IterableIterator<query> {
 
    /**
     * the name of the custom logger for this component for independent logging control
@@ -107,7 +91,7 @@ export class LazySearch implements IterableIterator<query> {
    // the current page of data. This is replaced as we cross from one page to the next
    protected currentPage: query.Page
    // the current set of search results. This is replaced as we cross from one page to the next to keep a constant memory footprint
-   protected currentData: query.ResultSet
+   protected currentData: query.Result[]
    // index into currentData[] pointing to the 'current' search result
    protected index: number
 
@@ -118,15 +102,16 @@ export class LazySearch implements IterableIterator<query> {
     */
    private constructor (private search: string, params?: Array<string | number | boolean>, private pageSize = 500) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
-      this.log = LogManager.getLogger(LazySearch.LOGNAME)
+      this.log = LogManager.getLogger(LazyQuery.LOGNAME)
       this.pagedData = query.runSuiteQLPaged({ query: search, pageSize, params })
 
       // only load a page if we have records
       if (this.pagedData.count > 0) {
          this.currentPage = this.pagedData.fetch(0)
-         this.currentData = this.currentPage.data
+         this.pagedData.pageRanges[0].index
+         this.currentData = this.currentPage.data.results
       } else {
-         // this.currentData =
+         this.currentData = []
          this.log.debug('runPaged() search return zero results')
       }
       this.index = 0
@@ -187,7 +172,7 @@ export class LazySearch implements IterableIterator<query> {
 
       // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
       if (atEndOfPage) {
-         this.currentPage = this.currentPage.next()
+         this.currentPage = this.currentPage.pageRange
          this.currentData = this.currentPage.data
          this.log.debug('loaded next page', `is last page: ${this.currentPage.isLast}`)
          this.index = 0
