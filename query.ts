@@ -49,7 +49,7 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { recordType: string | searc
  *
  *  ```
  */
-export function nsSearchResult2obj<T = {}> (r: query.Result){
+export function nsSearchResult2obj<T = {}> (r: query.Result) {
    return r.asMap() as T
 }
 
@@ -95,6 +95,8 @@ export class LazyQuery implements IterableIterator<query> {
    // index into currentData[] pointing to the 'current' search result
    protected index: number
 
+   protected iterator: string
+
    /**
     * Not meant to be used directly, use factory methods such as `load` or `from`
     * @param search the netsuite search object to wrap
@@ -105,6 +107,7 @@ export class LazyQuery implements IterableIterator<query> {
       this.log = LogManager.getLogger(LazyQuery.LOGNAME)
       this.pagedData = query.runSuiteQLPaged({ query: search, pageSize, params })
 
+      this.iterator = this.pagedData.iterator()
       // only load a page if we have records
       if (this.pagedData.count > 0) {
          this.currentPage = this.pagedData.fetch(0)
@@ -144,7 +147,7 @@ export class LazyQuery implements IterableIterator<query> {
     */
 
    static from (sql: string, params?: any[], pageSize?: number) {
-      query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize})
+      query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize })
 
    }
 
@@ -172,8 +175,8 @@ export class LazyQuery implements IterableIterator<query> {
 
       // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
       if (atEndOfPage) {
-         this.currentPage = this.currentPage.pageRange
-         this.currentData = this.currentPage.data
+         this.currentPage = this.iterator[this.currentPage.pageRange.index + 1]
+         this.currentData = this.currentPage.data.results
          this.log.debug('loaded next page', `is last page: ${this.currentPage.isLast}`)
          this.index = 0
       }
