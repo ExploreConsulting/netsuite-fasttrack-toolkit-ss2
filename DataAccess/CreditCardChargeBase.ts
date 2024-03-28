@@ -118,7 +118,7 @@ export class CreditCardChargeBase extends TransactionBase {
 /**
  * Sublist 'item' on Credit Card Charges
  */
-export declare class ItemSublist extends SublistLine {
+export class ItemSublist extends SublistLine {
 
    @SublistFieldType.currency
    amount: number
@@ -199,7 +199,7 @@ export declare class ItemSublist extends SublistLine {
 /**
  * Sublist 'expense' on Credit Card Charges
  */
-export declare class ExpenseSublist extends SublistLine {
+export  class ExpenseSublist extends SublistLine {
 
    @SublistFieldType.select
    account: number
@@ -240,7 +240,7 @@ export declare class ExpenseSublist extends SublistLine {
 /**
  * Sublist 'reimbursements' on Credit Card Charges
  */
-export declare class ReimbursementsSublist extends SublistLine {
+export class ReimbursementsSublist extends SublistLine {
 
    @SublistFieldType.freeformtext
    id: string
