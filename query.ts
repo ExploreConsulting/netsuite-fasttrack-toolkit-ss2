@@ -10,10 +10,6 @@
 
 import * as query from 'N/query'
 import * as LogManager from './EC_Logger'
-import { Nullable } from './DataAccess/Record'
-import { isString } from 'N/util'
-import * as querystring from 'querystring'
-
 /**
  *  Any object that includes an 'id' property, which NS search results always have
  */
@@ -25,7 +21,7 @@ export type ObjectWithId<T> = T & { id: string }
  * precedence over these values, so don't use `id` or `recordType` as your custom column label if you want the
  * native SearchResult property values to be used.
  */
-export type BaseSearchResult<T> = ObjectWithId<T> & { recordType: string | search.Type }
+export type BaseSearchResult<T> = ObjectWithId<T> & { }
 
 /**
  * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to `map()`
@@ -49,7 +45,7 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { recordType: string | searc
  *
  *  ```
  */
-export function nsSearchResult2obj<T = {}> (r: query.Result) {
+export function nsSearchResult2obj<T = {}> (r: query.) {
    return r.asMap() as T
 }
 
@@ -73,7 +69,7 @@ export function nsSearchResult2obj<T = {}> (r: query.Result) {
  * const oneResult = Seq(LazySearch.load('1234')).map(nsSearchResult2obj()).take(1)
  * ```
  */
-export class LazyQuery implements IterableIterator<query> {
+export class LazyQuery implements IterableIterator<query.Result> {
 
    /**
     * the name of the custom logger for this component for independent logging control
@@ -95,7 +91,7 @@ export class LazyQuery implements IterableIterator<query> {
    // index into currentData[] pointing to the 'current' search result
    protected index: number
 
-   protected iterator: string
+   protected iterator: query.PageIterator
 
    /**
     * Not meant to be used directly, use factory methods such as `load` or `from`
