@@ -45,9 +45,9 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { }
  *
  *  ```
  */
-export function nsSearchResult2obj<T = {}> (r: query.) {
-   return r.asMap() as T
-}
+// export function nsSearchResult2obj<T = {}> (r: query.PagedData) {
+//    return r as T
+// }
 
 /**
  *
@@ -91,6 +91,8 @@ export class LazyQuery implements IterableIterator<query.Result> {
    // index into currentData[] pointing to the 'current' search result
    protected index: number
 
+   protected mappedData: query.QueryResultMap[]
+
    protected iterator: query.PageIterator
 
    /**
@@ -100,8 +102,8 @@ export class LazyQuery implements IterableIterator<query.Result> {
     */
    private constructor (private search: string, params?: Array<string | number | boolean>, private pageSize = 500) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
-      this.log = LogManager.getLogger(LazyQuery.LOGNAME)
-      this.pagedData = query.runSuiteQLPaged({ query: search, pageSize, params })
+      // this.log = LogManager.getLogger(LazyQuery.LOGNAME)
+      this.pagedData = query.runSuiteQLPaged({ query: search, pageSize: pageSize, params: params })
 
       this.iterator = this.pagedData.iterator()
       // only load a page if we have records
@@ -143,7 +145,9 @@ export class LazyQuery implements IterableIterator<query.Result> {
     */
 
    static from (sql: string, params?: any[], pageSize?: number) {
-      query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize })
+
+      return new LazyQuery(sql, params, pageSize)
+      // query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize })
 
    }
 
@@ -173,6 +177,7 @@ export class LazyQuery implements IterableIterator<query.Result> {
       if (atEndOfPage) {
          this.currentPage = this.iterator[this.currentPage.pageRange.index + 1]
          this.currentData = this.currentPage.data.results
+         this.mappedData = this.currentPage.data.asMappedResults()
          this.log.debug('loaded next page', `is last page: ${this.currentPage.isLast}`)
          this.index = 0
       }
