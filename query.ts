@@ -45,9 +45,9 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { }
  *
  *  ```
  */
-// export function nsSearchResult2obj<T = {}> (r: query.PagedData) {
-//    return r as T
-// }
+export function nsSearchResult2obj<T = {}> (r: query.Result) {
+   return r.asMap() as T
+}
 
 /**
  *
