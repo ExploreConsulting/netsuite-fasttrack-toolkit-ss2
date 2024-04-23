@@ -41,27 +41,27 @@ describe('nsSearchResult2obj', function () {
          pageRange: 1,
          pageSize: 1,
          iterator:,
-         fetch: jest.fn().mockReturnValue(getFakeQueryPage())
+         fetch: getFakeQueryPage()
       } as any
    }
 
    function getFakeQueryPage(): query.Page {
       return {
-         data: jest.fn().mockReturnValue(),
+         data: getFakeQueryResultSet(),
          isFirst: true,
          isLast: false,
-         pagedData:,
-         pageRange:
+         pagedData: getFakeQueryPageData(),
+         pageRange: jest.fn().mockReturnValue({index: 0, size: 2})
       } as any
    }
 
    function getFakeQueryResultSet(): query.ResultSet {
       return {
          results: getFakeSearchResultArray(),
-         type: ['customer'],
+         type: ['custome'],
          column: Column,
          iterator:,
-         asMappedResult()
+         asMappedResult: jest.fn().mockReturnValueOnce({foo: '880'})
       }
    }
 
