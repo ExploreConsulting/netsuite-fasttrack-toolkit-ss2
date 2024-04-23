@@ -1,7 +1,6 @@
 // mock must be declared at top of file because ts-jest uses babel to auto-hoist and it was erroring all tests
-import * as mockrecord from "../__mocks__/N/record"
+// import * as mockrecord from "../__mocks__/N/record"
 
-jest.mock('EC_Logger')
 import * as mocktask from '../__mocks__/N/task'
 import {governanceRemains,rescheduleIfNeeded} from "../governance"
 import * as mockruntime from '../__mocks__/N/runtime'

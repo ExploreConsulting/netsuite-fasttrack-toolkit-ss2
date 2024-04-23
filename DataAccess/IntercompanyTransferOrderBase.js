@@ -29,10 +29,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class IntercompanyTransferOrderBase extends to.TransferOrderBase {
         static recordType() { return record.Type.INTER_COMPANY_TRANSFER_ORDER; }
     }
+    exports.IntercompanyTransferOrderBase = IntercompanyTransferOrderBase;
     __decorate([
         Record_1.FieldType.select
     ], IntercompanyTransferOrderBase.prototype, "tosubsidiary", void 0);
-    exports.IntercompanyTransferOrderBase = IntercompanyTransferOrderBase;
     /**
      * Sublist 'item' on the Intercompany Tranfer Order record (same as on regular Transfer Order)
      */

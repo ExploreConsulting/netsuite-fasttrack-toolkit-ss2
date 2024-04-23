@@ -28,6 +28,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
+    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.integernumber
     ], ItemSublist.prototype, "id", void 0);
@@ -163,12 +164,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemSublist.prototype, "weightlbs", void 0);
-    exports.ItemSublist = ItemSublist;
     /**
      * The 'landedcost' sublist
      */
     class LandedCostSublist extends Sublist_1.SublistLine {
     }
+    exports.LandedCostSublist = LandedCostSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], LandedCostSublist.prototype, "landedcostallocationmethod", void 0);
@@ -199,7 +200,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.multiselect
     ], LandedCostSublist.prototype, "landedcostshipmentitems", void 0);
-    exports.LandedCostSublist = LandedCostSublist;
     /**
      * NetSuite Inbound Shipment Record Type
      */
@@ -208,6 +208,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return record.Type.INBOUND_SHIPMENT;
         }
     }
+    exports.InboundShipmentBase = InboundShipmentBase;
     __decorate([
         Record_1.FieldType.date
     ], InboundShipmentBase.prototype, "actualdeliverydate", void 0);
@@ -259,5 +260,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(LandedCostSublist)
     ], InboundShipmentBase.prototype, "landedcost", void 0);
-    exports.InboundShipmentBase = InboundShipmentBase;
 });

@@ -54,15 +54,15 @@ export function nsSearchResult2obj <T = {}>(useLabels = true, addGetTextProps = 
       let output : { id:string, recordType?:string | search.Type } = {id: result.id, recordType:result.recordType }
       // assigns each column VALUE from the search result to the output object
       if (result.columns && result.columns.length > 0)
-      result.columns.forEach((col) => {
-         const propName = (useLabels && col.label) ? col.label : col.name
-         output[propName] = result.getValue(col)
-         // if the column has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
-         if (addGetTextProps) {
-            const text = result.getText(col)
-            if (text) output[`${propName}Text`] = text
-         }
-      })
+         result.columns.forEach((col) => {
+            const propName = (useLabels && col.label) ? col.label : col.name
+            output[propName] = result.getValue(col)
+            // if the column has a truthy text value, include that as a 'propnameText' field similar to how nsdal behaves
+            if (addGetTextProps) {
+               const text = result.getText(col)
+               if (text) output[`${propName}Text`] = text
+            }
+         })
       return output as BaseSearchResult<T>
    }
 }

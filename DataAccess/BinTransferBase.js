@@ -27,6 +27,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class AdjustmentsSublistLine extends Sublist_1.SublistLine {
     }
+    exports.AdjustmentsSublistLine = AdjustmentsSublistLine;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], AdjustmentsSublistLine.prototype, "description", void 0);
@@ -45,13 +46,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.float
     ], AdjustmentsSublistLine.prototype, "quantity", void 0);
-    exports.AdjustmentsSublistLine = AdjustmentsSublistLine;
     /**
      * NetSuite Bin Transfer record
      */
     class BinTransferBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.BIN_TRANSFER; }
     }
+    exports.BinTransferBase = BinTransferBase;
     __decorate([
         Record_1.FieldType.datetime
     ], BinTransferBase.prototype, "createddate", void 0);
@@ -79,5 +80,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(AdjustmentsSublistLine)
     ], BinTransferBase.prototype, "inventory", void 0);
-    exports.BinTransferBase = BinTransferBase;
 });

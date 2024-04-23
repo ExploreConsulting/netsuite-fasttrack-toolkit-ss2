@@ -29,6 +29,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return record.Type.TASK;
         }
     }
+    exports.TaskBase = TaskBase;
     __decorate([
         Record_1.FieldType.checkbox
     ], TaskBase.prototype, "accesslevel", void 0);
@@ -125,5 +126,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.select
     ], TaskBase.prototype, "transaction", void 0);
-    exports.TaskBase = TaskBase;
 });

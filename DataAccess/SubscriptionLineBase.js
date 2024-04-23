@@ -24,6 +24,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class SubscriptionLineBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.SUBSCRIPTION_LINE; }
     }
+    exports.SubscriptionLineBase = SubscriptionLineBase;
     __decorate([
         Record_1.FieldType.integernumber
     ], SubscriptionLineBase.prototype, "advancerenewalperiodnumber", void 0);
@@ -102,5 +103,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.currency
     ], SubscriptionLineBase.prototype, "total", void 0);
-    exports.SubscriptionLineBase = SubscriptionLineBase;
 });

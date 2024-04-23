@@ -26,11 +26,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class InventoryItemBase extends Item_1.Item {
         static recordType() { return record.Type.INVENTORY_ITEM; }
     }
+    exports.InventoryItemBase = InventoryItemBase;
     __decorate([
         Record_1.FieldType.checkbox
     ], InventoryItemBase.prototype, "contingentrevenuehandling", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
     ], InventoryItemBase.prototype, "vendorname", void 0);
-    exports.InventoryItemBase = InventoryItemBase;
 });
