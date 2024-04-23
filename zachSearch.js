@@ -151,21 +151,43 @@
         constructor(search, pageSize = 500) {
             this.search = search;
             this.pageSize = pageSize;
+            // Total length of the search result set
+            this.totalSearchResultLength = 0;
+            // Current search result count, used to know if we have hit the end of the current "page"
+            this.currentSearchResultRange = 0;
             if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazySearch.LOGNAME);
-            this.pagedData = this.search.runPaged({ pageSize: pageSize });
-            // only load a page if we have records
-            if (this.pagedData.count > 0) {
-                this.currentPage = this.pagedData.fetch({ index: 0 });
-                this.currentData = this.currentPage.data;
+            this.currentData = [];
+            this.executedSearch = search.run();
+            this.currentRange = this.executedSearch.getRange({
+                start: 0,
+                end: 1000
+            });
+            if (this.currentRange.length) {
+                // _.forEach(this.currentRange, (index) => {
+                //    this.currentData.push(index)
+                // })
+                this.currentData = [...this.currentRange];
             }
             else {
                 this.currentData = [];
                 this.log.debug('runPaged() search return zero results');
             }
+            // this.currentPage = this.currentRange
+            // this.currentData = this.currentRange
+            // this.pagedData = this.search.runPaged({pageSize: pageSize})
+            // // only load a page if we have records
+            // if (this.pagedData.count > 0) {
+            //    this.currentPage = this.pagedData.fetch({index: 0})
+            //    this.currentData = this.currentPage.data
+            // } else {
+            //    this.currentData = []
+            //    this.log.debug('runPaged() search return zero results')
+            // }
+            this.log.info(`this.currentData`, this.currentData);
             this.index = 0;
-            this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`, `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`);
+            this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`, `using "page" size ${this.pageSize}, record count ${this.totalSearchResultLength}`);
         }
         /**
          * per the iterator protocol, retrieves the next element. Also returns `null` if done as the specification for
@@ -174,25 +196,69 @@
          * You don't typically call this function yourself - libraries like ImmutableJS do.
          */
         next() {
-            const atEndOfPage = this.index === this.currentData.length;
-            const done = !this.currentPage || (this.currentPage.isLast && atEndOfPage);
+            const atEndOfRange = this.currentSearchResultRange === this.currentRange.length;
+            const done = (this.totalSearchResultLength - 1 === this.index && atEndOfRange);
             if (done)
                 return {
                     done: true,
                     value: null
                 };
-            // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
-            if (atEndOfPage) {
-                this.currentPage = this.currentPage.next();
-                this.currentData = this.currentPage.data;
-                this.log.debug('loaded next page', `is last page: ${this.currentPage.isLast}`);
-                this.index = 0;
+            if (!atEndOfRange) {
+                // this.log.info(`in while`, this.currentRange)
+                // this.currentData.push(this.currentRange[this.currentSearchResultRange])
+                this.currentSearchResultRange++;
+                this.totalSearchResultLength++;
             }
+            else {
+                this.currentSearchResultRange = 0;
+                this.currentRange = this.executedSearch.getRange({
+                    start: this.totalSearchResultLength,
+                    end: this.totalSearchResultLength + this.pageSize
+                });
+            }
+            // // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
+            // if (atEndOfPage) {
+            //    this.currentPage = this.currentPage.next()
+            //    this.currentData = this.currentPage.data
+            //    this.log.debug('loaded next page', `is last page: ${this.currentPage.isLast}`)
+            //    this.index = 0
+            // }
+            this.log.info(`returning from next`, {
+                done: false,
+                value: this.currentRange[this.index + 1]
+            });
             // return the next result from existing page (which may have been loaded immediately prior above)
             return {
                 done: false,
-                value: this.currentData[this.index++]
+                value: this.currentRange[this.index++]
             };
+            // const atEndOfPage = this.index === this.currentData.length
+            // const done = !this.currentPage || (this.currentPage.isLast && atEndOfPage)
+            //
+            // if (done) return {
+            //    done: true,
+            //    value: null
+            // }
+            //
+            // // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
+            // if (atEndOfPage) {
+            //    this.currentPage = this.currentPage.next()
+            //    this.currentData = this.currentPage.data
+            //    this.log.debug('loaded next page', `is last page: ${this.currentPage.isLast}`)
+            //    this.index = 0
+            // }
+            //
+            // this.log.info(`returning from next`,
+            //    {
+            //       done: false,
+            //       value: this.currentData[this.index + 1]
+            //    })
+            //
+            // // return the next result from existing page (which may have been loaded immediately prior above)
+            // return {
+            //    done: false,
+            //    value: this.currentData[this.index++]
+            // }
         }
     }
     exports.LazySearch = LazySearch;
