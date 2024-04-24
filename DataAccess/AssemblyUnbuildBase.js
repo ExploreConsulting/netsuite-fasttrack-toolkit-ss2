@@ -25,7 +25,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ComponentSublist extends Sublist_1.SublistLine {
     }
-    exports.ComponentSublist = ComponentSublist;
     __decorate([
         Sublist_1.SublistFieldType.checkbox
     ], ComponentSublist.prototype, "binitem", void 0);
@@ -71,6 +70,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.float
     ], ComponentSublist.prototype, "unitcost", void 0);
+    exports.ComponentSublist = ComponentSublist;
     /**
      * Assembly Unbuild record
      */
@@ -82,7 +82,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return record.Type.ASSEMBLY_UNBUILD;
         }
     }
-    exports.AssemblyUnbuildBase = AssemblyUnbuildBase;
     __decorate([
         Record_1.FieldType.select
     ], AssemblyUnbuildBase.prototype, "billofmaterials", void 0);
@@ -161,4 +160,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ComponentSublist)
     ], AssemblyUnbuildBase.prototype, "component", void 0);
+    exports.AssemblyUnbuildBase = AssemblyUnbuildBase;
 });

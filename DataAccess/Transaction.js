@@ -67,7 +67,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 return null;
         }
     }
-    exports.TransactionBase = TransactionBase;
     __decorate([
         Record_1.FieldType.datetime
     ], TransactionBase.prototype, "createddate", void 0);
@@ -131,4 +130,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.date
     ], TransactionBase.prototype, "trandate", void 0);
+    exports.TransactionBase = TransactionBase;
 });

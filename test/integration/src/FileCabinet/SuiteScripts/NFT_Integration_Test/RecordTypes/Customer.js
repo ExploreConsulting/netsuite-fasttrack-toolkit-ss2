@@ -23,8 +23,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class Customer extends CustomerBase_1.CustomerBase {
     }
-    exports.Customer = Customer;
     __decorate([
         Record_1.FieldType.datetime
     ], Customer.prototype, "custentity_delete_me", void 0);
+    exports.Customer = Customer;
 });

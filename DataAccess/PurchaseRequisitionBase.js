@@ -25,7 +25,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
-    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ItemSublist.prototype, "amount", void 0);
@@ -86,12 +85,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemSublist.prototype, "vendorname", void 0);
+    exports.ItemSublist = ItemSublist;
     /**
      * Purchase Requisition Expense Sublist
      */
     class ExpenseSublist extends Sublist_1.SublistLine {
     }
-    exports.ExpenseSublist = ExpenseSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ExpenseSublist.prototype, "account", void 0);
@@ -134,6 +133,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ExpenseSublist.prototype, "povendor", void 0);
+    exports.ExpenseSublist = ExpenseSublist;
     /**
      * NetSuite Purchase Requisition record type
      * (known as "Requisition" in record browser)
@@ -141,7 +141,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class PurchaseRequisitionBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.PURCHASE_REQUISITION; }
     }
-    exports.PurchaseRequisitionBase = PurchaseRequisitionBase;
     __decorate([
         Record_1.FieldType.select
     ], PurchaseRequisitionBase.prototype, "approvalstatus", void 0);
@@ -235,4 +234,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ExpenseSublist)
     ], PurchaseRequisitionBase.prototype, "expense", void 0);
+    exports.PurchaseRequisitionBase = PurchaseRequisitionBase;
 });

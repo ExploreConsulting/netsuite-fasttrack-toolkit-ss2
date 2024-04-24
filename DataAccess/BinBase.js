@@ -27,7 +27,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class BinBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.BIN; }
     }
-    exports.BinBase = BinBase;
     __decorate([
         Record_1.FieldType.freeformtext
     ], BinBase.prototype, "binnumber", void 0);
@@ -43,4 +42,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.textarea
     ], BinBase.prototype, "memo", void 0);
+    exports.BinBase = BinBase;
 });

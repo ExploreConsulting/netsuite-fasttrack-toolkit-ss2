@@ -27,7 +27,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class AssigneeSublist extends Sublist_1.SublistLine {
     }
-    exports.AssigneeSublist = AssigneeSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], AssigneeSublist.prototype, "billingclass", void 0);
@@ -55,13 +54,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.percent
     ], AssigneeSublist.prototype, "units", void 0);
+    exports.AssigneeSublist = AssigneeSublist;
     /**
      * Project Task Base class
      */
     class ProjectTaskBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.PROJECT_TASK; }
     }
-    exports.ProjectTaskBase = ProjectTaskBase;
     __decorate([
         Record_1.FieldType.float
     ], ProjectTaskBase.prototype, "actualwork", void 0);
@@ -170,4 +169,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(AssigneeSublist)
     ], ProjectTaskBase.prototype, "assignee", void 0);
+    exports.ProjectTaskBase = ProjectTaskBase;
 });

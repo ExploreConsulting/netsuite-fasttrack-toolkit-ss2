@@ -22,7 +22,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class Item extends Record_1.NetsuiteRecord {
     }
-    exports.Item = Item;
     __decorate([
         Record_1.FieldType.checkbox
     ], Item.prototype, "autoleadtime", void 0);
@@ -179,4 +178,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.select
     ], Item.prototype, "weightunit", void 0);
+    exports.Item = Item;
 });

@@ -30,7 +30,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class PackageSublist extends Sublist_1.SublistLine {
     }
-    exports.PackageSublist = PackageSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], PackageSublist.prototype, "packagetrackingnumber", void 0);
@@ -46,12 +45,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.integernumber
     ], PackageSublist.prototype, "trackingnumberkey", void 0);
+    exports.PackageSublist = PackageSublist;
     /**
      * Item Fulfillment Items (item) sublist
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
-    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemSublist.prototype, "class", void 0);
@@ -94,13 +93,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ItemSublist.prototype, "units", void 0);
+    exports.ItemSublist = ItemSublist;
     /**
      * Item Fulfillment Base Type
      */
     class ItemFulfillmentBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.ITEM_FULFILLMENT; }
     }
-    exports.ItemFulfillmentBase = ItemFulfillmentBase;
     __decorate([
         Record_1.FieldType.select
     ], ItemFulfillmentBase.prototype, "createdfrom", void 0);
@@ -131,4 +130,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(PackageSublist)
     ], ItemFulfillmentBase.prototype, "package", void 0);
+    exports.ItemFulfillmentBase = ItemFulfillmentBase;
 });

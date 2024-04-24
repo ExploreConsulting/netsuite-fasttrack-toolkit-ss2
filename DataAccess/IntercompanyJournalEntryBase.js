@@ -28,18 +28,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class LineSublist extends JournalEntryBase_1.LineSublist {
     }
-    exports.LineSublist = LineSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], LineSublist.prototype, "linesubsidiary", void 0);
+    exports.LineSublist = LineSublist;
     /**
      * defines an Inter-company journal entry (basically identical to a normal journal entry?)
      */
     class IntercompanyJournalEntryBase extends JournalEntryBase_1.JournalEntryBase {
         static recordType() { return record.Type.INTER_COMPANY_JOURNAL_ENTRY; }
     }
-    exports.IntercompanyJournalEntryBase = IntercompanyJournalEntryBase;
     __decorate([
         Record_1.FieldType.sublist(LineSublist)
     ], IntercompanyJournalEntryBase.prototype, "line", void 0);
+    exports.IntercompanyJournalEntryBase = IntercompanyJournalEntryBase;
 });

@@ -27,7 +27,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class LineSublist extends Sublist_1.SublistLine {
     }
-    exports.LineSublist = LineSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], LineSublist.prototype, "account", void 0);
@@ -115,13 +114,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], LineSublist.prototype, "totalamount", void 0);
+    exports.LineSublist = LineSublist;
     /**
      * Base class for Journal Entry Record
      */
     class JournalEntryBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.JOURNAL_ENTRY; }
     }
-    exports.JournalEntryBase = JournalEntryBase;
     __decorate([
         Record_1.FieldType.select
     ], JournalEntryBase.prototype, "accountingbook", void 0);
@@ -209,4 +208,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(LineSublist)
     ], JournalEntryBase.prototype, "line", void 0);
+    exports.JournalEntryBase = JournalEntryBase;
 });

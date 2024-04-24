@@ -29,7 +29,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class Entity extends Record_1.NetsuiteRecord {
     }
-    exports.Entity = Entity;
     __decorate([
         Record_1.FieldType.freeformtext
     ], Entity.prototype, "accountnumber", void 0);
@@ -111,4 +110,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.select
     ], Entity.prototype, "terms", void 0);
+    exports.Entity = Entity;
 });

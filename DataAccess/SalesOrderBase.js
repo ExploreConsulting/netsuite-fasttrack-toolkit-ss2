@@ -26,7 +26,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
-    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ItemSublist.prototype, "altsalesamt", void 0);
@@ -249,12 +248,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ItemSublist.prototype, "vsoesopgroup", void 0);
+    exports.ItemSublist = ItemSublist;
     /**
      * 'salesteam' sublist
      */
     class SalesTeamSublist extends Sublist_1.SublistLine {
     }
-    exports.SalesTeamSublist = SalesTeamSublist;
     __decorate([
         Sublist_1.SublistFieldType.decimalnumber
     ], SalesTeamSublist.prototype, "contribution", void 0);
@@ -267,13 +266,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], SalesTeamSublist.prototype, "salesrole", void 0);
+    exports.SalesTeamSublist = SalesTeamSublist;
     /**
      * NetSuite Sales Order Record
      */
     class SalesOrderBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.SALES_ORDER; }
     }
-    exports.SalesOrderBase = SalesOrderBase;
     __decorate([
         Record_1.FieldType.checkbox
     ], SalesOrderBase.prototype, "allowemptycards", void 0);
@@ -691,4 +690,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.checkbox
     ], SalesOrderBase.prototype, "vsoeautocalc", void 0);
+    exports.SalesOrderBase = SalesOrderBase;
 });

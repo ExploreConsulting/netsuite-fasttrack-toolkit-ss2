@@ -29,7 +29,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class AddressSublist extends Sublist_1.SublistLine {
     }
-    exports.AddressSublist = AddressSublist;
     __decorate([
         Sublist_1.SublistFieldType.subrecord(AddressBase_1.AddressBase)
     ], AddressSublist.prototype, "addressbookaddress", void 0);
@@ -78,12 +77,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], AddressSublist.prototype, "zip", void 0);
+    exports.AddressSublist = AddressSublist;
     /**
      * Contacts sublist
      */
     class ContactsSublist extends Sublist_1.SublistLine {
     }
-    exports.ContactsSublist = ContactsSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ContactsSublist.prototype, "contact", void 0);
@@ -105,9 +104,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ContactsSublist.prototype, "strength", void 0);
+    exports.ContactsSublist = ContactsSublist;
     class CurrenciesSublist extends Sublist_1.SublistLine {
     }
-    exports.CurrenciesSublist = CurrenciesSublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], CurrenciesSublist.prototype, "balance", void 0);
@@ -147,9 +146,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], CurrenciesSublist.prototype, "unbilledorders", void 0);
+    exports.CurrenciesSublist = CurrenciesSublist;
     class DownloadsSublist extends Sublist_1.SublistLine {
     }
-    exports.DownloadsSublist = DownloadsSublist;
     __decorate([
         Sublist_1.SublistFieldType.date
     ], DownloadsSublist.prototype, "expiration", void 0);
@@ -162,18 +161,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.integernumber
     ], DownloadsSublist.prototype, "remainingdownloads", void 0);
+    exports.DownloadsSublist = DownloadsSublist;
     class GroupPricingSublist extends Sublist_1.SublistLine {
     }
-    exports.GroupPricingSublist = GroupPricingSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], GroupPricingSublist.prototype, "group", void 0);
     __decorate([
         Sublist_1.SublistFieldType.select
     ], GroupPricingSublist.prototype, "level", void 0);
+    exports.GroupPricingSublist = GroupPricingSublist;
     class ItemPricingSublist extends Sublist_1.SublistLine {
     }
-    exports.ItemPricingSublist = ItemPricingSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ItemPricingSublist.prototype, "currency", void 0);
@@ -186,9 +185,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ItemPricingSublist.prototype, "price", void 0);
+    exports.ItemPricingSublist = ItemPricingSublist;
     class PartnersSublist extends Sublist_1.SublistLine {
     }
-    exports.PartnersSublist = PartnersSublist;
     __decorate([
         Sublist_1.SublistFieldType.percent
     ], PartnersSublist.prototype, "contribution", void 0);
@@ -207,9 +206,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], PartnersSublist.prototype, "partnerrole", void 0);
+    exports.PartnersSublist = PartnersSublist;
     class SalesTeamSublist extends Sublist_1.SublistLine {
     }
-    exports.SalesTeamSublist = SalesTeamSublist;
     __decorate([
         Sublist_1.SublistFieldType.percent
     ], SalesTeamSublist.prototype, "contribution", void 0);
@@ -231,13 +230,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], SalesTeamSublist.prototype, "salesrole", void 0);
+    exports.SalesTeamSublist = SalesTeamSublist;
     /**
      * Lead record in NetSuite
      */
     class LeadBase extends Entity_1.Entity {
         static recordType() { return record.Type.LEAD; }
     }
-    exports.LeadBase = LeadBase;
     __decorate([
         Record_1.FieldType.select
     ], LeadBase.prototype, "accessrole", void 0);
@@ -397,4 +396,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(SalesTeamSublist)
     ], LeadBase.prototype, "salesteam", void 0);
+    exports.LeadBase = LeadBase;
 });

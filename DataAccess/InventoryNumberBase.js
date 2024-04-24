@@ -27,7 +27,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class LocationsSublist extends Sublist_1.SublistLine {
     }
-    exports.LocationsSublist = LocationsSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], LocationsSublist.prototype, "location", void 0);
@@ -43,13 +42,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.float
     ], LocationsSublist.prototype, "quantityonorder", void 0);
+    exports.LocationsSublist = LocationsSublist;
     /**
      * NetSuite Inventory Number Record Type (inventorynumber)
      */
     class InventoryNumberBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.INVENTORY_NUMBER; }
     }
-    exports.InventoryNumberBase = InventoryNumberBase;
     __decorate([
         Record_1.FieldType.date
     ], InventoryNumberBase.prototype, "expirationdate", void 0);
@@ -71,4 +70,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(LocationsSublist)
     ], InventoryNumberBase.prototype, "locations", void 0);
+    exports.InventoryNumberBase = InventoryNumberBase;
 });

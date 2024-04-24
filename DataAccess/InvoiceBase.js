@@ -29,7 +29,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
-    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemSublist.prototype, "account", void 0);
@@ -72,12 +71,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ItemSublist.prototype, "units", void 0);
+    exports.ItemSublist = ItemSublist;
     /**
      * The Billable Expenses (expcost) sublist fields
      */
     class ExpCostSublist extends Sublist_1.SublistLine {
     }
-    exports.ExpCostSublist = ExpCostSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ExpCostSublist.prototype, "amortizationperiod", void 0);
@@ -141,12 +140,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ExpCostSublist.prototype, "url", void 0);
+    exports.ExpCostSublist = ExpCostSublist;
     /**
      * The Billable Items (itemcost) sublist fields
      */
     class ItemCostSublist extends Sublist_1.SublistLine {
     }
-    exports.ItemCostSublist = ItemCostSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemCostSublist.prototype, "amortizationperiod", void 0);
@@ -225,13 +224,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemCostSublist.prototype, "url", void 0);
+    exports.ItemCostSublist = ItemCostSublist;
     /**
      * NetSuite Invoice Record
      */
     class InvoiceBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.INVOICE; }
     }
-    exports.InvoiceBase = InvoiceBase;
     __decorate([
         Record_1.FieldType.select
     ], InvoiceBase.prototype, "account", void 0);
@@ -427,4 +426,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ItemCostSublist)
     ], InvoiceBase.prototype, "itemcost", void 0);
+    exports.InvoiceBase = InvoiceBase;
 });

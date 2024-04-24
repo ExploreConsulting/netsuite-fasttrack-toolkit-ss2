@@ -28,7 +28,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ApplySublist extends Sublist_1.SublistLine {
     }
-    exports.ApplySublist = ApplySublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ApplySublist.prototype, "amount", void 0);
@@ -65,6 +64,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ApplySublist.prototype, "url", void 0);
+    exports.ApplySublist = ApplySublist;
     /**
      * The Customer Refund (customerrefund) transaction in NetSuite
      */
@@ -82,7 +82,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
          */
         findApplyLine(docId) { return super.findApplyLine(docId); }
     }
-    exports.CustomerRefundBase = CustomerRefundBase;
     __decorate([
         Record_1.FieldType.select
     ], CustomerRefundBase.prototype, "account", void 0);
@@ -110,4 +109,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ApplySublist)
     ], CustomerRefundBase.prototype, "apply", void 0);
+    exports.CustomerRefundBase = CustomerRefundBase;
 });

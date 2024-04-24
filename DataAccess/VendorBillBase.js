@@ -29,7 +29,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
-    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ItemSublist.prototype, "item", void 0);
@@ -42,12 +41,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ItemSublist.prototype, "rate", void 0);
+    exports.ItemSublist = ItemSublist;
     /**
      * Sublist 'expense' on the Vendor Bill record
      */
     class ExpenseSublist extends Sublist_1.SublistLine {
     }
-    exports.ExpenseSublist = ExpenseSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ExpenseSublist.prototype, "account", void 0);
@@ -72,13 +71,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ExpenseSublist.prototype, "memo", void 0);
+    exports.ExpenseSublist = ExpenseSublist;
     /**
      * NetSuite Vendor Bill Record
      */
     class VendorBillBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.VENDOR_BILL; }
     }
-    exports.VendorBillBase = VendorBillBase;
     __decorate([
         Record_1.FieldType.select
     ], VendorBillBase.prototype, "account", void 0);
@@ -166,4 +165,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ExpenseSublist)
     ], VendorBillBase.prototype, "expense", void 0);
+    exports.VendorBillBase = VendorBillBase;
 });

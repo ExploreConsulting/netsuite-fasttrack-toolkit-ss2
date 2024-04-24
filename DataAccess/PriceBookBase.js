@@ -24,7 +24,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class PriceIntervalBase extends Sublist_1.SublistLine {
     }
-    exports.PriceIntervalBase = PriceIntervalBase;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], PriceIntervalBase.prototype, "chargetype", void 0);
@@ -64,13 +63,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.integernumber
     ], PriceIntervalBase.prototype, "subscriptionplanline", void 0);
+    exports.PriceIntervalBase = PriceIntervalBase;
     /**
      * NetSuite Price Book (pricebook) record type
      */
     class PriceBookBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.PRICE_BOOK; }
     }
-    exports.PriceBookBase = PriceBookBase;
     __decorate([
         Record_1.FieldType.select
     ], PriceBookBase.prototype, "currency", void 0);
@@ -89,4 +88,5 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(PriceIntervalBase)
     ], PriceBookBase.prototype, "priceinterval", void 0);
+    exports.PriceBookBase = PriceBookBase;
 });
