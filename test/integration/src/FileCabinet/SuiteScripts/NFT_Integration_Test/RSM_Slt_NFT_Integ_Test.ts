@@ -12,6 +12,7 @@ import { FieldType } from './NFT-SS2-7.2.1/DataAccess/Record'
 import { AddressBase } from './NFT-SS2-7.2.1/DataAccess/AddressBase'
 import { Customer } from './RecordTypes/Customer'
 import { LazySearch, nsSearchResult2obj } from './NFT-SS2-7.2.1/search'
+import { LazyQuery, nsSearchResult2obj as nsQueryResult2obj } from './NFT-SS2-7.2.1/query'
 import * as search from 'N/search'
 import { Seq } from './NFT-SS2-7.2.1/immutable'
 import { AssemblyItemBase } from './NFT-SS2-7.2.1/DataAccess/AssemblyItemBase'
@@ -81,6 +82,10 @@ namespace X {
       .toArray()
   }
 
+  export function doQuery(){
+     return Seq(LazyQuery.from(`SELECT ID FROM TRANSACTION`,null,10)).map(nsQueryResult2obj)
+  }
+
   export function sublists() {
     const v = new VendorPayment(7985)
 
@@ -135,6 +140,7 @@ namespace X {
     'NSDAL load Customer': X.loadEntity,
     'NSDAL sublists': X.sublists,
     'LazySearch': X.doSearch,
+    'LazyQuery': X.doQuery,
     'AutoLogging': X.autoLogging,
     'BasicLodash': X.basicLodash
   }

@@ -100,17 +100,19 @@ export class LazyQuery implements IterableIterator<query.Result> {
     * @param search the netsuite search object to wrap
     * @param pageSize optional pagesize, can be up to 1000
     */
-   private constructor (private search: string, params?: Array<string | number | boolean>, private pageSize = 500) {
+   private constructor (private search: string, private pageSize = 500) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
-      // this.log = LogManager.getLogger(LazyQuery.LOGNAME)
-      this.pagedData = query.runSuiteQLPaged({ query: search, pageSize: pageSize, params: params })
+      this.log = LogManager.getLogger(LazyQuery.LOGNAME)
+      this.pagedData = query.runSuiteQLPaged({ query: search, pageSize: pageSize})
 
       this.iterator = this.pagedData.iterator()
+      this.log.debug('this.iterator',  this.iterator)
       // only load a page if we have records
       if (this.pagedData.count > 0) {
          this.currentPage = this.pagedData.fetch(0)
          this.pagedData.pageRanges[0].index
          this.currentData = this.currentPage.data.results
+         this.log.debug('this.currentData', this.currentData)
       } else {
          this.currentData = []
          this.log.debug('runPaged() search return zero results')
@@ -144,9 +146,9 @@ export class LazyQuery implements IterableIterator<query.Result> {
     * ```
     */
 
-   static from (sql: string, params?: any[], pageSize?: number) {
+   static from (sql: string, pageSize?: number) {
 
-      return new LazyQuery(sql, params, pageSize)
+      return new LazyQuery(sql, pageSize)
       // query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize })
 
    }
@@ -175,7 +177,9 @@ export class LazyQuery implements IterableIterator<query.Result> {
 
       // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
       if (atEndOfPage) {
-         this.currentPage = this.iterator[this.currentPage.pageRange.index + 1]
+         this.log.debug('this.currentPage', this.currentPage)
+         this.currentPage = this.pagedData.fetch(this.currentPage.pageRange.index + 1)
+         this.log.debug('this.currentPage post increment', this.currentPage)
          this.currentData = this.currentPage.data.results
          this.mappedData = this.currentPage.data.asMappedResults()
          this.log.debug('loaded next page', `is last page: ${this.currentPage.isLast}`)

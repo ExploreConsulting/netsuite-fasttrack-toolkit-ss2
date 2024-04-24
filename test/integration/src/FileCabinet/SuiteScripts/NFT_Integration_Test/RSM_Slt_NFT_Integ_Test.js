@@ -16,7 +16,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./NFT-SS2-7.2.1/EC_Logger", "./NFT-SS2-7.2.1/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.2.1/DataAccess/Record", "./NFT-SS2-7.2.1/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.2.1/search", "N/search", "./NFT-SS2-7.2.1/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-7.2.1/lodash", "./NFT-SS2-7.2.1/DataAccess/InventoryItemBase"], factory);
+        define(["require", "exports", "./NFT-SS2-7.2.1/EC_Logger", "./NFT-SS2-7.2.1/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.2.1/DataAccess/Record", "./NFT-SS2-7.2.1/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.2.1/search", "./NFT-SS2-7.2.1/query", "N/search", "./NFT-SS2-7.2.1/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-7.2.1/lodash", "./NFT-SS2-7.2.1/DataAccess/InventoryItemBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -26,6 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const AddressBase_1 = require("./NFT-SS2-7.2.1/DataAccess/AddressBase");
     const Customer_1 = require("./RecordTypes/Customer");
     const search_1 = require("./NFT-SS2-7.2.1/search");
+    const query_1 = require("./NFT-SS2-7.2.1/query");
     const search = require("N/search");
     const immutable_1 = require("./NFT-SS2-7.2.1/immutable");
     const VendorPayment_1 = require("./RecordTypes/VendorPayment");
@@ -91,6 +92,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 .toArray();
         }
         X.doSearch = doSearch;
+        function doQuery() {
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID FROM TRANSACTION`, null, 10)).map(query_1.nsSearchResult2obj);
+        }
+        X.doQuery = doQuery;
         function sublists() {
             const v = new VendorPayment_1.VendorPayment(7985);
             v.apply.useDynamicModeAPI = false;
@@ -135,6 +140,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             'NSDAL load Customer': X.loadEntity,
             'NSDAL sublists': X.sublists,
             'LazySearch': X.doSearch,
+            'LazyQuery': X.doQuery,
             'AutoLogging': X.autoLogging,
             'BasicLodash': X.basicLodash
         };
