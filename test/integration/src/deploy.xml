@@ -3,16 +3,16 @@
 <!--        <path>~/AccountConfiguration/*</path>-->
 <!--    </configuration>-->
     <files>
-        <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/Customer.ts</path>
-        <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/Customer.js</path>
-        <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/VendorPayment.ts</path>
-        <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/VendorPayment.js</path>
+<!--        <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/Customer.ts</path>-->
+<!--        <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/Customer.js</path>-->
+<!--        <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/VendorPayment.ts</path>-->
+<!--        <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/VendorPayment.js</path>-->
         <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RSM_Slt_NFT_Integ_Test.ts</path>
         <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RSM_Slt_NFT_Integ_Test.js</path>
     </files>
-    <objects>
-        <path>~/Objects/customscript_rsm_slt_nft_integ.xml</path>
-    </objects>
+<!--    <objects>-->
+<!--        <path>~/Objects/customscript_rsm_slt_nft_integ.xml</path>-->
+<!--    </objects>-->
 <!--    <translationimports>-->
 <!--        <path>~/Translations/*</path>-->
 <!--    </translationimports>-->
