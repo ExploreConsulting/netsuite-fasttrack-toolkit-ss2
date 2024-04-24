@@ -1,3 +1,5 @@
+// mock must be declared at top of file because ts-jest uses babel to auto-hoist and it was erroring all tests
+// import * as mockrecord from "../__mocks__/N/record"
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
@@ -9,7 +11,6 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    jest.mock('EC_Logger');
     const mocktask = require("../__mocks__/N/task");
     const governance_1 = require("../governance");
     const mockruntime = require("../__mocks__/N/runtime");
