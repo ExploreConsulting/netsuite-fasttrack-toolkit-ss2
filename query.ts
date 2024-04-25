@@ -98,12 +98,13 @@ export class LazyQuery implements IterableIterator<query.Result> {
    /**
     * Not meant to be used directly, use factory methods such as `load` or `from`
     * @param search the netsuite search object to wrap
+    * @param params
     * @param pageSize optional pagesize, can be up to 1000
     */
-   private constructor (private search: string, private pageSize = 500) {
+   private constructor (private search: string, params?: Array<string | number | boolean>, private pageSize = 500) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
       this.log = LogManager.getLogger(LazyQuery.LOGNAME)
-      this.pagedData = query.runSuiteQLPaged({ query: search, pageSize: pageSize})
+      this.pagedData = query.runSuiteQLPaged({ query: search, params: (params) ? params : undefined, pageSize: pageSize})
 
       this.iterator = this.pagedData.iterator()
       this.log.debug('this.iterator',  this.iterator)
@@ -124,7 +125,8 @@ export class LazyQuery implements IterableIterator<query.Result> {
 
    /**
     * Creates a lazy search from an existing NS search.
-    * @param search
+    * @param sql
+    * @param params
     * @param pageSize
     * @returns {LazySearch}
     *
@@ -146,9 +148,9 @@ export class LazyQuery implements IterableIterator<query.Result> {
     * ```
     */
 
-   static from (sql: string, pageSize?: number) {
+   static from (sql: string, params?: any[], pageSize?: number) {
 
-      return new LazyQuery(sql, pageSize)
+      return new LazyQuery(sql, params, pageSize)
       // query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize })
 
    }

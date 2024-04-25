@@ -93,7 +93,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         }
         X.doSearch = doSearch;
         function doQuery() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID FROM TRANSACTION`, null, 10)).map(query_1.nsSearchResult2obj);
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID FROM TRANSACTION WHERE recordType = 'invoice'`, null, 10)).map(query_1.nsSearchResult2obj);
         }
         X.doQuery = doQuery;
         function sublists() {

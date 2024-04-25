@@ -71,15 +71,16 @@
         /**
          * Not meant to be used directly, use factory methods such as `load` or `from`
          * @param search the netsuite search object to wrap
+         * @param params
          * @param pageSize optional pagesize, can be up to 1000
          */
-        constructor(search, pageSize = 500) {
+        constructor(search, params, pageSize = 500) {
             this.search = search;
             this.pageSize = pageSize;
             if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazyQuery.LOGNAME);
-            this.pagedData = query.runSuiteQLPaged({ query: search, pageSize: pageSize });
+            this.pagedData = query.runSuiteQLPaged({ query: search, params: (params) ? params : undefined, pageSize: pageSize });
             this.iterator = this.pagedData.iterator();
             this.log.debug('this.iterator', this.iterator);
             // only load a page if we have records
@@ -98,7 +99,8 @@
         }
         /**
          * Creates a lazy search from an existing NS search.
-         * @param search
+         * @param sql
+         * @param params
          * @param pageSize
          * @returns {LazySearch}
          *
@@ -119,8 +121,8 @@
          *   .forEach( r => log.debug(r))
          * ```
          */
-        static from(sql, pageSize) {
-            return new LazyQuery(sql, pageSize);
+        static from(sql, params, pageSize) {
+            return new LazyQuery(sql, params, pageSize);
             // query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize })
         }
         /**
