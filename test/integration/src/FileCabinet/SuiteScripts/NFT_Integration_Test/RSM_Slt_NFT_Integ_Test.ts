@@ -83,7 +83,7 @@ namespace X {
   }
 
   export function doQuery(){
-     return Seq(LazyQuery.from(`SELECT ID FROM TRANSACTION`,null,10)).map(nsQueryResult2obj)
+     return Seq(LazyQuery.from(`SELECT ID FROM TRANSACTION WHERE recordType = 'invoice'`, null ,10)).map(nsQueryResult2obj)
   }
 
   export function sublists() {
