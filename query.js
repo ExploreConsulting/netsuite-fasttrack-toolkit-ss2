@@ -160,9 +160,9 @@
             };
         }
     }
-    exports.LazyQuery = LazyQuery;
     /**
      * the name of the custom logger for this component for independent logging control
      */
     LazyQuery.LOGNAME = 'lazy';
+    exports.LazyQuery = LazyQuery;
 });
