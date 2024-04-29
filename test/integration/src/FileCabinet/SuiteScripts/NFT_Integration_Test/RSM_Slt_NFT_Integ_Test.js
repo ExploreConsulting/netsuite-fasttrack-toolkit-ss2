@@ -16,7 +16,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./NFT-SS2-7.2.1/EC_Logger", "./NFT-SS2-7.2.1/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.2.1/DataAccess/Record", "./NFT-SS2-7.2.1/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.2.1/search", "./NFT-SS2-7.2.1/query", "N/search", "./NFT-SS2-7.2.1/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-7.2.1/lodash", "./NFT-SS2-7.2.1/DataAccess/InventoryItemBase"], factory);
+        define(["require", "exports", "./NFT-SS2-7.2.1/EC_Logger", "./NFT-SS2-7.2.1/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.2.1/DataAccess/Record", "./NFT-SS2-7.2.1/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.2.1/search", "./NFT-SS2-7.2.1/query", "N/search", "./NFT-SS2-7.2.1/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-7.2.1/lodash", "./NFT-SS2-7.2.1/DataAccess/InventoryItemBase", "./NFT-SS2-7.2.1/governance"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -32,6 +32,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const VendorPayment_1 = require("./RecordTypes/VendorPayment");
     const _ = require("./NFT-SS2-7.2.1/lodash");
     const InventoryItemBase_1 = require("./NFT-SS2-7.2.1/DataAccess/InventoryItemBase");
+    const governance_1 = require("./NFT-SS2-7.2.1/governance");
     const log = LogManager.DefaultLogger;
     class ItemFulfillment extends ItemFulfillmentBase_1.ItemFulfillmentBase {
     }
@@ -92,10 +93,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 .toArray();
         }
         X.doSearch = doSearch;
-        function doQuery() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID FROM TRANSACTION WHERE recordType = 'invoice'`, null, 10)).map(query_1.nsSearchResult2obj);
+        function doQuery1() {
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`)).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
         }
-        X.doQuery = doQuery;
+        X.doQuery1 = doQuery1;
+        function doQuery2() {
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, ['invoice'], 10)).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
+        }
+        X.doQuery2 = doQuery2;
+        function doQuery3() {
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`, null, 750)).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
+        }
+        X.doQuery3 = doQuery3;
         function sublists() {
             const v = new VendorPayment_1.VendorPayment(7985);
             v.apply.useDynamicModeAPI = false;
@@ -140,7 +149,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             'NSDAL load Customer': X.loadEntity,
             'NSDAL sublists': X.sublists,
             'LazySearch': X.doSearch,
-            'LazyQuery': X.doQuery,
+            'LazyQuery Basic': X.doQuery1,
+            'LazyQuery Param': X.doQuery2,
+            'LazyQuery Paged': X.doQuery3,
             'AutoLogging': X.autoLogging,
             'BasicLodash': X.basicLodash
         };
