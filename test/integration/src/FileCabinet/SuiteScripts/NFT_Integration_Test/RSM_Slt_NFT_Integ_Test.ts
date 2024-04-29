@@ -15,10 +15,10 @@ import { LazySearch, nsSearchResult2obj } from './NFT-SS2-7.2.1/search'
 import { LazyQuery, nsSearchResult2obj as nsQueryResult2obj } from './NFT-SS2-7.2.1/query'
 import * as search from 'N/search'
 import { Seq } from './NFT-SS2-7.2.1/immutable'
-import { AssemblyItemBase } from './NFT-SS2-7.2.1/DataAccess/AssemblyItemBase'
 import { VendorPayment } from './RecordTypes/VendorPayment'
 import * as _ from './NFT-SS2-7.2.1/lodash'
 import {InventoryItemBase} from "./NFT-SS2-7.2.1/DataAccess/InventoryItemBase";
+import { autoReschedule } from './NFT-SS2-7.2.1/governance'
 
 const log = LogManager.DefaultLogger
 
@@ -82,9 +82,17 @@ namespace X {
       .toArray()
   }
 
-  export function doQuery(){
-     return Seq(LazyQuery.from(`SELECT ID FROM TRANSACTION WHERE recordType = 'invoice'`, null ,10)).map(nsQueryResult2obj)
+  export function doQuery1(){
+     return Seq(LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`)).map(nsQueryResult2obj).takeWhile(autoReschedule())
   }
+
+   export function doQuery2(){
+      return Seq(LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, ['invoice'] ,10)).map(nsQueryResult2obj).takeWhile(autoReschedule())
+   }
+
+   export function doQuery3(){
+      return Seq(LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`, null ,750)).map(nsQueryResult2obj).takeWhile(autoReschedule())
+   }
 
   export function sublists() {
     const v = new VendorPayment(7985)
@@ -140,7 +148,9 @@ namespace X {
     'NSDAL load Customer': X.loadEntity,
     'NSDAL sublists': X.sublists,
     'LazySearch': X.doSearch,
-    'LazyQuery': X.doQuery,
+    'LazyQuery Basic': X.doQuery1,
+    'LazyQuery Param': X.doQuery2,
+    'LazyQuery Paged': X.doQuery3,
     'AutoLogging': X.autoLogging,
     'BasicLodash': X.basicLodash
   }

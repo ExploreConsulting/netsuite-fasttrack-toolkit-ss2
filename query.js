@@ -80,7 +80,11 @@
             if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazyQuery.LOGNAME);
-            this.pagedData = query.runSuiteQLPaged({ query: search, params: (params) ? params : undefined, pageSize: pageSize });
+            this.log.debug('params', params);
+            if (!params)
+                this.pagedData = query.runSuiteQLPaged({ query: search, pageSize: pageSize });
+            else
+                this.pagedData = query.runSuiteQLPaged({ query: search, params: params, pageSize: pageSize });
             this.iterator = this.pagedData.iterator();
             this.log.debug('this.iterator', this.iterator);
             // only load a page if we have records
