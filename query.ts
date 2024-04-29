@@ -43,7 +43,7 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { }
  *
  *  Seq(LazyQuery.from('string').map(nsSearchResult2obj()).forEach(...)
  *
- *  ```
+ *  ```1
  */
 export function nsSearchResult2obj<T = {}> (r: query.Result) {
    return r.asMap() as T
@@ -101,12 +101,12 @@ export class LazyQuery implements IterableIterator<query.Result> {
     * @param params
     * @param pageSize optional pagesize, can be up to 1000
     */
-   private constructor (private search: string, params?: Array<string | number | boolean>, private pageSize = 500) {
+   private constructor (private q: { query: string, params?: Array<string | number | boolean> }, private pageSize = 500) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
       this.log = LogManager.getLogger(LazyQuery.LOGNAME)
-      this.log.debug('params',params)
-      if(!params) this.pagedData = query.runSuiteQLPaged({ query: search, pageSize: pageSize})
-      else this.pagedData = query.runSuiteQLPaged({ query: search, params: params, pageSize: pageSize})
+      this.log.debug('params',q.params)
+      if(!q.params) this.pagedData = query.runSuiteQLPaged({ query: q.query, pageSize: pageSize})
+      else this.pagedData = query.runSuiteQLPaged({ query: q.query, params: q.params, pageSize: pageSize})
 
       this.iterator = this.pagedData.iterator()
       this.log.debug('this.iterator',  this.iterator)
@@ -150,9 +150,9 @@ export class LazyQuery implements IterableIterator<query.Result> {
     * ```
     */
 
-   static from (sql: string, params?: any[], pageSize?: number) {
+   static from (sql: string, pageSize?: number, params?: any[]) {
 
-      return new LazyQuery(sql, params, pageSize)
+      return new LazyQuery(sql, pageSize, params)
       // query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize })
 
    }

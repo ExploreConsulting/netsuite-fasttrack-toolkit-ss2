@@ -41,7 +41,7 @@
      *
      *  Seq(LazyQuery.from('string').map(nsSearchResult2obj()).forEach(...)
      *
-     *  ```
+     *  ```1
      */
     function nsSearchResult2obj(r) {
         return r.asMap();
@@ -74,17 +74,17 @@
          * @param params
          * @param pageSize optional pagesize, can be up to 1000
          */
-        constructor(search, params, pageSize = 500) {
-            this.search = search;
+        constructor(q, pageSize = 500) {
+            this.q = q;
             this.pageSize = pageSize;
             if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazyQuery.LOGNAME);
-            this.log.debug('params', params);
-            if (!params)
-                this.pagedData = query.runSuiteQLPaged({ query: search, pageSize: pageSize });
+            this.log.debug('params', q.params);
+            if (!q.params)
+                this.pagedData = query.runSuiteQLPaged({ query: q.query, pageSize: pageSize });
             else
-                this.pagedData = query.runSuiteQLPaged({ query: search, params: params, pageSize: pageSize });
+                this.pagedData = query.runSuiteQLPaged({ query: q.query, params: q.params, pageSize: pageSize });
             this.iterator = this.pagedData.iterator();
             this.log.debug('this.iterator', this.iterator);
             // only load a page if we have records
@@ -125,8 +125,8 @@
          *   .forEach( r => log.debug(r))
          * ```
          */
-        static from(sql, params, pageSize) {
-            return new LazyQuery(sql, params, pageSize);
+        static from(sql, pageSize, params) {
+            return new LazyQuery(sql, pageSize, params);
             // query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize })
         }
         /**

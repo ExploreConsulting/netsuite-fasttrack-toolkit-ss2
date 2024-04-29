@@ -90,21 +90,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 // are viewed as incompatible by TS
             })))
                 .map((0, search_1.nsSearchResult2obj)())
-                .toArray();
+                .toArray(); // Todo comment out toArray to see if it returns results
         }
         X.doSearch = doSearch;
         function doQuery1() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`)).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`)).map((query_1.nsSearchResult2obj)).takeWhile((0, governance_1.autoReschedule)());
         }
         X.doQuery1 = doQuery1;
         function doQuery2() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, ['invoice'], 10)).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, 10, ['invoice'])).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
         }
         X.doQuery2 = doQuery2;
         function doQuery3() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`, null, 750)).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`, 750)).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
         }
         X.doQuery3 = doQuery3;
+        function doQuery4() {
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION = ?`, params: ['invoice'] }, 750)).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
+        }
+        X.doQuery4 = doQuery4;
         function sublists() {
             const v = new VendorPayment_1.VendorPayment(7985);
             v.apply.useDynamicModeAPI = false;
@@ -152,6 +156,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             'LazyQuery Basic': X.doQuery1,
             'LazyQuery Param': X.doQuery2,
             'LazyQuery Paged': X.doQuery3,
+            'LazyQuery No page, Params': X.doQuery4,
             'AutoLogging': X.autoLogging,
             'BasicLodash': X.basicLodash
         };
