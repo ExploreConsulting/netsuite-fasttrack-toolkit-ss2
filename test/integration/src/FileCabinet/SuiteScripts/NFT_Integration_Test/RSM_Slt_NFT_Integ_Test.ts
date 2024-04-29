@@ -79,19 +79,23 @@ namespace X {
        // are viewed as incompatible by TS
     })))
       .map(nsSearchResult2obj<{foo:string}>())
-      .toArray()
+      .toArray() // Todo comment out toArray to see if it returns results
   }
 
   export function doQuery1(){
-     return Seq(LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`)).map(nsQueryResult2obj).takeWhile(autoReschedule())
+     return Seq(LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`)).map(nsQueryResult2obj<{foo:number}>).takeWhile(autoReschedule())
   }
 
    export function doQuery2(){
-      return Seq(LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, ['invoice'] ,10)).map(nsQueryResult2obj).takeWhile(autoReschedule())
+      return Seq(LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, 10, ['invoice'] )).map(nsQueryResult2obj).takeWhile(autoReschedule())
    }
 
    export function doQuery3(){
-      return Seq(LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`, null ,750)).map(nsQueryResult2obj).takeWhile(autoReschedule())
+      return Seq(LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`,750)).map(nsQueryResult2obj).takeWhile(autoReschedule())
+   }
+
+   export function doQuery4(){
+      return Seq(LazyQuery.from({query: `SELECT ID AS FOO FROM TRANSACTION = ?`, params: ['invoice']}, 750)).map(nsQueryResult2obj).takeWhile(autoReschedule())
    }
 
   export function sublists() {
@@ -151,6 +155,7 @@ namespace X {
     'LazyQuery Basic': X.doQuery1,
     'LazyQuery Param': X.doQuery2,
     'LazyQuery Paged': X.doQuery3,
+    'LazyQuery No page, Params': X.doQuery4,
     'AutoLogging': X.autoLogging,
     'BasicLodash': X.basicLodash
   }
