@@ -110,7 +110,7 @@ export class LazyQuery implements IterableIterator<query.Result> {
 
       this.iterator = this.pagedData.iterator()
       this.log.debug('this.iterator',  this.iterator)
-      // only load a page if we have records
+      // only load a page if we have record
       if (this.pagedData.count > 0) {
          this.currentPage = this.pagedData.fetch(0)
          this.pagedData.pageRanges[0].index
@@ -150,9 +150,9 @@ export class LazyQuery implements IterableIterator<query.Result> {
     * ```
     */
 
-   static from (sql: string, pageSize?: number, params?: any[]) {
+   static from (q: {query: string, params?: any[]}, pageSize?: number) {
 
-      return new LazyQuery(sql, pageSize, params)
+      return new LazyQuery(q, pageSize)
       // query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize })
 
    }

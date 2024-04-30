@@ -97,6 +97,7 @@ describe('nsSearchResult2obj', function () {
       const temp = noLabelResult.fetch(1)
       const x = nsSearchResult2obj(noLabelResult)
       expect(x).toHaveProperty('foo', '880')
+      query.runSuiteQL()
    })
 
 })
