@@ -70,8 +70,7 @@
     class LazyQuery {
         /**
          * Not meant to be used directly, use factory methods such as `load` or `from`
-         * @param search the netsuite search object to wrap
-         * @param params
+         * @param q
          * @param pageSize optional pagesize, can be up to 1000
          */
         constructor(q, pageSize = 500) {
@@ -80,14 +79,15 @@
             if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazyQuery.LOGNAME);
-            this.log.debug('params', q.params);
+            this.log.debug('Query Object', q);
+            this.log.debug('q.query', q.query);
             if (!q.params)
                 this.pagedData = query.runSuiteQLPaged({ query: q.query, pageSize: pageSize });
             else
                 this.pagedData = query.runSuiteQLPaged({ query: q.query, params: q.params, pageSize: pageSize });
             this.iterator = this.pagedData.iterator();
             this.log.debug('this.iterator', this.iterator);
-            // only load a page if we have records
+            // only load a page if we have record
             if (this.pagedData.count > 0) {
                 this.currentPage = this.pagedData.fetch(0);
                 this.pagedData.pageRanges[0].index;
@@ -103,8 +103,7 @@
         }
         /**
          * Creates a lazy search from an existing NS search.
-         * @param sql
-         * @param params
+         * @param q
          * @param pageSize
          * @returns {LazySearch}
          *
@@ -125,8 +124,8 @@
          *   .forEach( r => log.debug(r))
          * ```
          */
-        static from(sql, pageSize, params) {
-            return new LazyQuery(sql, pageSize, params);
+        static from(q, pageSize) {
+            return new LazyQuery(q, pageSize);
             // query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize })
         }
         /**
@@ -166,9 +165,9 @@
             };
         }
     }
+    exports.LazyQuery = LazyQuery;
     /**
      * the name of the custom logger for this component for independent logging control
      */
     LazyQuery.LOGNAME = 'lazy';
-    exports.LazyQuery = LazyQuery;
 });

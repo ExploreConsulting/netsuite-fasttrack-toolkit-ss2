@@ -16,7 +16,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./NFT-SS2-7.2.1/EC_Logger", "./NFT-SS2-7.2.1/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.2.1/DataAccess/Record", "./NFT-SS2-7.2.1/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.2.1/search", "./NFT-SS2-7.2.1/query", "N/search", "./NFT-SS2-7.2.1/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-7.2.1/lodash", "./NFT-SS2-7.2.1/DataAccess/InventoryItemBase", "./NFT-SS2-7.2.1/governance"], factory);
+        define(["require", "exports", "./NFT-SS2-7.2.1/EC_Logger", "./NFT-SS2-7.2.1/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.2.1/DataAccess/Record", "./NFT-SS2-7.2.1/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.2.1/search", "./NFT-SS2-7.2.1/query", "N/search", "./NFT-SS2-7.2.1/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-7.2.1/lodash", "./NFT-SS2-7.2.1/DataAccess/InventoryItemBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -32,7 +32,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const VendorPayment_1 = require("./RecordTypes/VendorPayment");
     const _ = require("./NFT-SS2-7.2.1/lodash");
     const InventoryItemBase_1 = require("./NFT-SS2-7.2.1/DataAccess/InventoryItemBase");
-    const governance_1 = require("./NFT-SS2-7.2.1/governance");
     const log = LogManager.DefaultLogger;
     class ItemFulfillment extends ItemFulfillmentBase_1.ItemFulfillmentBase {
     }
@@ -94,19 +93,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         }
         X.doSearch = doSearch;
         function doQuery1() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`)).map((query_1.nsSearchResult2obj)).takeWhile((0, governance_1.autoReschedule)());
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION` })).map((query_1.nsSearchResult2obj)); //.takeWhile(autoReschedule())
         }
         X.doQuery1 = doQuery1;
         function doQuery2() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, 10, ['invoice'])).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice'] }, 10)).map(query_1.nsSearchResult2obj); //.takeWhile(autoReschedule())
         }
         X.doQuery2 = doQuery2;
         function doQuery3() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from(`SELECT ID AS FOO FROM TRANSACTION`, 750)).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION` }, 750)).map(query_1.nsSearchResult2obj); //.takeWhile(autoReschedule())
         }
         X.doQuery3 = doQuery3;
         function doQuery4() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION = ?`, params: ['invoice'] }, 750)).map(query_1.nsSearchResult2obj).takeWhile((0, governance_1.autoReschedule)());
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice'] }, 750)).map(query_1.nsSearchResult2obj); //.takeWhile(autoReschedule())
         }
         X.doQuery4 = doQuery4;
         function sublists() {
