@@ -27,6 +27,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class SupportCaseBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.SUPPORT_CASE; }
     }
+    exports.SupportCaseBase = SupportCaseBase;
     __decorate([
         Record_1.FieldType.select
     ], SupportCaseBase.prototype, "assigned", void 0);
@@ -69,5 +70,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.datetime
     ], SupportCaseBase.prototype, "startdate", void 0);
-    exports.SupportCaseBase = SupportCaseBase;
 });

@@ -24,6 +24,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class LinesSublist extends Sublist_1.SublistLine {
     }
+    exports.LinesSublist = LinesSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], LinesSublist.prototype, "billingmode", void 0);
@@ -48,13 +49,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], LinesSublist.prototype, "subscriptionlinetype", void 0);
-    exports.LinesSublist = LinesSublist;
     /**
      * NetSuite Subscription Plan record type
      */
     class SubscriptionPlanBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.SUBSCRIPTION_PLAN; }
     }
+    exports.SubscriptionPlanBase = SubscriptionPlanBase;
     __decorate([
         Record_1.FieldType.integernumber
     ], SubscriptionPlanBase.prototype, "advancerenewalperiodnumber", void 0);
@@ -124,5 +125,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(LinesSublist)
     ], SubscriptionPlanBase.prototype, "member", void 0);
-    exports.SubscriptionPlanBase = SubscriptionPlanBase;
 });

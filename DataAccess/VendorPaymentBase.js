@@ -28,6 +28,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ApplySublist extends Sublist_1.SublistLine {
     }
+    exports.ApplySublist = ApplySublist;
     __decorate([
         Sublist_1.SublistFieldType.checkbox
     ], ApplySublist.prototype, "apply", void 0);
@@ -73,13 +74,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ApplySublist.prototype, "url", void 0);
-    exports.ApplySublist = ApplySublist;
     /**
      * NetSuite Vendor Payment Record
      */
     class VendorPaymentBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.VENDOR_PAYMENT; }
     }
+    exports.VendorPaymentBase = VendorPaymentBase;
     __decorate([
         Record_1.FieldType.select
     ], VendorPaymentBase.prototype, "account", void 0);
@@ -134,5 +135,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ApplySublist)
     ], VendorPaymentBase.prototype, "apply", void 0);
-    exports.VendorPaymentBase = VendorPaymentBase;
 });

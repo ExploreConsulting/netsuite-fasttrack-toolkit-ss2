@@ -32,6 +32,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return record.Type.NOTE;
         }
     }
+    exports.NoteBase = NoteBase;
     __decorate([
         Record_1.FieldType.select
     ], NoteBase.prototype, "accountingperiod", void 0);
@@ -86,5 +87,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.select
     ], NoteBase.prototype, "transaction", void 0);
-    exports.NoteBase = NoteBase;
 });

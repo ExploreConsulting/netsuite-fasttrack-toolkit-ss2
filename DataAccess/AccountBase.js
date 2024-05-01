@@ -27,6 +27,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class LocalizationSublist extends Sublist_1.SublistLine {
     }
+    exports.LocalizationSublist = LocalizationSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], LocalizationSublist.prototype, "accountingcontext", void 0);
@@ -42,7 +43,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], LocalizationSublist.prototype, "locale", void 0);
-    exports.LocalizationSublist = LocalizationSublist;
     /**
      * NetSuite Account (account)
      */
@@ -51,6 +51,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return record.Type.ACCOUNT;
         }
     }
+    exports.AccountBase = AccountBase;
     __decorate([
         Record_1.FieldType.freeformtext
     ], AccountBase.prototype, "acctname", void 0);
@@ -138,5 +139,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(LocalizationSublist)
     ], AccountBase.prototype, "localizations", void 0);
-    exports.AccountBase = AccountBase;
 });

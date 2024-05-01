@@ -25,6 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class SubsidiaryBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.SUBSIDIARY; }
     }
+    exports.SubsidiaryBase = SubsidiaryBase;
     __decorate([
         Record_1.FieldType.freeformtext
     ], SubsidiaryBase.prototype, "addr1", void 0);
@@ -68,14 +69,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.select
     ], SubsidiaryBase.prototype, "parent", void 0);
-    exports.SubsidiaryBase = SubsidiaryBase;
     class AccountBookDetail extends Sublist_1.SublistLine {
     }
+    exports.AccountBookDetail = AccountBookDetail;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], AccountBookDetail.prototype, "accountingbook", void 0);
     __decorate([
         Sublist_1.SublistFieldType.select
     ], AccountBookDetail.prototype, "currency", void 0);
-    exports.AccountBookDetail = AccountBookDetail;
 });

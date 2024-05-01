@@ -26,6 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class PriceBookLinesSublist extends Sublist_1.SublistLine {
     }
+    exports.PriceBookLinesSublist = PriceBookLinesSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], PriceBookLinesSublist.prototype, "catalogtype", void 0);
@@ -80,19 +81,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.integernumber
     ], PriceBookLinesSublist.prototype, "subscriptionplanline", void 0);
-    exports.PriceBookLinesSublist = PriceBookLinesSublist;
     /**
      * sublinefromplan - Lines
      */
     class SublineFromPlanSublist extends Sublist_1.SublistLine {
     }
+    exports.SublineFromPlanSublist = SublineFromPlanSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], SublineFromPlanSublist.prototype, "item", void 0);
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], SublineFromPlanSublist.prototype, "revrecoption", void 0);
-    exports.SublineFromPlanSublist = SublineFromPlanSublist;
     /**
      * subscriptionline - Lines (Sublist)
      * NOTE: The following fields can't be updated due to NetSuite throwing errors even if the same value is set:
@@ -102,6 +102,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class SubscriptionLineSublist extends Sublist_1.SublistLine {
     }
+    exports.SubscriptionLineSublist = SubscriptionLineSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], SubscriptionLineSublist.prototype, "billingmode", void 0);
@@ -159,13 +160,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.date
     ], SubscriptionLineSublist.prototype, "terminationdate", void 0);
-    exports.SubscriptionLineSublist = SubscriptionLineSublist;
     /**
      * NetSuite Subscription record type
      */
     class SubscriptionBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.SUBSCRIPTION; }
     }
+    exports.SubscriptionBase = SubscriptionBase;
     __decorate([
         Record_1.FieldType.integernumber
     ], SubscriptionBase.prototype, "advancerenewalperiodnumber", void 0);
@@ -298,5 +299,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(SubscriptionLineSublist)
     ], SubscriptionBase.prototype, "subscriptionline", void 0);
-    exports.SubscriptionBase = SubscriptionBase;
 });

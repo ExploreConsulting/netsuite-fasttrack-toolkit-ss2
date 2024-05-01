@@ -25,15 +25,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const Sublist_1 = require("./Sublist");
     class RolesSublist extends Sublist_1.SublistLine {
     }
+    exports.RolesSublist = RolesSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], RolesSublist.prototype, "selectedrole", void 0);
-    exports.RolesSublist = RolesSublist;
     class EmployeeBase extends Entity_1.Entity {
         static recordType() {
             return record.Type.EMPLOYEE;
         }
     }
+    exports.EmployeeBase = EmployeeBase;
     __decorate([
         Record_1.FieldType.select
     ], EmployeeBase.prototype, "approver", void 0);
@@ -112,5 +113,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.select
     ], EmployeeBase.prototype, "workcalendar", void 0);
-    exports.EmployeeBase = EmployeeBase;
 });

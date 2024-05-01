@@ -26,6 +26,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class EmailTemplate extends Record_1.NetsuiteRecord {
         static recordType() { return 'emailtemplate'; }
     }
+    exports.EmailTemplate = EmailTemplate;
     __decorate([
         Record_1.FieldType.checkbox
     ], EmailTemplate.prototype, "addcompanyaddress", void 0);
@@ -62,5 +63,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.freeformtext
     ], EmailTemplate.prototype, "subject", void 0);
-    exports.EmailTemplate = EmailTemplate;
 });

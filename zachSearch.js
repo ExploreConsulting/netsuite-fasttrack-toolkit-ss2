@@ -261,9 +261,9 @@
             // }
         }
     }
+    exports.LazySearch = LazySearch;
     /**
      * the name of the custom logger for this component for independent logging control
      */
     LazySearch.LOGNAME = 'lazy';
-    exports.LazySearch = LazySearch;
 });

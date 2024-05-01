@@ -45,6 +45,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class AddressBase extends Record_1.NetsuiteRecord {
     }
+    exports.AddressBase = AddressBase;
     __decorate([
         Record_1.FieldType.freeformtext
     ], AddressBase.prototype, "addr1", void 0);
@@ -81,5 +82,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.checkbox
     ], AddressBase.prototype, "override", void 0);
-    exports.AddressBase = AddressBase;
 });

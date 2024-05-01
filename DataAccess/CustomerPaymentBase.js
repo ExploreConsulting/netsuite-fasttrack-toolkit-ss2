@@ -25,6 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const Record_1 = require("./Record");
     class ApplySublist extends Sublist_1.SublistLine {
     }
+    exports.ApplySublist = ApplySublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ApplySublist.prototype, "amount", void 0);
@@ -64,13 +65,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ApplySublist.prototype, "url", void 0);
-    exports.ApplySublist = ApplySublist;
     /**
      * Customer Payment Record
      */
     class CustomerPaymentBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.CUSTOMER_PAYMENT; }
     }
+    exports.CustomerPaymentBase = CustomerPaymentBase;
     __decorate([
         Record_1.FieldType.select
     ], CustomerPaymentBase.prototype, "customer", void 0);
@@ -89,5 +90,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ApplySublist)
     ], CustomerPaymentBase.prototype, "apply", void 0);
-    exports.CustomerPaymentBase = CustomerPaymentBase;
 });
