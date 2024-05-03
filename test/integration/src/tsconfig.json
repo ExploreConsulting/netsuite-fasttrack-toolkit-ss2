@@ -8,7 +8,7 @@
     "sourceMap": false,
     "newLine": "LF",
     "experimentalDecorators": true,
-    "baseUrl": ".",
+    "baseUrl": "./FileCabinet/SuiteScripts",
     "lib":["ES2020"],
     "paths": {
       "N/*": [
