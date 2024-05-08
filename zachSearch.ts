@@ -11,6 +11,7 @@
 import * as search from 'N/search'
 import * as LogManager from './EC_Logger'
 import * as _ from './node_modules/lodash'
+
 /**
  *  Any object that includes an 'id' property, which NS search results always have
  */
@@ -22,7 +23,7 @@ export type ObjectWithId<T> = T & { id: string }
  * precedence over these values, so don't use `id` or `recordType` as your custom column label if you want the
  * native SearchResult property values to be used.
  */
-export type BaseSearchResult<T> = ObjectWithId<T> & { recordType:string | search.Type }
+export type BaseSearchResult<T> = ObjectWithId<T> & { recordType: string | search.Type }
 
 /**
  * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to `map()`
@@ -49,9 +50,9 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { recordType:string | search
  *
  *  ```
  */
-export function nsSearchResult2obj <T = {}>(useLabels = true, addGetTextProps = true): (r:search.Result)=> BaseSearchResult<T> {
+export function nsSearchResult2obj<T = {}> (useLabels = true, addGetTextProps = true): (r: search.Result) => BaseSearchResult<T> {
    return function (result: search.Result) {
-      let output : { id:string, recordType?:string | search.Type } = {id: result.id, recordType:result.recordType }
+      let output: { id: string, recordType?: string | search.Type } = { id: result.id, recordType: result.recordType }
       // assigns each column VALUE from the search result to the output object
       if (result.columns && result.columns.length > 0)
          result.columns.forEach((col) => {
@@ -105,8 +106,6 @@ export class LazySearch implements IterableIterator<search.Result> {
    //  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
    //  */
 
-
-
    /**
     * Loads an existing NS search by id and prepares it for lazy evaluation
     * @param id internal id of the search to load
@@ -126,8 +125,8 @@ export class LazySearch implements IterableIterator<search.Result> {
     *   .forEach( r => log.debug(r))
     * ```
     */
-   static load(id: string, pageSize?: number) {
-      return new LazySearch(search.load({id: id}), pageSize)
+   static load (id: string, pageSize?: number) {
+      return new LazySearch(search.load({ id: id }), pageSize)
    }
 
    /**
@@ -153,7 +152,7 @@ export class LazySearch implements IterableIterator<search.Result> {
     *   .forEach( r => log.debug(r))
     * ```
     */
-   static from(search: search.Search, pageSize?: number) {
+   static from (search: search.Search, pageSize?: number) {
       return new LazySearch(search, pageSize)
    }
 
@@ -181,23 +180,22 @@ export class LazySearch implements IterableIterator<search.Result> {
     * @param search the netsuite search object to wrap
     * @param pageSize optional pagesize, can be up to 1000
     */
-   private constructor(private search: search.Search, private pageSize = 500) {
+   private constructor (private search: search.Search, private pageSize = 500) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
       this.log = LogManager.getLogger(LazySearch.LOGNAME)
 
       this.currentData = []
       this.executedSearch = search.run()
-
       this.currentRange = this.executedSearch.getRange({
          start: 0,
          end: 1000
       })
 
-      if (  this.currentRange.length  ) {
-         // _.forEach(this.currentRange, (index) => {
-         //    this.currentData.push(index)
-         // })
-         this.currentData = [...this.currentRange]
+      if (this.currentRange.length) {
+         _.forEach(this.currentRange, (index) => {
+            this.currentData.push(index)
+         })
+         //this.currentData = [...this.currentRange]
       } else {
          this.currentData = []
          this.log.debug('runPaged() search return zero results')
@@ -216,7 +214,7 @@ export class LazySearch implements IterableIterator<search.Result> {
       // }
       this.log.info(`this.currentData`, this.currentData)
       this.index = 0
-      this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`,
+      this.log.info(`lazy search id ${search.searchId || 'ad-hoc'}`,
          `using "page" size ${this.pageSize}, record count ${this.totalSearchResultLength}`)
    }
 
@@ -226,15 +224,16 @@ export class LazySearch implements IterableIterator<search.Result> {
     *
     * You don't typically call this function yourself - libraries like ImmutableJS do.
     */
-   next(): IteratorResult<search.Result> {
+   next (): IteratorResult<search.Result> {
+
+      this.log.debug('In Next function')
       const atEndOfRange = this.currentSearchResultRange === this.currentRange.length
-      const done =  (this.totalSearchResultLength - 1 === this.index && atEndOfRange)
+      const done = (this.totalSearchResultLength - 1 === this.index && atEndOfRange)
 
       if (done) return {
          done: true,
          value: null
       }
-
 
       if (!atEndOfRange) {
          // this.log.info(`in while`, this.currentRange)
@@ -248,7 +247,6 @@ export class LazySearch implements IterableIterator<search.Result> {
             end: this.totalSearchResultLength + this.pageSize
          })
       }
-
 
       // // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
       // if (atEndOfPage) {
@@ -267,8 +265,6 @@ export class LazySearch implements IterableIterator<search.Result> {
          done: false,
          value: this.currentRange[this.index++]
       }
-
-
 
       // const atEndOfPage = this.index === this.currentData.length
       // const done = !this.currentPage || (this.currentPage.isLast && atEndOfPage)

@@ -13,7 +13,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/search", "./EC_Logger"], factory);
+        define(["require", "exports", "N/search", "./EC_Logger", "./node_modules/lodash"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -21,6 +21,7 @@
     exports.LazySearch = exports.nsSearchResult2obj = void 0;
     const search = require("N/search");
     const LogManager = require("./EC_Logger");
+    const _ = require("./node_modules/lodash");
     /**
      * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to `map()`
      * @param useLabels set to false to ignore search column labels, using the column name (internalid) instead.
@@ -165,10 +166,10 @@
                 end: 1000
             });
             if (this.currentRange.length) {
-                // _.forEach(this.currentRange, (index) => {
-                //    this.currentData.push(index)
-                // })
-                this.currentData = [...this.currentRange];
+                _.forEach(this.currentRange, (index) => {
+                    this.currentData.push(index);
+                });
+                //this.currentData = [...this.currentRange]
             }
             else {
                 this.currentData = [];
@@ -187,7 +188,7 @@
             // }
             this.log.info(`this.currentData`, this.currentData);
             this.index = 0;
-            this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`, `using "page" size ${this.pageSize}, record count ${this.totalSearchResultLength}`);
+            this.log.info(`lazy search id ${search.searchId || 'ad-hoc'}`, `using "page" size ${this.pageSize}, record count ${this.totalSearchResultLength}`);
         }
         /**
          * per the iterator protocol, retrieves the next element. Also returns `null` if done as the specification for
@@ -196,6 +197,7 @@
          * You don't typically call this function yourself - libraries like ImmutableJS do.
          */
         next() {
+            this.log.debug('In Next function');
             const atEndOfRange = this.currentSearchResultRange === this.currentRange.length;
             const done = (this.totalSearchResultLength - 1 === this.index && atEndOfRange);
             if (done)
