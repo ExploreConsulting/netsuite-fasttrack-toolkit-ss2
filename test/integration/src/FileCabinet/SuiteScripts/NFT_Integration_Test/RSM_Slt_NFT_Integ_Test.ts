@@ -77,7 +77,7 @@ namespace X {
        // as any below because two physically separate declarations of N/search (one referenced by LazySearch.from() expected parameters,
        // the other being the argument value created by search.create() here in this script.
        // are viewed as incompatible by TS
-    })))
+    }),10))
       .map(nsSearchResult2obj<{foo:string}>())
       .toArray() // Todo comment out toArray to see if it returns results
   }

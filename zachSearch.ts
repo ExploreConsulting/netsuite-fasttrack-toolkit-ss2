@@ -10,7 +10,7 @@
 
 import * as search from 'N/search'
 import * as LogManager from './EC_Logger'
-import * as _ from './node_modules/lodash'
+
 /**
  *  Any object that includes an 'id' property, which NS search results always have
  */
@@ -167,56 +167,47 @@ export class LazySearch implements IterableIterator<search.Result> {
    protected currentData: search.Result[]
    // index into currentData[] pointing to the 'current' search result
    protected index: number
-   // Total length of the search result set
-   protected totalSearchResultLength: number = 0
+   // Starting point of the next page
+   protected nextPageStart: number = 0
    // Current search result count, used to know if we have hit the end of the current "page"
    protected currentSearchResultRange: number = 0
    // Current range of the search result
    protected currentRange: search.Result[]
    // Fully executed search (simply, a search.run())
    protected executedSearch: search.ResultSet
+   // Total length of the search result set
+   protected totalSearchResultLength: number = 0
 
    /**
     * Not meant to be used directly, use factory methods such as `load` or `from`
     * @param search the netsuite search object to wrap
     * @param pageSize optional pagesize, can be up to 1000
     */
-   private constructor(private search: search.Search, private pageSize = 500) {
+   private constructor (private search: search.Search, private pageSize = 100) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
       this.log = LogManager.getLogger(LazySearch.LOGNAME)
+      this.log.debug('pageSize', pageSize)
 
       this.currentData = []
       this.executedSearch = search.run()
-
+      this.executedSearch
       this.currentRange = this.executedSearch.getRange({
          start: 0,
-         end: 1000
+         end: pageSize
       })
+      this.log.debug('Length', this.currentRange.length)
+      if (this.currentRange.length) {
 
-      if (  this.currentRange.length  ) {
-         // _.forEach(this.currentRange, (index) => {
-         //    this.currentData.push(index)
-         // })
-         this.currentData = [...this.currentRange]
+         this.nextPageStart = this.currentRange.length
+         this.log.debug('results returned')
+
       } else {
          this.currentData = []
-         this.log.debug('runPaged() search return zero results')
+         this.log.debug('run() search return zero results')
       }
-      // this.currentPage = this.currentRange
-      // this.currentData = this.currentRange
 
-      // this.pagedData = this.search.runPaged({pageSize: pageSize})
-      // // only load a page if we have records
-      // if (this.pagedData.count > 0) {
-      //    this.currentPage = this.pagedData.fetch({index: 0})
-      //    this.currentData = this.currentPage.data
-      // } else {
-      //    this.currentData = []
-      //    this.log.debug('runPaged() search return zero results')
-      // }
-      this.log.info(`this.currentData`, this.currentData)
       this.index = 0
-      this.log.info(`lazy search id ${search.searchId || "ad-hoc"}`,
+      this.log.info(`lazy search id ${search.searchId || 'ad-hoc'}`,
          `using "page" size ${this.pageSize}, record count ${this.totalSearchResultLength}`)
    }
 
@@ -226,76 +217,41 @@ export class LazySearch implements IterableIterator<search.Result> {
     *
     * You don't typically call this function yourself - libraries like ImmutableJS do.
     */
-   next(): IteratorResult<search.Result> {
-      const atEndOfRange = this.currentSearchResultRange === this.currentRange.length
-      const done =  (this.totalSearchResultLength - 1 === this.index && atEndOfRange)
+   next (): IteratorResult<search.Result> {
 
-      if (done) return {
-         done: true,
-         value: null
-      }
+      this.log.debug('In Next function')
+      this.log.debug('index', this.index);
+      this.log.debug('currentRange.length', this.currentRange.length);
+      const atEndOfRange = this.index === this.currentRange.length
+      const done = (this.currentRange.length === 0 && atEndOfRange)
 
-
-      if (!atEndOfRange) {
-         // this.log.info(`in while`, this.currentRange)
-         // this.currentData.push(this.currentRange[this.currentSearchResultRange])
-         this.currentSearchResultRange++
-         this.totalSearchResultLength++
-      } else {
-         this.currentSearchResultRange = 0
+      if (atEndOfRange) {
+         this.index = 0
          this.currentRange = this.executedSearch.getRange({
-            start: this.totalSearchResultLength,
-            end: this.totalSearchResultLength + this.pageSize
+            start: this.nextPageStart,
+            end: this.nextPageStart + this.pageSize
          })
+         this.log.debug('this.currentRange.length === 0', this.currentRange.length === 0);
+         if(this.currentRange.length === 0) return {
+            done: true,
+            value: null
+         }
+         this.nextPageStart = this.nextPageStart + this.currentRange.length
       }
 
-
-      // // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
-      // if (atEndOfPage) {
-      //    this.currentPage = this.currentPage.next()
-      //    this.currentData = this.currentPage.data
-      //    this.log.debug('loaded next page', `is last page: ${this.currentPage.isLast}`)
-      //    this.index = 0
-      // }
       this.log.info(`returning from next`,
          {
             done: false,
-            value: this.currentRange[this.index + 1]
+            value: this.currentRange[this.index]
          })
-      // return the next result from existing page (which may have been loaded immediately prior above)
-      return {
+      this.log.debug('this.index', this.index)
+      this.log.debug('this.currentRange[this.index]', this.currentRange[this.index])
+      const obj = {
          done: false,
-         value: this.currentRange[this.index++]
+         value: this.currentRange[this.index]
       }
+      this.index++
+      return obj
 
-
-
-      // const atEndOfPage = this.index === this.currentData.length
-      // const done = !this.currentPage || (this.currentPage.isLast && atEndOfPage)
-      //
-      // if (done) return {
-      //    done: true,
-      //    value: null
-      // }
-      //
-      // // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
-      // if (atEndOfPage) {
-      //    this.currentPage = this.currentPage.next()
-      //    this.currentData = this.currentPage.data
-      //    this.log.debug('loaded next page', `is last page: ${this.currentPage.isLast}`)
-      //    this.index = 0
-      // }
-      //
-      // this.log.info(`returning from next`,
-      //    {
-      //       done: false,
-      //       value: this.currentData[this.index + 1]
-      //    })
-      //
-      // // return the next result from existing page (which may have been loaded immediately prior above)
-      // return {
-      //    done: false,
-      //    value: this.currentData[this.index++]
-      // }
    }
 }
