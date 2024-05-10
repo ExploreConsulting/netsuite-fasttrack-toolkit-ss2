@@ -22,7 +22,7 @@ export type ObjectWithId<T> = T & { id: string }
  * precedence over these values, so don't use `id` or `recordType` as your custom column label if you want the
  * native SearchResult property values to be used.
  */
-export type BaseSearchResult<T> = ObjectWithId<T> & { recordType: string | search.Type }
+export type BaseSearchResult<T> = ObjectWithId<T> & { recordType:string | search.Type }
 
 /**
  * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to `map()`
@@ -49,9 +49,9 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { recordType: string | searc
  *
  *  ```
  */
-export function nsSearchResult2obj<T = {}> (useLabels = true, addGetTextProps = true): (r: search.Result) => BaseSearchResult<T> {
+export function nsSearchResult2obj <T = {}>(useLabels = true, addGetTextProps = true): (r:search.Result)=> BaseSearchResult<T> {
    return function (result: search.Result) {
-      let output: { id: string, recordType?: string | search.Type } = { id: result.id, recordType: result.recordType }
+      let output : { id:string, recordType?:string | search.Type } = {id: result.id, recordType:result.recordType }
       // assigns each column VALUE from the search result to the output object
       if (result.columns && result.columns.length > 0)
          result.columns.forEach((col) => {
@@ -105,6 +105,8 @@ export class LazySearch implements IterableIterator<search.Result> {
    //  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
    //  */
 
+
+
    /**
     * Loads an existing NS search by id and prepares it for lazy evaluation
     * @param id internal id of the search to load
@@ -124,8 +126,8 @@ export class LazySearch implements IterableIterator<search.Result> {
     *   .forEach( r => log.debug(r))
     * ```
     */
-   static load (id: string, pageSize?: number) {
-      return new LazySearch(search.load({ id: id }), pageSize)
+   static load(id: string, pageSize?: number) {
+      return new LazySearch(search.load({id: id}), pageSize)
    }
 
    /**
@@ -151,7 +153,7 @@ export class LazySearch implements IterableIterator<search.Result> {
     *   .forEach( r => log.debug(r))
     * ```
     */
-   static from (search: search.Search, pageSize?: number) {
+   static from(search: search.Search, pageSize?: number) {
       return new LazySearch(search, pageSize)
    }
 
@@ -181,9 +183,10 @@ export class LazySearch implements IterableIterator<search.Result> {
     * @param search the netsuite search object to wrap
     * @param pageSize optional pagesize, can be up to 1000
     */
-   private constructor (private search: search.Search, private pageSize = 500) {
+   private constructor (private search: search.Search, private pageSize = 100) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
       this.log = LogManager.getLogger(LazySearch.LOGNAME)
+      this.log.debug('pageSize', pageSize)
 
       this.currentData = []
       this.executedSearch = search.run()
@@ -217,34 +220,38 @@ export class LazySearch implements IterableIterator<search.Result> {
    next (): IteratorResult<search.Result> {
 
       this.log.debug('In Next function')
-      const atEndOfRange = this.currentSearchResultRange === this.currentRange.length
+      this.log.debug('index', this.index);
+      this.log.debug('currentRange.length', this.currentRange.length);
+      const atEndOfRange = this.index === this.currentRange.length
       const done = (this.currentRange.length === 0 && atEndOfRange)
 
-      if (done) return {
-         done: true,
-         value: null
-      }
-
       if (atEndOfRange) {
-         this.currentSearchResultRange++
-
-         this.currentSearchResultRange = 0
+         this.index = 0
          this.currentRange = this.executedSearch.getRange({
             start: this.nextPageStart,
             end: this.nextPageStart + this.pageSize
          })
+         this.log.debug('this.currentRange.length === 0', this.currentRange.length === 0);
+         if(this.currentRange.length === 0) return {
+            done: true,
+            value: null
+         }
          this.nextPageStart = this.nextPageStart + this.currentRange.length
       }
 
       this.log.info(`returning from next`,
          {
             done: false,
-            value: this.currentRange[this.index + 1]
+            value: this.currentRange[this.index]
          })
-      return {
+      this.log.debug('this.index', this.index)
+      this.log.debug('this.currentRange[this.index]', this.currentRange[this.index])
+      const obj = {
          done: false,
-         value: this.currentRange[this.index++]
+         value: this.currentRange[this.index]
       }
+      this.index++
+      return obj
 
    }
 }

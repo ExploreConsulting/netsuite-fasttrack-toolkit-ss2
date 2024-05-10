@@ -148,7 +148,7 @@
          * @param search the netsuite search object to wrap
          * @param pageSize optional pagesize, can be up to 1000
          */
-        constructor(search, pageSize = 500) {
+        constructor(search, pageSize = 100) {
             this.search = search;
             this.pageSize = pageSize;
             // Starting point of the next page
@@ -160,6 +160,7 @@
             if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazySearch.LOGNAME);
+            this.log.debug('pageSize', pageSize);
             this.currentData = [];
             this.executedSearch = search.run();
             this.executedSearch;
@@ -187,30 +188,36 @@
          */
         next() {
             this.log.debug('In Next function');
-            const atEndOfRange = this.currentSearchResultRange === this.currentRange.length;
+            this.log.debug('index', this.index);
+            this.log.debug('currentRange.length', this.currentRange.length);
+            const atEndOfRange = this.index === this.currentRange.length;
             const done = (this.currentRange.length === 0 && atEndOfRange);
-            if (done)
-                return {
-                    done: true,
-                    value: null
-                };
             if (atEndOfRange) {
-                this.currentSearchResultRange++;
-                this.currentSearchResultRange = 0;
+                this.index = 0;
                 this.currentRange = this.executedSearch.getRange({
                     start: this.nextPageStart,
                     end: this.nextPageStart + this.pageSize
                 });
+                this.log.debug('this.currentRange.length === 0', this.currentRange.length === 0);
+                if (this.currentRange.length === 0)
+                    return {
+                        done: true,
+                        value: null
+                    };
                 this.nextPageStart = this.nextPageStart + this.currentRange.length;
             }
             this.log.info(`returning from next`, {
                 done: false,
-                value: this.currentRange[this.index + 1]
+                value: this.currentRange[this.index]
             });
-            return {
+            this.log.debug('this.index', this.index);
+            this.log.debug('this.currentRange[this.index]', this.currentRange[this.index]);
+            const obj = {
                 done: false,
-                value: this.currentRange[this.index++]
+                value: this.currentRange[this.index]
             };
+            this.index++;
+            return obj;
         }
     }
     exports.LazySearch = LazySearch;
