@@ -151,28 +151,31 @@
         constructor(search, pageSize = 500) {
             this.search = search;
             this.pageSize = pageSize;
-            // Next Page Start
+            // Starting point of the next page
             this.nextPageStart = 0;
             // Current search result count, used to know if we have hit the end of the current "page"
             this.currentSearchResultRange = 0;
+            // Total length of the search result set
+            this.totalSearchResultLength = 0;
             if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazySearch.LOGNAME);
             this.currentData = [];
             this.executedSearch = search.run();
+            this.executedSearch;
             this.currentRange = this.executedSearch.getRange({
                 start: 0,
                 end: pageSize
             });
+            this.log.debug('Length', this.currentRange.length);
             if (this.currentRange.length) {
-                this.nextPageStart = pageSize;
+                this.nextPageStart = this.currentRange.length;
                 this.log.debug('results returned');
             }
             else {
                 this.currentData = [];
                 this.log.debug('run() search return zero results');
             }
-            this.log.info(`this.currentData`, this.currentData);
             this.index = 0;
             this.log.info(`lazy search id ${search.searchId || 'ad-hoc'}`, `using "page" size ${this.pageSize}, record count ${this.totalSearchResultLength}`);
         }
@@ -185,7 +188,7 @@
         next() {
             this.log.debug('In Next function');
             const atEndOfRange = this.currentSearchResultRange === this.currentRange.length;
-            const done = (this.totalSearchResultLength - 1 === this.index && atEndOfRange);
+            const done = (this.currentRange.length === 0 && atEndOfRange);
             if (done)
                 return {
                     done: true,
@@ -198,7 +201,7 @@
                     start: this.nextPageStart,
                     end: this.nextPageStart + this.pageSize
                 });
-                this.nextPageStart = this.nextPageStart + this.pageSize;
+                this.nextPageStart = this.nextPageStart + this.currentRange.length;
             }
             this.log.info(`returning from next`, {
                 done: false,

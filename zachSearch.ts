@@ -10,7 +10,6 @@
 
 import * as search from 'N/search'
 import * as LogManager from './EC_Logger'
-//import * as _ from './lodash'
 
 /**
  *  Any object that includes an 'id' property, which NS search results always have
@@ -166,7 +165,7 @@ export class LazySearch implements IterableIterator<search.Result> {
    protected currentData: search.Result[]
    // index into currentData[] pointing to the 'current' search result
    protected index: number
-   // Next Page Start
+   // Starting point of the next page
    protected nextPageStart: number = 0
    // Current search result count, used to know if we have hit the end of the current "page"
    protected currentSearchResultRange: number = 0
@@ -174,6 +173,8 @@ export class LazySearch implements IterableIterator<search.Result> {
    protected currentRange: search.Result[]
    // Fully executed search (simply, a search.run())
    protected executedSearch: search.ResultSet
+   // Total length of the search result set
+   protected totalSearchResultLength: number = 0
 
    /**
     * Not meant to be used directly, use factory methods such as `load` or `from`
@@ -186,15 +187,15 @@ export class LazySearch implements IterableIterator<search.Result> {
 
       this.currentData = []
       this.executedSearch = search.run()
-
+      this.executedSearch
       this.currentRange = this.executedSearch.getRange({
          start: 0,
          end: pageSize
       })
-
+      this.log.debug('Length', this.currentRange.length)
       if (this.currentRange.length) {
 
-         this.nextPageStart = pageSize
+         this.nextPageStart = this.currentRange.length
          this.log.debug('results returned')
 
       } else {
@@ -202,7 +203,6 @@ export class LazySearch implements IterableIterator<search.Result> {
          this.log.debug('run() search return zero results')
       }
 
-      this.log.info(`this.currentData`, this.currentData)
       this.index = 0
       this.log.info(`lazy search id ${search.searchId || 'ad-hoc'}`,
          `using "page" size ${this.pageSize}, record count ${this.totalSearchResultLength}`)
@@ -218,7 +218,7 @@ export class LazySearch implements IterableIterator<search.Result> {
 
       this.log.debug('In Next function')
       const atEndOfRange = this.currentSearchResultRange === this.currentRange.length
-      const done = (this.totalSearchResultLength - 1 === this.index && atEndOfRange)
+      const done = (this.currentRange.length === 0 && atEndOfRange)
 
       if (done) return {
          done: true,
@@ -233,7 +233,7 @@ export class LazySearch implements IterableIterator<search.Result> {
             start: this.nextPageStart,
             end: this.nextPageStart + this.pageSize
          })
-         this.nextPageStart = this.nextPageStart + this.pageSize
+         this.nextPageStart = this.nextPageStart + this.currentRange.length
       }
 
       this.log.info(`returning from next`,

@@ -86,7 +86,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 // as any below because two physically separate declarations of N/search (one referenced by LazySearch.from() expected parameters,
                 // the other being the argument value created by search.create() here in this script.
                 // are viewed as incompatible by TS
-            })))
+            }), 10))
                 .map((0, search_1.nsSearchResult2obj)())
                 .toArray();
         }
