@@ -9,7 +9,7 @@ import * as record from 'N/record'
 import * as format from 'N/format'
 import * as LogManager from '../EC_Logger'
 import * as error from 'N/error'
-import { NetsuiteCurrentRecord } from './Record'
+import { defaultDescriptor, NetsuiteCurrentRecord } from './Record'
 
 const log = LogManager.getLogger('nsdal-sublist')
 
@@ -40,7 +40,11 @@ export namespace SublistFieldType {
    export var integernumber = defaultSublistDescriptor
    export var longtext = defaultSublistDescriptor
    export var multiselect = defaultSublistDescriptor
+
+   export var namevaluelist = defaultSublistDescriptor
    export var percent = defaultSublistDescriptor
+
+   export const rate = defaultSublistDescriptor
    export var select = defaultSublistDescriptor
    export var textarea = defaultSublistDescriptor
    export const subrecord = subrecordDescriptor
