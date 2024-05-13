@@ -190,7 +190,6 @@ export class LazySearch implements IterableIterator<search.Result> {
 
       this.currentData = []
       this.executedSearch = search.run()
-      this.executedSearch
       this.currentRange = this.executedSearch.getRange({
          start: 0,
          end: pageSize
