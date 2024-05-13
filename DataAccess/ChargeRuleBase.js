@@ -28,18 +28,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ResourcesSublist extends Sublist_1.SublistLine {
     }
+    exports.ResourcesSublist = ResourcesSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ResourcesSublist.prototype, "name", void 0);
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ResourcesSublist.prototype, "rate", void 0);
-    exports.ResourcesSublist = ResourcesSublist;
     /**
      * Charge Rule 'filters' Sublist
      */
     class FilterSublist extends Sublist_1.SublistLine {
     }
+    exports.FilterSublist = FilterSublist;
     __decorate([
         Sublist_1.SublistFieldType.checkbox
     ], FilterSublist.prototype, "filterandor", void 0);
@@ -61,13 +62,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], FilterSublist.prototype, "filterrightparens", void 0);
-    exports.FilterSublist = FilterSublist;
     /**
      * NetSuite Charge Rule
      */
     class ChargeRuleBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.CHARGE_RULE; }
     }
+    exports.ChargeRuleBase = ChargeRuleBase;
     __decorate([
         Record_1.FieldType.decimalnumber
     ], ChargeRuleBase.prototype, "amount", void 0);
@@ -149,5 +150,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ResourcesSublist)
     ], ChargeRuleBase.prototype, "resourcerateoverride", void 0);
-    exports.ChargeRuleBase = ChargeRuleBase;
 });
