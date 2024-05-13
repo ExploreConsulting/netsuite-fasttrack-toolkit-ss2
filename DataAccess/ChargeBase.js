@@ -25,6 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class ChargeBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.CHARGE; }
     }
+    exports.ChargeBase = ChargeBase;
     __decorate([
         Record_1.FieldType.decimalnumber
     ], ChargeBase.prototype, "amount", void 0);
@@ -106,5 +107,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.select
     ], ChargeBase.prototype, "use", void 0);
-    exports.ChargeBase = ChargeBase;
 });

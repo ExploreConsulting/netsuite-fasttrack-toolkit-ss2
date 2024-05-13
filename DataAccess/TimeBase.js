@@ -28,6 +28,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class TimeBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.TIME_BILL; }
     }
+    exports.TimeBase = TimeBase;
     __decorate([
         Record_1.FieldType.select
     ], TimeBase.prototype, "approvalstatus", void 0);
@@ -118,5 +119,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.date
     ], TimeBase.prototype, "trandate", void 0);
-    exports.TimeBase = TimeBase;
 });
