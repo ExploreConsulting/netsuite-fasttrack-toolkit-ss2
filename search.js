@@ -163,7 +163,6 @@
             this.log.debug('pageSize', pageSize);
             this.currentData = [];
             this.executedSearch = search.run();
-            this.executedSearch;
             this.currentRange = this.executedSearch.getRange({
                 start: 0,
                 end: pageSize
