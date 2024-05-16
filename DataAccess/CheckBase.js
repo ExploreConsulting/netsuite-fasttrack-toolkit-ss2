@@ -33,11 +33,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         Sublist_1.SublistFieldType.select
     ], ExpenseSublist.prototype, "account", void 0);
     __decorate([
+        Sublist_1.SublistFieldType.float
+    ], ExpenseSublist.prototype, "amount", void 0);
+    __decorate([
         Sublist_1.SublistFieldType.select
     ], ExpenseSublist.prototype, "class", void 0);
     __decorate([
         Sublist_1.SublistFieldType.select
-    ], ExpenseSublist.prototype, "cseg_product_class", void 0);
+    ], ExpenseSublist.prototype, "customer", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.checkbox
+    ], ExpenseSublist.prototype, "isbillable", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.select
+    ], ExpenseSublist.prototype, "location", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.freeformtext
+    ], ExpenseSublist.prototype, "memo", void 0);
     /**
      * Check (item) sublist definition
      */

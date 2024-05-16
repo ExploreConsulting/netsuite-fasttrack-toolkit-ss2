@@ -13,14 +13,25 @@ import * as record from 'N/record'
 export class ExpenseSublist extends SublistLine {
 
    @SublistFieldType.select
-   account?: number
+   account: number
+
+   @SublistFieldType.float
+   amount: number
 
    @SublistFieldType.select
-   class?: number
+   class: number
 
    @SublistFieldType.select
-   cseg_product_class?: number
+   customer: number
 
+   @SublistFieldType.checkbox
+   isbillable: boolean
+
+   @SublistFieldType.select
+   location: number
+
+   @SublistFieldType.freeformtext
+   memo: string
 }
 
 /**
