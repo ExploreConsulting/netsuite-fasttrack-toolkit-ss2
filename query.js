@@ -18,7 +18,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.LazyQuery = exports.nsSearchResult2obj = void 0;
+    exports.LazyQuery = exports.nsQueryResult2obj = void 0;
     const query = require("N/query");
     const LogManager = require("./EC_Logger");
     /**
@@ -43,10 +43,10 @@
      *
      *  ```1
      */
-    function nsSearchResult2obj(r) {
+    function nsQueryResult2obj(r) {
         return r.asMap();
     }
-    exports.nsSearchResult2obj = nsSearchResult2obj;
+    exports.nsQueryResult2obj = nsQueryResult2obj;
     /**
      *
      * Makes a NetSuite search an ES2015 style Iterator. That is, it follows the Iterator Protocol for iterating

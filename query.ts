@@ -45,7 +45,7 @@ export type BaseSearchResult<T> = ObjectWithId<T> & { }
  *
  *  ```1
  */
-export function nsSearchResult2obj<T = {}> (r: query.Result) {
+export function nsQueryResult2obj<T = {}> (r: query.Result) {
    return r.asMap() as T
 }
 

@@ -285,6 +285,16 @@ let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj<{foo,b
 Also see [search](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/search.html) in the API documentation,
 especially the `LazySearch` class.
 
+### Lazy Query ###
+
+```typescript
+import {nsQueryResult2obj, LazyQuery} from "./query";
+import {Seq} from 'immutable'
+
+// get the ids of all customers with a specific subsidiary
+const customers = Seq(LazyQuery.from({query: `SELECT ID AS FOO FROM Customer WHERE subsidiary = ?`, params: [1]}, 50)).map(nsQueryResult2obj)
+```
+
 ### Governance ###
 The governance handler utilties can be used with any script, but most often are used with a saved search in 
 a scheduled script.

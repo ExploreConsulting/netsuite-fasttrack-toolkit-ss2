@@ -93,19 +93,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         }
         X.doSearch = doSearch;
         function doQuery1() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION` })).map((query_1.nsSearchResult2obj)); //.takeWhile(autoReschedule())
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION` })).map((query_1.nsQueryResult2obj)); //.takeWhile(autoReschedule())
         }
         X.doQuery1 = doQuery1;
         function doQuery2() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice'] }, 10)).map(query_1.nsSearchResult2obj); //.takeWhile(autoReschedule())
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice'] }, 10)).map(query_1.nsQueryResult2obj); //.takeWhile(autoReschedule())
         }
         X.doQuery2 = doQuery2;
         function doQuery3() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION` }, 750)).map(query_1.nsSearchResult2obj); //.takeWhile(autoReschedule())
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION` }, 750)).map(query_1.nsQueryResult2obj); //.takeWhile(autoReschedule())
         }
         X.doQuery3 = doQuery3;
         function doQuery4() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice'] }, 750)).map(query_1.nsSearchResult2obj); //.takeWhile(autoReschedule())
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice'] }, 750)).map(query_1.nsQueryResult2obj); //.takeWhile(autoReschedule())
         }
         X.doQuery4 = doQuery4;
         function sublists() {
