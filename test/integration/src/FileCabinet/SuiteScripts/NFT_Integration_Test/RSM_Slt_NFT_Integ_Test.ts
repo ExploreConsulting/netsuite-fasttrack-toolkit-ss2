@@ -105,7 +105,7 @@ namespace X {
        // are viewed as incompatible by TS
     }),2))
       .map(nsSearchResult2obj<{foo:string}>())
-      .toArray() // Todo comment out toArray to see if it returns results
+      .toArray()
   }
 
   export function doQuery1(){

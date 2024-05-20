@@ -113,7 +113,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 // are viewed as incompatible by TS
             }), 2))
                 .map((0, search_1.nsSearchResult2obj)())
-                .toArray(); // Todo comment out toArray to see if it returns results
+                .toArray();
         }
         X.doSearch = doSearch;
         function doQuery1() {
