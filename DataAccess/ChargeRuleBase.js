@@ -15,7 +15,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.ChargeRuleBase = exports.FilterSublist = exports.ResourcesSublist = void 0;
+    exports.ChargeRuleBase = exports.ResourcesSublist = void 0;
     /**
      * Created by asariego on 4/8/24.
      */
@@ -36,33 +36,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         Sublist_1.SublistFieldType.currency
     ], ResourcesSublist.prototype, "rate", void 0);
     /**
-     * Charge Rule 'filters' Sublist
-     */
-    class FilterSublist extends Sublist_1.SublistLine {
-    }
-    exports.FilterSublist = FilterSublist;
-    __decorate([
-        Sublist_1.SublistFieldType.checkbox
-    ], FilterSublist.prototype, "filterandor", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.checkbox
-    ], FilterSublist.prototype, "filterattr", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.checkbox
-    ], FilterSublist.prototype, "filternot", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.freeformtext
-    ], FilterSublist.prototype, "filterdescr", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.freeformtext
-    ], FilterSublist.prototype, "filterfilter", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.freeformtext
-    ], FilterSublist.prototype, "filterleftparens", void 0);
-    __decorate([
-        Sublist_1.SublistFieldType.freeformtext
-    ], FilterSublist.prototype, "filterrightparens", void 0);
-    /**
      * NetSuite Charge Rule
      */
     class ChargeRuleBase extends Transaction_1.TransactionBase {
@@ -76,8 +49,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         Record_1.FieldType.select
     ], ChargeRuleBase.prototype, "billingitem", void 0);
     __decorate([
+        Record_1.FieldType.datetime
+    ], ChargeRuleBase.prototype, "caphours", void 0);
+    __decorate([
         Record_1.FieldType.decimalnumber
     ], ChargeRuleBase.prototype, "capmoney", void 0);
+    __decorate([
+        Record_1.FieldType.select
+    ], ChargeRuleBase.prototype, "captype", void 0);
     __decorate([
         Record_1.FieldType.select
     ], ChargeRuleBase.prototype, "chargeruletype", void 0);
@@ -87,6 +66,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.textarea
     ], ChargeRuleBase.prototype, "description", void 0);
+    __decorate([
+        Record_1.FieldType.date
+    ], ChargeRuleBase.prototype, "endbydate", void 0);
     __decorate([
         Record_1.FieldType.float
     ], ChargeRuleBase.prototype, "expamtmultiplier", void 0);
@@ -144,9 +126,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.select
     ], ChargeRuleBase.prototype, "unitstype", void 0);
-    __decorate([
-        Record_1.FieldType.sublist(FilterSublist)
-    ], ChargeRuleBase.prototype, "filters", void 0);
     __decorate([
         Record_1.FieldType.sublist(ResourcesSublist)
     ], ChargeRuleBase.prototype, "resourcerateoverride", void 0);

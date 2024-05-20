@@ -17,9 +17,13 @@ import * as search from 'N/search'
 import { Seq } from './NFT-SS2-7.3.0/immutable'
 import { VendorPayment } from './RecordTypes/VendorPayment'
 import * as _ from './NFT-SS2-7.3.0/lodash'
-import {InventoryItemBase} from "./NFT-SS2-7.3.0/DataAccess/InventoryItemBase";
+import {InventoryItemBase} from "./NFT-SS2-7.3.0/DataAccess/InventoryItemBase"
 import { autoReschedule } from './NFT-SS2-7.3.0/governance'
-
+import {ChargeBase} from "./NFT-SS2-7.3.0/DataAccess/ChargeBase"
+import {ChargeRuleBase} from "./NFT-SS2-7.3.0/DataAccess/ChargeRuleBase"
+import {CreditCardChargeBase} from "./NFT-SS2-7.3.0/DataAccess/CreditCardChargeBase"
+import {CreditCardRefundBase} from "./NFT-SS2-7.3.0/DataAccess/CreditCardRefundBase"
+import {TimeBase} from "./NFT-SS2-7.3.0/DataAccess/TimeBase"
 const log = LogManager.DefaultLogger
 
 class ItemFulfillment extends ItemFulfillmentBase {
@@ -66,18 +70,40 @@ namespace X {
   export function loadEntity() {
     return new Customer(283)
   }
+   //
+   // export function loadChargeBaseTransaction() {
+   //    return new ChargeBase(7955)
+   // }
+   //
+   // export function loadChargeRuleBaseTransaction() {
+   //    return new ChargeRuleBase(7955)
+   // }
+
+   export function loadCreditCardChargeBaseTransaction() {
+      return new CreditCardChargeBase(37928)
+   }
+
+   export function loadCreditCardRefundBaseTransaction() {
+      return new CreditCardRefundBase(37929)
+   }
+   //
+   export function loadTimeBaseTransaction() {
+      return new TimeBase(2)
+   }
+
+
 
   export function doSearch() {
      return Seq(LazySearch.from(search.create({
       type: search.Type.CUSTOMER,
       filters: [
-        ['companyname', search.Operator.CONTAINS, 'e']
+        ['companyname', search.Operator.STARTSWITH, 'e']
       ],
       columns: ['companyname', 'phone', 'firstname', 'lastname']
        // as any below because two physically separate declarations of N/search (one referenced by LazySearch.from() expected parameters,
        // the other being the argument value created by search.create() here in this script.
        // are viewed as incompatible by TS
-    }),10))
+    }),2))
       .map(nsSearchResult2obj<{foo:string}>())
       .toArray() // Todo comment out toArray to see if it returns results
   }
@@ -96,6 +122,10 @@ namespace X {
 
    export function doQuery4(){
       return Seq(LazyQuery.from({query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice']}, 750)).map(nsQueryResult2obj)//.takeWhile(autoReschedule())
+   }
+
+   export function doQuery5(){
+      return Seq(LazyQuery.from({query: `SELECT id, externalid FROM customer WHERE (id LIKE ?);`, params: ['26%']}, 750)).map(nsQueryResult2obj)//.takeWhile(autoReschedule())
    }
 
   export function sublists() {
@@ -156,8 +186,14 @@ namespace X {
     'LazyQuery Param': X.doQuery2,
     'LazyQuery Paged': X.doQuery3,
     'LazyQuery No page, Params': X.doQuery4,
+    'LazyQuery specific': X.doQuery5,
     'AutoLogging': X.autoLogging,
-    'BasicLodash': X.basicLodash
+    'BasicLodash': X.basicLodash,
+     // 'loadChargeBaseTransaction': X.loadChargeBaseTransaction,
+     // 'loadChargeRuleBaseTransaction': X.loadChargeRuleBaseTransaction,
+     'loadCreditCardChargeBaseTransaction': X.loadCreditCardChargeBaseTransaction,
+     'loadCreditCardRefundBaseTransaction': X.loadCreditCardRefundBaseTransaction,
+     'loadTimeBaseTransaction': X.loadTimeBaseTransaction
   }
 }
 

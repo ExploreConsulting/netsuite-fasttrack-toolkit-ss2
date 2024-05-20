@@ -1,3 +1,6 @@
+/**
+ * Created by asariego on 4/8/24.
+ */
 import { FieldType } from './Record'
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'

@@ -16,6 +16,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ChargeBase = void 0;
+    /**
+     * Created by asariego on 4/8/24.
+     */
     const Record_1 = require("./Record");
     const record = require("N/record");
     const Transaction_1 = require("./Transaction");

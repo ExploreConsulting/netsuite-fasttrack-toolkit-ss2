@@ -16,7 +16,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./NFT-SS2-7.3.0/EC_Logger", "./NFT-SS2-7.3.0/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.3.0/DataAccess/Record", "./NFT-SS2-7.3.0/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.3.0/search", "./NFT-SS2-7.3.0/query", "N/search", "./NFT-SS2-7.3.0/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-7.3.0/lodash", "./NFT-SS2-7.3.0/DataAccess/InventoryItemBase"], factory);
+        define(["require", "exports", "./NFT-SS2-7.3.0/EC_Logger", "./NFT-SS2-7.3.0/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.3.0/DataAccess/Record", "./NFT-SS2-7.3.0/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.3.0/search", "./NFT-SS2-7.3.0/query", "N/search", "./NFT-SS2-7.3.0/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-7.3.0/lodash", "./NFT-SS2-7.3.0/DataAccess/InventoryItemBase", "./NFT-SS2-7.3.0/DataAccess/CreditCardChargeBase", "./NFT-SS2-7.3.0/DataAccess/CreditCardRefundBase", "./NFT-SS2-7.3.0/DataAccess/TimeBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -32,6 +32,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const VendorPayment_1 = require("./RecordTypes/VendorPayment");
     const _ = require("./NFT-SS2-7.3.0/lodash");
     const InventoryItemBase_1 = require("./NFT-SS2-7.3.0/DataAccess/InventoryItemBase");
+    const CreditCardChargeBase_1 = require("./NFT-SS2-7.3.0/DataAccess/CreditCardChargeBase");
+    const CreditCardRefundBase_1 = require("./NFT-SS2-7.3.0/DataAccess/CreditCardRefundBase");
+    const TimeBase_1 = require("./NFT-SS2-7.3.0/DataAccess/TimeBase");
     const log = LogManager.DefaultLogger;
     class ItemFulfillment extends ItemFulfillmentBase_1.ItemFulfillmentBase {
     }
@@ -77,17 +80,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return new Customer_1.Customer(283);
         }
         X.loadEntity = loadEntity;
+        //
+        // export function loadChargeBaseTransaction() {
+        //    return new ChargeBase(7955)
+        // }
+        //
+        // export function loadChargeRuleBaseTransaction() {
+        //    return new ChargeRuleBase(7955)
+        // }
+        function loadCreditCardChargeBaseTransaction() {
+            return new CreditCardChargeBase_1.CreditCardChargeBase(37928);
+        }
+        X.loadCreditCardChargeBaseTransaction = loadCreditCardChargeBaseTransaction;
+        function loadCreditCardRefundBaseTransaction() {
+            return new CreditCardRefundBase_1.CreditCardRefundBase(37929);
+        }
+        X.loadCreditCardRefundBaseTransaction = loadCreditCardRefundBaseTransaction;
+        //
+        function loadTimeBaseTransaction() {
+            return new TimeBase_1.TimeBase(2);
+        }
+        X.loadTimeBaseTransaction = loadTimeBaseTransaction;
         function doSearch() {
             return (0, immutable_1.Seq)(search_1.LazySearch.from(search.create({
                 type: search.Type.CUSTOMER,
                 filters: [
-                    ['companyname', search.Operator.CONTAINS, 'e']
+                    ['companyname', search.Operator.STARTSWITH, 'e']
                 ],
                 columns: ['companyname', 'phone', 'firstname', 'lastname']
                 // as any below because two physically separate declarations of N/search (one referenced by LazySearch.from() expected parameters,
                 // the other being the argument value created by search.create() here in this script.
                 // are viewed as incompatible by TS
-            }), 10))
+            }), 2))
                 .map((0, search_1.nsSearchResult2obj)())
                 .toArray(); // Todo comment out toArray to see if it returns results
         }
@@ -108,6 +132,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice'] }, 750)).map(query_1.nsQueryResult2obj); //.takeWhile(autoReschedule())
         }
         X.doQuery4 = doQuery4;
+        function doQuery5() {
+            return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT id, externalid FROM customer WHERE (id LIKE ?);`, params: ['26%'] }, 750)).map(query_1.nsQueryResult2obj); //.takeWhile(autoReschedule())
+        }
+        X.doQuery5 = doQuery5;
         function sublists() {
             const v = new VendorPayment_1.VendorPayment(7985);
             v.apply.useDynamicModeAPI = false;
@@ -156,8 +184,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             'LazyQuery Param': X.doQuery2,
             'LazyQuery Paged': X.doQuery3,
             'LazyQuery No page, Params': X.doQuery4,
+            'LazyQuery specific': X.doQuery5,
             'AutoLogging': X.autoLogging,
-            'BasicLodash': X.basicLodash
+            'BasicLodash': X.basicLodash,
+            // 'loadChargeBaseTransaction': X.loadChargeBaseTransaction,
+            // 'loadChargeRuleBaseTransaction': X.loadChargeRuleBaseTransaction,
+            'loadCreditCardChargeBaseTransaction': X.loadCreditCardChargeBaseTransaction,
+            'loadCreditCardRefundBaseTransaction': X.loadCreditCardRefundBaseTransaction,
+            'loadTimeBaseTransaction': X.loadTimeBaseTransaction
         };
     })(X || (X = {}));
     LogManager.autoLogMethodEntryExit({ target: X, method: /\w+/ }, {

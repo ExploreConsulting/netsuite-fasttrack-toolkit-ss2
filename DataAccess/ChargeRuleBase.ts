@@ -19,33 +19,6 @@ export class ResourcesSublist extends  SublistLine {
    rate:number
 }
 
-/**
- * Charge Rule 'filters' Sublist
- */
-export class FilterSublist extends  SublistLine {
-
-   @SublistFieldType.checkbox
-   filterandor:boolean
-
-   @SublistFieldType.checkbox
-   filterattr:boolean
-
-   @SublistFieldType.checkbox
-   filternot:boolean
-
-   @SublistFieldType.freeformtext
-   filterdescr:string
-
-   @SublistFieldType.freeformtext
-   filterfilter:string
-
-   @SublistFieldType.freeformtext
-   filterleftparens:string
-
-   @SublistFieldType.freeformtext
-   filterrightparens:string
-
-}
 
 /**
  * NetSuite Charge Rule
@@ -60,8 +33,14 @@ export class ChargeRuleBase extends TransactionBase {
    @FieldType.select
    billingitem: number
 
+   @FieldType.datetime
+   caphours: number
+
    @FieldType.decimalnumber
    capmoney: number
+
+   @FieldType.select
+   captype: number
 
    @FieldType.select
    chargeruletype: number
@@ -71,6 +50,9 @@ export class ChargeRuleBase extends TransactionBase {
 
    @FieldType.textarea
    description: string
+
+   @FieldType.date
+   endbydate: number
 
    @FieldType.float
    expamtmultiplier: number
@@ -91,7 +73,7 @@ export class ChargeRuleBase extends TransactionBase {
    noenddate: boolean
 
    @FieldType.select
-   project	: number
+   project: number
 
    @FieldType.select
    projecttask: number
@@ -128,9 +110,6 @@ export class ChargeRuleBase extends TransactionBase {
 
    @FieldType.select
    unitstype:number
-
-   @FieldType.sublist(FilterSublist)
-   filters: Sublist<FilterSublist>
 
    @FieldType.sublist(ResourcesSublist)
    resourcerateoverride: Sublist<ResourcesSublist>

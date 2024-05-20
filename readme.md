@@ -287,6 +287,21 @@ especially the `LazySearch` class.
 
 ### Lazy Query ###
 
+`LazyQuery` offers functionality similar to that of `LazySearch`, with the key distinction being that `LazyQuery` leverages suiteQL’s advanced query capabilities.
+This enables us to extend the standard query operations by utilizing Lazy processing to handle data.
+
+
+`LazyQuery` requires two distinct parameters to specify the search query:
+
+The first is an object designed to mimic standard N/query functionality, and the second is the page size. </br>
+1. `query`: A suiteQL string that specifies the search criteria.</br>
+`parameters`: (Optional) These are values passed into the suiteQL string.
+  
+2. `pageSize`: (Optional) The user defines the page size for the results. Default value: 500, Maximum value : 1000. 
+
+`nsQueryResult2obj` outputs the results in an object format that is easy to process.
+
+
 ```typescript
 import {nsQueryResult2obj, LazyQuery} from "./query";
 import {Seq} from 'immutable'
@@ -296,7 +311,7 @@ const customers = Seq(LazyQuery.from({query: `SELECT ID AS FOO FROM Customer WHE
 ```
 
 ### Governance ###
-The governance handler utilties can be used with any script, but most often are used with a saved search in 
+The governance handler utilities can be used with any script, but most often are used with a saved search in 
 a scheduled script.
 
 There are two functions, one for checking governance usage (`governanceRemains()`) and another which additionally

@@ -3,7 +3,7 @@
  * It automatically handles paging behind the scenes allowing the developer to focus on 'per result' business logic.
  *
  * Use `LazySearch.from()` and `LazySearch.load()` to get started.
- * Turn search results into plain objects using `nsSearchResult2obj()` and leverage
+ * Turn search results into plain objects using `nsQueryResult2obj()` and leverage
  * the methods of [ImmutableJS](https://facebook.github.io/immutable-js/) to process search results.
  * @module
  */
@@ -31,7 +31,7 @@
      * @returns a mapping function taking a NetSuite search result and returns a POJO representation of that search result.
      * The return type will always have an 'id' property merged with type T if provided.
      *
-     * @typeparam T declares the shape of the plain objects returned. e.g. `nsSearchResult2obj<{ companyname, memo }>` for a search result
+     * @typeparam T declares the shape of the plain objects returned. e.g. `nsQueryResult2obj<{ companyname, memo }>` for a search result
      * that has columns _companyname_ and _memo_. Including an optional type here ensures strong typing on followup chained
      * method calls.
      *
@@ -39,7 +39,7 @@
      *
      * ```typescript
      *
-     *  Seq(LazyQuery.from('string').map(nsSearchResult2obj()).forEach(...)
+     *  Seq(LazyQuery.from('string').map(nsQueryResult2obj()).forEach(...)
      *
      *  ```1
      */
@@ -64,7 +64,7 @@
      * @example take the first result of a search as a plain object (ImmutableJS)
      * ```typescript
      * import {Seq} from './NFT-X.Y.Z/immutable'
-     * const oneResult = Seq(LazySearch.load('1234')).map(nsSearchResult2obj()).take(1)
+     * const oneResult = Seq(LazySearch.load('1234')).map(nsQueryResult2obj()).take(1)
      * ```
      */
     class LazyQuery {
@@ -112,7 +112,7 @@
          * ```
          * import {Seq} from './NFT-X.Y.Z/immutable'
          * import * as search from 'N/search
-         * import {governanceRemains, LazySearch, nsSearchResult2obj} from './NFT-X.Y.Z/search'
+         * import {governanceRemains, LazySearch, nsQueryResult2obj} from './NFT-X.Y.Z/search'
          *
          * Seq(LazySearch.from(search.create({
          *    filters: [['internalid', 'anyof', [1,2]),
@@ -120,7 +120,7 @@
          *    type: search.Type.ITEM,
          *  })))
          *   .takeWhile(governanceRemains()) // process until we drop below default governance threshold
-         *   .map(nsSearchResult2obj()) // convert search results to plain objects with properties
+         *   .map(nsQueryResult2obj()) // convert search results to plain objects with properties
          *   .forEach( r => log.debug(r))
          * ```
          */
