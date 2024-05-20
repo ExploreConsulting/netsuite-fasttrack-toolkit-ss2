@@ -19,7 +19,7 @@ const size = require('gulp-size')
  * All the sources files we need to zip up for deployment to NS
  */
 const sources = ['search.js', 'EC_Logger.js', 'DataAccess/*.js',
-   'aop.js', 'geography.js', 'governance.js']
+   'aop.js', 'geography.js', 'governance.js', 'query.js']
 
 const declarations = ['*.d.ts', 'DataAccess/*.d.ts', '!example.d.ts']
 
