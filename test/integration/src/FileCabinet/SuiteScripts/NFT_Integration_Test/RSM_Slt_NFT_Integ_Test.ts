@@ -109,23 +109,23 @@ namespace X {
   }
 
   export function doQuery1(){
-     return Seq(LazyQuery.from({query:`SELECT ID AS FOO FROM TRANSACTION`})).map(nsQueryResult2obj<{foo:number}>)//.takeWhile(autoReschedule())
+     return Seq(LazyQuery.from({query:`SELECT ID AS FOO FROM TRANSACTION`})).map(nsQueryResult2obj<{foo:number}>).toArray()
   }
 
    export function doQuery2(){
-      return Seq(LazyQuery.from({query:`SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice']}, 10)).map(nsQueryResult2obj)//.takeWhile(autoReschedule())
+      return Seq(LazyQuery.from({query:`SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice']}, 10)).map(nsQueryResult2obj).toArray()
    }
 
    export function doQuery3(){
-      return Seq(LazyQuery.from({query:`SELECT ID AS FOO FROM TRANSACTION`},750)).map(nsQueryResult2obj)//.takeWhile(autoReschedule())
+      return Seq(LazyQuery.from({query:`SELECT ID AS FOO FROM TRANSACTION`},750)).map(nsQueryResult2obj).toArray()
    }
 
    export function doQuery4(){
-      return Seq(LazyQuery.from({query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice']}, 750)).map(nsQueryResult2obj)//.takeWhile(autoReschedule())
+      return Seq(LazyQuery.from({query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`, params: ['invoice']}, 750)).map(nsQueryResult2obj).toArray()
    }
 
    export function doQuery5(){
-      return Seq(LazyQuery.from({query: `SELECT id, externalid FROM customer WHERE (id LIKE ?);`, params: ['26%']}, 750)).map(nsQueryResult2obj)//.takeWhile(autoReschedule())
+      return Seq(LazyQuery.from({query: `SELECT id, externalid FROM customer WHERE (id LIKE ?);`, params: ['26%']}, 750)).map(nsQueryResult2obj).toArray()
    }
 
   export function sublists() {
