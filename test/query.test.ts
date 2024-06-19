@@ -1,8 +1,8 @@
 import * as query from 'N/query'
-import {LazyQuery, nsSearchResult2obj} from "../query";
+import {LazyQuery, nsQueryResult2obj } from "../query";
 
 
-describe('nsSearchResult2obj', function () {
+describe('nsQueryResult2obj', function () {
 
    function getFakeSearchResult(): query.Result {
       return {
@@ -17,7 +17,7 @@ describe('nsSearchResult2obj', function () {
 
       const noLabelResult = getFakeSearchResult()
       // default useLabels
-      const x = nsSearchResult2obj(noLabelResult)
+      const x = nsQueryResult2obj(noLabelResult)
       expect(x).toHaveProperty('foo', '880')
    })
 })

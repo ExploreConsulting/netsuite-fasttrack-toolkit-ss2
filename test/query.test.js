@@ -10,7 +10,7 @@
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     const query_1 = require("../query");
-    describe('nsSearchResult2obj', function () {
+    describe('nsQueryResult2obj', function () {
         function getFakeSearchResult() {
             return {
                 value: [
@@ -22,7 +22,7 @@
         test('defaults to column name if label is undefined', () => {
             const noLabelResult = getFakeSearchResult();
             // default useLabels
-            const x = (0, query_1.nsSearchResult2obj)(noLabelResult);
+            const x = (0, query_1.nsQueryResult2obj)(noLabelResult);
             expect(x).toHaveProperty('foo', '880');
         });
     });
