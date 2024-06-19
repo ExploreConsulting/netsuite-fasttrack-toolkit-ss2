@@ -1,14 +1,13 @@
 /**
- * Created by asariego on 4/8/24.
+ * NetSuite Charge Record
  */
-import { FieldType } from './Record'
+import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
-import { TransactionBase } from './Transaction'
 
 /**
- * NetSuite Charge
+ * NetSuite Charge {charge} record type
  */
-export class ChargeBase extends TransactionBase {
+export class ChargeBase extends NetsuiteRecord {
 
    static recordType () { return record.Type.CHARGE }
 
@@ -92,5 +91,4 @@ export class ChargeBase extends TransactionBase {
 
    @FieldType.select
    use: number
-
 }

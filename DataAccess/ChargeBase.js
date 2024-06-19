@@ -10,22 +10,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Record", "N/record", "./Transaction"], factory);
+        define(["require", "exports", "./Record", "N/record"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ChargeBase = void 0;
     /**
-     * Created by asariego on 4/8/24.
+     * NetSuite Charge Record
      */
     const Record_1 = require("./Record");
     const record = require("N/record");
-    const Transaction_1 = require("./Transaction");
     /**
-     * NetSuite Charge
+     * NetSuite Charge {charge} record type
      */
-    class ChargeBase extends Transaction_1.TransactionBase {
+    class ChargeBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.CHARGE; }
     }
     exports.ChargeBase = ChargeBase;
