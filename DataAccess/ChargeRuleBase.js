@@ -17,7 +17,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ChargeRuleBase = exports.ResourcesSublist = void 0;
     /**
-     * Created by asariego on 4/8/24.
+     * Charge Rule Base Record
      */
     const Record_1 = require("./Record");
     const record = require("N/record");

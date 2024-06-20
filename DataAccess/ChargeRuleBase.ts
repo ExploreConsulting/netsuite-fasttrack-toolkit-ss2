@@ -1,5 +1,5 @@
 /**
- * Created by asariego on 4/8/24.
+ * Charge Rule Base Record
  */
 import { FieldType } from './Record'
 import * as record from 'N/record'
@@ -25,7 +25,7 @@ export class ResourcesSublist extends  SublistLine {
  */
 export class ChargeRuleBase extends TransactionBase {
 
-   static recordType () { return record.Type.CHARGE_RULE }
+   static recordType () { return record.Type.CHARGE_RULE as const }
 
    @FieldType.decimalnumber
    amount: number

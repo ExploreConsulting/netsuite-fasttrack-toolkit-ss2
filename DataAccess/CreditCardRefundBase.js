@@ -17,7 +17,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ReimbursementsSublist = exports.ExpenseSublist = exports.ItemSublist = exports.CreditCardRefundBase = void 0;
     /**
-     * Created by rhackey on 3/20/24.
+     * Credit Card Refund Base Record
      */
     const record = require("N/record");
     const Transaction_1 = require("./Transaction");

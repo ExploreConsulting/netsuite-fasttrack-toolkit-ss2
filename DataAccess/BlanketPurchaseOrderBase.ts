@@ -21,7 +21,7 @@ export class ItemSublist extends SublistLine {
  */
 export class BlanketPurchaseOrderBase extends NetsuiteRecord {
 
-  static recordType () { return record.Type.BLANKET_PURCHASE_ORDER }
+  static recordType () { return record.Type.BLANKET_PURCHASE_ORDER  as const }
 
   @FieldType.select
   location: number

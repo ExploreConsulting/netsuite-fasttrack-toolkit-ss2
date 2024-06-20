@@ -1,5 +1,5 @@
 /**
- * Created by rhackey on 3/20/24.
+ * NetSuite Credit Card Charge Record
  */
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
@@ -10,7 +10,7 @@ import { FieldType } from './Record'
  * NetSuite Credit Card Charge Record
  */
 export class CreditCardChargeBase extends TransactionBase {
-   static recordType () { return record.Type.CREDIT_CARD_CHARGE }
+   static recordType () { return record.Type.CREDIT_CARD_CHARGE as const }
 
    @FieldType.select
    account: number

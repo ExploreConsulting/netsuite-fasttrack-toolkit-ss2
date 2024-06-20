@@ -110,7 +110,7 @@ export class ItemSublist extends SublistLine {
  *  NetSuite Check Record definition
  */
 export class CheckBase extends TransactionBase {
-   static recordType() { return record.Type.CHECK }
+   static recordType() { return record.Type.CHECK as const }
 
    @FieldType.select
    account: number

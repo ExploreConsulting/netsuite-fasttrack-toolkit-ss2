@@ -1,5 +1,5 @@
 /**
- * Created by rhackey on 3/20/24.
+ * Credit Card Refund Base Record
  */
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
@@ -10,7 +10,7 @@ import { FieldType } from './Record'
  * NetSuite Credit Card Refund Record
  */
 export class CreditCardRefundBase extends TransactionBase {
-   static recordType () { return record.Type.CREDIT_CARD_REFUND }
+   static recordType () { return record.Type.CREDIT_CARD_REFUND as const }
 
    @FieldType.select
    account: number
