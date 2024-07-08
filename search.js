@@ -18,7 +18,8 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.LazySearch = exports.nsSearchResult2obj = void 0;
+    exports.LazySearch = void 0;
+    exports.nsSearchResult2obj = nsSearchResult2obj;
     const search = require("N/search");
     const LogManager = require("./EC_Logger");
     /**
@@ -64,7 +65,6 @@
             return output;
         };
     }
-    exports.nsSearchResult2obj = nsSearchResult2obj;
     /**
      * Makes a NetSuite search an ES2015 style Iterator. That is, it follows the Iterator Protocol for iterating
      * over search results in a forward-only fashion. The result can be passed to any library

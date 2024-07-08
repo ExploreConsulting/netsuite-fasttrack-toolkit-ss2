@@ -81,7 +81,7 @@ gulp.task('default', gulp.series('copyfiles', function () {
       .pipe(size()) // outputs a blurb about how many bytes the final result is
 }))
 
-// generate APOI docs served at https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/
+// generate API documentation for the web
 gulp.task('docs', function (cb) {
    const exec = require('child_process').exec
    exec('node_modules/.bin/typedoc', // typedoc config is in typedoc.json

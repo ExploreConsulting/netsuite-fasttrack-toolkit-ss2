@@ -1,9 +1,9 @@
 {
+  "$schema": "https://typedoc.org/schema.json",
   "name": "NetSuite FastTrack Toolkit (NFT)",
-  "entryPoints": ["EC_Logger.ts", "geography.ts", "governance.ts", "search.ts", "DataAccess"],
+  "entryPoints": ["EC_Logger.ts", "geography.ts", "governance.ts", "search.ts", "query.ts", "DataAccess"],
   "entryPointStrategy": "Expand",
   "out": "docs",
-  "media": "media",
   "includeVersion": true,
   "excludeExternals": true,
   "exclude": ["**/**.d.ts"]
