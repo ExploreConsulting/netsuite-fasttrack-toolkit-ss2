@@ -153,8 +153,6 @@
             this.pageSize = pageSize;
             // Starting point of the next page
             this.nextPageStart = 0;
-            // Current search result count, used to know if we have hit the end of the current "page"
-            this.currentSearchResultRange = 0;
             // Total length of the search result set
             this.totalSearchResultLength = 0;
             if (pageSize > 1000)
@@ -190,7 +188,6 @@
             this.log.debug('index', this.index);
             this.log.debug('currentRange.length', this.currentRange.length);
             const atEndOfRange = this.index === this.currentRange.length;
-            const done = (this.currentRange.length === 0 && atEndOfRange);
             if (atEndOfRange) {
                 this.index = 0;
                 this.currentRange = this.executedSearch.getRange({

@@ -159,18 +159,12 @@ export class LazySearch implements IterableIterator<search.Result> {
 
    // logger for this module
    protected log: LogManager.Logger
-   // outer paged data object from NS search. This is only set once when search is initially runPaged()
-   protected pagedData: search.PagedData
-   // the current page of data. This is replaced as we cross from one page to the next
-   protected currentPage: search.Page
    // the current set of search results. This is replaced as we cross from one page to the next to keep a constant memory footprint
    protected currentData: search.Result[]
    // index into currentData[] pointing to the 'current' search result
    protected index: number
    // Starting point of the next page
    protected nextPageStart: number = 0
-   // Current search result count, used to know if we have hit the end of the current "page"
-   protected currentSearchResultRange: number = 0
    // Current range of the search result
    protected currentRange: search.Result[]
    // Fully executed search (simply, a search.run())
@@ -222,7 +216,6 @@ export class LazySearch implements IterableIterator<search.Result> {
       this.log.debug('index', this.index);
       this.log.debug('currentRange.length', this.currentRange.length);
       const atEndOfRange = this.index === this.currentRange.length
-      const done = (this.currentRange.length === 0 && atEndOfRange)
 
       if (atEndOfRange) {
          this.index = 0
