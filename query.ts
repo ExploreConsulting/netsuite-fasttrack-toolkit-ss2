@@ -51,8 +51,8 @@ export function nsQueryResult2obj<T = {}> (r: query.Result) {
 
 /**
  *
- * Makes a NetSuite search an ES2015 style Iterator. That is, it follows the Iterator Protocol for iterating
- * over search results in a forward-only fashion. The result can be passed to any library
+ * Makes a NetSuite query an ES2015 style Iterator. That is, it follows the Iterator Protocol for iterating
+ * over query results in a forward-only fashion. The result can be passed to any library
  * that accepts Iterators (such as ImmutableJS)
  * to provide easy chainable logic on arbitrary length search result sets.
  *
@@ -66,7 +66,7 @@ export function nsQueryResult2obj<T = {}> (r: query.Result) {
  * @example take the first result of a search as a plain object (ImmutableJS)
  * ```typescript
  * import {Seq} from './NFT-X.Y.Z/immutable'
- * const oneResult = Seq(LazySearch.load('1234')).map(nsQueryResult2obj()).take(1)
+ * const oneResult = Seq(LazyQuery.from()).map(nsQueryResult2obj()).take(1)
  * ```
  */
 export class LazyQuery implements IterableIterator<query.Result> {
@@ -97,7 +97,7 @@ export class LazyQuery implements IterableIterator<query.Result> {
 
    /**
     * Not meant to be used directly, use factory methods such as `load` or `from`
-    * @param q
+    * @param q object of query and parameters
     * @param pageSize optional pagesize, can be up to 1000
     */
    private constructor (private q: { query: string, params?: Array<string | number | boolean> }, private pageSize = 500) {
@@ -113,7 +113,6 @@ export class LazyQuery implements IterableIterator<query.Result> {
       // only load a page if we have record
       if (this.pagedData.count > 0) {
          this.currentPage = this.pagedData.fetch(0)
-         this.pagedData.pageRanges[0].index
          this.currentData = this.currentPage.data.results
          this.log.debug('this.currentData', this.currentData)
       } else {
@@ -131,20 +130,19 @@ export class LazyQuery implements IterableIterator<query.Result> {
     * @param pageSize
     * @returns {LazySearch}
     *
-    * @example create a search and begin lazy processing of results
+    * @example create a query and begin lazy processing of results
     *
     * ```
     * import {Seq} from './NFT-X.Y.Z/immutable'
-    * import * as search from 'N/search
+    * import * as query from 'N/query
     * import {governanceRemains, LazySearch, nsQueryResult2obj} from './NFT-X.Y.Z/search'
     *
-    * Seq(LazySearch.from(search.create({
-    *    filters: [['internalid', 'anyof', [1,2]),
-    *    columns:['item', 'description'],
-    *    type: search.Type.ITEM,
-    *  })))
+    * Seq(LazySearch.from({
+    *    query: 'SELECT id FROM FOO WHERE name = ?',
+    *    params: ['Farnsworth']
+    * }))
     *   .takeWhile(governanceRemains()) // process until we drop below default governance threshold
-    *   .map(nsQueryResult2obj()) // convert search results to plain objects with properties
+    *   .map(nsQueryResult2obj()) // convert query results to plain objects with properties
     *   .forEach( r => log.debug(r))
     * ```
     */
