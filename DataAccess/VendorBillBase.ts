@@ -12,6 +12,7 @@ import { AddressBase } from './AddressBase'
  * Sublist 'item' on the Vendor Bill record
  */
 export class ItemSublist extends SublistLine {
+
    @SublistFieldType.select
    item: number
 
@@ -23,6 +24,9 @@ export class ItemSublist extends SublistLine {
 
    @SublistFieldType.currency
    rate: number
+
+   @SublistFieldType.select
+   location: number
 }
 
 /**
@@ -37,6 +41,9 @@ export class ExpenseSublist extends SublistLine {
 
    @SublistFieldType.select
    categoryexpaccount: number
+
+   @SublistFieldType.select
+   class: number
 
    @SublistFieldType.select
    department: number

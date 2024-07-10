@@ -42,6 +42,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ItemSublist.prototype, "rate", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.select
+    ], ItemSublist.prototype, "location", void 0);
     /**
      * Sublist 'expense' on the Vendor Bill record
      */
@@ -57,6 +60,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ExpenseSublist.prototype, "categoryexpaccount", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.select
+    ], ExpenseSublist.prototype, "class", void 0);
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ExpenseSublist.prototype, "department", void 0);
