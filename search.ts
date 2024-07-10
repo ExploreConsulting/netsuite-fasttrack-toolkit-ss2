@@ -183,7 +183,7 @@ export class LazySearch implements IterableIterator<search.Result> {
     * @param search the netsuite search object to wrap
     * @param pageSize optional pagesize, can be up to 1000
     */
-   private constructor (private search: search.Search, private pageSize = 100) {
+   private constructor (private search: search.Search, private pageSize = 1000) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
       this.log = LogManager.getLogger(LazySearch.LOGNAME)
       this.log.debug('pageSize', pageSize)
