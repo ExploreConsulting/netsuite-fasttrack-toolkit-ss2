@@ -23,11 +23,7 @@
     const LogManager = require("./EC_Logger");
     /**
      * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to `map()`
-     * @param useLabels set to false to ignore search column labels, using the column name (internalid) instead.
-     * Defaults to true which means the property names on the returned object will match the column label names if set.
-     * If useLabels = true and no label exists, falls back to using column name. Note that label strings should be valid
-     * characters for property names (e.g. contain no ':', '-', '>' etc.)
-     * @param addGetTextProps if true, for each column which has a _truthy_ getText() value, include that as a 'propnameText' field similar to how nsdal behaves
+     * @param r if true, for each column which has a _truthy_ getText() value, include that as a 'propnameText' field similar to how nsdal behaves
      * @returns a mapping function taking a NetSuite search result and returns a POJO representation of that search result.
      * The return type will always have an 'id' property merged with type T if provided.
      *
@@ -57,7 +53,7 @@
      * Started with this as a class due to other library requirements and left it as a class just as an easy
      * way to contain state about currentpage and index into that page.
      *
-     * This is exposed as an iterator so that it could be used with other libraries. For example
+     * This is exposed as an iterator so that it could be used with other libraries. For example,
      * I've heard Ramda may support iterators so if we choose to go a more pure FP route down the
      * road this class would be useful - i.e. it remains untied to any particular library.
      *

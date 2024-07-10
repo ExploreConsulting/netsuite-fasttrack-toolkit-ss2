@@ -9,8 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.setCorrelationId = exports.DefaultLogger = exports.ExecutionLogAppender = exports.setIncludeCorrelationId = exports.includeCorrelationId = exports.correlationId = exports.removeCustomLevel = exports.setLevel = exports.getLevel = exports.addCustomLevel = exports.removeAppender = exports.getLogger = exports.addAppender = exports.clearAppenders = exports.getAppenders = exports.Logger = exports.logLevel = void 0;
-    exports.autoLogMethodEntryExit = autoLogMethodEntryExit;
+    exports.setCorrelationId = exports.DefaultLogger = exports.autoLogMethodEntryExit = exports.ExecutionLogAppender = exports.setIncludeCorrelationId = exports.includeCorrelationId = exports.correlationId = exports.removeCustomLevel = exports.setLevel = exports.getLevel = exports.addCustomLevel = exports.removeAppender = exports.getLogger = exports.addAppender = exports.clearAppenders = exports.getAppenders = exports.Logger = exports.logLevel = void 0;
     /**
      *
      * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
@@ -253,6 +252,7 @@
             return retval;
         });
     }
+    exports.autoLogMethodEntryExit = autoLogMethodEntryExit;
     /**
      * The default logger - this should be the main top level logger used in scripts
      *
