@@ -2,7 +2,7 @@
  * This module provides a lazy, functional processing approach to working with NetSuite saved searches.
  * It automatically handles paging behind the scenes allowing the developer to focus on 'per result' business logic.
  *
- * Use `LazySearch.from()` and `LazySearch.load()` to get started.
+ * Use `LazyQuery.from()` to get started.
  * Turn search results into plain objects using `nsQueryResult2obj()` and leverage
  * the methods of [ImmutableJS](https://facebook.github.io/immutable-js/) to process search results.
  * @module
@@ -39,9 +39,9 @@
      *
      * ```typescript
      *
-     *  Seq(LazyQuery.from('string').map(nsQueryResult2obj()).forEach(...)
+     *  Seq(LazyQuery.from({query:'string'}).map(nsQueryResult2obj()).forEach(...)
      *
-     *  ```1
+     *  ```
      */
     function nsQueryResult2obj(r) {
         return r.asMap();
@@ -79,23 +79,18 @@
             if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazyQuery.LOGNAME);
-            this.log.debug('Query Object', q);
-            this.log.debug('q.query', q.query);
             if (!q.params)
                 this.pagedData = query.runSuiteQLPaged({ query: q.query, pageSize: pageSize });
             else
                 this.pagedData = query.runSuiteQLPaged({ query: q.query, params: q.params, pageSize: pageSize });
             this.iterator = this.pagedData.iterator();
-            this.log.debug('this.iterator', this.iterator);
             // only load a page if we have record
             if (this.pagedData.count > 0) {
                 this.currentPage = this.pagedData.fetch(0);
                 this.currentData = this.currentPage.data.results;
-                this.log.debug('this.currentData', this.currentData);
             }
             else {
                 this.currentData = [];
-                this.log.debug('runPaged() search return zero results');
             }
             this.index = 0;
             this.log.info(`lazy query `, `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`);
@@ -124,7 +119,6 @@
          */
         static from(q, pageSize) {
             return new LazyQuery(q, pageSize);
-            // query.runSuiteQLPaged({ query: sql, params: params, pageSize: pageSize })
         }
         /**
          * LazySearch is both an iterable and an iterator for search results.
@@ -148,12 +142,9 @@
                 };
             // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
             if (atEndOfPage) {
-                this.log.debug('this.currentPage', this.currentPage);
                 this.currentPage = this.pagedData.fetch(this.currentPage.pageRange.index + 1);
-                this.log.debug('this.currentPage post increment', this.currentPage);
                 this.currentData = this.currentPage.data.results;
                 this.mappedData = this.currentPage.data.asMappedResults();
-                this.log.debug('loaded next page', `is last page: ${this.currentPage.isLast}`);
                 this.index = 0;
             }
             // return the next result from existing page (which may have been loaded immediately prior above)
