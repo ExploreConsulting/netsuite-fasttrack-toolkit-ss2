@@ -1,10 +1,10 @@
 /**
- * This module provides a lazy, functional processing approach to working with NetSuite saved searches.
+ * This module provides a lazy, functional processing approach to working with NetSuite SuiteQL queries.
  * It automatically handles paging behind the scenes allowing the developer to focus on 'per result' business logic.
  *
  * Use `LazyQuery.from()` to get started.
- * Turn search results into plain objects using `nsQueryResult2obj()` and leverage
- * the methods of [ImmutableJS](https://facebook.github.io/immutable-js/) to process search results.
+ * Turn query results into plain objects using `nsQueryResult2obj()` and enables you to leverage
+ * the methods of [ImmutableJS](https://immutable-js.com) to process query results.
  * @module
  */
 (function (factory) {
@@ -18,16 +18,17 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.LazyQuery = exports.nsQueryResult2obj = void 0;
+    exports.LazyQuery = void 0;
+    exports.nsQueryResult2obj = nsQueryResult2obj;
     const query = require("N/query");
     const LogManager = require("./EC_Logger");
     /**
-     * Rudimentary conversion of a NS search result to a simple flat plain javascript object. Suitable as an argument to `map()`
-     * @param r if true, for each column which has a _truthy_ getText() value, include that as a 'propnameText' field similar to how nsdal behaves
-     * @returns a mapping function taking a NetSuite search result and returns a POJO representation of that search result.
-     * The return type will always have an 'id' property merged with type T if provided.
+     * Rudimentary conversion of a NS query result to a simple flat plain javascript object. Suitable as an argument to `map()`
+     * @param r the query result to process
+     * @returns a simple javascript object representation of the query result as type `T`.
      *
-     * @typeparam T declares the shape of the plain objects returned. e.g. `nsQueryResult2obj<{ companyname, memo }>` for a search result
+     *
+     * @typeparam T declares the shape of the plain objects returned. e.g. `nsQueryResult2obj<{ companyname, memo }>` for a query
      * that has columns _companyname_ and _memo_. Including an optional type here ensures strong typing on followup chained
      * method calls.
      *
@@ -42,22 +43,16 @@
     function nsQueryResult2obj(r) {
         return r.asMap();
     }
-    exports.nsQueryResult2obj = nsQueryResult2obj;
     /**
      *
      * Makes a NetSuite query an ES2015 style Iterator. That is, it follows the Iterator Protocol for iterating
      * over query results in a forward-only fashion. The result can be passed to any library
      * that accepts Iterators (such as ImmutableJS)
-     * to provide easy chainable logic on arbitrary length search result sets.
+     * to provide easy chainable logic for arbitrary length result sets.
      *
-     * Started with this as a class due to other library requirements and left it as a class just as an easy
-     * way to contain state about currentpage and index into that page.
+     * @see LazySearch
      *
-     * This is exposed as an iterator so that it could be used with other libraries. For example,
-     * I've heard Ramda may support iterators so if we choose to go a more pure FP route down the
-     * road this class would be useful - i.e. it remains untied to any particular library.
-     *
-     * @example take the first result of a search as a plain object (ImmutableJS)
+     * @example take the first result of a query as a plain object (ImmutableJS)
      * ```typescript
      * import {Seq} from './NFT-X.Y.Z/immutable'
      * const oneResult = Seq(LazyQuery.from()).map(nsQueryResult2obj()).take(1)
@@ -70,8 +65,6 @@
          * @param pageSize optional pagesize, can be up to 1000
          */
         constructor(q, pageSize = 500) {
-            this.q = q;
-            this.pageSize = pageSize;
             if (pageSize > 1000)
                 throw new Error('page size must be <= 1000');
             this.log = LogManager.getLogger(LazyQuery.LOGNAME);
@@ -92,19 +85,19 @@
             this.log.info(`lazy query `, `using page size ${this.pagedData.pageSize}, record count ${this.pagedData.count}`);
         }
         /**
-         * Creates a lazy search from an existing NS search.
-         * @param q
-         * @param pageSize
-         * @returns {LazySearch}
+         * Creates a lazy query from an existing NS .
+         * @param q the SQL query and optional query parameters
+         * @param pageSize optional pagesize, can be up to 1000. Default is 500
+         * @returns Lazy Seq ready for processing
          *
          * @example create a query and begin lazy processing of results
          *
          * ```
          * import {Seq} from './NFT-X.Y.Z/immutable'
          * import * as query from 'N/query
-         * import {governanceRemains, LazySearch, nsQueryResult2obj} from './NFT-X.Y.Z/search'
+         * import {governanceRemains, LazyQuery, nsQueryResult2obj} from './NFT-X.Y.Z/query'
          *
-         * Seq(LazySearch.from({
+         * Seq(LazyQuery.from({
          *    query: 'SELECT id FROM FOO WHERE name = ?',
          *    params: ['Farnsworth']
          * }))
@@ -117,7 +110,7 @@
             return new LazyQuery(q, pageSize);
         }
         /**
-         * LazySearch is both an iterable and an iterator for search results.
+         * LazyQuery is both an iterable and an iterator for query results.
          */
         [Symbol.iterator]() {
             return this;
