@@ -25,7 +25,9 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.getCountryByUniqueKey = exports.getCountryById = exports.countryMapping = exports.getStateByShortName = exports.getStateById = exports.stateMapping = void 0;
+    exports.countryMapping = exports.getStateByShortName = exports.getStateById = exports.stateMapping = void 0;
+    exports.getCountryById = getCountryById;
+    exports.getCountryByUniqueKey = getCountryByUniqueKey;
     /**
      * Represents geographic states used in NetSuite. First one is blank to allow easy binding to a UI dropdown
      * The list was generated via SuiteQL `select * from state`
@@ -3419,7 +3421,6 @@
         else
             return undefined;
     }
-    exports.getCountryById = getCountryById;
     /**
      * Retrieves the given country by the numeric 'uniquekey' in the static `countryMapping` list.
      * @see `countryMapping`
@@ -3432,5 +3433,4 @@
         else
             return undefined;
     }
-    exports.getCountryByUniqueKey = getCountryByUniqueKey;
 });

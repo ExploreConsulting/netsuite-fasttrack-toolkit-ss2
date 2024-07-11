@@ -79,27 +79,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             return new Customer_1.Customer(283);
         }
         X.loadEntity = loadEntity;
-        // These record types are not included in all accounts, uncomment if you'd like to try them and have valid
-        // internal ids for each record type referenced below.
-        //
-        // export function loadChargeBaseTransaction() {
-        //    return new ChargeBase(7955)
-        // }
-        //
-        // export function loadChargeRuleBaseTransaction() {
-        //    return new ChargeRuleBase(7955)
-        // }
-        // export function loadCreditCardChargeBaseTransaction() {
-        //    return new CreditCardChargeBase(37928)
-        // }
-        //
-        // export function loadCreditCardRefundBaseTransaction() {
-        //    return new CreditCardRefundBase(37929)
-        // }
-        // //
-        // export function loadTimeBaseTransaction() {
-        //    return new TimeBase(2)
-        // }
         function doSearch() {
             return (0, immutable_1.Seq)(search_1.LazySearch.from(search.create({
                 type: search.Type.CUSTOMER,
@@ -115,28 +94,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
                 .toArray();
         }
         X.doSearch = doSearch;
-        function doQuery1() {
+        function doQueryBasic() {
             return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION WHERE ROWNUM < 10` })).map((query_1.nsQueryResult2obj)).toArray();
         }
-        X.doQuery1 = doQuery1;
-        function doQuery2() {
+        X.doQueryBasic = doQueryBasic;
+        function doQueryParam() {
             return (0, immutable_1.Seq)(query_1.LazyQuery.from({
                 query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`,
                 params: ['invoice']
             }, 10)).take(25).map(query_1.nsQueryResult2obj).toArray();
         }
-        X.doQuery2 = doQuery2;
-        function doQuery3() {
+        X.doQueryParam = doQueryParam;
+        function doQueryPageSize() {
             return (0, immutable_1.Seq)(query_1.LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION WHERE ROWNUM < 10` }, 750)).map(query_1.nsQueryResult2obj).toArray();
         }
-        X.doQuery3 = doQuery3;
-        function doQuery4() {
+        X.doQueryPageSize = doQueryPageSize;
+        function doQueryPageSizeParam() {
             return (0, immutable_1.Seq)(query_1.LazyQuery.from({
                 query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ? AND ROWNUM < 10`,
                 params: ['invoice']
             }, 750)).map(query_1.nsQueryResult2obj).toArray();
         }
-        X.doQuery4 = doQuery4;
+        X.doQueryPageSizeParam = doQueryPageSizeParam;
         function doQuery5() {
             return (0, immutable_1.Seq)(query_1.LazyQuery.from({
                 query: `SELECT id, externalid FROM customer WHERE (id LIKE ?);`,
@@ -188,18 +167,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             'NSDAL load Customer': X.loadEntity,
             'NSDAL sublists': X.sublists,
             'LazySearch': X.doSearch,
-            'LazyQuery Basic': X.doQuery1,
-            'LazyQuery Param': X.doQuery2,
-            'LazyQuery Paged': X.doQuery3,
-            'LazyQuery No page, Params': X.doQuery4,
+            'LazyQuery Basic': X.doQueryBasic,
+            'LazyQuery Param': X.doQueryParam,
+            'LazyQuery Paged': X.doQueryPageSize,
+            'LazyQuery No page, Params': X.doQueryPageSizeParam,
             'LazyQuery specific': X.doQuery5,
             'AutoLogging': X.autoLogging,
-            'BasicLodash': X.basicLodash,
-            // 'loadChargeBaseTransaction': X.loadChargeBaseTransaction,
-            // 'loadChargeRuleBaseTransaction': X.loadChargeRuleBaseTransaction,
-            // 'loadCreditCardChargeBaseTransaction': X.loadCreditCardChargeBaseTransaction,
-            // 'loadCreditCardRefundBaseTransaction': X.loadCreditCardRefundBaseTransaction,
-            // 'loadTimeBaseTransaction': X.loadTimeBaseTransaction
+            'BasicLodash': X.basicLodash
         };
     })(X || (X = {}));
     LogManager.autoLogMethodEntryExit({ target: X, method: /\w+/ }, {

@@ -71,29 +71,6 @@ namespace X {
     return new Customer(283)
   }
 
-  // These record types are not included in all accounts, uncomment if you'd like to try them and have valid
-  // internal ids for each record type referenced below.
-  //
-  // export function loadChargeBaseTransaction() {
-  //    return new ChargeBase(7955)
-  // }
-  //
-  // export function loadChargeRuleBaseTransaction() {
-  //    return new ChargeRuleBase(7955)
-  // }
-
-  // export function loadCreditCardChargeBaseTransaction() {
-  //    return new CreditCardChargeBase(37928)
-  // }
-  //
-  // export function loadCreditCardRefundBaseTransaction() {
-  //    return new CreditCardRefundBase(37929)
-  // }
-  // //
-  // export function loadTimeBaseTransaction() {
-  //    return new TimeBase(2)
-  // }
-
   export function doSearch () {
     return Seq(LazySearch.from(search.create({
       type: search.Type.CUSTOMER,
@@ -109,24 +86,24 @@ namespace X {
       .toArray()
   }
 
-  export function doQuery1 () {
+  export function doQueryBasic () {
     return Seq(LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION WHERE ROWNUM < 10` })).map(nsQueryResult2obj<{
       foo: number
     }>).toArray()
   }
 
-  export function doQuery2 () {
+  export function doQueryParam () {
     return Seq(LazyQuery.from({
       query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ?`,
       params: ['invoice']
     }, 10)).take(25).map(nsQueryResult2obj).toArray()
   }
 
-  export function doQuery3 () {
+  export function doQueryPageSize () {
     return Seq(LazyQuery.from({ query: `SELECT ID AS FOO FROM TRANSACTION WHERE ROWNUM < 10` }, 750)).map(nsQueryResult2obj).toArray()
   }
 
-  export function doQuery4 () {
+  export function doQueryPageSizeParam () {
     return Seq(LazyQuery.from({
       query: `SELECT ID AS FOO FROM TRANSACTION WHERE recordType = ? AND ROWNUM < 10`,
       params: ['invoice']
@@ -192,18 +169,13 @@ namespace X {
     'NSDAL load Customer': X.loadEntity,
     'NSDAL sublists': X.sublists,
     'LazySearch': X.doSearch,
-    'LazyQuery Basic': X.doQuery1,
-    'LazyQuery Param': X.doQuery2,
-    'LazyQuery Paged': X.doQuery3,
-    'LazyQuery No page, Params': X.doQuery4,
+    'LazyQuery Basic': X.doQueryBasic,
+    'LazyQuery Param': X.doQueryParam,
+    'LazyQuery Paged': X.doQueryPageSize,
+    'LazyQuery No page, Params': X.doQueryPageSizeParam,
     'LazyQuery specific': X.doQuery5,
     'AutoLogging': X.autoLogging,
-    'BasicLodash': X.basicLodash,
-    // 'loadChargeBaseTransaction': X.loadChargeBaseTransaction,
-    // 'loadChargeRuleBaseTransaction': X.loadChargeRuleBaseTransaction,
-    // 'loadCreditCardChargeBaseTransaction': X.loadCreditCardChargeBaseTransaction,
-    // 'loadCreditCardRefundBaseTransaction': X.loadCreditCardRefundBaseTransaction,
-    // 'loadTimeBaseTransaction': X.loadTimeBaseTransaction
+    'BasicLodash': X.basicLodash
   }
 }
 
