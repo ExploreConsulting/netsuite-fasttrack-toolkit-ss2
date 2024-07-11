@@ -13,7 +13,9 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.FieldType = exports.numericDescriptor = exports.defaultDescriptor = exports.NetsuiteRecord = exports.NetsuiteCurrentRecord = void 0;
+    exports.FieldType = exports.NetsuiteRecord = exports.NetsuiteCurrentRecord = void 0;
+    exports.defaultDescriptor = defaultDescriptor;
+    exports.numericDescriptor = numericDescriptor;
     const record = require("N/record");
     const format = require("N/format");
     const LogManager = require("../EC_Logger");
@@ -177,7 +179,6 @@
             enumerable: true //default is false
         };
     }
-    exports.defaultDescriptor = defaultDescriptor;
     /**
      * Just like the default descriptor but calls Number() on the value. This exists for numeric types that
      * would blow up if you tried to assign number primitive values to a field. Don't know why - did various checks
@@ -207,7 +208,6 @@
             enumerable: true //default is false
         };
     }
-    exports.numericDescriptor = numericDescriptor;
     /**
      * Decorator for adding sublists with each line of the sublist represented by a type T which
      * defines the properties you want on the sublist
