@@ -116,13 +116,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             }, 750)).map(query_1.nsQueryResult2obj).toArray();
         }
         X.doQueryPageSizeParam = doQueryPageSizeParam;
-        function doQuery5() {
-            return (0, immutable_1.Seq)(query_1.LazyQuery.from({
-                query: `SELECT id, externalid FROM customer WHERE (id LIKE ?);`,
-                params: ['26%']
-            }, 750)).map(query_1.nsQueryResult2obj).toArray();
-        }
-        X.doQuery5 = doQuery5;
         function sublists() {
             const v = new VendorPayment_1.VendorPayment(26896);
             v.apply.useDynamicModeAPI = false;
@@ -171,7 +164,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
             'LazyQuery Param': X.doQueryParam,
             'LazyQuery Paged': X.doQueryPageSize,
             'LazyQuery No page, Params': X.doQueryPageSizeParam,
-            'LazyQuery specific': X.doQuery5,
             'AutoLogging': X.autoLogging,
             'BasicLodash': X.basicLodash
         };

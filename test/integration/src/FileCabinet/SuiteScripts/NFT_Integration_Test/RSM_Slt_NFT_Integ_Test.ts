@@ -110,13 +110,6 @@ namespace X {
     }, 750)).map(nsQueryResult2obj).toArray()
   }
 
-  export function doQuery5 () {
-    return Seq(LazyQuery.from({
-      query: `SELECT id, externalid FROM customer WHERE (id LIKE ?);`,
-      params: ['26%']
-    }, 750)).map(nsQueryResult2obj).toArray()
-  }
-
   export function sublists () {
     const v = new VendorPayment(26896)
 
@@ -173,7 +166,6 @@ namespace X {
     'LazyQuery Param': X.doQueryParam,
     'LazyQuery Paged': X.doQueryPageSize,
     'LazyQuery No page, Params': X.doQueryPageSizeParam,
-    'LazyQuery specific': X.doQuery5,
     'AutoLogging': X.autoLogging,
     'BasicLodash': X.basicLodash
   }
