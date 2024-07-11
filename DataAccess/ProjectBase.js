@@ -27,6 +27,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class PercentCompleteOverrideSublist extends Sublist_1.SublistLine {
     }
+    exports.PercentCompleteOverrideSublist = PercentCompleteOverrideSublist;
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], PercentCompleteOverrideSublist.prototype, "comments", void 0);
@@ -36,12 +37,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], PercentCompleteOverrideSublist.prototype, "period", void 0);
-    exports.PercentCompleteOverrideSublist = PercentCompleteOverrideSublist;
     /**
      * Project resource sublist
      */
     class JobResourcesSublist extends Sublist_1.SublistLine {
     }
+    exports.JobResourcesSublist = JobResourcesSublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], JobResourcesSublist.prototype, "defaultcost", void 0);
@@ -57,13 +58,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], JobResourcesSublist.prototype, "role", void 0);
-    exports.JobResourcesSublist = JobResourcesSublist;
     /**
      * Project (job) base type
      */
     class ProjectBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.JOB; }
     }
+    exports.ProjectBase = ProjectBase;
     __decorate([
         Record_1.FieldType.checkbox
     ], ProjectBase.prototype, "allowtime", void 0);
@@ -268,5 +269,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(PercentCompleteOverrideSublist)
     ], ProjectBase.prototype, "percentcompleteoverride", void 0);
-    exports.ProjectBase = ProjectBase;
 });

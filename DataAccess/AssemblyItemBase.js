@@ -25,6 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class MemberSublist extends Sublist_1.SublistLine {
     }
+    exports.MemberSublist = MemberSublist;
     __decorate([
         Sublist_1.SublistFieldType.date
     ], MemberSublist.prototype, "effectivedate", void 0);
@@ -52,13 +53,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], MemberSublist.prototype, "weight", void 0);
-    exports.MemberSublist = MemberSublist;
     /**
      * NetSuite Build/Assembly Item (assemblyitem) item type.
      */
     class AssemblyItemBase extends Item_1.Item {
         static recordType() { return record.Type.ASSEMBLY_ITEM; }
     }
+    exports.AssemblyItemBase = AssemblyItemBase;
     __decorate([
         Record_1.FieldType.checkbox
     ], AssemblyItemBase.prototype, "buildentireassembly", void 0);
@@ -74,5 +75,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(MemberSublist)
     ], AssemblyItemBase.prototype, "member", void 0);
-    exports.AssemblyItemBase = AssemblyItemBase;
 });

@@ -9,7 +9,9 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.autoReschedule = exports.rescheduleIfNeeded = exports.governanceRemains = void 0;
+    exports.governanceRemains = governanceRemains;
+    exports.rescheduleIfNeeded = rescheduleIfNeeded;
+    exports.autoReschedule = autoReschedule;
     const runtime = require("N/runtime");
     const EC_Logger_1 = require("./EC_Logger");
     const task = require("N/task");
@@ -37,7 +39,6 @@
             return ok;
         };
     }
-    exports.governanceRemains = governanceRemains;
     /**
      * Reschedules the current script using the same deployment id if we're out of governance
      * @param params optional script parameters to provide to the newly scheduled script
@@ -63,7 +64,6 @@
             return governanceRemains;
         };
     }
-    exports.rescheduleIfNeeded = rescheduleIfNeeded;
     /**
      * Automatically reschedule the current task if governance is exhausted.
      * Convenience function that composes `governanceRemains` and `rescheduleIfNeeded`
@@ -80,5 +80,4 @@
     function autoReschedule(startTime, minutes, units) {
         return rescheduleIfNeeded(governanceRemains(startTime, minutes, units));
     }
-    exports.autoReschedule = autoReschedule;
 });

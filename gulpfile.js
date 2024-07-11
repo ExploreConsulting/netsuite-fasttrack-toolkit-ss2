@@ -19,7 +19,7 @@ const size = require('gulp-size')
  * All the sources files we need to zip up for deployment to NS
  */
 const sources = ['search.js', 'EC_Logger.js', 'DataAccess/*.js',
-   'aop.js', 'geography.js', 'governance.js']
+   'aop.js', 'geography.js', 'governance.js', 'query.js']
 
 const declarations = ['*.d.ts', 'DataAccess/*.d.ts', '!example.d.ts']
 
@@ -81,7 +81,7 @@ gulp.task('default', gulp.series('copyfiles', function () {
       .pipe(size()) // outputs a blurb about how many bytes the final result is
 }))
 
-// generate APOI docs served at https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/
+// generate API documentation for the web
 gulp.task('docs', function (cb) {
    const exec = require('child_process').exec
    exec('node_modules/.bin/typedoc', // typedoc config is in typedoc.json

@@ -25,6 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const record = require("N/record");
     class PlannedRevenueSublist extends Sublist_1.SublistLine {
     }
+    exports.PlannedRevenueSublist = PlannedRevenueSublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], PlannedRevenueSublist.prototype, "amount", void 0);
@@ -52,13 +53,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.select
     ], PlannedRevenueSublist.prototype, "recognitionaccount", void 0);
-    exports.PlannedRevenueSublist = PlannedRevenueSublist;
     /**
      * NetSuite Revenue Recognition Plan record. (revenueplan)
      */
     class RevenueRecognitionPlanBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.REVENUE_PLAN; }
     }
+    exports.RevenueRecognitionPlanBase = RevenueRecognitionPlanBase;
     __decorate([
         Record_1.FieldType.currency
     ], RevenueRecognitionPlanBase.prototype, "amount", void 0);
@@ -116,5 +117,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(PlannedRevenueSublist)
     ], RevenueRecognitionPlanBase.prototype, "plannedrevenue", void 0);
-    exports.RevenueRecognitionPlanBase = RevenueRecognitionPlanBase;
 });

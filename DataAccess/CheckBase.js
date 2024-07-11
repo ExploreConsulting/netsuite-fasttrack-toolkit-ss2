@@ -28,21 +28,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class ExpenseSublist extends Sublist_1.SublistLine {
     }
+    exports.ExpenseSublist = ExpenseSublist;
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ExpenseSublist.prototype, "account", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.float
+    ], ExpenseSublist.prototype, "amount", void 0);
     __decorate([
         Sublist_1.SublistFieldType.select
     ], ExpenseSublist.prototype, "class", void 0);
     __decorate([
         Sublist_1.SublistFieldType.select
-    ], ExpenseSublist.prototype, "cseg_product_class", void 0);
-    exports.ExpenseSublist = ExpenseSublist;
+    ], ExpenseSublist.prototype, "customer", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.checkbox
+    ], ExpenseSublist.prototype, "isbillable", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.select
+    ], ExpenseSublist.prototype, "location", void 0);
+    __decorate([
+        Sublist_1.SublistFieldType.freeformtext
+    ], ExpenseSublist.prototype, "memo", void 0);
     /**
      * Check (item) sublist definition
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
+    exports.ItemSublist = ItemSublist;
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], ItemSublist.prototype, "amount", void 0);
@@ -109,13 +122,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemSublist.prototype, "vendorname", void 0);
-    exports.ItemSublist = ItemSublist;
     /**
      *  NetSuite Check Record definition
      */
     class CheckBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.CHECK; }
     }
+    exports.CheckBase = CheckBase;
     __decorate([
         Record_1.FieldType.select
     ], CheckBase.prototype, "account", void 0);
@@ -167,5 +180,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(ItemSublist)
     ], CheckBase.prototype, "item", void 0);
-    exports.CheckBase = CheckBase;
 });

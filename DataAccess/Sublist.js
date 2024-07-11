@@ -15,7 +15,9 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.SublistLine = exports.Sublist = exports.subrecordDescriptor = exports.formattedSublistDescriptor = exports.SublistFieldType = void 0;
+    exports.SublistLine = exports.Sublist = exports.SublistFieldType = void 0;
+    exports.formattedSublistDescriptor = formattedSublistDescriptor;
+    exports.subrecordDescriptor = subrecordDescriptor;
     const format = require("N/format");
     const LogManager = require("../EC_Logger");
     const error = require("N/error");
@@ -45,11 +47,13 @@
         SublistFieldType.integernumber = defaultSublistDescriptor;
         SublistFieldType.longtext = defaultSublistDescriptor;
         SublistFieldType.multiselect = defaultSublistDescriptor;
+        SublistFieldType.namevaluelist = defaultSublistDescriptor;
         SublistFieldType.percent = defaultSublistDescriptor;
+        SublistFieldType.rate = defaultSublistDescriptor;
         SublistFieldType.select = defaultSublistDescriptor;
         SublistFieldType.textarea = defaultSublistDescriptor;
         SublistFieldType.subrecord = subrecordDescriptor;
-    })(SublistFieldType = exports.SublistFieldType || (exports.SublistFieldType = {}));
+    })(SublistFieldType || (exports.SublistFieldType = SublistFieldType = {}));
     /**
      * handles setting sublist fields for any combination of setValue/setText and standard/dynamic record
      * @param fieldId
@@ -178,7 +182,6 @@
             enumerable: true //default is false
         };
     }
-    exports.formattedSublistDescriptor = formattedSublistDescriptor;
     /**
      * Decorator for sublist *subrecord* fields with the subrecord shape represented by T (which
      * defines the properties you want on the subrecord)
@@ -195,7 +198,6 @@
             };
         };
     }
-    exports.subrecordDescriptor = subrecordDescriptor;
     /**
      * parses a property name from a declaration (supporting 'Text' suffix per our convention)
      * @param propertyKey original property name as declared on class

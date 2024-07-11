@@ -2,19 +2,19 @@
   "automock": false,
   "clearMocks": true,
   "moduleDirectories": [
-    "node_modules",
-    "netsuite-fasttrack-toolkit-ss2"
+    "node_modules"
   ],
   "transform": {
   },
   "moduleNameMapper": {
     "NFT/(.*)": "../$1",
     "N/(.*)": "<rootDir>/../__mocks__/N/$1",
-    "./moment": "node_modules/moment",
-    "./aurelia-logging": "node_modules/aurelia-logging",
-    "./lodash": "node_modules/lodash"
+    "./moment": "moment",
+    "./aurelia-logging": "aurelia-logging",
+    "./lodash": "lodash"
   },
   "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.(tsx?)$",
+  "testPathIgnorePatterns": ["/integration/"],
   "globals": {
     "ts-jest": {
       "diagnostics": {

@@ -28,6 +28,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     class CustomerDepositBase extends Transaction_1.TransactionBase {
         static recordType() { return record.Type.CUSTOMER_DEPOSIT; }
     }
+    exports.CustomerDepositBase = CustomerDepositBase;
     __decorate([
         Record_1.FieldType.select
     ], CustomerDepositBase.prototype, "account", void 0);
@@ -46,5 +47,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.currency
     ], CustomerDepositBase.prototype, "payment", void 0);
-    exports.CustomerDepositBase = CustomerDepositBase;
 });

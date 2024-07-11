@@ -19,5 +19,5 @@
         TaskType["CSV_IMPORT"] = "CSV_IMPORT";
         TaskType["ENTITY_DEDUPLICATION"] = "ENTITY_DEDUPLICATION";
         TaskType["WORKFLOW_TRIGGER"] = "WORKFLOW_TRIGGER";
-    })(TaskType = exports.TaskType || (exports.TaskType = {}));
+    })(TaskType || (exports.TaskType = TaskType = {}));
 });

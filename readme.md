@@ -285,8 +285,33 @@ let firstResultAsObj = Seq(LazySearch.load("123")).map(nsSearchResult2obj<{foo,b
 Also see [search](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2/modules/search.html) in the API documentation,
 especially the `LazySearch` class.
 
+### Lazy Query ###
+
+`LazyQuery` offers functionality similar to that of `LazySearch`, with the key distinction being that `LazyQuery` leverages suiteQL’s advanced query capabilities.
+This enables us to extend the standard query operations by utilizing Lazy processing to handle data.
+
+
+`LazyQuery` requires two distinct parameters to specify the search query:
+
+The first is an object designed to mimic standard N/query functionality, and the second is the page size. </br>
+1. `query`: A suiteQL string that specifies the search criteria.</br>
+`parameters`: (Optional) These are values passed into the suiteQL string.
+  
+2. `pageSize`: (Optional) The user defines the page size for the results. Default value: 500, Maximum value : 1000. 
+
+`nsQueryResult2obj` outputs the results in an object format that is easy to process.
+
+
+```typescript
+import {nsQueryResult2obj, LazyQuery} from "./query";
+import {Seq} from 'immutable'
+
+// get the ids of all customers with a specific subsidiary
+const customers = Seq(LazyQuery.from({query: `SELECT ID AS FOO FROM Customer WHERE subsidiary = ?`, params: [1]}, 50)).map(nsQueryResult2obj)
+```
+
 ### Governance ###
-The governance handler utilties can be used with any script, but most often are used with a saved search in 
+The governance handler utilities can be used with any script, but most often are used with a saved search in 
 a scheduled script.
 
 There are two functions, one for checking governance usage (`governanceRemains()`) and another which additionally
@@ -365,12 +390,29 @@ Configure tsconfig to include `paths` for NetSuite modules and NFT modules:
 
 
 # Tests
+We have a suite of unit tests and integration tests. The unit tests can be run locally, the integration
+tests must be deployed in order to execute on a NetSuite account.
+
+## Unit Tests
 The `test/` folder is configured to use `ts-jest` to compile the sources.
 
-to run the test suite:
+to run the unit test suite:
 
     npm test
-    
+
+## Integration Tests
+The `test/integration` folder contains a small suite of integration tests that run against a live NetSuite account.
+We test internally against a specific NetSuite account, so to run these tests yourself you'll need to update any
+internal ids referenced in the test code to match your own NetSuite account.
+
+The integration tests are set up as an SDF deployable project.
+
+To run the tests:
+
+1. build NFT (`node_modules/.bin/gulp`)
+2. "advanced add" the `dist/NFT-SS2-#.#.#.zip` to the file cabinet at `/SuiteScripts/NFT_Integration_Test/`
+3. SDF deploy the project from `test/integration` to your NetSuite account
+4. Execute the resulting Suitelet ("RSM_Slt_NFT_Integ_Test")
 
 # For Contributors
 The following are useful if you're contributing to the codebase and publishing to NPM

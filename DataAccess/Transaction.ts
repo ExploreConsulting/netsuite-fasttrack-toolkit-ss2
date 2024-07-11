@@ -56,7 +56,7 @@ export class TransactionBase extends  NetsuiteRecord {
    memo: string
 
    @FieldType.select
-   orderstatus: number
+   orderstatus: number | string
 
    @FieldType.freeformtext
    otherrefnum: string

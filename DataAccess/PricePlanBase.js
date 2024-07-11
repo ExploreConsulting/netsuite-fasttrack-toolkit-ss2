@@ -24,6 +24,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
      */
     class PriceTiersBase extends Sublist_1.SublistLine {
     }
+    exports.PriceTiersBase = PriceTiersBase;
     __decorate([
         Sublist_1.SublistFieldType.integernumber
     ], PriceTiersBase.prototype, "fromval", void 0);
@@ -42,13 +43,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.currency
     ], PriceTiersBase.prototype, "value", void 0);
-    exports.PriceTiersBase = PriceTiersBase;
     /**
      * NetSuite Price Plan (priceplan)
      */
     class PricePlanBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.PRICE_PLAN; }
     }
+    exports.PricePlanBase = PricePlanBase;
     __decorate([
         Record_1.FieldType.select
     ], PricePlanBase.prototype, "currency", void 0);
@@ -64,5 +65,4 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Record_1.FieldType.sublist(PriceTiersBase)
     ], PricePlanBase.prototype, "pricetiers", void 0);
-    exports.PricePlanBase = PricePlanBase;
 });
