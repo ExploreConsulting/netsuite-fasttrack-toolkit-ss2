@@ -390,12 +390,29 @@ Configure tsconfig to include `paths` for NetSuite modules and NFT modules:
 
 
 # Tests
+We have a suite of unit tests and integration tests. The unit tests can be run locally, the integration
+tests must be deployed in order to execute on a NetSuite account.
+
+## Unit Tests
 The `test/` folder is configured to use `ts-jest` to compile the sources.
 
-to run the test suite:
+to run the unit test suite:
 
     npm test
-    
+
+## Integration Tests
+The `test/integration` folder contains a small suite of integration tests that run against a live NetSuite account.
+We test internally against a specific NetSuite account, so to run these tests yourself you'll need to update any
+internal ids referenced in the test code to match your own NetSuite account.
+
+The integration tests are set up as an SDF deployable project.
+
+To run the tests:
+
+1. build NFT (`node_modules/.bin/gulp`)
+2. "advanced add" the `dist/NFT-SS2-#.#.#.zip` to the file cabinet at `/SuiteScripts/NFT_Integration_Test/`
+3. SDF deploy the project from `test/integration` to your NetSuite account
+4. Execute the resulting Suitelet ("RSM_Slt_NFT_Integ_Test")
 
 # For Contributors
 The following are useful if you're contributing to the codebase and publishing to NPM
