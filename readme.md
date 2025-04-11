@@ -1,4 +1,6 @@
 
+<img src="media/images/NFT_logo_without_text.svg" alt="NFT Logo" width="200" height="200" />
+
 NFT (NetSuite Fasttrack Toolkit)
 ==============================================
 _for SuiteScript 2.x_
