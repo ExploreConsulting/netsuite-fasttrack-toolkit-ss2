@@ -1,5 +1,5 @@
 import * as query from 'N/query'
-import {LazyQuery, nsQueryResult2obj } from "../query";
+import {LazyQuery, nsQueryResult2obj, getColumns, mapQueryMRResults } from "../query";
 
 
 describe('nsQueryResult2obj', function () {
@@ -12,6 +12,12 @@ describe('nsQueryResult2obj', function () {
          asMap: jest.fn().mockReturnValueOnce({foo: '880'})
       } as any
    }
+   function getFakeSearchResultMR() {
+      return {
+         value:
+            {"types": ["INTEGER"], "values": [880]}
+      } as any
+   }
 
    test('defaults to column name if label is undefined', () => {
 
@@ -19,6 +25,19 @@ describe('nsQueryResult2obj', function () {
       // default useLabels
       const x = nsQueryResult2obj(noLabelResult)
       expect(x).toHaveProperty('foo', '880')
+   })
+
+   test ('Build array of column header names', () => {
+      const queryStr = 'SELECT id as foo, trandate FROM transaction WHERE id = 1000'
+      const x = getColumns(queryStr)
+      expect(x).toEqual(['foo', 'trandate'])
+   })
+
+   test ('Build object for search Results with labels', () => {
+      const noLabelResult = getFakeSearchResultMR()
+      const queryStr = 'SELECT id as foo FROM transaction WHERE id = 1000'
+      const x = mapQueryMRResults(noLabelResult.value.values, queryStr)
+      expect(x).toHaveProperty('foo', 880)
    })
 })
 

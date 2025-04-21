@@ -10,6 +10,7 @@
 
 import * as query from 'N/query'
 import * as LogManager from './EC_Logger'
+import * as _ from 'lodash'
 
 /**
  * Rudimentary conversion of a NS query result to a simple flat plain javascript object. Suitable as an argument to `map()`
@@ -31,6 +32,24 @@ import * as LogManager from './EC_Logger'
  */
 export function nsQueryResult2obj<T = {}> (r: query.Result) {
    return r.asMap() as T
+}
+
+export function mapQueryMRResults<T = {}> (r, queryStr: string): T {
+   const results = {}
+   _.map(getColumns(queryStr), (v, k) => {
+      results[v] = r[k] ?? null
+   })
+   return results as T
+}
+
+export function getColumns(queryStr) {
+   return queryStr.substring(queryStr.indexOf('SELECT') + 6, queryStr.indexOf('FROM')).split(',').map((col) => {
+      if (_.includes(col, ' as ')) {
+         return col.substring(col.indexOf(' as ') + 4, col.length).trim()
+      } else {
+         return col.trim()
+      }
+   })
 }
 
 /**
