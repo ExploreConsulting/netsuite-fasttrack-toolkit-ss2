@@ -13,7 +13,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/query", "./EC_Logger", "lodash"], factory);
+        define(["require", "exports", "N/query", "./EC_Logger"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -24,7 +24,6 @@
     exports.getColumns = getColumns;
     const query = require("N/query");
     const LogManager = require("./EC_Logger");
-    const _ = require("lodash");
     /**
      * Rudimentary conversion of a NS query result to a simple flat plain javascript object. Suitable as an argument to `map()`
      * @param r the query result to process
@@ -48,7 +47,7 @@
     }
     function mapQueryMRResults(r, queryStr) {
         const results = {};
-        _.map(getColumns(queryStr), (v, k) => {
+        getColumns(queryStr).map((v, k) => {
             var _a;
             results[v] = (_a = r[k]) !== null && _a !== void 0 ? _a : null;
         });
@@ -56,7 +55,7 @@
     }
     function getColumns(queryStr) {
         return queryStr.substring(queryStr.indexOf('SELECT') + 6, queryStr.indexOf('FROM')).split(',').map((col) => {
-            if (_.includes(col, ' as ')) {
+            if (col.indexOf(' as ') > -1) {
                 return col.substring(col.indexOf(' as ') + 4, col.length).trim();
             }
             else {
