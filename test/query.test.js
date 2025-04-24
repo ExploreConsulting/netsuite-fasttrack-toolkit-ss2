@@ -42,5 +42,12 @@
             const x = (0, query_1.mapQueryMRResults)(noLabelResult.value, col);
             expect(x).toHaveProperty('foo', 880);
         });
+        test('Build object for search Results with TOP x', () => {
+            const noLabelResult = getFakeSearchResultMR();
+            const queryStr = 'SELECT TOP 1 id FROM transaction WHERE id = 1000';
+            const col = (0, query_1.getColumns)(queryStr);
+            const x = (0, query_1.mapQueryMRResults)(noLabelResult.value, col);
+            expect(x).toHaveProperty('foo', 880);
+        });
     });
 });

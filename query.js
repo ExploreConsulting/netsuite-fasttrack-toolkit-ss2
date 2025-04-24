@@ -92,7 +92,8 @@
      * ```
      */
     function getColumns(queryStr) {
-        return queryStr.substring(queryStr.indexOf('SELECT') + 6, queryStr.indexOf('FROM')).split(',').map((col) => {
+        queryStr = queryStr.toLowerCase();
+        return queryStr.substring(queryStr.indexOf('select') + 6, queryStr.indexOf('from')).split(',').map((col) => {
             if (col.indexOf(' as ') > -1) {
                 return col.substring(col.indexOf(' as ') + 4, col.length).trim();
             }

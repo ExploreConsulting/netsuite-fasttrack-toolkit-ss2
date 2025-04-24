@@ -40,5 +40,13 @@ describe('nsQueryResult2obj', function () {
       const x = mapQueryMRResults(noLabelResult.value, col)
       expect(x).toHaveProperty('foo', 880)
    })
+
+   test ('Build object for search Results with TOP x', () => {
+      const noLabelResult = getFakeSearchResultMR()
+      const queryStr = 'SELECT TOP 1 id FROM transaction WHERE id = 1000'
+      const col = getColumns(queryStr)
+      const x = mapQueryMRResults(noLabelResult.value, col)
+      expect(x).toHaveProperty('foo', 880)
+   })
 })
 
