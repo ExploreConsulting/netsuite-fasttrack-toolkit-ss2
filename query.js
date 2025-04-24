@@ -45,11 +45,11 @@
     function nsQueryResult2obj(r) {
         return r.asMap();
     }
-    function mapQueryMRResults(r, queryStr) {
+    function mapQueryMRResults(r, columns) {
         const results = {};
-        getColumns(queryStr).map((v, k) => {
+        columns.map((v, k) => {
             var _a;
-            results[v] = (_a = r[k]) !== null && _a !== void 0 ? _a : null;
+            results[v] = (_a = r.values[k]) !== null && _a !== void 0 ? _a : null;
         });
         return results;
     }

@@ -36,7 +36,8 @@ describe('nsQueryResult2obj', function () {
    test ('Build object for search Results with labels', () => {
       const noLabelResult = getFakeSearchResultMR()
       const queryStr = 'SELECT id as foo FROM transaction WHERE id = 1000'
-      const x = mapQueryMRResults(noLabelResult.value.values, queryStr)
+      const col = getColumns(queryStr)
+      const x = mapQueryMRResults(noLabelResult.value, col)
       expect(x).toHaveProperty('foo', 880)
    })
 })

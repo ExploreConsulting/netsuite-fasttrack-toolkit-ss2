@@ -33,10 +33,10 @@ export function nsQueryResult2obj<T = {}> (r: query.Result) {
    return r.asMap() as T
 }
 
-export function mapQueryMRResults<T = {}> (r, queryStr: string): T {
+export function mapQueryMRResults<T = {}> (r, columns: string[]): T {
    const results = {}
-   getColumns(queryStr).map( (v, k) => {
-      results[v] = r[k] ?? null
+   columns.map( (v, k) => {
+      results[v] = r.values[k] ?? null
    })
    return results as T
 }

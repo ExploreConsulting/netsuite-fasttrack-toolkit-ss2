@@ -38,7 +38,8 @@
         test('Build object for search Results with labels', () => {
             const noLabelResult = getFakeSearchResultMR();
             const queryStr = 'SELECT id as foo FROM transaction WHERE id = 1000';
-            const x = (0, query_1.mapQueryMRResults)(noLabelResult.value.values, queryStr);
+            const col = (0, query_1.getColumns)(queryStr);
+            const x = (0, query_1.mapQueryMRResults)(noLabelResult.value, col);
             expect(x).toHaveProperty('foo', 880);
         });
     });
