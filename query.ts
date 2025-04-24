@@ -23,7 +23,7 @@ import * as LogManager from './EC_Logger'
  *
  * @example  (using Immutable JS Sequence)
  *
- * ```typescript
+ * ```TypeScript
  *
  *  Seq(LazyQuery.from({query:'string'}).map(nsQueryResult2obj()).forEach(...)
  *
@@ -33,6 +33,25 @@ export function nsQueryResult2obj<T = {}> (r: query.Result) {
    return r.asMap() as T
 }
 
+/**
+ * Converts a query result to a plain object using the column names as keys.
+ *
+ * @param r
+ * @param columns
+ *
+ * @example
+ *
+ * ```TypeScript
+ *
+ * export function map (context: EntryPoints.MapReduce.mapContext) {
+ *     const input: ReduceResult = mapQueryMRResults(JSON.parse(context.value), columns)
+ *     log.info('input', input)
+ *     ...
+ *     return 'map complete'
+ *   }
+ *
+ * ```
+ */
 export function mapQueryMRResults<T = {}> (r, columns: string[]): T {
    const results = {}
    columns.map( (v, k) => {
@@ -41,6 +60,25 @@ export function mapQueryMRResults<T = {}> (r, columns: string[]): T {
    return results as T
 }
 
+/**
+ * Extracts the column names from a SuiteQL query string.
+ *
+ * @param queryStr
+ *
+ * @example
+ *
+ * ```TypeScript
+ *
+ * namespace X {
+ *    const queryStr = 'SELECT id as foo, trandate FROM transaction WHERE id = ?'
+ *    const columns = getColumns(queryStr)
+ *
+ *    export function getInputData () {
+ *     }...
+ * }
+ *
+ * ```
+ */
 export function getColumns(queryStr) {
    return queryStr.substring(queryStr.indexOf('SELECT') + 6, queryStr.indexOf('FROM')).split(',').map((col) => {
       if (col.indexOf(' as ') > -1) {
