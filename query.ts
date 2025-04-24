@@ -81,6 +81,8 @@ export function mapQueryMRResults<T = {}> (r, columns: string[]): T {
  */
 export function getColumns(queryStr) {
    queryStr = queryStr.toLowerCase()
+
+   // Note /(?:\b((select)\s(top\s\d+)?)\s)/gi  to get select top x
    return queryStr.substring(queryStr.indexOf('select') + 6, queryStr.indexOf('from')).split(',').map((col) => {
       if (col.indexOf(' as ') > -1) {
          return col.substring(col.indexOf(' as ') + 4, col.length).trim()
