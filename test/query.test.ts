@@ -35,7 +35,7 @@ describe('autoMap', function () {
    function getFakeSearchResultMRLong() {
       return {
          value:
-            {"types": ["INTEGER", "STRING", "DATE"], "values": [880, 'jim', '5/5/35', 'date', 'otherdate']}
+            {"types": ["INTEGER", "STRING", "DATE"], "values": [880, 'jim', '5/5/35', 'date', 'otherdate', 20]}
       } as any
    }
 
@@ -48,14 +48,12 @@ describe('autoMap', function () {
    test ('Build array of column header names with function', () => {
       const queryStr = `SELECT id as foo, TO_CHAR( t.TranDate, 'YYYY-MM-DD HH:MI:SS' ), TO_CHAR( test, 'YYYY-MM-DD HH:MI:SS' ) as bar FROM transaction WHERE id = 1000`
       const x = getColumns(queryStr)
-      console.log('x', x)
       expect(x).toEqual(['foo', 'trandate', 'bar'])
    })
 
    test ('Build array of column header names with select in select', () => {
       const queryStr = `SELECT id as foo, (SELECT id from client where 1 = 1) as bar FROM transaction WHERE id = 1000`
       const x = getColumns(queryStr)
-      console.log('x', x)
       expect(x).toEqual(['foo', 'bar'])
    })
 
@@ -104,15 +102,16 @@ describe('autoMap', function () {
 
    test ('Build object for search Results group operations, alias, multiple elements', () => {
       const noLabelResult = getFakeSearchResultMRLong()
-      const queryStr = `SELECT COUNT(t.id), MAX(t.name) as foo, t.bar, TO_CHAR(trandate, 'MM/YYYY'), TO_CHAR(trandate, 'MM/YYYY') as test  FROM transaction WHERE id = 1000`
+      const queryStr = `SELECT COUNT(t.id), MAX(t.name) as foo, t.bar, TO_CHAR(trandate, 'MM/YYYY'), TO_CHAR(trandate, 'MM/YYYY') as test, (SELECT id from cleint where id = 1) as lastcheck FROM transaction WHERE id = 1000 AND (SELECT  id from cleint where id = 1) is not null`
       const col  = getColumns(queryStr)
       const x = mapQueryMRResults(noLabelResult.value, col)
-      expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test'])
+      expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck'])
       expect(x).toHaveProperty('id', 880)
       expect(x).toHaveProperty('foo', 'jim')
       expect(x).toHaveProperty('bar', '5/5/35')
       expect(x).toHaveProperty('trandate', 'date')
       expect(x).toHaveProperty('test', 'otherdate')
+      expect(x).toHaveProperty('lastcheck', 20)
    })
 })
 

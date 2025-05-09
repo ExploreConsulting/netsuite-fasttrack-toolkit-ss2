@@ -13,7 +13,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/query", "./EC_Logger", "node:console", "immutable"], factory);
+        define(["require", "exports", "N/query", "./EC_Logger", "node-sql-parser"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -24,8 +24,7 @@
     exports.getColumns = getColumns;
     const query = require("N/query");
     const LogManager = require("./EC_Logger");
-    const console = require("node:console");
-    const immutable_1 = require("immutable");
+    const node_sql_parser_1 = require("node-sql-parser");
     /**
      * Rudimentary conversion of a NS query result to a simple flat plain javascript object. Suitable as an argument to `map()`
      * @param r the query result to process
@@ -94,45 +93,21 @@
      * ```
      */
     function getColumns(queryStr) {
-        queryStr = queryStr.toLowerCase();
-        // remove comments
-        queryStr = queryStr.replace(/--.*?(\r?\n|$)/g, '');
-        // Remove multi-line comments
-        queryStr = queryStr.replace(/\/\*.*?\*\//gs, '');
-        const reg = new RegExp('(?:SELECT)\\s+(?:TOP\\s+\\d+\\s+)?(.*?)(?=\\s+FROM\\s+\\w+)', 'gmi');
-        const regExcl = new RegExp('\\w+\\s*\\(.*?\\)', 'gim');
-        const extractName = new RegExp('\\(\\s*(\\w+(\\.\\w+)?)\\s*', 'gim');
-        const match = reg.exec(queryStr); // Get list of columns from query. Excludes TOP
-        // NOTE match will be a regex array with the first element being the entire match, and the second element being the first group.
-        // The first group is the list of columns. We need to split that by comma and trim each column name.
-        if (match && match[1]) {
-            console.log('match', match);
-            let extractedColumnsString = match[1];
-            console.log('extractedColumnsString123', extractedColumnsString);
-            (0, immutable_1.Seq)(Array.from(extractedColumnsString.matchAll(regExcl))).forEach(t => {
-                var _a, _b, _c;
-                let columnName = t[0].includes(' as ')
-                    ? t[0].split(' as ')[1].trim()
-                    : (_c = (_b = (_a = t[0].match(extractName)) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.replace('(', '').trim()) !== null && _c !== void 0 ? _c : 'errorInColumnName';
-                extractedColumnsString = extractedColumnsString.replace(t[0], columnName);
-            });
-            console.log('extractedColumnsString', extractedColumnsString);
-            return extractedColumnsString.split(',').map((col) => {
-                let columnName = col.trim();
-                // Check for Alias first, if it exists, get the alias name. None of the other if statements mater after that.
-                if (columnName.includes(' as ')) { // Get Alias: custrecord_rsm_exp_date as expdate returns expdate
-                    return columnName.split(' as ')[1].trim();
-                }
-                if (columnName.includes('(')) { // Get Column name: COUNT(transaction.id) returns id
-                    columnName = columnName.slice(columnName.indexOf('(') + 1, columnName.indexOf(')')).trim();
-                }
-                if (columnName.includes('.')) { // Get Column name: transaction.id returns id
-                    columnName = columnName.split('.')[1].trim();
-                }
-                return columnName;
-            });
-        }
-        return [];
+        const getTop = new RegExp('TOP\\s+\\d+\\s+', 'mgi');
+        queryStr = queryStr.toLowerCase().replace(getTop, '');
+        const parser = new node_sql_parser_1.Parser();
+        const par = parser.astify(queryStr);
+        return par['columns'].map(t => {
+            var _a, _b;
+            var colName = (_b = (_a = t.as) !== null && _a !== void 0 ? _a : t.expr.column) !== null && _b !== void 0 ? _b : null;
+            if (t.expr.type === 'function' && colName === null) {
+                colName = t.expr.args.value[0].column;
+            }
+            else if (t.expr.type === 'aggr_func' && colName === null) {
+                colName = t.expr.args.expr.column;
+            }
+            return colName;
+        });
     }
     /**
      *
