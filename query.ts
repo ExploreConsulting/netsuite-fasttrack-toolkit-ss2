@@ -85,12 +85,15 @@ export function getColumns(queryStr) {
 
    const reg = new RegExp('(?:SELECT)\\s+(?:TOP\\s+\\d+\\s+)?([\\w\\s\\(\\).,]+)\\s+FROM', 'gi')
    const match = reg.exec(queryStr) // Get list of columns from query. Excludes TOP
+   // NOTE match will be a regex array with the first element being the entire match, and the second element being the first group.
+   // The first group is the list of columns. We need to split that by comma and trim each column name.
 
    if(match && match[1]) {
       return match[1].split(',').map((col) => {
          let columnName = col.trim()
+         // Check for Alias first, if it exists, get the alias name. None of the other if statements mater after that.
          if (columnName.includes(' as ')) { // Get Alias: custrecord_rsm_exp_date as expdate returns expdate
-            columnName = columnName.split(' as ')[1].trim()
+            return columnName.split(' as ')[1].trim()
          }
          if (columnName.includes('(')) { // Get Column name: COUNT(transaction.id) returns id
             columnName = columnName.slice(columnName.indexOf('(') + 1, columnName.indexOf(')')).trim()
@@ -98,7 +101,6 @@ export function getColumns(queryStr) {
          if (columnName.includes('.')) { // Get Column name: transaction.id returns id
             columnName = columnName.split('.')[1].trim()
          }
-
          return columnName
       })
    }
