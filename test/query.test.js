@@ -19,17 +19,24 @@
                 asMap: jest.fn().mockReturnValueOnce({ foo: '880' })
             };
         }
-        function getFakeSearchResultMR() {
-            return {
-                value: { "types": ["INTEGER"], "values": [880] }
-            };
-        }
         test('defaults to column name if label is undefined', () => {
             const noLabelResult = getFakeSearchResult();
             // default useLabels
             const x = (0, query_1.nsQueryResult2obj)(noLabelResult);
             expect(x).toHaveProperty('foo', '880');
         });
+    });
+    describe('autoMap', function () {
+        function getFakeSearchResultMR() {
+            return {
+                value: { "types": ["INTEGER"], "values": [880] }
+            };
+        }
+        function getFakeSearchResultMRLong() {
+            return {
+                value: { "types": ["INTEGER", "STRING", "DATE"], "values": [880, 'jim', '5/5/35'] }
+            };
+        }
         test('Build array of column header names', () => {
             const queryStr = 'SELECT id as foo, trandate FROM transaction WHERE id = 1000';
             const x = (0, query_1.getColumns)(queryStr);
@@ -47,7 +54,31 @@
             const queryStr = 'SELECT TOP 1 id FROM transaction WHERE id = 1000';
             const col = (0, query_1.getColumns)(queryStr);
             const x = (0, query_1.mapQueryMRResults)(noLabelResult.value, col);
-            expect(x).toHaveProperty('foo', 880);
+            expect(x).toHaveProperty('id', 880);
+        });
+        test('Build object for search Results with TOP x and t', () => {
+            const noLabelResult = getFakeSearchResultMR();
+            const queryStr = 'SELECT t.id FROM transaction WHERE id = 1000';
+            const col = (0, query_1.getColumns)(queryStr);
+            const x = (0, query_1.mapQueryMRResults)(noLabelResult.value, col);
+            expect(x).toHaveProperty('id', 880);
+        });
+        test('Build object for search Results group operations', () => {
+            const noLabelResult = getFakeSearchResultMR();
+            const queryStr = 'SELECT COUNT(t.id) FROM transaction WHERE id = 1000';
+            const col = (0, query_1.getColumns)(queryStr);
+            const x = (0, query_1.mapQueryMRResults)(noLabelResult.value, col);
+            expect(x).toHaveProperty('id', 880);
+        });
+        test('Build object for search Results group operations, alias, multiple elements', () => {
+            const noLabelResult = getFakeSearchResultMRLong();
+            const queryStr = 'SELECT COUNT(t.id), MAX(t.name) as foo, t.bar FROM transaction WHERE id = 1000';
+            const col = (0, query_1.getColumns)(queryStr);
+            const x = (0, query_1.mapQueryMRResults)(noLabelResult.value, col);
+            expect(col).toEqual(['id', 'foo', 'bar']);
+            expect(x).toHaveProperty('id', 880);
+            expect(x).toHaveProperty('foo', 'jim');
+            expect(x).toHaveProperty('bar', '5/5/35');
         });
     });
 });

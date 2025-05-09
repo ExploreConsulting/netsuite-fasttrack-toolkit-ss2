@@ -10,6 +10,7 @@
 
 import * as query from 'N/query'
 import * as LogManager from './EC_Logger'
+import * as console from "node:console";
 
 /**
  * Rudimentary conversion of a NS query result to a simple flat plain javascript object. Suitable as an argument to `map()`
@@ -82,14 +83,26 @@ export function mapQueryMRResults<T = {}> (r, columns: string[]): T {
 export function getColumns(queryStr) {
    queryStr = queryStr.toLowerCase()
 
-   // Note /(?:\b((select)\s(top\s\d+)?)\s)/gi  to get select top x
-   return queryStr.substring(queryStr.indexOf('select') + 6, queryStr.indexOf('from')).split(',').map((col) => {
-      if (col.indexOf(' as ') > -1) {
-         return col.substring(col.indexOf(' as ') + 4, col.length).trim()
-      } else {
-         return col.trim()
-      }
-   })
+   const reg = new RegExp('(?:SELECT)\\s+(?:TOP\\s+\\d+\\s+)?([\\w\\s\\(\\).,]+)\\s+FROM', 'gi')
+   const match = reg.exec(queryStr) // Get list of columns from query. Excludes TOP
+
+   if(match && match[1]) {
+      return match[1].split(',').map((col) => {
+         let columnName = col.trim()
+         if (columnName.includes(' as ')) { // Get Alias: custrecord_rsm_exp_date as expdate returns expdate
+            columnName = columnName.split(' as ')[1].trim()
+         }
+         if (columnName.includes('(')) { // Get Column name: COUNT(transaction.id) returns id
+            columnName = columnName.slice(columnName.indexOf('(') + 1, columnName.indexOf(')')).trim()
+         }
+         if (columnName.includes('.')) { // Get Column name: transaction.id returns id
+            columnName = columnName.split('.')[1].trim()
+         }
+
+         return columnName
+      })
+   }
+   return []
 }
 
 /**
