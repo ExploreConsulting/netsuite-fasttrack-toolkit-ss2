@@ -42,6 +42,16 @@
             const x = (0, query_1.getColumns)(queryStr);
             expect(x).toEqual(['foo', 'trandate']);
         });
+        test('Build array of column header names Exclude comments', () => {
+            const queryStr = `SELECT id as foo, 
+                        trandate
+                        -- test
+                        /*other test*/
+                        FROM transaction
+                        WHERE id = 1000`;
+            const x = (0, query_1.getColumns)(queryStr);
+            expect(x).toEqual(['foo', 'trandate']);
+        });
         test('Build object for search Results with labels', () => {
             const noLabelResult = getFakeSearchResultMR();
             const queryStr = 'SELECT id as foo FROM transaction WHERE id = 1000';

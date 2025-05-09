@@ -1,5 +1,6 @@
 import * as query from 'N/query'
 import {LazyQuery, nsQueryResult2obj, getColumns, mapQueryMRResults } from "../query";
+import * as console from "node:console";
 
 
 describe('nsQueryResult2obj', function () {
@@ -40,6 +41,16 @@ describe('autoMap', function () {
 
    test ('Build array of column header names', () => {
       const queryStr = 'SELECT id as foo, trandate FROM transaction WHERE id = 1000'
+      const x = getColumns(queryStr)
+      expect(x).toEqual(['foo', 'trandate'])
+   })
+   test ('Build array of column header names Exclude comments', () => {
+      const queryStr = `SELECT id as foo, 
+                        trandate
+                        -- test
+                        /*other test*/
+                        FROM transaction
+                        WHERE id = 1000`
       const x = getColumns(queryStr)
       expect(x).toEqual(['foo', 'trandate'])
    })

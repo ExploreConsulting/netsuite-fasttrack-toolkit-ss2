@@ -93,7 +93,11 @@
      */
     function getColumns(queryStr) {
         queryStr = queryStr.toLowerCase();
-        const reg = new RegExp('(?:SELECT)\\s+(?:TOP\\s+\\d+\\s+)?([\\w\\s\\(\\).,]+)\\s+FROM', 'gi');
+        // remove comments
+        queryStr = queryStr.replace(/--.*?(\r?\n|$)/g, '');
+        // Remove multi-line comments
+        queryStr = queryStr.replace(/\/\*.*?\*\//gs, '');
+        const reg = new RegExp('(?:SELECT)\\s+(?:TOP\\s+\\d+\\s+)?([\\w\\s\\(\\).,]+)\\s+FROM', 'gim');
         const match = reg.exec(queryStr); // Get list of columns from query. Excludes TOP
         // NOTE match will be a regex array with the first element being the entire match, and the second element being the first group.
         // The first group is the list of columns. We need to split that by comma and trim each column name.
