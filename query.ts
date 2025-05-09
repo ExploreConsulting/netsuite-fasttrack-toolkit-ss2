@@ -10,6 +10,8 @@
 
 import * as query from 'N/query'
 import * as LogManager from './EC_Logger'
+import * as console from "node:console";
+import {Seq} from "immutable";
 
 /**
  * Rudimentary conversion of a NS query result to a simple flat plain javascript object. Suitable as an argument to `map()`
@@ -83,18 +85,30 @@ export function getColumns(queryStr) {
    queryStr = queryStr.toLowerCase()
 
    // remove comments
-   queryStr = queryStr.replace(/--.*?(\r?\n|$)/g, '');
+   queryStr = queryStr.replace(/--.*?(\r?\n|$)/g, '')
    // Remove multi-line comments
-   queryStr = queryStr.replace(/\/\*.*?\*\//gs, '');
+   queryStr = queryStr.replace(/\/\*.*?\*\//gs, '')
 
+   const reg = new RegExp('(?:SELECT)\\s+(?:TOP\\s+\\d+\\s+)?(.*?)(?=\\s+FROM\\s+\\w+)', 'gmi')
+   const regExcl = new RegExp('\\w+\\s*\\(.*?\\)', 'gim')
+   const extractName = new RegExp('\\(\\s*(\\w+(\\.\\w+)?)\\s*', 'gim')
 
-   const reg = new RegExp('(?:SELECT)\\s+(?:TOP\\s+\\d+\\s+)?([\\w\\s\\(\\).,]+)\\s+FROM', 'gim')
    const match = reg.exec(queryStr) // Get list of columns from query. Excludes TOP
+
    // NOTE match will be a regex array with the first element being the entire match, and the second element being the first group.
    // The first group is the list of columns. We need to split that by comma and trim each column name.
-
    if(match && match[1]) {
-      return match[1].split(',').map((col) => {
+      console.log('match', match)
+      let extractedColumnsString = match[1]
+      console.log('extractedColumnsString123', extractedColumnsString)
+      Seq(Array.from(extractedColumnsString.matchAll(regExcl))).forEach(t => {
+         let columnName: string = t[0].includes(' as ')
+             ? t[0].split(' as ')[1].trim()
+             : t[0].match(extractName)?.[0]?.replace('(', '').trim() ?? 'errorInColumnName'
+         extractedColumnsString = extractedColumnsString.replace(t[0], columnName)
+      })
+      console.log('extractedColumnsString', extractedColumnsString)
+      return extractedColumnsString.split(',').map((col) => {
          let columnName = col.trim()
          // Check for Alias first, if it exists, get the alias name. None of the other if statements mater after that.
          if (columnName.includes(' as ')) { // Get Alias: custrecord_rsm_exp_date as expdate returns expdate

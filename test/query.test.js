@@ -4,12 +4,13 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "../query"], factory);
+        define(["require", "exports", "../query", "node:console"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     const query_1 = require("../query");
+    const console = require("node:console");
     describe('nsQueryResult2obj', function () {
         function getFakeSearchResult() {
             return {
@@ -34,13 +35,25 @@
         }
         function getFakeSearchResultMRLong() {
             return {
-                value: { "types": ["INTEGER", "STRING", "DATE"], "values": [880, 'jim', '5/5/35'] }
+                value: { "types": ["INTEGER", "STRING", "DATE"], "values": [880, 'jim', '5/5/35', 'date', 'otherdate'] }
             };
         }
         test('Build array of column header names', () => {
             const queryStr = 'SELECT id as foo, trandate FROM transaction WHERE id = 1000';
             const x = (0, query_1.getColumns)(queryStr);
             expect(x).toEqual(['foo', 'trandate']);
+        });
+        test('Build array of column header names with function', () => {
+            const queryStr = `SELECT id as foo, TO_CHAR( t.TranDate, 'YYYY-MM-DD HH:MI:SS' ), TO_CHAR( test, 'YYYY-MM-DD HH:MI:SS' ) as bar FROM transaction WHERE id = 1000`;
+            const x = (0, query_1.getColumns)(queryStr);
+            console.log('x', x);
+            expect(x).toEqual(['foo', 'trandate', 'bar']);
+        });
+        test('Build array of column header names with select in select', () => {
+            const queryStr = `SELECT id as foo, (SELECT id from client where 1 = 1) as bar FROM transaction WHERE id = 1000`;
+            const x = (0, query_1.getColumns)(queryStr);
+            console.log('x', x);
+            expect(x).toEqual(['foo', 'bar']);
         });
         test('Build array of column header names Exclude comments', () => {
             const queryStr = `SELECT id as foo, 
@@ -82,13 +95,15 @@
         });
         test('Build object for search Results group operations, alias, multiple elements', () => {
             const noLabelResult = getFakeSearchResultMRLong();
-            const queryStr = 'SELECT COUNT(t.id), MAX(t.name) as foo, t.bar FROM transaction WHERE id = 1000';
+            const queryStr = `SELECT COUNT(t.id), MAX(t.name) as foo, t.bar, TO_CHAR(trandate, 'MM/YYYY'), TO_CHAR(trandate, 'MM/YYYY') as test  FROM transaction WHERE id = 1000`;
             const col = (0, query_1.getColumns)(queryStr);
             const x = (0, query_1.mapQueryMRResults)(noLabelResult.value, col);
-            expect(col).toEqual(['id', 'foo', 'bar']);
+            expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test']);
             expect(x).toHaveProperty('id', 880);
             expect(x).toHaveProperty('foo', 'jim');
             expect(x).toHaveProperty('bar', '5/5/35');
+            expect(x).toHaveProperty('trandate', 'date');
+            expect(x).toHaveProperty('test', 'otherdate');
         });
     });
 });
