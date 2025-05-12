@@ -81,6 +81,7 @@ export function mapQueryMRResults<T = {}> (r, columns: string[]): T {
  * ```
  */
 export function getColumns(queryStr) {
+   // TODO how to handle *???
    const getTop = new RegExp('TOP\\s+\\d+\\s+', 'mgi')
    queryStr = queryStr.toLowerCase().replace(getTop, '')
 

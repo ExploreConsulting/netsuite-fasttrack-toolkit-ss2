@@ -57,6 +57,12 @@ describe('autoMap', function () {
       expect(x).toEqual(['foo', 'bar'])
    })
 
+   test ('Build array of column header names with select *', () => {
+      const queryStr = `SELECT * FROM transaction WHERE id = 1000`
+      const x = getColumns(queryStr)
+      expect(x).toEqual(['foo', 'bar'])
+   })
+
    test ('Build array of column header names Exclude comments', () => {
       const queryStr = `SELECT id as foo, 
                         trandate

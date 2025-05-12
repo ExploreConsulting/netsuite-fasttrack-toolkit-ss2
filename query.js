@@ -93,6 +93,7 @@
      * ```
      */
     function getColumns(queryStr) {
+        // TODO how to handle *???
         const getTop = new RegExp('TOP\\s+\\d+\\s+', 'mgi');
         queryStr = queryStr.toLowerCase().replace(getTop, '');
         const parser = new node_sql_parser_1.Parser();

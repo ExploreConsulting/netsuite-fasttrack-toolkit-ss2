@@ -8,21 +8,21 @@
  **/
 
 import { EntryPoints } from 'N/types'
-import * as LogManager from './NFT-SS2-7.3.0/EC_Logger'
-import { ItemFulfillmentBase } from './NFT-SS2-7.3.0/DataAccess/ItemFulfillmentBase'
-import { FieldType } from './NFT-SS2-7.3.0/DataAccess/Record'
-import { AddressBase } from './NFT-SS2-7.3.0/DataAccess/AddressBase'
+import * as LogManager from './NFT-SS2-7.3.1/EC_Logger'
+import { ItemFulfillmentBase } from './NFT-SS2-7.3.1/DataAccess/ItemFulfillmentBase'
+import { FieldType } from './NFT-SS2-7.3.1/DataAccess/Record'
+import { AddressBase } from './NFT-SS2-7.3.1/DataAccess/AddressBase'
 import { Customer } from './RecordTypes/Customer'
-import { LazySearch, nsSearchResult2obj } from './NFT-SS2-7.3.0/search'
-import { LazyQuery, nsQueryResult2obj } from './NFT-SS2-7.3.0/query'
+import { LazySearch, nsSearchResult2obj } from './NFT-SS2-7.3.1/search'
+import { LazyQuery, nsQueryResult2obj } from './NFT-SS2-7.3.1/query'
 import * as search from 'N/search'
-import { Seq } from './NFT-SS2-7.3.0/immutable'
+import { Seq } from './NFT-SS2-7.3.1/immutable'
 import { VendorPayment } from './RecordTypes/VendorPayment'
-import * as _ from './NFT-SS2-7.3.0/lodash'
-import { InventoryItemBase } from './NFT-SS2-7.3.0/DataAccess/InventoryItemBase'
-import { CreditCardChargeBase } from './NFT-SS2-7.3.0/DataAccess/CreditCardChargeBase'
-import { CreditCardRefundBase } from './NFT-SS2-7.3.0/DataAccess/CreditCardRefundBase'
-import { TimeBase } from './NFT-SS2-7.3.0/DataAccess/TimeBase'
+import * as _ from './NFT-SS2-7.3.1/lodash'
+import { InventoryItemBase } from './NFT-SS2-7.3.1/DataAccess/InventoryItemBase'
+import { CreditCardChargeBase } from './NFT-SS2-7.3.1/DataAccess/CreditCardChargeBase'
+import { CreditCardRefundBase } from './NFT-SS2-7.3.1/DataAccess/CreditCardRefundBase'
+import { TimeBase } from './NFT-SS2-7.3.1/DataAccess/TimeBase'
 
 const log = LogManager.DefaultLogger
 
