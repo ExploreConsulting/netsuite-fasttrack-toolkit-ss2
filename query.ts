@@ -10,7 +10,7 @@
 
 import * as query from 'N/query'
 import * as LogManager from './EC_Logger'
-import { Parser } from 'node-sql-parser'
+import { Parser }from './mysql.umd'
 
 /**
  * Rudimentary conversion of a NS query result to a simple flat plain javascript object. Suitable as an argument to `map()`
@@ -53,12 +53,8 @@ export function nsQueryResult2obj<T = {}> (r: query.Result) {
  *
  * ```
  */
-export function mapQueryMRResults<T = {}> (r, columns: string[]): T {
-   const results = {}
-   columns.map( (v, k) => {
-      results[v] = r.values[k] ?? null
-   })
-   return results as T
+export function mapQueryMRResults< T extends readonly string[] > (r, columns: T ){
+   return Object.fromEntries(columns.map((key, index) => [key, r.values[index]]))
 }
 
 /**
@@ -80,10 +76,13 @@ export function mapQueryMRResults<T = {}> (r, columns: string[]): T {
  *
  * ```
  */
-export function getColumns(queryStr) {
-   // TODO how to handle *???
-   const getTop = new RegExp('TOP\\s+\\d+\\s+', 'mgi')
-   queryStr = queryStr.toLowerCase().replace(getTop, '')
+export function getColumns<T extends string>(queryStr: NoAsterisk<T>): string[] {
+
+   if (queryStr.includes('*')) {
+      throw new Error('getColumns() does not support * in query string')
+   }
+
+   queryStr = queryStr.toLocaleLowerCase() as NoAsterisk<T>
 
    const parser = new Parser()
    const par = parser.astify(queryStr)
@@ -94,9 +93,20 @@ export function getColumns(queryStr) {
       } else if (t.expr.type === 'aggr_func' && colName === null) {
          colName = t.expr.args.expr.column
       }
-      return colName
+
+      if(colName != null) {
+         return colName as string
+      }
    })
 }
+
+/**
+ * A type guard to ensure that the query string does not contain an asterisk (*).
+ */
+type NoAsterisk<T extends string> = T extends `${string}*${string}`
+   ? `Error: Query string cannot contain '*'`
+   : T;
+
 
 /**
  *
@@ -118,7 +128,7 @@ export class LazyQuery implements IterableIterator<query.Result> {
    /**
     * the name of the custom logger for this component for independent logging control
     */
-   static LOGNAME = 'lazy' as const
+   static LOGNAME = 'lazyquery' as const
    // logger for this module
    protected log: LogManager.Logger
 

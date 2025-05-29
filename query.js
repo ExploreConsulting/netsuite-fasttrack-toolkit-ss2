@@ -13,7 +13,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/query", "./EC_Logger", "node-sql-parser"], factory);
+        define(["require", "exports", "N/query", "./EC_Logger", "./mysql.umd"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -24,7 +24,7 @@
     exports.getColumns = getColumns;
     const query = require("N/query");
     const LogManager = require("./EC_Logger");
-    const node_sql_parser_1 = require("node-sql-parser");
+    const mysql_umd_1 = require("./mysql.umd");
     /**
      * Rudimentary conversion of a NS query result to a simple flat plain javascript object. Suitable as an argument to `map()`
      * @param r the query result to process
@@ -66,12 +66,7 @@
      * ```
      */
     function mapQueryMRResults(r, columns) {
-        const results = {};
-        columns.map((v, k) => {
-            var _a;
-            results[v] = (_a = r.values[k]) !== null && _a !== void 0 ? _a : null;
-        });
-        return results;
+        return Object.fromEntries(columns.map((key, index) => [key, r.values[index]]));
     }
     /**
      * Extracts the column names from a SuiteQL query string.
@@ -93,10 +88,11 @@
      * ```
      */
     function getColumns(queryStr) {
-        // TODO how to handle *???
-        const getTop = new RegExp('TOP\\s+\\d+\\s+', 'mgi');
-        queryStr = queryStr.toLowerCase().replace(getTop, '');
-        const parser = new node_sql_parser_1.Parser();
+        if (queryStr.includes('*')) {
+            throw new Error('getColumns() does not support * in query string');
+        }
+        queryStr = queryStr.toLocaleLowerCase();
+        const parser = new mysql_umd_1.Parser();
         const par = parser.astify(queryStr);
         return par['columns'].map(t => {
             var _a, _b;
@@ -107,7 +103,9 @@
             else if (t.expr.type === 'aggr_func' && colName === null) {
                 colName = t.expr.args.expr.column;
             }
-            return colName;
+            if (colName != null) {
+                return colName;
+            }
         });
     }
     /**
@@ -214,5 +212,5 @@
     /**
      * the name of the custom logger for this component for independent logging control
      */
-    LazyQuery.LOGNAME = 'lazy';
+    LazyQuery.LOGNAME = 'lazyquery';
 });

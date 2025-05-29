@@ -9,10 +9,12 @@
         <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RecordTypes/VendorPayment.js</path>
         <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RSM_Slt_NFT_Integ_Test.ts</path>
         <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RSM_Slt_NFT_Integ_Test.js</path>
+        <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RSM_MR_QueryAutoMapTest.ts</path>
+        <path>~/FileCabinet/SuiteScripts/NFT_Integration_Test/RSM_MR_QueryAutoMapTest.js</path>
     </files>
-    <objects>
-        <path>~/Objects/customscript_rsm_slt_nft_integ.xml</path>
-    </objects>
+<!--    <objects>-->
+<!--        <path>~/Objects/customscript_rsm_slt_nft_integ.xml</path>-->
+<!--    </objects>-->
 <!--    <translationimports>-->
 <!--        <path>~/Translations/*</path>-->
 <!--    </translationimports>-->
