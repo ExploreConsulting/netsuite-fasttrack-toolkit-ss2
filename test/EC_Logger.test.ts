@@ -1,4 +1,5 @@
 import * as LogManager from '../EC_Logger'
+import { autolog } from '../EC_Logger'
 
 // spy on all console.debug() calls
 const fakedebug = jest.spyOn(console, 'debug')
@@ -47,53 +48,56 @@ describe('basic logger tests', () => {
 
    describe('AutoLogging', () => {
 
-      // an object with a method, for which we'll autolog invocations
-      function getTarget() {
-         return {
-            dummy: function(arg:number) { return arg }
-         }
-      }
-
-      it('should autolog arguments and return value', () => {
-         const X = getTarget()
-         LogManager.autoLogMethodEntryExit({target:X, method: 'dummy'})
+      it('should autolog a function on an object; arguments and return value', () => {
+         const X = { dummy: autolog( function dummy(arg:number) { return arg }) }
 
          // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
          X.dummy(4)
 
-         expect(fakedebug).toBeCalledTimes(2)
+         expect(fakedebug).toHaveBeenCalledTimes(2)
+         expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', [4])
+         expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined',4)
+      })
+
+      it('should autolog a plain function expression; arguments and return value', () => {
+         // note the function passed to autolog() must be named, otherwise the log will not show the function name
+         const dummy = autolog( function dummy(arg:number) { return arg })
+
+         // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
+         dummy(4)
+
+         expect(fakedebug).toHaveBeenCalledTimes(2)
          expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', [4])
          expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined',4)
       })
 
       it('should autolog method timing', () => {
-         const X = getTarget()
+         const dummy = autolog(function dummy(arg:number) { return arg }, { withProfiling:true })
          const fakedebug = jest.spyOn(console, 'debug')
 
-         LogManager.autoLogMethodEntryExit({target:X, method: 'dummy'}, { withProfiling:true})
 
          // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
-         X.dummy(4)
+         dummy(4)
 
-         expect(fakedebug).toBeCalledTimes(2)
+         expect(fakedebug).toHaveBeenCalledTimes(2)
          expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', [4])
          expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy(): 0ms = 0.00 minutes undefined',4)
       })
 
       it('should autolog for class methods', () => {
-         expect(fakedebug).not.toBeCalled()
+         expect(fakedebug).not.toHaveBeenCalled()
          class A {
             dummy (arg:number) { return arg }
          }
          // it should log for method calls on an instance of that class.
          const a = new A()
-         // if you pass a class
-         LogManager.autoLogMethodEntryExit({target:A, method: /\w+/})
+         // replace the dummy method with an autologged version
+         a.dummy = autolog(a.dummy)
 
          // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
          a.dummy(4)
 
-         expect(fakedebug).toBeCalledTimes(2)
+         expect(fakedebug).toHaveBeenCalledTimes(2)
          expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', [4])
          expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined',4)
       })

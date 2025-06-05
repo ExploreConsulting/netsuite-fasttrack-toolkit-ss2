@@ -18,7 +18,6 @@
 import { addAppender, Appender, clearAppenders, getLogger, Logger, logLevel } from './aurelia-logging'
 import * as nslog from 'N/log'
 import * as runtime from 'N/runtime'
-import * as aop from './aop'
 
 export {
    logLevel,
@@ -190,62 +189,56 @@ function findKey (object, predicate) {
  * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
  * as described below.
  *
- * @param methodsToLogEntryExit array of pointcuts
- * @param {Object} config configuration settings
- * @param {Boolean} [config.withArgs] true if you want to include logging the arguments passed to the method in the
+ * @param fn the function to embellish with logging. This can be a method on an object or a standalone function.
+ * @param config configuration settings
+ * @param [config.withArgs] true if you want to include logging the arguments passed to the method in the
  * details. Default is true.
- * @param {Boolean} [config.withReturnValue] true if you want function return values to be logged
- * @param {Boolean} [config.withProfiling] set true if you want elapsed time info printed for each function
- * @param {Boolean} [config.withGovernance] set true if you want remaining governance units info printed for
+ * @param [config.withReturnValue] true if you want function return values to be logged
+ * @param [config.withProfiling] set true if you want elapsed time info printed for each function
+ * @param [config.withGovernance] set true if you want remaining governance units info printed for
  * each function
  * false. Colors not configurable so that we maintain consistency across all our scripts.
  * @param {number} [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
- * @returns {} an array of jquery aop advices
+ * @returns an function matching the signature of the original passed function `fn`
  *
- * @example log all methods on the object `X`
+ * @example auto log a helper function `foo()`
  * ```
- * namespace X {
- *   export onRequest() {
- *     log.debug('hello world')
- *   }
- * }
- * LogManager.autoLogMethodEntryExit({ target:X, method:/\w+/})
- *
+ * const foo = autolog(function foo (arg1, arg2) {
+ *   log.debug('hello world')
+ *   })
  * ```
  * The above results in automatic log entries similar to:
  *
  * |Log Title   | Detail |
  * |--------|--------|
- |Enter onRequest()| args:[] |
+ |Enter foo()| args:[] |
  |hello world |   |
- |Exit onRequest() | returned: undefined |
+ |Exit foo() | returned: undefined |
  */
-export function autoLogMethodEntryExit (methodsToLogEntryExit: { target: Object, method: string | RegExp },
-                                        config?: AutoLogConfig) {
-
+export function autolog<T extends (...args: any[]) => any> (fn: T, config?: AutoLogConfig): T {
    if (!config) config = {}
    // include method parameters by default
-   const withArgs = config.withArgs !== false
+   const withArgs = config.withArgs ?? true
    // include return values by default
-   const withReturnValue = config.withReturnValue !== false
+   const withReturnValue = config.withReturnValue ?? true
    // default to not show profiling info
-   const withProfiling = config.withProfiling === true
+   const withProfiling = config.withProfiling ?? false
    // default to not show governance info
-   const withGovernance = config.withGovernance === true
+   const withGovernance = config.withGovernance ?? false
    // logger name on which to autolog, default to the top level 'Default' logger used by scripts
    const logger = config.logger || DefaultLogger
    // logging level specified in config else default to debug. need to translate from number loglevels back to names
    const level = findKey(logLevel, o => o === (config!.logLevel || logLevel.debug))!
 
-   return aop.around(methodsToLogEntryExit, function (invocation) {
+   return function (...args: Parameters<T>): ReturnType<T> {
       // record function entry with details for every method on our explore object
-      const entryTitle = `Enter ${invocation.method}() ${getGovernanceMessage(withGovernance)}`
-      const entryDetail = withArgs ? arguments[0].arguments : null
+      const entryTitle = `Enter ${fn.name}() ${getGovernanceMessage(withGovernance)}`
+      const entryDetail = withArgs ? args : null
 
       logger[level](entryTitle, entryDetail)
 
       const startTime = Date.now()
-      const retval = invocation.proceed()
+      const retval = fn(...args)
       let elapsedMessage = ''
       if (withProfiling) {
          const elapsedMilliseconds = Date.now() - startTime
@@ -253,15 +246,16 @@ export function autoLogMethodEntryExit (methodsToLogEntryExit: { target: Object,
          elapsedMessage = `${elapsedMilliseconds}ms = ${elapsedMinutes} minutes`
       }
 
-      const exitTitle = `Exit ${invocation.method}(): ${elapsedMessage} ${getGovernanceMessage(withGovernance)}`
+      const exitTitle = `Exit ${fn.name}(): ${elapsedMessage} ${getGovernanceMessage(withGovernance)}`
       const exitDetail = withReturnValue ? retval : null
       logger[level](exitTitle, exitDetail)
       return retval
-   })
+   } as T
 }
 
 /**
- * Configuration options for AutoLogMethodEntryExit
+ * Configuration options for the autologging feature. These options are optional
+ * and can be passed to the autolog() function to customize the logging behavior.
  */
 export interface AutoLogConfig {
    /**
