@@ -4,13 +4,14 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./aurelia-logging", "N/log", "N/runtime", "./aurelia-logging"], factory);
+        define(["require", "exports", "./aurelia-logging", "N/log", "N/runtime", "node:console", "./aurelia-logging"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.setCorrelationId = exports.DefaultLogger = exports.ExecutionLogAppender = exports.setIncludeCorrelationId = exports.includeCorrelationId = exports.correlationId = exports.removeCustomLevel = exports.setLevel = exports.getLevel = exports.addCustomLevel = exports.removeAppender = exports.getLogger = exports.addAppender = exports.clearAppenders = exports.getAppenders = exports.Logger = exports.logLevel = void 0;
     exports.autolog = autolog;
+    exports.autoLogMethodEntryExit = autoLogMethodEntryExit;
     /**
      *
      * Provides a rich logging facility with more control and flexibility than the native NetSuite logger.
@@ -31,6 +32,7 @@
     const aurelia_logging_1 = require("./aurelia-logging");
     const nslog = require("N/log");
     const runtime = require("N/runtime");
+    const console = require("node:console");
     var aurelia_logging_2 = require("./aurelia-logging");
     Object.defineProperty(exports, "logLevel", { enumerable: true, get: function () { return aurelia_logging_2.logLevel; } });
     Object.defineProperty(exports, "Logger", { enumerable: true, get: function () { return aurelia_logging_2.Logger; } });
@@ -248,6 +250,34 @@
             logger[level](exitTitle, exitDetail);
             return retval;
         };
+    }
+    function autoLogMethodEntryExit(methodsToLogEntryExit, config) {
+        const { target, method } = methodsToLogEntryExit;
+        console.log(`Auto logging methods on target: ${target} with method: ${method}`);
+        // Helper to wrap methods on a given object
+        function wrapMethods(obj) {
+            if (typeof method === 'string') {
+                const original = obj[method];
+                if (typeof original === 'function') {
+                    obj[method] = autolog(original, config);
+                }
+            }
+            else if (method instanceof RegExp) {
+                for (const key of Object.keys(obj)) {
+                    if (method.test(key) && typeof obj[key] === 'function') {
+                        obj[key] = autolog(obj[key], config);
+                    }
+                }
+            }
+        }
+        // If target is a class (constructor function), wrap methods on its prototype
+        if (typeof target === 'function' && target.prototype) {
+            wrapMethods(target.prototype);
+        }
+        else {
+            // Otherwise, wrap methods directly on the object instance
+            wrapMethods(target);
+        }
     }
     /**
      * The default logger - this should be the main top level logger used in scripts
