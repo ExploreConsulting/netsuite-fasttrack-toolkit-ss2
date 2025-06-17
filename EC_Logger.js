@@ -200,9 +200,9 @@
      * each function
      * false. Colors not configurable so that we maintain consistency across all our scripts.
      * @param {number} [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
-     * @returns an function matching the signature of the original passed function `fn`
+     * @returns a function matching the signature of the original passed function `fn` so it can be used exactly like the original function.
      *
-     * @example auto log a helper function `foo()`
+     * @example automatically do logging for a helper function named `foo()`
      * ```
      * const foo = autolog(function foo (arg1, arg2) {
      *   log.debug('hello world')
