@@ -232,6 +232,7 @@
         const logger = config.logger || exports.DefaultLogger;
         // logging level specified in config else default to debug. need to translate from number loglevels back to names
         const level = findKey(aurelia_logging_1.logLevel, o => o === (config.logLevel || aurelia_logging_1.logLevel.debug));
+        console.log('fn', fn);
         return function (...args) {
             // record function entry with details for every method on our explore object
             const entryTitle = `Enter ${fn.name}() ${getGovernanceMessage(withGovernance)}`;
@@ -254,34 +255,25 @@
     function autoLogMethodEntryExit(methodsToLogEntryExit, config) {
         const { target, method } = methodsToLogEntryExit;
         console.log('AutoLogMethodEntryExit called with target:', target, 'and method:', method);
-        // Helper to wrap methods on a given object
-        function wrapMethods(obj) {
-            console.log('Wrapping methods for object:', obj);
-            if (typeof method === 'string') {
-                const original = obj[method];
-                console.log('original:', original);
-                if (typeof original === 'function') {
-                    obj[method] = autolog(original, config);
-                }
-            }
-            else if (method instanceof RegExp) {
-                for (const key of Object.keys(obj)) {
-                    console.log('Checking method2:', key);
-                    if (method.test(key) && typeof obj[key] === 'function') {
-                        obj[key] = autolog(obj[key], config);
-                    }
-                }
-            }
-        }
         console.log('TypeOf target:', typeof target);
-        console.log('Target:', target.constructor);
-        // If target is a class (constructor function), wrap methods on its prototype
-        if (typeof target === 'function' && target.constructor) {
-            wrapMethods(target.constructor);
+        console.log('Target:', target);
+        const temp = Object.getOwnPropertyNames(Object.getPrototypeOf(target));
+        target[temp[1]] = autolog(Object.getPrototypeOf(target)[temp[1]], config);
+        if (typeof method === 'string') {
+            const original = target[method];
+            console.log('original:', original);
+            if (typeof original === 'function') {
+                target[method] = autolog(original, config);
+            }
         }
-        else {
-            // Otherwise, wrap methods directly on the object instance
-            wrapMethods(target.constructor);
+        else if (method instanceof RegExp) {
+            console.log('tes', typeof target);
+            for (const key of Object.keys(target)) {
+                console.log('Checking method2:', key);
+                if (method.test(key) && typeof target[key] === 'function') {
+                    target[key] = autolog(target[key], config);
+                }
+            }
         }
     }
     /**
