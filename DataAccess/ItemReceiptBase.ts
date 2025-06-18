@@ -6,11 +6,15 @@ import { FieldType } from './Record'
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
+import { LandedCostBase } from './LandedCostlBase'
 
 /**
  * Item Receipt Items (item) sublist
  */
 export class ItemSublist extends SublistLine {
+
+   @SublistFieldType.subrecord(LandedCostBase)
+   landedcost: LandedCostBase
 
    @SublistFieldType.freeformtext
    class:string

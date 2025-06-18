@@ -13,7 +13,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./Record", "N/record", "./Transaction", "./Sublist"], factory);
+        define(["require", "exports", "./Record", "N/record", "./Transaction", "./Sublist", "./LandedCostlBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -23,12 +23,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const record = require("N/record");
     const Transaction_1 = require("./Transaction");
     const Sublist_1 = require("./Sublist");
+    const LandedCostlBase_1 = require("./LandedCostlBase");
     /**
      * Item Receipt Items (item) sublist
      */
     class ItemSublist extends Sublist_1.SublistLine {
     }
     exports.ItemSublist = ItemSublist;
+    __decorate([
+        Sublist_1.SublistFieldType.subrecord(LandedCostlBase_1.LandedCostBase)
+    ], ItemSublist.prototype, "landedcost", void 0);
     __decorate([
         Sublist_1.SublistFieldType.freeformtext
     ], ItemSublist.prototype, "class", void 0);
