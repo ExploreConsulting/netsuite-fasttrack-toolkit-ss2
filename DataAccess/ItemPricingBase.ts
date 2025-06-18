@@ -1,5 +1,6 @@
 import { NetsuiteRecord, FieldType } from './Record'
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
+import * as record from 'N/record'
 
 export class DiscountSublist extends SublistLine {
 	@SublistFieldType.freeformtext
@@ -19,6 +20,8 @@ export class DiscountSublist extends SublistLine {
 }
 
 export class ItemPricingBase extends NetsuiteRecord {
+
+	static recordType() { return 'itempricing' }
 
 	@FieldType.select
 	calculatequantitydiscounts: string | undefined

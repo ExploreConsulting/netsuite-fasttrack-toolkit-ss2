@@ -37,6 +37,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         Sublist_1.SublistFieldType.decimalnumber
     ], DiscountSublist.prototype, "rate", void 0);
     class ItemPricingBase extends Record_1.NetsuiteRecord {
+        static recordType() { return 'itempricing'; }
     }
     exports.ItemPricingBase = ItemPricingBase;
     __decorate([
