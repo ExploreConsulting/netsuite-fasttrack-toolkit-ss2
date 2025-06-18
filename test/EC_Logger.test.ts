@@ -147,7 +147,7 @@ describe('basic logger tests', () => {
          // it should log for method calls on an instance of that class.
          const a = new A()
          // if you pass a class
-         LogManager.autoLogMethodEntryExit({target:a.dummy, method: /\w+/})
+         LogManager.autoLogMethodEntryExit({target:a, method: /\w+/})
 
          // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
          a.dummy(4)

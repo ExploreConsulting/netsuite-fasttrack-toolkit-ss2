@@ -281,13 +281,13 @@ export function autoLogMethodEntryExit (methodsToLogEntryExit: {
 	}
 
 	console.log('TypeOf target:', typeof target)
-	console.log('Target:', target['dummy'])
+	console.log('Target:', target.constructor)
 	// If target is a class (constructor function), wrap methods on its prototype
-	if (typeof target === 'function' && target) {
-		wrapMethods(target)
+	if (typeof target === 'function' && target.constructor) {
+		wrapMethods(target.constructor)
 	} else {
 		// Otherwise, wrap methods directly on the object instance
-		wrapMethods(target)
+		wrapMethods(target.constructor)
 	}
 }
 
