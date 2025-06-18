@@ -253,26 +253,31 @@
     }
     function autoLogMethodEntryExit(methodsToLogEntryExit, config) {
         const { target, method } = methodsToLogEntryExit;
-        console.log(`Auto logging methods on target: ${target} with method: ${method}`);
+        console.log('AutoLogMethodEntryExit called with target:', target, 'and method:', method);
         // Helper to wrap methods on a given object
         function wrapMethods(obj) {
+            console.log('Wrapping methods for object:', obj);
             if (typeof method === 'string') {
                 const original = obj[method];
+                console.log('original:', original);
                 if (typeof original === 'function') {
                     obj[method] = autolog(original, config);
                 }
             }
             else if (method instanceof RegExp) {
                 for (const key of Object.keys(obj)) {
+                    console.log('Checking method2:', key);
                     if (method.test(key) && typeof obj[key] === 'function') {
                         obj[key] = autolog(obj[key], config);
                     }
                 }
             }
         }
+        console.log('TypeOf target:', typeof target);
+        console.log('Target:', target['dummy']);
         // If target is a class (constructor function), wrap methods on its prototype
-        if (typeof target === 'function' && target.prototype) {
-            wrapMethods(target.prototype);
+        if (typeof target === 'function' && target) {
+            wrapMethods(target);
         }
         else {
             // Otherwise, wrap methods directly on the object instance

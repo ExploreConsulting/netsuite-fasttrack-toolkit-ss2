@@ -125,7 +125,7 @@ describe('basic logger tests', () => {
          expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined',5)
       })
 
-      it('should autolog method timing', () => {
+      it('should autolog method timing BackwardsComp', () => {
          const X = getTarget()
          const fakedebug = jest.spyOn(console, 'debug')
 
@@ -139,15 +139,15 @@ describe('basic logger tests', () => {
          expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy(): 0ms = 0.00 minutes undefined',4)
       })
 
-      it('should autolog for class methods', () => {
-         expect(fakedebug).not.toBeCalled()
+      it('should autolog for class methods BackwardsComp', () => {
+         expect(fakedebug).not.toHaveBeenCalled()
          class A {
             dummy (arg:number) { return arg }
          }
          // it should log for method calls on an instance of that class.
          const a = new A()
          // if you pass a class
-         LogManager.autoLogMethodEntryExit({target:A, method: /\w+/})
+         LogManager.autoLogMethodEntryExit({target:a.dummy, method: /\w+/})
 
          // when invoked, by default should automatically log 'Entry' and 'Exit' lines describing the invocation
          a.dummy(4)

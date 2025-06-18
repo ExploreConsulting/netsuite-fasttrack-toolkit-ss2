@@ -254,31 +254,40 @@ export function autolog<T extends (...args: any[]) => any> (fn: T, config?: Auto
 	} as T
 }
 
-export function autoLogMethodEntryExit (methodsToLogEntryExit: { target: Object, method: string | RegExp }, config?: AutoLogConfig) {
-	const { target, method } = methodsToLogEntryExit;
-	console.log(`Auto logging methods on target: ${target} with method: ${method}`)
+export function autoLogMethodEntryExit (methodsToLogEntryExit: {
+	target: Object,
+	method: string | RegExp
+}, config?: AutoLogConfig) {
+	const { target, method } = methodsToLogEntryExit
+	console.log('AutoLogMethodEntryExit called with target:', target, 'and method:', method)
+
 	// Helper to wrap methods on a given object
-	function wrapMethods(obj: any) {
+	function wrapMethods (obj: any) {
+		console.log('Wrapping methods for object:', obj)
 		if (typeof method === 'string') {
-			const original = obj[method];
+			const original = obj[method]
+			console.log('original:', original)
 			if (typeof original === 'function') {
-				obj[method] = autolog(original, config);
+				obj[method] = autolog(original, config)
 			}
 		} else if (method instanceof RegExp) {
 			for (const key of Object.keys(obj)) {
+				console.log('Checking method2:', key)
 				if (method.test(key) && typeof obj[key] === 'function') {
-					obj[key] = autolog(obj[key], config);
+					obj[key] = autolog(obj[key], config)
 				}
 			}
 		}
 	}
 
+	console.log('TypeOf target:', typeof target)
+	console.log('Target:', target['dummy'])
 	// If target is a class (constructor function), wrap methods on its prototype
-	if (typeof target === 'function' && target.prototype) {
-		wrapMethods(target.prototype);
+	if (typeof target === 'function' && target) {
+		wrapMethods(target)
 	} else {
 		// Otherwise, wrap methods directly on the object instance
-		wrapMethods(target);
+		wrapMethods(target)
 	}
 }
 
