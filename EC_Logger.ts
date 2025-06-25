@@ -265,6 +265,7 @@ export function autoLogMethodEntryExit (methodsToLogEntryExit: {
 	console.log('Target:', target)
 
 	const temp = Object.getOwnPropertyNames(Object.getPrototypeOf(target))
+	console.log('TypeOfTarget:', typeof target[temp[1]])
 	target[temp[1]] = autolog(Object.getPrototypeOf(target)[temp[1]], config)
 
 

@@ -258,6 +258,7 @@
         console.log('TypeOf target:', typeof target);
         console.log('Target:', target);
         const temp = Object.getOwnPropertyNames(Object.getPrototypeOf(target));
+        console.log('TypeOfTarget:', typeof target[temp[1]]);
         target[temp[1]] = autolog(Object.getPrototypeOf(target)[temp[1]], config);
         if (typeof method === 'string') {
             const original = target[method];
