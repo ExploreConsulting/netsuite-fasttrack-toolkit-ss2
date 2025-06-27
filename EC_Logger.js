@@ -254,12 +254,6 @@
     }
     function autoLogMethodEntryExit(methodsToLogEntryExit, config) {
         const { target, method } = methodsToLogEntryExit;
-        console.log('AutoLogMethodEntryExit called with target:', target, 'and method:', method);
-        console.log('TypeOf target:', typeof target);
-        console.log('Target:', target);
-        const temp = Object.getOwnPropertyNames(Object.getPrototypeOf(target));
-        console.log('TypeOfTarget:', typeof target[temp[1]]);
-        target[temp[1]] = autolog(Object.getPrototypeOf(target)[temp[1]], config);
         if (typeof method === 'string') {
             const original = target[method];
             console.log('original:', original);
@@ -268,11 +262,22 @@
             }
         }
         else if (method instanceof RegExp) {
-            console.log('tes', typeof target);
-            for (const key of Object.keys(target)) {
-                console.log('Checking method2:', key);
-                if (method.test(key) && typeof target[key] === 'function') {
-                    target[key] = autolog(target[key], config);
+            if (Object.getPrototypeOf(target) === Object.prototype) {
+                console.log('tes', typeof target);
+                for (const key of Object.keys(target)) {
+                    console.log('Checking method2:', key);
+                    if (method.test(key) && typeof target[key] === 'function') {
+                        target[key] = autolog(target[key], config);
+                    }
+                }
+            }
+            else { // Todo make sure that this is a class, what happens if it's not a class?
+                console.log('Not Namespace');
+                for (const key of Object.getOwnPropertyNames(Object.getPrototypeOf(target)).filter(name => name !== 'constructor')) {
+                    console.log('Checking method:', key);
+                    if (method.test(key) && typeof target[key] === 'function') {
+                        target[key] = autolog(target[key], config);
+                    }
                 }
             }
         }

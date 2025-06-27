@@ -143,7 +143,6 @@ describe('basic logger tests', () => {
          expect(fakedebug).not.toHaveBeenCalled()
          class A {
             dummy (arg:number) { return arg }
-            dummy2 (arg:number) { return arg }
          }
          // it should log for method calls on an instance of that class.
          const a = new A()

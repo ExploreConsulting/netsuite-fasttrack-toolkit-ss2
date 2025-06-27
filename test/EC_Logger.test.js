@@ -118,7 +118,6 @@
                 expect(fakedebug).not.toHaveBeenCalled();
                 class A {
                     dummy(arg) { return arg; }
-                    dummy2(arg) { return arg; }
                 }
                 // it should log for method calls on an instance of that class.
                 const a = new A();
