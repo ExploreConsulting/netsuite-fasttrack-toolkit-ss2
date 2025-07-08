@@ -275,7 +275,7 @@ export function autoLogMethodEntryExit (methodsToLogEntryExit: {
                target[key] = autolog(target[key], config)
             }
          }
-      } else { // Todo make sure that this is a class, what happens if it's not a class?
+      } else {
          console.log('Not Namespace')
          for (const key of Object.getOwnPropertyNames(Object.getPrototypeOf(target)).filter(name => name !== 'constructor')) {
             console.log('Checking method:', key)
