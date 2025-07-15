@@ -10,7 +10,7 @@
 
 import * as query from 'N/query'
 import * as LogManager from './EC_Logger'
-import { Parser }from './mysql.umd'
+import { Parser }from './transactsql.umd'
 
 /**
  * Rudimentary conversion of a NS query result to a simple flat plain javascript object. Suitable as an argument to `map()`
@@ -83,6 +83,8 @@ export function getColumns<T extends string>(queryStr: NoAsterisk<T>): string[] 
    }
 
    queryStr = queryStr.toLocaleLowerCase() as NoAsterisk<T>
+   //Remove ? from query string to avoid issues with the parser
+   queryStr = queryStr.replace('?','1') as NoAsterisk<T>
 
    const parser = new Parser()
    const par = parser.astify(queryStr)

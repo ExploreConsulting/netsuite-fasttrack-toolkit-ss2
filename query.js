@@ -13,7 +13,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "N/query", "./EC_Logger", "./mysql.umd"], factory);
+        define(["require", "exports", "N/query", "./EC_Logger", "./transactsql.umd"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -24,7 +24,7 @@
     exports.getColumns = getColumns;
     const query = require("N/query");
     const LogManager = require("./EC_Logger");
-    const mysql_umd_1 = require("./mysql.umd");
+    const transactsql_umd_1 = require("./transactsql.umd");
     /**
      * Rudimentary conversion of a NS query result to a simple flat plain javascript object. Suitable as an argument to `map()`
      * @param r the query result to process
@@ -92,7 +92,9 @@
             throw new Error('getColumns() does not support * in query string');
         }
         queryStr = queryStr.toLocaleLowerCase();
-        const parser = new mysql_umd_1.Parser();
+        //Remove ? from query string to avoid issues with the parser
+        queryStr = queryStr.replace('?', '1');
+        const parser = new transactsql_umd_1.Parser();
         const par = parser.astify(queryStr);
         return par['columns'].map(t => {
             var _a, _b;
