@@ -185,6 +185,7 @@ function findKey (object, predicate) {
    return result
 }
 
+// TODO Update the JSDoc
 /**
  * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
  * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
@@ -230,7 +231,6 @@ export function autolog<T extends (...args: any[]) => any> (fn: T, config?: Auto
    const logger = config.logger || DefaultLogger
    // logging level specified in config else default to debug. need to translate from number loglevels back to names
    const level = findKey(logLevel, o => o === (config!.logLevel || logLevel.debug))!
-   console.log('fn', fn)
    return function (...args: Parameters<T>): ReturnType<T> {
       // record function entry with details for every method on our explore object
       const entryTitle = `Enter ${fn.name}() ${getGovernanceMessage(withGovernance)}`
@@ -254,6 +254,42 @@ export function autolog<T extends (...args: any[]) => any> (fn: T, config?: Auto
    } as T
 }
 
+// TODO Update the JSDoc
+/**
+ * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
+ * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
+ * as described below.
+ *
+ * @param methodsToLogEntryExit array of pointcuts
+ * @param {Object} config configuration settings
+ * @param {Boolean} [config.withArgs] true if you want to include logging the arguments passed to the method in the
+ * details. Default is true.
+ * @param {Boolean} [config.withReturnValue] true if you want function return values to be logged
+ * @param {Boolean} [config.withProfiling] set true if you want elapsed time info printed for each function
+ * @param {Boolean} [config.withGovernance] set true if you want remaining governance units info printed for
+ * each function
+ * false. Colors not configurable so that we maintain consistency across all our scripts.
+ * @param {number} [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
+ * @returns {} an array of jquery aop advices
+ *
+ * @example log all methods on the object `X`
+ * ```
+ * namespace X {
+ *   export onRequest() {
+ *     log.debug('hello world')
+ *   }
+ * }
+ * LogManager.autoLogMethodEntryExit({ target:X, method:/\w+/})
+ *
+ * ```
+ * The above results in automatic log entries similar to:
+ *
+ * |Log Title   | Detail |
+ * |--------|--------|
+ |Enter onRequest()| args:[] |
+ |hello world |   |
+ |Exit onRequest() | returned: undefined |
+ */
 export function autoLogMethodEntryExit (methodsToLogEntryExit: {
    target: Object,
    method: string | RegExp
@@ -262,23 +298,18 @@ export function autoLogMethodEntryExit (methodsToLogEntryExit: {
 
    if (typeof method === 'string') {
       const original = target[method]
-      console.log('original:', original)
       if (typeof original === 'function') {
          target[method] = autolog(original, config)
       }
    } else if (method instanceof RegExp) {
       if (Object.getPrototypeOf(target) === Object.prototype) {
-         console.log('tes', typeof target)
          for (const key of Object.keys(target)) {
-            console.log('Checking method2:', key)
             if (method.test(key) && typeof target[key] === 'function') {
                target[key] = autolog(target[key], config)
             }
          }
       } else {
-         console.log('Not Namespace')
          for (const key of Object.getOwnPropertyNames(Object.getPrototypeOf(target)).filter(name => name !== 'constructor')) {
-            console.log('Checking method:', key)
             if (method.test(key) && typeof target[key] === 'function') {
                target[key] = autolog(target[key], config)
             }
