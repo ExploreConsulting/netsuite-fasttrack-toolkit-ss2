@@ -15,44 +15,44 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.BillingRevenueEvent = void 0;
+    exports.BillingRevenueEventBase = void 0;
     const Record_1 = require("./Record");
     const record = require("N/record");
     /**
      * NetSuite Billing Revenue Event Record type with custom fields.
      */
-    class BillingRevenueEvent extends Record_1.NetsuiteRecord {
+    class BillingRevenueEventBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.BILLING_REVENUE_EVENT; }
     }
-    exports.BillingRevenueEvent = BillingRevenueEvent;
+    exports.BillingRevenueEventBase = BillingRevenueEventBase;
     __decorate([
         Record_1.FieldType.select
-    ], BillingRevenueEvent.prototype, "transactionline", void 0);
+    ], BillingRevenueEventBase.prototype, "transactionline", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], BillingRevenueEvent.prototype, "transactionlineText", void 0);
+    ], BillingRevenueEventBase.prototype, "transactionlineText", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], BillingRevenueEvent.prototype, "projectrevenuerule", void 0);
+    ], BillingRevenueEventBase.prototype, "projectrevenuerule", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], BillingRevenueEvent.prototype, "eventtype", void 0);
+    ], BillingRevenueEventBase.prototype, "eventtype", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], BillingRevenueEvent.prototype, "eventtypeText", void 0);
+    ], BillingRevenueEventBase.prototype, "eventtypeText", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], BillingRevenueEvent.prototype, "eventpurpose", void 0);
+    ], BillingRevenueEventBase.prototype, "eventpurpose", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], BillingRevenueEvent.prototype, "eventpurposeText", void 0);
+    ], BillingRevenueEventBase.prototype, "eventpurposeText", void 0);
     __decorate([
         Record_1.FieldType.date
-    ], BillingRevenueEvent.prototype, "eventdate", void 0);
+    ], BillingRevenueEventBase.prototype, "eventdate", void 0);
     __decorate([
         Record_1.FieldType.decimalnumber
-    ], BillingRevenueEvent.prototype, "quantity", void 0);
+    ], BillingRevenueEventBase.prototype, "quantity", void 0);
     __decorate([
         Record_1.FieldType.decimalnumber
-    ], BillingRevenueEvent.prototype, "amount", void 0);
+    ], BillingRevenueEventBase.prototype, "amount", void 0);
 });

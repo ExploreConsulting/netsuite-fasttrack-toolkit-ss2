@@ -4,7 +4,7 @@ import * as record from 'N/record'
 /**
  * NetSuite Billing Revenue Event Record type with custom fields.
  */
-export class BillingRevenueEvent extends NetsuiteRecord {
+export class BillingRevenueEventBase extends NetsuiteRecord {
 
 	static override recordType () { return record.Type.BILLING_REVENUE_EVENT }
 
