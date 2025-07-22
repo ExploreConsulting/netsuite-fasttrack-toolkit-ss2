@@ -39,4 +39,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         static recordType() { return 'landedcost'; }
     }
     exports.LandedCostBase = LandedCostBase;
+    __decorate([
+        Record_1.FieldType.sublist(LandedCostDataSublist)
+    ], LandedCostBase.prototype, "landedcostdata", void 0);
 });

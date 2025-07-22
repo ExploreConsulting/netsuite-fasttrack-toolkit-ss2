@@ -1,7 +1,7 @@
 /**
  * NS Base Landed Cost subrecord contains definitions for the built in fields
  */
-import { NetsuiteRecord } from './Record'
+import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
 import { Sublist, SublistLine, SublistFieldType } from './Sublist'
 
@@ -20,7 +20,9 @@ export class LandedCostDataSublist extends SublistLine {
  * to the constructor.
  */
 export class LandedCostBase extends NetsuiteRecord {
+
 	static recordType () { return 'landedcost' }
 
+	@FieldType.sublist(LandedCostDataSublist)
 	landedcostdata: Sublist<LandedCostDataSublist>
 }
