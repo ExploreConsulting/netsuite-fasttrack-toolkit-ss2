@@ -2,7 +2,7 @@ import { NetsuiteRecord, FieldType } from './Record'
 import * as record from 'N/record'
 
 /**
- * NetSuite Cash Refund Record type with custom fields.
+ * NetSuite Billing Revenue Event Record type with custom fields.
  */
 export class BillingRevenueEvent extends NetsuiteRecord {
 

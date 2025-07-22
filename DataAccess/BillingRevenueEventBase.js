@@ -19,7 +19,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const Record_1 = require("./Record");
     const record = require("N/record");
     /**
-     * NetSuite Cash Refund Record type with custom fields.
+     * NetSuite Billing Revenue Event Record type with custom fields.
      */
     class BillingRevenueEvent extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.BILLING_REVENUE_EVENT; }

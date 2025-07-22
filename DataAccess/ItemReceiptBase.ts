@@ -6,7 +6,7 @@ import { FieldType } from './Record'
 import * as record from 'N/record'
 import { TransactionBase } from './Transaction'
 import { Sublist, SublistFieldType, SublistLine } from './Sublist'
-import { LandedCostBase } from './LandedCostlBase'
+import { LandedCostBase } from './LandedCostBase'
 
 /**
  * Item Receipt Items (item) sublist
