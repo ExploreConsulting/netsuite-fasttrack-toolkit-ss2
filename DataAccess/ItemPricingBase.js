@@ -36,6 +36,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     __decorate([
         Sublist_1.SublistFieldType.decimalnumber
     ], DiscountSublist.prototype, "rate", void 0);
+    /**
+     * NetSuite Item Pricing Record type with custom fields.
+     */
     class ItemPricingBase extends Record_1.NetsuiteRecord {
         static recordType() { return 'itempricing'; }
     }

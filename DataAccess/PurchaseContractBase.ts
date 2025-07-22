@@ -43,10 +43,10 @@ export class IUT_PurchaseContract extends NetsuiteRecord {
 	entity: number
 
 	@FieldType.freeformtext
-	memo: number
+	memo: string
 
-	@FieldType.integernumber
-	externalid: number
+	@FieldType.freeformtext
+	externalid: string
 
 	@FieldType.select
 	subsidiary: number

@@ -4,7 +4,7 @@ import * as record from 'N/record'
 /**
  * NetSuite Cash Refund Record type with custom fields.
  */
-export class ImportTool_RevenueRecognitionEvent extends NetsuiteRecord {
+export class BillingRevenueEvent extends NetsuiteRecord {
 
 	static override recordType () { return record.Type.BILLING_REVENUE_EVENT }
 

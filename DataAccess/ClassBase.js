@@ -1,5 +1,5 @@
 /**
- * NS Account record - contains definitions for most of the built in fields
+ * NS Class/Classification record - contains definitions for most of the built-in fields
  */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -22,7 +22,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     const Record_1 = require("./Record");
     const record = require("N/record");
     /**
-     * NetSuite Account (account)
+     * NetSuite Classification (classification)
      */
     class ClassBase extends Record_1.NetsuiteRecord {
         static recordType() {

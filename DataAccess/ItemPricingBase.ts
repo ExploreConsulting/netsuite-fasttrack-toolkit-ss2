@@ -19,6 +19,9 @@ export class DiscountSublist extends SublistLine {
 	rate: number
 }
 
+/**
+ * NetSuite Item Pricing Record type with custom fields.
+ */
 export class ItemPricingBase extends NetsuiteRecord {
 
 	static recordType() { return 'itempricing' }

@@ -56,6 +56,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         Record_1.FieldType.select
     ], TimesheetBase.prototype, "timeGridList", void 0);
     __decorate([
-        Record_1.FieldType.select
+        Record_1.FieldType.decimalnumber
     ], TimesheetBase.prototype, "totalHours", void 0);
 });

@@ -64,7 +64,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         Record_1.FieldType.freeformtext
     ], IUT_PurchaseContract.prototype, "memo", void 0);
     __decorate([
-        Record_1.FieldType.integernumber
+        Record_1.FieldType.freeformtext
     ], IUT_PurchaseContract.prototype, "externalid", void 0);
     __decorate([
         Record_1.FieldType.select

@@ -1,5 +1,5 @@
 /**
- * NS Account record - contains definitions for most of the built in fields
+ * NS Class/Classification record - contains definitions for most of the built-in fields
  */
 
 import { FieldType, NetsuiteRecord } from './Record'
@@ -7,7 +7,7 @@ import * as record from 'N/record'
 
 
 /**
- * NetSuite Account (account)
+ * NetSuite Classification (classification)
  */
 export class ClassBase extends NetsuiteRecord {
    static recordType() {

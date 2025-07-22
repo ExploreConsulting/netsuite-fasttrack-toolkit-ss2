@@ -37,7 +37,7 @@ export class TimesheetBase extends TransactionBase {
   @FieldType.select
   timeGridList: number
 
-  @FieldType.select
+  @FieldType.decimalnumber
   totalHours: number
 
 }

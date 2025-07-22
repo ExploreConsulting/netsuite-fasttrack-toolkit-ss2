@@ -21,5 +21,6 @@ export class LandedCostDataSublist extends SublistLine {
  */
 export class LandedCostBase extends NetsuiteRecord {
 	static recordType () { return 'landedcost' }
+
 	landedcostdata: Sublist<LandedCostDataSublist>
 }

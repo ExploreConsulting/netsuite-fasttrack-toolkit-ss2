@@ -15,44 +15,44 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.ImportTool_RevenueRecognitionEvent = void 0;
+    exports.BillingRevenueEvent = void 0;
     const Record_1 = require("./Record");
     const record = require("N/record");
     /**
      * NetSuite Cash Refund Record type with custom fields.
      */
-    class ImportTool_RevenueRecognitionEvent extends Record_1.NetsuiteRecord {
+    class BillingRevenueEvent extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.BILLING_REVENUE_EVENT; }
     }
-    exports.ImportTool_RevenueRecognitionEvent = ImportTool_RevenueRecognitionEvent;
+    exports.BillingRevenueEvent = BillingRevenueEvent;
     __decorate([
         Record_1.FieldType.select
-    ], ImportTool_RevenueRecognitionEvent.prototype, "transactionline", void 0);
+    ], BillingRevenueEvent.prototype, "transactionline", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], ImportTool_RevenueRecognitionEvent.prototype, "transactionlineText", void 0);
+    ], BillingRevenueEvent.prototype, "transactionlineText", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], ImportTool_RevenueRecognitionEvent.prototype, "projectrevenuerule", void 0);
+    ], BillingRevenueEvent.prototype, "projectrevenuerule", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], ImportTool_RevenueRecognitionEvent.prototype, "eventtype", void 0);
+    ], BillingRevenueEvent.prototype, "eventtype", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], ImportTool_RevenueRecognitionEvent.prototype, "eventtypeText", void 0);
+    ], BillingRevenueEvent.prototype, "eventtypeText", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], ImportTool_RevenueRecognitionEvent.prototype, "eventpurpose", void 0);
+    ], BillingRevenueEvent.prototype, "eventpurpose", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], ImportTool_RevenueRecognitionEvent.prototype, "eventpurposeText", void 0);
+    ], BillingRevenueEvent.prototype, "eventpurposeText", void 0);
     __decorate([
         Record_1.FieldType.date
-    ], ImportTool_RevenueRecognitionEvent.prototype, "eventdate", void 0);
+    ], BillingRevenueEvent.prototype, "eventdate", void 0);
     __decorate([
         Record_1.FieldType.decimalnumber
-    ], ImportTool_RevenueRecognitionEvent.prototype, "quantity", void 0);
+    ], BillingRevenueEvent.prototype, "quantity", void 0);
     __decorate([
         Record_1.FieldType.decimalnumber
-    ], ImportTool_RevenueRecognitionEvent.prototype, "amount", void 0);
+    ], BillingRevenueEvent.prototype, "amount", void 0);
 });
