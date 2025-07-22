@@ -46,7 +46,7 @@ export abstract class NetsuiteCurrentRecord {
     * // results in an NFT representation of the 'new record'
     * const customer = new Customer(ctx.newRecord)
     */
-   constructor (rec: NonNullable<record.Record |record.ClientCurrentRecord>)
+   constructor (rec: NonNullable<record.Record | record.ClientCurrentRecord>)
    /**
     * creates a new record
     * @param unused either `null` or leave this parameter out entirely
@@ -61,7 +61,7 @@ export abstract class NetsuiteCurrentRecord {
     * // start a new customer record in dynamic mode
     * const c = new Customer(null, true)
     */
-   constructor (unused?: Nullable<string| number>, isDynamic?: boolean, defaultvalues?: object)
+   constructor (unused?: Nullable<string | number>, isDynamic?: boolean, defaultvalues?: object)
 
    constructor (rec?: null | number | string | record.Record | record.ClientCurrentRecord, isDynamic?: boolean, protected defaultValues?: object) {
       // since the context of this.constructor is the derived class we're instantiating, using the line below we can
@@ -74,7 +74,7 @@ export abstract class NetsuiteCurrentRecord {
       } else if (typeof rec === 'object') {
          log.debug('using existing record', `type:${rec.type}, id:${rec.id}`)
          this.makeRecordProp(rec)
-         this._id = rec.id
+         this._id = rec.id!
       }
       // allow
       else if (typeof rec === 'number' || +rec) {
@@ -85,7 +85,7 @@ export abstract class NetsuiteCurrentRecord {
             isDynamic: isDynamic || false,
             defaultValues: defaultValues,
          }))
-         this._id = this.nsrecord.id
+         this._id = this.nsrecord.id!
       } else throw new Error(`invalid value for argument "rec": ${rec}. 
       Must be one of: null/undefined, an internal id, or an existing record`)
    }

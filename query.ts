@@ -82,12 +82,12 @@ export class LazyQuery implements IterableIterator<query.Result> {
    private constructor (q: { query: string, params?: Array<string | number | boolean> }, pageSize = 500) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
       this.log = LogManager.getLogger(LazyQuery.LOGNAME)
-      if(!q.params) this.pagedData = query.runSuiteQLPaged({ query: q.query, pageSize: pageSize})
-      else this.pagedData = query.runSuiteQLPaged({ query: q.query, params: q.params, pageSize: pageSize})
+      if (!q.params) this.pagedData = query.runSuiteQLPaged({ query: q.query, pageSize: pageSize })
+      else this.pagedData = query.runSuiteQLPaged({ query: q.query, params: q.params, pageSize: pageSize })
       this.iterator = this.pagedData.iterator()
       // only load a page if we have record
       if (this.pagedData.count > 0) {
-         this.currentPage = this.pagedData.fetch(0)
+         this.currentPage = this.pagedData.fetch({ index: 0 })
          this.currentData = this.currentPage.data.results
       } else {
          this.currentData = []
@@ -120,7 +120,7 @@ export class LazyQuery implements IterableIterator<query.Result> {
     * ```
     */
 
-   static from (q: {query: string, params?: Array<string | number | boolean>}, pageSize?: number) {
+   static from (q: { query: string, params?: Array<string | number | boolean> }, pageSize?: number) {
       return new LazyQuery(q, pageSize)
    }
 
@@ -148,7 +148,7 @@ export class LazyQuery implements IterableIterator<query.Result> {
 
       // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
       if (atEndOfPage) {
-         this.currentPage = this.pagedData.fetch(this.currentPage.pageRange.index + 1)
+         this.currentPage = this.pagedData.fetch({ index: this.currentPage.pageRange.index + 1 })
          this.currentData = this.currentPage.data.results
          this.mappedData = this.currentPage.data.asMappedResults()
          this.index = 0

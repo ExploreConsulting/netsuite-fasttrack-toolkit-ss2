@@ -182,11 +182,11 @@ export function formattedSublistDescriptor (formatType: format.Type, target: any
  * defines the properties you want on the subrecord)
  * @param ctor Constructor for the subrecord class you want (e.g. `AddressBase`, `InventoryDetail`).
  */
-export function subrecordDescriptor<T extends NetsuiteCurrentRecord> (ctor: new (rec: record.Record) => T) {
+export function subrecordDescriptor<T extends NetsuiteCurrentRecord> (ctor: new (rec: Omit<record.Record, 'save'>) => T) {
    return function (target: any, propertyKey: string): any {
       return {
          enumerable: true,
-         // sublist is read only for now - if we have a use case where this should be assigned then tackle it
+         // sublist is read-only for now - if we have a use case where this should be assigned then tackle it
          get: function (this: SublistLine) {
             return new ctor(this.getSubRecord(propertyKey))
          }
@@ -441,6 +441,7 @@ export abstract class SublistLine {
     * your code that manipulates the sublist line.
     */
    useDynamicModeAPI: boolean
+
    /**
     * Note that the sublistId and _line are used by the Sublist decorators to actually implement functionality, even
     * though they are not referenced directly in this class. We mark them as not-enumerable because they are an implementation
