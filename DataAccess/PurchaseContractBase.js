@@ -15,7 +15,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.IUT_PurchaseContract = exports.ItemSublist = void 0;
+    exports.PurchaseContractBase = exports.ItemSublist = void 0;
     const Record_1 = require("./Record");
     const Sublist_1 = require("./Sublist");
     const ItemPricingBase_1 = require("./ItemPricingBase");
@@ -50,47 +50,47 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     /**
      * NetSuite Purchase Contract Record type with custom fields.
      */
-    class IUT_PurchaseContract extends Record_1.NetsuiteRecord {
+    class PurchaseContractBase extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.PURCHASE_CONTRACT; }
     }
-    exports.IUT_PurchaseContract = IUT_PurchaseContract;
+    exports.PurchaseContractBase = PurchaseContractBase;
     __decorate([
         Record_1.FieldType.date
-    ], IUT_PurchaseContract.prototype, "trandate", void 0);
+    ], PurchaseContractBase.prototype, "trandate", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], IUT_PurchaseContract.prototype, "entity", void 0);
+    ], PurchaseContractBase.prototype, "entity", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], IUT_PurchaseContract.prototype, "memo", void 0);
+    ], PurchaseContractBase.prototype, "memo", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], IUT_PurchaseContract.prototype, "externalid", void 0);
+    ], PurchaseContractBase.prototype, "externalid", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], IUT_PurchaseContract.prototype, "subsidiary", void 0);
+    ], PurchaseContractBase.prototype, "subsidiary", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], IUT_PurchaseContract.prototype, "currency", void 0);
+    ], PurchaseContractBase.prototype, "currency", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], IUT_PurchaseContract.prototype, "effectivitybasedon", void 0);
+    ], PurchaseContractBase.prototype, "effectivitybasedon", void 0);
     __decorate([
         Record_1.FieldType.date
-    ], IUT_PurchaseContract.prototype, "startdate", void 0);
+    ], PurchaseContractBase.prototype, "startdate", void 0);
     __decorate([
         Record_1.FieldType.date
-    ], IUT_PurchaseContract.prototype, "enddate", void 0);
+    ], PurchaseContractBase.prototype, "enddate", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], IUT_PurchaseContract.prototype, "minimumamount", void 0);
+    ], PurchaseContractBase.prototype, "minimumamount", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], IUT_PurchaseContract.prototype, "maximumamount", void 0);
+    ], PurchaseContractBase.prototype, "maximumamount", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], IUT_PurchaseContract.prototype, "updateitemvendor", void 0);
+    ], PurchaseContractBase.prototype, "updateitemvendor", void 0);
     __decorate([
         Record_1.FieldType.sublist(ItemSublist)
-    ], IUT_PurchaseContract.prototype, "item", void 0);
+    ], PurchaseContractBase.prototype, "item", void 0);
 });
