@@ -185,13 +185,15 @@ function findKey (object, predicate) {
    return result
 }
 
-// TODO Update the JSDoc
 /**
  * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
  * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
  * as described below.
  *
- * @param fn the function to embellish with logging. This can be a method on an object or a standalone function.
+ * If a function is passed, it wraps the function for logging.
+ * If a class is passed, it wraps all methods of the class for logging.
+ *
+ * @param fn the function to embellish with logging. This can be a method on an object or a standalone function, or a class constructor.
  * @param config configuration settings
  * @param [config.withArgs] true if you want to include logging the arguments passed to the method in the
  * details. Default is true.
@@ -201,7 +203,7 @@ function findKey (object, predicate) {
  * each function
  * false. Colors not configurable so that we maintain consistency across all our scripts.
  * @param {number} [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
- * @returns a function matching the signature of the original passed function `fn` so it can be used exactly like the original function.
+ * @returns a function matching the signature of the original passed function `fn` or class so it can be used exactly like the original.
  *
  * @example automatically do logging for a helper function named `foo()`
  * ```
@@ -216,6 +218,26 @@ function findKey (object, predicate) {
  |Enter foo()| args:[] |
  |hello world |   |
  |Exit foo() | returned: undefined |
+ *
+ * @example automatically do logging for all methods in a class
+ *
+ * class MyService {
+ * doSomething(a, b) {
+ * log.debug('doing something');
+ * return a + b;
+ * }
+ * }
+ * const LoggedService = autolog(MyService);
+ * const service = new LoggedService();
+ * service.doSomething(1, 2);
+ *
+ * The above results in automatic log entries for each method call, similar to:
+ *
+ * |Log Title | Detail |
+ * |--------|--------|
+ * |Enter doSomething()| args:[1,2] |
+ * |doing something | |
+ * |Exit doSomething() | returned: 3 |
  */
 export function autolog<T extends (...args: any[]) => any> (fn: T, config?: AutoLogConfig): T {
    if (!config) config = {}
@@ -254,13 +276,17 @@ export function autolog<T extends (...args: any[]) => any> (fn: T, config?: Auto
    } as T
 }
 
-// TODO Update the JSDoc
 /**
  * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
  * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
  * as described below.
  *
- * @param methodsToLogEntryExit array of pointcuts
+ * You can pass either an object, a class instance, or a class constructor as the target. All matching methods
+ * (by name or RegExp) will be wrapped for automatic logging.
+ *
+ * @param methodsToLogEntryExit object specifying the target and method(s) to embellish with logging.
+ * @param {Object} methodsToLogEntryExit.target the object, class instance, or class constructor whose methods will be wrapped.
+ * @param {string|RegExp} methodsToLogEntryExit.method the method name or RegExp to match methods for logging.
  * @param {Object} config configuration settings
  * @param {Boolean} [config.withArgs] true if you want to include logging the arguments passed to the method in the
  * details. Default is true.
@@ -270,7 +296,7 @@ export function autolog<T extends (...args: any[]) => any> (fn: T, config?: Auto
  * each function
  * false. Colors not configurable so that we maintain consistency across all our scripts.
  * @param {number} [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
- * @returns {} an array of jquery aop advices
+ * @returns {} an array of advices applied to the matched methods
  *
  * @example log all methods on the object `X`
  * ```
@@ -289,6 +315,26 @@ export function autolog<T extends (...args: any[]) => any> (fn: T, config?: Auto
  |Enter onRequest()| args:[] |
  |hello world |   |
  |Exit onRequest() | returned: undefined |
+ *
+ * @example log all methods in a class
+ *
+ * class MyService {
+ * doSomething(a, b) {
+ * log.debug('doing something');
+ * return a + b;
+ * }
+ * }
+ * const service = new MyService();
+ * autoLogMethodEntryExit({ target: service, method: /\w+/ });
+ * service.doSomething(1, 2);
+ *
+ * Results in log entries for each method call, similar to:
+ *
+ * |Log Title | Detail |
+ * |--------|--------|
+ * |Enter doSomething()| args:[1,2] |
+ * |doing something | |
+ * |Exit doSomething() | returned: 3 |
  */
 export function autoLogMethodEntryExit (methodsToLogEntryExit: {
    target: Object,
