@@ -34,7 +34,7 @@ export class ItemSublist extends SublistLine {
  * NetSuite Purchase Contract Record type with custom fields.
  */
 export class PurchaseContractBase extends NetsuiteRecord {
-	static recordType () { return record.Type.PURCHASE_CONTRACT }
+	static override recordType () { return record.Type.PURCHASE_CONTRACT }
 
 	@FieldType.date
 	trandate: Date

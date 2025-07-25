@@ -65,6 +65,6 @@ export class BillingScheduleBase extends NetsuiteRecord {
 	@FieldType.sublist(Recurrence)
 	recurrence: Sublist<Recurrence>
 
-	static recordType () { return record.Type.BILLING_SCHEDULE}
+	static override recordType () { return record.Type.BILLING_SCHEDULE}
 
 }
