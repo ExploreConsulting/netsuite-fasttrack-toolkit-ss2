@@ -127,8 +127,8 @@ namespace NFT {
 //region lazysearch
 
 /**
- * Company           Explore Consulting
- * Copyright         2017 Explore Consulting, LLC
+ * Company           RSM US LLP
+ * Copyright         2025 RSM US LLP
  * Description       What this script does and why it exists
  * Functional Spec   https://url.to.functional.spec
  **/
