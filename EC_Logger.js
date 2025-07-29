@@ -260,7 +260,7 @@
             const entryDetail = withArgs ? args : null;
             logger[level](entryTitle, entryDetail);
             const startTime = Date.now();
-            const retval = fn(...args);
+            const retval = fn.apply(this, args);
             let elapsedMessage = '';
             if (withProfiling) {
                 const elapsedMilliseconds = Date.now() - startTime;

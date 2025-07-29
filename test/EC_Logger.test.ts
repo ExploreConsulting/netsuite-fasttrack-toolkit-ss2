@@ -102,7 +102,22 @@ describe('basic logger tests', () => {
          expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined',4)
       })
 
-
+      it('should preserve `this` context for class instance methods', () => {
+         class Counter {
+            count = 0
+            increment(val: number) {
+               this.count += val
+               return this.count
+            }
+         }
+         const counter = new Counter()
+         // Wrap the method with autolog
+         counter.increment = autolog(counter.increment)
+         // Call the method and check that `this.count` is updated
+         const result = counter.increment(5)
+         expect(result).toBe(5)
+         expect(counter.count).toBe(5)
+      })
    })
 
    describe ('autoLogMethodEntryExit Backwards Compatability', () => {

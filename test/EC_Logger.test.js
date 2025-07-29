@@ -88,6 +88,24 @@
                 expect(fakedebug).toHaveBeenNthCalledWith(1, 'DEBUG [default]', 'Enter dummy() undefined', [4]);
                 expect(fakedebug).toHaveBeenLastCalledWith('DEBUG [default]', 'Exit dummy():  undefined', 4);
             });
+            it('should preserve `this` context for class instance methods', () => {
+                class Counter {
+                    constructor() {
+                        this.count = 0;
+                    }
+                    increment(val) {
+                        this.count += val;
+                        return this.count;
+                    }
+                }
+                const counter = new Counter();
+                // Wrap the method with autolog
+                counter.increment = (0, EC_Logger_1.autolog)(counter.increment);
+                // Call the method and check that `this.count` is updated
+                const result = counter.increment(5);
+                expect(result).toBe(5);
+                expect(counter.count).toBe(5);
+            });
         });
         describe('autoLogMethodEntryExit Backwards Compatability', () => {
             function getTarget() {
