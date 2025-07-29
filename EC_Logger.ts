@@ -18,7 +18,6 @@
 import { addAppender, Appender, clearAppenders, getLogger, Logger, logLevel } from './aurelia-logging'
 import * as nslog from 'N/log'
 import * as runtime from 'N/runtime'
-import * as console from 'node:console'
 
 export {
    logLevel,
@@ -285,17 +284,17 @@ export function autolog<T extends (...args: any[]) => any> (fn: T, config?: Auto
  * (by name or RegExp) will be wrapped for automatic logging.
  *
  * @param methodsToLogEntryExit object specifying the target and method(s) to embellish with logging.
- * @param {Object} methodsToLogEntryExit.target the object, class instance, or class constructor whose methods will be wrapped.
- * @param {string|RegExp} methodsToLogEntryExit.method the method name or RegExp to match methods for logging.
- * @param {Object} config configuration settings
- * @param {Boolean} [config.withArgs] true if you want to include logging the arguments passed to the method in the
+ * @param methodsToLogEntryExit.target the object, class instance, or class constructor whose methods will be wrapped.
+ * @param methodsToLogEntryExit.method the method name or RegExp to match methods for logging.
+ * @param config configuration settings
+ * @param [config.withArgs] true if you want to include logging the arguments passed to the method in the
  * details. Default is true.
- * @param {Boolean} [config.withReturnValue] true if you want function return values to be logged
- * @param {Boolean} [config.withProfiling] set true if you want elapsed time info printed for each function
- * @param {Boolean} [config.withGovernance] set true if you want remaining governance units info printed for
+ * @param [config.withReturnValue] true if you want function return values to be logged
+ * @param [config.withProfiling] set true if you want elapsed time info printed for each function
+ * @param [config.withGovernance] set true if you want remaining governance units info printed for
  * each function
  * false. Colors not configurable so that we maintain consistency across all our scripts.
- * @param {number} [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
+ * @param [config.logType] the logging level to use, logLevel.debug, logLevel.info, etc.
  * @returns {} an array of advices applied to the matched methods
  *
  * @example log all methods on the object `X`
