@@ -82,8 +82,8 @@ export class LazyQuery implements IterableIterator<query.Result> {
    private constructor (q: { query: string, params?: Array<string | number | boolean> }, pageSize = 500) {
       if (pageSize > 1000) throw new Error('page size must be <= 1000')
       this.log = LogManager.getLogger(LazyQuery.LOGNAME)
-      if (!q.params) this.pagedData = query.runSuiteQLPaged({ query: q.query, pageSize: pageSize })
-      else this.pagedData = query.runSuiteQLPaged({ query: q.query, params: q.params, pageSize: pageSize })
+      if(!q.params) this.pagedData = query.runSuiteQLPaged({ query: q.query, pageSize: pageSize})
+      else this.pagedData = query.runSuiteQLPaged({ query: q.query, params: q.params, pageSize: pageSize})
       this.iterator = this.pagedData.iterator()
       // only load a page if we have record
       if (this.pagedData.count > 0) {
@@ -120,7 +120,7 @@ export class LazyQuery implements IterableIterator<query.Result> {
     * ```
     */
 
-   static from (q: { query: string, params?: Array<string | number | boolean> }, pageSize?: number) {
+   static from (q: {query: string, params?: Array<string | number | boolean>}, pageSize?: number) {
       return new LazyQuery(q, pageSize)
    }
 
