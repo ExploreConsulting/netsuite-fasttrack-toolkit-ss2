@@ -126,17 +126,6 @@ namespace NFT {
 
 //region lazysearch
 
-/**
- * Company           RSM US LLP
- * Copyright         2025 RSM US LLP
- * Description       What this script does and why it exists
- * Functional Spec   https://url.to.functional.spec
- **/
-/**
- * @NApiVersion 2.0
- * @NScriptType Suitelet
- */
-
 LogManager.getLogger(LazySearch.LOGNAME).setLevel(LogManager.logLevel.debug)
 
 export const onRequest = autolog(function onRequest (ctx) {
