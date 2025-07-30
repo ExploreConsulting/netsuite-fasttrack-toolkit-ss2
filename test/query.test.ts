@@ -72,6 +72,31 @@ describe('autoMap', function () {
       expect(x).toHaveProperty('test', 'otherdate')
       expect(x).toHaveProperty('lastcheck', 20)
    })
+
+   test ('Build object for SQL with CASE', () => {
+      const noLabelResult = getFakeSearchResultMRLong()
+      const queryStr = `SELECT TOP 1 t.id, 
+                                     CASE 
+                                         WHEN t.trandate > SYSDATE - 30 THEN 'Recent'
+                                         WHEN t.trandate > SYSDATE - 90 THEN 'Moderate'
+                                         ELSE 'Old'
+                                     END as foo,
+                               (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity) as bar,
+                               TO_CHAR(t.trandate, 'MM/DD/YYYY'),
+                               TO_CHAR(t.trandate, 'MM/DD/YYYY')                            as test,
+                               COUNT(t.runtest) as lastcheck
+                        FROM transaction as t
+                        WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`
+      const col  = getColumns(queryStr)
+      const x = mapQueryMRResults(noLabelResult.value, col)
+      expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck'])
+      expect(x).toHaveProperty('id', 880)
+      expect(x).toHaveProperty('foo', 'jim')
+      expect(x).toHaveProperty('bar', '5/5/35')
+      expect(x).toHaveProperty('trandate', 'date')
+      expect(x).toHaveProperty('test', 'otherdate')
+      expect(x).toHaveProperty('lastcheck', 20)
+   })
 })
 
 
