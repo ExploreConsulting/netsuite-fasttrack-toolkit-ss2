@@ -17,7 +17,7 @@ export class ItemSublist extends SublistLine {
  */
 export class InventoryCountBase extends NetsuiteRecord {
 
-  static recordType () { return record.Type.INVENTORY_COUNT }
+  static override recordType() { return record.Type.INVENTORY_COUNT }
 
   @FieldType.sublist(ItemSublist)
   item: Sublist<ItemSublist>

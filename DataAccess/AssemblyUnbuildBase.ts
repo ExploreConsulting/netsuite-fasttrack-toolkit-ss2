@@ -105,7 +105,7 @@ export class AssemblyUnbuildBase extends NetsuiteRecord {
   /**
    * Record type
    */
-  static recordType () {
+  static override recordType() {
     return record.Type.ASSEMBLY_UNBUILD
   }
 

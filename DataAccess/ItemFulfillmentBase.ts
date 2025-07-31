@@ -93,7 +93,7 @@ export class ItemSublist extends SublistLine {
  */
 export class ItemFulfillmentBase extends TransactionBase {
 
-   static recordType() { return record.Type.ITEM_FULFILLMENT }
+   static override recordType() { return record.Type.ITEM_FULFILLMENT }
 
    /**
     * This field shows the transaction this fulfillment was created from.

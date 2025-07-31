@@ -134,7 +134,7 @@ export class PurchaseOrderBase extends TransactionBase {
    @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>
 
-   static recordType () { return record.Type.PURCHASE_ORDER }
+   static override recordType() { return record.Type.PURCHASE_ORDER }
 }
 
 

@@ -11,7 +11,7 @@ export class NoteBase extends NetsuiteRecord {
    /**
     * Record type
     */
-   static recordType() {
+   static override recordType() {
       return record.Type.NOTE
    }
 

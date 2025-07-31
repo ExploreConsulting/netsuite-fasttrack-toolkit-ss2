@@ -106,7 +106,7 @@ export class LineSublist extends SublistLine {
  * Base class for Advanced Intercompany Journal Entry Record
  */
 export class AdvancedIntercompanyJournalEntryBase extends NetsuiteRecord {
-   static recordType() { return record.Type.ADV_INTER_COMPANY_JOURNAL_ENTRY }
+   static override recordType() { return record.Type.ADV_INTER_COMPANY_JOURNAL_ENTRY }
 
    @FieldType.checkbox
    approved: boolean
@@ -189,4 +189,3 @@ export class AdvancedIntercompanyJournalEntryBase extends NetsuiteRecord {
    @FieldType.sublist(LineSublist)
    line: Sublist<LineSublist>
 }
-

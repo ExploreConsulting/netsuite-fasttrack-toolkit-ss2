@@ -11,7 +11,7 @@ import { FieldType } from './Record'
  * NetSuite Inventory Adjustment Record
  */
 export class InventoryAdjustmentBase extends TransactionBase {
-   static recordType() { return record.Type.INVENTORY_ADJUSTMENT }
+   static override recordType() { return record.Type.INVENTORY_ADJUSTMENT }
 
    @FieldType.select
    account:number

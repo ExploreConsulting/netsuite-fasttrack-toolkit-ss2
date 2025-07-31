@@ -10,7 +10,7 @@ import * as record from 'N/record'
  * NetSuite Classification (classification)
  */
 export class ClassBase extends NetsuiteRecord {
-   static recordType() {
+   static override recordType() {
       return record.Type.CLASSIFICATION
    }
 

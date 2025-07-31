@@ -66,7 +66,7 @@ export class ItemSublist extends SublistLine {
  */
 export class CashSaleBase extends TransactionBase {
 
-   static recordType() { return record.Type.CASH_SALE }
+   static override recordType() { return record.Type.CASH_SALE }
 
    @FieldType.select
    account:number
@@ -170,8 +170,3 @@ export class CashSaleBase extends TransactionBase {
    @FieldType.currency
    total:number
 }
-
-
-
-
-

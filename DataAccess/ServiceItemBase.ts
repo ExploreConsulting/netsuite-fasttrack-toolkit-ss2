@@ -187,5 +187,5 @@ export class ServiceItemBase extends Item {
    @FieldType.sublist(ItemTranslationSublist)
    translations: Sublist<ItemTranslationSublist>
 
-   static recordType () { return record.Type.SERVICE_ITEM }
+   static override recordType() { return record.Type.SERVICE_ITEM }
 }

@@ -24,7 +24,7 @@ export class DiscountSublist extends SublistLine {
  */
 export class ItemPricingBase extends NetsuiteRecord {
 
-	static recordType() { return 'itempricing' }
+	static override recordType() { return 'itempricing' }
 
 	@FieldType.select
 	calculatequantitydiscounts: string | undefined

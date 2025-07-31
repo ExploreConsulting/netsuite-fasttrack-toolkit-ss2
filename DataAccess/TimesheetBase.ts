@@ -9,7 +9,7 @@ import {FieldType} from './Record'
  * NetSuite Time Record
  */
 export class TimesheetBase extends TransactionBase {
-  static recordType() {
+  static override recordType() {
     return record.Type.TIME_SHEET
   }
 

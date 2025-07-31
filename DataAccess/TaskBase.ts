@@ -200,7 +200,7 @@ export class TaskBase extends NetsuiteRecord {
    /**
     * Record type
     */
-   static recordType (): record.Type {
+   static override recordType(): record.Type {
       return record.Type.TASK
    }
 
