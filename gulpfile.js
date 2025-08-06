@@ -27,14 +27,14 @@ const declarations = ['*.d.ts', 'DataAccess/*.d.ts', '!example.d.ts']
 const includedNPMlibs = ['node_modules/lodash/lodash.js', 'node_modules/immutable/dist/immutable.js',
    'node_modules/moment/moment.js', 'node_modules/aurelia-logging/dist/amd/aurelia-logging.js',
    'node_modules/aurelia-logging-console/dist/amd/aurelia-logging-console.js',
-   'node_modules/bignumber.js/bignumber.js'
+   'node_modules/bignumber.js/bignumber.js', 'node_modules/node-sql-parser/umd/transactsql.umd.js',
 ]
 
 // other .d.ts files to include in declarations/ that are correct without any renaming
 const otherTypings = ['node_modules/moment/moment.d.ts',
    'aurelia-logging.d.ts',
    'node_modules/bignumber.js/bignumber.d.ts',
-   'node_modules/immutable/dist/immutable.d.ts'
+   'node_modules/immutable/dist/immutable.d.ts', 'node_modules/node-sql-parser/umd/transactsql.umd.d.ts'
 ]
 
 // output folder includes version number e.g. NFT-SS2-#.#.# so that we can easily support multiple versions of
