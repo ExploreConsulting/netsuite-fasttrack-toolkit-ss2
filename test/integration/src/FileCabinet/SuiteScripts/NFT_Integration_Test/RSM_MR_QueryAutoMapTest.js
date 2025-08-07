@@ -13,13 +13,13 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./NFT-SS2-7.4.0/EC_Logger", "./NFT-SS2-7.4.0/lodash", "./NFT-SS2-7.4.0/query"], factory);
+        define(["require", "exports", "../NFT-SS2-8.0.0/EC_Logger", "../NFT-SS2-8.0.0/lodash", "../NFT-SS2-8.0.0/queryAutoMapper"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    const LogManager = require("./NFT-SS2-7.4.0/EC_Logger");
-    const _ = require("./NFT-SS2-7.4.0/lodash");
-    const query_1 = require("./NFT-SS2-7.4.0/query");
+    const LogManager = require("../NFT-SS2-8.0.0/EC_Logger");
+    const _ = require("../NFT-SS2-8.0.0/lodash");
+    const queryAutoMapper_1 = require("../NFT-SS2-8.0.0/queryAutoMapper");
     // consider using the pkg-auditlog package to audit/log progress to prebuilt custom record
     // https://dev.azure.com/rsm-appdev/IP-NetSuite/_git/pkg-ns-auditlog
     // import { IntegrationStatus } from './EC_AuditLog'
@@ -28,7 +28,7 @@
     var X;
     (function (X) {
         const qstr = `SELECT id, trandate FROM transaction WHERE id = ?`;
-        const qcols = (0, query_1.getColumns)(qstr);
+        const qcols = (0, queryAutoMapper_1.getColumns)(qstr);
         /**
          * entrypoint for MR script - gets input data based on a saved search
          */
@@ -37,7 +37,7 @@
             return {
                 type: 'suiteql',
                 query: qstr,
-                params: [1000]
+                params: [34931]
             };
         }
         X.getInputData = getInputData;
@@ -45,7 +45,7 @@
          * entrypoint for MR script _MAP_ stage
          */
         function map(context) {
-            const input = (0, query_1.mapQueryMRResults)(JSON.parse(context.value), qcols);
+            const input = (0, queryAutoMapper_1.mapQueryMRResults)(JSON.parse(context.value), qcols);
             log.debug('input', input);
             return 'map complete';
         }

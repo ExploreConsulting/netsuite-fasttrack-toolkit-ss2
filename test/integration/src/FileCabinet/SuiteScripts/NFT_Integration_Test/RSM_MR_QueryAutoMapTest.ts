@@ -9,9 +9,9 @@
  */
 
 import { type EntryPoints } from 'N/types'
-import * as LogManager from './NFT-SS2-7.4.0/EC_Logger'
-import * as _ from './NFT-SS2-7.4.0/lodash'
-import { getColumns, mapQueryMRResults } from './NFT-SS2-7.4.0/query'
+import * as LogManager from '../NFT-SS2-8.0.0/EC_Logger'
+import * as _ from '../NFT-SS2-8.0.0/lodash'
+import { getColumns, mapQueryMRResults } from '../NFT-SS2-8.0.0/queryAutoMapper'
 
 // consider using the pkg-auditlog package to audit/log progress to prebuilt custom record
 // https://dev.azure.com/rsm-appdev/IP-NetSuite/_git/pkg-ns-auditlog
@@ -38,7 +38,7 @@ namespace X {
     return {
       type: 'suiteql',
       query: qstr,
-      params: [1000]
+      params: [34931]
     }
   }
 
