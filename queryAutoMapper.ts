@@ -26,7 +26,7 @@ type NoAsterisk<T extends string> = T extends `${string}*${string}`
  *
  * ```
  */
-export function mapQueryMRResults< T extends readonly string[] > (r, columns: T ){
+export function mapQueryMRResults (r: any, columns: string[] ){
    return Object.fromEntries(columns.map((key, index) => [key, r.values[index]]))
 }
 
@@ -49,15 +49,15 @@ export function mapQueryMRResults< T extends readonly string[] > (r, columns: T 
  *
  * ```
  */
-export function getColumns<T extends string>(queryStr: NoAsterisk<T>): string[] {
+export function getColumns(queryStr: NoAsterisk<string>): string[] {
 
    if (queryStr.includes('*')) {
       throw new Error('getColumns() does not support * in query string')
    }
 
-   queryStr = queryStr.toLocaleLowerCase() as NoAsterisk<T>
+   queryStr = queryStr.toLocaleLowerCase() as NoAsterisk<string>
    //Remove ? from query string to avoid issues with the parser
-   queryStr = queryStr.replace('?','1') as NoAsterisk<T>
+   queryStr = queryStr.replace('?','1') as NoAsterisk<string>
 
    const parser = new Parser()
    const par = parser.astify(queryStr)
