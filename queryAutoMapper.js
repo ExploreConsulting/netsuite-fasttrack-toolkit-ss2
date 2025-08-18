@@ -61,13 +61,14 @@
         // Remove ? from query string and replace with incrementing generic string to avoid issues with the parser.
         // This allows for parameters to be used in the query without affecting the column extraction.
         let counter = 0;
-        queryStr = queryStr.split(' ').map((t) => {
+        queryStr = queryStr.split('').map((t) => {
             if (t.startsWith('?')) {
                 counter += 1;
                 return `param_${counter}`;
             }
             return t;
-        }).join(' ');
+        }).join('');
+        console.log(`getColumns() queryStr: ${queryStr}`);
         const parser = new transactsql_umd_1.Parser();
         const par = parser.astify(queryStr);
         return par['columns'].map(t => {
