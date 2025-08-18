@@ -34,7 +34,7 @@
         }
         test('Build array of column header names', () => {
             const queryStr = 'SELECT id as foo, trandate FROM transaction WHERE id = ?';
-            const x = (0, query_1.getColumns)(queryStr);
+            const x = getColumns(queryStr);
             expect(x).toEqual(['foo', 'trandate']);
         });
         test('Build array of column header names Exclude comments', () => {
@@ -48,7 +48,7 @@
                                 --test
                         FROM transaction as t
                         WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`;
-            const x = (0, query_1.getColumns)(queryStr);
+            const x = getColumns(queryStr);
             expect(x).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck']);
         });
         test('Build object for search Results group operations, alias, multiple elements', () => {
@@ -60,8 +60,8 @@
                                COUNT(t.runtest) as lastcheck
                         FROM transaction as t
                         WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`;
-            const col = (0, query_1.getColumns)(queryStr);
-            const x = (0, query_1.mapQueryMRResults)(noLabelResult.value, col);
+            const col = getColumns(queryStr);
+            const x = mapQueryMRResults(noLabelResult.value, col);
             expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck']);
             expect(x).toHaveProperty('id', 880);
             expect(x).toHaveProperty('foo', 'jim');
@@ -84,8 +84,8 @@
                                COUNT(t.runtest) as lastcheck
                         FROM transaction as t
                         WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`;
-            const col = (0, query_1.getColumns)(queryStr);
-            const x = (0, query_1.mapQueryMRResults)(noLabelResult.value, col);
+            const col = getColumns(queryStr);
+            const x = mapQueryMRResults(noLabelResult.value, col);
             expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck']);
             expect(x).toHaveProperty('id', 880);
             expect(x).toHaveProperty('foo', 'jim');

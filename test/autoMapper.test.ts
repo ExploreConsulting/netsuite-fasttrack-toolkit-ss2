@@ -1,26 +1,4 @@
-import * as query from 'N/query'
-import {LazyQuery, nsQueryResult2obj } from "../query";
-
-
-describe('nsQueryResult2obj', function () {
-
-   function getFakeSearchResult(): query.Result {
-      return {
-         value: [
-            '880',
-         ],
-         asMap: jest.fn().mockReturnValueOnce({foo: '880'})
-      } as any
-   }
-
-   test('defaults to column name if label is undefined', () => {
-
-      const noLabelResult = getFakeSearchResult()
-      // default useLabels
-      const x = nsQueryResult2obj(noLabelResult)
-      expect(x).toHaveProperty('foo', '880')
-   })
-})
+import {getColumns, mapQueryMRResults} from "../queryAutoMapper";
 
 describe('autoMap', function () {
 
@@ -32,7 +10,7 @@ describe('autoMap', function () {
    }
 
    test ('Build array of column header names', () => {
-      const queryStr = 'SELECT id as foo, trandate FROM transaction WHERE id = ?'
+      const queryStr = 'SELECT id as foo, trandate, param_1 (select ? as WHERE ?), ? FROM transaction WHERE id = param_2'
       const x = getColumns(queryStr)
       expect(x).toEqual(['foo', 'trandate'])
    })
@@ -97,6 +75,3 @@ describe('autoMap', function () {
       expect(x).toHaveProperty('lastcheck', 20)
    })
 })
-
-
-

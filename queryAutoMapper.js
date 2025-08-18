@@ -57,6 +57,7 @@
         if (queryStr.includes('*')) {
             throw new Error('getColumns() does not support * in query string');
         }
+        // Split query by spaces and replace ? with param_1, param_2, etc.
         queryStr = queryStr.toLocaleLowerCase();
         //Remove ? from query string to avoid issues with the parser
         queryStr = queryStr.replace('?', '1');

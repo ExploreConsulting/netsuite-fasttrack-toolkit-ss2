@@ -55,6 +55,9 @@ export function getColumns(queryStr: NoAsterisk<string>): string[] {
       throw new Error('getColumns() does not support * in query string')
    }
 
+   // Split query by spaces and replace ? with param_1, param_2, etc.
+
+
    queryStr = queryStr.toLocaleLowerCase() as NoAsterisk<string>
    //Remove ? from query string to avoid issues with the parser
    queryStr = queryStr.replace('?','1') as NoAsterisk<string>
