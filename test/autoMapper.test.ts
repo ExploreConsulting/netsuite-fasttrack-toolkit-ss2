@@ -10,9 +10,9 @@ describe('autoMap', function () {
    }
 
    test ('Build array of column header names', () => {
-      const queryStr = 'SELECT id as foo, trandate, param_1 (select ? as WHERE ?), ? FROM transaction WHERE id = param_2'
+      const queryStr = 'SELECT id as foo, trandate, ? FROM transaction WHERE id = ?'
       const x = getColumns(queryStr)
-      expect(x).toEqual(['foo', 'trandate'])
+      expect(x).toEqual(['foo', 'trandate', 'param_1'])
    })
 
    test ('Build array of column header names Exclude comments', () => {

@@ -57,10 +57,17 @@
         if (queryStr.includes('*')) {
             throw new Error('getColumns() does not support * in query string');
         }
-        // Split query by spaces and replace ? with param_1, param_2, etc.
         queryStr = queryStr.toLocaleLowerCase();
-        //Remove ? from query string to avoid issues with the parser
-        queryStr = queryStr.replace('?', '1');
+        // Remove ? from query string and replace with incrementing generic string to avoid issues with the parser.
+        // This allows for parameters to be used in the query without affecting the column extraction.
+        let counter = 0;
+        queryStr = queryStr.split(' ').map((t) => {
+            if (t.startsWith('?')) {
+                counter += 1;
+                return `param_${counter}`;
+            }
+            return t;
+        }).join(' ');
         const parser = new transactsql_umd_1.Parser();
         const par = parser.astify(queryStr);
         return par['columns'].map(t => {
