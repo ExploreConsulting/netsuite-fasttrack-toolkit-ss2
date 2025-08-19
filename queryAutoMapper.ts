@@ -18,7 +18,7 @@ type NoAsterisk<T extends string> = T extends `${string}*${string}`
  * ```TypeScript
  *
  * export function map (context: EntryPoints.MapReduce.mapContext) {
- *     const input: ReduceResult = mapQueryMRResults(JSON.parse(context.value), columns)
+ *     const input = mapQueryMRResults<{foo: string, bar: number}>(JSON.parse(context.value), columns)
  *     log.info('input', input)
  *     ...
  *     return 'map complete'
@@ -26,8 +26,8 @@ type NoAsterisk<T extends string> = T extends `${string}*${string}`
  *
  * ```
  */
-export function mapQueryMRResults (r: any, columns: string[] ){
-   return Object.fromEntries(columns.map((key, index) => [key, r.values[index]]))
+export function mapQueryMRResults <T extends object> (r: any, columns: string[] ){
+   return Object.fromEntries(columns.map((key, index) => [key, r.values[index]])) as T
 }
 
 /**

@@ -23,7 +23,7 @@
      * ```TypeScript
      *
      * export function map (context: EntryPoints.MapReduce.mapContext) {
-     *     const input: ReduceResult = mapQueryMRResults(JSON.parse(context.value), columns)
+     *     const input = mapQueryMRResults<{foo: string, bar: number}>(JSON.parse(context.value), columns)
      *     log.info('input', input)
      *     ...
      *     return 'map complete'

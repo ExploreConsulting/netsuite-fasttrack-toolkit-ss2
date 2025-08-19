@@ -40,7 +40,7 @@ describe('autoMap', function () {
                         FROM transaction as t
                         WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`
       const col  = getColumns(queryStr)
-      const x = mapQueryMRResults(noLabelResult.value, col)
+      const x  = mapQueryMRResults<{id: number, foo:string, bar: string, trandate: string, test: string, lastcheck: number}>(noLabelResult.value, col)
       expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck'])
       expect(x).toHaveProperty('id', 880)
       expect(x).toHaveProperty('foo', 'jim')
@@ -65,7 +65,15 @@ describe('autoMap', function () {
                         FROM transaction as t
                         WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`
       const col  = getColumns(queryStr)
-      const x = mapQueryMRResults(noLabelResult.value, col)
+      interface Test {
+            id: number;
+            foo: string;
+            bar: string;
+            trandate: string;
+            test: string;
+            lastcheck: number;
+      }
+      const x = mapQueryMRResults<Test>(noLabelResult.value, col)
       expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck'])
       expect(x).toHaveProperty('id', 880)
       expect(x).toHaveProperty('foo', 'jim')
