@@ -27,7 +27,24 @@
      *     log.info('input', input)
      *     ...
      *     return 'map complete'
-     *   }
+     * }
+     *
+     * ```
+     *
+     * ```TypeScript
+     *
+     * interface QueryResults {
+     *    id: number;
+     *    foo: string;
+     *    bar: string;
+     * }
+     *
+     * export function map (context: EntryPoints.MapReduce.mapContext) {
+     *     const input = mapQueryMRResults<QueryResults>(JSON.parse(context.value), columns)
+     *     log.info('input', input)
+     *     ...
+     *     return 'map complete'
+     * }
      *
      * ```
      */
@@ -48,6 +65,11 @@
      *    const columns = getColumns(queryStr)
      *
      *    export function getInputData () {
+     *      return {
+     *                type: 'suiteql',
+     *                query: queryStr,
+     *                params: [123]
+     *             }
      *     }...
      * }
      *
