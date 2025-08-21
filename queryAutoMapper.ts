@@ -67,8 +67,6 @@ export function getColumns(queryStr: NoAsterisk<string>): string[] {
         return t
    }).join('')
 
-   console.log(`getColumns() queryStr: ${queryStr}`)
-
    const parser = new Parser()
    const par = parser.astify(queryStr)
    return par['columns'].map(t => {

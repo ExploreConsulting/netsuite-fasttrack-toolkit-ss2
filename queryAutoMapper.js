@@ -68,7 +68,6 @@
             }
             return t;
         }).join('');
-        console.log(`getColumns() queryStr: ${queryStr}`);
         const parser = new transactsql_umd_1.Parser();
         const par = parser.astify(queryStr);
         return par['columns'].map(t => {
