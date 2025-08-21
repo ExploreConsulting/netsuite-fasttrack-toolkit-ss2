@@ -2,9 +2,9 @@ import { FieldType, NetsuiteRecord } from './Record'
 import * as record from 'N/record'
 
 /**
- * Base class with fields common to all item types
+ * Ship Item base class
  */
-export class Item extends NetsuiteRecord {
+export class ShipItem extends NetsuiteRecord {
 
 
    static override recordType() { return record.Type.SHIP_ITEM }

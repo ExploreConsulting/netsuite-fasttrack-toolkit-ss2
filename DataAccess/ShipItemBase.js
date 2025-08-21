@@ -15,314 +15,314 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Item = void 0;
+    exports.ShipItem = void 0;
     const Record_1 = require("./Record");
     const record = require("N/record");
     /**
-     * Base class with fields common to all item types
+     * Ship Item base class
      */
-    class Item extends Record_1.NetsuiteRecord {
+    class ShipItem extends Record_1.NetsuiteRecord {
         static recordType() { return record.Type.SHIP_ITEM; }
     }
-    exports.Item = Item;
+    exports.ShipItem = ShipItem;
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "accchange", void 0);
+    ], ShipItem.prototype, "accchange", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "account", void 0);
+    ], ShipItem.prototype, "account", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "accounthandling", void 0);
+    ], ShipItem.prototype, "accounthandling", void 0);
     __decorate([
         Record_1.FieldType.radio
-    ], Item.prototype, "costbasis", void 0);
+    ], ShipItem.prototype, "costbasis", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "countries", void 0);
+    ], ShipItem.prototype, "countries", void 0);
     __decorate([
         Record_1.FieldType.textarea
-    ], Item.prototype, "description", void 0);
+    ], ShipItem.prototype, "description", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "displayname", void 0);
+    ], ShipItem.prototype, "displayname", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "doifarrangement", void 0);
+    ], ShipItem.prototype, "doifarrangement", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "doiftotal", void 0);
+    ], ShipItem.prototype, "doiftotal", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], Item.prototype, "doiftotalamt", void 0);
+    ], ShipItem.prototype, "doiftotalamt", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "doiftotaloperator", void 0);
+    ], ShipItem.prototype, "doiftotaloperator", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "doifweight", void 0);
+    ], ShipItem.prototype, "doifweight", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], Item.prototype, "doifweightamt", void 0);
+    ], ShipItem.prototype, "doifweightamt", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "doifweightoperator", void 0);
+    ], ShipItem.prototype, "doifweightoperator", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "doifweightunit", void 0);
+    ], ShipItem.prototype, "doifweightunit", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "edition", void 0);
+    ], ShipItem.prototype, "edition", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "excludecountries", void 0);
+    ], ShipItem.prototype, "excludecountries", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "excludesites", void 0);
+    ], ShipItem.prototype, "excludesites", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "externalid", void 0);
+    ], ShipItem.prototype, "externalid", void 0);
     __decorate([
         Record_1.FieldType.float
-    ], Item.prototype, "fedexdiscountrate", void 0);
+    ], ShipItem.prototype, "fedexdiscountrate", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "fedexonerate", void 0);
+    ], ShipItem.prototype, "fedexonerate", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "fedexservicecode", void 0);
+    ], ShipItem.prototype, "fedexservicecode", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], Item.prototype, "freeifordertotalisoveramount", void 0);
+    ], ShipItem.prototype, "freeifordertotalisoveramount", void 0);
     __decorate([
         Record_1.FieldType.percent
-    ], Item.prototype, "handlingaspercentageoftotal", void 0);
+    ], ShipItem.prototype, "handlingaspercentageoftotal", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], Item.prototype, "handlingbyweightamount", void 0);
+    ], ShipItem.prototype, "handlingbyweightamount", void 0);
     __decorate([
         Record_1.FieldType.float
-    ], Item.prototype, "handlingbyweightperquantity", void 0);
+    ], ShipItem.prototype, "handlingbyweightperquantity", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "handlingbyweightperunit", void 0);
+    ], ShipItem.prototype, "handlingbyweightperunit", void 0);
     __decorate([
         Record_1.FieldType.radio
-    ], Item.prototype, "handlingcost", void 0);
+    ], ShipItem.prototype, "handlingcost", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], Item.prototype, "handlingflatrateamount", void 0);
+    ], ShipItem.prototype, "handlingflatrateamount", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], Item.prototype, "handlingperitemamount", void 0);
+    ], ShipItem.prototype, "handlingperitemamount", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "handlingtablechargeby", void 0);
+    ], ShipItem.prototype, "handlingtablechargeby", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "handlingtableuom", void 0);
+    ], ShipItem.prototype, "handlingtableuom", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "handlingtaxcode", void 0);
+    ], ShipItem.prototype, "handlingtaxcode", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "hasmaximumshippingcost", void 0);
+    ], ShipItem.prototype, "hasmaximumshippingcost", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "hasminimumshippingcost", void 0);
+    ], ShipItem.prototype, "hasminimumshippingcost", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "integratedlabelsarrangement", void 0);
+    ], ShipItem.prototype, "integratedlabelsarrangement", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "integrationservicecode", void 0);
+    ], ShipItem.prototype, "integrationservicecode", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "invt_dispname", void 0);
+    ], ShipItem.prototype, "invt_dispname", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "isfreeifordertotalisover", void 0);
+    ], ShipItem.prototype, "isfreeifordertotalisover", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "ishandlingbyweightbracketed", void 0);
+    ], ShipItem.prototype, "ishandlingbyweightbracketed", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "ishandlingtaxable", void 0);
+    ], ShipItem.prototype, "ishandlingtaxable", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "isinactive", void 0);
+    ], ShipItem.prototype, "isinactive", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "isonline", void 0);
+    ], ShipItem.prototype, "isonline", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "isshippingbyweightbracketed", void 0);
+    ], ShipItem.prototype, "isshippingbyweightbracketed", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "istaxable", void 0);
+    ], ShipItem.prototype, "istaxable", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "itemid", void 0);
+    ], ShipItem.prototype, "itemid", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "itemtype", void 0);
+    ], ShipItem.prototype, "itemtype", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "labelplugin", void 0);
+    ], ShipItem.prototype, "labelplugin", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "labelpluginselect", void 0);
+    ], ShipItem.prototype, "labelpluginselect", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "labelreg", void 0);
+    ], ShipItem.prototype, "labelreg", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "labelregselect", void 0);
+    ], ShipItem.prototype, "labelregselect", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "labelservice", void 0);
+    ], ShipItem.prototype, "labelservice", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "labelservicegroup", void 0);
+    ], ShipItem.prototype, "labelservicegroup", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "labelservicegroupselect", void 0);
+    ], ShipItem.prototype, "labelservicegroupselect", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "labelserviceselect", void 0);
+    ], ShipItem.prototype, "labelserviceselect", void 0);
     __decorate([
         Record_1.FieldType.radio
-    ], Item.prototype, "labeltype", void 0);
+    ], ShipItem.prototype, "labeltype", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], Item.prototype, "maximumshippingcost", void 0);
+    ], ShipItem.prototype, "maximumshippingcost", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], Item.prototype, "minimumshippingcost", void 0);
+    ], ShipItem.prototype, "minimumshippingcost", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "needsallfreeshippingitems", void 0);
+    ], ShipItem.prototype, "needsallfreeshippingitems", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "omitpackaging", void 0);
+    ], ShipItem.prototype, "omitpackaging", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "pluginlabelsarrangement", void 0);
+    ], ShipItem.prototype, "pluginlabelsarrangement", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "pluginratearrangement", void 0);
+    ], ShipItem.prototype, "pluginratearrangement", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "ratingplugin", void 0);
+    ], ShipItem.prototype, "ratingplugin", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "ratingpluginselect", void 0);
+    ], ShipItem.prototype, "ratingpluginselect", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "ratingreg", void 0);
+    ], ShipItem.prototype, "ratingreg", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "ratingregselect", void 0);
+    ], ShipItem.prototype, "ratingregselect", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "ratingservice", void 0);
+    ], ShipItem.prototype, "ratingservice", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "ratingservicegroup", void 0);
+    ], ShipItem.prototype, "ratingservicegroup", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "ratingservicegroupselect", void 0);
+    ], ShipItem.prototype, "ratingservicegroupselect", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "ratingserviceselect", void 0);
+    ], ShipItem.prototype, "ratingserviceselect", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "restrictionarrangement", void 0);
+    ], ShipItem.prototype, "restrictionarrangement", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "returnlabelreg", void 0);
+    ], ShipItem.prototype, "returnlabelreg", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "returnlabelregselect", void 0);
+    ], ShipItem.prototype, "returnlabelregselect", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "returnlabelservice", void 0);
+    ], ShipItem.prototype, "returnlabelservice", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "returnlabelserviceselect", void 0);
+    ], ShipItem.prototype, "returnlabelserviceselect", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "returnservicecode", void 0);
+    ], ShipItem.prototype, "returnservicecode", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "returnsintegrated", void 0);
+    ], ShipItem.prototype, "returnsintegrated", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "shipitemcurrency", void 0);
+    ], ShipItem.prototype, "shipitemcurrency", void 0);
     __decorate([
         Record_1.FieldType.checkbox
-    ], Item.prototype, "shipperintegrated", void 0);
+    ], ShipItem.prototype, "shipperintegrated", void 0);
     __decorate([
         Record_1.FieldType.percent
-    ], Item.prototype, "shippingaspercentageoftotal", void 0);
+    ], ShipItem.prototype, "shippingaspercentageoftotal", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], Item.prototype, "shippingbyweightamount", void 0);
+    ], ShipItem.prototype, "shippingbyweightamount", void 0);
     __decorate([
         Record_1.FieldType.float
-    ], Item.prototype, "shippingbyweightperquantity", void 0);
+    ], ShipItem.prototype, "shippingbyweightperquantity", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "shippingbyweightperunit", void 0);
+    ], ShipItem.prototype, "shippingbyweightperunit", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "shippingcarrier", void 0);
+    ], ShipItem.prototype, "shippingcarrier", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], Item.prototype, "shippingflatrateamount", void 0);
+    ], ShipItem.prototype, "shippingflatrateamount", void 0);
     __decorate([
         Record_1.FieldType.currency
-    ], Item.prototype, "shippingperitemamount", void 0);
+    ], ShipItem.prototype, "shippingperitemamount", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "shippingtablechargeby", void 0);
+    ], ShipItem.prototype, "shippingtablechargeby", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "shippingtableuom", void 0);
+    ], ShipItem.prototype, "shippingtableuom", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "shippingtaxcode", void 0);
+    ], ShipItem.prototype, "shippingtaxcode", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "site", void 0);
+    ], ShipItem.prototype, "site", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "states", void 0);
+    ], ShipItem.prototype, "states", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "subsidiary", void 0);
+    ], ShipItem.prototype, "subsidiary", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "tabtext", void 0);
+    ], ShipItem.prototype, "tabtext", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "taxschedule", void 0);
+    ], ShipItem.prototype, "taxschedule", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "taxschedulehandling", void 0);
+    ], ShipItem.prototype, "taxschedulehandling", void 0);
     __decorate([
         Record_1.FieldType.float
-    ], Item.prototype, "upsdiscountrate", void 0);
+    ], ShipItem.prototype, "upsdiscountrate", void 0);
     __decorate([
         Record_1.FieldType.freeformtext
-    ], Item.prototype, "upssavername", void 0);
+    ], ShipItem.prototype, "upssavername", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "upsservicecode", void 0);
+    ], ShipItem.prototype, "upsservicecode", void 0);
     __decorate([
         Record_1.FieldType.float
-    ], Item.prototype, "uspsdiscountrate", void 0);
+    ], ShipItem.prototype, "uspsdiscountrate", void 0);
     __decorate([
         Record_1.FieldType.select
-    ], Item.prototype, "uspsservicecode", void 0);
+    ], ShipItem.prototype, "uspsservicecode", void 0);
 });
