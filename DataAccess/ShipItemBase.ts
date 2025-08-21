@@ -1,9 +1,13 @@
 import { FieldType, NetsuiteRecord } from './Record'
+import * as record from 'N/record'
 
 /**
  * Base class with fields common to all item types
  */
 export class Item extends NetsuiteRecord {
+
+
+   static override recordType() { return record.Type.SHIP_ITEM }
 
    @FieldType.checkbox
    accchange: boolean
