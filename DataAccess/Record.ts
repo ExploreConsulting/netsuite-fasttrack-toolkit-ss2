@@ -103,7 +103,7 @@ export abstract class NetsuiteCurrentRecord {
    /**
     * The netsuite record type (constant string) - this is declared here and overridden in derived classes
     */
-   static override recordType(): string | record.Type {
+   static recordType(): string | record.Type {
       // the base class version of this method should never be invoked.
       return 'NetSuiteCurrentRecord:recordType not implemented. Did you forget to define a static override recordType() method on your derived class?'
    }
