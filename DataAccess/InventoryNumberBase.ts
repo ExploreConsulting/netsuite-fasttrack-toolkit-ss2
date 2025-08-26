@@ -33,7 +33,7 @@ export class LocationsSublist extends SublistLine {
  * NetSuite Inventory Number Record Type (inventorynumber)
  */
 export class InventoryNumberBase extends NetsuiteRecord {
-   static recordType() { return record.Type.INVENTORY_NUMBER }
+   static override recordType() { return record.Type.INVENTORY_NUMBER }
 
    @FieldType.date
    expirationdate: Date

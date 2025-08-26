@@ -35,7 +35,7 @@ export class AdjustmentsSublistLine extends SublistLine {
  */
 export class BinTransferBase extends NetsuiteRecord {
 
-   static recordType() { return record.Type.BIN_TRANSFER }
+   static override recordType() { return record.Type.BIN_TRANSFER }
 
    @FieldType.datetime
    createddate:Date
@@ -64,4 +64,3 @@ export class BinTransferBase extends NetsuiteRecord {
    @FieldType.sublist(AdjustmentsSublistLine)
    inventory: Sublist<AdjustmentsSublistLine>
 }
-

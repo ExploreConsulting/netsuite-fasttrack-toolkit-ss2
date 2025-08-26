@@ -143,6 +143,6 @@ export class BillingAccountBase extends NetsuiteRecord {
     @FieldType.select
     subsidiary: number
 
-    static recordType() { return record.Type.BILLING_ACCOUNT }
+    static override recordType() { return record.Type.BILLING_ACCOUNT }
 
 }

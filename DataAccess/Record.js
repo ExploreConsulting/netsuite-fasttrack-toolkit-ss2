@@ -70,7 +70,7 @@
          */
         static recordType() {
             // the base class version of this method should never be invoked.
-            return 'NetSuiteCurrentRecord:recordType not implemented. Did you forget to define a static recordType() method on your derived class?';
+            return 'NetSuiteCurrentRecord:recordType not implemented. Did you forget to define a static override recordType() method on your derived class?';
         }
         toJSON() {
             // surface inherited properties on a new object so JSON.stringify() sees them all

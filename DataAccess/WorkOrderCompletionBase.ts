@@ -74,5 +74,5 @@ export class WorkOrderCompletionBase extends TransactionBase {
    @FieldType.subrecord(InventoryDetailBase)
    inventorydetail: InventoryDetailBase
 
-   static recordType () { return record.Type.WORK_ORDER_COMPLETION }
+   static override recordType() { return record.Type.WORK_ORDER_COMPLETION }
 }

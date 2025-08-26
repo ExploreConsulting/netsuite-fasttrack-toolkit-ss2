@@ -127,7 +127,7 @@ export class ExpenseSublist extends SublistLine {
  */
 export class PurchaseRequisitionBase extends NetsuiteRecord {
 
-   static recordType () { return record.Type.PURCHASE_REQUISITION }
+   static override recordType() { return record.Type.PURCHASE_REQUISITION }
 
    @FieldType.select
    approvalstatus: number

@@ -46,7 +46,7 @@ export class GroupMembersSublist extends SublistLine {
  */
 export class Base extends NetsuiteRecord {
 
-  static recordType() { return 'entitygroup' }
+  static override recordType() { return 'entitygroup' }
 
   @FieldType.textarea
   comments: string

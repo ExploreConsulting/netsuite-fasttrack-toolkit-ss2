@@ -161,6 +161,6 @@ export class SubscriptionLineBase extends NetsuiteRecord {
     @FieldType.currency
     total: number | string
 
-    static recordType() { return record.Type.SUBSCRIPTION_LINE }
+    static override recordType() { return record.Type.SUBSCRIPTION_LINE }
 
 }

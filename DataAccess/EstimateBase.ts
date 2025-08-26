@@ -27,7 +27,7 @@ export class ItemSublist extends SublistLine {
  */
 export class EstimateBase extends TransactionBase {
 
-   static recordType() { return record.Type.ESTIMATE }
+   static override recordType() { return record.Type.ESTIMATE }
 
    @FieldType.currency
    althandlingcost: number | string

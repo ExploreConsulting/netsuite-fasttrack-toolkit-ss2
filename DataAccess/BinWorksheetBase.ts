@@ -21,7 +21,7 @@ export class ItemSublist extends SublistLine {
  */
 export class BinWorksheetBase extends NetsuiteRecord {
 
-  static recordType () { return record.Type.BIN_WORKSHEET as const }
+  static override recordType() { return record.Type.BIN_WORKSHEET as const }
 
   @FieldType.select
   location: number

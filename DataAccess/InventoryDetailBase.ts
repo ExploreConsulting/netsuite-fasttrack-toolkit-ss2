@@ -52,7 +52,7 @@ export class InventoryAssignmentSublist extends SublistLine {
  */
 export class InventoryDetailBase extends NetsuiteRecord {
 
-   static recordType() { return record.Type.INVENTORY_DETAIL }
+   static override recordType() { return record.Type.INVENTORY_DETAIL }
 
    @FieldType.select
    item: number

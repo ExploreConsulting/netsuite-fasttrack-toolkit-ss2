@@ -72,7 +72,7 @@ export class PaymentsSublist extends SublistLine {
  */
 export class DepositBase extends NetsuiteRecord {
 
-   static recordType() { return record.Type.DEPOSIT }
+   static override recordType() { return record.Type.DEPOSIT }
 
    @FieldType.select
    account: number

@@ -10,7 +10,7 @@ import { AddressBase } from './AddressBase'
 
 export class CreditMemoBase extends TransactionBase {
 
-   static recordType() { return record.Type.CREDIT_MEMO }
+   static override recordType() { return record.Type.CREDIT_MEMO }
 
    @FieldType.select
    account:number

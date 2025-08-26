@@ -9,7 +9,7 @@ import { FieldType } from './Record'
  * NetSuite Time Record
  */
 export class TimeBase extends TransactionBase {
-   static recordType () { return record.Type.TIME_BILL }
+   static override recordType() { return record.Type.TIME_BILL }
 
    @FieldType.select
    approvalstatus: number

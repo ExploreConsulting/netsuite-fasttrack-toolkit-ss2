@@ -125,6 +125,6 @@ export class PriceBookBase extends NetsuiteRecord {
     @FieldType.sublist(PriceIntervalBase)
     priceinterval : Sublist<PriceIntervalBase>
 
-    static recordType() { return record.Type.PRICE_BOOK }
+    static override recordType() { return record.Type.PRICE_BOOK }
 
 }

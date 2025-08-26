@@ -41,7 +41,7 @@ export class MemberSublist extends SublistLine {
  */
 export class AssemblyItemBase extends Item {
 
-   static recordType() { return record.Type.ASSEMBLY_ITEM }
+   static override recordType() { return record.Type.ASSEMBLY_ITEM }
 
    @FieldType.checkbox
    buildentireassembly: boolean

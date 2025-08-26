@@ -30,7 +30,7 @@ export class LocalizationSublist extends SublistLine {
  * NetSuite Account (account)
  */
 export class AccountBase extends NetsuiteRecord {
-   static recordType() {
+   static override recordType() {
       return record.Type.ACCOUNT
    }
 
