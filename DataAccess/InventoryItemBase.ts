@@ -8,7 +8,7 @@ import { Item } from './Item'
  */
 export class InventoryItemBase extends Item {
 
-   static recordType () { return record.Type.INVENTORY_ITEM }
+   static override recordType() { return record.Type.INVENTORY_ITEM }
 
    @FieldType.checkbox
    contingentrevenuehandling: boolean

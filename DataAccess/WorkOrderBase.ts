@@ -79,5 +79,5 @@ export class WorkOrderBase extends TransactionBase {
    @FieldType.sublist(ItemSublist)
    item: Sublist<ItemSublist>
 
-   static recordType () { return record.Type.WORK_ORDER }
+   static override recordType() { return record.Type.WORK_ORDER }
 }

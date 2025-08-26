@@ -191,7 +191,7 @@
         return function (target, propertyKey) {
             return {
                 enumerable: true,
-                // sublist is read only for now - if we have a use case where this should be assigned then tackle it
+                // sublist is read-only for now - if we have a use case where this should be assigned then tackle it
                 get: function () {
                     return new ctor(this.getSubRecord(propertyKey));
                 }

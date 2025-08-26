@@ -7,7 +7,7 @@ import * as record from 'N/record'
 import { SublistFieldType, SublistLine } from './Sublist'
 
 export class SubsidiaryBase extends NetsuiteRecord {
-   static recordType() { return record.Type.SUBSIDIARY }
+   static override recordType() { return record.Type.SUBSIDIARY }
 
    @FieldType.freeformtext
    addr1:string

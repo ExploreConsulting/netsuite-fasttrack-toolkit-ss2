@@ -47,7 +47,7 @@ export class DepartmentBase extends NetsuiteRecord {
    @FieldType.multiselect
    subsidiary: number[]
 
-   static recordType () {
+   static override recordType() {
       return record.Type.DEPARTMENT
    }
 }

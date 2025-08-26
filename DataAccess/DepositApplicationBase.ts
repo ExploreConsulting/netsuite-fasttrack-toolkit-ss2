@@ -45,7 +45,7 @@ export class ApplySublist extends SublistLine {
  *
  */
 export class DepositApplicationBase extends TransactionBase {
-   static recordType() { return record.Type.DEPOSIT_APPLICATION }
+   static override recordType() { return record.Type.DEPOSIT_APPLICATION }
 
    @FieldType.select
    aracct: number

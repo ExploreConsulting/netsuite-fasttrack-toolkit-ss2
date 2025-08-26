@@ -54,7 +54,7 @@ export class ApplySublist extends SublistLine {
  */
 export class CustomerRefundBase extends TransactionBase {
 
-   static recordType() { return record.Type.CUSTOMER_REFUND }
+   static override recordType() { return record.Type.CUSTOMER_REFUND }
 
    @FieldType.select
    account:number

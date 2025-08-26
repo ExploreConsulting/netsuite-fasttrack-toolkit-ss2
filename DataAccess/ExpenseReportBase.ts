@@ -78,7 +78,7 @@ export class ExpenseReportBase extends TransactionBase {
    @FieldType.sublist(ExpenseSublist)
    items: Sublist<ExpenseSublist>
 
-   static recordType () {
+   static override recordType() {
       return record.Type.EXPENSE_REPORT
    }
 }

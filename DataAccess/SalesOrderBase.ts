@@ -673,7 +673,7 @@ export class SalesOrderBase extends TransactionBase {
    @FieldType.checkbox
    vsoeautocalc: boolean
 
-   static recordType () { return record.Type.SALES_ORDER }
+   static override recordType() { return record.Type.SALES_ORDER }
 
 }
 

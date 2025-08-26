@@ -38,7 +38,7 @@ export class SupportCaseBase extends NetsuiteRecord {
    @FieldType.datetime
    startdate: Date
 
-   static recordType () { return record.Type.SUPPORT_CASE }
+   static override recordType() { return record.Type.SUPPORT_CASE }
 }
 
 

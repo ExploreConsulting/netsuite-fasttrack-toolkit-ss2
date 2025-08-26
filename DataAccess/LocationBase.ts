@@ -69,7 +69,7 @@ export class IncludeTheseRegionsSublist extends SublistLine {
  * NetSuite Location base record type
  */
 export class LocationBase extends NetsuiteRecord {
-   static recordType() { return record.Type.LOCATION }
+   static override recordType() { return record.Type.LOCATION }
 
    @FieldType.freeformtext
    addrphone: string

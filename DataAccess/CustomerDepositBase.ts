@@ -11,7 +11,7 @@ import * as record from 'N/record'
  */
 export class CustomerDepositBase extends TransactionBase {
 
-   static recordType() { return record.Type.CUSTOMER_DEPOSIT }
+   static override recordType() { return record.Type.CUSTOMER_DEPOSIT }
 
    @FieldType.select
    account: number

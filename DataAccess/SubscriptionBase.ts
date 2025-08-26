@@ -538,6 +538,6 @@ export class SubscriptionBase extends NetsuiteRecord {
     @FieldType.sublist(SubscriptionLineSublist)
     subscriptionline: Sublist<SubscriptionLineSublist>
 
-    static recordType() { return record.Type.SUBSCRIPTION }
+    static override recordType() { return record.Type.SUBSCRIPTION }
 
 }

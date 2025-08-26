@@ -9,7 +9,7 @@ import * as record from 'N/record'
  */
 export class ChargeBase extends NetsuiteRecord {
 
-   static recordType () { return record.Type.CHARGE as const }
+   static override recordType() { return record.Type.CHARGE as const }
 
    @FieldType.decimalnumber
    amount: number

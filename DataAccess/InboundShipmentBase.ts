@@ -236,7 +236,7 @@ export class InboundShipmentBase extends TransactionBase {
    @FieldType.sublist(LandedCostSublist)
    landedcost: Sublist<LandedCostSublist>
 
-   static recordType () {
+   static override recordType() {
       return record.Type.INBOUND_SHIPMENT
    }
 }
