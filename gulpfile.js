@@ -34,7 +34,7 @@ const includedNPMlibs = ['node_modules/lodash/lodash.js', 'node_modules/immutabl
 const otherTypings = ['node_modules/moment/moment.d.ts',
    'aurelia-logging.d.ts',
    'node_modules/bignumber.js/bignumber.d.ts',
-   'node_modules/immutable/dist/immutable.d.ts', 'node_modules/node-sql-parser/umd/transactsql.umd.d.ts'
+   'node_modules/immutable/dist/immutable.d.ts'
 ]
 
 // output folder includes version number e.g. NFT-SS2-#.#.# so that we can easily support multiple versions of

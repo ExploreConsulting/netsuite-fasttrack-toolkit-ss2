@@ -1,5 +1,5 @@
-import { CustomerBase } from '../NFT-SS2-7.4.0/DataAccess/CustomerBase'
-import { FieldType } from '../NFT-SS2-7.4.0/DataAccess/Record'
+import { CustomerBase } from '../NFT-SS2-8.0.0/DataAccess/CustomerBase'
+import { FieldType } from '../NFT-SS2-8.0.0/DataAccess/Record'
 
 /**
  * NetSuite Customer record type
