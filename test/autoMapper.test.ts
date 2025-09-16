@@ -1,26 +1,4 @@
-import * as query from 'N/query'
-import {LazyQuery, nsQueryResult2obj } from "../query";
-
-
-describe('nsQueryResult2obj', function () {
-
-   function getFakeSearchResult(): query.Result {
-      return {
-         value: [
-            '880',
-         ],
-         asMap: jest.fn().mockReturnValueOnce({foo: '880'})
-      } as any
-   }
-
-   test('defaults to column name if label is undefined', () => {
-
-      const noLabelResult = getFakeSearchResult()
-      // default useLabels
-      const x = nsQueryResult2obj(noLabelResult)
-      expect(x).toHaveProperty('foo', '880')
-   })
-})
+import {getColumns, mapQueryMRResults} from "../queryAutoMapper";
 
 describe('autoMap', function () {
 
@@ -32,9 +10,9 @@ describe('autoMap', function () {
    }
 
    test ('Build array of column header names', () => {
-      const queryStr = 'SELECT id as foo, trandate FROM transaction WHERE id = ?'
+      const queryStr = 'SELECT id as foo, trandate, ?, ? as testingQuestion FROM transaction WHERE id = ?'
       const x = getColumns(queryStr)
-      expect(x).toEqual(['foo', 'trandate'])
+      expect(x).toEqual(['foo', 'trandate', 'param_1', 'testingquestion'])
    })
 
    test ('Build array of column header names Exclude comments', () => {
@@ -62,7 +40,7 @@ describe('autoMap', function () {
                         FROM transaction as t
                         WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`
       const col  = getColumns(queryStr)
-      const x = mapQueryMRResults(noLabelResult.value, col)
+      const x  = mapQueryMRResults<{id: number, foo:string, bar: string, trandate: string, test: string, lastcheck: number}>(noLabelResult.value, col)
       expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck'])
       expect(x).toHaveProperty('id', 880)
       expect(x).toHaveProperty('foo', 'jim')
@@ -87,7 +65,15 @@ describe('autoMap', function () {
                         FROM transaction as t
                         WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`
       const col  = getColumns(queryStr)
-      const x = mapQueryMRResults(noLabelResult.value, col)
+      interface Test {
+            id: number;
+            foo: string;
+            bar: string;
+            trandate: string;
+            test: string;
+            lastcheck: number;
+      }
+      const x = mapQueryMRResults<Test>(noLabelResult.value, col)
       expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck'])
       expect(x).toHaveProperty('id', 880)
       expect(x).toHaveProperty('foo', 'jim')
@@ -97,6 +83,3 @@ describe('autoMap', function () {
       expect(x).toHaveProperty('lastcheck', 20)
    })
 })
-
-
-

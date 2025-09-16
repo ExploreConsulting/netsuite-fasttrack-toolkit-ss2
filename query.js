@@ -34,7 +34,7 @@
      *
      * @example  (using Immutable JS Sequence)
      *
-     * ```typescript
+     * ```TypeScript
      *
      *  Seq(LazyQuery.from({query:'string'}).map(nsQueryResult2obj()).forEach(...)
      *
@@ -147,5 +147,5 @@
     /**
      * the name of the custom logger for this component for independent logging control
      */
-    LazyQuery.LOGNAME = 'lazy';
+    LazyQuery.LOGNAME = 'lazyquery';
 });

@@ -4,28 +4,12 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "../query"], factory);
+        define(["require", "exports", "../queryAutoMapper"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    const query_1 = require("../query");
-    describe('nsQueryResult2obj', function () {
-        function getFakeSearchResult() {
-            return {
-                value: [
-                    '880',
-                ],
-                asMap: jest.fn().mockReturnValueOnce({ foo: '880' })
-            };
-        }
-        test('defaults to column name if label is undefined', () => {
-            const noLabelResult = getFakeSearchResult();
-            // default useLabels
-            const x = (0, query_1.nsQueryResult2obj)(noLabelResult);
-            expect(x).toHaveProperty('foo', '880');
-        });
-    });
+    const queryAutoMapper_1 = require("../queryAutoMapper");
     describe('autoMap', function () {
         function getFakeSearchResultMRLong() {
             return {
@@ -33,9 +17,9 @@
             };
         }
         test('Build array of column header names', () => {
-            const queryStr = 'SELECT id as foo, trandate FROM transaction WHERE id = ?';
-            const x = getColumns(queryStr);
-            expect(x).toEqual(['foo', 'trandate']);
+            const queryStr = 'SELECT id as foo, trandate, ?, ? as testingQuestion FROM transaction WHERE id = ?';
+            const x = (0, queryAutoMapper_1.getColumns)(queryStr);
+            expect(x).toEqual(['foo', 'trandate', 'param_1', 'testingquestion']);
         });
         test('Build array of column header names Exclude comments', () => {
             const queryStr = `SELECT TOP 1 
@@ -48,7 +32,7 @@
                                 --test
                         FROM transaction as t
                         WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`;
-            const x = getColumns(queryStr);
+            const x = (0, queryAutoMapper_1.getColumns)(queryStr);
             expect(x).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck']);
         });
         test('Build object for search Results group operations, alias, multiple elements', () => {
@@ -60,8 +44,8 @@
                                COUNT(t.runtest) as lastcheck
                         FROM transaction as t
                         WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`;
-            const col = getColumns(queryStr);
-            const x = mapQueryMRResults(noLabelResult.value, col);
+            const col = (0, queryAutoMapper_1.getColumns)(queryStr);
+            const x = (0, queryAutoMapper_1.mapQueryMRResults)(noLabelResult.value, col);
             expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck']);
             expect(x).toHaveProperty('id', 880);
             expect(x).toHaveProperty('foo', 'jim');
@@ -84,8 +68,8 @@
                                COUNT(t.runtest) as lastcheck
                         FROM transaction as t
                         WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`;
-            const col = getColumns(queryStr);
-            const x = mapQueryMRResults(noLabelResult.value, col);
+            const col = (0, queryAutoMapper_1.getColumns)(queryStr);
+            const x = (0, queryAutoMapper_1.mapQueryMRResults)(noLabelResult.value, col);
             expect(col).toEqual(['id', 'foo', 'bar', 'trandate', 'test', 'lastcheck']);
             expect(x).toHaveProperty('id', 880);
             expect(x).toHaveProperty('foo', 'jim');

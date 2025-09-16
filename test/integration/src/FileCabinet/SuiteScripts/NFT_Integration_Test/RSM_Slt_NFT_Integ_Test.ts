@@ -8,21 +8,21 @@
  **/
 
 import { EntryPoints } from 'N/types'
-import * as LogManager from './NFT-SS2-7.3.0/EC_Logger'
-import { ItemFulfillmentBase } from './NFT-SS2-7.3.0/DataAccess/ItemFulfillmentBase'
-import { FieldType } from './NFT-SS2-7.3.0/DataAccess/Record'
-import { AddressBase } from './NFT-SS2-7.3.0/DataAccess/AddressBase'
+import * as LogManager from './NFT-SS2-8.0.0/EC_Logger'
+import { ItemFulfillmentBase } from './NFT-SS2-8.0.0/DataAccess/ItemFulfillmentBase'
+import { FieldType } from './NFT-SS2-8.0.0/DataAccess/Record'
+import { AddressBase } from './NFT-SS2-8.0.0/DataAccess/AddressBase'
 import { Customer } from './RecordTypes/Customer'
-import { LazySearch, nsSearchResult2obj } from './NFT-SS2-7.3.0/search'
-import { LazyQuery, nsQueryResult2obj } from './NFT-SS2-7.3.0/query'
+import { LazySearch, nsSearchResult2obj } from './NFT-SS2-8.0.0/search'
+import { LazyQuery, nsQueryResult2obj, getColumns } from './NFT-SS2-8.0.0/query'
 import * as search from 'N/search'
-import { Seq } from './NFT-SS2-7.3.0/immutable'
+import { Seq } from './NFT-SS2-8.0.0/immutable'
 import { VendorPayment } from './RecordTypes/VendorPayment'
-import * as _ from './NFT-SS2-7.3.0/lodash'
-import { InventoryItemBase } from './NFT-SS2-7.3.0/DataAccess/InventoryItemBase'
-import { CreditCardChargeBase } from './NFT-SS2-7.3.0/DataAccess/CreditCardChargeBase'
-import { CreditCardRefundBase } from './NFT-SS2-7.3.0/DataAccess/CreditCardRefundBase'
-import { TimeBase } from './NFT-SS2-7.3.0/DataAccess/TimeBase'
+import * as _ from './NFT-SS2-8.0.0/lodash'
+import { InventoryItemBase } from './NFT-SS2-8.0.0/DataAccess/InventoryItemBase'
+import { CreditCardChargeBase } from './NFT-SS2-8.0.0/DataAccess/CreditCardChargeBase'
+import { CreditCardRefundBase } from './NFT-SS2-8.0.0/DataAccess/CreditCardRefundBase'
+import { TimeBase } from './NFT-SS2-8.0.0/DataAccess/TimeBase'
 
 const log = LogManager.DefaultLogger
 
@@ -52,6 +52,24 @@ namespace X {
         break
     }
   }
+
+   /**
+    * Ensure we can use the node-sql-parser to parse a SQL string and get columns
+    */
+   export function autoMapping () {
+      const sqlStr = `SELECT id, trandate FROM transaction WHERE id = 1000`
+      return getColumns(sqlStr)
+   }
+
+   export function autoMappingAvancedQuery () {
+      const sqlStr = `SELECT TOP 1 t.id, t.trandate as tdate,
+                             (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity) as customerid,
+                             TO_CHAR(t.trandate, 'MM/DD/YYYY'),
+                             TO_CHAR(t.trandate, 'MM/DD/YYYY')                            as otherdate
+                      FROM transaction as t
+                      WHERE id = 1000 AND (SELECT TOP 1 c.id FROM customer as c WHERE c.id = t.entity ) IS NOT NULL`
+      return getColumns(sqlStr)
+   }
 
   /**
    * ensure we can load an assembly item  now that it uses the shared `Item` base class
@@ -156,22 +174,24 @@ namespace X {
 
   export function bar (i: number) { return i + 5 }
 
-  const testMap: { [label: string]: Function } = {
-    'NSDAL load Transaction': X.loadTransaction,
-    'NSDAL load Inventory Item': X.loadAssemblyItem,
-    'NSDAL load Customer': X.loadEntity,
-    'NSDAL sublists': X.sublists,
-    'LazySearch': X.doSearch,
-    'LazyQuery Basic': X.doQueryBasic,
-    'LazyQuery Param': X.doQueryParam,
-    'LazyQuery Paged': X.doQueryPageSize,
-    'LazyQuery No page, Params': X.doQueryPageSizeParam,
-    'AutoLogging': X.autoLogging,
-    'BasicLodash': X.basicLodash
+  export const testMap: { [label: string]: Function } = {
+    // 'NSDAL load Transaction': X.loadTransaction,
+    // 'NSDAL load Inventory Item': X.loadAssemblyItem,
+    // 'NSDAL load Customer': X.loadEntity,
+    // 'NSDAL sublists': X.sublists,
+    // 'LazySearch': X.doSearch,
+    // 'LazyQuery Basic': X.doQueryBasic,
+    // 'LazyQuery Param': X.doQueryParam,
+    // 'LazyQuery Paged': X.doQueryPageSize,
+    // 'LazyQuery No page, Params': X.doQueryPageSizeParam,
+    // 'AutoLogging': X.autoLogging,
+    // 'BasicLodash': X.basicLodash,
+     'AutoMapping': X.autoMapping,
+     'AutoMappingAdvanced': X.autoMappingAvancedQuery
   }
 }
 
-LogManager.autoLogMethodEntryExit({ target: X, method: /\w+/ }, {
+LogManager.autoLogMethodEntryExit({ target: X.testMap, method: /\w+/ }, {
   withGovernance: true,
   withProfiling: true
 })

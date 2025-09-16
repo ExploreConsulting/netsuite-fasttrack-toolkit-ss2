@@ -23,7 +23,7 @@ import * as LogManager from './EC_Logger'
  *
  * @example  (using Immutable JS Sequence)
  *
- * ```typescript
+ * ```TypeScript
  *
  *  Seq(LazyQuery.from({query:'string'}).map(nsQueryResult2obj()).forEach(...)
  *
@@ -53,7 +53,7 @@ export class LazyQuery implements IterableIterator<query.Result> {
    /**
     * the name of the custom logger for this component for independent logging control
     */
-   static LOGNAME = 'lazy' as const
+   static LOGNAME = 'lazyquery' as const
    // logger for this module
    protected log: LogManager.Logger
 
