@@ -25,7 +25,7 @@ see `package-lock.json` for exactly which versions of the above libraries are in
 
 See API [docs here](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2)
 
-![NFT Intro Image](media/images/NFT-Intro.svg)
+![NFT Intro Image](media/images/NFT8.0.0.png)
 
 # Getting Started (Typescript)
 
