@@ -87,7 +87,7 @@ export class LazyQuery implements IterableIterator<query.Result> {
       this.iterator = this.pagedData.iterator()
       // only load a page if we have record
       if (this.pagedData.count > 0) {
-         this.currentPage = this.pagedData.fetch(0)
+         this.currentPage = this.pagedData.fetch({index: 0})
          this.currentData = this.currentPage.data.results
       } else {
          this.currentData = []
@@ -148,7 +148,7 @@ export class LazyQuery implements IterableIterator<query.Result> {
 
       // we've reached the end of the current page, read the next page (overwriting current) and start from its beginning
       if (atEndOfPage) {
-         this.currentPage = this.pagedData.fetch(this.currentPage.pageRange.index + 1)
+         this.currentPage = this.pagedData.fetch({ index: this.currentPage.pageRange.index + 1})
          this.currentData = this.currentPage.data.results
          this.mappedData = this.currentPage.data.asMappedResults()
          this.index = 0
