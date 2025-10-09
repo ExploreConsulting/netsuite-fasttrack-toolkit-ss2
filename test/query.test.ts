@@ -1,5 +1,5 @@
 import * as query from 'N/query'
-import {LazyQuery, nsQueryResult2obj } from "../query";
+import { nsQueryResult2obj } from "../query";
 
 
 describe('nsQueryResult2obj', function () {
