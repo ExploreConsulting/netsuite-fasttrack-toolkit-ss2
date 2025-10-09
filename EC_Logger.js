@@ -185,7 +185,7 @@
         return result;
     }
     /**
-     * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
+     * Automatically log method entry/exit with arguments to the netsuite execution log.
      * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
      * as described below.
      *
@@ -274,7 +274,7 @@
         };
     }
     /**
-     * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
+     * Automatically log method entry/exit with arguments to the netsuite execution log.
      * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
      * as described below.
      *

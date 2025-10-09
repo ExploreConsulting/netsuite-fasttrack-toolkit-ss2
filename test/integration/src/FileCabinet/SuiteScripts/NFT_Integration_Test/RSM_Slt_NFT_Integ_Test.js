@@ -18,22 +18,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./NFT-SS2-7.4.0/EC_Logger", "./NFT-SS2-7.4.0/DataAccess/ItemFulfillmentBase", "./NFT-SS2-7.4.0/DataAccess/Record", "./NFT-SS2-7.4.0/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-7.4.0/search", "./NFT-SS2-7.4.0/query", "N/search", "./NFT-SS2-7.4.0/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-7.4.0/lodash", "./NFT-SS2-7.4.0/DataAccess/InventoryItemBase"], factory);
+        define(["require", "exports", "./NFT-SS2-8.0.0/EC_Logger", "./NFT-SS2-8.0.0/DataAccess/ItemFulfillmentBase", "./NFT-SS2-8.0.0/DataAccess/Record", "./NFT-SS2-8.0.0/DataAccess/AddressBase", "./RecordTypes/Customer", "./NFT-SS2-8.0.0/search", "./NFT-SS2-8.0.0/query", "N/search", "./NFT-SS2-8.0.0/immutable", "./RecordTypes/VendorPayment", "./NFT-SS2-8.0.0/lodash", "./NFT-SS2-8.0.0/DataAccess/InventoryItemBase"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    const LogManager = require("./NFT-SS2-7.4.0/EC_Logger");
-    const ItemFulfillmentBase_1 = require("./NFT-SS2-7.4.0/DataAccess/ItemFulfillmentBase");
-    const Record_1 = require("./NFT-SS2-7.4.0/DataAccess/Record");
-    const AddressBase_1 = require("./NFT-SS2-7.4.0/DataAccess/AddressBase");
+    const LogManager = require("./NFT-SS2-8.0.0/EC_Logger");
+    const ItemFulfillmentBase_1 = require("./NFT-SS2-8.0.0/DataAccess/ItemFulfillmentBase");
+    const Record_1 = require("./NFT-SS2-8.0.0/DataAccess/Record");
+    const AddressBase_1 = require("./NFT-SS2-8.0.0/DataAccess/AddressBase");
     const Customer_1 = require("./RecordTypes/Customer");
-    const search_1 = require("./NFT-SS2-7.4.0/search");
-    const query_1 = require("./NFT-SS2-7.4.0/query");
+    const search_1 = require("./NFT-SS2-8.0.0/search");
+    const query_1 = require("./NFT-SS2-8.0.0/query");
     const search = require("N/search");
-    const immutable_1 = require("./NFT-SS2-7.4.0/immutable");
+    const immutable_1 = require("./NFT-SS2-8.0.0/immutable");
     const VendorPayment_1 = require("./RecordTypes/VendorPayment");
-    const _ = require("./NFT-SS2-7.4.0/lodash");
-    const InventoryItemBase_1 = require("./NFT-SS2-7.4.0/DataAccess/InventoryItemBase");
+    const _ = require("./NFT-SS2-8.0.0/lodash");
+    const InventoryItemBase_1 = require("./NFT-SS2-8.0.0/DataAccess/InventoryItemBase");
     const log = LogManager.DefaultLogger;
     class ItemFulfillment extends ItemFulfillmentBase_1.ItemFulfillmentBase {
     }

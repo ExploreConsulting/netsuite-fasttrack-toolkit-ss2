@@ -185,7 +185,7 @@ function findKey (object, predicate) {
 }
 
 /**
- * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
+ * Automatically log method entry/exit with arguments to the netsuite execution log.
  * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
  * as described below.
  *
@@ -276,7 +276,7 @@ export function autolog<T extends (...args: any[]) => any> (fn: T, config?: Auto
 }
 
 /**
- * Uses AOP to automatically log method entry/exit with arguments to the netsuite execution log.
+ * Automatically log method entry/exit with arguments to the netsuite execution log.
  * Call this method at the end of your script. Log entries are 'DEBUG' level by default but may be overridden
  * as described below.
  *
