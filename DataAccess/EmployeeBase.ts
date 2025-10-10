@@ -91,7 +91,7 @@ export class EmployeeBase extends Entity {
    @FieldType.select
    workcalendar: number
 
-   static recordType () {
+   static override recordType() {
       return record.Type.EMPLOYEE
    }
 }

@@ -193,6 +193,6 @@ export class SubscriptionPlanBase extends NetsuiteRecord {
     @FieldType.sublist(LinesSublist)
     member: Sublist<LinesSublist>
 
-    static recordType() { return record.Type.SUBSCRIPTION_PLAN }
+    static override recordType() { return record.Type.SUBSCRIPTION_PLAN }
 
 }

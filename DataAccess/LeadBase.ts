@@ -364,5 +364,5 @@ export class LeadBase extends Entity {
    @FieldType.sublist(SalesTeamSublist)
    salesteam: Sublist<SalesTeamSublist>
 
-   static recordType () { return record.Type.LEAD }
+   static override recordType() { return record.Type.LEAD }
 }

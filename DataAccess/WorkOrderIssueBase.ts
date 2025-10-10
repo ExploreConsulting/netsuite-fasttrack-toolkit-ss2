@@ -59,5 +59,5 @@ export class WorkOrderIssueBase extends TransactionBase {
    @FieldType.sublist(ComponentSublist)
    component: Sublist<ComponentSublist>
 
-   static recordType () { return record.Type.WORK_ORDER_ISSUE }
+   static override recordType() { return record.Type.WORK_ORDER_ISSUE }
 }

@@ -25,7 +25,7 @@ export class ResourcesSublist extends  SublistLine {
  */
 export class ChargeRuleBase extends TransactionBase {
 
-   static recordType () { return record.Type.CHARGE_RULE as const }
+   static override recordType() { return record.Type.CHARGE_RULE as const }
 
    @FieldType.decimalnumber
    amount: number

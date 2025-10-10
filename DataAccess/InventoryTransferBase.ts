@@ -17,7 +17,7 @@ export class InventorySublist extends SublistLine {
  */
 export class InventoryTransferBase extends NetsuiteRecord {
 
-  static recordType () { return record.Type.INVENTORY_TRANSFER }
+  static override recordType() { return record.Type.INVENTORY_TRANSFER }
 
   @FieldType.sublist(InventorySublist)
   inventory: Sublist<InventorySublist>

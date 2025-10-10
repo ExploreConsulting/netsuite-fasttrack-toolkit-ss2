@@ -10,7 +10,7 @@ import { FieldType } from './Record'
  * NetSuite Credit Card Refund Record
  */
 export class CreditCardRefundBase extends TransactionBase {
-   static recordType () { return record.Type.CREDIT_CARD_REFUND as const }
+   static override recordType() { return record.Type.CREDIT_CARD_REFUND as const }
 
    @FieldType.select
    account: number

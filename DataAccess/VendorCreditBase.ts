@@ -84,5 +84,5 @@ export class VendorCreditBase extends TransactionBase {
    @FieldType.sublist(ApplySublist)
    apply: Sublist<ApplySublist>
 
-   static recordType () { return record.Type.VENDOR_CREDIT }
+   static override recordType() { return record.Type.VENDOR_CREDIT }
 }

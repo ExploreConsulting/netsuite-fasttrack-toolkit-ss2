@@ -258,6 +258,6 @@ export class SubscriptionChangeOrderBase extends NetsuiteRecord {
     @FieldType.sublist(SublineSublist)
     subline  : Sublist<SublineSublist>
 
-    static recordType() { return record.Type.SUBSCRIPTION_CHANGE_ORDER }
+    static override recordType() { return record.Type.SUBSCRIPTION_CHANGE_ORDER }
 
 }

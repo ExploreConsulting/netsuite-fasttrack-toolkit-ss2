@@ -25,7 +25,7 @@ see `package-lock.json` for exactly which versions of the above libraries are in
 
 See API [docs here](https://exploreconsulting.github.io/netsuite-fasttrack-toolkit-ss2)
 
-![NFT Intro Image](media/images/NFT-Intro.svg)
+![NFT Intro Image](media/images/NFT8.0.0.png)
 
 # Getting Started (Typescript)
 
@@ -355,9 +355,17 @@ NFT provides an advanced logging mechanism based on [Aurelia's](https://github.c
 It means you can have multiple loggers and control the logging verbosity of each. In other words, it's a lightweight
 but much richer logging facility than the NetSuite provided logger.
 
-### AutoLogging
+### AutoLogging By Namespace
 Automatically log entry and exit of methods with rich options by adding a line like this to the end of your script:
 
+```javascript
+export const afterSubmit = autolog(function afterSubmit (ctx: EntryPoints.UserEvent.afterSubmitContext) {}
+```
+The above line will automatically log all methods defined on the _EC_ object/namespace
+
+Other configuration options include automatic logging of execution time, governance usage, and other goodies.
+
+See the jsdoc help for `autologMethodEntryExit()`
 ```javascript
 LogManager.autoLogMethodEntryExit({target:EC,method:/\w/}, { withProfiling:true })
 ```
@@ -366,6 +374,32 @@ The above line will automatically log all methods defined on the _EC_ object/nam
 Other configuration options include automatic logging of execution time, governance usage, and other goodies.
 
 See the jsdoc help for `autologMethodEntryExit()`
+
+### AutoLogging By Function
+Automatically log entry and exit of functions with rich options by adding an autolog wrapper to your
+function declaration or call:
+```javascript
+const foo = autolog(function foo (arg1, arg2) {
+    log.debug('hello world')
+})
+```
+The above example will log entry and exit of the `foo` function.
+
+```javascript
+class MyService {
+    doSomething(a, b) {
+        log.debug('doing something');
+        return a + b;
+    }
+}
+const LoggedService = autolog(MyService);
+const service = new LoggedService();
+service.doSomething(1, 2);
+```
+
+The above code will automatically do logging for all methods in a class
+
+The `autolog` function can take an optional second parameter to configure logging options. See the jsdoc help for `autolog()`
 
 # Contributing
 Please do.

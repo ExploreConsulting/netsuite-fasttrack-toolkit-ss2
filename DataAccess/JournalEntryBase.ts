@@ -104,7 +104,7 @@ export class LineSublist extends SublistLine {
  * Base class for Journal Entry Record
  */
 export class JournalEntryBase extends NetsuiteRecord {
-   static recordType() { return record.Type.JOURNAL_ENTRY }
+   static override recordType() { return record.Type.JOURNAL_ENTRY }
 
    @FieldType.select
    accountingbook: number

@@ -77,6 +77,6 @@ export class PricePlanBase extends NetsuiteRecord {
     @FieldType.sublist(PriceTiersBase)
     pricetiers : Sublist<PriceTiersBase>
 
-    static recordType() { return record.Type.PRICE_PLAN }
+    static override recordType() { return record.Type.PRICE_PLAN }
 
 }

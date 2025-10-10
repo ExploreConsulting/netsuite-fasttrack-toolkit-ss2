@@ -107,7 +107,7 @@ export class TermBase extends NetsuiteRecord {
     @FieldType.checkbox
     splitevenly: boolean
 
-    static recordType() {
+    static override recordType() {
         return record.Type.TERM
     }
 }

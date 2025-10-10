@@ -19,7 +19,7 @@ const size = require('gulp-size')
  * All the sources files we need to zip up for deployment to NS
  */
 const sources = ['search.js', 'EC_Logger.js', 'DataAccess/*.js',
-   'aop.js', 'geography.js', 'governance.js', 'query.js']
+    'geography.js', 'governance.js', 'query.js', 'queryAutoMapper.js']
 
 const declarations = ['*.d.ts', 'DataAccess/*.d.ts', '!example.d.ts']
 
@@ -27,7 +27,7 @@ const declarations = ['*.d.ts', 'DataAccess/*.d.ts', '!example.d.ts']
 const includedNPMlibs = ['node_modules/lodash/lodash.js', 'node_modules/immutable/dist/immutable.js',
    'node_modules/moment/moment.js', 'node_modules/aurelia-logging/dist/amd/aurelia-logging.js',
    'node_modules/aurelia-logging-console/dist/amd/aurelia-logging-console.js',
-   'node_modules/bignumber.js/bignumber.js'
+   'node_modules/bignumber.js/bignumber.js', 'node_modules/node-sql-parser/umd/transactsql.umd.js',
 ]
 
 // other .d.ts files to include in declarations/ that are correct without any renaming
