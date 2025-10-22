@@ -32,4 +32,5 @@ jobs:
       - run: npm install
       - run: npm run build --if-present
       - run: npm test
+      - run: npx setup-npm-trusted-publish netsuite-fasttrack-toolkit-ss2
       - run: npm publish
